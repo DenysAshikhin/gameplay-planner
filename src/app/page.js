@@ -10,7 +10,7 @@ import DefaultSave from './util/tempSave.json';
 import useLocalStorage from "use-local-storage";
 
 import pako from 'pako';
-import MouseOverPopover from "./util/tooltip.jsx";
+import MouseOverPopover from "./util/Tooltip.jsx";
 // import infoIcon from '/images/icons/info_lightgray.svg';
 // import backgroundImage from '.images/coming_soon.png';
 

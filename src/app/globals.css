@@ -1,6 +1,10 @@
 body {
   margin: 0;
-  display:inline-block;
+  display: inline-block;
+}
+
+* {
+  font-family: sans-serif !important;
 }
 
 @font-face {
@@ -184,8 +188,8 @@ code {
   margin: 0;
   padding: 0;
   width: 100%;
-  overflow-y:auto;
-  overflow-x:auto;
+  overflow-y: auto;
+  overflow-x: auto;
 }
 
 .teamBuilder li {
