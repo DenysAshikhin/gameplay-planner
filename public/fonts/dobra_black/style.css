@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'Dobra';
+    src: local('Dobra Black'), local('Dobra-Black'),
+        url('Dobra-Black.woff2') format('woff2'),
+        url('Dobra-Black.woff') format('woff'),
+        url('Dobra-Black.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+  }

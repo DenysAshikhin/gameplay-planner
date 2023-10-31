@@ -1,0 +1,193 @@
+body {
+  margin: 0;
+  display:inline-block;
+}
+
+@font-face {
+  font-family: 'Dobra';
+  src: local('Dobra Black'), local('Dobra-Black'),
+    url('/fonts/dobra_black/Dobra-Black.woff2') format('woff2'),
+    url('/fonts//dobra_black/Dobra-Black.woff') format('woff'),
+    url('/fonts/dobra_black/Dobra-Black.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+}
+
+.header {
+  /* background-color: rgba(255, 255, 255, 0.12); */
+  background-color: #1F1B24;
+}
+
+.headerBase {
+  background-color: #000000;
+}
+
+
+.dobra {
+  font-family: Dobra !important;
+  font-size: 24px;
+}
+
+.borderSquare {
+  box-shadow: 0 0 0 1px #4a5058;
+}
+
+.importantText {
+  color: #FFFFFF;
+  opacity: 90%;
+}
+
+.textMedium {
+  font-size: 20px;
+}
+
+.textMedium2 {
+  font-size: 16px;
+}
+
+.mediumImportantText {
+  color: #FFFFFF;
+  opacity: 85%;
+}
+
+.blackTextStroke {
+  -webkit-text-stroke: 2px black;
+}
+
+.blackTextStroke1 {
+  -webkit-text-stroke: 0.08rem black;
+}
+
+input[type="file"]::-webkit-file-upload-button {
+  height: 40px;
+  width: 150px;
+  font-size: 20px;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.popoverContainer .MuiTypography-root {
+  display: flex;
+}
+
+.hover:hover {
+  cursor: pointer;
+}
+
+.drag:hover {
+  cursor: move;
+}
+
+.noPointerEvents {
+  pointer-events: none;
+}
+
+.greenDot {
+  height: 7px;
+  width: 7px;
+  background-color: green;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+
+.redDot {
+  height: 7px;
+  width: 7px;
+  background-color: red;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.greenStripes {
+  background: repeating-linear-gradient(45deg,
+      #ffffff,
+      #ffffff 10px,
+      #42bb5d 10px,
+      #42bb5d 20px);
+}
+
+.grayStripes {
+  background:
+    /* On "top" */
+    repeating-linear-gradient(45deg,
+      transparent,
+      transparent 10px,
+      #ccc 10px,
+      #ccc 20px),
+    /* on "bottom" */
+    linear-gradient(to bottom,
+      #eee,
+      #999);
+  /* background: repeating-linear-gradient(45deg,
+      #ffffff,
+      #ffffff 10px,
+      #42bb5d 10px,
+      #42bb5d 20px); */
+}
+
+.whiteBackground {
+  background-color: white;
+}
+
+.lightGrayBackground {
+  background-color: #f3f3f3;
+}
+
+.grayBackground {
+  background-color: gray;
+}
+
+.opaqueBackground {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.redBorder {
+  border: 1px solid red;
+  box-sizing: border-box;
+}
+
+.tooltip-custom {
+  /* margin: 10px; */
+  /* border-radius: 5px; */
+  /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); */
+  min-width: 200px;
+  max-width: 400px;
+  white-space: nowrap;
+}
+
+.tooltip {
+  background-color: red !important;
+}
+
+
+.dragHandle {
+  cursor: move;
+}
+
+
+
+
+.teamBuilder ul {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-y:auto;
+  overflow-x:auto;
+}
+
+.teamBuilder li {
+  list-style-type: none
+}
