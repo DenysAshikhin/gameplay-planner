@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
 
@@ -26,8 +26,14 @@ function MouseOverPopover({
   opacity = opacity ? opacity : "0.9";
   const open = !!setForceOpen ? forceOpen : Boolean(anchorEl);
   let currCords = 0;
-  let screenX = window.innerWidth;
-  let screenY = window.innerHeight;
+
+  const [screenX, setScreenX] = useState(100);
+  const [screenY, setScreenY] = useState(100);
+  useEffect(() => {
+    setScreenX(window.innerWidth);
+    setScreenY(window.innerHeight);
+  }, []);
+
   let xPlacement = "left";
   let yPlacement = "bottom";
 

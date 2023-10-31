@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 import './App.css';
 
@@ -25,6 +26,16 @@ import ReactGA from "react-ga4";
 
 export default function Home() {
 
+  const [userData, setUserData] = useLocalStorage('userData', DefaultSave);
+  const router = useRouter();
+  useEffect(() => {
+    let timeout = setTimeout(() => {
+
+      ReactGA.send({ hitType: "pageview", page: "/file_upload", title: "Landing Page (Upload)" });
+    }, 100);
+    return () => { clearTimeout(timeout) };
+  }, []);
+
   const handleFileUpload = async (e) => {
     const file = e.target.files[0];
     const fileReader = new FileReader();
@@ -41,7 +52,10 @@ export default function Home() {
 
       try {
         const parsedJson = JSON.parse(jsonString);
-        onData(parsedJson);
+        setUserData(parsedJson);
+        console.log(parsedJson);
+        console.log(`trying to redirect`)
+        return router.push('/page_selection');
       } catch (error) {
         console.error('Invalid JSON:', error);
       }
@@ -54,7 +68,6 @@ export default function Home() {
 
   return (
     <div
-      // className="FileUpload"
       style={{
         display: 'flex',
         flex: '1',
@@ -69,7 +82,7 @@ export default function Home() {
         position: 'absolute', top: '0', left: '0', width: '100%', height: '100%', zIndex: '1',
         opacity: '0.3'
       }}>
-        <Image alt='fullscreen picture of a Farmer Against Potatoes Idle game' src={'/images/coming_soon.png'} fill/>
+        <Image alt='fullscreen picture of a Farmer Against Potatoes Idle game' src={'/images/coming_soon.png'} fill />
       </div>
 
       <div
@@ -124,7 +137,10 @@ export default function Home() {
             onMouseLeave={(e) => { if (forceOpen) setForceOpen(false) }}
             style={{ display: 'flex', alignItems: 'center' }}>
             <div className="mediumImportantText blackTextStroke" style={{ margin: '0 0 0 0', fontSize: '60px', fontWeight: 'bold' }}>Upload save file to view calculator</div>
-            {/* <img alt='on hover I in a cirlce icon, shows more information on hover' src={infoIcon} style={{ height: '36px', marginLeft: '6px', marginTop: '6px' }} /> */}
+            <div style={{ position: 'relative', height: '36px', width: '36px', marginLeft: '6px', marginTop: '6px' }}>
+              <Image alt='on hover I in a cirlce icon, shows more information on hover' src={'/images/icons/info_lightgray.svg'}
+                fill />
+            </div>
           </div>
         </MouseOverPopover>
         <div className="mediumImportantText blackTextStroke" style={{ margin: '0 0 0 0', fontSize: '35px', fontWeight: 'bold', textStroke: '' }}>Warning: contains spoilers!</div>
