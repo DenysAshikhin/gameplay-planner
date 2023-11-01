@@ -82,7 +82,7 @@ export default function Home() {
         position: 'absolute', top: '0', left: '0', width: '100%', height: '100%', zIndex: '1',
         opacity: '0.3'
       }}>
-        <Image alt='fullscreen picture of a Farmer Against Potatoes Idle game' src={'/images/coming_soon.png'} fill />
+        <Image alt='fullscreen picture of a Farmer Against Potatoes Idle game' src={'/images/icon/coming_soon.png'} fill />
       </div>
 
       <div
