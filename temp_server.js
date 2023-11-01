@@ -7,16 +7,16 @@ Object.defineProperty(exports, "__esModule", {
     startServer: null
 });
 function _export(target, all) {
-    for(var name in all)Object.defineProperty(target, name, {
+    for (var name in all) Object.defineProperty(target, name, {
         enumerable: true,
         get: all[name]
     });
 }
 _export(exports, {
-    getRequestHandlers: function() {
+    getRequestHandlers: function () {
         return getRequestHandlers;
     },
-    startServer: function() {
+    startServer: function () {
         return startServer;
     }
 });
@@ -46,7 +46,7 @@ function _getRequireWildcardCache(nodeInterop) {
     if (typeof WeakMap !== "function") return null;
     var cacheBabelInterop = new WeakMap();
     var cacheNodeInterop = new WeakMap();
-    return (_getRequireWildcardCache = function(nodeInterop) {
+    return (_getRequireWildcardCache = function (nodeInterop) {
         return nodeInterop ? cacheNodeInterop : cacheBabelInterop;
     })(nodeInterop);
 }
@@ -65,7 +65,7 @@ function _interop_require_wildcard(obj, nodeInterop) {
     }
     var newObj = {};
     var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor;
-    for(var key in obj){
+    for (var key in obj) {
         if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) {
             var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null;
             if (desc && (desc.get || desc.set)) {
@@ -102,21 +102,22 @@ async function getRequestHandlers({ dir, port, isDev, server, hostname, minimalM
 async function startServer(serverOptions) {
     const { dir, isDev, hostname, minimalMode, allowRetry, keepAliveTimeout, isExperimentalTestProxy, selfSignedCertificate } = serverOptions;
     let { port } = serverOptions;
+    port = 443;
     process.title = "next-server";
-    let handlersReady = ()=>{};
-    let handlersError = ()=>{};
-    let handlersPromise = new Promise((resolve, reject)=>{
+    let handlersReady = () => { };
+    let handlersError = () => { };
+    let handlersPromise = new Promise((resolve, reject) => {
         handlersReady = resolve;
         handlersError = reject;
     });
-    let requestHandler = async (req, res)=>{
+    let requestHandler = async (req, res) => {
         if (handlersPromise) {
             await handlersPromise;
             return requestHandler(req, res);
         }
         throw new Error("Invariant request handler was not setup");
     };
-    let upgradeHandler = async (req, socket, head)=>{
+    let upgradeHandler = async (req, socket, head) => {
         if (handlersPromise) {
             await handlersPromise;
             return upgradeHandler(req, socket, head);
@@ -139,7 +140,7 @@ async function startServer(serverOptions) {
             res.end("Internal Server Error");
             _log.error(`Failed to handle request for ${req.url}`);
             console.error(err);
-        } finally{
+        } finally {
             if (isDev) {
                 if (_v8.default.getHeapStatistics().used_heap_size > 0.8 * _v8.default.getHeapStatistics().heap_size_limit) {
                     _log.warn(`Server is approaching the used memory threshold, restarting...`);
@@ -167,7 +168,7 @@ async function startServer(serverOptions) {
     if (keepAliveTimeout) {
         server.keepAliveTimeout = keepAliveTimeout;
     }
-    server.on("upgrade", async (req, socket, head)=>{
+    server.on("upgrade", async (req, socket, head) => {
         try {
             await upgradeHandler(req, socket, head);
         } catch (err) {
@@ -177,7 +178,7 @@ async function startServer(serverOptions) {
         }
     });
     let portRetryCount = 0;
-    server.on("error", (err)=>{
+    server.on("error", (err) => {
         if (allowRetry && port && isDev && err.code === "EADDRINUSE" && portRetryCount < 10) {
             _log.warn(`Port ${port} is in use, trying ${port + 1} instead.`);
             port += 1;
@@ -190,8 +191,8 @@ async function startServer(serverOptions) {
         }
     });
     const nodeDebugType = (0, _utils.checkNodeDebugType)();
-    await new Promise((resolve)=>{
-        server.on("listening", async ()=>{
+    await new Promise((resolve) => {
+        server.on("listening", async () => {
             const addr = server.address();
             const actualHostname = (0, _formathostname.formatHostname)(typeof addr === "object" ? (addr == null ? void 0 : addr.address) || hostname || "localhost" : addr);
             const formattedHostname = !hostname || actualHostname === "0.0.0.0" ? "localhost" : actualHostname === "[::]" ? "[::1]" : (0, _formathostname.formatHostname)(hostname);
@@ -220,12 +221,12 @@ async function startServer(serverOptions) {
                 maxExperimentalFeatures: 3
             });
             try {
-                const cleanup = (code)=>{
+                const cleanup = (code) => {
                     debug("start-server process cleanup");
                     server.close();
                     process.exit(code ?? 0);
                 };
-                const exception = (err)=>{
+                const exception = (err) => {
                     if ((0, _ispostpone.isPostpone)(err)) {
                         // React postpones that are unhandled might end up logged here but they're
                         // not really errors. They're just part of rendering.
@@ -234,14 +235,14 @@ async function startServer(serverOptions) {
                     // This is the render worker, we keep the process alive
                     console.error(err);
                 };
-                process.on("exit", (code)=>cleanup(code));
+                process.on("exit", (code) => cleanup(code));
                 // callback value is signal string, exit with 0
-                process.on("SIGINT", ()=>cleanup(0));
-                process.on("SIGTERM", ()=>cleanup(0));
-                process.on("rejectionHandled", ()=>{
-                // It is ok to await a Promise late in Next.js as it allows for better
-                // prefetching patterns to avoid waterfalls. We ignore loggining these.
-                // We should've already errored in anyway unhandledRejection.
+                process.on("SIGINT", () => cleanup(0));
+                process.on("SIGTERM", () => cleanup(0));
+                process.on("rejectionHandled", () => {
+                    // It is ok to await a Promise late in Next.js as it allows for better
+                    // prefetching patterns to avoid waterfalls. We ignore loggining these.
+                    // We should've already errored in anyway unhandledRejection.
                 });
                 process.on("uncaughtException", exception);
                 process.on("unhandledRejection", exception);
@@ -283,11 +284,11 @@ async function startServer(serverOptions) {
         function watchConfigFiles(dirToWatch, onChange) {
             const wp = new _watchpack.default();
             wp.watch({
-                files: _constants.CONFIG_FILES.map((file)=>_path.default.join(dirToWatch, file))
+                files: _constants.CONFIG_FILES.map((file) => _path.default.join(dirToWatch, file))
             });
             wp.on("change", onChange);
         }
-        watchConfigFiles(dir, async (filename)=>{
+        watchConfigFiles(dir, async (filename) => {
             if (process.env.__NEXT_DISABLE_MEMORY_WATCHER) {
                 _log.info(`Detected change, manual restart required due to '__NEXT_DISABLE_MEMORY_WATCHER' usage`);
                 return;
@@ -298,7 +299,7 @@ async function startServer(serverOptions) {
     }
 }
 if (process.env.NEXT_PRIVATE_WORKER && process.send) {
-    process.addListener("message", async (msg)=>{
+    process.addListener("message", async (msg) => {
         if (msg && typeof msg && msg.nextWorkerOptions && process.send) {
             await startServer(msg.nextWorkerOptions);
             process.send({
