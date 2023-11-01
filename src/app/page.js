@@ -12,7 +12,7 @@ import useLocalStorage from "use-local-storage";
 import pako from 'pako';
 import MouseOverPopover from "./util/Tooltip.jsx";
 // import infoIcon from '/images/icons/info_lightgray.svg';
-// import backgroundImage from '.images/coming_soon.png';
+import backgroundImage from '/public/images/coming_soon.png';
 
 import ReactGA from "react-ga4";
 
@@ -82,7 +82,11 @@ export default function Home() {
         position: 'absolute', top: '0', left: '0', width: '100%', height: '100%', zIndex: '1',
         opacity: '0.3'
       }}>
-        <Image alt='fullscreen picture of a Farmer Against Potatoes Idle game' src={'/images/coming_soon.webp'} fill />
+        <Image alt='fullscreen picture of a Farmer Against Potatoes Idle game' 
+        // src={'/images/coming_soon.webp'} 
+        src={backgroundImage} 
+        
+        fill />
       </div>
 
       <div
