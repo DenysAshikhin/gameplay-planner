@@ -537,7 +537,7 @@ const FarmingLanding = () => {
             bestPicPerc: bestPlantCombo?.bestPicPerc?.result?.result?.dataPointsPotatoes,
         }
 
-    }, [tempFuture, expDiff, bestPlantCombo])
+    }, [tempFuture, expDiff, expDiffFry, bestPlantCombo])
 
     const runningGraphObjects = useMemo(() => {
         console.log(`updating running EXPDIFF`);
@@ -1392,15 +1392,21 @@ const FarmingLanding = () => {
         })
 
 
-
         //Clean up on unmounts
         return () => {
-            for (let i = 0; i < workers.length; i++) {
-                workers[i].current?.terminate();
-            }
+            FarmerWorker.current.terminate();
+            FarmerWorker1.current.terminate();
+            FarmerWorker2.current.terminate();
+            FarmerWorker3.current.terminate();
+            FarmerWorker4.current.terminate();
+            FarmerWorker5.current.terminate();
+            FarmerWorker6.current.terminate();
+            FarmerWorker7.current.terminate();
+            FarmerWorker8.current.terminate();
+            FarmerWorker9.current.terminate();
+            FarmerWorker10.current.terminate();
+            FarmerWorker11.current.terminate();
         }
-
-
     }, [])
 
     let notEnoughAuto = false;
@@ -2199,7 +2205,7 @@ const FarmingLanding = () => {
                                                 {/* sadsd */}
                                                 {bestPlantCombo.pot.map((val, index) => {
                                                     return (
-                                                        <div className='suggestionHolder'>
+                                                        <div className='suggestionHolder' key={index}>
                                                             <MouseOverPopover extraClasses={'suggestionHolder'} key={'popover' + index} tooltip={
                                                                 <div>
                                                                     <div>
@@ -2301,7 +2307,7 @@ const FarmingLanding = () => {
                                                 </div>
                                                 {bestPlantCombo.pic.map((val, index) => {
                                                     return (
-                                                        <div className='suggestionHolder'>
+                                                        <div className='suggestionHolder' key={index}>
                                                             <MouseOverPopover extraClasses={'suggestionHolder'} key={'popover' + index} tooltip={
                                                                 <div>
                                                                     <div>
@@ -2425,7 +2431,7 @@ const FarmingLanding = () => {
 
                                                 {bestPlantCombo.bestPot.result.result.steps.map((val, index) => {
                                                     return (
-                                                        <div className='suggestionHolder'>
+                                                        <div className='suggestionHolder' key={index}>
                                                             <MouseOverPopover extraClasses={'suggestionHolder'} key={'popover' + index} tooltip={
                                                                 <div>
                                                                     <div>
