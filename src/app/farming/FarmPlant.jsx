@@ -1,7 +1,7 @@
 "use client";
 
 import helper from "../util/helper.js";
-import MouseOverPopover from "../util/Tooltip.jsx";
+import MouseOverPopover from "../util/Tooltip_1.jsx";
 import ReactGA from "react-ga4";
 import { memo, useState, useEffect, useMemo } from "react";
 import Image from "next/image";

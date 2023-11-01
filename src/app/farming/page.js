@@ -4,7 +4,7 @@ import { useState, useEffect, useRef, useMemo } from 'react';
 import Image from 'next/image';
 
 import useLocalStorage from "use-local-storage";
-import MouseOverPopover from "../util/Tooltip.jsx";
+import MouseOverPopover from "../util/Tooltip_1.jsx";
 import FarmingPlant from './FarmPlant.jsx';
 import helper from "../util/helper.js";
 import farmingHelper from "../util/farmingHelper.js";
