@@ -151,7 +151,15 @@ export default function Expeditions() {
 
     const includeLocked = false;
 
-    const handleGroups = useCallback((data, selectedItems, recalculate) => {
+    useEffect(() => {
+
+
+
+
+
+        let recalculate = true;
+
+        setRefreshGroups(false);
         console.log(`handle groups called`)
         const petData = data?.PetsCollection || [];
         if (petData.length === 0) return null;
@@ -180,8 +188,14 @@ export default function Expeditions() {
             );
             setGroupCache({ ...groupCache, [keyString]: groups })
             setGroups(groups);
+
         }
-    }, [activeCustomBonuses, defaultRank, groupRankCritera, numTeams, petWhiteList, tokenDamageBias]);
+    }, [activeCustomBonuses, defaultRank, groupRankCritera, numTeams, petWhiteList, tokenDamageBias, refreshGroups, data, selectedItems])
+
+
+    // const handleGroups = useCallback((data, selectedItems, recalculate) => {
+
+    // },);
 
 
     const dataLoaded = useRef(false);
@@ -229,11 +243,11 @@ export default function Expeditions() {
             setOriginalPets(tempPets);
             setSelectedPets(tempPets);
 
-            handleGroups(uploadedData, positiveRankedPets);
+            setRefreshGroups(true);
 
             setRunTimeData(clientData);
         }
-    }, [clientData, handleGroups, includeLocked, numTeams, setComboSelector, setData, setNumTeams]);
+    }, [clientData, includeLocked, numTeams, setComboSelector, setData, setNumTeams]);
 
 
     useEffect(() => {
@@ -417,7 +431,10 @@ export default function Expeditions() {
 
         setSelectedPets(localPets);
 
-        if (items) handleGroups(data, items);
+        if (items) {
+            setRefreshGroups(true);
+            // handleGroups(data, items);
+        }
     };
 
     leftOver1Pets = leftOver1Pets.sort((a, b) => petHelper.calculatePetBaseDamage(b, defaultRank) - petHelper.calculatePetBaseDamage(a, defaultRank))
@@ -433,11 +450,6 @@ export default function Expeditions() {
             }
         })
         .filter((e) => !!e && !leftOverIgnore[e.id])
-
-    if (refreshGroups) {
-        setRefreshGroups(false);
-        handleGroups(data, selectedItems, true);
-    }
 
 
     console.log(petWhiteList);
