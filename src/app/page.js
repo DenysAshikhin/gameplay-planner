@@ -88,6 +88,7 @@ export default function Home() {
         alt='fullscreen picture of a Farmer Against Potatoes Idle game'
         src={backgroundImage}
         priority={true}
+        unoptimized={true}
       />
 
       {/* <img style={{
