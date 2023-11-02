@@ -1,7 +1,8 @@
 import Image from "next/image";
 
-import potatoesImg from '../../../public/images/icons/potatoes.png'
-import farmerImg from '../../../public/images/icons/farmer2.png'
+
+import potatoesImg from '../../../public/images/potatoes.png'
+import farmerImg from '../../../public/images/farmer2.png'
 
 const Header = ({ }) => {
   return (
