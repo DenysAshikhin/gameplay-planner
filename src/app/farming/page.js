@@ -1651,6 +1651,7 @@ const FarmingLanding = () => {
                                     <div style={{ display: 'flex' }}>
                                         <div style={{ width: '160px' }}>Show Fries On Graph</div>
                                         <input type="checkbox" checked={showFries}
+                                        for="enable display of fries on the graph"
                                             onChange={(e) => {
                                                 setShowFries(e.target.checked ? 1 : 0);
                                                 ReactGA.event({
@@ -1664,6 +1665,7 @@ const FarmingLanding = () => {
                                     <div style={{ display: 'flex', marginBottom: '' }}>
                                         <div style={{ width: '160px' }}>Show HP On Graph</div>
                                         <input type="checkbox" checked={showHP}
+                                        for="enable display of HP on the graph"
                                             onChange={(e) => {
                                                 setShowHP(e.target.checked ? 1 : 0);
                                                 ReactGA.event({
@@ -1933,18 +1935,18 @@ const FarmingLanding = () => {
                                         }
                                         value={numThreads + ''}
                                     >
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                        <option value="6">6</option>
-                                        <option value="7">7</option>
-                                        <option value="8">8</option>
-                                        <option value="9">9</option>
-                                        <option value="10">10</option>
-                                        <option value="11">11</option>
-                                        <option value="12">12</option>
+                                        <option for="1 thread calculation" value="1">1</option>
+                                        <option for="2 thread calculations" value="2">2</option>
+                                        <option for="3 thread calculations" value="3">3</option>
+                                        <option for="4 thread calculations" value="4">4</option>
+                                        <option for="5 thread calculations" value="5">5</option>
+                                        <option for="6 thread calculations" value="6">6</option>
+                                        <option for="7 thread calculations" value="7">7</option>
+                                        <option for="8 thread calculations" value="8">8</option>
+                                        <option for="9 thread calculations" value="9">9</option>
+                                        <option for="10 thread calculations" value="10">10</option>
+                                        <option for="11 thread calculations" value="11">11</option>
+                                        <option for="12 thread calculations" value="12">12</option>
                                     </select>
                                 </div>
                                 <div style={{ display: 'flex' }}>
@@ -1970,6 +1972,7 @@ const FarmingLanding = () => {
                                                 label: `${e.target.checked}`,
                                             })
                                         }}
+                                        for="enable auto purchase of page 1 upgrades"
                                         checked={!!autoBuyPBC}
                                         value={!!autoBuyPBC}
                                     />
@@ -1990,6 +1993,7 @@ const FarmingLanding = () => {
 
                                     <input
                                         type="checkbox"
+                                        for="enable forcing of minimum number of autos per plant"
                                         onChange={(e) => {
                                             setLockCustomAuto(e.target.checked ? 1 : 0);
                                             ReactGA.event({
@@ -2017,6 +2021,8 @@ const FarmingLanding = () => {
 
 
                                     <input
+                                    
+                                    for="enable plant potion considered on entire run"
                                         type="checkbox"
                                         onChange={(e) => {
                                             setForceRankPotion(e.target.checked ? 1 : 0);

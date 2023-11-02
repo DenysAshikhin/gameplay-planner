@@ -5,6 +5,7 @@ body {
 
 * {
   font-family: sans-serif !important;
+  font-display: swap;
 }
 
 @font-face {
@@ -15,6 +16,7 @@ body {
     url('/fonts/dobra_black/Dobra-Black.ttf') format('truetype');
   font-weight: 900;
   font-style: normal;
+  font-display: swap;
 }
 
 .header {
