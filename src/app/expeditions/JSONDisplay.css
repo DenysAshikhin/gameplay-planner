@@ -1,0 +1,30 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: 4fr 4fr 4fr;
+    grid-column-gap: 16px;
+}
+
+.grid-left {
+    display: grid;
+    grid-row-gap: 16px;
+    grid-template-rows: min-content;
+}
+
+.grid-row {
+    /* Add any additional styles for the grid-row, if needed */
+
+}
+
+.MuiInputBase-root {
+    height: 36px;
+    padding: 0 0 0 6px !important;
+}
+
+.MuiInputBase-root {
+    height: 36px;
+    padding: 0 9px 0 0;
+}
+
+.MuiInputBase-root input {
+    padding: 0;
+}
