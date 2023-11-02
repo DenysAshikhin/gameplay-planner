@@ -168,7 +168,7 @@ export default function Expeditions() {
             return accum;
         }, {})
 
-        const localPets = selectedItems.map(petId => selectedItemsById[petId])
+        const localPets = selectedItems.filter((e) => e < 9999).map(petId => selectedItemsById[petId])
         const keyString = selectedItems.sort().join(',');
         let groups = groupCache[keyString];
         if (groups && !recalculate) {
