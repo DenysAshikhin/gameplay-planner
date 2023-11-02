@@ -97,7 +97,7 @@ const FarmingPlant = ({ data }) => {
     >
       <div style={{ height: "214px", width: "214px", position: "relative" }}>
 
-        <img style={{
+        {/* <img style={{
           height: "214px",
           width: "214px",
           position: "absolute",
@@ -107,9 +107,9 @@ const FarmingPlant = ({ data }) => {
         }}
           alt={`in game plant #${index + 1} image`}
           src={`/images/farming/plants/P${index + 1}.png`}
-        />
+        /> */}
 
-        {/* <div
+        <div
           style={{
             height: "214px",
             width: "214px",
@@ -124,7 +124,7 @@ const FarmingPlant = ({ data }) => {
           src={`/images/farming/plants/P${index + 1}.png`}
           fill
         />
-        <div /> */}
+        <div />
 
         <div
           style={{
@@ -366,7 +366,7 @@ const FarmingPlant = ({ data }) => {
               <div style={{ display: "flex", alignItems: "center" }}>
 
 
-                <img
+                {/* <img
                   style={{
                     height: "16px",
                     width: "16px",
@@ -375,9 +375,9 @@ const FarmingPlant = ({ data }) => {
                   }}
                   alt="yellow star in an red/orange filled circle, in game prestige icon"
                   src={`/images/icons/prestige_star.png`}
-                />
+                /> */}
 
-                {/* <div
+                <div
                   style={{
                     height: "16px",
                     width: "16px",
@@ -390,7 +390,7 @@ const FarmingPlant = ({ data }) => {
                     alt="yellow star in an red/orange filled circle, in game prestige icon"
                     src={`/images/icons/prestige_star.png`}
                   />
-                </div> */}
+                </div>
 
                 <div
                   style={{
@@ -431,7 +431,7 @@ const FarmingPlant = ({ data }) => {
             >
               <div style={{ display: "flex", alignItems: "center" }}>
 
-                <img
+                {/* <img
                   style={{
                     height: "16px",
                     width: "16px",
@@ -440,8 +440,8 @@ const FarmingPlant = ({ data }) => {
                   }}
                   alt="yellow star in an red/orange filled circle, in game prestige icon"
                   src={`/images/icons/prestige_star.png`}
-                />
-                {/* 
+                /> */}
+                
                 <div
                   style={{
                     height: "16px",
@@ -455,7 +455,7 @@ const FarmingPlant = ({ data }) => {
                     src={`/images/icons/prestige_star.png`}
                     fill
                   />
-                </div> */}
+                </div>
 
                 <div
                   style={{

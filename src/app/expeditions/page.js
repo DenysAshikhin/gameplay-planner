@@ -608,10 +608,7 @@ export default function Expeditions() {
 
                                         if (!staticPetData) {
                                             staticPetData = {
-                                                img: '/images/pets/missing.png',
-                                                location: '??-??',
-                                                name: 'Unknown',
-                                                petId: ID
+                                                ...petNames[9999]
                                             }
                                         }
 

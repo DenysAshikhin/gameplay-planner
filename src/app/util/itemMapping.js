@@ -29,349 +29,528 @@ import starGHAL from '../../../public/images/farming/assembly/Star_Grasshopper.p
 import whackAL from '../../../public/images/farming/assembly/Whack_Score_Bonus.png';
 import wormsAL from '../../../public/images/farming/assembly/Worms_Quantity.png';
 
+import cocoricoImg from '../../../public/images/pets/Cocorico.png';
+import Rico from '../../../public/images/pets/Rico.png';
+import Trevor from '../../../public/images/pets/Trevor.png';
+import Bingo from '../../../public/images/pets/Bingo.png';
+import Primfeet from '../../../public/images/pets/Primfeet.png';
+import Nidhogg from '../../../public/images/pets/Nidhogg.png';
+import Vidar from '../../../public/images/pets/Vidar.png';
+import Hiko from '../../../public/images/pets/Hiko.png';
+import Murphy from '../../../public/images/pets/Murphy.png';
+import Aphrodite from '../../../public/images/pets/Aphrodite.png';
+import Nuts from '../../../public/images/pets/Nuts.png';
+import Alvin from '../../../public/images/pets/Alvin.png';
+import Flash from '../../../public/images/pets/Flash.png';
+import Cid from '../../../public/images/pets/Cid.png';
+import Tango from '../../../public/images/pets/Tango.png';
+import Darti from '../../../public/images/pets/Darti.png';
+import Arizona from '../../../public/images/pets/Arizona.png';
+import Suijin from '../../../public/images/pets/Suijin.png';
+import johny from '../../../public/images/pets/Johny Be Good.png';
+import Nucifera from '../../../public/images/pets/Nucifera.png';
+import Barney from '../../../public/images/pets/Barney.png';
+import Seth from '../../../public/images/pets/Seth.png';
+import Plyne from '../../../public/images/pets/Plyne.png';
+import Zac from '../../../public/images/pets/Zac.png';
+import Tock from '../../../public/images/pets/Tock.png';
+import governess from '../../../public/images/pets/The Governess.png';
+import swamp from '../../../public/images/pets/Swamp King.png';
+import Itzamna from '../../../public/images/pets/Itzamna.png';
+import Julian from '../../../public/images/pets/Julian.png';
+import Yuhuang from '../../../public/images/pets/Yuhuang.png';
+import Serket from '../../../public/images/pets/Serket.png';
+import Fujin from '../../../public/images/pets/Fujin.png';
+import Ulrich from '../../../public/images/pets/Ulrich.png';
+import Huginn from '../../../public/images/pets/Huginn.png';
+import Esus from '../../../public/images/pets/Esus.png';
+import Hera from '../../../public/images/pets/Hera.png';
+import Asterios from '../../../public/images/pets/Asterios.png';
+import Odile from '../../../public/images/pets/Odile.png';
+import Anubis from '../../../public/images/pets/Anubis.png';
+import Garuda from '../../../public/images/pets/Garuda.png';
+import Tsukuyomi from '../../../public/images/pets/Tsukuyomi.png';
+import Nanbozo from '../../../public/images/pets/Nanbozo.png';
+import Ra from '../../../public/images/pets/Ra.png';
+import Vishnou from '../../../public/images/pets/Vishnou.png';
+import Icare from '../../../public/images/pets/Icare.png';
+import Olaf from '../../../public/images/pets/Olaf.png';
+import Fafnir from '../../../public/images/pets/Fafnir.png';
+import Quetzalcoalt from '../../../public/images/pets/Quetzalcoalt.png';
+import proff from '../../../public/images/pets/Professor Inderwind.png';
+import Dangun from '../../../public/images/pets/Dangun.png';
+import Wako from '../../../public/images/pets/Wako.png';
+import Papyru from '../../../public/images/pets/Papyru.png';
+import Sigma from '../../../public/images/pets/Sigma.png';
+import Louna from '../../../public/images/pets/Louna.png';
+import Babou from '../../../public/images/pets/Babou.png';
+import Niord from '../../../public/images/pets/Niord.png';
+import Mous from '../../../public/images/pets/Mous.png';
+import Flafy from '../../../public/images/pets/Flafy.png';
+import Nick from '../../../public/images/pets/Nick.png';
+import Cherry from '../../../public/images/pets/Cherry.png';
+import Abby from '../../../public/images/pets/Abby.png';
+import Noop from '../../../public/images/pets/Noop.png';
+import Juba from '../../../public/images/pets/Juba.png';
+import David from '../../../public/images/pets/David.png';
+import Viktor from '../../../public/images/pets/Viktor.png';
+import Darko from '../../../public/images/pets/Darko.png';
+import Ubel from '../../../public/images/pets/Ubel.png';
+import Than from '../../../public/images/pets/Than.png';
+import Hirma from '../../../public/images/pets/Hirma.png';
+import Boletus from '../../../public/images/pets/Boletus.png';
+import Froz from '../../../public/images/pets/Froz.png';
+import Beelzebub from '../../../public/images/pets/Beelzebub.png';
+import Nasr from '../../../public/images/pets/Nasr.png';
+import Bump from '../../../public/images/pets/Bump.png';
+import Nyx from '../../../public/images/pets/Nyx.png';
+import Neith from '../../../public/images/pets/Neith.png';
+import Leon from '../../../public/images/pets/Leon.png';
+import Puff from '../../../public/images/pets/Puff.png';
+import Apollo from '../../../public/images/pets/Apollo.png';
+import BigMouth from '../../../public/images/pets/BigMouth.png';
+import Neptune from '../../../public/images/pets/Neptune.png';
+import Strawberry from '../../../public/images/pets/Strawberry.png';
+import unknown from '../../../public/images/pets/missing.png';
+
+
+
+
 const PetNames = {
     1: {
         "name": "Cocorico",
         "location": "3-2",
+        img: cocoricoImg
     },
     2: {
         "name": "Rico",
         "location": "3-2",
+        img: Rico
     },
     3: {
         "name": "Trevor",
         "location": "3-3",
+        img: Trevor
+
     },
     4: {
         "name": "Bingo",
         "location": "3-4",
+        img: Bingo
     },
     5: {
         "name": "Primfeet",
         "location": "3-6",
+        img: Primfeet
     },
     6: {
         "name": "Nidhogg",
         "location": "4-1",
+        img: Nidhogg
     },
     7: {
         "name": "Vidar",
         "location": "3-5",
+        img: Vidar
     },
     8: {
         "name": "Hiko",
         "location": "3-7",
+        img: Hiko
     },
     9: {
         "name": "Murphy",
         "location": "3-8",
+        img: Murphy
     },
     10: {
         "name": "Aphrodite",
         "location": "3-9",
+        img: Aphrodite
     },
     11: {
         "name": "Nuts",
         "location": "4-2",
+        img: Nuts
     },
     12: {
         "name": "Alvin",
         "location": "4-7",
+        img: Alvin
     },
     13: {
         "name": "Flash",
         "location": "4-4",
+        img: Flash
     },
     14: {
         "name": "Cid",
         "location": "4-3",
+        img: Cid
     },
     15: {
         "name": "Tango",
         "location": "4-5",
+        img: Tango
     },
     16: {
         "name": "Darti",
         "location": "4-6",
+        img: Darti
     },
     17: {
         "name": "Arizona",
         "location": "4-9",
+        img: Arizona
     },
     18: {
         "name": "Suijin",
         "location": "5-1",
+        img: Suijin
     },
     19: {
         "name": "Johny Be Good",
         "location": "4-8",
+        img: johny
     },
     20: {
         "name": "Nucifera",
         "location": "5-2",
+        img: Nucifera
     },
     21: {
         "name": "Barney",
         "location": "5-3",
+        img: Barney
     },
     22: {
         "name": "Seth",
         "location": "5-4",
+        img: Seth
     },
     23: {
         "name": "Plyne",
         "location": "5-5",
+        img: Plyne
     },
     24: {
         "name": "Zac",
         "location": "5-6",
+        img: Zac
     },
     25: {
         "name": "Tock",
         "location": "5-7",
+        img: Tock
     },
     26: {
         "name": "The Governess",
         "location": "5-8",
+        img: governess
     },
     27: {
         "name": "Swamp King",
         "location": "5-9",
+        img: swamp
     },
     28: {
         "name": "Itzamna",
         "location": "6-1",
+        img: Itzamna
     },
     29: {
         "name": "Julian",
         "location": "6-2",
+        img: Julian
     },
     30: {
         "name": "Yuhuang",
         "location": "6-3",
+        img: Yuhuang
     },
     31: {
         "name": "Serket",
         "location": "E1C",
+        img: Serket
     },
     32: {
         "name": "Fujin",
         "location": "E1R",
+        img: Fujin
     },
     33: {
         "name": "Ulrich",
         "location": "E2C",
+        img: Ulrich
     },
     34: {
         "name": "Huginn",
         "location": "E2R",
+        img: Huginn
     },
     35: {
         "name": "Esus",
         "location": "E3C",
+        img: Esus
     },
     36: {
         "name": "Hera",
         "location": "E3R",
+        img: Hera
     },
     37: {
         "name": "Asterios",
         "location": "E4C",
+        img: Asterios
     },
     38: {
         "name": "Odile",
         "location": "E4R",
+        img: Odile
     },
     39: {
         "name": "Anubis",
         "location": "E6C",
+        img: Anubis
     },
     40: {
         "name": "Garuda",
         "location": "E6R",
+        img: Garuda
     },
     41: {
         "name": "Tsukuyomi",
         "location": "E7C",
+        img: Tsukuyomi
     },
     42: {
         "name": "Nanbozo",
         "location": "E7R",
+        img: Nanbozo
     },
     43: {
         "name": "Ra",
         "location": "E8C",
+        img: Ra
     },
     44: {
         "name": "Vishnou",
         "location": "E8R",
+        img: Vishnou
     },
     45: {
         "name": "Icare",
         "location": "E9C",
+        img: Icare
     },
     46: {
         "name": "Olaf",
         "location": "E9R",
+        img: Olaf
     },
     47: {
         "name": "Fafnir",
         "location": "E10C",
+        img: Fafnir
     },
     48: {
         "name": "Quetzalcoalt",
         "location": "E10R",
+        img: Quetzalcoalt
     },
     49: {
         "name": "Professor Inderwind",
         "location": "E12C",
+        img: proff
     },
     50: {
         "name": "Dangun",
         "location": "E12R",
+        img: Dangun
     },
     51: {
         "name": "Wako",
         "location": "6-4",
+        img: Wako
     },
     52: {
         "name": "Papyru",
         "location": "6-5",
+        img: Papyru
     },
     53: {
         "name": "Sigma",
         "location": "6-6",
+        img: Sigma
     },
     54: {
         "name": "Louna",
         "location": "6-7",
+        img: Louna
     },
     55: {
         "name": "Babou",
         "location": "6-8",
+        img: Babou
     },
     56: {
         "name": "Niord",
         "location": "6-9",
+        img: Niord
     },
     57: {
         "name": "Mous",
         "location": "7-1",
+        img: Mous
     },
     58: {
         "name": "Flafy",
         "location": "7-2",
+        img: Flafy
     },
     59: {
         "name": "Nick",
         "location": "7-3",
+        img: Nick
     },
     60: {
         "name": "Cherry",
         "location": "7-4",
+        img: Cherry
     },
     61: {
         "name": "Abby",
         "location": "E13C",
+        img: Abby
     },
     62: {
         "name": "Noop",
         "location": "E13R",
+        img: Noop
     },
     63: {
         "name": "Juba",
         "location": "E14C",
+        img: Juba
     },
     64: {
         "name": "David",
         "location": "E14R",
+        img: David
     },
     65: {
         "name": "Viktor",
         "location": "E15C",
+        img: Viktor
     },
     66: {
         "name": "Darko",
         "location": "E15R",
+        img: Darko
     },
     67: {
         "name": "Ubel",
         "location": "E16C",
+        img: Ubel
     },
     68: {
         "name": "Than",
         "location": "E16R",
+        img: Than
     },
     69: {
         "name": "Hirma",
         "location": "E18C",
+        img: Hirma
     },
     70: {
         "name": "Boletus",
         "location": "E18R",
+        img: Boletus
     },
     71: {
         "name": "Froz",
         "location": "E5C",
+        img: Froz
     },
     72: {
         "name": "Beelzebub",
         "location": "E5R",
+        img: Beelzebub
     },
     73: {
         "name": "Nasr",
         "location": "E11C",
+        img: Nasr
     },
     74: {
         "name": "Bump",
         "location": "E11R",
+        img: Bump
     },
     75: {
         "name": "Nyx",
         "location": "E17C",
+        img: Nyx
     },
     76: {
         "name": "Neith",
         "location": "E17R",
+        img: Neith
     },
     77: {
         "name": "Leon",
         "location": "7-5",
+        img: Leon
     },
     78: {
         "name": "Puff",
         "location": "7-6",
+        img: Puff
     },
     79: {
         "name": "Apollo",
         "location": "7-7",
+        img: Apollo
     },
     80: {
         "name": "BigMouth",
         "location": "7-8",
+        img: BigMouth
     },
     81: {
         "name": "Neptune",
         "location": "7-9",
-    }
-    ,
+        img: Neptune
+    },
     82: {
         "name": "Strawberry",
         "location": "Any",
+        img: Strawberry
+    },
+    9999: {
+        "name": "Unknown",
+        "location": "??-??",
+        img: unknown
     }
 }
 // export default PetNames;
 export const petNames = PetNames;
 
-export function getImageUrl(itemName) {
-    return `/images/pets/${itemName}.png`;
-}
 
 export const petNameArray = Object.entries(PetNames).map(([key, value]) => {
+    // if (key === '0' || key === 0 || key === 9999 || key === '9999') return null;
+    if (!petNames[key]) {
+        return {
+            ...value,
+            'petId': parseInt(key, 10),
+            'img': petNames['9999'].img
+        };
+    }
     return {
         ...value,
         'petId': parseInt(key, 10),
-        'img': getImageUrl(value.name)
+        'img': petNames[key].img
     };
 })
 

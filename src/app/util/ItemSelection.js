@@ -1,6 +1,6 @@
 import React from 'react';
 import './ItemSelection.css';
-import { petNameArray } from './itemMapping';
+import { petNameArray, petNames } from './itemMapping';
 import PetItem from '../expeditions/PetItem';
 
 const ItemSelection = ({ selectedItems, onItemSelected, data, weightMap, defaultRank, showLocked, }) => {
@@ -21,14 +21,13 @@ const ItemSelection = ({ selectedItems, onItemSelected, data, weightMap, default
     };
 
     let newPetArray = [...petNameArray];
+    newPetArray.splice(newPetArray.length - 1);
     let lastID = newPetArray[newPetArray.length - 1].petId;
 
     for (let i = lastID - 1; i < data.PetsCollection.length; i++) {
         if (data.PetsCollection[i].ID > lastID) {
             let temp = {
-                img: '/images/pets/missing.png',
-                location: '??-??',
-                name: 'Unknown',
+                ...petNames[9999],
                 petId: data.PetsCollection[i].ID
             }
             newPetArray.push(temp)

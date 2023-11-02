@@ -191,16 +191,18 @@ const PetItem = ({ petData, isSelected, onClick, data, weightMap, petScoreFn, de
                             })}
 
                             <div
-                             style={{
-                                zIndex: '2',
-                                objectFit: 'contain',
-                                position:'relative',
-                                width:'75px', height:'75px',
-                                maxHeight: circleBorder ? maxDimension : '',
-                                maxWidth: circleBorder ? maxDimension : '',
-                            }}
+                                style={{
+                                    zIndex: '2',
+                                    objectFit: 'contain',
+                                    position: 'relative',
+                                    width: '70px', height: '70px',
+                                    maxHeight: circleBorder ? maxDimension : '70px',
+                                    maxWidth: circleBorder ? maxDimension : '70px',
+                                }}
                             >
                                 <Image
+
+                                    style={{ objectFit: 'contain' }}
                                     fill
                                     alt={`in game image of ${name}`} src={img}
                                     unoptimized={true}
