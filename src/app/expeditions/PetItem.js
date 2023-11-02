@@ -1,4 +1,6 @@
 import React from 'react';
+import Image from 'next/image';
+
 import './PetItem.css';
 import helper from '../util/helper.js'
 
@@ -172,23 +174,41 @@ const PetItem = ({ petData, isSelected, onClick, data, weightMap, petScoreFn, de
                             }}>
                             {numHighlights.map((item, index) => {
                                 return (
-                                <div
-                                key={index}
-                                    style={{
-                                        background: helper.bonusColorMap[item].color,
-                                        position: 'absolute',
-                                        top: '0%',
-                                        left: `${(100 / numHighlights.length) * index}%`,
-                                        height: '100%',
-                                        width: `${100 / numHighlights.length}%`,
-                                        zIndex: 1
-                                    }}
-                                >
+                                    <div
+                                        key={index}
+                                        style={{
+                                            background: helper.bonusColorMap[item].color,
+                                            position: 'absolute',
+                                            top: '0%',
+                                            left: `${(100 / numHighlights.length) * index}%`,
+                                            height: '100%',
+                                            width: `${100 / numHighlights.length}%`,
+                                            zIndex: 1
+                                        }}
+                                    >
 
-                                </div>)
+                                    </div>)
                             })}
+
+                            <div
+                             style={{
+                                zIndex: '2',
+                                objectFit: 'contain',
+                                position:'relative',
+                                width:'75px', height:'75px',
+                                maxHeight: circleBorder ? maxDimension : '',
+                                maxWidth: circleBorder ? maxDimension : '',
+                            }}
+                            >
+                                <Image
+                                    fill
+                                    alt={`in game image of ${name}`} src={img}
+                                    unoptimized={true}
+                                />
+                            </div>
+
                             {/* <div className="item-image"> */}
-                            <img alt={`in game image of ${name}`} src={img}
+                            {/* <img alt={`in game image of ${name}`} src={img}
                                 className={circleBorder ? '' : 'item-image'}
                                 style={{
                                     zIndex: '2',
@@ -196,7 +216,7 @@ const PetItem = ({ petData, isSelected, onClick, data, weightMap, petScoreFn, de
                                     maxHeight: circleBorder ? maxDimension : '',
                                     maxWidth: circleBorder ? maxDimension : '',
                                 }}
-                            />
+                            /> */}
                             {/* </div> */}
                         </div>
                     </div>

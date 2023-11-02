@@ -296,6 +296,7 @@ export default function Expeditions() {
     if (groups.length > 0)
         groups.map((group, index) => {
             damageTotal += (petHelper.calculateGroupScore(group, defaultRank).groupScore) * 5 * data.PetDamageBonuses;
+            damageTotal += (petHelper.calculateGroupScore(group, 0).groupScore) * 5 * data.PetDamageBonuses;
             group.forEach((pet) => {
 
                 if (!equippedPets[pet.ID]) {
