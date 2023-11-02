@@ -54,19 +54,17 @@ const FarmingPlant = ({ data }) => {
   let futurePic = `${plant.nextPrestige}`;
   let picTime =
     useFutureValues && !fake
-      ? `${
-          plant.timeToPrestige > 3600
-            ? helper.secondsToString(plant.timeToPrestige)
-            : helper.secondsToStringWithS(plant.timeToPrestige)
-        }`
+      ? `${plant.timeToPrestige > 3600
+        ? helper.secondsToString(plant.timeToPrestige)
+        : helper.secondsToStringWithS(plant.timeToPrestige)
+      }`
       : ``;
   let rank = `${plant.Rank}`;
   let originalRank = `${plant.originalRank}`;
-  let rankTime = `${
-    plant.timeToLevel > 3600
-      ? helper.secondsToString(plant.timeToLevel)
-      : helper.secondsToStringWithS(plant.timeToLevel)
-  }`;
+  let rankTime = `${plant.timeToLevel > 3600
+    ? helper.secondsToString(plant.timeToLevel)
+    : helper.secondsToStringWithS(plant.timeToLevel)
+    }`;
   let totalProd = !fake ? `${plant.production.toExponential(2)}` : ``;
 
   if (fake) {
@@ -98,7 +96,20 @@ const FarmingPlant = ({ data }) => {
       suppressHydrationWarning
     >
       <div style={{ height: "214px", width: "214px", position: "relative" }}>
-        <div
+
+        <img style={{
+          height: "214px",
+          width: "214px",
+          position: "absolute",
+          bottom: "0",
+          left: "0",
+          zIndex: "1",
+        }}
+          alt={`in game plant #${index + 1} image`}
+          src={`/images/farming/plants/P${index + 1}.png`}
+        />
+
+        {/* <div
           style={{
             height: "214px",
             width: "214px",
@@ -113,7 +124,7 @@ const FarmingPlant = ({ data }) => {
           src={`/images/farming/plants/P${index + 1}.png`}
           fill
         />
-        <div />
+        <div /> */}
 
         <div
           style={{
@@ -258,6 +269,7 @@ const FarmingPlant = ({ data }) => {
               >
                 {originalRank}
               </div>
+
               <div
                 style={{
                   height: "16px",
@@ -352,7 +364,20 @@ const FarmingPlant = ({ data }) => {
               }
             >
               <div style={{ display: "flex", alignItems: "center" }}>
-                <div
+
+
+                <img
+                  style={{
+                    height: "16px",
+                    width: "16px",
+                    zIndex: "-1",
+                    position: "relative",
+                  }}
+                  alt="yellow star in an red/orange filled circle, in game prestige icon"
+                  src={`/images/icons/prestige_star.png`}
+                />
+
+                {/* <div
                   style={{
                     height: "16px",
                     width: "16px",
@@ -365,7 +390,7 @@ const FarmingPlant = ({ data }) => {
                     alt="yellow star in an red/orange filled circle, in game prestige icon"
                     src={`/images/icons/prestige_star.png`}
                   />
-                </div>
+                </div> */}
 
                 <div
                   style={{
@@ -405,6 +430,18 @@ const FarmingPlant = ({ data }) => {
               }
             >
               <div style={{ display: "flex", alignItems: "center" }}>
+
+                <img
+                  style={{
+                    height: "16px",
+                    width: "16px",
+                    zIndex: "-1",
+                    position: "relative",
+                  }}
+                  alt="yellow star in an red/orange filled circle, in game prestige icon"
+                  src={`/images/icons/prestige_star.png`}
+                />
+                {/* 
                 <div
                   style={{
                     height: "16px",
@@ -418,7 +455,7 @@ const FarmingPlant = ({ data }) => {
                     src={`/images/icons/prestige_star.png`}
                     fill
                   />
-                </div>
+                </div> */}
 
                 <div
                   style={{

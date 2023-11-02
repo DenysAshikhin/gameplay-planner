@@ -1431,7 +1431,7 @@ const FarmingLanding = () => {
     let displayPicPerc = false;
 
     return (
-        <div style={{ height: '100%', display: 'flex', flex: 1, flexDirection: 'column', paddingLeft: '6px' }}>
+        <div style={{ height: '100%', display: 'flex', flex: 1, flexDirection: 'column', paddingLeft: '6px', maxWidth:'calc(100% - 10px)' }}>
             <div style={{
                 display: 'flex', flex: 1,
                 flexDirection: 'column',

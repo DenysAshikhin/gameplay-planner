@@ -55,6 +55,8 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    overflow-x: auto;
+    max-width: calc(100% - 10px);
 }
 
 .autoPicSuggestion {

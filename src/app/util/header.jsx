@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-const Header = ({}) => {
+const Header = ({ }) => {
   return (
     <div
       className="header"
@@ -13,13 +13,18 @@ const Header = ({}) => {
         margin: "0 0 0 0",
       }}
     >
-      <div style={{ height: "31px", width: "156px", position: "relative" }}>
+      <img
+        style={{ height: "31px", width: "156px", position: "relative" }}
+        alt='in game font spelling "Farmer"'
+        src={"/images/farmer2.png"}
+      />
+      {/* <div style={{ height: "31px", width: "156px", position: "relative" }}>
         <Image
           alt='in game font spelling "Farmer"'
           src={"/images/farmer2.png"}
           fill
         />
-      </div>
+      </div> */}
 
       <div
         className="dobra importantText"
@@ -29,13 +34,19 @@ const Header = ({}) => {
       >
         Against
       </div>
-      <div style={{ height: "31px", width: "192px", position: "relative" }}>
+      <img
+        style={{ height: "31px", width: "192px", position: "relative" }}
+        alt='in game font spelling "Potatoes"'
+        src={"/images/potatoes.png"}
+      />
+
+      {/* <div style={{ height: "31px", width: "192px", position: "relative" }}>
         <Image
           alt='in game font spelling "Potatoes"'
           src={"/images/potatoes.png"}
           fill
         />
-      </div>
+      </div> */}
       <div
         className="dobra importantText"
         style={{
