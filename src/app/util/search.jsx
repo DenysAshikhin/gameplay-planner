@@ -73,11 +73,14 @@ const SearchBox = ({ data, onSelect, placeholder, updateBox, margin }) => {
             <AutoComplete
                 // sx={{ height: '22px', padding: '1px' }}
                 options={data.list}
-                renderInput={(params) => (
-                    <TextField {...params} placeholder={value?.label && updateBox ? value.label : placeholder ? placeholder : "Enter a pet"}
+                renderInput={(params) => {
+                    let tempKey = params['key'];
+                    delete params['key'];
+                    return <TextField {...params} key={tempKey} placeholder={value?.label && updateBox ? value.label : placeholder ? placeholder : "Enter a pet"}
                     //  sx={{ height: '12px', padding: '0' }} 
                     />
-                )}
+
+                }}
                 ListboxProps={{ style: { maxHeight: 150 } }}
                 value={value}
                 clearOnBlur={true}

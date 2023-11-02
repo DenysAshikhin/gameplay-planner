@@ -235,7 +235,9 @@ export default function Expeditions() {
     }, [clientData, handleGroups, includeLocked, numTeams, setComboSelector, setData, setNumTeams]);
 
 
-
+    useEffect(() => {
+        setRefreshGroups(true)
+    }, [defaultRank, comboSelector, groupRankCritera, numTeams, tokenDamageBias, activeCustomBonuses,])
 
 
 
@@ -429,6 +431,12 @@ export default function Expeditions() {
             }
         })
         .filter((e) => !!e && !leftOverIgnore[e.id])
+
+    if (refreshGroups) {
+        setRefreshGroups(false);
+        handleGroups(data, selectedItems, true);
+    }
+
 
 
     return (
