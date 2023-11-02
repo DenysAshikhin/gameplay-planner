@@ -11,6 +11,23 @@
       "static/chunks/main-app.js",
       "static/css/app/expeditions/page.css",
       "static/chunks/app/expeditions/page.js"
+    ],
+    "/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/page.css",
+      "static/chunks/app/page.js"
+    ],
+    "/page_selection/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/page_selection/page.js"
+    ],
+    "/farming/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/farming/page.css",
+      "static/chunks/app/farming/page.js"
     ]
   }
 }
