@@ -14,6 +14,17 @@ const nextConfig = {
             ],
           },
           {
+            // This works, and returns appropriate Response headers:
+            source: '/(.*).svg',
+            headers: [
+              {
+                key: 'Cache-Control',
+                value:
+                  'public, max-age=240, s-maxage=240, stale-while-revalidate=240',
+              },
+            ],
+          },
+          {
             // This doesn't work for 'Cache-Control' key (works for others though):
             source: '/_next/image(.*)',
             headers: [
