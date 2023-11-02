@@ -28,6 +28,9 @@ const nextConfig = {
           },
         ]
       },
+      images: {
+        minimumCacheTTL: 360,
+      },
 }
 
 module.exports = nextConfig
