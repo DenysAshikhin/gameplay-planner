@@ -174,6 +174,7 @@ const FarmingPlant = ({ data }) => {
           src={img}
           fill
           unoptimized={true}
+          priority
         />
         <div />
 

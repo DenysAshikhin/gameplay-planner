@@ -2,7 +2,7 @@
 
 
 import Image from 'next/image';
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import useLocalStorage from "use-local-storage";
 import './JSONDisplay.css'; // Add this line to import the CSS file
 import { BonusMap, petNameArray, petNames, DefaultWeightMap } from '../util/itemMapping.js';
@@ -154,6 +154,7 @@ export default function Expeditions() {
     const handleGroups = useCallback((data, selectedItems, recalculate) => {
         console.log(`handle groups called`)
         const petData = data?.PetsCollection || [];
+        if (petData.length === 0) return null;
         const selectedItemsById = petData.reduce((accum, item) => {
             accum[parseInt(item.ID, 10)] = item;
             return accum;
@@ -439,6 +440,8 @@ export default function Expeditions() {
     }
 
 
+    console.log(petWhiteList);
+
 
     return (
         <div
@@ -687,7 +690,13 @@ export default function Expeditions() {
 
                                                             let pet_inner = temp.find((sample_pet) => sample_pet.id === petData.ID);
                                                             if (!pet_inner) {
-                                                                temp.push({ label: staticPetData.name, id: staticPetData.petId, placement: 'blacklist', parameters: { team: 0, damageBias: 17 }, pet: petData });
+                                                                temp.push({
+                                                                    label: staticPetData.name,
+                                                                    id: staticPetData.petId,
+                                                                    placement: 'blacklist',
+                                                                    parameters: { team: 0, damageBias: 17 },
+                                                                    pet: petData
+                                                                });
                                                             }
                                                             else {
                                                                 pet_inner.placement = 'blacklist';

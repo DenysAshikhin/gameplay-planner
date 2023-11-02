@@ -29,10 +29,18 @@ export default function Home() {
 
   const [userData, setUserData] = useLocalStorage('userData', DefaultSave);
   const router = useRouter();
+  // useEffect(() => {
+  //   let timeout = setTimeout(() => {
+
+  //     ReactGA.send({ hitType: "pageview", page: "/file_upload", title: "Landing Page (Upload)" });
+  //   }, 100);
+  //   return () => { clearTimeout(timeout) };
+  // }, []);
+
   useEffect(() => {
     let timeout = setTimeout(() => {
 
-      ReactGA.send({ hitType: "pageview", page: "/file_upload", title: "Landing Page (Upload)" });
+      ReactGA.send({ hitType: "pageview", page: "/file_upload_tester", title: "_tester_Landing Page (Upload)" });
     }, 100);
     return () => { clearTimeout(timeout) };
   }, []);
