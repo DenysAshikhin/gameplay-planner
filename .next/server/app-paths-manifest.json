@@ -2,8 +2,8 @@
   "/_not-found": "app/_not-found.js",
   "/expeditions/page": "app/expeditions/page.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/new/page": "app/new/page.js",
   "/page": "app/page.js",
-  "/page_selection/page": "app/page_selection/page.js",
-  "/farming/page": "app/farming/page.js"
+  "/farming/page": "app/farming/page.js",
+  "/new/page": "app/new/page.js",
+  "/page_selection/page": "app/page_selection/page.js"
 }
