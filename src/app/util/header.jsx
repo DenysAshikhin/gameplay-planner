@@ -1,5 +1,8 @@
 import Image from "next/image";
 
+import potatoesImg from '../../../public/images/icons/potatoes.png'
+import farmerImg from '../../../public/images/icons/farmer2.png'
+
 const Header = ({ }) => {
   return (
     <div
@@ -21,7 +24,7 @@ const Header = ({ }) => {
       <div style={{ height: "31px", width: "156px", position: "relative" }}>
         <Image
           alt='in game font spelling "Farmer"'
-          src={"/images/farmer2.png"}
+          src={farmerImg}
           fill
           unoptimized={true}
         />
@@ -44,7 +47,7 @@ const Header = ({ }) => {
       <div style={{ height: "31px", width: "192px", position: "relative" }}>
         <Image
           alt='in game font spelling "Potatoes"'
-          src={"/images/potatoes.png"}
+          src={potatoesImg}
           fill
           unoptimized={true}
         />

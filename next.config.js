@@ -21,6 +21,17 @@ async headers() {
         ],
       },
       {
+        // This works, and returns appropriate Response headers:
+        source: '/(.*).ico',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value:
+              'public, max-age=31536000',
+          },
+        ],
+      },
+      {
         // This doesn't work for 'Cache-Control' key (works for others though):
         source: '/_next/image(.*)',
         headers: [
