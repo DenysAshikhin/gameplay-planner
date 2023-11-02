@@ -13,18 +13,19 @@ const Header = ({ }) => {
         margin: "0 0 0 0",
       }}
     >
-      <img
+      {/* <img
         style={{ height: "31px", width: "156px", position: "relative" }}
         alt='in game font spelling "Farmer"'
         src={"/images/farmer2.png"}
-      />
-      {/* <div style={{ height: "31px", width: "156px", position: "relative" }}>
+      /> */}
+      <div style={{ height: "31px", width: "156px", position: "relative" }}>
         <Image
           alt='in game font spelling "Farmer"'
           src={"/images/farmer2.png"}
           fill
+          unoptimized={true}
         />
-      </div> */}
+      </div>
 
       <div
         className="dobra importantText"
@@ -34,19 +35,20 @@ const Header = ({ }) => {
       >
         Against
       </div>
-      <img
+      {/* <img
         style={{ height: "31px", width: "192px", position: "relative" }}
         alt='in game font spelling "Potatoes"'
         src={"/images/potatoes.png"}
-      />
+      /> */}
 
-      {/* <div style={{ height: "31px", width: "192px", position: "relative" }}>
+      <div style={{ height: "31px", width: "192px", position: "relative" }}>
         <Image
           alt='in game font spelling "Potatoes"'
           src={"/images/potatoes.png"}
           fill
+          unoptimized={true}
         />
-      </div> */}
+      </div>
       <div
         className="dobra importantText"
         style={{

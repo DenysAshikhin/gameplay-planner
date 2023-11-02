@@ -15,6 +15,9 @@ import Graph from './graph.jsx';
 import Timer from './Timer.jsx';
 import DefaultSave from '../util/tempSave.json';
 
+import PrestigeStar from '../../../public/images/icons/prestige_star.png'
+
+
 function generateCombinations(objects, people) {
     const result = [];
 
@@ -1431,7 +1434,7 @@ const FarmingLanding = () => {
     let displayPicPerc = false;
 
     return (
-        <div style={{ height: '100%', display: 'flex', flex: 1, flexDirection: 'column', paddingLeft: '6px', maxWidth:'calc(100% - 10px)' }}>
+        <div style={{ height: '100%', display: 'flex', flex: 1, flexDirection: 'column', paddingLeft: '6px', maxWidth: 'calc(100% - 10px)' }}>
             <div style={{
                 display: 'flex', flex: 1,
                 flexDirection: 'column',
@@ -2249,19 +2252,20 @@ const FarmingLanding = () => {
                                                                                     - bestPlantCombo.bestPot.result.plants[index].prestige
                                                                                 }
                                                                             </div>
-                                                                            <img
+                                                                            {/* <img
                                                                              style={{ height: '24px', width: '24px', marginTop: '-4px', position: 'relative' }}
                                                                              alt='prestige star, yellow star in a red/orange circle'
                                                                             
-                                                                             src={`/images/icons/prestige_star.png`}
-                                                                            />
-                                                                            {/* <div style={{ height: '24px', width: '24px', marginTop: '-4px', position: 'relative' }}>
+                                                                             src={PrestigeStar}
+                                                                            /> */}
+                                                                            <div style={{ height: '24px', width: '24px', marginTop: '-4px', position: 'relative' }}>
                                                                                 <Image
                                                                                     alt='prestige star, yellow star in a red/orange circle'
                                                                                     fill
-                                                                                    src={`/images/icons/prestige_star.png`}
+                                                                                    src={PrestigeStar}
+                                                                                    unoptimized={true}
                                                                                 />
-                                                                            </div> */}
+                                                                            </div>
                                                                         </div>
                                                                     )}
                                                                 </div>
@@ -2356,18 +2360,20 @@ const FarmingLanding = () => {
                                                                                     - bestPlantCombo.bestPic.result.plants[index].prestige
                                                                                 }
                                                                             </div>
-                                                                            <img 
+                                                                            {/* <img 
                                                                             alt='prestige star, yellow star in a red/orange circle'
-                                                                            src={`/images/icons/prestige_star.png`}
+                                                                            src={PrestigeStar}
                                                                             style={{ height: '24px', width: '24px', marginTop: '-4px', position: 'relative' }}
-                                                                            />
-                                                                            {/* <div style={{ height: '24px', width: '24px', marginTop: '-4px', position: 'relative' }}>
+                                                                            /> */}
+                                                                            <div style={{ height: '24px', width: '24px', marginTop: '-4px', position: 'relative' }}>
                                                                                 <Image
                                                                                     alt='prestige star, yellow star in a red/orange circle'
                                                                                     fill
-                                                                                    src={`/images/icons/prestige_star.png`}
+                                                                                    // src={PrestigeStar}
+                                                                                    src={PrestigeStar}
+                                                                                    unoptimized={true}
                                                                                 />
-                                                                            </div> */}
+                                                                            </div>
                                                                         </div>
 
                                                                     )}
@@ -2486,18 +2492,19 @@ const FarmingLanding = () => {
                                                                                     - bestPlantCombo.bestPot.result.plants[bestPlantCombo.bestPot.result.result.steps.length - index - 1].prestige
                                                                                 }
                                                                             </div>
-                                                                            <img 
+                                                                            {/* <img 
                                                                             alt='prestige star, yellow star in a red/orange circle'
-                                                                            src={`/images/icons/prestige_star.png`}
+                                                                            src={PrestigeStar}
                                                                             style={{ height: '24px', width: '24px', marginTop: '-4px', position: 'relative' }}
-                                                                            />
-                                                                            {/* <div style={{ height: '24px', width: '24px', marginTop: '-4px', position: 'relative' }}>
+                                                                            /> */}
+                                                                            <div style={{ height: '24px', width: '24px', marginTop: '-4px', position: 'relative' }}>
                                                                                 <Image
                                                                                     alt='prestige star, yellow star in a red/orange circle'
                                                                                     fill
-                                                                                    src={`/images/icons/prestige_star.png`}
+                                                                                    src={PrestigeStar}
+                                                                                    unoptimized={true}
                                                                                 />
-                                                                            </div> */}
+                                                                            </div>
                                                                         </div>
                                                                     )}
                                                                 </div>
@@ -2590,18 +2597,18 @@ const FarmingLanding = () => {
                                                                                         - bestPlantCombo.bestPic.result.plants[bestPlantCombo.bestPic.result.plants.length - 1 - index].prestige
                                                                                     }
                                                                                 </div>
-                                                                                <img 
+                                                                                {/* <img 
                                                                             alt='prestige star, yellow star in a red/orange circle'
-                                                                            src={`/images/icons/prestige_star.png`}
+                                                                            src={PrestigeStar}
                                                                             style={{ height: '24px', width: '24px', marginTop: '-4px', position: 'relative' }}
-                                                                            />
-                                                                            {/* <div style={{ height: '24px', width: '24px', marginTop: '-4px', position: 'relative' }}>
-                                                                                <Image
-                                                                                    alt='prestige star, yellow star in a red/orange circle'
-                                                                                    fill
-                                                                                    src={`/images/icons/prestige_star.png`}
-                                                                                />
-                                                                            </div> */}
+                                                                            /> */}
+                                                                                <div style={{ height: '24px', width: '24px', marginTop: '-4px', position: 'relative' }}>
+                                                                                    <Image
+                                                                                        alt='prestige star, yellow star in a red/orange circle'
+                                                                                        fill
+                                                                                        src={PrestigeStar}
+                                                                                    />
+                                                                                </div>
                                                                             </div>
                                                                         )}
                                                                     </div>
