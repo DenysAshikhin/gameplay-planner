@@ -1223,7 +1223,7 @@ export default function Cards() {
 
     let finalPercIncrease = topPercIncrease.slice(0, 5).map((value, index, arr) => {
         return (
-            <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
+            <div key={index} style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
                 <div style={{ fontSize: '36px', margin: '0 6px 0 0', }}>
                     {index + 1}
                 </div>
@@ -1239,7 +1239,7 @@ export default function Cards() {
     });
     let finalFlatIncrease = flatIncrease.slice(0, 5).map((value, index, arr) => {
         return (
-            <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
+            <div style={{ display: 'flex', alignItems: 'center', width: '100%' }} key={index}>
                 <div style={{ fontSize: '36px', margin: '0 6px 0 0', }}>
                     {index + 1}
                 </div>
@@ -1254,7 +1254,7 @@ export default function Cards() {
     });
     let finalWeightIncrease = weightIncrease.slice(0, 5).map((value, index, arr) => {
         return (
-            <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
+            <div style={{ display: 'flex', alignItems: 'center', width: '100%' }} key={index}>
                 <div style={{ fontSize: '36px', margin: '0 6px 0 0', }}>
                     {index + 1}
                 </div>
