@@ -1194,6 +1194,7 @@ export default function Cards() {
     const [weightMap, setWeightMap] = useState(DefaultWeightMap);
     const [cardMap, setCardMap] = useState({})
     const [resetCardWeights, setResetCardWeights] = useState(-1);
+    const [forceRefresh, setForceRefresh] = useState(false);
 
 
     const { CardsCollection } = data;
@@ -1213,6 +1214,7 @@ export default function Cards() {
     }
 
     let baseCardArr = [];
+    console.log(cardMap[20]);
     Object.values(cardMap).forEach((inner_card) => {
         baseCardArr.push(inner_card);
     })
@@ -1476,6 +1478,9 @@ export default function Cards() {
                             <button
                                 onClick={() => {
                                     setResetCardWeights(Math.random() * 1000 + 20);
+                                    setTimeout(() => {
+                                        setForceRefresh(!forceRefresh);
+                                    }, 200);
                                 }}
                             >Reset Weights</button>
                         </div>

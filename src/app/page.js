@@ -24,7 +24,13 @@ import ReactGA from "react-ga4";
 //   setCustomPresetsClient(customPresets)
 // }, [customPresets])
 
-
+ReactGA.initialize([{
+  trackingId: "G-GGLPK02VH8",
+  // gaOptions: {...}, // optional
+  gtagOptions: {
+    send_page_view: false
+  },
+}]);
 
 export default function Home() {
 
@@ -40,13 +46,7 @@ export default function Home() {
 
   useEffect(() => {
 
-    // ReactGA.initialize([{
-    //   trackingId: "G-GGLPK02VH8",
-    //   // gaOptions: {...}, // optional
-    //   gtagOptions: {
-    //     send_page_view: false
-    //   },
-    // }]);
+
 
     let timeout = setTimeout(() => {
 
