@@ -240,7 +240,7 @@ const FarmingLanding = () => {
     }
 
     const modifiers = useMemo(() => {
-        console.log(`setin modif`);
+        // console.log(`setin modif`);
         let tempy =
         {
             time: 0,
@@ -294,7 +294,7 @@ const FarmingLanding = () => {
     )
 
     const finalPlants = useMemo(() => {
-        console.log(`generating inter plants`);
+        // console.log(`generating inter plants`);
         let tempArr = [];
         //
         for (let i = 0; i < plants.length; i++) {
@@ -334,7 +334,7 @@ const FarmingLanding = () => {
     const [expDiffFry, setExpDiffFry] = useState(0);
 
     let tempFuture = useMemo(() => {
-        console.log(`calcing`);
+        // console.log(`calcing`);
 
         if (false) {
             let final_steps = [];
@@ -401,17 +401,17 @@ const FarmingLanding = () => {
             cur.originalFry = mathHelper.createDecimal(cur.fries.toString());
         }
 
-        console.log(`future plants:`);
-        console.log(result);
+        // console.log(`future plants:`);
+        // console.log(result);
         let finalFry = farmingHelper.calcFryOutput(result.totalPotatoes, result.finalModifiers);
-        console.log(`rough fry final (pre time bonus): ${finalFry.toExponential(3)}`)
+        // console.log(`rough fry final (pre time bonus): ${finalFry.toExponential(3)}`)
         return result;
     },
         [numSimulatedAutos, finalPlants, modifiers, futureTime, plantAutosClient, secondsHour]);
 
     //Go through all datapoints, find highest exp, and reduce it for all equally if necessary so JS doesn't break
     const graphObjects = useMemo(() => {
-        console.log(`updating EXPDIFF`);
+        // console.log(`updating EXPDIFF`);
 
         const maxExp = 300;
         let currMaxExp = 0;
@@ -550,7 +550,7 @@ const FarmingLanding = () => {
     }, [tempFuture, expDiff, expDiffFry, bestPlantCombo])
 
     const runningGraphObjects = useMemo(() => {
-        console.log(`updating running EXPDIFF`);
+        // console.log(`updating running EXPDIFF`);
 
         const maxExp = 300;
         let currMaxExp = 0;

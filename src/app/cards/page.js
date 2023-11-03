@@ -915,7 +915,7 @@ const CardCard = ({ vertical, displayMode, data, card, weightMap, i, applyWeight
             console.log(`reseting card weigh?`)
             setCardWeight(-1);
         }
-    }, [resetWeights]);
+    }, [resetWeights, setCardWeight]);
 
     let defaultWeight = cardIDMap[ID].weights[data.AscensionCount];
     if (data.AscensionCount >= 15) {

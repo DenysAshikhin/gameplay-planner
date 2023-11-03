@@ -11,7 +11,7 @@ const Timer = () => {
   const [loopAlarmClient, setLoopAlarmClient] = useState(false);
   useEffect(() => {
     setLoopAlarmClient(loopAlarmClient);
-  }, [loopAlarm]);
+  }, [loopAlarm, loopAlarmClient]);
 
   const [innerDays, setInnerDays] = useState(0);
   const [innerHours, setInnerHours] = useState(0);
@@ -36,7 +36,7 @@ const Timer = () => {
       autoplay: false,
     });
     // setTimeout(() => { loop(loopAlarmClient) }, 1000)
-  }, []);
+  }, [load]);
 
   const {
     totalSeconds,
