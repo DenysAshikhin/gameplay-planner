@@ -56,7 +56,7 @@ const comboBonuses = {
 };
 
 function PetComboDisplay({ petCombos, unlockedPets, petMap }) {
-    const comboBonusLabel = comboBonuses[petCombos[0]?.BonusID] || "";
+    const comboBonusLabel = BonusMap[petCombos[0].BonusID].label;
     const numCombos = petCombos.length;
     let numPossibleCombos = 0;
     let possibleCombosMap = {};

@@ -2,11 +2,13 @@
 import './globals.css'
 import Header from './util/header.jsx';
 import NavBar from './util/navBar.jsx';
-import Head from 'next/head';
+
+
+import { Metadata } from 'next'
 
 export const metadata = {
   title: 'Gameplay Planner',
-  description: 'Same description here',
+  description: "Farmer Against Potatoes Idle FAPI gameplay planner / wiki / tool / guide, helps you plan out and decide on the best team expeditions, team combos, farm and plant optimisations, card charges, protein assembly and more!",
 }
 
 
@@ -38,9 +40,9 @@ export default function RootLayout({ children }) {
             position: 'relative',
             overflow: 'hidden'
           }}>
-          <Head>
+          {/* <Head>
             <link rel="shortcut icon" href="/favicon.ico" />
-          </Head>
+          </Head> */}
           {/* <Script src="https://www.googletagmanager.com/gtag/js?id=G-GGLPK02VH8" />
           <Script id="google-analytics">
             {`

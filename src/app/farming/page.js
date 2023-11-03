@@ -20,9 +20,9 @@ ReactGA.initialize([{
     trackingId: "G-GGLPK02VH8",
     // gaOptions: {...}, // optional
     gtagOptions: {
-      send_page_view: false
+        send_page_view: false
     },
-  }]);
+}]);
 
 function generateCombinations(objects, people) {
     const result = [];
@@ -157,7 +157,7 @@ const FarmingLanding = () => {
     const [timeCompleted, setTimeCompleted] = useState(null);
 
     useEffect(() => {
-      
+
         let timeout = setTimeout(() => {
 
             ReactGA.send({ hitType: "pageview", page: "/farming_", title: "_Farming Calculator Page" });
@@ -1585,7 +1585,8 @@ const FarmingLanding = () => {
 
                                         <input
                                             style={{
-                                                width: '48px'
+                                                width: '48px',
+                                                marginLeft: '6px'
                                                 // , WebkitAppearance: 'none' 
                                             }}
                                             type='number'
@@ -1658,7 +1659,7 @@ const FarmingLanding = () => {
                                     <div style={{ display: 'flex' }}>
                                         <div style={{ width: '160px' }}>Show Fries On Graph</div>
                                         <input type="checkbox" checked={showFries}
-                                        for="enable display of fries on the graph"
+                                            id="enable display of fries on the graph"
                                             onChange={(e) => {
                                                 setShowFries(e.target.checked ? 1 : 0);
                                                 ReactGA.event({
@@ -1672,7 +1673,7 @@ const FarmingLanding = () => {
                                     <div style={{ display: 'flex', marginBottom: '' }}>
                                         <div style={{ width: '160px' }}>Show HP On Graph</div>
                                         <input type="checkbox" checked={showHP}
-                                        for="enable display of HP on the graph"
+                                            id="enable display of HP on the graph"
                                             onChange={(e) => {
                                                 setShowHP(e.target.checked ? 1 : 0);
                                                 ReactGA.event({
@@ -1942,18 +1943,18 @@ const FarmingLanding = () => {
                                         }
                                         value={numThreads + ''}
                                     >
-                                        <option for="1 thread calculation" value="1">1</option>
-                                        <option for="2 thread calculations" value="2">2</option>
-                                        <option for="3 thread calculations" value="3">3</option>
-                                        <option for="4 thread calculations" value="4">4</option>
-                                        <option for="5 thread calculations" value="5">5</option>
-                                        <option for="6 thread calculations" value="6">6</option>
-                                        <option for="7 thread calculations" value="7">7</option>
-                                        <option for="8 thread calculations" value="8">8</option>
-                                        <option for="9 thread calculations" value="9">9</option>
-                                        <option for="10 thread calculations" value="10">10</option>
-                                        <option for="11 thread calculations" value="11">11</option>
-                                        <option for="12 thread calculations" value="12">12</option>
+                                        <option id="1 thread calculation" value="1">1</option>
+                                        <option id="2 thread calculations" value="2">2</option>
+                                        <option id="3 thread calculations" value="3">3</option>
+                                        <option id="4 thread calculations" value="4">4</option>
+                                        <option id="5 thread calculations" value="5">5</option>
+                                        <option id="6 thread calculations" value="6">6</option>
+                                        <option id="7 thread calculations" value="7">7</option>
+                                        <option id="8 thread calculations" value="8">8</option>
+                                        <option id="9 thread calculations" value="9">9</option>
+                                        <option id="10 thread calculations" value="10">10</option>
+                                        <option id="11 thread calculations" value="11">11</option>
+                                        <option id="12 thread calculations" value="12">12</option>
                                     </select>
                                 </div>
                                 <div style={{ display: 'flex' }}>
@@ -1979,7 +1980,7 @@ const FarmingLanding = () => {
                                                 label: `${e.target.checked}`,
                                             })
                                         }}
-                                        for="enable auto purchase of page 1 upgrades"
+                                        id="enable auto purchase of page 1 upgrades"
                                         checked={!!autoBuyPBC}
                                         value={!!autoBuyPBC}
                                     />
@@ -2000,7 +2001,7 @@ const FarmingLanding = () => {
 
                                     <input
                                         type="checkbox"
-                                        for="enable forcing of minimum number of autos per plant"
+                                        id="enable forcing of minimum number of autos per plant"
                                         onChange={(e) => {
                                             setLockCustomAuto(e.target.checked ? 1 : 0);
                                             ReactGA.event({
@@ -2028,8 +2029,8 @@ const FarmingLanding = () => {
 
 
                                     <input
-                                    
-                                    for="enable plant potion considered on entire run"
+
+                                        id="enable plant potion considered on entire run"
                                         type="checkbox"
                                         onChange={(e) => {
                                             setForceRankPotion(e.target.checked ? 1 : 0);
@@ -2382,7 +2383,6 @@ const FarmingLanding = () => {
                                                                                 <Image
                                                                                     alt='prestige star, yellow star in a red/orange circle'
                                                                                     fill
-                                                                                    // src={PrestigeStar}
                                                                                     src={PrestigeStar}
                                                                                     unoptimized={true}
                                                                                 />
@@ -2620,6 +2620,7 @@ const FarmingLanding = () => {
                                                                                         alt='prestige star, yellow star in a red/orange circle'
                                                                                         fill
                                                                                         src={PrestigeStar}
+                                                                                        unoptimized={unoptimized}
                                                                                     />
                                                                                 </div>
                                                                             </div>

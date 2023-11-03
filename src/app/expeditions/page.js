@@ -829,7 +829,7 @@ export default function Expeditions() {
                             >Filter</div>
                             <select
                                 style={{ maxWidth: '144px' }}
-                                disabled={refreshGroups}
+                                // disabled={refreshGroups}
                                 onChange={async (e) => {
 
 
@@ -881,7 +881,7 @@ export default function Expeditions() {
 
                             <div>{`Ignore Pets Rank`}</div>
                             <input
-                                disabled={refreshGroups}
+                                // disabled={refreshGroups}
                                 type="checkbox"
                                 onChange={(e) => {
                                     setDefaultRank(e.target.checked ? 1 : 0)
@@ -916,7 +916,7 @@ export default function Expeditions() {
 
                             <select
                                 style={{ maxWidth: '144px' }}
-                                disabled={refreshGroups}
+                                // disabled={refreshGroups}
                                 onChange={
                                     (e) => {
                                         setComboSelector(Number(e.target.value))
@@ -1033,7 +1033,9 @@ export default function Expeditions() {
                         <div style={{ display: 'flex', marginTop: '12px' }}>
 
                             <div>{`Show all bonus totals`}</div>
-                            <input disabled={refreshGroups} type="checkbox" onChange={(e) => {
+                            <input 
+                            // disabled={refreshGroups}
+                             type="checkbox" onChange={(e) => {
                                 setShowAllBonusTally(e.target.checked ? true : false)
                             }} />
                         </div>
