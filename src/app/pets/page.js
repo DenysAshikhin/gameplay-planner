@@ -1470,7 +1470,7 @@ export default function Pets() {
                                             To share your preset, press `Copy Current Preset...` the value is automatically copied to your clipboard
                                         </div>
                                         <div style={{ margin: '6px 6px 6px 0' }}>
-                                            To import someone elses preset, copy their shared value into the empty text box and press 'Import Preset'
+                                            {`To import someone elses preset, copy their shared value into the empty text box and press 'Import Preset'`}
                                         </div>
                                     </div>
                                 </div>
