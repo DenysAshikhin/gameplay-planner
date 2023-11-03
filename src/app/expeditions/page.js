@@ -168,9 +168,8 @@ export default function Expeditions() {
             return accum;
         }, {})
 
-        console.log(selectedItems);
-        const localPets = selectedItems.filter((e) => e < 9999).map(petId => selectedItemsById[petId])
-        console.log(localPets);
+        
+        const localPets = selectedItems.filter((e) => e < 9999).map(petId => selectedItemsById[petId]);
         const keyString = selectedItems.sort().join(',');
         let groups = groupCache[keyString];
         if (groups && !recalculate) {
@@ -267,6 +266,13 @@ export default function Expeditions() {
 
 
     useEffect(() => {
+        ReactGA.initialize([{
+            trackingId: "G-GGLPK02VH8",
+            // gaOptions: {...}, // optional
+            gtagOptions: {
+              send_page_view: false
+            },
+          }]);
         let timeout = setTimeout(() => {
 
             ReactGA.send({ hitType: "pageview", page: "/expeditions", title: "Expedition Calculator Page" });

@@ -151,6 +151,13 @@ const FarmingLanding = () => {
     const [timeCompleted, setTimeCompleted] = useState(null);
 
     useEffect(() => {
+        ReactGA.initialize([{
+            trackingId: "G-GGLPK02VH8",
+            // gaOptions: {...}, // optional
+            gtagOptions: {
+              send_page_view: false
+            },
+          }]);
         let timeout = setTimeout(() => {
 
             ReactGA.send({ hitType: "pageview", page: "/farming", title: "Farming Calculator Page" });

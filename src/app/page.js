@@ -13,7 +13,7 @@ import pako from 'pako';
 import MouseOverPopover from "./util/Tooltip.jsx";
 // import infoIcon from '/images/icons/info_lightgray.svg';
 import backgroundImage from '../../public/images/coming_soon.png'
-  //  /public/images/coming_soon.png';
+//  /public/images/coming_soon.png';
 
 import ReactGA from "react-ga4";
 
@@ -23,6 +23,7 @@ import ReactGA from "react-ga4";
 // useEffect(() => {
 //   setCustomPresetsClient(customPresets)
 // }, [customPresets])
+
 
 
 export default function Home() {
@@ -38,10 +39,19 @@ export default function Home() {
   // }, []);
 
   useEffect(() => {
+
+    ReactGA.initialize([{
+      trackingId: "G-GGLPK02VH8",
+      // gaOptions: {...}, // optional
+      gtagOptions: {
+        send_page_view: false
+      },
+    }]);
+
     let timeout = setTimeout(() => {
 
       ReactGA.send({ hitType: "pageview", page: "/file_upload_tester", title: "_tester_Landing Page (Upload)" });
-    }, 100);
+    }, 200);
     return () => { clearTimeout(timeout) };
   }, []);
 

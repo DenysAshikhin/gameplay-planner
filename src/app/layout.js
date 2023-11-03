@@ -10,6 +10,17 @@ export const metadata = {
 }
 
 
+// <!-- Google tag (gtag.js) -->
+// <script async src="https://www.googletagmanager.com/gtag/js?id=G-GGLPK02VH8"></script>
+// <script>
+//   window.dataLayer = window.dataLayer || [];
+//   function gtag(){dataLayer.push(arguments);}
+//   gtag('js', new Date());
+
+//   gtag('config', 'G-GGLPK02VH8');
+// </script>
+
+import Script from 'next/script'
 
 export default function RootLayout({ children }) {
   return (
@@ -27,7 +38,16 @@ export default function RootLayout({ children }) {
             position: 'relative',
             overflow: 'hidden'
           }}>
-
+          {/* <Script src="https://www.googletagmanager.com/gtag/js?id=G-GGLPK02VH8" />
+          <Script id="google-analytics">
+            {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+ 
+          gtag('config', 'G-GGLPK02VH8');
+        `}
+          </Script> */}
 
           {/* Header */}
           <div

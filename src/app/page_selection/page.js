@@ -8,6 +8,13 @@ import PageCard from './page_card.jsx';
 export default function PageSelection() {
 
     useEffect(() => {
+        ReactGA.initialize([{
+            trackingId: "G-GGLPK02VH8",
+            // gaOptions: {...}, // optional
+            gtagOptions: {
+              send_page_view: false
+            },
+          }]);
         let timeout = setTimeout(() => {
 
             ReactGA.send({ hitType: "pageview", page: "/page_selection", title: "Page Selection" });
