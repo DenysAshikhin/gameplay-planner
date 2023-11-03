@@ -28,7 +28,7 @@ const AssemblyItem = ({ e, currentWeights, setCurrentWeights }) => {
         <>
             <div style={{ width: '352px', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
 
-                <div style={{ height: '95%', width: '90%', position: 'absolute' }}>
+                <div style={{ height: '95%', width: '95%', position: 'absolute' }}>
                     <Image
                         alt={`in game ${e.label} bonus icon`}
                         src={e.img}
