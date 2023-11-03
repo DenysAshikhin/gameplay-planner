@@ -2620,7 +2620,7 @@ const FarmingLanding = () => {
                                                                                         alt='prestige star, yellow star in a red/orange circle'
                                                                                         fill
                                                                                         src={PrestigeStar}
-                                                                                        unoptimized={unoptimized}
+                                                                                        unoptimized={true}
                                                                                     />
                                                                                 </div>
                                                                             </div>
