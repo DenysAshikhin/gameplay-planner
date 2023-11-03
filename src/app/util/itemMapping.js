@@ -615,7 +615,7 @@ export const BonusMap = {
     5003: { id: 5003, label: "Potatoes Spawn Speed +3", rootName: 'Potatoes Spawn Speed', odd: true },
     5004: { id: 5004, label: "Minimum Rarity +1", rootName: 'Minimum Rarity', odd: true },
     5005: { id: 5005, label: "Base Residue +1", rootName: 'Base Residue', odd: true },
-    5006: { id: 5006, label: "Drop Bonuses Cap", rootName: 'Drop Bonuses Cap', odd: true },
+    5006: { id: 5006, label: "Drop Bonus Cap & Chance +5%", rootName: 'Drop Bonuses Cap', odd: true },
     5007: { id: 5007, label: "Expedition Reward +10%", rootName: 'Expedition Reward' },
     5008: { id: 5008, label: "Pet Damage +10%", rootName: 'Pet Damage' },
     5009: { id: 5009, label: "Breeding Timer +10%", rootName: 'Breeding Timer' },
