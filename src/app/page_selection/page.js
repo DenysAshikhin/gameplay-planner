@@ -5,19 +5,21 @@ import ReactGA from "react-ga4";
 import PageCard from './page_card.jsx';
 
 
+ReactGA.initialize([{
+    trackingId: "G-GGLPK02VH8",
+    // gaOptions: {...}, // optional
+    gtagOptions: {
+      send_page_view: false
+    },
+  }]);
+
 export default function PageSelection() {
 
     useEffect(() => {
-        ReactGA.initialize([{
-            trackingId: "G-GGLPK02VH8",
-            // gaOptions: {...}, // optional
-            gtagOptions: {
-              send_page_view: false
-            },
-          }]);
+
         let timeout = setTimeout(() => {
 
-            ReactGA.send({ hitType: "pageview", page: "/page_selection", title: "Page Selection" });
+            ReactGA.send({ hitType: "pageview", page: "/page_selection_", title: "_Page Selection" });
         }, 5000);
         return () => { clearTimeout(timeout) };
 

@@ -25,6 +25,14 @@ import SearchBox from '../util/search.jsx';
 import petHelper from '../util/petHelper.js';
 import DefaultSave from '../util/tempSave.json';
 
+ReactGA.initialize([{
+    trackingId: "G-GGLPK02VH8",
+    // gaOptions: {...}, // optional
+    gtagOptions: {
+        send_page_view: false
+    },
+}]);
+
 let groupCache = {};
 function setGroupCache(newCache) {
     groupCache = newCache;
@@ -168,7 +176,7 @@ export default function Expeditions() {
             return accum;
         }, {})
 
-        
+
         const localPets = selectedItems.filter((e) => e < 9999).map(petId => selectedItemsById[petId]);
         const keyString = selectedItems.sort().join(',');
         let groups = groupCache[keyString];
@@ -266,16 +274,10 @@ export default function Expeditions() {
 
 
     useEffect(() => {
-        ReactGA.initialize([{
-            trackingId: "G-GGLPK02VH8",
-            // gaOptions: {...}, // optional
-            gtagOptions: {
-              send_page_view: false
-            },
-          }]);
+
         let timeout = setTimeout(() => {
 
-            ReactGA.send({ hitType: "pageview", page: "/expeditions", title: "Expedition Calculator Page" });
+            ReactGA.send({ hitType: "pageview", page: "/expeditions_", title: "_Expedition Calculator Page" });
         }, 5000);
         return () => { clearTimeout(timeout) };
     }, [])
