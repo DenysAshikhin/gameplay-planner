@@ -34,6 +34,7 @@ const AssemblyItem = ({ e, currentWeights, setCurrentWeights }) => {
                         src={e.img}
                         fill
                         unoptimized
+                        priority
                     />
                 </div>
 

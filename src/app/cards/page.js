@@ -1077,6 +1077,7 @@ const CardCard = ({ vertical, displayMode, data, card, weightMap, i, applyWeight
                             fill
                             src={cardMapImg[ID].img}
                             unoptimized={true}
+                            priority
                         />
                     </div>
                     <div

@@ -40,6 +40,7 @@ const AssemblyInnerBonus = ({ line, al_level, key }) => {
                 style={{ height: 'auto', width: '95%' }}
                 // fill
                 unoptimized
+                priority
             />
             {/* </div> */}
 
