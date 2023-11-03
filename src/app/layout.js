@@ -2,7 +2,7 @@
 import './globals.css'
 import Header from './util/header.jsx';
 import NavBar from './util/navBar.jsx';
-
+import Head from 'next/head';
 
 export const metadata = {
   title: 'Gameplay Planner',
@@ -38,6 +38,9 @@ export default function RootLayout({ children }) {
             position: 'relative',
             overflow: 'hidden'
           }}>
+          <Head>
+            <link rel="shortcut icon" href="/favicon.ico" />
+          </Head>
           {/* <Script src="https://www.googletagmanager.com/gtag/js?id=G-GGLPK02VH8" />
           <Script id="google-analytics">
             {`
