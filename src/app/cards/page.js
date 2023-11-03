@@ -21,7 +21,13 @@ import useLocalStorage from "use-local-storage";
 import DefaultSave from '../util/tempSave.json';
 
 import Image from 'next/image';
-
+ReactGA.initialize([{
+    trackingId: "G-GGLPK02VH8",
+    // gaOptions: {...}, // optional
+    gtagOptions: {
+        send_page_view: false
+    },
+}]);
 
 const PREFIX = 'card';
 
@@ -895,6 +901,7 @@ const CARD_DISPLAY_IDS = [
 ];
 
 const CardCard = ({ vertical, displayMode, data, card, weightMap, i, applyWeights, cardMap, setCardMap, resetWeights }) => {
+
     const {
         CurrentExp,
         ExpNeeded,
@@ -912,10 +919,10 @@ const CardCard = ({ vertical, displayMode, data, card, weightMap, i, applyWeight
 
     useEffect(() => {
         if (resetWeights > 10) {
-            console.log(`reseting card weigh?`)
             setCardWeight(-1);
         }
     }, [resetWeights, setCardWeight]);
+
 
     let defaultWeight = cardIDMap[ID].weights[data.AscensionCount];
     if (data.AscensionCount >= 15) {
@@ -956,29 +963,30 @@ const CardCard = ({ vertical, displayMode, data, card, weightMap, i, applyWeight
     let flatIncrease = mathHelper.subtractDecimal(finalAfter, finalBefore);
     let weightIncrease = mathHelper.multiplyDecimal(mathHelper.divideDecimal(mathHelper.subtractDecimal(finalAfter, finalBefore), finalBefore), finalWeight)
 
-
-    if (!(ID in cardMap)) {
-        setCardMap((e) => {
-            let tempy = { ...e };
-            tempy[ID] = {
-                ID: ID, finalAfter: finalAfter,
-                percIncrease: percIncrease,
-                flatIncrease: flatIncrease,
-                weightIncrease: weightIncrease
-            };
-            return tempy;
-        })
-    }
-    else if (!cardMap[ID]?.finalAfter.equals(finalAfter)) {
-        setCardMap((e) => {
-            let tempy = { ...e };
-            tempy[ID] = {
-                ID: ID, finalAfter: finalAfter, percIncrease: percIncrease,
-                flatIncrease: flatIncrease,
-                weightIncrease: weightIncrease
-            };
-            return tempy;
-        })
+    if (resetWeights !== -3) {
+        if (!(ID in cardMap)) {
+            setCardMap((e) => {
+                let tempy = { ...e };
+                tempy[ID] = {
+                    ID: ID, finalAfter: finalAfter,
+                    percIncrease: percIncrease,
+                    flatIncrease: flatIncrease,
+                    weightIncrease: weightIncrease
+                };
+                return tempy;
+            })
+        }
+        else if (!cardMap[ID]?.finalAfter.equals(finalAfter) || !cardMap[ID]?.weightIncrease.equals(weightIncrease)) {
+            setCardMap((e) => {
+                let tempy = { ...e };
+                tempy[ID] = {
+                    ID: ID, finalAfter: finalAfter, percIncrease: percIncrease,
+                    flatIncrease: flatIncrease,
+                    weightIncrease: weightIncrease
+                };
+                return tempy;
+            })
+        }
     }
 
     let displayTotalsRatio = 0;
@@ -1169,13 +1177,7 @@ const CardCard = ({ vertical, displayMode, data, card, weightMap, i, applyWeight
 export default function Cards() {
 
     useEffect(() => {
-        ReactGA.initialize([{
-            trackingId: "G-GGLPK02VH8",
-            // gaOptions: {...}, // optional
-            gtagOptions: {
-                send_page_view: false
-            },
-        }]);
+
         let timeout = setTimeout(() => {
 
             ReactGA.send({ hitType: "pageview", page: "/cards", title: "Card Calculator Page" });
@@ -1196,8 +1198,13 @@ export default function Cards() {
     const [resetCardWeights, setResetCardWeights] = useState(-1);
     const [forceRefresh, setForceRefresh] = useState(false);
 
-
     const { CardsCollection } = data;
+
+    useEffect(() => {
+        if (resetCardWeights > 10) {
+            setResetCardWeights(-2);
+        }
+    }, [resetCardWeights]);
 
     // const foundCards = CardsCollection.filter(card => card.Found === 1);
     const cardsById = CardsCollection.reduce((accum, card) => {
@@ -1214,7 +1221,6 @@ export default function Cards() {
     }
 
     let baseCardArr = [];
-    console.log(cardMap[20]);
     Object.values(cardMap).forEach((inner_card) => {
         baseCardArr.push(inner_card);
     })
@@ -1229,7 +1235,7 @@ export default function Cards() {
                 <div style={{ fontSize: '36px', margin: '0 6px 0 0', }}>
                     {index + 1}
                 </div>
-                <CardCard displayMode='perc' vertical={true} cardMap={cardMap} setCardMap={setCardMap} data={data} i={index} card={cardsById[value.ID]} weightMap={weightMap} classes={classes} key={`${index}-perc`}></CardCard>
+                <CardCard resetWeights={-3} displayMode='perc' vertical={true} cardMap={cardMap} setCardMap={setCardMap} data={data} i={index} card={cardsById[value.ID]} weightMap={weightMap} classes={classes} key={`${index}-perc`}></CardCard>
             </div>
         )
     }, []);
@@ -1245,7 +1251,7 @@ export default function Cards() {
                 <div style={{ fontSize: '36px', margin: '0 6px 0 0', }}>
                     {index + 1}
                 </div>
-                <CardCard displayMode='flat' vertical={true} cardMap={cardMap} setCardMap={setCardMap} data={data} i={index} card={cardsById[value.ID]} weightMap={weightMap} classes={classes} key={`${index}-perc`}></CardCard>
+                <CardCard resetWeights={-3} displayMode='flat' vertical={true} cardMap={cardMap} setCardMap={setCardMap} data={data} i={index} card={cardsById[value.ID]} weightMap={weightMap} classes={classes} key={`${index}-perc`}></CardCard>
             </div>
         )
     }, []);
@@ -1260,7 +1266,7 @@ export default function Cards() {
                 <div style={{ fontSize: '36px', margin: '0 6px 0 0', }}>
                     {index + 1}
                 </div>
-                <CardCard displayMode='weight' vertical={true} cardMap={cardMap} setCardMap={setCardMap} data={data} i={index} card={cardsById[value.ID]} weightMap={weightMap} classes={classes} key={`${index}-perc`}></CardCard>
+                <CardCard resetWeights={-3} displayMode='weight' vertical={true} cardMap={cardMap} setCardMap={setCardMap} data={data} i={index} card={cardsById[value.ID]} weightMap={weightMap} classes={classes} key={`${index}-perc`}></CardCard>
             </div>
         )
     }, []);
@@ -1477,10 +1483,9 @@ export default function Cards() {
                         <div>
                             <button
                                 onClick={() => {
-                                    setResetCardWeights(Math.random() * 1000 + 20);
-                                    setTimeout(() => {
-                                        setForceRefresh(!forceRefresh);
-                                    }, 200);
+                                    let num = Math.random() * 1000 + 20;
+                                    setResetCardWeights(num);
+
                                 }}
                             >Reset Weights</button>
                         </div>
