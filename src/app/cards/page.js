@@ -1071,7 +1071,7 @@ const CardCard = ({ vertical, displayMode, data, card, weightMap, i, applyWeight
                         {cardIDMap[ID].label}
                     </div>
                     {/* <img alt={`picture of the in game ${cardIDMap[ID].label} card`} style={{ height: '75px' }} src={`/fapi_fork_personal/cards/card${ID}.png`} /> */}
-                    <div style={{ height: '75px', width: '100%', position: 'relative' }}>
+                    <div style={{ height: '75px', width: '95%', margin:'0 auto', position: 'relative' }}>
                         <Image
                             alt={`picture of the in game ${cardIDMap[ID].label} card`}
                             fill
