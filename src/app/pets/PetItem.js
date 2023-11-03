@@ -175,6 +175,7 @@ const PetItem = ({ petData, isSelected, onClick, data, weightMap, petScoreFn, de
                             }}>
                             {numHighlights.map((item, index) => {
                                 return (<div
+                                key={index}
                                     style={{
                                         background: helper.bonusColorMap[item].color,
                                         position: 'absolute',
