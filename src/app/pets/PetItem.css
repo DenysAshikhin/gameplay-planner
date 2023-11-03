@@ -1,0 +1,78 @@
+.item-tile {
+    margin: auto;
+}
+
+
+.item-tile-ground {
+    margin: auto auto auto auto;
+}
+
+
+.item-tile-air {
+    margin: auto auto auto auto;
+}
+
+.static-item-tile .item-image-container {
+    max-width: 150px;
+    max-height: 150px;
+}
+
+.static-item-tile .item-image {
+    max-width: 150px;
+    max-height: 150px;
+}
+
+.item-image-container {
+    position: relative;
+    max-width: 75px;
+    max-height: 75px;
+}
+
+.item-image {
+    max-width: 75px;
+    max-height: 75px;
+}
+
+.unselected {
+    opacity: 0.4;
+}
+
+.tooltip {
+    /* display: inline-block; */
+    width: 100px;
+    height: 100px;
+}
+
+.tooltip .tooltip-content {
+    background-color: rgba(255, 255, 255, 0.0);
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    min-width: 200px;
+    max-width: 400px;
+    white-space: nowrap;
+}
+
+
+
+.item-tile:hover .tooltip {
+    visibility: visible;
+}
+
+.item-tile-ground:hover .tooltip {
+    visibility: visible;
+}
+
+.item-tile-air:hover .tooltip {
+    visibility: visible;
+}
+
+.basicPetTile:hover .tooltip {
+    visibility: visible;
+}
+
+
+.petImage {
+    max-width: 100%;
+    max-height: 100%;
+}

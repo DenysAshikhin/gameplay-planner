@@ -1,0 +1,34 @@
+.MuiAccordion-root {
+    background-color: rgba(255, 255, 255, 0.12);
+    color: inherit;
+}
+
+.MuiInputBase-root {
+    color: inherit !important;
+    background-color: inherit !important;
+    height: 36px;
+    padding: 0 0 0 6px !important;
+}
+
+.MuiAccordion-root {
+    color: inherit !important;
+    background-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+/* .MuiPaper-root {
+    color: inherit !important;
+    background-color: rgba(255, 255, 255, 0.12) !important; 
+} */
+
+/* #mouse-over-popover{
+    color: inherit !important;
+    background-color: white !important;
+} */
+
+.MuiOutlinedInput-notchedOutline {
+    border-color: gray !important;
+}
+
+.MuiSvgIcon-root {
+    filter: invert(56%) sepia(0%) saturate(1112%) hue-rotate(144deg) brightness(90%) contrast(88%);
+}
