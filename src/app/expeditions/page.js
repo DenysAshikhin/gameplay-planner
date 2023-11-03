@@ -1599,7 +1599,7 @@ export default function Expeditions() {
 
                                     }
 
-
+                                    let bigsad = -1;
                                     return (
                                         <div
                                             key={pet.label}
@@ -1795,7 +1795,7 @@ export default function Expeditions() {
                                                     <div style={{ position: 'absolute', right: '34px' }}>
                                                         <MouseOverPopover muiHeight={'18px'} tooltip={<div>{hoverMsg}</div>} style={{ display: 'flex', alignItems: 'center', height: '18px' }}>
 
-                                                            <div style={{ height: '18px', marginLeft: '6px', marginTop: '2px', position: 'relative' }}>
+                                                            <div style={{ height: '18px', width:'18px', marginLeft: '6px', marginTop: '2px', position: 'relative' }}>
                                                                 <Image
                                                                     alt='on hover I in a cirlce icon, shows more information on hover'
                                                                     src={showGreen ? infoIconGreen : infoIconRed}
