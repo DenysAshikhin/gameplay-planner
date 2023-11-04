@@ -1083,12 +1083,12 @@ export default function Pets() {
                                             return null
                                         }
                                         return (
-                                            <div key={index} style={{ display: 'flex' }}>
+                                            <div key={index} style={{ display: 'flex', justifyContent: 'space-between' }}>
                                                 <div style={{ width: '150px' }}>
                                                     {e.label}
                                                 </div>
                                                 <div>
-                                                    {e.sum.toExponential(2) + '%'}
+                                                    {e.sum.toExponential(2) + '%' + ` (${currentBonuses[e.ID].count})`}
                                                 </div>
                                             </div>
                                         )

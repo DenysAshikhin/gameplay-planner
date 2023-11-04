@@ -1479,7 +1479,6 @@ export default function Expeditions() {
 
                                     //Check whether this pet is placed too low or too high
                                     if (pet.placement !== `blacklist`) {
-                                        let bigsad = -1;//
 
                                         let group_index = groups.findIndex((temp_e) => {
                                             return temp_e.find((temp_e2) => temp_e2.ID === pet.id)
@@ -1982,7 +1981,7 @@ export default function Expeditions() {
 
                                                                             let pet_inner = temp.find((sample_pet) => sample_pet.id === pet.ID);
                                                                             if (!pet_inner) {
-                                                                                temp.push({ label: petNames[pet.ID].name, id: pet.ID, placement: 'rel', parameters: { team: 0, damageBias: 17 } });
+                                                                                temp.push({ label: petNames[pet.ID].name, pet: pet, id: pet.ID, placement: 'rel', parameters: { team: 0, damageBias: 17 } });
                                                                             }
                                                                             else {
                                                                                 throw new Error(`should not have an existing pet in this list!`)

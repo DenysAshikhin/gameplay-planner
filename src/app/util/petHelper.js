@@ -864,7 +864,11 @@ var helper = {
 
             for (const [key, value] of Object.entries(whitelist)) {
                 if (value.parameters.team === g) {
-                    if (!petsMap[value.pet.ID]) continue;
+
+                    if (!petsMap[value.pet.ID]) {
+                        continue;
+                    }
+
                     whiteListReqPets.push(value);
                     petsCollection.push(value.pet);
                     requiredPetsOverall.push(value.pet);
