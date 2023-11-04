@@ -26,14 +26,6 @@ import petHelper from '../util/petHelper.js';
 import DefaultSave from '../util/tempSave.json';
 
 
-ReactGA.initialize([{
-    trackingId: "G-GGLPK02VH8",
-    // gaOptions: {...}, // optional
-    gtagOptions: {
-        send_page_view: false
-    },
-}]);
-
 let groupCache = {};
 function setGroupCache(newCache) {
     groupCache = newCache;

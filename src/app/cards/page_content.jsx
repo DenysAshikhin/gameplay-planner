@@ -21,13 +21,13 @@ import useLocalStorage from "use-local-storage";
 import DefaultSave from '../util/tempSave.json';
 
 import Image from 'next/image';
-ReactGA.initialize([{
-    trackingId: "G-GGLPK02VH8",
-    // gaOptions: {...}, // optional
-    gtagOptions: {
-        send_page_view: false
-    },
-}]);
+// ReactGA.initialize([{
+//     trackingId: "G-GGLPK02VH8",
+//     // gaOptions: {...}, // optional
+//     gtagOptions: {
+//         send_page_view: false
+//     },
+// }]);
 
 const PREFIX = 'card';
 

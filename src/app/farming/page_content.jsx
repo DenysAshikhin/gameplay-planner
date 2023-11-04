@@ -16,13 +16,6 @@ import Timer from './Timer.jsx';
 import DefaultSave from '../util/tempSave.json';
 
 import PrestigeStar from '../../../public/images/icons/prestige_star.png'
-ReactGA.initialize([{
-    trackingId: "G-GGLPK02VH8",
-    // gaOptions: {...}, // optional
-    gtagOptions: {
-        send_page_view: false
-    },
-}]);
 
 function generateCombinations(objects, people) {
     const result = [];
