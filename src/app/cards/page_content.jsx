@@ -900,7 +900,10 @@ const CARD_DISPLAY_IDS = [
     6, 5, 19, 18, 20
 ];
 
-const CardCard = ({ vertical, displayMode, data, card, weightMap, i, applyWeights, cardMap, setCardMap, resetWeights, cardWeightInner }) => {
+const CardCard = ({ vertical, displayMode, data, card, weightMap, i, applyWeights, cardMap, setCardMap, resetWeights, cardWeightInner,
+    cardWeight, setCardWeightNew
+
+}) => {
 
     const {
         CurrentExp,
@@ -913,18 +916,18 @@ const CardCard = ({ vertical, displayMode, data, card, weightMap, i, applyWeight
     } = card;
     const { ChargeTransfertPowerPerma, ChargeTransfertPowerTemp } = data;
 
-    const [cardWeight, setCardWeight] = useLocalStorage(`cardWeight-${ID}`, -1);
-    const [internalWeight, setInternalWeight] = useState(-1);
+    // const [cardWeight, setCardWeight] = useLocalStorage(`cardWeight-${ID}`, -1);
+    // const [internalWeight, setInternalWeight] = useState(-1);
 
-    useEffect(() => {
-        setInternalWeight(cardWeight);
-    }, [cardWeight])
+    // useEffect(() => {
+    //     setInternalWeight(cardWeight);
+    // }, [cardWeight])
 
     let defaultWeight = cardIDMap[ID].weights[data.AscensionCount];
     if (data.AscensionCount >= 15) {
         defaultWeight /= 2;
     }
-    const finalWeight = internalWeight === -1 ? defaultWeight : internalWeight;
+    const finalWeight = cardWeight === -1 ? defaultWeight : cardWeight;
 
     const [finalAfter, setFinalAfter] = useState(mathHelper.createDecimal(-1));
     const [finalBefore, setFinalBefore] = useState(mathHelper.createDecimal(-1));
@@ -934,96 +937,83 @@ const CardCard = ({ vertical, displayMode, data, card, weightMap, i, applyWeight
 
     const [refreshMath, setRefreshMath] = useState(true);
 
-
-    useEffect(() => {
-        if (resetWeights > 10) {
-            // setCardWeight(-1);
-            setInternalWeight(-1);
-            setRefreshMath(true);
-        }
-    }, [resetWeights, setCardWeight]);
-
-
     useEffect(() => {
 
-        if (refreshMath) {
-            console.log(`refreshing internal val: ${ID}`)
-            setRefreshMath(false);
-            setCardWeight(internalWeight);
+
+        console.log(`refreshing internal val: ${ID}`)
+        setRefreshMath(false);
+
+        const permValueBefore = mathHelper.createDecimal(PowerPermaBD);
+        const tempValueBefore = mathHelper.createDecimal(PowerTempBD);
+
+        let permValueAfter = mathHelper.addDecimal(permValueBefore,
+            mathHelper.multiplyDecimal(tempValueBefore, ChargeTransfertPowerPerma)
+        );
+        let tempValueAfter = mathHelper.multiplyDecimal(tempValueBefore, (1 - ChargeTransfertPowerTemp));
+
+        let tempBonusBefore = tempPowerBonusFormula[ID](tempValueBefore);
+        let permBonusBefore = permPowerBonusFormula[ID](permValueBefore);
+
+        let finalBefore = mathHelper.multiplyDecimal(
+            mathHelper.subtractDecimal(
+                mathHelper.multiplyDecimal(tempBonusBefore, permBonusBefore),
+                1
+            ),
+            ((1.0 + Level * 0.02) * 100)
+        )
+
+        let temp1 = tempPowerBonusFormula[ID](mathHelper.multiplyDecimal(tempValueBefore, (1.0 - ChargeTransfertPowerTemp)))
+        let temp2 = permPowerBonusFormula[ID](
+            mathHelper.addDecimal(permValueBefore, mathHelper.multiplyDecimal(tempValueBefore, ChargeTransfertPowerPerma))
+        )
+        let finalAfter =
+            mathHelper.multiplyDecimal(
+                mathHelper.subtractDecimal(mathHelper.multiplyDecimal(temp1, temp2), 1),
+                (1.0 + Level * 0.02) * 100);
 
 
 
-            const permValueBefore = mathHelper.createDecimal(PowerPermaBD);
-            const tempValueBefore = mathHelper.createDecimal(PowerTempBD);
+        let percIncrease = mathHelper.divideDecimal(finalAfter, finalBefore);
+        let flatIncrease = mathHelper.subtractDecimal(finalAfter, finalBefore);
+        let weightIncrease = mathHelper.multiplyDecimal(mathHelper.divideDecimal(mathHelper.subtractDecimal(finalAfter, finalBefore), finalBefore), finalWeight);
 
-            let permValueAfter = mathHelper.addDecimal(permValueBefore,
-                mathHelper.multiplyDecimal(tempValueBefore, ChargeTransfertPowerPerma)
-            );
-            let tempValueAfter = mathHelper.multiplyDecimal(tempValueBefore, (1 - ChargeTransfertPowerTemp));
+        setFinalAfter(finalAfter);
+        setFinalBefore(finalBefore);
+        setWeightIncrease(weightIncrease);
+        setFlatIncrease(flatIncrease);
+        setPercentIncrease(percIncrease);
 
-            let tempBonusBefore = tempPowerBonusFormula[ID](tempValueBefore);
-            let permBonusBefore = permPowerBonusFormula[ID](permValueBefore);
-
-            let finalBefore = mathHelper.multiplyDecimal(
-                mathHelper.subtractDecimal(
-                    mathHelper.multiplyDecimal(tempBonusBefore, permBonusBefore),
-                    1
-                ),
-                ((1.0 + Level * 0.02) * 100)
-            )
-
-            let temp1 = tempPowerBonusFormula[ID](mathHelper.multiplyDecimal(tempValueBefore, (1.0 - ChargeTransfertPowerTemp)))
-            let temp2 = permPowerBonusFormula[ID](
-                mathHelper.addDecimal(permValueBefore, mathHelper.multiplyDecimal(tempValueBefore, ChargeTransfertPowerPerma))
-            )
-            let finalAfter =
-                mathHelper.multiplyDecimal(
-                    mathHelper.subtractDecimal(mathHelper.multiplyDecimal(temp1, temp2), 1),
-                    (1.0 + Level * 0.02) * 100);
-
-
-
-            let percIncrease = mathHelper.divideDecimal(finalAfter, finalBefore);
-            let flatIncrease = mathHelper.subtractDecimal(finalAfter, finalBefore);
-            let weightIncrease = mathHelper.multiplyDecimal(mathHelper.divideDecimal(mathHelper.subtractDecimal(finalAfter, finalBefore), finalBefore), finalWeight);
-
-            setFinalAfter(finalAfter);
-            setFinalBefore(finalBefore);
-            setWeightIncrease(weightIncrease);
-            setFlatIncrease(flatIncrease);
-            setPercentIncrease(percIncrease);
-
-            if (resetWeights !== -3) {
-                if (!(ID in cardMap)) {
-                    setCardMap((e) => {
-                        let tempy = { ...e };
-                        tempy[ID] = {
-                            ID: ID, finalAfter: finalAfter,
-                            percIncrease: percIncrease,
-                            flatIncrease: flatIncrease,
-                            weightIncrease: weightIncrease
-                        };
-                        return tempy;
-                    })
-                }
-                else if (!cardMap[ID]?.finalAfter.equals(finalAfter) || !cardMap[ID]?.weightIncrease.equals(weightIncrease)) {
-                    setCardMap((e) => {
-                        let tempy = { ...e };
-                        tempy[ID] = {
-                            ID: ID, finalAfter: finalAfter, percIncrease: percIncrease,
-                            flatIncrease: flatIncrease,
-                            weightIncrease: weightIncrease
-                        };
-                        return tempy;
-                    })
-                }
-
+        if (resetWeights !== -3) {
+            if (!(ID in cardMap)) {
+                setCardMap((e) => {
+                    let tempy = { ...e };
+                    tempy[ID] = {
+                        ID: ID, finalAfter: finalAfter,
+                        percIncrease: percIncrease,
+                        flatIncrease: flatIncrease,
+                        weightIncrease: weightIncrease
+                    };
+                    return tempy;
+                })
             }
+            else if (!cardMap[ID]?.finalAfter.equals(finalAfter) || !cardMap[ID]?.weightIncrease.equals(weightIncrease)) {
+                setCardMap((e) => {
+                    let tempy = { ...e };
+                    tempy[ID] = {
+                        ID: ID, finalAfter: finalAfter, percIncrease: percIncrease,
+                        flatIncrease: flatIncrease,
+                        weightIncrease: weightIncrease
+                    };
+                    return tempy;
+                })
+            }
+
         }
+
 
 
     }, [cardMap, finalWeight, ChargeTransfertPowerPerma, ChargeTransfertPowerTemp, setCardMap,
-        internalWeight, setCardWeight,
+        cardWeight, setCardWeightNew,
         resetWeights
         ,
         ID,
@@ -1067,8 +1057,15 @@ const CardCard = ({ vertical, displayMode, data, card, weightMap, i, applyWeight
         extraText = `(+${tempy})`
     }
     else if (displayMode === 'weight') {
-        let tempy = mathHelper.multiplyDecimal(mathHelper.divideDecimal(mathHelper.subtractDecimal(finalAfter, finalBefore), finalBefore), finalWeight)
-        extraText = `(${tempy.toNumber().toExponential(2)})`
+        try {
+
+            let tempy = mathHelper.multiplyDecimal(mathHelper.divideDecimal(mathHelper.subtractDecimal(finalAfter, finalBefore), finalBefore), finalWeight)
+            extraText = `(${tempy.toNumber().toExponential(2)})`
+        }
+        catch (err) {
+            console.log(err);
+            let bigsad = -1;
+        }
     }
 
     return (
@@ -1164,7 +1161,8 @@ const CardCard = ({ vertical, displayMode, data, card, weightMap, i, applyWeight
                                         return;
                                     }
                                     // setCardWeight(x);
-                                    setInternalWeight(x);
+                                    // setInternalWeight(x);
+                                    setCardWeightNew(x);
                                     setRefreshMath(true);
                                     console.log(`updating card: ${ID}  ->>>> ${x}`)
 
@@ -1241,6 +1239,68 @@ export default function Cards() {
     const [resetCardWeights, setResetCardWeights] = useState(-1);
     const [forceRefresh, setForceRefresh] = useState(false);
 
+    const [newCardWeights, setNewCardWeightsRunTime] = useState({
+        1: -1,
+        2: -1,
+        3: -1,
+        4: -1,
+        5: -1,
+        6: -1,
+        7: -1,
+        8: -1,
+        9: -1,
+        10: -1,
+        11: -1,
+        12: -1,
+        13: -1,
+        14: -1,
+        15: -1,
+        16: -1,
+        17: -1,
+        18: -1,
+        19: -1,
+        20: -1,
+        21: -1,
+        22: -1,
+        23: -1,
+        24: -1,
+        25: -1,
+        26: -1,
+        27: -1,
+    })
+    const [newCardWeightsClient, setNewCardWeights] = useLocalStorage('newCardWeights', {
+        1: -1,
+        2: -1,
+        3: -1,
+        4: -1,
+        5: -1,
+        6: -1,
+        7: -1,
+        8: -1,
+        9: -1,
+        10: -1,
+        11: -1,
+        12: -1,
+        13: -1,
+        14: -1,
+        15: -1,
+        16: -1,
+        17: -1,
+        18: -1,
+        19: -1,
+        20: -1,
+        21: -1,
+        22: -1,
+        23: -1,
+        24: -1,
+        25: -1,
+        26: -1,
+        27: -1,
+    })
+    useEffect(() => {
+        setNewCardWeightsRunTime(newCardWeightsClient);
+    }, [newCardWeightsClient])
+
     const { CardsCollection } = data;
 
     useEffect(() => {
@@ -1265,7 +1325,16 @@ export default function Cards() {
 
     for (let i = 0; i < CARD_DISPLAY_IDS.length; i++) {
         weightedCardInfo.push(
-            <CardCard resetWeights={resetCardWeights} displayMode='original' cardMap={cardMap} setCardMap={setCardMap} data={data} i={i} card={cardsById[CARD_DISPLAY_IDS[i]]} weightMap={weightMap} classes={classes} applyWeights={true} key={`${i}-orig`}></CardCard>
+            <CardCard
+                cardWeight={newCardWeights[CARD_DISPLAY_IDS[i]]}
+                setCardWeightNew={(value) => {
+                    setNewCardWeights((e) => {
+                        let temp = { ...e };
+                        temp[CARD_DISPLAY_IDS[i]] = value;
+                        return temp;
+                    })
+                }}
+                resetWeights={resetCardWeights} displayMode='original' cardMap={cardMap} setCardMap={setCardMap} data={data} i={i} card={cardsById[CARD_DISPLAY_IDS[i]]} weightMap={weightMap} classes={classes} applyWeights={true} key={`${i}-orig`}></CardCard>
         )
     }
 
@@ -1284,7 +1353,9 @@ export default function Cards() {
                 <div style={{ fontSize: '36px', margin: '0 6px 0 0', }}>
                     {index + 1}
                 </div>
-                <CardCard resetWeights={-3} displayMode='perc' vertical={true} cardMap={cardMap} setCardMap={null} data={data} i={index} card={cardsById[value.ID]} weightMap={weightMap} classes={classes} key={`${index}-perc`}></CardCard>
+                <CardCard
+                    cardWeight={newCardWeights[value.ID]}
+                    resetWeights={-3} displayMode='perc' vertical={true} cardMap={cardMap} setCardMap={null} data={data} i={index} card={cardsById[value.ID]} weightMap={weightMap} classes={classes} key={`${index}-perc`}></CardCard>
             </div>
         )
     }, []);
@@ -1300,7 +1371,9 @@ export default function Cards() {
                 <div style={{ fontSize: '36px', margin: '0 6px 0 0', }}>
                     {index + 1}
                 </div>
-                <CardCard resetWeights={-3} displayMode='flat' vertical={true} cardMap={cardMap} setCardMap={null} data={data} i={index} card={cardsById[value.ID]} weightMap={weightMap} classes={classes} key={`${index}-perc`}></CardCard>
+                <CardCard
+                    cardWeight={newCardWeights[value.ID]}
+                    resetWeights={-3} displayMode='flat' vertical={true} cardMap={cardMap} setCardMap={null} data={data} i={index} card={cardsById[value.ID]} weightMap={weightMap} classes={classes} key={`${index}-perc`}></CardCard>
             </div>
         )
     }, []);
@@ -1316,6 +1389,7 @@ export default function Cards() {
                     {index + 1}
                 </div>
                 <CardCard
+                    cardWeight={newCardWeights[value.ID]}
                     resetWeights={-3}
                     displayMode='weight'
                     vertical={true}
@@ -1545,7 +1619,35 @@ export default function Cards() {
                             <button
                                 onClick={() => {
                                     let num = Math.random() * 1000 + 20;
-                                    setResetCardWeights(num);
+                               setNewCardWeights({
+                                1: -1,
+                                2: -1,
+                                3: -1,
+                                4: -1,
+                                5: -1,
+                                6: -1,
+                                7: -1,
+                                8: -1,
+                                9: -1,
+                                10: -1,
+                                11: -1,
+                                12: -1,
+                                13: -1,
+                                14: -1,
+                                15: -1,
+                                16: -1,
+                                17: -1,
+                                18: -1,
+                                19: -1,
+                                20: -1,
+                                21: -1,
+                                22: -1,
+                                23: -1,
+                                24: -1,
+                                25: -1,
+                                26: -1,
+                                27: -1,
+                            })
 
                                 }}
                             >Reset Weights</button>
