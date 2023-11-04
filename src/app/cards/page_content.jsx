@@ -1002,7 +1002,7 @@ const CardCard = ({ vertical, displayMode, data, card, weightMap, i, applyWeight
             }
 
         }
-    }, [cardMap, finalWeight, ChargeTransfertPowerPerma, ChargeTransfertPowerTemp, 
+    }, [cardMap, finalWeight, ChargeTransfertPowerPerma, ChargeTransfertPowerTemp, setCardMap,
          
         resetWeights
         ,
