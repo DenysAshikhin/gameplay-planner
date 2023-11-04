@@ -918,6 +918,7 @@ const CardCard = ({ vertical, displayMode, data, card, weightMap, i, applyWeight
     useEffect(() => {
         if (resetWeights > 10) {
             setCardWeight(-1);
+            setRefreshMath(true);
         }
     }, [resetWeights, setCardWeight]);
 
@@ -935,6 +936,15 @@ const CardCard = ({ vertical, displayMode, data, card, weightMap, i, applyWeight
     const [weightIncrease, setWeightIncrease] = useState(mathHelper.createDecimal(-1));
 
     const [refreshMath, setRefreshMath] = useState(true);
+
+
+    useEffect(() => {
+        if (resetWeights > 10) {
+            setCardWeight(-1);
+            setRefreshMath(true);
+        }
+    }, [resetWeights, setCardWeight]);
+
 
     useEffect(() => {
 
@@ -1225,9 +1235,6 @@ export default function Cards() {
     const [clientData, setData] = useLocalStorage('userData', DefaultSave);
     const [data, setRunTimeData] = useState(DefaultSave);
 
-    useEffect(() => {
-        setRunTimeData(clientData);
-    }, [clientData]);
 
     const [weightMap, setWeightMap] = useState(DefaultWeightMap);
     const [cardMap, setCardMap] = useState({})
@@ -1242,6 +1249,11 @@ export default function Cards() {
         }
     }, [resetCardWeights]);
 
+    useEffect(() => {
+        setRunTimeData(clientData);
+        let num = Math.random() * 1000 + 20;
+        setResetCardWeights(num);
+    }, [clientData]);
     // const foundCards = CardsCollection.filter(card => card.Found === 1);
     const cardsById = CardsCollection.reduce((accum, card) => {
         accum[card.ID] = card;
