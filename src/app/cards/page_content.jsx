@@ -917,7 +917,6 @@ const CardCard = ({ vertical, displayMode, data, card, weightMap, i, applyWeight
     const [internalWeight, setInternalWeight] = useState(-1);
 
     useEffect(() => {
-        console.log(`${ID} -> ${cardWeight}`);
         setInternalWeight(cardWeight);
     }, [cardWeight])
 
@@ -1024,7 +1023,7 @@ const CardCard = ({ vertical, displayMode, data, card, weightMap, i, applyWeight
 
 
     }, [cardMap, finalWeight, ChargeTransfertPowerPerma, ChargeTransfertPowerTemp, setCardMap,
-
+        internalWeight, setCardWeight,
         resetWeights
         ,
         ID,
@@ -1594,7 +1593,7 @@ export default function Cards() {
 
                 </div>
                 {/* Top 5 % increase */}
-                {/* <div
+                <div
                     style={{
                         maxWidth: '474px',
                         padding: '6px',
@@ -1620,7 +1619,7 @@ export default function Cards() {
                         >Best Percen.</h3>
                         {finalPercIncrease}
                     </div>
-                </div> */}
+                </div>
             </div>
         </div >
     );
