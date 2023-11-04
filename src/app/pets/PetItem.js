@@ -329,9 +329,12 @@ const StaticPetItem = ({ petData, highlight, showNameOnly }) => {
                     alt={`in game image of ${name}`}
                     src={img}
                     className='item-image'
-                    style={{objectFit:'scale-down'}}
+                    style={{objectFit:'scale-down', 
+                    width:'auto',height:'auto'
+                }}
                     unoptimized
                     priority
+              
                 />
 
                 // <img alt={`in game image of ${name}`} src={img} className='item-image' />

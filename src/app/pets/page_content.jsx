@@ -662,7 +662,7 @@ export default function Pets() {
                 <div style={{
                     marginTop: '12px',
                     backgroundColor: 'rgba(255,255,255, 0.05)',
-                    maxHeight: 'calc(100% - 36px)',
+                    maxHeight: 'calc(100% - 40px)',
                     // overflowY: 'auto',
                     padding: '6px',
                     borderRadius: '6px',
@@ -694,7 +694,7 @@ export default function Pets() {
 
                 <>
                     {/* Active team builder */}
-                    <div className='teamBuilder importantText'
+                    {true && (<div className='teamBuilder importantText'
                         style={{
                             borderRadius: '6px',
                             border: `2px solid rgba(255,255,255,0.7)`,
@@ -1068,7 +1068,8 @@ export default function Pets() {
                             <div
                                 style={{
                                     backgroundColor: 'rgba(255,255,255, 0.07)',
-                                    padding: '6px'
+                                    padding: '6px',
+                                    borderRadius: '6px'
                                 }}
                             >
                                 <div
@@ -1365,7 +1366,7 @@ export default function Pets() {
 
                         </div>
 
-                    </div>
+                    </div>)}
 
                     {/* How To Use */}
                     <div className='teamBuilder importantText'

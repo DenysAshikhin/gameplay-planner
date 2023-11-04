@@ -202,7 +202,7 @@ const PetItem = ({ petData, isSelected, onClick, data, weightMap, petScoreFn, de
                             >
                                 <Image
 
-                                    style={{ objectFit: 'contain' }}
+                                    style={{ objectFit: 'contain', width: 'auto', height: 'auto' }}
                                     fill
                                     alt={`in game image of ${name}`} src={img}
                                     unoptimized={true}
