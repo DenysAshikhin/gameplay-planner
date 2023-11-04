@@ -3,14 +3,30 @@ import './globals.css'
 import Header from './util/header.jsx';
 import NavBar from './util/navBar.jsx';
 
+export async function generateMetadata({ params, searchParams }, parent) {
 
-import { Metadata } from 'next'
-
-export const metadata = {
-  title: 'Gameplay Planner',
-  description: "Farmer Against Potatoes Idle FAPI gameplay planner / wiki / tool / guide, helps you plan out and decide on the best team expeditions, team combos, farm and plant optimisations, card charges, protein assembly and more!",
+  return {
+    title: 'Gameplay Planner',
+    description: "Farmer Against Potatoes Idle, FAPI, gameplay planner / wiki / tool / guide, helps plan out and decide on the best team expeditions, team combos, farm and plant optimisations, card charges, protein assembly and more!"
+  }
 }
 
+//expeditions
+//Expedition Planner - Help you build expeditions teams / groups based on damage, rank. You can also tell the calculator to include specific bonuses such as token gain, time gain, card power, card exp, expedition damage by adding them to a white list. You can also add and remove pets to future planning 
+
+//pets
+//Combo / Pet Planner - Help you build your pet teams / groups / loadouts based on stats. You can tell the calculator to include specific bonuses as card power, card exp, item rating, reincarnation exp. You can save, load and share custom presents. View pet combo list. Includes a whitelist
+
+//farming -> missing healthy potatoes, opotimise
+//Farming - Helps you plan best plant placements based on time. Hours to calculate best afk or step results. Features include PBC upgrade, auto plots / harvesting, most PIC. Also helps you plan your farming by displays production of fries.
+
+
+
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 0.1
+}
 
 // <!-- Google tag (gtag.js) -->
 // <script async src="https://www.googletagmanager.com/gtag/js?id=G-GGLPK02VH8"></script>
