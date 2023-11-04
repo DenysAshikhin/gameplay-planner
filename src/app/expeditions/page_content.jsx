@@ -6,8 +6,8 @@ import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import useLocalStorage from "use-local-storage";
 import './JSONDisplay.css'; // Add this line to import the CSS file
 import { BonusMap, petNameArray, petNames, DefaultWeightMap } from '../util/itemMapping.js';
-import PetItem from './PetItem';
-import ItemSelection from "../util/ItemSelection";
+import PetItemCoin from './PetItemCoin.jsx';
+import ItemSelection from "../util/ItemSelectionExpeditions";
 import MouseOverPopover from "../util/Tooltip";
 
 import helper from '../util/helper.js';
@@ -75,6 +75,7 @@ function ScoreSection({ data, group, totalScore, defaultRank }) {
 }
 
 export default function Expeditions() {
+
 
     const [clientData, setData] = useLocalStorage('userData', DefaultSave);
     const [data, setRunTimeData] = useState(DefaultSave);
@@ -446,6 +447,8 @@ export default function Expeditions() {
             }
         })
         .filter((e) => !!e && !leftOverIgnore[e.id])
+
+
     return (
         <div
             className="grid-container"
@@ -631,7 +634,7 @@ export default function Expeditions() {
                                                     justifyContent: 'center'
                                                 }}
                                             >
-                                                <PetItem
+                                                <PetItemCoin
                                                     petData={staticPetData}
                                                     fullPetData={petData}
                                                     data={data}
@@ -1947,7 +1950,7 @@ export default function Expeditions() {
                                                                 }}
                                                             >
                                                                 {/* {petNames[pet.ID].name} */}
-                                                                <PetItem
+                                                                <PetItemCoin
                                                                     showNameOnly={true}
                                                                     grayBackground={pet.equipped}
                                                                     key={pet.ID}
@@ -2127,6 +2130,8 @@ export default function Expeditions() {
 
                     </div>
                 </div>
+
+
                 <ItemSelection
                     weightMap={weightMap}
                     data={data}
@@ -2135,6 +2140,8 @@ export default function Expeditions() {
                     defaultRank={defaultRank}
                     showLocked={!hideLocked}
                 />
+
+
             </div>
         </div >
     );

@@ -1,19 +1,21 @@
 import React from 'react';
-import Image from 'next/image';
-
 import './PetItem.css';
 import helper from '../util/helper.js'
 
-import MouseOverPopover from "../util/Tooltip";
+import MouseOverPopover from "../util/Tooltip.jsx";
 import { BonusMap } from "../util/itemMapping";
 import petHelper from '../util/petHelper.js';
+
+import Image from 'next/image';
+
 
 const filterBonuses = (bonuses, filterFn) => {
     return bonuses
         .filter(filterFn);
 };
 
-const PetItem = ({ petData, isSelected, onClick, data, weightMap, petScoreFn, defaultRank, borderActive, enabledBonusHighlight, fullPetData, showNameOnly, grayBackground, circleBorder }) => {
+
+export default function PetItem({ petData, isSelected, onClick, data, weightMap, petScoreFn, defaultRank, borderActive, enabledBonusHighlight, fullPetData, showNameOnly, grayBackground, circleBorder }) {
     if (!!data === false) return <div></div>;
     const { petId, location, img, name } = petData;
 
@@ -173,47 +175,35 @@ const PetItem = ({ petData, isSelected, onClick, data, weightMap, petScoreFn, de
                                 maxWidth: maxDimension
                             }}>
                             {numHighlights.map((item, index) => {
-                                return (
-                                    <div
-                                        key={index}
-                                        style={{
-                                            background: helper.bonusColorMap[item].color,
-                                            position: 'absolute',
-                                            top: '0%',
-                                            left: `${(100 / numHighlights.length) * index}%`,
-                                            height: '100%',
-                                            width: `${100 / numHighlights.length}%`,
-                                            zIndex: 1
-                                        }}
-                                    >
+                                return (<div
+                                    key={index}
+                                    style={{
+                                        background: helper.bonusColorMap[item].color,
+                                        position: 'absolute',
+                                        top: '0%',
+                                        left: `${(100 / numHighlights.length) * index}%`,
+                                        height: '100%',
+                                        width: `${100 / numHighlights.length}%`,
+                                        zIndex: 1
+                                    }}
+                                >
 
-                                    </div>)
+                                </div>)
                             })}
-
-                            <div
+                            {/* <div className="item-image"> */}
+                            <Image
+                                alt={`in game image of ${name}`}
+                                src={img}
+                                className={circleBorder ? '' : 'item-image'}
                                 style={{
                                     zIndex: '2',
                                     objectFit: 'contain',
-                                    position: 'relative',
-                                    width: '70px', height: '70px',
-                                    maxHeight: circleBorder ? maxDimension : '70px',
-                                    maxWidth: circleBorder ? maxDimension : '70px',
+                                    maxHeight: circleBorder ? maxDimension : '',
+                                    maxWidth: circleBorder ? maxDimension : '',
+                                    height: '60px',
+                                    width: 'auto'
                                 }}
-                            >
-                                <Image
-
-                                    style={{
-                                         objectFit: 'scale-down',
-                                        //   width: 'auto', 
-                                        //   height: 'auto' 
-                                        }}
-                                    fill
-                                    alt={`in game image of ${name}`} src={img}
-                                    unoptimized={true}
-                                />
-                            </div>
-
-                            {/* <div className="item-image"> */}
+                            />
                             {/* <img alt={`in game image of ${name}`} src={img}
                                 className={circleBorder ? '' : 'item-image'}
                                 style={{
@@ -243,115 +233,129 @@ const PetItem = ({ petData, isSelected, onClick, data, weightMap, petScoreFn, de
     );
 };
 
-const StaticPetItem = ({ petData, highlight, showNameOnly }) => {
-    const { petId, location, img, name, pet } = petData;
-    //ss
-
-    const section1Bonuses = (
-        <ul
-            style={{ margin: '0 0 0 0' }}
-        >
-            {filterBonuses(pet.BonusList, (bonus) => {
-                return bonus.ID < 1000;
-            }).map((activePetBonus, i) => {
-                const bonusBase = Number(1.0 + activePetBonus.Gain);
-                const bonusPower = Number(pet.Level === 0 ? 1 : pet.Level);
-                const result = (Math.pow(bonusBase, bonusPower) - 1) * (1 + .02 * Number(pet.Rank));
-
-                return (
-                    <li key={i}>
-                        {BonusMap[activePetBonus.ID]?.label}: {result.toExponential(2)}
-                    </li>
-                );
-            })}
-        </ul>
-    );
-
-    const section2Bonuses = (
-        <ul
-            style={{ margin: '0 0 0 0' }}
-        >
-            {filterBonuses(pet.BonusList, (bonus) => bonus.ID >= 1000 && bonus.ID < 5000)
-                .map((activePetBonus, i) => {
-                    return (
-                        <li key={i}>
-                            {BonusMap[activePetBonus.ID]?.label}: {Number(activePetBonus.Power).toExponential(2)}
-                        </li>
-                    );
-                })}
-        </ul>
-    );
-
-    let baseDmg = petHelper.calculatePetBaseDamage(pet, pet.Rank);
-    if (baseDmg < 100) {
-        baseDmg = helper.roundInt(baseDmg);
-    }
-    else {
-        baseDmg = baseDmg.toExponential(2);
-    }
 
 
-    return (
-        // <div key={petId} className={`static-item-tile`}>
-        // <div
-        //     className="item-image-container"
-        //     style={{
-        //         position: 'relative'
-        //     }}>
+// StaticPetItem({ petData, highlight, showNameOnly }) {
+//     const { petId, location, img, name, pet } = petData;
+//     //ss
 
-        <MouseOverPopover
-            tooltip={
-                <div
-                    className="tooltip-custom "
-                >
-                    <h3
-                        style={{ marginTop: '0', marginBottom: '3px', textAlign: 'center' }}
-                    >
-                        {`${name} -> ${location}`}
-                    </h3>
-                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <div>
-                            {`Rank: ${pet.Rank}`}
-                        </div>
-                        <div>
-                            {`Level: ${pet.Level}`}
-                        </div>
-                        <div>
-                            {`Damage: ${baseDmg}`}
-                        </div>
-                    </div>
-                    <div>
-                        <h4
-                            style={{ margin: '6px 0 6px 0' }}
-                        >Active Bonuses</h4>
-                        {section1Bonuses}
-                    </div>
-                    <div>
-                        <h4
-                            style={{ margin: '6px 0 6px 0' }}
-                        >Expedition Bonuses:</h4>
-                        {section2Bonuses}
-                    </div>
-                </div>
-            }>
-            {!showNameOnly && (
-                <img alt={`in game image of ${name}`} src={img} className='item-image' />
-            )}
+//     const section1Bonuses = (
+//         <ul
+//             style={{ margin: '0 0 0 0' }}
+//         >
+//             {filterBonuses(pet.BonusList, (bonus) => {
+//                 return bonus.ID < 1000;
+//             }).map((activePetBonus, i) => {
+//                 const bonusBase = Number(1.0 + activePetBonus.Gain);
+//                 const bonusPower = Number(pet.Level === 0 ? 1 : pet.Level);
+//                 const result = (Math.pow(bonusBase, bonusPower) - 1) * (1 + .02 * Number(pet.Rank));
 
-            {showNameOnly && (
-                <>
-                    {name}
-                </>
-            )}
+//                 return (
+//                     <li key={i}>
+//                         {BonusMap[activePetBonus.ID]?.label}: {result.toExponential(2)}
+//                     </li>
+//                 );
+//             })}
+//         </ul>
+//     );
 
-        </MouseOverPopover>
+//     const section2Bonuses = (
+//         <ul
+//             style={{ margin: '0 0 0 0' }}
+//         >
+//             {filterBonuses(pet.BonusList, (bonus) => bonus.ID >= 1000 && bonus.ID < 5000)
+//                 .map((activePetBonus, i) => {
+//                     return (
+//                         <li key={i}>
+//                             {BonusMap[activePetBonus.ID]?.label}: {Number(activePetBonus.Power).toExponential(2)}
+//                         </li>
+//                     );
+//                 })}
+//         </ul>
+//     );
+
+//     let baseDmg = petHelper.calculatePetBaseDamage(pet, pet.Rank);
+//     if (baseDmg < 100) {
+//         baseDmg = helper.roundInt(baseDmg);
+//     }
+//     else {
+//         baseDmg = baseDmg.toExponential(2);
+//     }
 
 
-        //  </div> 
-        // </div>
-    );
-};
+//     return (
+//         // <div key={petId} className={`static-item-tile`}>
+//         // <div
+//         //     className="item-image-container"
+//         //     style={{
+//         //         position: 'relative'
+//         //     }}>
 
-export { StaticPetItem };
+//         <MouseOverPopover
+//             tooltip={
+//                 <div
+//                     className="tooltip-custom "
+//                 >
+//                     <h3
+//                         style={{ marginTop: '0', marginBottom: '3px', textAlign: 'center' }}
+//                     >
+//                         {`${name} -> ${location}`}
+//                     </h3>
+//                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+//                         <div>
+//                             {`Rank: ${pet.Rank}`}
+//                         </div>
+//                         <div>
+//                             {`Level: ${pet.Level}`}
+//                         </div>
+//                         <div>
+//                             {`Damage: ${baseDmg}`}
+//                         </div>
+//                     </div>
+//                     <div>
+//                         <h4
+//                             style={{ margin: '6px 0 6px 0' }}
+//                         >Active Bonuses</h4>
+//                         {section1Bonuses}
+//                     </div>
+//                     <div>
+//                         <h4
+//                             style={{ margin: '6px 0 6px 0' }}
+//                         >Expedition Bonuses:</h4>
+//                         {section2Bonuses}
+//                     </div>
+//                 </div>
+//             }>
+//             {!showNameOnly && (
 
-export default PetItem;
+//                 <Image
+//                     alt={`in game image of ${name}`}
+//                     src={img}
+//                     className='item-image'
+//                     style={{
+//                         objectFit: 'scale-down',
+//                         width: 'auto', height: 'auto'
+//                     }}
+//                     unoptimized
+//                     priority
+
+//                 />
+
+//                 // <img alt={`in game image of ${name}`} src={img} className='item-image' />
+//             )}
+
+//             {showNameOnly && (
+//                 <>
+//                     {name}
+//                 </>
+//             )}
+
+//         </MouseOverPopover>
+
+
+//         //  </div> 
+//         // </div>
+//     );
+// };
+
+

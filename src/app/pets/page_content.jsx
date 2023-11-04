@@ -413,7 +413,12 @@ function findBestTeam(data, parameters) {
                     }
 
                     if (!found) {
-                        pet.score += (scoreTick / 10);
+                        if (currentBonuses[e.ID]) {
+                            pet.score += (scoreTick / (10 * (currentBonuses[e.ID].count + 1)));
+                        }
+                        else {
+                            pet.score += (scoreTick / 10);
+                        }
                     }
                 }
                 //Search for uniques!
@@ -422,7 +427,7 @@ function findBestTeam(data, parameters) {
 
                     }
                     else if (currentBonuses[e.ID]) {
-                        pet.score += 0.01;
+                        pet.score += ((0.01) / (currentBonuses[e.ID].count + 1));
                         pet.sharedBonuses.push(BonusMap[e.ID]);
                     }
                     else {

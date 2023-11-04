@@ -908,9 +908,7 @@ const CardCard = ({ vertical, displayMode, data, card, weightMap, i, applyWeight
         Found,
         ID,
         Level,
-        PowerPerma,
         PowerPermaBD,
-        PowerTemp,
         PowerTempBD,
     } = card;
     const { ChargeTransfertPowerPerma, ChargeTransfertPowerTemp } = data;
@@ -966,15 +964,15 @@ const CardCard = ({ vertical, displayMode, data, card, weightMap, i, applyWeight
                 mathHelper.subtractDecimal(mathHelper.multiplyDecimal(temp1, temp2), 1),
                 (1.0 + Level * 0.02) * 100);
 
-       
+
 
         let percIncrease = mathHelper.divideDecimal(finalAfter, finalBefore);
         let flatIncrease = mathHelper.subtractDecimal(finalAfter, finalBefore);
         let weightIncrease = mathHelper.multiplyDecimal(mathHelper.divideDecimal(mathHelper.subtractDecimal(finalAfter, finalBefore), finalBefore), finalWeight);
-       
+
         setFinalAfter(finalAfter);
         setFinalBefore(finalBefore);
-            setWeightIncrease(weightIncrease);
+        setWeightIncrease(weightIncrease);
         setFlatIncrease(flatIncrease);
         setPercentIncrease(percIncrease);
 
@@ -1004,7 +1002,14 @@ const CardCard = ({ vertical, displayMode, data, card, weightMap, i, applyWeight
             }
 
         }
-    }, [cardMap, finalWeight, ChargeTransfertPowerPerma, ChargeTransfertPowerTemp])
+    }, [cardMap, finalWeight, ChargeTransfertPowerPerma, ChargeTransfertPowerTemp
+
+        ,
+        ID,
+        Level,
+        PowerPermaBD,
+        PowerTempBD,
+    ])
 
 
 
