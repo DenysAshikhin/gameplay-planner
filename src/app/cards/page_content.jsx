@@ -37,7 +37,13 @@ const classes = {
     positiveChargeResult: `${PREFIX}-positiveChargeResult`,
     negativeChargeResult: `${PREFIX}-negativeChargeResult`
 };
-
+ReactGA.initialize([{
+    trackingId: "G-GGLPK02VH8",
+    // gaOptions: {...}, // optional
+    gtagOptions: {
+        send_page_view: false
+    },
+  }]);
 
 const POTATO = 1;
 const CLASSEXP = 2;
@@ -1221,8 +1227,10 @@ export default function Cards() {
 
     useEffect(() => {
 
-        ReactGA.send({ hitType: "pageview", page: "/cards", title: "Card Calculator Page" });
-
+      
+        setTimeout(() => {
+            ReactGA.send({ hitType: "pageview", page: "/cards", title: "Card Calculator Page" });
+        }, 500);
     }, []);
 
 

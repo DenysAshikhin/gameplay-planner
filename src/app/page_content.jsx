@@ -16,6 +16,13 @@ import backgroundImage from '../../public/images/coming_soon.png'
 //  /public/images/coming_soon.png';
 
 import ReactGA from "react-ga4";
+ReactGA.initialize([{
+  trackingId: "G-GGLPK02VH8",
+  // gaOptions: {...}, // optional
+  gtagOptions: {
+    send_page_view: false
+  },
+}]);
 
 // const [customPresets, setCustomPresets] = useLocalStorage(`customPresets`, -1);
 // const [customPresetsClient, setCustomPresetsClient] = useState(-1);
@@ -36,7 +43,6 @@ export default function Home() {
 
       ReactGA.send({ hitType: "pageview", page: "/file_upload_", title: "_Landing Page (Upload)" });
     }, 400);
-    return () => { clearTimeout(timeout) };
   }, []);
 
   const handleFileUpload = async (e) => {

@@ -7,15 +7,22 @@ import BlinkingDot from '../util/BlinkingDot.jsx';
 import useLocalStorage from 'use-local-storage';
 
 import DefaultSave from '../util/tempSave.json';
-
+ReactGA.initialize([{
+    trackingId: "G-GGLPK02VH8",
+    // gaOptions: {...}, // optional
+    gtagOptions: {
+        send_page_view: false
+    },
+}]);
 export default function PageSelection() {
 
     useEffect(() => {
 
-        ReactGA.send({ hitType: "pageview", page: "/page_selection_", title: "_Page Selection" });
-
-
-
+         
+        setTimeout(() => {
+            ReactGA.send({ hitType: "pageview", page: "/page_view", title: "_Page Selection" });
+        }, 500);
+   
     }, []);
 
     const [clientData, setData] = useLocalStorage('userData', DefaultSave);

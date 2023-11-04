@@ -17,6 +17,15 @@ import useLocalStorage from "use-local-storage";
 
 import Image from 'next/image';
 
+ReactGA.initialize([{
+    trackingId: "G-GGLPK02VH8",
+    // gaOptions: {...}, // optional
+    gtagOptions: {
+        send_page_view: false
+    },
+}]);
+
+
 
 export default function Protein() {
 
@@ -33,8 +42,9 @@ export default function Protein() {
     const [numAL, setNumAl] = useLocalStorage(`numAL`, 5);
 
     useEffect(() => {
-
-        ReactGA.send({ hitType: "pageview", page: "/protein", title: "Protein" });
+        setTimeout(() => {
+            ReactGA.send({ hitType: "pageview", page: "/protein", title: "Protein" });
+        }, 500);
 
     }, [])
 

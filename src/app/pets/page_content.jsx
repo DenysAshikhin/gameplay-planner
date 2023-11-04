@@ -24,6 +24,13 @@ import { mainTeamSuggestions, reincTeamSuggestions, gearTeamSuggestions, statTea
 
 import Image from 'next/image';
 
+ReactGA.initialize([{
+    trackingId: "G-GGLPK02VH8",
+    // gaOptions: {...}, // optional
+    gtagOptions: {
+        send_page_view: false
+    },
+}]);
 
 
 const bonusCutOff = 1000;
@@ -527,7 +534,10 @@ export default function Pets() {
 
     useEffect(() => {
 
-        ReactGA.send({ hitType: "pageview", page: "/pet_combos", title: "Pet Combos Page" });
+      
+        setTimeout(() => {
+            ReactGA.send({ hitType: "pageview", page: "/pet_combos", title: "Pet Combos Page" });
+        }, 500);
 
     }, []);
 
