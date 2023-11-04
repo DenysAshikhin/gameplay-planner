@@ -203,6 +203,8 @@ export default function PetItem({ petData, isSelected, onClick, data, weightMap,
                                     height: '60px',
                                     width: 'auto'
                                 }}
+                                unoptimized
+                                priority
                             />
                             {/* <img alt={`in game image of ${name}`} src={img}
                                 className={circleBorder ? '' : 'item-image'}
