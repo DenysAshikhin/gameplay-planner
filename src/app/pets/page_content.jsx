@@ -797,7 +797,7 @@ export default function Pets() {
                                 backgroundColor: 'rgba(255,255,255, 0.04)',
                                 borderRadius: '6px',
                                 maxHeight: '35vh',
-                                paddingLeft:'6px'
+                                paddingLeft: '6px'
                             }}>
 
                                 <Reorder.Group
@@ -824,7 +824,7 @@ export default function Pets() {
                                             }
                                         }
                                         return (
-                                            < Reorder.Item key={item} value={item} >
+                                            < Reorder.Item key={item} value={item} style={{ marginLeft: '6px' }}>
                                                 <div
                                                     className='drag'
                                                     style={{
