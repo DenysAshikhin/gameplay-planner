@@ -7,7 +7,7 @@ export async function generateMetadata({ params, searchParams }, parent) {
 
     return {
       title: 'Gameplay Planner',
-      description: "Farmer Against Potatoes Idle, FAPI, gameplay planner / wiki / tool / guide, helps plan out and decide on the best team expeditions, team combos, farm and plant optimisations, card charges, protein assembly and more!"
+      description: "Protein - Help you build, plan and optimise your protein and assembly line purchases. Includes a weight list to prioritise stats. Displays cost, time to purchase, level, hidden and future bonuses"
     }
   }
 
