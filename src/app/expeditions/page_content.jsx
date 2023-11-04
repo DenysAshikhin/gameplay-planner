@@ -1918,7 +1918,7 @@ export default function Expeditions() {
                                             }
                                             return (
                                                 <div
-                                                    key={pet.label}
+                                                    key={pet.ID}
                                                     style={{
                                                         boxShadow: `0 2px 1px -1px #ecf0f5`,
                                                         display: 'flex',

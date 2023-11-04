@@ -1002,7 +1002,8 @@ const CardCard = ({ vertical, displayMode, data, card, weightMap, i, applyWeight
             }
 
         }
-    }, [cardMap, finalWeight, ChargeTransfertPowerPerma, ChargeTransfertPowerTemp
+    }, [cardMap, finalWeight, ChargeTransfertPowerPerma, ChargeTransfertPowerTemp, 
+         resetWeights, setCardWeights
 
         ,
         ID,
@@ -1144,6 +1145,7 @@ const CardCard = ({ vertical, displayMode, data, card, weightMap, i, applyWeight
                                         return;
                                     }
                                     setCardWeight(x);
+                                    console.log(`updating card: ${ID}  ->>>> ${x}`)
 
                                     // setCardMap((e) => {
                                     //     let tempy = { ...e };
