@@ -796,7 +796,8 @@ export default function Pets() {
                                 margin: '6px', justifyContent: 'center', padding: '6px 0',
                                 backgroundColor: 'rgba(255,255,255, 0.04)',
                                 borderRadius: '6px',
-                                maxHeight: '35vh'
+                                maxHeight: '35vh',
+                                paddingLeft:'6px'
                             }}>
 
                                 <Reorder.Group
