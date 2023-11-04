@@ -900,7 +900,7 @@ const CARD_DISPLAY_IDS = [
     6, 5, 19, 18, 20
 ];
 
-const CardCard = ({ vertical, displayMode, data, card, weightMap, i, applyWeights, cardMap, setCardMap, resetWeights }) => {
+const CardCard = ({ vertical, displayMode, data, card, weightMap, i, applyWeights, cardMap, setCardMap, resetWeights, cardWeightInner }) => {
 
     const {
         CurrentExp,
@@ -914,20 +914,18 @@ const CardCard = ({ vertical, displayMode, data, card, weightMap, i, applyWeight
     const { ChargeTransfertPowerPerma, ChargeTransfertPowerTemp } = data;
 
     const [cardWeight, setCardWeight] = useLocalStorage(`cardWeight-${ID}`, -1);
+    const [internalWeight, setInternalWeight] = useState(-1);
 
     useEffect(() => {
-        if (resetWeights > 10) {
-            setCardWeight(-1);
-            setRefreshMath(true);
-        }
-    }, [resetWeights, setCardWeight]);
-
+        console.log(`${ID} -> ${cardWeight}`);
+        setInternalWeight(cardWeight);
+    }, [cardWeight])
 
     let defaultWeight = cardIDMap[ID].weights[data.AscensionCount];
     if (data.AscensionCount >= 15) {
         defaultWeight /= 2;
     }
-    const finalWeight = cardWeight === -1 ? defaultWeight : cardWeight;
+    const finalWeight = internalWeight === -1 ? defaultWeight : internalWeight;
 
     const [finalAfter, setFinalAfter] = useState(mathHelper.createDecimal(-1));
     const [finalBefore, setFinalBefore] = useState(mathHelper.createDecimal(-1));
@@ -940,7 +938,8 @@ const CardCard = ({ vertical, displayMode, data, card, weightMap, i, applyWeight
 
     useEffect(() => {
         if (resetWeights > 10) {
-            setCardWeight(-1);
+            // setCardWeight(-1);
+            setInternalWeight(-1);
             setRefreshMath(true);
         }
     }, [resetWeights, setCardWeight]);
@@ -949,7 +948,12 @@ const CardCard = ({ vertical, displayMode, data, card, weightMap, i, applyWeight
     useEffect(() => {
 
         if (refreshMath) {
+            console.log(`refreshing internal val: ${ID}`)
             setRefreshMath(false);
+            setCardWeight(internalWeight);
+
+
+
             const permValueBefore = mathHelper.createDecimal(PowerPermaBD);
             const tempValueBefore = mathHelper.createDecimal(PowerTempBD);
 
@@ -1069,8 +1073,6 @@ const CardCard = ({ vertical, displayMode, data, card, weightMap, i, applyWeight
     }
 
     return (
-
-
         <div
             key={i}
             style={{
@@ -1162,7 +1164,8 @@ const CardCard = ({ vertical, displayMode, data, card, weightMap, i, applyWeight
                                     if (x < 0 || x > 999999) {
                                         return;
                                     }
-                                    setCardWeight(x);
+                                    // setCardWeight(x);
+                                    setInternalWeight(x);
                                     setRefreshMath(true);
                                     console.log(`updating card: ${ID}  ->>>> ${x}`)
 
@@ -1214,9 +1217,7 @@ const CardCard = ({ vertical, displayMode, data, card, weightMap, i, applyWeight
                     </MouseOverPopover>
                 </div>
             )}
-
         </div>
-
     );
 }
 
@@ -1254,6 +1255,7 @@ export default function Cards() {
         let num = Math.random() * 1000 + 20;
         setResetCardWeights(num);
     }, [clientData]);
+
     // const foundCards = CardsCollection.filter(card => card.Found === 1);
     const cardsById = CardsCollection.reduce((accum, card) => {
         accum[card.ID] = card;
@@ -1314,7 +1316,19 @@ export default function Cards() {
                 <div style={{ fontSize: '36px', margin: '0 6px 0 0', }}>
                     {index + 1}
                 </div>
-                <CardCard resetWeights={-3} displayMode='weight' vertical={true} cardMap={cardMap} setCardMap={null} data={data} i={index} card={cardsById[value.ID]} weightMap={weightMap} classes={classes} key={`${index}-perc`}></CardCard>
+                <CardCard
+                    resetWeights={-3}
+                    displayMode='weight'
+                    vertical={true}
+                    cardMap={cardMap}
+                    setCardMap={null}
+                    data={data}
+                    i={index}
+                    card={cardsById[value.ID]}
+                    weightMap={weightMap}
+                    classes={classes}
+                    key={`${index}-perc`
+                    }></CardCard>
             </div>
         )
     }, []);
@@ -1580,7 +1594,7 @@ export default function Cards() {
 
                 </div>
                 {/* Top 5 % increase */}
-                <div
+                {/* <div
                     style={{
                         maxWidth: '474px',
                         padding: '6px',
@@ -1606,7 +1620,7 @@ export default function Cards() {
                         >Best Percen.</h3>
                         {finalPercIncrease}
                     </div>
-                </div>
+                </div> */}
             </div>
         </div >
     );
