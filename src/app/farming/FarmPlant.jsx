@@ -673,6 +673,8 @@ export default memo(FarmingPlant, function (prev, curr) {
     return false;
   if (prev.data.plant?.timeToLevel !== curr.data?.plant?.timeToLevel)
     return false;
-
+  if (!prev.data.plant?.production.equals(curr.data?.plant?.production)) {
+    return false;
+  }
   return true; //Nothing changed
 });
