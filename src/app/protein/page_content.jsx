@@ -33,11 +33,9 @@ export default function Protein() {
     const [numAL, setNumAl] = useLocalStorage(`numAL`, 5);
 
     useEffect(() => {
-        let timeout = setTimeout(() => {
 
-            ReactGA.send({ hitType: "pageview", page: "/protein", title: "Protein" });
-        }, 3500);
-        return () => { clearTimeout(timeout) };
+        ReactGA.send({ hitType: "pageview", page: "/protein", title: "Protein" });
+
     }, [])
 
     let tempList = [];
@@ -272,7 +270,7 @@ export default function Protein() {
                             }>
                                 <div style={{ height: '24px', width: '24px', position: 'relative' }}>
                                     <Image
-                                        alt='info icon popup additional information' 
+                                        alt='info icon popup additional information'
                                         src={infoIcon}
                                         fill
                                         unoptimized

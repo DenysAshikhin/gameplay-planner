@@ -254,11 +254,8 @@ export default function Expeditions() {
 
     useEffect(() => {
 
-        let timeout = setTimeout(() => {
-
             ReactGA.send({ hitType: "pageview", page: "/expeditions_", title: "_Expedition Calculator Page" });
-        }, 5000);
-        return () => { clearTimeout(timeout) };
+  
     }, [])
 
 

@@ -35,7 +35,7 @@ export default function Home() {
     let timeout = setTimeout(() => {
 
       ReactGA.send({ hitType: "pageview", page: "/file_upload_", title: "_Landing Page (Upload)" });
-    }, 200);
+    }, 400);
     return () => { clearTimeout(timeout) };
   }, []);
 

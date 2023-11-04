@@ -526,11 +526,9 @@ export default function Pets() {
     const [exportPreset, setExportPreset] = useState('');
 
     useEffect(() => {
-        let timeout = setTimeout(() => {
 
-            ReactGA.send({ hitType: "pageview", page: "/pet_combos", title: "Pet Combos Page" });
-        }, 5000);
-        return () => { clearTimeout(timeout) };
+        ReactGA.send({ hitType: "pageview", page: "/pet_combos", title: "Pet Combos Page" });
+
     }, []);
 
     const comboList = data.PetsSpecial;
