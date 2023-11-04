@@ -930,64 +930,83 @@ const CardCard = ({ vertical, displayMode, data, card, weightMap, i, applyWeight
     }
     const finalWeight = cardWeight === -1 ? defaultWeight : cardWeight;
 
-    const permValueBefore = mathHelper.createDecimal(PowerPermaBD);
-    const tempValueBefore = mathHelper.createDecimal(PowerTempBD);
+    const [finalAfter, setFinalAfter] = useState(mathHelper.createDecimal(-1));
+    const [finalBefore, setFinalBefore] = useState(mathHelper.createDecimal(-1));
+    const [flatIncrease, setFlatIncrease] = useState(mathHelper.createDecimal(-1));
+    const [percIncrease, setPercentIncrease] = useState(mathHelper.createDecimal(-1));
+    const [weightIncrease, setWeightIncrease] = useState(mathHelper.createDecimal(-1));
 
-    let permValueAfter = mathHelper.addDecimal(permValueBefore,
-        mathHelper.multiplyDecimal(tempValueBefore, ChargeTransfertPowerPerma)
-    );
-    let tempValueAfter = mathHelper.multiplyDecimal(tempValueBefore, (1 - ChargeTransfertPowerTemp));
+    useEffect(() => {
 
-    let tempBonusBefore = tempPowerBonusFormula[ID](tempValueBefore);
-    let permBonusBefore = permPowerBonusFormula[ID](permValueBefore);
+        const permValueBefore = mathHelper.createDecimal(PowerPermaBD);
+        const tempValueBefore = mathHelper.createDecimal(PowerTempBD);
 
-    let finalBefore = mathHelper.multiplyDecimal(
-        mathHelper.subtractDecimal(
-            mathHelper.multiplyDecimal(tempBonusBefore, permBonusBefore),
-            1
-        ),
-        ((1.0 + Level * 0.02) * 100)
-    )
+        let permValueAfter = mathHelper.addDecimal(permValueBefore,
+            mathHelper.multiplyDecimal(tempValueBefore, ChargeTransfertPowerPerma)
+        );
+        let tempValueAfter = mathHelper.multiplyDecimal(tempValueBefore, (1 - ChargeTransfertPowerTemp));
 
-    let temp1 = tempPowerBonusFormula[ID](mathHelper.multiplyDecimal(tempValueBefore, (1.0 - ChargeTransfertPowerTemp)))
-    let temp2 = permPowerBonusFormula[ID](
-        mathHelper.addDecimal(permValueBefore, mathHelper.multiplyDecimal(tempValueBefore, ChargeTransfertPowerPerma))
-    )
-    let finalAfter =
-        mathHelper.multiplyDecimal(
-            mathHelper.subtractDecimal(mathHelper.multiplyDecimal(temp1, temp2), 1),
-            (1.0 + Level * 0.02) * 100)
+        let tempBonusBefore = tempPowerBonusFormula[ID](tempValueBefore);
+        let permBonusBefore = permPowerBonusFormula[ID](permValueBefore);
 
+        let finalBefore = mathHelper.multiplyDecimal(
+            mathHelper.subtractDecimal(
+                mathHelper.multiplyDecimal(tempBonusBefore, permBonusBefore),
+                1
+            ),
+            ((1.0 + Level * 0.02) * 100)
+        )
 
-    let percIncrease = mathHelper.divideDecimal(finalAfter, finalBefore);
-    let flatIncrease = mathHelper.subtractDecimal(finalAfter, finalBefore);
-    let weightIncrease = mathHelper.multiplyDecimal(mathHelper.divideDecimal(mathHelper.subtractDecimal(finalAfter, finalBefore), finalBefore), finalWeight)
+        let temp1 = tempPowerBonusFormula[ID](mathHelper.multiplyDecimal(tempValueBefore, (1.0 - ChargeTransfertPowerTemp)))
+        let temp2 = permPowerBonusFormula[ID](
+            mathHelper.addDecimal(permValueBefore, mathHelper.multiplyDecimal(tempValueBefore, ChargeTransfertPowerPerma))
+        )
+        let finalAfter =
+            mathHelper.multiplyDecimal(
+                mathHelper.subtractDecimal(mathHelper.multiplyDecimal(temp1, temp2), 1),
+                (1.0 + Level * 0.02) * 100);
 
-    if (resetWeights !== -3) {
-        if (!(ID in cardMap)) {
-            setCardMap((e) => {
-                let tempy = { ...e };
-                tempy[ID] = {
-                    ID: ID, finalAfter: finalAfter,
-                    percIncrease: percIncrease,
-                    flatIncrease: flatIncrease,
-                    weightIncrease: weightIncrease
-                };
-                return tempy;
-            })
+       
+
+        let percIncrease = mathHelper.divideDecimal(finalAfter, finalBefore);
+        let flatIncrease = mathHelper.subtractDecimal(finalAfter, finalBefore);
+        let weightIncrease = mathHelper.multiplyDecimal(mathHelper.divideDecimal(mathHelper.subtractDecimal(finalAfter, finalBefore), finalBefore), finalWeight);
+       
+        setFinalAfter(finalAfter);
+        setFinalBefore(finalBefore);
+            setWeightIncrease(weightIncrease);
+        setFlatIncrease(flatIncrease);
+        setPercentIncrease(percIncrease);
+
+        if (resetWeights !== -3) {
+            if (!(ID in cardMap)) {
+                setCardMap((e) => {
+                    let tempy = { ...e };
+                    tempy[ID] = {
+                        ID: ID, finalAfter: finalAfter,
+                        percIncrease: percIncrease,
+                        flatIncrease: flatIncrease,
+                        weightIncrease: weightIncrease
+                    };
+                    return tempy;
+                })
+            }
+            else if (!cardMap[ID]?.finalAfter.equals(finalAfter) || !cardMap[ID]?.weightIncrease.equals(weightIncrease)) {
+                setCardMap((e) => {
+                    let tempy = { ...e };
+                    tempy[ID] = {
+                        ID: ID, finalAfter: finalAfter, percIncrease: percIncrease,
+                        flatIncrease: flatIncrease,
+                        weightIncrease: weightIncrease
+                    };
+                    return tempy;
+                })
+            }
+
         }
-        else if (!cardMap[ID]?.finalAfter.equals(finalAfter) || !cardMap[ID]?.weightIncrease.equals(weightIncrease)) {
-            setCardMap((e) => {
-                let tempy = { ...e };
-                tempy[ID] = {
-                    ID: ID, finalAfter: finalAfter, percIncrease: percIncrease,
-                    flatIncrease: flatIncrease,
-                    weightIncrease: weightIncrease
-                };
-                return tempy;
-            })
-        }
-    }
+    }, [cardMap, finalWeight, ChargeTransfertPowerPerma, ChargeTransfertPowerTemp])
+
+
 
     let displayTotalsRatio = 0;
     let isPositiveChargeRatio = finalAfter.greaterThan(finalBefore);
@@ -1071,7 +1090,7 @@ const CardCard = ({ vertical, displayMode, data, card, weightMap, i, applyWeight
                         {cardIDMap[ID].label}
                     </div>
                     {/* <img alt={`picture of the in game ${cardIDMap[ID].label} card`} style={{ height: '75px' }} src={`/fapi_fork_personal/cards/card${ID}.png`} /> */}
-                    <div style={{ height: '75px', width: '95%', margin:'0 auto', position: 'relative' }}>
+                    <div style={{ height: '75px', width: '95%', margin: '0 auto', position: 'relative' }}>
                         <Image
                             alt={`picture of the in game ${cardIDMap[ID].label} card`}
                             fill
@@ -1121,16 +1140,16 @@ const CardCard = ({ vertical, displayMode, data, card, weightMap, i, applyWeight
                                     }
                                     setCardWeight(x);
 
-                                    setCardMap((e) => {
-                                        let tempy = { ...e };
-                                        tempy[ID] = {
-                                            ID: ID, finalAfter: finalAfter,
-                                            percIncrease: percIncrease,
-                                            flatIncrease: flatIncrease,
-                                            weightIncrease: mathHelper.multiplyDecimal(mathHelper.divideDecimal(mathHelper.subtractDecimal(finalAfter, finalBefore), finalBefore), x)
-                                        };
-                                        return tempy;
-                                    })
+                                    // setCardMap((e) => {
+                                    //     let tempy = { ...e };
+                                    //     tempy[ID] = {
+                                    //         ID: ID, finalAfter: finalAfter,
+                                    //         percIncrease: percIncrease,
+                                    //         flatIncrease: flatIncrease,
+                                    //         weightIncrease: mathHelper.multiplyDecimal(mathHelper.divideDecimal(mathHelper.subtractDecimal(finalAfter, finalBefore), finalBefore), x)
+                                    //     };
+                                    //     return tempy;
+                                    // })
 
 
                                     ReactGA.event({
