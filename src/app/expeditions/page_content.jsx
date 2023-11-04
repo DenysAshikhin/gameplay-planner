@@ -134,11 +134,12 @@ export default function Expeditions() {
         setComboSelectorRunTime(comboSelectorClient);
     }, [comboSelectorClient]);
 
-    const [numTeams, setNumTeamsRunTime] = useState(-1);
-    const [numTeamsClient, setNumTeams] = useLocalStorage("numTeams", -1);
+    const [numTeams, setNumTeamsRunTime] = useState(1);
+    const [numTeamsClient, setNumTeams] = useLocalStorage("numTeams", 1);
     useEffect(() => {
         setNumTeamsRunTime(numTeamsClient);
     }, [numTeamsClient]);
+
 
     const tokenSelections = { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0 };
     const [hoveredBonus, setHoveredBonus] = useState(0);
@@ -190,11 +191,6 @@ export default function Expeditions() {
 
         }
     }, [activeCustomBonuses, defaultRank, groupRankCritera, numTeams, petWhiteList, tokenDamageBias, refreshGroups, data, selectedItems])
-
-
-    // const handleGroups = useCallback((data, selectedItems, recalculate) => {
-
-    // },);
 
 
     const dataLoaded = useRef(false);
@@ -450,11 +446,6 @@ export default function Expeditions() {
             }
         })
         .filter((e) => !!e && !leftOverIgnore[e.id])
-
-
-    console.log(petWhiteList);
-
-
     return (
         <div
             className="grid-container"
@@ -809,7 +800,7 @@ export default function Expeditions() {
                     style={{ padding: '6px 3px 1px 3px', overflow: 'auto', maxHeight: 'calc(100% - 50px)' }}
                 >
                     <div style={{ display: 'flex', flexDirection: 'column' }}>
-                        <div style={{ display: 'flex' }}>
+                        {/* <div style={{ display: 'flex' }}>
                             <div
                                 style={{
                                     marginRight: '12px',
@@ -866,7 +857,7 @@ export default function Expeditions() {
                                 <option value="damage">Max Damage</option>
                                 <option value="token">Max Tokens {`->`} Damage</option>
                             </select>
-                        </div>
+                        </div> */}
                         <div style={{ display: 'flex' }}>
 
                             <div>{`Ignore Pets Rank`}</div>
@@ -1735,9 +1726,10 @@ export default function Expeditions() {
                                                                 }
                                                             }
                                                         >
-                                                            {Array(numTeams).fill(numTeams).map((e, index) => {
-                                                                return <option value={index} key={index}>{index + 1}</option>
-                                                            })}
+                                                            {Array.apply(null, Array(Number(numTeams)))
+                                                                .map((e, index) => {
+                                                                    return <option value={index} key={index}>{index + 1}</option>
+                                                                })}
 
 
                                                         </select>

@@ -1,7 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 
-const NavBar = ({}) => {
+import BlinkingDot from './Dot.jsx';
+
+const NavBar = ({ }) => {
   return (
     <div
       style={{
@@ -145,6 +147,7 @@ const NavBar = ({}) => {
               fill
               src={`/images/icons/badge.svg`}
             />
+
           </div>
         </div>
       </Link>

@@ -196,3 +196,12 @@ code {
 .teamBuilder li {
   list-style-type: none
 }
+
+.elementToFadeInAndOut {
+  opacity: 1;
+  animation: fade 2s linear infinite;
+}
+@keyframes fade {
+0%,100% { opacity: 1 }
+50% { opacity: 0 }
+}

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 
-const PageCard = ({ page, setTab }) => {
+const PageCard = ({ page, setTab, redBorder }) => {
   let imgString = "";
   let nameString = "";
   let url = "";
@@ -55,7 +55,7 @@ const PageCard = ({ page, setTab }) => {
   return (
     <Link href={url} style={{ textDecoration: 'none' }}>
       <div
-        className={"hover"}
+        className={`hover`}
         style={{
           height: "148px",
           width: "150px",
@@ -65,7 +65,7 @@ const PageCard = ({ page, setTab }) => {
           opacity: disabled ? "0.3" : "",
         }}
       >
-        <div
+        <div  className={`${redBorder? 'borderToFadeInAndOutRed' : ''}`}
           style={{
             height: "80%",
             display: "flex",
@@ -91,11 +91,12 @@ const PageCard = ({ page, setTab }) => {
               alt={`navigation item, picture of ${imgString}`}
               src={imgSrc ? imgSrc : `/images/icons/${imgString}.svg`}
               fill
+              priority
             />
           </div>
         </div>
 
-        <div
+        <div className={`${redBorder? 'borderToFadeInAndOutRed' : ''}`}
           style={{
             height: "20%",
             display: "flex",
