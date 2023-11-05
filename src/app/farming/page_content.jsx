@@ -2672,7 +2672,8 @@ const FarmingLanding = () => {
                                 flex: 1,
                                 position: 'absolute',
                                 height: '99%',
-                                width: '100%'
+                                width: '100%',
+                                minWidth:'400px'
                             }}>
                                 <Graph
                                     graphObjects={graphObjects}

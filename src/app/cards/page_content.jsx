@@ -43,7 +43,7 @@ ReactGA.initialize([{
     // gtagOptions: {
     //     send_page_view: false
     // },
-  }]);
+}]);
 
 const POTATO = 1;
 const CLASSEXP = 2;
@@ -1149,7 +1149,7 @@ const CardCard = ({ vertical, displayMode, data, card, weightMap, i, applyWeight
                     }}
                 >
                     <input
-                       aria-label='Specify the weight/importance for this card'
+                        aria-label='Specify the weight/importance for this card'
                         style={{
                             width: '47px',
                             color: cardWeight !== defaultWeight && cardWeight !== -1 ? 'black' : 'gray',
@@ -1228,7 +1228,7 @@ export default function Cards() {
 
     // useEffect(() => {
 
-      
+
     //     setTimeout(() => {
     //         ReactGA.send({ hitType: "pageview", page: "/cards_", title: "_Card Calculator Page" });
     //     }, 500);
@@ -1484,9 +1484,10 @@ export default function Cards() {
                 style={{
                     display: 'flex',
                     // width: '100%',
-                    height: '60px',
+                    // minHeight: '60px',
                     marginTop: '3px',
                     marginBottom: '6px',
+
                     alignSelf: 'flex-start',
                     // border: chargesMax ? '2px solid red' : '',
                     padding: chargesMax ? '0 6px' : '',
@@ -1518,22 +1519,40 @@ export default function Cards() {
                 )}
                 {/* Current Charge */}
                 <div
-                    style={{ display: 'flex', marginBottom: '0px', width: '455px', alignItems: 'center' }}
+                    style={{
+                        display: 'flex', marginBottom: '0px', marginRight: '36px',
+                        // width: '455px', 
+                        alignItems: 'center'
+                    }}
                 >
                     <div
                         style={{ display: 'flex', alignItems: 'center', fontSize: '48px' }}
                     >
-                        {`Current Charges: ` + data?.CurrentCardCharge}
+                        {`Current Charges: `}
                     </div>
 
-                    <div style={{ position: 'relative', height: '55px', width: '30px', }}>
+                    <div style={{ display: 'flex', alignItems: 'center', fontSize: '48px' }}>
+                        <div style={{ marginRight: '6px' }}>{data?.CurrentCardCharge}</div>
                         <Image
                             alt='in game charge (battery) image'
-                            fill
+                            // fill
+                            style={{ height: '100%', width: 'auto' }}
                             src={chargeImg}
                             unoptimized={true}
                         />
                     </div>
+                    {/* <div style={{
+                        position: 'relative', height: '100%',
+                        // width: '30px', 
+                    }}> */}
+                    {/* <Image
+                        alt='in game charge (battery) image'
+                        // fill
+                        style={{ height: '100%', width: 'auto' }}
+                        src={chargeImg}
+                        unoptimized={true}
+                    /> */}
+                    {/* </div> */}
                     {/* <img 
                     alt='in game charge (battery) image' 
                     style={{ height: '55px' }}
@@ -1551,22 +1570,25 @@ export default function Cards() {
                     opacity={1}
                 >
                     <div
-                        style={{ display: 'flex', marginBottom: '0px', marginleft: '36px', alignItems: 'center', height: '60px' }}
+                        style={{ display: 'flex', marginBottom: '0px', marginleft: '36px', alignItems: 'center', }}
                     >
                         <div
                             style={{ display: 'flex', alignItems: 'center', fontSize: '48px' }}
                         >
-                            {`Remaining Charges in ascencion: ${remainingCharges} `}
+                            {`Remaining Charges in ascencion: `}
                         </div>
-
-                        <div style={{ position: 'relative', height: '55px', width: '30px', }}>
+                        <div style={{ display: 'flex', alignItems: 'center', fontSize: '48px' }}>
+                            <div style={{ marginRight: '6px' }}>{` ${remainingCharges}`}</div>
                             <Image
                                 alt='in game charge (battery) image'
-                                fill
+                                // fill
+                                style={{ height: '100%', width: 'auto', maxHeight: '65px' }}
                                 src={chargeImg}
                                 unoptimized={true}
                             />
                         </div>
+
+
 
                         {/* <img
                             alt='in game charge (battery) image'

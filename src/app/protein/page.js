@@ -9,7 +9,10 @@ export async function generateMetadata({ params, searchParams }, parent) {
     description: "Protein - Help you build, plan and optimise your protein and assembly line purchases. Includes a weight list to prioritise stats. Displays cost, time to purchase, level, hidden and future bonuses"
   }
 }
-
+export const viewport = {
+  width: 'device-width',
+  initialScale: 0.5
+}
 export default function Page() {
 
   return <Cards />

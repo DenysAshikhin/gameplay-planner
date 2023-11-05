@@ -10,7 +10,10 @@ export async function generateMetadata({ params, searchParams }, parent) {
       description: "Helps you pick the best card to charge based on priority or weights. Displays card bonus such as temporary power, permanent power, levels."
     }
   }
-
+  export const viewport = {
+    width: 'device-width',
+    initialScale: 0.5
+  }
 export default function Page() {
 
     return <Cards />

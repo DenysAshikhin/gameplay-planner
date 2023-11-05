@@ -16,6 +16,7 @@ import P7 from '../../../public/images/farming/plants/P7.png'
 import P8 from '../../../public/images/farming/plants/P8.png'
 import P9 from '../../../public/images/farming/plants/P9.png'
 import PrestigeStar from '../../../public/images/icons/prestige_star.png'
+import UpArrow from '../../../public/images/icons/up_arrow.svg';
 
 // import P1 from '../../../public/images/farming/plants/P1.png'
 
@@ -334,8 +335,8 @@ const FarmingPlant = ({ data }) => {
               >
                 <Image
                   alt="arrow pointing up"
-                  src={`/images/icons/up_arrow.svg`}
-                  fill
+                  src={UpArrow}
+                  style={{ width: '100%', height: '100%' }}
                   unoptimized={true}
                 />
               </div>
@@ -360,27 +361,27 @@ const FarmingPlant = ({ data }) => {
                 margin: "0 3px",
               }}
             >
-              {/* <div
+              <div
                 style={{
                   height: "16px",
                   width: "24px",
                   zIndex: "1",
                   position: "relative",
                 }}
-              > */}
-              <Image
-                alt="arrow pointing up"
-                src={`/images/icons/up_arrow.svg`}
-                height={16}
-                width={24}
-                style={{
-
-                  zIndex: "1",
-                  position: "relative",
-                }}
-                unoptimized={true}
-              />
-              {/* </div> */}
+              >
+                <Image
+                  alt="arrow pointing up"
+                  src={UpArrow}
+                  height={16}
+                  width={24}
+                  // style={{
+                  //   zIndex: "1",
+                  //   position: "relative",
+                  // }}
+                  // fill
+                  unoptimized={true}
+                />
+              </div>
             </div>
             <div
               style={{

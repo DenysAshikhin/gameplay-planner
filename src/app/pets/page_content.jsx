@@ -1450,7 +1450,8 @@ export default function Pets() {
                             flex: '1',
                             alignItems: 'flex-start',
                             backgroundColor: 'rgba(255,255,255, 0.05)',
-                            padding: '6px'
+                            padding: '6px',
+                            minWidth:'260px'
                         }}>
                         <div
                             style={{ fontSize: '32px', fontWeight: 'bold', textAlign: 'center', width: '100%' }}
