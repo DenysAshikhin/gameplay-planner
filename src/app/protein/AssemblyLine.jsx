@@ -16,7 +16,7 @@ import Image from 'next/image';
 
 //Need to manually check if unlocked or not later
 
-const AssemblyInnerBonus = ({ line, al_level, key }) => {
+const AssemblyInnerBonus = ({ line, al_level, key_inner }) => {
 
     const [showLocked, setShowLocked] = useState(false);
 
@@ -31,7 +31,7 @@ const AssemblyInnerBonus = ({ line, al_level, key }) => {
         <div
             onMouseEnter={(e) => { setShowLocked(true) }}
             onMouseLeave={(e) => { setShowLocked(false) }}
-            key={key}
+            key={key_inner}
             style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', width: '100%', height: '100%' }}>
             {/* <div style={{ height: '95%', width: '90%', position: 'relative' }}> */}
             <Image
@@ -103,7 +103,7 @@ const AssemblyInnerBonus = ({ line, al_level, key }) => {
 
 
 
-const AssemblyLine = ({ data, assemblyID, index, purchaseTime, cost }) => {
+const AssemblyLine = ({ data, assemblyID, index, purchaseTime, cost, key_inner }) => {
 
 
     let assembly = data.AssemblerCollection[assemblyID];
@@ -116,6 +116,7 @@ const AssemblyLine = ({ data, assemblyID, index, purchaseTime, cost }) => {
 
     return (
         <div
+            key={key_inner}
             style={{
                 backgroundColor: 'rgba(255,255,255, 0.12)',
                 display: 'flex',
@@ -154,7 +155,7 @@ const AssemblyLine = ({ data, assemblyID, index, purchaseTime, cost }) => {
                 }}
             >
                 {assembly.BonusList.map((e, inner_index) => {
-                    return <AssemblyInnerBonus key={inner_index} line={e} al_level={assembly.Level} />
+                    return <AssemblyInnerBonus key={inner_index} key_inner={inner_index} line={e} al_level={assembly.Level} />
                 })}
                 <div style={{ marginBottom: '6px' }}></div>
             </div>

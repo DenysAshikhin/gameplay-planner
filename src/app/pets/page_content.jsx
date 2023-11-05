@@ -750,6 +750,7 @@ export default function Pets() {
                                     </div>
                                     <div>
                                         <select
+                                         aria-label='Select a default team preset'
                                             style={{ maxWidth: '144px', marginLeft: '12px' }}
                                             onChange={
                                                 (selected_mode) => {
@@ -903,6 +904,7 @@ export default function Pets() {
                                                             </div>
                                                             <div>
                                                                 <input
+                                                                    aria-label='Select how the bonus will be rewarded'
                                                                     // className='importantText textMedium2'
                                                                     style={{
                                                                         //  borderRadius: '4px',
@@ -1044,6 +1046,7 @@ export default function Pets() {
                                                 </div>
                                                 <div>
                                                     <select
+                                                     aria-label='Specifiy if the pet is included or excluded'
                                                         style={{ maxWidth: '144px' }}
                                                         onChange={
                                                             (selected_mode) => {
@@ -1203,7 +1206,10 @@ export default function Pets() {
                                 </div>
                                 {/* Save current preset */}
                                 <div style={{ display: 'flex', justifyContent: 'center' }} >
-                                    <input type='text' onChange={(e) => {
+                                    <input type='text'  
+                                       aria-label='Specify name of the current preset to save it under'
+                                        onChange={(e) => {
+                                        
                                         setCurrentPresetName(e.target.value);
                                     }}
                                         style={{
@@ -1236,6 +1242,7 @@ export default function Pets() {
                                         Select saved preset
                                     </div>
                                     <select
+                                     aria-label='Specify which custom preset to load in'
                                         style={{ width: '90px', marginLeft: '12px' }}
                                         onChange={
                                             (selected_mode) => {
@@ -1276,6 +1283,7 @@ export default function Pets() {
                                         Delete preset
                                     </div>
                                     <select
+                                     aria-label='Specify which custom preset to delete'
                                         style={{ width: '90px', marginLeft: '12px' }}
                                         onChange={
                                             (selected_mode) => {
@@ -1311,7 +1319,9 @@ export default function Pets() {
                                 </div>
                                 {/* import preset */}
                                 <div style={{ display: 'flex', justifyContent: 'center' }} >
-                                    <input type='text' onChange={(e) => {
+                                    <input type='text' 
+                                     aria-label='Enter a preset code to import it'
+                                    onChange={(e) => {
                                         setLoadPreset(e.target.value);
                                     }}
                                         style={{

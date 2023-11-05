@@ -176,9 +176,11 @@ export default function Home() {
         <div className="mediumImportantText blackTextStroke" style={{ margin: '0 0 0 0', fontSize: '35px', fontWeight: 'bold', textStroke: '' }}>Warning: contains spoilers!</div>
 
         <div style={{ marginTop: '16px', }}>
-          <input style={{
-            width: '150px'
-          }} type="file" onChange={handleFileUpload} />
+          <input
+            aria-label='save file upload button'
+            style={{
+              width: '150px'
+            }} type="file" onChange={handleFileUpload} />
         </div>
       </div>
     </div>

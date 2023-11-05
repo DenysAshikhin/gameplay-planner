@@ -7,7 +7,7 @@ import useLocalStorage from "use-local-storage";
 import './JSONDisplay.css'; // Add this line to import the CSS file
 import { BonusMap, petNameArray, petNames, DefaultWeightMap } from '../util/itemMapping.js';
 import PetItemCoin from './PetItemCoin.jsx';
-import ItemSelection from "../util/ItemSelectionExpeditions";
+import ItemSelection from "../util/ItemSelection copy";
 import MouseOverPopover from "../util/Tooltip";
 
 import helper from '../util/helper.js';
@@ -862,6 +862,7 @@ export default function Expeditions() {
 
                             <div>{`Ignore Pets Rank`}</div>
                             <input
+                            aria-label='Force pets to rank 1'
                                 // disabled={refreshGroups}
                                 type="checkbox"
                                 onChange={(e) => {
@@ -896,6 +897,7 @@ export default function Expeditions() {
 
 
                             <select
+                            aria-label='Specify desired combo bonus'
                                 style={{ maxWidth: '144px' }}
                                 // disabled={refreshGroups}
                                 onChange={
@@ -928,6 +930,7 @@ export default function Expeditions() {
                             Number of teams:
                         </div>
                         <input id='prepFormInput'
+                        aria-label='Number of teams to calculate'
                             type='number'
                             className='prepNumber'
                             value={numTeams}
@@ -983,7 +986,9 @@ export default function Expeditions() {
                                 </div>
                             </MouseOverPopover>
 
-                            <input id='prepFormInput'
+                            <input
+                            
+                            aria-label='damage bias to control when a pet should be considered'
                                 type='number'
                                 className='prepNumber'
                                 value={tokenDamageBias}
@@ -1015,6 +1020,7 @@ export default function Expeditions() {
 
                             <div>{`Show all bonus totals`}</div>
                             <input
+                            aria-label='Displays bonuses whose backgrounds can be coloured in'
                                 // disabled={refreshGroups}
                                 type="checkbox" onChange={(e) => {
                                     setShowAllBonusTally(e.target.checked ? true : false)
@@ -1072,6 +1078,7 @@ export default function Expeditions() {
                                                     {`damage bias`}
                                                 </div>
                                                 <input
+                                                aria-label='Damage bias to control when a pet should be put in'
                                                     type='number'
                                                     className='prepNumber'
                                                     value={active_bon.relThresh}
@@ -1116,6 +1123,7 @@ export default function Expeditions() {
                                                     {`damage bias`}
                                                 </div>
                                                 <input
+                                                aria-label='Damage bias to control when a pet should be put in'
                                                     type='number'
                                                     className='prepNumber'
                                                     value={active_bon.relThresh}
@@ -1177,6 +1185,7 @@ export default function Expeditions() {
                                                         <div style={{ display: 'flex' }}>
                                                             <div>{`Enable highlight`}</div>
                                                             <input
+                                                            aria-label={`Enables the highlight for this bonus`}
                                                                 type="checkbox"
                                                                 onChange={(e_inner) => {
                                                                     setEnabledBonusHighlight({ ...enabledBonusHighlight, [e.bonus]: e_inner.target.checked ? 1 : 0 })
@@ -1247,6 +1256,7 @@ export default function Expeditions() {
                                                             <div style={{ display: 'flex' }}>
                                                                 <div>{`Enable highlight`}</div>
                                                                 <input
+                                                                aria-label='Enables highlighting of pets with this bonus'
                                                                     type="checkbox"
                                                                     onChange={(e_inner) => {
                                                                         setEnabledBonusHighlight({ ...enabledBonusHighlight, [totalMessages[index + 1].bonus]: e_inner.target.checked ? 1 : 0 })
@@ -1305,6 +1315,7 @@ export default function Expeditions() {
                                         Team Presets
                                     </div>
                                     <select
+                                    aria-label='Select your in game teams to quickly add those pets to whitelist'
                                         style={{ maxWidth: '144px', }}
                                         onChange={
                                             (e) => {
@@ -1678,6 +1689,7 @@ export default function Expeditions() {
                                             <div style={{ width: 'calc(30% + 1px)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: `2px 0 2px -1px #ecf0f5`, }}>
 
                                                 <select
+                                                aria-label='Select what kind of placement the pet will have'
                                                     style={{ maxWidth: '144px' }}
                                                     value={pet.placement}
                                                     onChange={
@@ -1711,6 +1723,7 @@ export default function Expeditions() {
                                                 {pet.placement === 'team' && (
                                                     <div>
                                                         <select
+                                                        aria-label='Select what team the pet will be placed in'
                                                             style={{ maxWidth: '144px' }}
                                                             value={pet.parameters.team}
                                                             onChange={
@@ -1740,6 +1753,7 @@ export default function Expeditions() {
 
                                                     >
                                                         <input
+                                                        aria-label='Damage bias to control when the pet should go in'
                                                             style={{ maxWidth: '36px' }}
                                                             type='number'
                                                             // className='prepNumber'

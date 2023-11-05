@@ -73,6 +73,7 @@ const Timer = () => {
         {/* days */}
         <div style={{ display: "flex" }}>
           <input
+           aria-label='Specify how many days to run for'
             type="number"
             className="prepNumber"
             value={innerDays}
@@ -100,6 +101,7 @@ const Timer = () => {
         {/* hours */}
         <div style={{ display: "flex", margin: "0 3px 0 6px" }}>
           <input
+             aria-label='Specify how many hours to run for'
             type="number"
             className="prepNumber"
             value={innerHours}
@@ -127,6 +129,7 @@ const Timer = () => {
         {/* minutes */}
         <div style={{ display: "flex", marginLeft: "3px" }}>
           <input
+             aria-label='Specify how many minutes to run for'
             type="number"
             className="prepNumber"
             value={innerMinutes}
@@ -154,6 +157,7 @@ const Timer = () => {
         {/* seconds */}
         <div style={{ display: "flex", margin: "0 0 0 6px" }}>
           <input
+             aria-label='Specify how many seconds to run for'
             type="number"
             className="prepNumber"
             value={innerSeconds}
@@ -198,6 +202,7 @@ const Timer = () => {
         >
           <div>Loop Alarm</div>
           <input
+             aria-label='Specify if the alarm should loop'
             type="checkbox"
             checked={loopAlarmClient}
             onChange={(e) => {

@@ -1531,6 +1531,7 @@ const FarmingLanding = () => {
                                         </MouseOverPopover>
 
                                         <input
+                                         aria-label='Specify how many hours to simulate/calculate for'
                                             style={{
                                                 marginLeft: '6px',
                                                 width: '48px'
@@ -1582,6 +1583,7 @@ const FarmingLanding = () => {
                                         </MouseOverPopover>
 
                                         <input
+                                         aria-label='Specify how many auto plots to consider for best placements'
                                             style={{
                                                 width: '48px',
                                                 marginLeft: '6px'
@@ -1657,6 +1659,7 @@ const FarmingLanding = () => {
                                     <div style={{ display: 'flex' }}>
                                         <div style={{ width: '160px' }}>Show Fries On Graph</div>
                                         <input type="checkbox" checked={showFries}
+                                         aria-label='Specify if fries should be displayed on the graph'
                                             id="enable display of fries on the graph"
                                             onChange={(e) => {
                                                 setShowFries(e.target.checked ? 1 : 0);
@@ -1671,6 +1674,7 @@ const FarmingLanding = () => {
                                     <div style={{ display: 'flex', marginBottom: '' }}>
                                         <div style={{ width: '160px' }}>Show HP On Graph</div>
                                         <input type="checkbox" checked={showHP}
+                                         aria-label='Specify if healthy potatoes should be displayed on the graph'
                                             id="enable display of HP on the graph"
                                             onChange={(e) => {
                                                 setShowHP(e.target.checked ? 1 : 0);
@@ -1927,6 +1931,7 @@ const FarmingLanding = () => {
 
 
                                     <select
+                                     aria-label='Specify how many threads to use for calculations'
                                         style={{ maxWidth: '144px', marginLeft: '12px' }}
                                         onChange={
                                             (e) => {
@@ -1970,6 +1975,7 @@ const FarmingLanding = () => {
 
                                     <input
                                         type="checkbox"
+                                        aria-label='Specify if page 1 upgrades should be auto bought'
                                         onChange={(e) => {
                                             setAutoBuyPBC(e.target.checked ? 1 : 0);
                                             ReactGA.event({
@@ -1999,6 +2005,7 @@ const FarmingLanding = () => {
 
                                     <input
                                         type="checkbox"
+                                        aria-label='Specify minimum number of autos per plant'
                                         id="enable forcing of minimum number of autos per plant"
                                         onChange={(e) => {
                                             setLockCustomAuto(e.target.checked ? 1 : 0);
@@ -2027,7 +2034,7 @@ const FarmingLanding = () => {
 
 
                                     <input
-
+ aria-label='Specify if a farming potion should be considered for an entire run'
                                         id="enable plant potion considered on entire run"
                                         type="checkbox"
                                         onChange={(e) => {

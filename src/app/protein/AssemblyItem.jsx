@@ -66,6 +66,7 @@ const AssemblyItem = ({ e, currentWeights, setCurrentWeights }) => {
             <div style={{ display: 'flex', flex: '1', alignItems: 'center', justifyContent: 'center', padding: '2px 0' }}>
 
                 <input
+                  aria-label='Specify custom weight for this bonus'
                     className='importantText textMedium2'
                     style={{ borderRadius: '4px', width: '55%', height: '65%', backgroundColor: e.index % 2 === 0 ? '#2D2D2D' : '#353535' }}
                     type='number' value={customWeight === -1 ? e.defaultWeight : customWeight}

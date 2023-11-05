@@ -1149,6 +1149,7 @@ const CardCard = ({ vertical, displayMode, data, card, weightMap, i, applyWeight
                     }}
                 >
                     <input
+                       aria-label='Specify the weight/importance for this card'
                         style={{
                             width: '47px',
                             color: cardWeight !== defaultWeight && cardWeight !== -1 ? 'black' : 'gray',
