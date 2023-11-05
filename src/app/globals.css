@@ -241,7 +241,7 @@ a {
   }
 }
 
-@media (min-width:640px) {
+@media (min-width:900px) {
 
   /* smartphones, Android phones, landscape iPhone */
   a {
