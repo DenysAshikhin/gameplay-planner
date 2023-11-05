@@ -5,7 +5,7 @@ import ReactGA from "react-ga4";
 export async function generateMetadata({ params, searchParams }, parent) {
 
   return {
-    title: 'Gameplay Planner',
+    title: 'Protien / Assembly Guide - Gameplay Planner',
     description: "Protein - Help you build, plan and optimise your protein and assembly line purchases. Includes a weight list to prioritise stats. Displays cost, time to purchase, level, hidden and future bonuses"
   }
 }

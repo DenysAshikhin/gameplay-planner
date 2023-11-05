@@ -155,13 +155,13 @@ const FarmingLanding = () => {
 
     const [timeCompleted, setTimeCompleted] = useState(null);
 
-    useEffect(() => {
+    // useEffect(() => {
 
            
-            setTimeout(() => {
-                ReactGA.send({ hitType: "pageview", page: "/farming_", title: "_Farming Calculator Page" });
-            }, 500);
-    }, [])
+    //         setTimeout(() => {
+    //             ReactGA.send({ hitType: "pageview", page: "/farming_", title: "_Farming Calculator Page" });
+    //         }, 500);
+    // }, [])
 
     let petPlantCombo = 1;
     let contagionPlantEXP = 1;

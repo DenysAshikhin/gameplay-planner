@@ -258,13 +258,13 @@ export default function Expeditions() {
 
 
 
-    useEffect(() => {
+    // useEffect(() => {
 
       
-            setTimeout(() => {
-                ReactGA.send({ hitType: "pageview", page: "/expeditions_", title: "_Expedition Calculator Page" });
-            }, 500);
-    }, [])
+    //         setTimeout(() => {
+    //             ReactGA.send({ hitType: "pageview", page: "/expeditions_", title: "_Expedition Calculator Page" });
+    //         }, 500);
+    // }, [])
 
 
     let totalTokensHR = 0;

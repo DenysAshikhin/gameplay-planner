@@ -19,9 +19,9 @@ export default function PageSelection() {
     useEffect(() => {
 
          
-        setTimeout(() => {
-            ReactGA.send({ hitType: "pageview", page: "/page_selection_", title: "_Page Selection" });
-        }, 500);
+        // setTimeout(() => {
+        //     ReactGA.send({ hitType: "pageview", page: "/page_selection_", title: "_Page Selection" });
+        // }, 500);
    
     }, []);
 

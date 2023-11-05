@@ -41,12 +41,12 @@ export default function Protein() {
     const [cumulativeTime, setCumulativeTime] = useLocalStorage(`cumulativeTime`, false);
     const [numAL, setNumAl] = useLocalStorage(`numAL`, 5);
 
-    useEffect(() => {
-        setTimeout(() => {
-            ReactGA.send({ hitType: "pageview", page: "/protein_", title: "_Protein" });
-        }, 500);
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //         ReactGA.send({ hitType: "pageview", page: "/protein_", title: "_Protein" });
+    //     }, 500);
 
-    }, [])
+    // }, [])
 
     let tempList = [];
 

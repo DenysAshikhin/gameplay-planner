@@ -1225,13 +1225,13 @@ const CardCard = ({ vertical, displayMode, data, card, weightMap, i, applyWeight
 
 export default function Cards() {
 
-    useEffect(() => {
+    // useEffect(() => {
 
       
-        setTimeout(() => {
-            ReactGA.send({ hitType: "pageview", page: "/cards_", title: "_Card Calculator Page" });
-        }, 500);
-    }, []);
+    //     setTimeout(() => {
+    //         ReactGA.send({ hitType: "pageview", page: "/cards_", title: "_Card Calculator Page" });
+    //     }, 500);
+    // }, []);
 
 
     const [clientData, setData] = useLocalStorage('userData', DefaultSave);

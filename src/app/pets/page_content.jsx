@@ -532,14 +532,14 @@ export default function Pets() {
     const [loadPreset, setLoadPreset] = useState('');
     const [exportPreset, setExportPreset] = useState('');
 
-    useEffect(() => {
+    // useEffect(() => {
 
       
-        // setTimeout(() => {
-        //     ReactGA.send({ hitType: "pageview", page: "/pets_", title: "_Pet Combos Page" });
-        // }, 500);
+    //     // setTimeout(() => {
+    //     //     ReactGA.send({ hitType: "pageview", page: "/pets_", title: "_Pet Combos Page" });
+    //     // }, 500);
 
-    }, []);
+    // }, []);
 
     const comboList = data.PetsSpecial;
 
