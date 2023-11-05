@@ -72,6 +72,11 @@ function ScoreSection({ data, group, totalScore, defaultRank }) {
     );
 }
 
+
+
+import Head from 'next/head';
+
+
 export default function Expeditions() {
 
 
