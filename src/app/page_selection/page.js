@@ -2,9 +2,6 @@
 
 import Cards from './page_content.jsx';
 
-import ReactGA from "react-ga4";
-
-
 export async function generateMetadata({ params, searchParams }, parent) {
 
     return {

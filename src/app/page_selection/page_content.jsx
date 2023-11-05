@@ -10,9 +10,9 @@ import DefaultSave from '../util/tempSave.json';
 ReactGA.initialize([{
     trackingId: "G-GGLPK02VH8",
     // gaOptions: {...}, // optional
-    gtagOptions: {
-        send_page_view: false
-    },
+    // gtagOptions: {
+    //     send_page_view: false
+    // },
 }]);
 export default function PageSelection() {
 

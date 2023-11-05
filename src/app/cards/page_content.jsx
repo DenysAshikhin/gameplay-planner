@@ -40,9 +40,9 @@ const classes = {
 ReactGA.initialize([{
     trackingId: "G-GGLPK02VH8",
     // gaOptions: {...}, // optional
-    gtagOptions: {
-        send_page_view: false
-    },
+    // gtagOptions: {
+    //     send_page_view: false
+    // },
   }]);
 
 const POTATO = 1;

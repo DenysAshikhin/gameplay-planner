@@ -19,9 +19,9 @@ import ReactGA from "react-ga4";
 ReactGA.initialize([{
   trackingId: "G-GGLPK02VH8",
   // gaOptions: {...}, // optional
-  gtagOptions: {
-    send_page_view: false
-  },
+  // gtagOptions: {
+  //   send_page_view: false
+  // },
 }]);
 
 // const [customPresets, setCustomPresets] = useLocalStorage(`customPresets`, -1);
@@ -36,14 +36,14 @@ export default function Home() {
   const [userData, setUserData] = useLocalStorage('userData', DefaultSave);
   const router = useRouter();
 
-  useEffect(() => {
+  // useEffect(() => {
 
 
-    let timeout = setTimeout(() => {
+  //   let timeout = setTimeout(() => {
 
-      ReactGA.send({ hitType: "pageview", page: "/file_upload_", title: "_Landing Page (Upload)" });
-    }, 500);
-  }, []);
+  //     ReactGA.send({ hitType: "pageview", page: "/file_upload_", title: "_Landing Page (Upload)" });
+  //   }, 500);
+  // }, []);
 
   const handleFileUpload = async (e) => {
     const file = e.target.files[0];
