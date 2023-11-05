@@ -536,7 +536,7 @@ export default function Pets() {
 
       
         setTimeout(() => {
-            ReactGA.send({ hitType: "pageview", page: "/pet_combos", title: "Pet Combos Page" });
+            ReactGA.send({ hitType: "pageview", page: "/pets_", title: "_Pet Combos Page" });
         }, 500);
 
     }, []);

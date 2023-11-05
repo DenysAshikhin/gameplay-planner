@@ -1229,7 +1229,7 @@ export default function Cards() {
 
       
         setTimeout(() => {
-            ReactGA.send({ hitType: "pageview", page: "/cards", title: "Card Calculator Page" });
+            ReactGA.send({ hitType: "pageview", page: "/cards_", title: "_Card Calculator Page" });
         }, 500);
     }, []);
 

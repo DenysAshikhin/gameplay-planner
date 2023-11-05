@@ -43,7 +43,7 @@ export default function Protein() {
 
     useEffect(() => {
         setTimeout(() => {
-            ReactGA.send({ hitType: "pageview", page: "/protein", title: "Protein" });
+            ReactGA.send({ hitType: "pageview", page: "/protein_", title: "_Protein" });
         }, 500);
 
     }, [])

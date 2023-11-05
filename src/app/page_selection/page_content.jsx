@@ -20,7 +20,7 @@ export default function PageSelection() {
 
          
         setTimeout(() => {
-            ReactGA.send({ hitType: "pageview", page: "/page_view", title: "_Page Selection" });
+            ReactGA.send({ hitType: "pageview", page: "/page_selection_", title: "_Page Selection" });
         }, 500);
    
     }, []);
