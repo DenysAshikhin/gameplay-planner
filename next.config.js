@@ -1,14 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-   
-      images: {
-        minimumCacheTTL: 360,
-      },
+
+  images: {
+    minimumCacheTTL: 360,
+  },
 
 
-async headers() {
+  async headers() {
     return [
-     
+
       {
         // This works, and returns appropriate Response headers:
         source: '/(.*).svg',
@@ -46,13 +46,6 @@ async headers() {
       },
     ]
   },
-
-
-
-
-
-
-
 }
 
 module.exports = nextConfig
