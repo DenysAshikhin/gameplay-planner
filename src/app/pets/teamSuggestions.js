@@ -2562,421 +2562,533 @@ export const reincTeamSuggestions = {
     0: {
         priorityList: [
             5,
+            9,
             6,
-            13
+            13,
         ],
         priorityMap: {
             "5": {
-                "mode": "max",
-                "label": "Reincarnation Exp",
-                "id": 5,
-                "count": -1,
-                "current": 0
+                mode: "max",
+                label: "Reincarnation Exp",
+                id: 5,
+                count: -1,
+                current: 0,
             },
             "6": {
-                "mode": "max",
-                "label": "Item Rating",
-                "id": 6,
-                "count": -1,
-                "current": 0
+                mode: "max",
+                label: "Item Rating",
+                id: 6,
+                count: -1,
+                current: 0,
+            },
+            "9": {
+                mode: "max",
+                label: "Whack Score",
+                id: 9,
+                count: 0,
+                current: 0,
             },
             "13": {
-                "mode": "max",
-                "label": "Residue Bonus",
-                "id": 13,
-                "count": -1,
-                "current": 0
-            }
+                mode: "max",
+                label: "Residue Bonus",
+                id: 13,
+                count: -1,
+                current: 0,
+            },
         }
     },
     1: {
         priorityList: [
             5,
+            9,
             6,
-            13
+            13,
         ],
         priorityMap: {
             "5": {
-                "mode": "max",
-                "label": "Reincarnation Exp",
-                "id": 5,
-                "count": -1,
-                "current": 0
+                mode: "max",
+                label: "Reincarnation Exp",
+                id: 5,
+                count: -1,
+                current: 0,
             },
             "6": {
-                "mode": "max",
-                "label": "Item Rating",
-                "id": 6,
-                "count": -1,
-                "current": 0
+                mode: "max",
+                label: "Item Rating",
+                id: 6,
+                count: -1,
+                current: 0,
+            },
+            "9": {
+                mode: "max",
+                label: "Whack Score",
+                id: 9,
+                count: 0,
+                current: 0,
             },
             "13": {
-                "mode": "max",
-                "label": "Residue Bonus",
-                "id": 13,
-                "count": -1,
-                "current": 0
-            }
+                mode: "max",
+                label: "Residue Bonus",
+                id: 13,
+                count: -1,
+                current: 0,
+            },
         }
     },
     2: {
         priorityList: [
             5,
+            9,
             6,
-            13
+            13,
         ],
         priorityMap: {
             "5": {
-                "mode": "max",
-                "label": "Reincarnation Exp",
-                "id": 5,
-                "count": -1,
-                "current": 0
+                mode: "max",
+                label: "Reincarnation Exp",
+                id: 5,
+                count: -1,
+                current: 0,
             },
             "6": {
-                "mode": "max",
-                "label": "Item Rating",
-                "id": 6,
-                "count": -1,
-                "current": 0
+                mode: "max",
+                label: "Item Rating",
+                id: 6,
+                count: -1,
+                current: 0,
+            },
+            "9": {
+                mode: "max",
+                label: "Whack Score",
+                id: 9,
+                count: 0,
+                current: 0,
             },
             "13": {
-                "mode": "max",
-                "label": "Residue Bonus",
-                "id": 13,
-                "count": -1,
-                "current": 0
-            }
+                mode: "max",
+                label: "Residue Bonus",
+                id: 13,
+                count: -1,
+                current: 0,
+            },
         }
     },
     3: {
         priorityList: [
             5,
+            9,
             6,
-            13
+            13,
         ],
         priorityMap: {
             "5": {
-                "mode": "max",
-                "label": "Reincarnation Exp",
-                "id": 5,
-                "count": -1,
-                "current": 0
+                mode: "max",
+                label: "Reincarnation Exp",
+                id: 5,
+                count: -1,
+                current: 0,
             },
             "6": {
-                "mode": "max",
-                "label": "Item Rating",
-                "id": 6,
-                "count": -1,
-                "current": 0
+                mode: "max",
+                label: "Item Rating",
+                id: 6,
+                count: -1,
+                current: 0,
+            },
+            "9": {
+                mode: "max",
+                label: "Whack Score",
+                id: 9,
+                count: 0,
+                current: 0,
             },
             "13": {
-                "mode": "max",
-                "label": "Residue Bonus",
-                "id": 13,
-                "count": -1,
-                "current": 0
-            }
+                mode: "max",
+                label: "Residue Bonus",
+                id: 13,
+                count: -1,
+                current: 0,
+            },
         }
     },
     4: {
         priorityList: [
             5,
+            9,
             6,
-            13
+            13,
         ],
         priorityMap: {
             "5": {
-                "mode": "max",
-                "label": "Reincarnation Exp",
-                "id": 5,
-                "count": -1,
-                "current": 0
+                mode: "max",
+                label: "Reincarnation Exp",
+                id: 5,
+                count: -1,
+                current: 0,
             },
             "6": {
-                "mode": "max",
-                "label": "Item Rating",
-                "id": 6,
-                "count": -1,
-                "current": 0
+                mode: "max",
+                label: "Item Rating",
+                id: 6,
+                count: -1,
+                current: 0,
+            },
+            "9": {
+                mode: "max",
+                label: "Whack Score",
+                id: 9,
+                count: 0,
+                current: 0,
             },
             "13": {
-                "mode": "max",
-                "label": "Residue Bonus",
-                "id": 13,
-                "count": -1,
-                "current": 0
-            }
+                mode: "max",
+                label: "Residue Bonus",
+                id: 13,
+                count: -1,
+                current: 0,
+            },
         }
     },
     5: {
         priorityList: [
             5,
+            9,
             6,
-            13
+            13,
         ],
         priorityMap: {
             "5": {
-                "mode": "max",
-                "label": "Reincarnation Exp",
-                "id": 5,
-                "count": -1,
-                "current": 0
+                mode: "max",
+                label: "Reincarnation Exp",
+                id: 5,
+                count: -1,
+                current: 0,
             },
             "6": {
-                "mode": "max",
-                "label": "Item Rating",
-                "id": 6,
-                "count": -1,
-                "current": 0
+                mode: "max",
+                label: "Item Rating",
+                id: 6,
+                count: -1,
+                current: 0,
+            },
+            "9": {
+                mode: "max",
+                label: "Whack Score",
+                id: 9,
+                count: 0,
+                current: 0,
             },
             "13": {
-                "mode": "max",
-                "label": "Residue Bonus",
-                "id": 13,
-                "count": -1,
-                "current": 0
-            }
+                mode: "max",
+                label: "Residue Bonus",
+                id: 13,
+                count: -1,
+                current: 0,
+            },
         }
     },
     6: {
         priorityList: [
             5,
+            9,
             6,
-            13
+            13,
         ],
         priorityMap: {
             "5": {
-                "mode": "max",
-                "label": "Reincarnation Exp",
-                "id": 5,
-                "count": -1,
-                "current": 0
+                mode: "max",
+                label: "Reincarnation Exp",
+                id: 5,
+                count: -1,
+                current: 0,
             },
             "6": {
-                "mode": "max",
-                "label": "Item Rating",
-                "id": 6,
-                "count": -1,
-                "current": 0
+                mode: "max",
+                label: "Item Rating",
+                id: 6,
+                count: -1,
+                current: 0,
+            },
+            "9": {
+                mode: "max",
+                label: "Whack Score",
+                id: 9,
+                count: 0,
+                current: 0,
             },
             "13": {
-                "mode": "max",
-                "label": "Residue Bonus",
-                "id": 13,
-                "count": -1,
-                "current": 0
-            }
+                mode: "max",
+                label: "Residue Bonus",
+                id: 13,
+                count: -1,
+                current: 0,
+            },
         }
     },
     7: {
         priorityList: [
             5,
+            9,
             6,
-            13
+            13,
         ],
         priorityMap: {
             "5": {
-                "mode": "max",
-                "label": "Reincarnation Exp",
-                "id": 5,
-                "count": -1,
-                "current": 0
+                mode: "max",
+                label: "Reincarnation Exp",
+                id: 5,
+                count: -1,
+                current: 0,
             },
             "6": {
-                "mode": "max",
-                "label": "Item Rating",
-                "id": 6,
-                "count": -1,
-                "current": 0
+                mode: "max",
+                label: "Item Rating",
+                id: 6,
+                count: -1,
+                current: 0,
+            },
+            "9": {
+                mode: "max",
+                label: "Whack Score",
+                id: 9,
+                count: 0,
+                current: 0,
             },
             "13": {
-                "mode": "max",
-                "label": "Residue Bonus",
-                "id": 13,
-                "count": -1,
-                "current": 0
-            }
+                mode: "max",
+                label: "Residue Bonus",
+                id: 13,
+                count: -1,
+                current: 0,
+            },
         }
     },
     8: {
         priorityList: [
             5,
+            9,
             6,
-            13
+            13,
         ],
         priorityMap: {
             "5": {
-                "mode": "max",
-                "label": "Reincarnation Exp",
-                "id": 5,
-                "count": -1,
-                "current": 0
+                mode: "max",
+                label: "Reincarnation Exp",
+                id: 5,
+                count: -1,
+                current: 0,
             },
             "6": {
-                "mode": "max",
-                "label": "Item Rating",
-                "id": 6,
-                "count": -1,
-                "current": 0
+                mode: "max",
+                label: "Item Rating",
+                id: 6,
+                count: -1,
+                current: 0,
+            },
+            "9": {
+                mode: "max",
+                label: "Whack Score",
+                id: 9,
+                count: 0,
+                current: 0,
             },
             "13": {
-                "mode": "max",
-                "label": "Residue Bonus",
-                "id": 13,
-                "count": -1,
-                "current": 0
-            }
+                mode: "max",
+                label: "Residue Bonus",
+                id: 13,
+                count: -1,
+                current: 0,
+            },
         }
     },
     9: {
         priorityList: [
             5,
+            9,
             6,
-            13
+            13,
         ],
         priorityMap: {
             "5": {
-                "mode": "max",
-                "label": "Reincarnation Exp",
-                "id": 5,
-                "count": -1,
-                "current": 0
+                mode: "max",
+                label: "Reincarnation Exp",
+                id: 5,
+                count: -1,
+                current: 0,
             },
             "6": {
-                "mode": "max",
-                "label": "Item Rating",
-                "id": 6,
-                "count": -1,
-                "current": 0
+                mode: "max",
+                label: "Item Rating",
+                id: 6,
+                count: -1,
+                current: 0,
+            },
+            "9": {
+                mode: "max",
+                label: "Whack Score",
+                id: 9,
+                count: 0,
+                current: 0,
             },
             "13": {
-                "mode": "max",
-                "label": "Residue Bonus",
-                "id": 13,
-                "count": -1,
-                "current": 0
-            }
+                mode: "max",
+                label: "Residue Bonus",
+                id: 13,
+                count: -1,
+                current: 0,
+            },
         }
     },
     10: {
         priorityList: [
             5,
+            9,
             6,
-            13
+            13,
         ],
         priorityMap: {
             "5": {
-                "mode": "max",
-                "label": "Reincarnation Exp",
-                "id": 5,
-                "count": -1,
-                "current": 0
+                mode: "max",
+                label: "Reincarnation Exp",
+                id: 5,
+                count: -1,
+                current: 0,
             },
             "6": {
-                "mode": "max",
-                "label": "Item Rating",
-                "id": 6,
-                "count": -1,
-                "current": 0
+                mode: "max",
+                label: "Item Rating",
+                id: 6,
+                count: -1,
+                current: 0,
+            },
+            "9": {
+                mode: "max",
+                label: "Whack Score",
+                id: 9,
+                count: 0,
+                current: 0,
             },
             "13": {
-                "mode": "max",
-                "label": "Residue Bonus",
-                "id": 13,
-                "count": -1,
-                "current": 0
-            }
+                mode: "max",
+                label: "Residue Bonus",
+                id: 13,
+                count: -1,
+                current: 0,
+            },
         }
     },
     11: {
         priorityList: [
             5,
+            9,
             6,
-            13
+            13,
         ],
         priorityMap: {
             "5": {
-                "mode": "max",
-                "label": "Reincarnation Exp",
-                "id": 5,
-                "count": -1,
-                "current": 0
+                mode: "max",
+                label: "Reincarnation Exp",
+                id: 5,
+                count: -1,
+                current: 0,
             },
             "6": {
-                "mode": "max",
-                "label": "Item Rating",
-                "id": 6,
-                "count": -1,
-                "current": 0
+                mode: "max",
+                label: "Item Rating",
+                id: 6,
+                count: -1,
+                current: 0,
+            },
+            "9": {
+                mode: "max",
+                label: "Whack Score",
+                id: 9,
+                count: 0,
+                current: 0,
             },
             "13": {
-                "mode": "max",
-                "label": "Residue Bonus",
-                "id": 13,
-                "count": -1,
-                "current": 0
-            }
+                mode: "max",
+                label: "Residue Bonus",
+                id: 13,
+                count: -1,
+                current: 0,
+            },
         }
     },
     12: {
         priorityList: [
             5,
+            9,
             6,
-            13
+            13,
         ],
         priorityMap: {
             "5": {
-                "mode": "max",
-                "label": "Reincarnation Exp",
-                "id": 5,
-                "count": -1,
-                "current": 0
+                mode: "max",
+                label: "Reincarnation Exp",
+                id: 5,
+                count: -1,
+                current: 0,
             },
             "6": {
-                "mode": "max",
-                "label": "Item Rating",
-                "id": 6,
-                "count": -1,
-                "current": 0
+                mode: "max",
+                label: "Item Rating",
+                id: 6,
+                count: -1,
+                current: 0,
+            },
+            "9": {
+                mode: "max",
+                label: "Whack Score",
+                id: 9,
+                count: 0,
+                current: 0,
             },
             "13": {
-                "mode": "max",
-                "label": "Residue Bonus",
-                "id": 13,
-                "count": -1,
-                "current": 0
-            }
+                mode: "max",
+                label: "Residue Bonus",
+                id: 13,
+                count: -1,
+                current: 0,
+            },
         }
     },
     13: {
         priorityList: [
             5,
+            9,
             6,
-            13
+            13,
         ],
         priorityMap: {
             "5": {
-                "mode": "max",
-                "label": "Reincarnation Exp",
-                "id": 5,
-                "count": -1,
-                "current": 0
+                mode: "max",
+                label: "Reincarnation Exp",
+                id: 5,
+                count: -1,
+                current: 0,
             },
             "6": {
-                "mode": "max",
-                "label": "Item Rating",
-                "id": 6,
-                "count": -1,
-                "current": 0
+                mode: "max",
+                label: "Item Rating",
+                id: 6,
+                count: -1,
+                current: 0,
+            },
+            "9": {
+                mode: "max",
+                label: "Whack Score",
+                id: 9,
+                count: 0,
+                current: 0,
             },
             "13": {
-                "mode": "max",
-                "label": "Residue Bonus",
-                "id": 13,
-                "count": -1,
-                "current": 0
-            }
+                mode: "max",
+                label: "Residue Bonus",
+                id: 13,
+                count: -1,
+                current: 0,
+            },
         }
     },
     14: {
@@ -3496,421 +3608,533 @@ export const gearTeamSuggestions = {
     0: {
         priorityList: [
             6,
+            9,
             5,
-            13
+            13,
         ],
         priorityMap: {
             "5": {
-                "mode": "max",
-                "label": "Reincarnation Exp",
-                "id": 5,
-                "count": -1,
-                "current": 0
+                mode: "max",
+                label: "Reincarnation Exp",
+                id: 5,
+                count: -1,
+                current: 0,
             },
             "6": {
-                "mode": "max",
-                "label": "Item Rating",
-                "id": 6,
-                "count": -1,
-                "current": 0
+                mode: "max",
+                label: "Item Rating",
+                id: 6,
+                count: -1,
+                current: 0,
+            },
+            "9": {
+                mode: "max",
+                label: "Whack Score",
+                id: 9,
+                count: 0,
+                current: 0,
             },
             "13": {
-                "mode": "max",
-                "label": "Residue Bonus",
-                "id": 13,
-                "count": -1,
-                "current": 0
-            }
+                mode: "max",
+                label: "Residue Bonus",
+                id: 13,
+                count: -1,
+                current: 0,
+            },
         },
     },
     1: {
         priorityList: [
             6,
+            9,
             5,
-            13
+            13,
         ],
         priorityMap: {
             "5": {
-                "mode": "max",
-                "label": "Reincarnation Exp",
-                "id": 5,
-                "count": -1,
-                "current": 0
+                mode: "max",
+                label: "Reincarnation Exp",
+                id: 5,
+                count: -1,
+                current: 0,
             },
             "6": {
-                "mode": "max",
-                "label": "Item Rating",
-                "id": 6,
-                "count": -1,
-                "current": 0
+                mode: "max",
+                label: "Item Rating",
+                id: 6,
+                count: -1,
+                current: 0,
+            },
+            "9": {
+                mode: "max",
+                label: "Whack Score",
+                id: 9,
+                count: 0,
+                current: 0,
             },
             "13": {
-                "mode": "max",
-                "label": "Residue Bonus",
-                "id": 13,
-                "count": -1,
-                "current": 0
-            }
+                mode: "max",
+                label: "Residue Bonus",
+                id: 13,
+                count: -1,
+                current: 0,
+            },
         },
     },
     2: {
         priorityList: [
             6,
+            9,
             5,
-            13
+            13,
         ],
         priorityMap: {
             "5": {
-                "mode": "max",
-                "label": "Reincarnation Exp",
-                "id": 5,
-                "count": -1,
-                "current": 0
+                mode: "max",
+                label: "Reincarnation Exp",
+                id: 5,
+                count: -1,
+                current: 0,
             },
             "6": {
-                "mode": "max",
-                "label": "Item Rating",
-                "id": 6,
-                "count": -1,
-                "current": 0
+                mode: "max",
+                label: "Item Rating",
+                id: 6,
+                count: -1,
+                current: 0,
+            },
+            "9": {
+                mode: "max",
+                label: "Whack Score",
+                id: 9,
+                count: 0,
+                current: 0,
             },
             "13": {
-                "mode": "max",
-                "label": "Residue Bonus",
-                "id": 13,
-                "count": -1,
-                "current": 0
-            }
+                mode: "max",
+                label: "Residue Bonus",
+                id: 13,
+                count: -1,
+                current: 0,
+            },
         },
     },
     3: {
         priorityList: [
             6,
+            9,
             5,
-            13
+            13,
         ],
         priorityMap: {
             "5": {
-                "mode": "max",
-                "label": "Reincarnation Exp",
-                "id": 5,
-                "count": -1,
-                "current": 0
+                mode: "max",
+                label: "Reincarnation Exp",
+                id: 5,
+                count: -1,
+                current: 0,
             },
             "6": {
-                "mode": "max",
-                "label": "Item Rating",
-                "id": 6,
-                "count": -1,
-                "current": 0
+                mode: "max",
+                label: "Item Rating",
+                id: 6,
+                count: -1,
+                current: 0,
+            },
+            "9": {
+                mode: "max",
+                label: "Whack Score",
+                id: 9,
+                count: 0,
+                current: 0,
             },
             "13": {
-                "mode": "max",
-                "label": "Residue Bonus",
-                "id": 13,
-                "count": -1,
-                "current": 0
-            }
+                mode: "max",
+                label: "Residue Bonus",
+                id: 13,
+                count: -1,
+                current: 0,
+            },
         },
     },
     4: {
         priorityList: [
             6,
+            9,
             5,
-            13
+            13,
         ],
         priorityMap: {
             "5": {
-                "mode": "max",
-                "label": "Reincarnation Exp",
-                "id": 5,
-                "count": -1,
-                "current": 0
+                mode: "max",
+                label: "Reincarnation Exp",
+                id: 5,
+                count: -1,
+                current: 0,
             },
             "6": {
-                "mode": "max",
-                "label": "Item Rating",
-                "id": 6,
-                "count": -1,
-                "current": 0
+                mode: "max",
+                label: "Item Rating",
+                id: 6,
+                count: -1,
+                current: 0,
+            },
+            "9": {
+                mode: "max",
+                label: "Whack Score",
+                id: 9,
+                count: 0,
+                current: 0,
             },
             "13": {
-                "mode": "max",
-                "label": "Residue Bonus",
-                "id": 13,
-                "count": -1,
-                "current": 0
-            }
+                mode: "max",
+                label: "Residue Bonus",
+                id: 13,
+                count: -1,
+                current: 0,
+            },
         },
     },
     5: {
         priorityList: [
             6,
+            9,
             5,
-            13
+            13,
         ],
         priorityMap: {
             "5": {
-                "mode": "max",
-                "label": "Reincarnation Exp",
-                "id": 5,
-                "count": -1,
-                "current": 0
+                mode: "max",
+                label: "Reincarnation Exp",
+                id: 5,
+                count: -1,
+                current: 0,
             },
             "6": {
-                "mode": "max",
-                "label": "Item Rating",
-                "id": 6,
-                "count": -1,
-                "current": 0
+                mode: "max",
+                label: "Item Rating",
+                id: 6,
+                count: -1,
+                current: 0,
+            },
+            "9": {
+                mode: "max",
+                label: "Whack Score",
+                id: 9,
+                count: 0,
+                current: 0,
             },
             "13": {
-                "mode": "max",
-                "label": "Residue Bonus",
-                "id": 13,
-                "count": -1,
-                "current": 0
-            }
+                mode: "max",
+                label: "Residue Bonus",
+                id: 13,
+                count: -1,
+                current: 0,
+            },
         },
     },
     6: {
         priorityList: [
             6,
+            9,
             5,
-            13
+            13,
         ],
         priorityMap: {
             "5": {
-                "mode": "max",
-                "label": "Reincarnation Exp",
-                "id": 5,
-                "count": -1,
-                "current": 0
+                mode: "max",
+                label: "Reincarnation Exp",
+                id: 5,
+                count: -1,
+                current: 0,
             },
             "6": {
-                "mode": "max",
-                "label": "Item Rating",
-                "id": 6,
-                "count": -1,
-                "current": 0
+                mode: "max",
+                label: "Item Rating",
+                id: 6,
+                count: -1,
+                current: 0,
+            },
+            "9": {
+                mode: "max",
+                label: "Whack Score",
+                id: 9,
+                count: 0,
+                current: 0,
             },
             "13": {
-                "mode": "max",
-                "label": "Residue Bonus",
-                "id": 13,
-                "count": -1,
-                "current": 0
-            }
+                mode: "max",
+                label: "Residue Bonus",
+                id: 13,
+                count: -1,
+                current: 0,
+            },
         },
     },
     7: {
         priorityList: [
             6,
+            9,
             5,
-            13
+            13,
         ],
         priorityMap: {
             "5": {
-                "mode": "max",
-                "label": "Reincarnation Exp",
-                "id": 5,
-                "count": -1,
-                "current": 0
+                mode: "max",
+                label: "Reincarnation Exp",
+                id: 5,
+                count: -1,
+                current: 0,
             },
             "6": {
-                "mode": "max",
-                "label": "Item Rating",
-                "id": 6,
-                "count": -1,
-                "current": 0
+                mode: "max",
+                label: "Item Rating",
+                id: 6,
+                count: -1,
+                current: 0,
+            },
+            "9": {
+                mode: "max",
+                label: "Whack Score",
+                id: 9,
+                count: 0,
+                current: 0,
             },
             "13": {
-                "mode": "max",
-                "label": "Residue Bonus",
-                "id": 13,
-                "count": -1,
-                "current": 0
-            }
+                mode: "max",
+                label: "Residue Bonus",
+                id: 13,
+                count: -1,
+                current: 0,
+            },
         },
     },
     8: {
         priorityList: [
             6,
+            9,
             5,
-            13
+            13,
         ],
         priorityMap: {
             "5": {
-                "mode": "max",
-                "label": "Reincarnation Exp",
-                "id": 5,
-                "count": -1,
-                "current": 0
+                mode: "max",
+                label: "Reincarnation Exp",
+                id: 5,
+                count: -1,
+                current: 0,
             },
             "6": {
-                "mode": "max",
-                "label": "Item Rating",
-                "id": 6,
-                "count": -1,
-                "current": 0
+                mode: "max",
+                label: "Item Rating",
+                id: 6,
+                count: -1,
+                current: 0,
+            },
+            "9": {
+                mode: "max",
+                label: "Whack Score",
+                id: 9,
+                count: 0,
+                current: 0,
             },
             "13": {
-                "mode": "max",
-                "label": "Residue Bonus",
-                "id": 13,
-                "count": -1,
-                "current": 0
-            }
+                mode: "max",
+                label: "Residue Bonus",
+                id: 13,
+                count: -1,
+                current: 0,
+            },
         },
     },
     9: {
         priorityList: [
             6,
+            9,
             5,
-            13
+            13,
         ],
         priorityMap: {
             "5": {
-                "mode": "max",
-                "label": "Reincarnation Exp",
-                "id": 5,
-                "count": -1,
-                "current": 0
+                mode: "max",
+                label: "Reincarnation Exp",
+                id: 5,
+                count: -1,
+                current: 0,
             },
             "6": {
-                "mode": "max",
-                "label": "Item Rating",
-                "id": 6,
-                "count": -1,
-                "current": 0
+                mode: "max",
+                label: "Item Rating",
+                id: 6,
+                count: -1,
+                current: 0,
+            },
+            "9": {
+                mode: "max",
+                label: "Whack Score",
+                id: 9,
+                count: 0,
+                current: 0,
             },
             "13": {
-                "mode": "max",
-                "label": "Residue Bonus",
-                "id": 13,
-                "count": -1,
-                "current": 0
-            }
+                mode: "max",
+                label: "Residue Bonus",
+                id: 13,
+                count: -1,
+                current: 0,
+            },
         },
     },
     10: {
         priorityList: [
             6,
+            9,
             5,
-            13
+            13,
         ],
         priorityMap: {
             "5": {
-                "mode": "max",
-                "label": "Reincarnation Exp",
-                "id": 5,
-                "count": -1,
-                "current": 0
+                mode: "max",
+                label: "Reincarnation Exp",
+                id: 5,
+                count: -1,
+                current: 0,
             },
             "6": {
-                "mode": "max",
-                "label": "Item Rating",
-                "id": 6,
-                "count": -1,
-                "current": 0
+                mode: "max",
+                label: "Item Rating",
+                id: 6,
+                count: -1,
+                current: 0,
+            },
+            "9": {
+                mode: "max",
+                label: "Whack Score",
+                id: 9,
+                count: 0,
+                current: 0,
             },
             "13": {
-                "mode": "max",
-                "label": "Residue Bonus",
-                "id": 13,
-                "count": -1,
-                "current": 0
-            }
+                mode: "max",
+                label: "Residue Bonus",
+                id: 13,
+                count: -1,
+                current: 0,
+            },
         },
     },
     11: {
         priorityList: [
             6,
+            9,
             5,
-            13
+            13,
         ],
         priorityMap: {
             "5": {
-                "mode": "max",
-                "label": "Reincarnation Exp",
-                "id": 5,
-                "count": -1,
-                "current": 0
+                mode: "max",
+                label: "Reincarnation Exp",
+                id: 5,
+                count: -1,
+                current: 0,
             },
             "6": {
-                "mode": "max",
-                "label": "Item Rating",
-                "id": 6,
-                "count": -1,
-                "current": 0
+                mode: "max",
+                label: "Item Rating",
+                id: 6,
+                count: -1,
+                current: 0,
+            },
+            "9": {
+                mode: "max",
+                label: "Whack Score",
+                id: 9,
+                count: 0,
+                current: 0,
             },
             "13": {
-                "mode": "max",
-                "label": "Residue Bonus",
-                "id": 13,
-                "count": -1,
-                "current": 0
-            }
+                mode: "max",
+                label: "Residue Bonus",
+                id: 13,
+                count: -1,
+                current: 0,
+            },
         },
     },
     12: {
         priorityList: [
             6,
+            9,
             5,
-            13
+            13,
         ],
         priorityMap: {
             "5": {
-                "mode": "max",
-                "label": "Reincarnation Exp",
-                "id": 5,
-                "count": -1,
-                "current": 0
+                mode: "max",
+                label: "Reincarnation Exp",
+                id: 5,
+                count: -1,
+                current: 0,
             },
             "6": {
-                "mode": "max",
-                "label": "Item Rating",
-                "id": 6,
-                "count": -1,
-                "current": 0
+                mode: "max",
+                label: "Item Rating",
+                id: 6,
+                count: -1,
+                current: 0,
+            },
+            "9": {
+                mode: "max",
+                label: "Whack Score",
+                id: 9,
+                count: 0,
+                current: 0,
             },
             "13": {
-                "mode": "max",
-                "label": "Residue Bonus",
-                "id": 13,
-                "count": -1,
-                "current": 0
-            }
+                mode: "max",
+                label: "Residue Bonus",
+                id: 13,
+                count: -1,
+                current: 0,
+            },
         },
     },
     13: {
         priorityList: [
             6,
+            9,
             5,
-            13
+            13,
         ],
         priorityMap: {
             "5": {
-                "mode": "max",
-                "label": "Reincarnation Exp",
-                "id": 5,
-                "count": -1,
-                "current": 0
+                mode: "max",
+                label: "Reincarnation Exp",
+                id: 5,
+                count: -1,
+                current: 0,
             },
             "6": {
-                "mode": "max",
-                "label": "Item Rating",
-                "id": 6,
-                "count": -1,
-                "current": 0
+                mode: "max",
+                label: "Item Rating",
+                id: 6,
+                count: -1,
+                current: 0,
+            },
+            "9": {
+                mode: "max",
+                label: "Whack Score",
+                id: 9,
+                count: 0,
+                current: 0,
             },
             "13": {
-                "mode": "max",
-                "label": "Residue Bonus",
-                "id": 13,
-                "count": -1,
-                "current": 0
-            }
+                mode: "max",
+                label: "Residue Bonus",
+                id: 13,
+                count: -1,
+                current: 0,
+            },
         },
     },
     14: {

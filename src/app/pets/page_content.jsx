@@ -764,8 +764,7 @@ export default function Pets() {
                                                     ReactGA.event({
                                                         category: "pets_interaction",
                                                         action: `selected_recommended_team`,
-                                                        label: selected_mode.target.value,
-                                                        value: selected_mode.target.value
+                                                        label: selected_mode.target.value
                                                     })
                                                     switch (selected_mode.target.value) {
                                                         case 'Main Team':
@@ -1242,8 +1241,7 @@ export default function Pets() {
                                             ReactGA.event({
                                                 category: "pets_interaction",
                                                 action: `save_custom_preset`,
-                                                label: currentPresetName,
-                                                value: currentPresetName
+                                                label: currentPresetName
                                             })
 
                                             setCustomPresets((currentPresets) => {
@@ -1279,8 +1277,7 @@ export default function Pets() {
                                                 ReactGA.event({
                                                     category: "pets_interaction",
                                                     action: `load_custom_preset`,
-                                                    label: selected_mode.target.value,
-                                                    value: selected_mode.target.value
+                                                    label: selected_mode.target.value
                                                 })
 
 
@@ -1327,8 +1324,7 @@ export default function Pets() {
                                                 ReactGA.event({
                                                     category: "pets_interaction",
                                                     action: `delete_custom_preset`,
-                                                    label: selected_mode.target.value,
-                                                    value: selected_mode.target.value
+                                                    label: selected_mode.target.value
                                                 })
 
                                                 setCustomPresets((current_presets) => {
@@ -1410,8 +1406,7 @@ export default function Pets() {
                                             ReactGA.event({
                                                 category: "pets_interaction",
                                                 action: `exported_custom_preset`,
-                                                label: selected_mode.target.value,
-                                                value: selected_mode.target.value
+                                                label: selected_mode.target.value
                                             })
 
                                             let presetObj = {};
