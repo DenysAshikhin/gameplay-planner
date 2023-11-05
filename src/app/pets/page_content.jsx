@@ -731,6 +731,12 @@ export default function Pets() {
                                     }}
                                     placeholder={`Select a bonus`}
                                     onSelect={(e) => {
+                                        ReactGA.event({
+                                            category: "pets_interaction",
+                                            action: `whitelist_bonus`,
+                                            label: e.label,
+                                            value: e.id
+                                        })
 
                                         setPriorityMap((curMap) => {
                                             let newMap = { ...curMap };
@@ -744,17 +750,23 @@ export default function Pets() {
                                         });
                                     }}
                                 />
-                                <div className='rainbowBorder' style={{ margin: '0 12px 0 0', display: 'flex', borderWidth:'4px', padding:'3px' }}>
+                                <div className='rainbowBorder' style={{ margin: '0 12px 0 0', display: 'flex', borderWidth: '4px', padding: '3px' }}>
                                     <div>
                                         Recomended Presets
                                     </div>
                                     <div>
                                         <select
-                                         aria-label='Select a default team preset'
+                                            aria-label='Select a default team preset'
                                             style={{ maxWidth: '144px', marginLeft: '12px' }}
                                             onChange={
                                                 (selected_mode) => {
                                                     setRecommendedSelected(true);
+                                                    ReactGA.event({
+                                                        category: "pets_interaction",
+                                                        action: `selected_recommended_team`,
+                                                        label: selected_mode.target.value,
+                                                        value: selected_mode.target.value
+                                                    })
                                                     switch (selected_mode.target.value) {
                                                         case 'Main Team':
                                                             setPriorityList(mainTeamSuggestions[data.AscensionCount].priorityList)
@@ -972,6 +984,15 @@ export default function Pets() {
                                 placeholder={`Select a pet`}
                                 onSelect={(e) => {
 
+                                    ReactGA.event({
+                                        category: "pets_interaction",
+                                        action: `whitelist_pet`,
+                                        label: e.label,
+                                        value: e.id
+                                    })
+
+
+
                                     setPetWhiteList((curr_whitelist) => {
                                         let newList = { ...curr_whitelist };
 
@@ -1046,7 +1067,7 @@ export default function Pets() {
                                                 </div>
                                                 <div>
                                                     <select
-                                                     aria-label='Specifiy if the pet is included or excluded'
+                                                        aria-label='Specifiy if the pet is included or excluded'
                                                         style={{ maxWidth: '144px' }}
                                                         onChange={
                                                             (selected_mode) => {
@@ -1206,18 +1227,25 @@ export default function Pets() {
                                 </div>
                                 {/* Save current preset */}
                                 <div style={{ display: 'flex', justifyContent: 'center' }} >
-                                    <input type='text'  
-                                       aria-label='Specify name of the current preset to save it under'
+                                    <input type='text'
+                                        aria-label='Specify name of the current preset to save it under'
                                         onChange={(e) => {
-                                        
-                                        setCurrentPresetName(e.target.value);
-                                    }}
+
+                                            setCurrentPresetName(e.target.value);
+                                        }}
                                         style={{
                                             width: '141px', marginRight: '12px'
                                         }}
                                     />
                                     <button disabled={currentPresetName.trim().length === 0}
                                         onClick={(e) => {
+                                            ReactGA.event({
+                                                category: "pets_interaction",
+                                                action: `save_custom_preset`,
+                                                label: currentPresetName,
+                                                value: currentPresetName
+                                            })
+
                                             setCustomPresets((currentPresets) => {
                                                 let newPresets = { ...currentPresets };
                                                 let newPetWhiteList = {};
@@ -1242,11 +1270,20 @@ export default function Pets() {
                                         Select saved preset
                                     </div>
                                     <select
-                                     aria-label='Specify which custom preset to load in'
+                                        aria-label='Specify which custom preset to load in'
                                         style={{ width: '90px', marginLeft: '12px' }}
                                         onChange={
                                             (selected_mode) => {
                                                 setCustomSelected(true);
+
+                                                ReactGA.event({
+                                                    category: "pets_interaction",
+                                                    action: `load_custom_preset`,
+                                                    label: selected_mode.target.value,
+                                                    value: selected_mode.target.value
+                                                })
+
+
                                                 switch (selected_mode.target.value) {
                                                     case 'None':
                                                         setCustomSelected(true);
@@ -1283,10 +1320,16 @@ export default function Pets() {
                                         Delete preset
                                     </div>
                                     <select
-                                     aria-label='Specify which custom preset to delete'
+                                        aria-label='Specify which custom preset to delete'
                                         style={{ width: '90px', marginLeft: '12px' }}
                                         onChange={
                                             (selected_mode) => {
+                                                ReactGA.event({
+                                                    category: "pets_interaction",
+                                                    action: `delete_custom_preset`,
+                                                    label: selected_mode.target.value,
+                                                    value: selected_mode.target.value
+                                                })
 
                                                 setCustomPresets((current_presets) => {
                                                     let newMap = { ...current_presets };
@@ -1319,11 +1362,11 @@ export default function Pets() {
                                 </div>
                                 {/* import preset */}
                                 <div style={{ display: 'flex', justifyContent: 'center' }} >
-                                    <input type='text' 
-                                     aria-label='Enter a preset code to import it'
-                                    onChange={(e) => {
-                                        setLoadPreset(e.target.value);
-                                    }}
+                                    <input type='text'
+                                        aria-label='Enter a preset code to import it'
+                                        onChange={(e) => {
+                                            setLoadPreset(e.target.value);
+                                        }}
                                         style={{
                                             width: '141px', marginRight: '12px'
                                         }}
@@ -1331,6 +1374,11 @@ export default function Pets() {
                                     <button disabled={loadPreset.trim().length === 0}
                                         onClick={(e) => {
                                             try {
+                                                ReactGA.event({
+                                                    category: "pets_interaction",
+                                                    action: `imported_custom_preset`,
+                                                })
+
                                                 let importPresetObj = JSON.parse(loadPreset);
                                                 setPriorityList(importPresetObj.priorityList);
                                                 setPriorityMap(importPresetObj.priorityMap);
@@ -1359,6 +1407,12 @@ export default function Pets() {
 
                                     <button
                                         onClick={(e) => {
+                                            ReactGA.event({
+                                                category: "pets_interaction",
+                                                action: `exported_custom_preset`,
+                                                label: selected_mode.target.value,
+                                                value: selected_mode.target.value
+                                            })
 
                                             let presetObj = {};
                                             let newPetWhiteList = {};
