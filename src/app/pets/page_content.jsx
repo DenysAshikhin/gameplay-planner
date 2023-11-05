@@ -534,7 +534,7 @@ export default function Pets() {
 
     // useEffect(() => {
 
-      
+
     //     // setTimeout(() => {
     //     //     ReactGA.send({ hitType: "pageview", page: "/pets_", title: "_Pet Combos Page" });
     //     // }, 500);
@@ -722,10 +722,10 @@ export default function Pets() {
                                 Priority List
                             </div>
 
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '12px' }}>
 
                                 <SearchBox
-                                    margin='0 0 0 6px'
+                                    margin='1px 0 0 6px'
                                     data={{
                                         list: searchList
                                     }}
@@ -744,7 +744,7 @@ export default function Pets() {
                                         });
                                     }}
                                 />
-                                <div style={{ margin: '0 12px 0 0', display: 'flex' }}>
+                                <div className='rainbowBorder' style={{ margin: '0 12px 0 0', display: 'flex', borderWidth:'4px', padding:'3px' }}>
                                     <div>
                                         Recomended Presets
                                     </div>
