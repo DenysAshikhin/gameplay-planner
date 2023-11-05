@@ -18,11 +18,11 @@ export default function PageSelection() {
 
     useEffect(() => {
 
-         
+
         // setTimeout(() => {
         //     ReactGA.send({ hitType: "pageview", page: "/page_selection_", title: "_Page Selection" });
         // }, 500);
-   
+
     }, []);
 
     const [clientData, setData] = useLocalStorage('userData', DefaultSave);
@@ -32,7 +32,7 @@ export default function PageSelection() {
         setRunTimeData(clientData);
     }, [clientData]);
 
-    const chargesMax = data.CurrentCardCharge === data.MaxCardCharge;
+    const chargesMax = (data.CurrentCardCharge === data.MaxCardCharge) && (data.MaxCardCharge !== 0);
 
 
     return (

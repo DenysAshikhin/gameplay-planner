@@ -134,80 +134,80 @@ export const mainTeamSuggestions = {
     },
     2: {
         priorityList: [
-            5,
             13,
             8,
             6,
+            5,
             7,
             4,
             3,
             1,
-            2
+            2,
         ],
         priorityMap: {
             "1": {
-                "mode": "max",
-                "label": "Potato",
-                "id": 1,
-                "count": 1,
-                "current": 0
+                mode: "max",
+                label: "Potato",
+                id: 1,
+                count: 1,
+                current: 0,
             },
             "2": {
-                "mode": "max",
-                "label": "Class Exp",
-                "id": 2,
-                "count": 1,
-                "current": 0
+                mode: "max",
+                label: "Class Exp",
+                id: 2,
+                count: 1,
+                current: 0,
             },
             "3": {
-                "mode": "max",
-                "label": "Skull",
-                "id": 3,
-                "count": 1,
-                "current": 0
+                mode: "max",
+                label: "Skull",
+                id: 3,
+                count: 1,
+                current: 0,
             },
             "4": {
-                "mode": "max",
-                "label": "Confection Exp",
-                "id": 4,
-                "count": 1,
-                "current": 0
+                mode: "max",
+                label: "Confection Exp",
+                id: 4,
+                count: 1,
+                current: 0,
             },
             "5": {
-                "mode": "max",
-                "label": "Reincarnation Exp",
-                "id": 5,
-                "count": 1,
-                "current": 0
+                mode: "max",
+                label: "Reincarnation Exp",
+                id: 5,
+                count: -1,
+                current: 0,
             },
             "6": {
-                "mode": "max",
-                "label": "Item Rating",
-                "id": 6,
-                "count": 1,
-                "current": 0
+                mode: "max",
+                label: "Item Rating",
+                id: 6,
+                count: 1,
+                current: 0,
             },
             "7": {
-                "mode": "max",
-                "label": "Poop Bonus",
-                "id": 7,
-                "count": 1,
-                "current": 0
+                mode: "max",
+                label: "Poop Bonus",
+                id: 7,
+                count: 1,
+                current: 0,
             },
             "8": {
-                "mode": "max",
-                "label": "Milk Bonus",
-                "id": 8,
-                "count": 1,
-                "current": 0
+                mode: "max",
+                label: "Milk Bonus",
+                id: 8,
+                count: 1,
+                current: 0,
             },
             "13": {
-                "mode": "max",
-                "label": "Residue Bonus",
-                "id": 13,
-                "count": 1,
-                "current": 0
-            }
+                mode: "max",
+                label: "Residue Bonus",
+                id: 13,
+                count: 1,
+                current: 0,
+            },
         }
     },
     3: {
@@ -1473,7 +1473,7 @@ export const mainTeamSuggestions = {
         }
     },
     12: {
-        priorityList:[
+        priorityList: [
             13,
             21,
             22,
@@ -1623,7 +1623,7 @@ export const mainTeamSuggestions = {
         }
     },
     13: {
-        priorityList:[
+        priorityList: [
             13,
             21,
             22,
