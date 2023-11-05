@@ -23,7 +23,7 @@ const NavBar = ({ }) => {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            margin: "16px 0",
+            // margin: "16px 0",
           }}
         >
           <div style={{ width: "38px", height: "38px", position: "relative" }}>
@@ -44,7 +44,7 @@ const NavBar = ({ }) => {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            margin: "16px 0",
+            // margin: "16px 0",
           }}
         >
           <div
@@ -74,7 +74,7 @@ const NavBar = ({ }) => {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            margin: "16px 0",
+            // margin: "16px 0",
           }}
         >
           <div
@@ -101,7 +101,7 @@ const NavBar = ({ }) => {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            margin: "16px 0",
+            // margin: "16px 0",
           }}
         >
           <div
@@ -128,7 +128,7 @@ const NavBar = ({ }) => {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            margin: "16px 0",
+            // margin: "16px 0",
           }}
         >
           <div
@@ -156,7 +156,7 @@ const NavBar = ({ }) => {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            margin: "16px 0",
+            // margin: "16px 0",
           }}
         >
           <div

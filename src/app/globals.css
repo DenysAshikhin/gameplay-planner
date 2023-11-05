@@ -201,13 +201,50 @@ code {
   opacity: 1;
   animation: fade 2s linear infinite;
 }
+
 @keyframes fade {
-0%,100% { opacity: 1 }
-50% { opacity: 0 }
+
+  0%,
+  100% {
+    opacity: 1
+  }
+
+  50% {
+    opacity: 0
+  }
 }
 
 .rainbowBorder {
   border: 5px solid transparent;
   border-image: linear-gradient(to bottom right, #b827fc 0%, #2c90fc 25%, #b8fd33 50%, #fec837 75%, #fd1892 100%);
   border-image-slice: 1;
+}
+
+
+a {
+  margin: 24px 0 24px 0;
+}
+
+@media (min-width:320px) {
+
+  /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */
+  a {
+    margin: auto 0 auto 0;
+  }
+}
+
+@media (min-width:480px) {
+
+  /* smartphones, Android phones, landscape iPhone */
+  a {
+    margin: auto 0 auto 0;
+  }
+}
+
+@media (min-width:640px) {
+
+  /* smartphones, Android phones, landscape iPhone */
+  a {
+    margin: 24px 0 24px 0;
+  }
 }
