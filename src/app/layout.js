@@ -25,7 +25,7 @@ export async function generateMetadata({ params, searchParams }, parent) {
 
 export const viewport = {
   width: 'device-width',
-  initialScale: 0.1
+  initialScale: 1
 }
 
 // <!-- Google tag (gtag.js) -->

@@ -12,7 +12,7 @@ export async function generateMetadata({ params, searchParams }, parent) {
   }
   export const viewport = {
     width: 'device-width',
-    initialScale: 0.5
+    initialScale: 1
   }
 export default function Page() {
 
