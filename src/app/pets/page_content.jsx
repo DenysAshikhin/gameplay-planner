@@ -27,9 +27,9 @@ import Image from 'next/image';
 ReactGA.initialize([{
     trackingId: "G-GGLPK02VH8",
     // gaOptions: {...}, // optional
-    gtagOptions: {
-        send_page_view: false
-    },
+    // gtagOptions: {
+    //     send_page_view: false
+    // },
 }]);
 
 
@@ -535,9 +535,9 @@ export default function Pets() {
     useEffect(() => {
 
       
-        setTimeout(() => {
-            ReactGA.send({ hitType: "pageview", page: "/pets_", title: "_Pet Combos Page" });
-        }, 500);
+        // setTimeout(() => {
+        //     ReactGA.send({ hitType: "pageview", page: "/pets_", title: "_Pet Combos Page" });
+        // }, 500);
 
     }, []);
 
