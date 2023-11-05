@@ -5,7 +5,7 @@ const nextConfig = {
     minimumCacheTTL: 360,
   },
 
-
+  distDir: 'new_build/.next',
   async headers() {
     return [
 
