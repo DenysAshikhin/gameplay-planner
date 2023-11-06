@@ -752,7 +752,7 @@ export default function Pets() {
                                 />
                                 <div className='rainbowBorder' style={{ margin: '0 12px 0 0', display: 'flex', borderWidth: '4px', padding: '3px' }}>
                                     <div>
-                                        Recomended Presets
+                                        Recommended Presets
                                     </div>
                                     <div>
                                         <select
@@ -1462,7 +1462,7 @@ export default function Pets() {
                                 <div>
                                     <div>
 
-                                        If you are new, it is recommended to select one of the presets from `Recomended Presets`
+                                        If you are new, it is recommended to select one of the presets from `Recommended Presets`
                                     </div>
                                     <div>
 
@@ -1481,10 +1481,10 @@ export default function Pets() {
                                     </div>
                                 </div>
                             </div>
-                            {/* Recomended Presets */}
+                            {/* Recommended Presets */}
                             <div style={{ display: 'flex' }}>
                                 <div style={{ minWidth: '115px', width: '115px', maxWidth: '115px', marginRight: '12px', fontSize: '20px' }}>
-                                    Recomended Presets:
+                                    Recommended Presets:
                                 </div>
                                 <div>
 
