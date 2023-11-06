@@ -147,7 +147,7 @@ export default function Home() {
                     or you can copy:
                   </div>
                   <div>
-                    %APPDATA%\..\LocalLow\Oni Gaming\Farmer Against Potatoes Idle\fapi-save.txt
+                    %APPDATA%\..\LocalLow\Oni Gaming\Farmer Against Potatoes Idle
                   </div>
                 </div>
               </div>

@@ -489,7 +489,8 @@ var farmingHelper = {
 
             }
 
-            modifiers.passedTime += tickRate;
+            // modifiers.passedTime += tickRate;
+            modifiers.timePassed += tickRate;
 
 
             //Reduce plant rank potion timer, or set it the bonus to 0 if necessary
@@ -503,7 +504,7 @@ var farmingHelper = {
             let curTime = helper.roundInt(i * tickRate + startTime);
 
             let HPToAdd = tickRate > 1 ?
-                mathHelper.multiplyDecimal(mathHelper.addDecimal(HPInitial, plants[0].production), 0.55 * tickRate * prodMult)
+                mathHelper.multiplyDecimal(mathHelper.addDecimal(HPInitial, plants[0].production), 0.525 * tickRate * prodMult)
                 :
                 plants[0].production;
 
