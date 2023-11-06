@@ -1964,7 +1964,7 @@ const FarmingLanding = () => {
 
                                     <MouseOverPopover tooltip={
                                         <div style={{ padding: '6px' }}>
-                                            Whether the simulation should automatically buy Farming Shop page 1 (Plant Boost Corner) upgrades. (This is an ascencion perk)
+                                            Whether the simulation should automatically buy Farming Shop page 1 (Plant Boost Corner) upgrades. (This is an ascension perk)
                                         </div>
                                     }>
                                         <div>
@@ -2154,7 +2154,7 @@ const FarmingLanding = () => {
                                             </div>
                                         </div>
                                         <div className='explanationInner'>
-                                            Whether the simulation should automatically buy Farming Shop page 1 (Plant Boost Corner) upgrades. (This is an ascencion perk)
+                                            Whether the simulation should automatically buy Farming Shop page 1 (Plant Boost Corner) upgrades. (This is an ascension perk)
                                         </div>
                                     </div>
                                 </div>

@@ -1560,7 +1560,7 @@ export default function Cards() {
                      /> */}
                 </div>
 
-                {/* Charges till Ascencion */}
+                {/* Charges till Ascension */}
                 <MouseOverPopover tooltip={
 
                     <div>
@@ -1575,7 +1575,7 @@ export default function Cards() {
                         <div
                             style={{ display: 'flex', alignItems: 'center', fontSize: '48px' }}
                         >
-                            {`Remaining Charges in ascencion: `}
+                            {`Remaining Charges in ascension: `}
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center', fontSize: '48px' }}>
                             <div style={{ marginRight: '6px' }}>{` ${remainingCharges}`}</div>
