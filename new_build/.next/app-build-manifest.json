@@ -81,20 +81,7 @@
       "static/chunks/209-5036c8bdc4779122.js",
       "static/chunks/528-bb4f4a674ef8bd7a.js",
       "static/css/25f949b0a30d3422.css",
-      "static/chunks/app/farming/page-d43ad939652db307.js"
-    ],
-    "/protein/page": [
-      "static/chunks/webpack-788256c9ce1ad553.js",
-      "static/chunks/fd9d1056-b9dda61b927b93cb.js",
-      "static/chunks/472-0f6515bcbb2ee0a9.js",
-      "static/chunks/main-app-26285fbcd7fee8bd.js",
-      "static/chunks/413-8cee6ae60237d063.js",
-      "static/chunks/215-24d49b13e7241892.js",
-      "static/chunks/8-1f95958af8d67684.js",
-      "static/chunks/209-5036c8bdc4779122.js",
-      "static/chunks/528-bb4f4a674ef8bd7a.js",
-      "static/chunks/244-885c17cafbce0dc9.js",
-      "static/chunks/app/protein/page-1a41e4dffbf30655.js"
+      "static/chunks/app/farming/page-98df9fc7a66885f1.js"
     ],
     "/pets/page": [
       "static/chunks/webpack-788256c9ce1ad553.js",
@@ -111,6 +98,19 @@
       "static/chunks/198-0980a4042503fdb9.js",
       "static/css/0433ab05b9932ea6.css",
       "static/chunks/app/pets/page-7cc35e98ef0fc042.js"
+    ],
+    "/protein/page": [
+      "static/chunks/webpack-788256c9ce1ad553.js",
+      "static/chunks/fd9d1056-b9dda61b927b93cb.js",
+      "static/chunks/472-0f6515bcbb2ee0a9.js",
+      "static/chunks/main-app-26285fbcd7fee8bd.js",
+      "static/chunks/413-8cee6ae60237d063.js",
+      "static/chunks/215-24d49b13e7241892.js",
+      "static/chunks/8-1f95958af8d67684.js",
+      "static/chunks/209-5036c8bdc4779122.js",
+      "static/chunks/528-bb4f4a674ef8bd7a.js",
+      "static/chunks/244-885c17cafbce0dc9.js",
+      "static/chunks/app/protein/page-1a41e4dffbf30655.js"
     ]
   }
 }

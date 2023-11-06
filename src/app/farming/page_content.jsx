@@ -1827,7 +1827,7 @@ const FarmingLanding = () => {
 
                                                 let min = 0.92;
                                                 let max = secondsHour * futureTime;
-                                                let step_max = 0.006 * finalPlants.length;
+                                                let step_max = 0.009 * finalPlants.length;
 
                                                 let nums = [];
                                                 let red = Math.floor(step_max * max);
