@@ -830,21 +830,24 @@ export default function Pets() {
                                         //             return setPriorityList(newList)
                                         //         }
                                         //     }
-                                        // }s
+                                        // }sss
                                     }>
                                     {priorityList.map((item, index) => {
-                                        let bigsad = -1;
+                                        let bigsad = -12;
                                         let showSelectedPets = false;
                                         let color = 'gray';
                                         let priority = priorityMap[item];
                                         let current = currentBonuses[item];
-                                        if (priority.count === 0) {
+                                        if (priority.count === -1) {
+                                            color = 'white';
+                                        }
+                                        else if (priority.count === 0) {
                                             color = 'gray';
                                         }
-                                        else if (priority.count === current.count) {
+                                        else if (priority.count === current?.count) {
                                             color = '#4caf50'
                                         }
-                                        else if (priority.count < current.count) {
+                                        else if (priority.count < current?.count) {
                                             color = '#ffeb3b'
                                         }
                                         else {
@@ -1083,8 +1086,8 @@ export default function Pets() {
                             </div>
                         </div>
 
+                        {/* Actual team */}
                         <div style={{ marginRight: '6px', marginTop: '6px' }}>
-                            {/* Actual team */}
                             <div
                                 style={{
                                     backgroundColor: 'rgba(255,255,255, 0.07)',
@@ -1098,18 +1101,40 @@ export default function Pets() {
                                     Best Team
 
                                 </div>
-                                {/* Current Team Bonuses! */}
+                                {/* Current Team Bonuses! s*/}
                                 <div style={{ padding: '12px' }}>
                                     {Object.values(currentBonuses).map((e, index) => {
                                         if (e.ID >= bonusCutOff) {
                                             return null
+                                        }
+                                        let color = 'lightgray';
+                                        let priority = priorityMap[e.ID];
+                                        if (priority) {
+                                            if(priority.count === -1){
+                                                color = 'white';
+                                            }
+                                            else if (priority.count === 0) {
+                                                color = 'gray';
+                                            }
+                                            else if (priority.count === e.count) {
+                                                color = '#4caf50'
+                                            }
+                                            else if (priority.count < e.count) {
+                                                color = '#ffeb3b'; //yellow
+                                            }
+                                            else {
+                                                color = '#e53935'; //reds
+                                            }
+                                        }
+                                        else {
+                                            color = 'lightgray';
                                         }
                                         return (
                                             <div key={index} style={{ display: 'flex', justifyContent: 'space-between' }}>
                                                 <div style={{ width: '150px' }}>
                                                     {e.label}
                                                 </div>
-                                                <div>
+                                                <div style={{ color: color }}>
                                                     {e.sum.toExponential(2) + '%' + ` (${currentBonuses[e.ID].count})`}
                                                 </div>
                                             </div>
