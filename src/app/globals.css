@@ -189,12 +189,18 @@ code {
   margin: 0;
   padding: 0;
   width: 100%;
+  height:100%;
   overflow-y: auto;
   overflow-x: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+align-items: center;
 }
 
 .teamBuilder li {
-  list-style-type: none
+  list-style-type: none;
+  /* width: 256px; */
 }
 
 .elementToFadeInAndOut {
@@ -224,4 +230,3 @@ code {
 a {
   margin: 24px 0 24px 0;
 }
-

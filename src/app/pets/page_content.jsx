@@ -713,7 +713,7 @@ export default function Pets() {
 
                         {/* List Table */}
                         <div
-                            style={{ alignSelf: 'flex-start', minWidth: '600px' }}
+                            style={{ alignSelf: 'flex-start', minWidth: '580px', margin:'0 12px' }}
                         >
                             {/* Priority List */}
                             <div
@@ -722,7 +722,14 @@ export default function Pets() {
                                 Priority List
                             </div>
 
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '12px' }}>
+                            <div
+                                style={{
+                                    display: 'flex',
+                                    // flexDirection: 'column',
+                                    justifyContent: 'space-between',
+                                    alignItems: 'center',
+                                    marginTop: '12px'
+                                }}>
 
                                 <SearchBox
                                     margin='1px 0 0 6px'
@@ -814,161 +821,163 @@ export default function Pets() {
                                 // padding: '6px 0',
                                 backgroundColor: 'rgba(255,255,255, 0.04)',
                                 borderRadius: '6px',
-                                maxHeight: '35vh',
+                                maxHeight: '38vh',
                                 paddingLeft: '6px',
                                 overflow: "hidden"
                             }}>
+                                <div style={{ width: '100%', overflow: 'auto' }}>
+                                    <Reorder.Group
+                                        axis="y"
+                                        values={priorityList}
+                                        // layoutScroll
+                                        // style={{ overflowY: "scroll" }}
+                                        onReorder={setPriorityList
+                                            //     (newList) => {
 
-                                <Reorder.Group
-                                    axis="y"
-                                    values={priorityList}
-                                    // layoutScroll
-                                    // style={{ overflowY: "scroll" }}
-                                    onReorder={setPriorityList
-                                        //     (newList) => {
-
-                                        //     for (let i = 0; i < newList.length; i++) {
-                                        //         if (newList[i] !== priorityList[i]) {
-                                        //             return setPriorityList(newList)
-                                        //         }
-                                        //     }
-                                        // }sss
-                                    }>
-                                    {priorityList.map((item, index) => {
-                                        let bigsad = -12;
-                                        let showSelectedPets = false;
-                                        let color = 'gray';
-                                        let priority = priorityMap[item];
-                                        let current = currentBonuses[item];
-                                        if (priority.count === -1) {
-                                            color = 'white';
-                                        }
-                                        else if (priority.count === 0) {
-                                            color = 'gray';
-                                        }
-                                        else if (priority.count === current?.count) {
-                                            color = '#4caf50'
-                                        }
-                                        else if (priority.count < current?.count) {
-                                            color = '#ffeb3b'
-                                        }
-                                        else {
-                                            color = '#e53935';
-                                        }
-                                        if (selectedPetMap[item]) {
-                                            if (selectedPetMap[item].length > 0) {
-                                                showSelectedPets = true;
+                                            //     for (let i = 0; i < newList.length; i++) {
+                                            //         if (newList[i] !== priorityList[i]) {
+                                            //             return setPriorityList(newList)
+                                            //         }
+                                            //     }
+                                            // }sss
+                                        }>
+                                        {priorityList.map((item, index) => {
+                                            let bigsad = -12;
+                                            let showSelectedPets = false;
+                                            let color = 'gray';
+                                            let priority = priorityMap[item];
+                                            let current = currentBonuses[item];
+                                            if (priority.count === -1) {
+                                                color = 'white';
                                             }
-                                        }//
-                                        return (
-                                            < Reorder.Item key={item} value={item} style={{ marginLeft: '6px' }}>
-                                                <div
-                                                    className='drag'
-                                                    style={{
-                                                        margin: '6px 3px',
-                                                        border: `2px solid ${color}`,
-                                                        display: 'flex',
-                                                        alignItems: 'center', flexDirection: 'column',
-                                                        width: '220px',
-                                                        backgroundColor: 'rgba(255,255,255, 0.07)',
-                                                        borderRadius: '6px'
-                                                    }}>
-                                                    <div style={{
-                                                        display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-                                                        width: '100%', margin: '3px 0 6px 0',
-                                                        borderBottom: '1px solid black'
-                                                    }}>
+                                            else if (priority.count === 0) {
+                                                color = 'gray';
+                                            }
+                                            else if (priority.count === current?.count) {
+                                                color = '#4caf50'
+                                            }
+                                            else if (priority.count < current?.count) {
+                                                color = '#ffeb3b'
+                                            }
+                                            else {
+                                                color = '#e53935';
+                                            }
+                                            if (selectedPetMap[item]) {
+                                                if (selectedPetMap[item].length > 0) {
+                                                    showSelectedPets = true;
+                                                }
+                                            }//
+                                            return (
+                                                < Reorder.Item key={item} value={item} style={{ marginLeft: '6px' }}>
+                                                    <div
+                                                        className='drag'
+                                                        style={{
+                                                            margin: '6px 3px',
+                                                            border: `2px solid ${color}`,
+                                                            display: 'flex',
+                                                            alignItems: 'center', flexDirection: 'column',
+                                                            width: '220px',
+                                                            backgroundColor: 'rgba(255,255,255, 0.07)',
+                                                            borderRadius: '6px'
+                                                        }}>
+                                                        <div style={{
+                                                            display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                                                            width: '100%', margin: '3px 0 6px 0',
+                                                            borderBottom: '1px solid black'
+                                                        }}>
 
-                                                        <Image
-                                                            className='drag noPointerEvents'
-                                                            src={DragIcon}
-                                                            style={{ height: '24px', width: 'auto', marginLeft: '3px' }}
-                                                            alt='hand in a fist with index poting at a vertical line with arrows on both ends'
-                                                        />
-                                                        {/* <img 
+                                                            <Image
+                                                                className='drag noPointerEvents'
+                                                                src={DragIcon}
+                                                                style={{ height: '24px', width: 'auto', marginLeft: '3px' }}
+                                                                alt='hand in a fist with index poting at a vertical line with arrows on both ends'
+                                                            />
+                                                            {/* <img 
                                                         className='drag noPointerEvents' 
                                                         src={DragIcon} 
                                                         style={{ height: '24px', marginLeft: '3px' }} 
                                                         alt='hand in a fist with index poting at a vertical line with arrows on both ends' 
                                                         /> */}
 
-                                                        <div style={{ marginLeft: '6px' }}>
-                                                            {` ${priorityMap[item].label}`}
-                                                        </div>
-                                                        <Image
-                                                            onClick={(e) => {
-                                                                setPriorityMap((curMap) => {
-                                                                    let newMap = { ...curMap };
-                                                                    delete newMap[item];
-                                                                    return newMap;
-                                                                });
-                                                                setPriorityList((curList) => {
-                                                                    let newList = [...curList];
-                                                                    newList = newList.filter((cur) => cur !== item);
-                                                                    return newList;
-                                                                });
-                                                            }}
-                                                            className='hover'
-                                                            src={CrossIcon}
-                                                            alt='red x'
-                                                            style={{ height: '16px', width: 'auto', marginRight: '6px' }} />
-                                                    </div>
-
-                                                    {/* Extra options */}
-                                                    <div style={{ alignSelf: 'flex-start', marginLeft: '6px', marginBottom: '3px' }}>
-                                                        <div style={{ display: 'flex', alignItems: 'center' }}>
-                                                            <div style={{ marginRight: '6px' }}>
-                                                                Max Pets:
+                                                            <div style={{ marginLeft: '6px' }}>
+                                                                {` ${priorityMap[item].label}`}
                                                             </div>
-                                                            <div>
-                                                                <input
-                                                                    aria-label='Select how the bonus will be rewarded'
-                                                                    // className='importantText textMedium2'
-                                                                    style={{
-                                                                        //  borderRadius: '4px',
-                                                                        width: '30px',
-                                                                        //    height: '65%', 
-                                                                        //    backgroundColor: index % 2 === 0 ? '#2D2D2D' : '#353535'
-                                                                        backgroundColor: '#f3f0f5'
-                                                                    }}
-                                                                    type='number' value={priorityMap[item].count}
-                                                                    onChange={
-                                                                        (inner_e) => {
-                                                                            try {
-                                                                                let x = Number(inner_e.target.value);
-                                                                                x = Math.floor(x);
-                                                                                if (x < -1 || x > 6) {
-                                                                                    return;
-                                                                                }
-                                                                                setPriorityMap((current_map) => {
-                                                                                    let newMap = { ...current_map };
-                                                                                    newMap[item].count = x;
-                                                                                    return newMap;
-                                                                                })
+                                                            <Image
+                                                                onClick={(e) => {
+                                                                    setPriorityMap((curMap) => {
+                                                                        let newMap = { ...curMap };
+                                                                        delete newMap[item];
+                                                                        return newMap;
+                                                                    });
+                                                                    setPriorityList((curList) => {
+                                                                        let newList = [...curList];
+                                                                        newList = newList.filter((cur) => cur !== item);
+                                                                        return newList;
+                                                                    });
+                                                                }}
+                                                                className='hover'
+                                                                src={CrossIcon}
+                                                                alt='red x'
+                                                                style={{ height: '16px', width: 'auto', marginRight: '6px' }} />
+                                                        </div>
 
-                                                                                ReactGA.event({
-                                                                                    category: "pet_team_builder",
-                                                                                    action: `changed_bonus_max_pets`,
-                                                                                    label: `${priorityMap[item].label}`,
-                                                                                    value: x
-                                                                                });
-                                                                            }
-                                                                            catch (err) {
-                                                                                console.log(err);
-                                                                            }
+                                                        {/* Extra options */}
+                                                        <div style={{ alignSelf: 'flex-start', marginLeft: '6px', marginBottom: '3px' }}>
+                                                            <div style={{ display: 'flex', alignItems: 'center' }}>
+                                                                <div style={{ marginRight: '6px' }}>
+                                                                    Max Pets:
+                                                                </div>
+                                                                <div>
+                                                                    <input
+                                                                        aria-label='Select how the bonus will be rewarded'
+                                                                        // className='importantText textMedium2'
+                                                                        style={{
+                                                                            //  borderRadius: '4px',
+                                                                            width: '30px',
+                                                                            //    height: '65%', 
+                                                                            //    backgroundColor: index % 2 === 0 ? '#2D2D2D' : '#353535'
+                                                                            backgroundColor: '#f3f0f5'
                                                                         }}
-                                                                    min="-1"
-                                                                    max="6"
-                                                                />
+                                                                        type='number' value={priorityMap[item].count}
+                                                                        onChange={
+                                                                            (inner_e) => {
+                                                                                try {
+                                                                                    let x = Number(inner_e.target.value);
+                                                                                    x = Math.floor(x);
+                                                                                    if (x < -1 || x > 6) {
+                                                                                        return;
+                                                                                    }
+                                                                                    setPriorityMap((current_map) => {
+                                                                                        let newMap = { ...current_map };
+                                                                                        newMap[item].count = x;
+                                                                                        return newMap;
+                                                                                    })
+
+                                                                                    ReactGA.event({
+                                                                                        category: "pet_team_builder",
+                                                                                        action: `changed_bonus_max_pets`,
+                                                                                        label: `${priorityMap[item].label}`,
+                                                                                        value: x
+                                                                                    });
+                                                                                }
+                                                                                catch (err) {
+                                                                                    console.log(err);
+                                                                                }
+                                                                            }}
+                                                                        min="-1"
+                                                                        max="6"
+                                                                    />
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
 
-                                                </div>
-                                            </Reorder.Item>
-                                        )
-                                    })}
-                                </Reorder.Group>
+                                                    </div>
+                                                </Reorder.Item>
+                                            )
+                                        })}
+                                    </Reorder.Group>
+                                </div>
+
                             </div>
 
 
@@ -1021,69 +1030,79 @@ export default function Pets() {
                                 overflow: 'hidden'
                             }}>
                                 <div style={{ maxHeight: '100%', overflow: 'auto', width: '100%' }}>
-                                    {Object.values(petWhiteList).map((e, index) => (
-                                        <div
-                                            key={index}
-                                            style={{
-                                                display: 'flex', flexDirection: 'column',
-                                                width: '200px', height: '60px',
-                                                backgroundColor: 'rgba(255,255,255, 0.07)',
-                                                borderRadius: '6px',
-                                                margin: '6px  12px'
-                                            }}>
-                                            <div style={{
-                                                display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-                                                width: '100%', height: '32px',
-                                                borderBottom: '1px solid black'
-                                            }}>
-                                                <div style={{ fontSize: '24px', marginLeft: '6px' }}>
-                                                    {e.name}
-                                                </div>
-                                                <Image
-                                                    className='hover'
-                                                    src={CrossIcon}
-                                                    alt='red x'
-                                                    style={{ height: '16px', width: 'auto', marginRight: '6px' }}
-                                                    onClick={(click_e) => {
-                                                        setPetWhiteList((cur_whitelist) => {
-                                                            let newList = { ...cur_whitelist };
-                                                            delete newList[e.ID];
-                                                            return newList;
-                                                        });
-                                                    }}
-                                                />
-                                            </div>
-
-
-                                            <div>
-                                                <div style={{ display: 'flex', alignItems: 'center', margin: '6px' }}>
-                                                    <div style={{ marginRight: '6px' }}>
-                                                        Placement:
+                                    <div
+                                        style={{
+                                            display: "flex",
+                                            flexDirection: "column",
+                                            justifyContent: "center",
+                                            alignItems: "center"
+                                        }}
+                                    >
+                                        {Object.values(petWhiteList).map((e, index) => (
+                                            <div
+                                                key={index}
+                                                style={{
+                                                    display: 'flex', flexDirection: 'column',
+                                                    width: '250px', height: '60px',
+                                                    backgroundColor: 'rgba(255,255,255, 0.07)',
+                                                    borderRadius: '6px',
+                                                    margin: '6px  12px'
+                                                }}>
+                                                <div style={{
+                                                    display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                                                    width: '100%', height: '32px',
+                                                    borderBottom: '1px solid black'
+                                                }}>
+                                                    <div style={{ fontSize: '24px', marginLeft: '6px' }}>
+                                                        {e.name}
                                                     </div>
-                                                    <div>
-                                                        <select
-                                                            aria-label='Specifiy if the pet is included or excluded'
-                                                            style={{ maxWidth: '144px' }}
-                                                            onChange={
-                                                                (selected_mode) => {
-                                                                    setPetWhiteList((cur_whitelist) => {
-                                                                        let newList = { ...cur_whitelist };
-                                                                        newList[e.ID].mode = selected_mode.target.value;
-                                                                        return newList;
-                                                                    });
+                                                    <Image
+                                                        className='hover'
+                                                        src={CrossIcon}
+                                                        alt='red x'
+                                                        style={{ height: '16px', width: 'auto', marginRight: '6px' }}
+                                                        onClick={(click_e) => {
+                                                            setPetWhiteList((cur_whitelist) => {
+                                                                let newList = { ...cur_whitelist };
+                                                                delete newList[e.ID];
+                                                                return newList;
+                                                            });
+                                                        }}
+                                                    />
+                                                </div>
+
+
+                                                <div>
+                                                    <div style={{ display: 'flex', alignItems: 'center', margin: '6px' }}>
+                                                        <div style={{ marginRight: '6px' }}>
+                                                            Placement:
+                                                        </div>
+                                                        <div>
+                                                            <select
+                                                                aria-label='Specifiy if the pet is included or excluded'
+                                                                style={{ maxWidth: '144px' }}
+                                                                onChange={
+                                                                    (selected_mode) => {
+                                                                        setPetWhiteList((cur_whitelist) => {
+                                                                            let newList = { ...cur_whitelist };
+                                                                            newList[e.ID].mode = selected_mode.target.value;
+                                                                            return newList;
+                                                                        });
+                                                                    }
                                                                 }
-                                                            }
-                                                            defaultValue={petWhiteList[e.ID].mode}
-                                                            value={petWhiteList[e.ID].mode}
-                                                        >
-                                                            <option value="include">include</option>
-                                                            <option value="exclude">exclude</option>
-                                                        </select>
+                                                                defaultValue={petWhiteList[e.ID].mode}
+                                                                value={petWhiteList[e.ID].mode}
+                                                            >
+                                                                <option value="include">include</option>
+                                                                <option value="exclude">exclude</option>
+                                                            </select>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    ))}
+                                        ))}
+                                    </div>
+
                                 </div>
 
                             </div>
