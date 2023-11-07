@@ -1477,7 +1477,7 @@ export default function Pets() {
                         <div style={{ display: 'flex', flex: '1', flexDirection: 'column' }}>
                             {/* Priority List */}
                             <div style={{ display: 'flex' }}>
-                                <div style={{ minWidth: '115px', width: '115px', maxWidth: '115px', marginRight: '12px', fontSize: '20px' }}>
+                                <div style={{ minWidth: '130px', width: '130px', maxWidth: '130px', marginRight: '12px', fontSize: '20px' }}>
                                     Priority List:
                                 </div>
                                 <div>
@@ -1504,7 +1504,7 @@ export default function Pets() {
                             </div>
                             {/* Recommended Presets */}
                             <div style={{ display: 'flex' }}>
-                                <div style={{ minWidth: '115px', width: '115px', maxWidth: '115px', marginRight: '12px', fontSize: '20px' }}>
+                                <div style={{ minWidth: '130px', width: '130px', maxWidth: '130px', marginRight: '12px', fontSize: '20px' }}>
                                     Recommended Presets:
                                 </div>
                                 <div>
@@ -1527,7 +1527,7 @@ export default function Pets() {
                             </div>
                             {/* Custom Presets */}
                             <div style={{ display: 'flex' }}>
-                                <div style={{ minWidth: '115px', width: '115px', maxWidth: '115px', marginRight: '12px', fontSize: '20px' }}>
+                                <div style={{ minWidth: '130px', width: '130px', maxWidth: '130px', marginRight: '12px', fontSize: '20px' }}>
                                     Custom Presets:
                                 </div>
                                 <div>
@@ -1546,7 +1546,7 @@ export default function Pets() {
                             </div>
                             {/* Share Presets */}
                             <div style={{ display: 'flex' }}>
-                                <div style={{ minWidth: '115px', width: '115px', maxWidth: '115px', marginRight: '12px', fontSize: '20px' }}>
+                                <div style={{ minWidth: '130px', width: '130px', maxWidth: '130px', marginRight: '12px', fontSize: '20px' }}>
                                     Share Presets:
                                 </div>
                                 <div>
