@@ -1110,7 +1110,7 @@ export default function Pets() {
                                         let color = 'lightgray';
                                         let priority = priorityMap[e.ID];
                                         if (priority) {
-                                            if(priority.count === -1){
+                                            if (priority.count === -1) {
                                                 color = 'white';
                                             }
                                             else if (priority.count === 0) {
@@ -1134,8 +1134,13 @@ export default function Pets() {
                                                 <div style={{ width: '150px' }}>
                                                     {e.label}
                                                 </div>
-                                                <div style={{ color: color }}>
-                                                    {e.sum.toExponential(2) + '%' + ` (${currentBonuses[e.ID].count})`}
+                                                <div style={{ display: 'flex', alignItems: 'center' }}>
+                                                    <div style={{ color: color,}}>
+                                                        {e.sum.toExponential(2) + '%'}
+                                                    </div>
+                                                    <div style={{ color: color, marginLeft:'6px' }}>
+                                                        {` (${currentBonuses[e.ID].count})`}
+                                                    </div>
                                                 </div>
                                             </div>
                                         )
