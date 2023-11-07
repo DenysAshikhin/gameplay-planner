@@ -32,7 +32,7 @@ export default function PageSelection() {
         setRunTimeData(clientData);
     }, [clientData]);
 
-    const chargesMax = (data.CurrentCardCharge === data.MaxCardCharge) && (data.MaxCardCharge !== 0);
+    const chargesMax = (data.CurrentCardCharge === data.MaxCardCharge) && (data.MaxCardCharge !== 0) && (data.AscensionCount >= 6);
 
 
     return (
@@ -68,6 +68,7 @@ export default function PageSelection() {
                     <PageCard page='farm' />
                     <PageCard page='cards' redBorder={chargesMax} />
                     <PageCard page='protein' />
+                    <PageCard page='donation' />
                 </div>
 
                 {/* <button onClick={(e) => {

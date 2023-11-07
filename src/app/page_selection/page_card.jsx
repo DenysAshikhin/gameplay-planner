@@ -45,7 +45,11 @@ const PageCard = ({ page, setTab, redBorder }) => {
       tabNum = 7;
       url = "/protein";
       break;
-
+    case "donation":
+      imgString = `donation-cropped`;
+      nameString = 'Donations';
+      url = "/donation"
+      break;
     default:
       imgString = `file_upload`;
       nameString = `Upload`;
@@ -65,7 +69,7 @@ const PageCard = ({ page, setTab, redBorder }) => {
           opacity: disabled ? "0.3" : "",
         }}
       >
-        <div  className={`${redBorder? 'borderToFadeInAndOutRed' : ''}`}
+        <div className={`${redBorder ? 'borderToFadeInAndOutRed' : ''}`}
           style={{
             height: "80%",
             display: "flex",
@@ -96,7 +100,7 @@ const PageCard = ({ page, setTab, redBorder }) => {
           </div>
         </div>
 
-        <div className={`${redBorder? 'borderToFadeInAndOutRed' : ''}`}
+        <div className={`${redBorder ? 'borderToFadeInAndOutRed' : ''}`}
           style={{
             height: "20%",
             display: "flex",

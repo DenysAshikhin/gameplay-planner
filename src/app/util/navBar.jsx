@@ -174,6 +174,34 @@ const NavBar = ({ }) => {
           </div>
         </div>
       </Link>
+
+
+      {/* Donation Redirect */}
+      <Link href="/donation" alt="navigation to donate">
+        <div
+          className="navItem"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            // margin: "16px 0",
+          }}
+        >
+          <div
+            style={{
+              width: "55px",
+              height: "55px",
+              position: "relative",
+            }}
+          >
+            <Image
+              alt="mechanical gear icon page navigation to protein page"
+              fill
+              src={`/images/icons/donation-cropped.svg`}
+            />
+          </div>
+        </div>
+      </Link>
     </div>
   );
 };

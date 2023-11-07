@@ -3,9 +3,10 @@
   "/page": "app/page.js",
   "/page_selection/page": "app/page_selection/page.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/cards/page": "app/cards/page.js",
+  "/donation/page": "app/donation/page.js",
   "/expeditions/page": "app/expeditions/page.js",
   "/farming/page": "app/farming/page.js",
-  "/cards/page": "app/cards/page.js",
   "/pets/page": "app/pets/page.js",
   "/protein/page": "app/protein/page.js"
 }

@@ -1406,7 +1406,6 @@ export default function Pets() {
                                             ReactGA.event({
                                                 category: "pets_interaction",
                                                 action: `exported_custom_preset`,
-                                                label: selected_mode.target.value
                                             })
 
                                             let presetObj = {};
