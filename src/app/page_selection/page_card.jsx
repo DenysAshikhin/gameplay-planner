@@ -22,7 +22,7 @@ const PageCard = ({ page, setTab, redBorder }) => {
       break;
     case "pets":
       imgString = `paw_plus`;
-      nameString = `Pets (Combos)`;
+      nameString = `Equip Pets`;
       tabNum = 2;
       url = "/pets";
       break;
