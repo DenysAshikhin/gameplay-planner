@@ -835,17 +835,35 @@ export default function Pets() {
                                     {priorityList.map((item, index) => {
                                         let bigsad = -1;
                                         let showSelectedPets = false;
+                                        let color = 'gray';
+                                        let priority = priorityMap[item];
+                                        let current = currentBonuses[item];
+                                        if (priority.count === 0) {
+                                            color = 'gray';
+                                        }
+                                        else if (priority.count === current.count) {
+                                            color = '#4caf50'
+                                        }
+                                        else if (priority.count < current.count) {
+                                            color = '#ffeb3b'
+                                        }
+                                        else {
+                                            color = '#e53935';
+                                        }
                                         if (selectedPetMap[item]) {
                                             if (selectedPetMap[item].length > 0) {
                                                 showSelectedPets = true;
                                             }
-                                        }
+                                        }//
                                         return (
                                             < Reorder.Item key={item} value={item} style={{ marginLeft: '6px' }}>
                                                 <div
                                                     className='drag'
                                                     style={{
-                                                        margin: '3px', border: '1px solid gray', display: 'flex', alignItems: 'center', flexDirection: 'column',
+                                                        margin: '3px',
+                                                        border: `2px solid ${color}`,
+                                                        display: 'flex',
+                                                        alignItems: 'center', flexDirection: 'column',
                                                         width: '220px',
                                                         backgroundColor: 'rgba(255,255,255, 0.07)',
                                                         borderRadius: '6px'
@@ -889,22 +907,6 @@ export default function Pets() {
                                                             src={CrossIcon}
                                                             alt='red x'
                                                             style={{ height: '16px', width: 'auto', marginRight: '6px' }} />
-                                                        {/* <img
-                                                            onClick={(e) => {
-                                                                setPriorityMap((curMap) => {
-                                                                    let newMap = { ...curMap };
-                                                                    delete newMap[item];
-                                                                    return newMap;
-                                                                });
-                                                                setPriorityList((curList) => {
-                                                                    let newList = [...curList];
-                                                                    newList = newList.filter((cur) => cur !== item);
-                                                                    return newList;
-                                                                });
-                                                            }}
-                                                            className='hover'
-                                                            src={CrossIcon}
-                                                            alt='red x' style={{ height: '16px', marginRight: '6px' }} /> */}
                                                     </div>
 
                                                     {/* Extra options */}
@@ -960,7 +962,6 @@ export default function Pets() {
                                                 </div>
                                             </Reorder.Item>
                                         )
-
                                     })}
                                 </Reorder.Group>
                             </div>
@@ -1047,15 +1048,6 @@ export default function Pets() {
                                                     });
                                                 }}
                                             />
-                                            {/* <img className='hover' src={CrossIcon} alt='red x' style={{ height: '16px', marginRight: '6px' }}
-                                                onClick={(click_e) => {
-                                                    setPetWhiteList((cur_whitelist) => {
-                                                        let newList = { ...cur_whitelist };
-                                                        delete newList[e.ID];
-                                                        return newList;
-                                                    });
-                                                }}
-                                            /> */}
                                         </div>
 
 
@@ -1445,7 +1437,7 @@ export default function Pets() {
                             alignItems: 'flex-start',
                             backgroundColor: 'rgba(255,255,255, 0.05)',
                             padding: '6px',
-                            minWidth:'260px'
+                            minWidth: '260px'
                         }}>
                         <div
                             style={{ fontSize: '32px', fontWeight: 'bold', textAlign: 'center', width: '100%' }}
