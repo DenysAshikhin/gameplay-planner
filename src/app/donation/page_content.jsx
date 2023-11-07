@@ -56,7 +56,7 @@ export default function Expeditions() {
 
 
                     <div style={{ margin: '24px auto' }}>
-                        <Link href={`https://donate.stripe.com/dR69E9fU64KDcc87ss`} style={{ textDecoration: 'none' }}>
+                        <Link href={`https://buy.stripe.com/aEU7w16jwa4X1xu4gh`} style={{ textDecoration: 'none' }}>
                             <div
                                 className={`hover`}
                                 style={{
