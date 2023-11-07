@@ -810,11 +810,13 @@ export default function Pets() {
                             <div style={{
                                 display: 'flex', flex: '1',
                                 border: '1px solid gray',
-                                margin: '6px', justifyContent: 'center', padding: '6px 0',
+                                margin: '6px', justifyContent: 'center',
+                                // padding: '6px 0',
                                 backgroundColor: 'rgba(255,255,255, 0.04)',
                                 borderRadius: '6px',
                                 maxHeight: '35vh',
-                                paddingLeft: '6px'
+                                paddingLeft: '6px',
+                                overflow: "hidden"
                             }}>
 
                                 <Reorder.Group
@@ -863,7 +865,7 @@ export default function Pets() {
                                                 <div
                                                     className='drag'
                                                     style={{
-                                                        margin: '3px',
+                                                        margin: '6px 3px',
                                                         border: `2px solid ${color}`,
                                                         display: 'flex',
                                                         alignItems: 'center', flexDirection: 'column',
@@ -1012,77 +1014,78 @@ export default function Pets() {
                                 border: '1px solid gray',
                                 justifyContent: 'center',
                                 alignItems: 'center',
-                                margin: '6px', padding: '6px 0',
+                                margin: '6px',
                                 backgroundColor: 'rgba(255,255,255, 0.04)',
                                 borderRadius: '6px',
-                                padding: '12px 0',
                                 maxHeight: '35vh',
-                                overflow: 'auto',
+                                overflow: 'hidden'
                             }}>
-
-                                {Object.values(petWhiteList).map((e, index) => (
-                                    <div
-                                        key={index}
-                                        style={{
-                                            display: 'flex', flexDirection: 'column',
-                                            width: '200px', height: '60px',
-                                            backgroundColor: 'rgba(255,255,255, 0.07)',
-                                            borderRadius: '6px',
-                                            margin: '6px 0'
-                                        }}>
-                                        <div style={{
-                                            display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-                                            width: '100%', height: '32px',
-                                            borderBottom: '1px solid black'
-                                        }}>
-                                            <div style={{ fontSize: '24px', marginLeft: '6px' }}>
-                                                {e.name}
-                                            </div>
-                                            <Image
-                                                className='hover'
-                                                src={CrossIcon}
-                                                alt='red x'
-                                                style={{ height: '16px', width: 'auto', marginRight: '6px' }}
-                                                onClick={(click_e) => {
-                                                    setPetWhiteList((cur_whitelist) => {
-                                                        let newList = { ...cur_whitelist };
-                                                        delete newList[e.ID];
-                                                        return newList;
-                                                    });
-                                                }}
-                                            />
-                                        </div>
-
-
-                                        <div>
-                                            <div style={{ display: 'flex', alignItems: 'center', margin: '6px' }}>
-                                                <div style={{ marginRight: '6px' }}>
-                                                    Placement:
+                                <div style={{ maxHeight: '100%', overflow: 'auto', width: '100%' }}>
+                                    {Object.values(petWhiteList).map((e, index) => (
+                                        <div
+                                            key={index}
+                                            style={{
+                                                display: 'flex', flexDirection: 'column',
+                                                width: '200px', height: '60px',
+                                                backgroundColor: 'rgba(255,255,255, 0.07)',
+                                                borderRadius: '6px',
+                                                margin: '6px  12px'
+                                            }}>
+                                            <div style={{
+                                                display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                                                width: '100%', height: '32px',
+                                                borderBottom: '1px solid black'
+                                            }}>
+                                                <div style={{ fontSize: '24px', marginLeft: '6px' }}>
+                                                    {e.name}
                                                 </div>
-                                                <div>
-                                                    <select
-                                                        aria-label='Specifiy if the pet is included or excluded'
-                                                        style={{ maxWidth: '144px' }}
-                                                        onChange={
-                                                            (selected_mode) => {
-                                                                setPetWhiteList((cur_whitelist) => {
-                                                                    let newList = { ...cur_whitelist };
-                                                                    newList[e.ID].mode = selected_mode.target.value;
-                                                                    return newList;
-                                                                });
+                                                <Image
+                                                    className='hover'
+                                                    src={CrossIcon}
+                                                    alt='red x'
+                                                    style={{ height: '16px', width: 'auto', marginRight: '6px' }}
+                                                    onClick={(click_e) => {
+                                                        setPetWhiteList((cur_whitelist) => {
+                                                            let newList = { ...cur_whitelist };
+                                                            delete newList[e.ID];
+                                                            return newList;
+                                                        });
+                                                    }}
+                                                />
+                                            </div>
+
+
+                                            <div>
+                                                <div style={{ display: 'flex', alignItems: 'center', margin: '6px' }}>
+                                                    <div style={{ marginRight: '6px' }}>
+                                                        Placement:
+                                                    </div>
+                                                    <div>
+                                                        <select
+                                                            aria-label='Specifiy if the pet is included or excluded'
+                                                            style={{ maxWidth: '144px' }}
+                                                            onChange={
+                                                                (selected_mode) => {
+                                                                    setPetWhiteList((cur_whitelist) => {
+                                                                        let newList = { ...cur_whitelist };
+                                                                        newList[e.ID].mode = selected_mode.target.value;
+                                                                        return newList;
+                                                                    });
+                                                                }
                                                             }
-                                                        }
-                                                        defaultValue={petWhiteList[e.ID].mode}
-                                                        value={petWhiteList[e.ID].mode}
-                                                    >
-                                                        <option value="include">include</option>
-                                                        <option value="exclude">exclude</option>
-                                                    </select>
+                                                            defaultValue={petWhiteList[e.ID].mode}
+                                                            value={petWhiteList[e.ID].mode}
+                                                        >
+                                                            <option value="include">include</option>
+                                                            <option value="exclude">exclude</option>
+                                                        </select>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                ))}
+                                    ))}
+                                </div>
+
                             </div>
                         </div>
 
@@ -1135,10 +1138,10 @@ export default function Pets() {
                                                     {e.label}
                                                 </div>
                                                 <div style={{ display: 'flex', alignItems: 'center' }}>
-                                                    <div style={{ color: color,}}>
+                                                    <div style={{ color: color, }}>
                                                         {e.sum.toExponential(2) + '%'}
                                                     </div>
-                                                    <div style={{ color: color, marginLeft:'6px' }}>
+                                                    <div style={{ color: color, marginLeft: '6px' }}>
                                                         {` (${currentBonuses[e.ID].count})`}
                                                     </div>
                                                 </div>
