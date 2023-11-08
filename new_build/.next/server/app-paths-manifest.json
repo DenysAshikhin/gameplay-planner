@@ -1,12 +1,12 @@
 {
   "/_not-found": "app/_not-found.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/page": "app/page.js",
   "/page_selection/page": "app/page_selection/page.js",
-  "/donation/page": "app/donation/page.js",
-  "/cards/page": "app/cards/page.js",
-  "/expeditions/page": "app/expeditions/page.js",
+  "/page": "app/page.js",
   "/farming/page": "app/farming/page.js",
-  "/pets/page": "app/pets/page.js",
-  "/protein/page": "app/protein/page.js"
+  "/expeditions/page": "app/expeditions/page.js",
+  "/cards/page": "app/cards/page.js",
+  "/protein/page": "app/protein/page.js",
+  "/gratitude/page": "app/gratitude/page.js",
+  "/pets/page": "app/pets/page.js"
 }

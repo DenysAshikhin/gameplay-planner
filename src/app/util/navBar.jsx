@@ -177,7 +177,7 @@ const NavBar = ({ }) => {
 
 
       {/* Donation Redirect */}
-      <Link href="/donation" alt="navigation to donate">
+      <Link href="/gratitude" alt="navigation to donate">
         <div
           className="navItem"
           style={{
@@ -189,15 +189,16 @@ const NavBar = ({ }) => {
         >
           <div
             style={{
-              width: "55px",
-              height: "55px",
+              width: "45px",
+              height: "45px",
               position: "relative",
             }}
           >
             <Image
-              alt="mechanical gear icon page navigation to protein page"
+              alt="light gray heart icon navigation to gratiuity and discord link"
               fill
-              src={`/images/icons/donation-cropped.svg`}
+              // src={`/images/icons/donation-cropped.svg`}
+              src={`/images/icons/heart.svg`}
             />
           </div>
         </div>

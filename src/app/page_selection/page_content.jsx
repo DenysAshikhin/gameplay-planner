@@ -68,7 +68,8 @@ export default function PageSelection() {
                     <PageCard page='farm' />
                     <PageCard page='cards' redBorder={chargesMax} />
                     <PageCard page='protein' />
-                    <PageCard page='donation' />
+                    {/* <PageCard page='donation' /> */}
+                    <PageCard page='gratitude' />
                 </div>
 
                 {/* <button onClick={(e) => {

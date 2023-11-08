@@ -50,6 +50,11 @@ const PageCard = ({ page, setTab, redBorder }) => {
       nameString = 'Donations';
       url = "/donation"
       break;
+    case "gratitude":
+      imgString = `heart`;
+      nameString = 'Gratitude';
+      url = "/gratitude"
+      break;
     default:
       imgString = `file_upload`;
       nameString = `Upload`;
