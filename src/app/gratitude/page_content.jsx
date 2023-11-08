@@ -64,6 +64,17 @@ export default function Expeditions() {
                                     label: `redirect_donation`
                                 })
                             }}
+                            onMouseDown={(event) => {
+                                if (event.button === 1) {
+                                    // do something on middle mouse button click
+                                    ReactGA.event({
+                                        category: "donation_interaction",
+                                        action: `click_donate`,
+                                        label: `redirect_donation`
+                                    })
+                                }
+                            }}
+
                         >
                             <div
                                 className={`hover`}
@@ -165,6 +176,16 @@ export default function Expeditions() {
                                     action: `click_discord`,
                                     label: `redirect_discord`
                                 })
+                            }}
+
+                            onMouseDown={(event) => {
+                                if (event.button === 1) {
+                                    ReactGA.event({
+                                        category: "discord_interaction",
+                                        action: `click_discord`,
+                                        label: `redirect_discord`
+                                    })
+                                }
                             }}
                         >
                             <div
