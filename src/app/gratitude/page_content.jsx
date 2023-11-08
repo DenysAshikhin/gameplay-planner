@@ -56,7 +56,15 @@ export default function Expeditions() {
 
 
                     <div style={{ margin: '24px auto' }}>
-                        <Link href={`https://buy.stripe.com/aEU7w16jwa4X1xu4gh`} style={{ textDecoration: 'none' }}>
+                        <Link href={`https://buy.stripe.com/aEU7w16jwa4X1xu4gh`} style={{ textDecoration: 'none' }}
+                            onClick={() => {
+                                ReactGA.event({
+                                    category: "donation_interaction",
+                                    action: `click_donate`,
+                                    label: `redirect_donation`
+                                })
+                            }}
+                        >
                             <div
                                 className={`hover`}
                                 style={{
@@ -150,7 +158,15 @@ export default function Expeditions() {
 
 
                     <div style={{ margin: '24px auto' }}>
-                        <Link href={`https://discord.gg/pt8a9Y3mSv`} style={{ textDecoration: 'none' }}>
+                        <Link href={`https://discord.gg/pt8a9Y3mSv`} style={{ textDecoration: 'none' }}
+                            onClick={() => {
+                                ReactGA.event({
+                                    category: "discord_interaction",
+                                    action: `click_discord`,
+                                    label: `redirect_discord`
+                                })
+                            }}
+                        >
                             <div
                                 className={`hover`}
                                 style={{
