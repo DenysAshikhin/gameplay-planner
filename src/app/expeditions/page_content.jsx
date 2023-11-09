@@ -1217,7 +1217,7 @@ export default function Expeditions() {
                     {groupRankCritera === 1 && (
                         <div
                             style={{
-                                margin: '6px 6px',
+                                margin: '16px 6px',
                                 display: 'flex',
                                 flexDirection: 'column',
                                 flex: '1',
@@ -1765,7 +1765,7 @@ export default function Expeditions() {
                     {groupRankCritera === 1 && (
                         <div
                             style={{
-                                margin: '6px 6px',
+                                margin: '12px 6px',
                                 display: 'flex',
                                 flexDirection: 'column',
                                 flex: '1',
