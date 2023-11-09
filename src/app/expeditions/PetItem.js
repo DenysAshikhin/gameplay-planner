@@ -142,7 +142,7 @@ const PetItem = ({ petData, isSelected, onClick, data, weightMap, petScoreFn, de
                     circleBorder ? {
                         borderRadius: '45px',
                         border: '2px solid rgba(255,255,255,0.8)',
-                        backgroundColor: 'rgba(255,255,255,0.06)',
+                        backgroundColor: 'rgba(255,255,255,0.08)',
                         overflow: 'hidden',
                         // position: 'relative',
                         width: '80px',
