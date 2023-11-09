@@ -160,7 +160,7 @@ const PetItem = ({ petData, isSelected, onClick, data, weightMap, petScoreFn, de
                             // position: circleBorder ? 'absolute' : '',
                             // top: circleBorder ? '-10px' : ''
                         }}
-                        // className={`item-tile${pet.Type === 1 ? '-ground ' : '-air '} ${isSelected ? '' : 'unselected'}`}
+                        className={`${isSelected ? '' : 'unselected'}`}
                     // className={`item-tile ${isSelected ? '' : 'unselected'}`}
                     >
                         <div
