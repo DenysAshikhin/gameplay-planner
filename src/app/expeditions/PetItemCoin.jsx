@@ -225,7 +225,8 @@ export default function PetItem({ petData, isSelected, onClick, data, weightMap,
                 <div
                     style={{
                         width: '100%',
-                        backgroundColor: grayBackground ? 'lightgray' : ''
+                        backgroundColor: grayBackground ? '' : '',
+                        textDecoration: grayBackground ? 'line-through ' : '',
                     }}>
                     {`(${pet.Type === 1 ? 'Ground' : 'Air'}) ${name}`}
                 </div>
@@ -355,7 +356,7 @@ export default function PetItem({ petData, isSelected, onClick, data, weightMap,
 //         </MouseOverPopover>
 
 
-//         //  </div> 
+//         //  </div>
 //         // </div>
 //     );
 // };

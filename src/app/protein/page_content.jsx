@@ -245,7 +245,7 @@ export default function Protein() {
 
 
                                 <input
-                                 aria-label='Specify if the time to purchase should be individual or cumlative in order of suggested purchases'
+                                    aria-label='Specify if the time to purchase should be individual or cumlative in order of suggested purchases'
                                     type="checkbox"
                                     onChange={(e) => {
                                         setCumulativeTime(e.target.checked ? 1 : 0)
@@ -301,7 +301,7 @@ export default function Protein() {
                                     Num purchases
                                 </div>
                                 <input
-                                 aria-label='Specify how many purchases to calculate into the future'
+                                    aria-label='Specify how many purchases to calculate into the future'
                                     className='importantText textMedium2'
                                     style={{ borderRadius: '4px', width: '36px', height: '65%', backgroundColor: '#2D2D2D' }}
                                     type='number'
@@ -394,8 +394,6 @@ export default function Protein() {
                             maxHeight: 'calc(100% - 42px)'
                         }}
                     >
-
-
                         <div
                             style={{
                                 height: '100%',
@@ -419,7 +417,8 @@ export default function Protein() {
                                 </div>
                                 <div style={{
                                     width: '15%', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(255,255,255, 0.085)',
-                                    border: '1px solid rgba(255,255,255,0.8', boxSizing: 'border-box',
+                                    border: '1px solid rgba(255,255,255,0.8)',
+                                    boxSizing: 'border-box',
                                 }}>
                                     <div className='importantText' style={{ fontSize: '24px' }} >
                                         Default
@@ -449,16 +448,16 @@ export default function Protein() {
                                     tempList.map((e, index) => {
                                         if (!e.disabled)
                                             return (
-                                                <div 
-                                                key={index}
-                                                style={{
-                                                    display: 'flex',
-                                                    width: '100%', backgroundColor: index % 2 === 0 ? 'rgba(255,255,255, 0.085)' : 'rgba(255,255,255, 0.12)',
-                                                    height: '40px',
-                                                    borderBottomLeftRadius: index === (tempList.length - 1) ? '6px' : '',
-                                                    borderBottomRightRadius: index === (tempList.length - 1) ? '6px' : '',
+                                                <div
+                                                    key={index}
+                                                    style={{
+                                                        display: 'flex',
+                                                        width: '100%', backgroundColor: index % 2 === 0 ? 'rgba(255,255,255, 0.085)' : 'rgba(255,255,255, 0.12)',
+                                                        height: '40px',
+                                                        borderBottomLeftRadius: index === (tempList.length - 1) ? '6px' : '',
+                                                        borderBottomRightRadius: index === (tempList.length - 1) ? '6px' : '',
 
-                                                }}>
+                                                    }}>
                                                     <AssemblyItem e={{ ...e, index: index }} currentWeight={currentWeights} setCurrentWeights={setCurrentWeights} />
                                                 </div>
                                             )

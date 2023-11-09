@@ -86,7 +86,13 @@ const ItemSelection = ({ selectedItems, onItemSelected, data, weightMap, default
 
 
     return (
-        <div className="item-selection" style={{ overflowY: 'auto', maxHeight: 'calc(100% - 66px)', }}>
+        <div style={{
+            overflowY: 'auto',
+            height: 'calc(100% - 56px)',
+            backgroundColor: 'rgba(255,255,255,0.05)',
+            display: 'flex',
+            flex: '1',
+        }}>
             {newPetArray.map(
                 (petData) => {
                     const { petId } = petData;
@@ -95,19 +101,20 @@ const ItemSelection = ({ selectedItems, onItemSelected, data, weightMap, default
                     return (
                         <div
                             key={petId}
-                            style={{ display: "flex", alignItems: 'center', justifyContent: 'center', margin: '0 3px' }}
+                            style={{ display: "flex", alignItems: 'center', justifyContent: 'center', margin: '12px auto 0 auto' }}
                         >
-                            <PetItem
+                            <div style={{margin:'0 3px'}}>
 
-                                petData={petData}
-                                data={data}
-                                isSelected={isItemSelected}
-                                onClick={() => handleItemClick(petId)}
-                                weightMap={weightMap}
-                                defaultRank={defaultRank}
-
-                                circleBorder={true}
-                            />
+                                <PetItem
+                                    petData={petData}
+                                    data={data}
+                                    isSelected={isItemSelected}
+                                    onClick={() => handleItemClick(petId)}
+                                    weightMap={weightMap}
+                                    defaultRank={defaultRank}
+                                    circleBorder={true}
+                                />
+                            </div>
                         </div>
                     );
 

@@ -592,7 +592,7 @@ export default function Expeditions() {
                                                 <div>
                                                     {groupLabel}
                                                 </div>
-                                                <div style={{ height: '16px', width: '16px', margin: '0 0 0 6px', position: 'relative' }} >
+                                                <div style={{ height: '18px', width: '18px', margin: '0 0 0 6px', position: 'relative' }} >
                                                     <Image
                                                         fill
                                                         src={infoIcon}
@@ -836,7 +836,7 @@ export default function Expeditions() {
 
                 {/* Info Configs */}
                 <div
-                    style={{ padding: '6px 3px 1px 3px', overflow: 'auto', maxHeight: 'calc(100% - 50px)' }}
+                    style={{ padding: '6px 3px 1px 3px', overflow: 'auto', maxHeight: 'calc(100% - 45px)' }}
                 >
                     <div style={{
                         display: 'flex', flexDirection: 'column',
@@ -883,8 +883,9 @@ export default function Expeditions() {
 
 
                             <select
+                                className='importantText'
+                                style={{ maxWidth: '144px', backgroundColor: '#171717', borderRadius: '4px' }}
                                 aria-label='Specify desired combo bonus'
-                                style={{ maxWidth: '144px' }}
                                 // disabled={refreshGroups}
                                 onChange={
                                     (e) => {
@@ -910,10 +911,12 @@ export default function Expeditions() {
                                 }}>
                                 Number of teams:
                             </div>
-                            <input id='prepFormInput'
+                            <input
+                                id='prepFormInput'
+                                className='importantText'
+                                style={{ maxWidth: '144px', backgroundColor: '#171717', borderRadius: '4px', fontSize: '14px' }}
                                 aria-label='Number of teams to calculate'
                                 type='number'
-                                className='prepNumber'
                                 value={numTeams}
                                 onChange={
                                     (e) => {
@@ -1210,6 +1213,7 @@ export default function Expeditions() {
                         </div>
                     )}
 
+                    {/* Show Pet Whitelist */}
                     {groupRankCritera === 1 && (
                         <div
                             style={{
@@ -1218,106 +1222,112 @@ export default function Expeditions() {
                                 flexDirection: 'column',
                                 flex: '1',
                                 border: '1px solid rgba(255,255,255,0.8)',
-                                padding: '6px 6px 6px 6px'
+                                backgroundColor: 'rgba(255,255,255, 0.05)',
+                                // padding: '6px 6px 6px 6px'
                             }}
                         >
-                            <h4 style={{ margin: '0' }}>Pet Whitelist</h4>
-                            {/* Pet whitelist stuff */}
-                            <div style={{ margin: '0 0 0 0', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '36px' }}>
-                                <SearchBox data={{
-                                    list: filterablePets
-                                }}
-                                    onSelect={(e) => {
-                                        setPetWhiteList((curr) => {
-                                            let temp = [...curr];
-                                            let petObj = originalPets.find((search_pet) => search_pet.ID === e.id)
-                                            temp.push({ ...e, placement: 'blacklist', parameters: { team: 0, damageBias: 17 }, pet: petObj });
-                                            return temp;
-                                        })
-                                        setRefreshGroups(true);
+                            <div style={{}}>
+                                <h4 style={{ margin: '6px', textAlign: 'center', fontSize: '20px' }}>Pet Whitelist</h4>
+                                {/* Pet whitelist stuff */}
+                                <div style={{ margin: '6px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '36px' }}>
+                                    <SearchBox data={{
+                                        list: filterablePets
                                     }}
-                                />
-                                <div
-                                    style={{ display: 'flex' }}
-                                >
+                                        onSelect={(e) => {
+                                            setPetWhiteList((curr) => {
+                                                let temp = [...curr];
+                                                let petObj = originalPets.find((search_pet) => search_pet.ID === e.id)
+                                                temp.push({ ...e, placement: 'blacklist', parameters: { team: 0, damageBias: 17 }, pet: petObj });
+                                                return temp;
+                                            })
+                                            setRefreshGroups(true);
+                                        }}
+                                    />
                                     <div
-                                        style={{ marginRight: '6px' }}
+                                        style={{ display: 'flex' }}
                                     >
-                                        Team Presets
-                                    </div>
-                                    <select
-                                        aria-label='Select your in game teams to quickly add those pets to whitelist'
-                                        style={{ maxWidth: '144px', }}
-                                        onChange={
-                                            (e) => {
+                                        <div
+                                            style={{ marginRight: '6px' }}
+                                        >
+                                            Team Presets
+                                        </div>
+                                        <select
+                                            className='importantText'
+                                            style={{ maxWidth: '144px', backgroundColor: '#171717', borderRadius: '4px' }}
+                                            aria-label='Select your in game teams to quickly add those pets to whitelist'
+                                            onChange={
+                                                (e) => {
 
-                                                let selectedTeam = data.PetsLoadout[Number(e.target.value)]
-                                                console.log(selectedTeam);
+                                                    let selectedTeam = data.PetsLoadout[Number(e.target.value)]
+                                                    console.log(selectedTeam);
 
-                                                setPetWhiteList((curr) => {
-                                                    let temp = [...curr];
-                                                    // temp.push({ ...e, placement: 'blacklist', parameters: { team: 0, damageBias: 17 } });
+                                                    setPetWhiteList((curr) => {
+                                                        let temp = [...curr];
+                                                        // temp.push({ ...e, placement: 'blacklist', parameters: { team: 0, damageBias: 17 } });
 
-                                                    for (let x = 0; x < selectedTeam.IDs.length; x++) {
-                                                        let selected = selectedTeam.IDs[x];
-                                                        if (selected > 0) {
-                                                            let base = {
-                                                                id: selected,
-                                                                label: petNames[selected].name,
-                                                                placement: 'rel',
-                                                                parameters: { team: 0, damageBias: 17 },
-                                                                pet: data.PetsCollection.find((pet_search) => pet_search.ID === selected)
-                                                            }
-                                                            if (!temp.find((inner_find) => inner_find.id === base.id)) {
-                                                                temp.push(base);
+                                                        for (let x = 0; x < selectedTeam.IDs.length; x++) {
+                                                            let selected = selectedTeam.IDs[x];
+                                                            if (selected > 0) {
+                                                                let base = {
+                                                                    id: selected,
+                                                                    label: petNames[selected].name,
+                                                                    placement: 'rel',
+                                                                    parameters: { team: 0, damageBias: 17 },
+                                                                    pet: data.PetsCollection.find((pet_search) => pet_search.ID === selected)
+                                                                }
+                                                                if (!temp.find((inner_find) => inner_find.id === base.id)) {
+                                                                    temp.push(base);
+                                                                }
                                                             }
                                                         }
-                                                    }
-                                                    return temp;
-                                                })
-                                                setRefreshGroups(true);
+                                                        return temp;
+                                                    })
+                                                    setRefreshGroups(true);
 
+                                                }
                                             }
-                                        }
-                                        value={''}
-                                    >
-                                        {
-                                            [<option value='' key={'initial one'}>Select Team</option>, ...data.PetsLoadout.map((cur, index) => {
+                                            value={''}
+                                        >
+                                            {
+                                                [<option value='' key={'initial one'}>Select Team</option>, ...data.PetsLoadout.map((cur, index) => {
 
-                                                if (cur.Locked === 0) return;
+                                                    if (cur.Locked === 0) return;
 
-                                                return (
-                                                    <option
-                                                        key={index}
-                                                        value={index}
+                                                    return (
+                                                        <option
+                                                            key={index}
+                                                            value={index}
 
-                                                    >{cur.Name}</option>
-                                                )
-                                            })]
-                                        }
-                                    </select>
+                                                        >{cur.Name}</option>
+                                                    )
+                                                })]
+                                            }
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
+
 
                             {/* Pet white/black list */}
                             <div
                                 style={{
                                     display: 'flex',
-                                    boxShadow: `0 0 0 1px #ecf0f5`,
-                                    backgroundColor: '#fbfafc',
-                                    margin: '12px 1px 0 1px'
+                                    margin: '12px 0 0 0',
+                                    borderTop: '1px solid rgba(255,255,255,0.8)',
+                                    borderBottom: '1px solid rgba(255,255,255,0.8)',
+                                    backgroundColor: 'rgba(255,255,255, 0.12)',
                                 }}
                             >
+
+                                {/* Pet */}
                                 <div
                                     style={{
                                         // background: 'red',
-                                        width: '40%',
+                                        width: '50%',
                                         display: 'flex',
-                                        // boxShadow: `0 2px 1px -1px #ecf0f5`,
-                                        // boxShadow: `0 0 0 1px #ecf0f5`,
-                                        backgroundColor: '#fbfafc',
                                         justifyContent: 'center',
-                                        alignItems: 'center'
+                                        alignItems: 'center',
+
                                     }}
                                 >
                                     Pet
@@ -1327,12 +1337,12 @@ export default function Expeditions() {
                                 <div
                                     style={{
                                         // background: 'yellow',
-                                        width: '30%',
+                                        width: '25%',
                                         display: 'flex',
-                                        boxShadow: `0 0 0 1px #ecf0f5`,
-                                        backgroundColor: '#fbfafc',
                                         justifyContent: 'center',
-                                        alignItems: 'center'
+                                        alignItems: 'center',
+                                        borderRight: '1px solid rgba(255,255,255,0.8)',
+                                        borderLeft: '1px solid rgba(255,255,255,0.8)',
                                     }}
                                 >
                                     <MouseOverPopover tooltip={
@@ -1355,7 +1365,7 @@ export default function Expeditions() {
                                             <div>
                                                 Placement
                                             </div>
-                                            <div style={{ height: '16px', width: '16px', position: 'relative', marginLeft: '6px' }} >
+                                            <div style={{ height: '18px', width: '18px', position: 'relative', marginLeft: '6px' }} >
                                                 <Image
                                                     alt='on hover I in a cirlce icon, shows more information on hover'
                                                     src={infoIcon}
@@ -1371,11 +1381,11 @@ export default function Expeditions() {
                                 <div
                                     style={{
                                         // background: 'blue',
-                                        width: '30%',
+                                        width: '25%',
                                         display: 'flex',
                                         // boxShadow: `0 0 0 1px #ecf0f5`,
                                         justifyContent: 'center',
-                                        alignItems: 'center'
+                                        alignItems: 'center',
                                     }}
                                 >
                                     <MouseOverPopover tooltip={
@@ -1395,7 +1405,7 @@ export default function Expeditions() {
                                             <div>
                                                 Parameters
                                             </div>
-                                            <div style={{ height: '16px', width: '16px', position: 'relative', marginLeft: '6px' }} >
+                                            <div style={{ height: '18px', width: '18px', position: 'relative', marginLeft: '6px' }} >
                                                 <Image
                                                     alt='on hover I in a cirlce icon, shows more information on hover'
                                                     src={infoIcon}
@@ -1407,7 +1417,9 @@ export default function Expeditions() {
                                     </MouseOverPopover>
                                 </div>
                             </div>
-                            <div style={{ margin: '0 1px 0 1px', boxShadow: `0 0 0 1px #ecf0f5`, }}>
+                            <div style={{
+                                margin: '0 0 0 0',
+                            }}>
                                 {petWhiteList.map((pet, index) => {
                                     let petLabel = pet.label;
                                     let petGroup = ``
@@ -1529,15 +1541,21 @@ export default function Expeditions() {
                                         <div
                                             key={pet.label}
                                             style={{
-                                                boxShadow: `0 2px 1px -1px #ecf0f5`,
                                                 display: 'flex',
-                                                width: '100%'
+                                                width: '100%',
+                                                height: '25px',
+                                                backgroundColor: (index % 2) === 0 ? 'rgba(255,255,255, 0.07)' : 'rgba(255,255,255, 0.005)',
                                             }}
+
                                         >
                                             {/* Pet name + delete */}
                                             <div style={{
-                                                width: 'calc(40% - 1px)', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative',
-                                                boxShadow: `2px 0 2px -1px #ecf0f5`
+                                                width: '50%',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                position: 'relative',
+                                                borderTop: index === 0 ? '' : '1px solid rgba(255,255,255,0.8)',
                                             }}
                                                 onMouseEnter={() => {
                                                     setActivePet(pet.id)
@@ -1599,11 +1617,21 @@ export default function Expeditions() {
 
                                             </div>
                                             {/* Pet Placement */}
-                                            <div style={{ width: 'calc(30% + 1px)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: `2px 0 2px -1px #ecf0f5`, }}>
+                                            <div style={{
+                                                width: '25%',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                borderRight: '1px solid rgba(255,255,255,0.8)',
+                                                borderLeft: '1px solid rgba(255,255,255,0.8)',
+                                                borderTop: index === 0 ? '' : '1px solid rgba(255,255,255,0.8)',
+
+                                            }}>
 
                                                 <select
+                                                    className='importantText'
+                                                    style={{ maxWidth: '144px', backgroundColor: (index % 2) === 0 ? '#252525' : '#171717', borderRadius: '4px' }}
                                                     aria-label='Select what kind of placement the pet will have'
-                                                    style={{ maxWidth: '144px' }}
                                                     value={pet.placement}
                                                     onChange={
                                                         (choice) => {
@@ -1628,16 +1656,21 @@ export default function Expeditions() {
                                             <div
                                                 disabled={pet.placement === 'blacklist'}
                                                 style={{
-                                                    width: '30%',
+                                                    width: '25%',
                                                     position: 'relative',
-                                                    opacity: pet.placement === 'blacklist' ? '0.4' : '', display: 'flex', justifyContent: 'center', alignItems: 'center'
+                                                    opacity: pet.placement === 'blacklist' ? '0.4' : '',
+                                                    display: 'flex',
+                                                    justifyContent: 'center',
+                                                    alignItems: 'center',
+                                                    borderTop: index === 0 ? '' : '1px solid rgba(255,255,255,0.8)',
                                                 }}
                                             >
                                                 {pet.placement === 'team' && (
                                                     <div>
                                                         <select
+                                                            className='importantText'
+                                                            style={{ maxWidth: '144px', backgroundColor: (index % 2) === 0 ? '#252525' : '#171717', borderRadius: '4px' }}
                                                             aria-label='Select what team the pet will be placed in'
-                                                            style={{ maxWidth: '144px' }}
                                                             value={pet.parameters.team}
                                                             onChange={
                                                                 (choice) => {
@@ -1662,12 +1695,11 @@ export default function Expeditions() {
                                                     </div>
                                                 )}
                                                 {pet.placement === `rel` && (
-                                                    <div
-
-                                                    >
+                                                    <div >
                                                         <input
+                                                            className='importantText textMedium2'
                                                             aria-label='Damage bias to control when the pet should go in'
-                                                            style={{ maxWidth: '36px' }}
+                                                            style={{ maxWidth: '36px', backgroundColor: '#1b1b1b', borderRadius: '4px', backgroundColor: (index % 2) === 0 ? '#252525' : '#171717', }}
                                                             type='number'
                                                             // className='prepNumber'
                                                             value={pet.parameters.damageBias}
@@ -1702,10 +1734,10 @@ export default function Expeditions() {
                                                     <>Unavailable</>
                                                 )}
                                                 {(showGreen || showRed) && (
-                                                    <div style={{ position: 'absolute', right: '34px' }}>
-                                                        <MouseOverPopover muiHeight={'18px'} tooltip={<div>{hoverMsg}</div>} style={{ display: 'flex', alignItems: 'center', height: '18px' }}>
+                                                    <div style={{ position: 'absolute', right: '25px' }}>
+                                                        <MouseOverPopover muiHeight={'20px'} tooltip={<div>{hoverMsg}</div>} style={{ display: 'flex', alignItems: 'center', height: '20px' }}>
 
-                                                            <div style={{ height: '18px', width: '18px', marginLeft: '6px', marginTop: '2px', position: 'relative' }}>
+                                                            <div style={{ height: '20px', width: '20px', marginLeft: '6px', marginTop: '2px', position: 'relative' }}>
                                                                 <Image
                                                                     alt='on hover I in a cirlce icon, shows more information on hover'
                                                                     src={showGreen ? infoIconGreen : infoIconRed}
@@ -1738,16 +1770,8 @@ export default function Expeditions() {
                                 flexDirection: 'column',
                                 flex: '1',
                                 border: '1px solid rgba(255,255,255,0.8)',
-                                padding: '6px 6px 6px 6px'
                             }}
                         >
-
-
-
-
-
-
-
                             {/* Alerting overall impossible filters combinations */}
                             {failedFilters['generic'] && (
                                 <div
@@ -1761,13 +1785,13 @@ export default function Expeditions() {
                             {/* left over pets */}
                             {(
                                 <div
-                                    style={{ display: 'flex', width: '100%', marginTop: '12px', flexDirection: 'column' }}
+                                    style={{ display: 'flex', width: '100%', flexDirection: 'column', }}
                                 >
                                     {/* Title */}
                                     <div
-                                        style={{ display: 'flex', width: '100%' }}
+                                        style={{ display: 'flex', margin: '6px', alignSelf: 'center' }}
                                     >
-                                        <h4 style={{ margin: '0' }}> Leftover Pets</h4>
+                                        <h4 style={{ margin: '0', fontSize: '20px', textAlign: 'center' }}> Leftover Pets</h4>
 
                                     </div>
 
@@ -1780,35 +1804,39 @@ export default function Expeditions() {
                                             // paddingLeft: '6px'
                                         }}
                                     >
-                                        <SearchBox
-                                            updateBox={true}
-                                            placeholder='Enter a bonus'
-                                            data={{
-                                                list: filterableBonuses
-                                            }}
-                                            onSelect={(e) => {
-                                                console.log(e);
-                                                setLeftOverBonus1(Number(e.id));
-                                            }}
-                                        />
+                                        <div style={{ marginLeft: '6px' }}>
+
+                                            <SearchBox
+                                                updateBox={true}
+                                                placeholder='Enter a bonus'
+                                                data={{
+                                                    list: filterableBonuses
+                                                }}
+                                                onSelect={(e) => {
+                                                    console.log(e);
+                                                    setLeftOverBonus1(Number(e.id));
+                                                }}
+                                            />
+                                        </div>
                                     </div>
 
                                     {/* Headers */}
                                     <div
                                         style={{
                                             display: 'flex',
-                                            boxShadow: `0 0 0 1px #ecf0f5`,
-                                            backgroundColor: '#fbfafc',
-                                            margin: '6px 1px 0 1px'
+                                            borderTop: '1px solid rgba(255,255,255,0.8)',
+                                            borderBottom: '1px solid rgba(255,255,255,0.8)',
+                                            backgroundColor: 'rgba(255,255,255, 0.12)',
+                                            margin: '6px 0 0 0'
                                         }}
                                     >
                                         <div
                                             style={{
                                                 width: '70%',
                                                 display: 'flex',
-                                                backgroundColor: '#fbfafc',
                                                 justifyContent: 'center',
-                                                alignItems: 'center'
+                                                alignItems: 'center',
+                                                borderRight: '1px solid rgba(255,255,255,0.8)',
                                             }}
                                         >
                                             Pet
@@ -1819,8 +1847,6 @@ export default function Expeditions() {
                                             style={{
                                                 width: '30%',
                                                 display: 'flex',
-                                                boxShadow: `0 0 0 1px #ecf0f5`,
-                                                backgroundColor: '#fbfafc',
                                                 justifyContent: 'center',
                                                 alignItems: 'center'
                                             }}
@@ -1840,8 +1866,8 @@ export default function Expeditions() {
 
                                     </div>
                                     {/* Pets */}
-                                    <div style={{ margin: '0 1px 0 1px', boxShadow: `0 0 0 1px #ecf0f5`, }}>
-                                        {leftOver1Pets.map((pet) => {
+                                    <div style={{ margin: '0 0px 0 0px', }}>
+                                        {leftOver1Pets.map((pet, index) => {
                                             let staticPetData = petNameArray.find(staticPetDatum => staticPetDatum.petId === pet.ID)
 
                                             if (!staticPetData) {
@@ -1856,15 +1882,18 @@ export default function Expeditions() {
                                                 <div
                                                     key={pet.ID}
                                                     style={{
-                                                        boxShadow: `0 2px 1px -1px #ecf0f5`,
                                                         display: 'flex',
-                                                        width: '100%'
+                                                        width: '100%',
+                                                        backgroundColor: (index % 2) === 0 ? 'rgba(255,255,255, 0.07)' : 'rgba(255,255,255, 0.005)',
                                                     }}
                                                 >
                                                     {/* Pet name + pin */}
                                                     <div style={{
-                                                        width: 'calc(70% - 1px)', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative',
-                                                        boxShadow: `2px 0 2px -1px #ecf0f5`
+                                                        width: '70%',
+                                                        display: 'flex',
+                                                        alignItems: 'center',
+                                                        justifyContent: 'center',
+                                                        position: 'relative',
                                                     }}
                                                     >
                                                         <div
@@ -1881,8 +1910,9 @@ export default function Expeditions() {
                                                         >
                                                             <div
                                                                 style={{
-                                                                    marginLeft: '6px',
-                                                                    width: '100%'
+                                                                    width: '100%',
+                                                                    borderTop: index === 0 ? '' : '1px solid rgba(255,255,255,0.8)',
+                                                                    paddingLeft: '6px'
                                                                 }}
                                                             >
                                                                 {/* {petNames[pet.ID].name} */}
@@ -1907,12 +1937,14 @@ export default function Expeditions() {
                                                                     width: '24px',
                                                                     display: 'flex',
                                                                     alignItems: 'center',
-                                                                    justifyContent: 'center'
+                                                                    justifyContent: 'center',
+                                                                    borderTop: index === 0 ? '' : '1px solid rgba(255,255,255,0.8)',
+
                                                                 }}
                                                             >
                                                                 <div style={{
                                                                     position: 'relative',
-                                                                    width: '14px', height: '14px'
+                                                                    width: '20px', height: '20px'
                                                                 }}
                                                                     onClick={(e) => {
                                                                         setPetWhiteList((curr) => {
@@ -1970,7 +2002,14 @@ export default function Expeditions() {
 
                                                     </div>
                                                     {/* Pet Damage */}
-                                                    <div style={{ width: 'calc(30% + 1px)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: `2px 0 2px -1px #ecf0f5`, }}>
+                                                    <div style={{
+                                                        width: '30%',
+                                                        display: 'flex',
+                                                        alignItems: 'center',
+                                                        justifyContent: 'center',
+                                                        borderTop: index === 0 ? '' : '1px solid rgba(255,255,255,0.8)',
+                                                        borderLeft: '1px solid rgba(255,255,255,0.8)',
+                                                    }}>
                                                         {helper.roundTwoDecimal(petHelper.calculatePetBaseDamage(pet, defaultRank))}
                                                     </div>
 
@@ -1987,17 +2026,28 @@ export default function Expeditions() {
 
             {/* Grid Right */}
             <div
+                className='importantText'
                 style={{
-                    border: '2px solid black',
+                    border: '2px solid rgba(255,255,255,0.8)',
+                    borderRadius: '6px',
                     marginTop: '6px',
                     marginRight: '6px',
                     maxHeight: 'calc(100vh - 50px)',
                     backgroundColor: 'rgba(255,255,255, 0.05)',
-                    width: '20%'
+                    width: 'calc(100% - 66%)',
+                    minWidth: '200px',
+                    overflow: 'hidden'
                 }}
             >
-                <div style={{ display: 'flex', flexDirection: 'column', marginBottom: '6px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', width: '100%', borderBottom: '2px solid black' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', marginBottom: '0' }}>
+                    <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        width: '100%',
+                        borderBottom: '2px solid rgba(255,255,255,0.8)',
+                        backgroundColor: 'rgba(255,255,255,0.12)',
+                        justifyContent: 'center'
+                    }}>
                         <div style={{ fontWeight: 'bold', fontSize: '30px' }}>
                             Pets
                         </div>
@@ -2007,8 +2057,13 @@ export default function Expeditions() {
                     </div>
                     <div style={{ display: 'flex' }}>
 
-                        <div className='hover' style={{ width: '100%', borderBottom: '2px solid black', display: 'flex', backgroundColor: 'rgba(255,255,255,0.6)' }}>
-                            <div style={{ width: '25%', borderRight: '2px solid black', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '1px' }} onClick={(e) => {
+                        <div className='hover' style={{
+                            width: '100%',
+                            borderBottom: '2px solid rgba(255,255,255,0.8)',
+                            display: 'flex',
+                            backgroundColor: 'rgba(255,255,255,0.12)'
+                        }}>
+                            <div style={{ width: '25%', borderRight: '2px solid rgba(255,255,255,0.8)', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '1px' }} onClick={(e) => {
                                 ReactGA.event({
                                     category: "expedition_pets",
                                     action: 'enabled_all',
@@ -2025,7 +2080,7 @@ export default function Expeditions() {
                             }}>
                                 Enable All
                             </div>
-                            <div className='hover' style={{ width: '25%', borderRight: '2px solid black', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '1px' }}
+                            <div className='hover' style={{ width: '25%', borderRight: '2px solid rgba(255,255,255,0.8)', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '1px' }}
                                 onClick={(e) => {
                                     ReactGA.event({
                                         category: "expedition_pets",
@@ -2039,7 +2094,7 @@ export default function Expeditions() {
                                 }}>
                                 Disable All
                             </div>
-                            <div className='hover' style={{ width: '25%', borderRight: '2px solid black', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '1px' }}
+                            <div className='hover' style={{ width: '25%', borderRight: '2px solid rgba(255,255,255,0.8)', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '1px' }}
                                 onClick={(e) => {
                                     ReactGA.event({
                                         category: "expedition_pets",
@@ -2071,7 +2126,6 @@ export default function Expeditions() {
                                 {hideLocked ? `Show Locked` : `Hide Locked`}
                             </div>
                         </div>
-
                     </div>
                 </div>
 
@@ -2084,8 +2138,6 @@ export default function Expeditions() {
                     defaultRank={defaultRank}
                     showLocked={!hideLocked}
                 />
-
-
             </div>
         </div >
     );

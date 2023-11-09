@@ -141,7 +141,8 @@ const PetItem = ({ petData, isSelected, onClick, data, weightMap, petScoreFn, de
                 <div style={
                     circleBorder ? {
                         borderRadius: '45px',
-                        border: '2px solid black',
+                        border: '2px solid rgba(255,255,255,0.8)',
+                        backgroundColor: 'rgba(255,255,255,0.06)',
                         overflow: 'hidden',
                         // position: 'relative',
                         width: '80px',
@@ -159,7 +160,7 @@ const PetItem = ({ petData, isSelected, onClick, data, weightMap, petScoreFn, de
                             // position: circleBorder ? 'absolute' : '',
                             // top: circleBorder ? '-10px' : ''
                         }}
-                        className={`item-tile${pet.Type === 1 ? '-ground ' : '-air '} ${isSelected ? '' : 'unselected'}`}
+                        // className={`item-tile${pet.Type === 1 ? '-ground ' : '-air '} ${isSelected ? '' : 'unselected'}`}
                     // className={`item-tile ${isSelected ? '' : 'unselected'}`}
                     >
                         <div
