@@ -3,13 +3,13 @@ import './globals.css'
 import Header from './util/header.jsx';
 import NavBar from './util/navBar.jsx';
 
-export async function generateMetadata({ params, searchParams }, parent) {
+// export async function generateMetadata({ params, searchParams }, parent) {
 
-  return {
-    title: 'Gameplay Planner - Upload',
-    description: "Farmer Against Potatoes Idle, FAPI, gameplay planner / wiki / tool / guide, helps plan out and decide on the best team expeditions, team combos, farm and plant optimisations, card charges, protein assembly and more!"
-  }
-}
+//   return {
+//     title: 'Gameplay Planner - Upload',
+//     description: "Farmer Against Potatoes Idle, FAPI, gameplay planner / wiki / tool / guide, helps plan out and decide on the best team expeditions, team combos, farm and plant optimisations, card charges, protein assembly and more!"
+//   }
+// }
 
 //expeditions
 //Expedition Planner - Help you build expeditions teams / groups based on damage, rank. You can also tell the calculator to include specific bonuses such as token gain, time gain, card power, card exp, expedition damage by adding them to a white list. You can also add and remove pets to future planning 

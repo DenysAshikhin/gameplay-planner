@@ -15,16 +15,6 @@
     background-color: rgba(255, 255, 255, 0.12) !important;
 }
 
-/* .MuiPaper-root {
-    color: inherit !important;
-    background-color: rgba(255, 255, 255, 0.12) !important; 
-} */
-
-/* #mouse-over-popover{
-    color: inherit !important;
-    background-color: white !important;
-} */
-
 .MuiOutlinedInput-notchedOutline {
     border-color: gray !important;
 }

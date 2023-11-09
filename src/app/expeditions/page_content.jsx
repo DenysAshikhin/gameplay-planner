@@ -31,7 +31,7 @@ ReactGA.initialize([{
     // gtagOptions: {
     //     send_page_view: false
     // },
-  }]);
+}]);
 let groupCache = {};
 function setGroupCache(newCache) {
     groupCache = newCache;
@@ -265,7 +265,7 @@ export default function Expeditions() {
 
     // useEffect(() => {
 
-      
+
     //         setTimeout(() => {
     //             ReactGA.send({ hitType: "pageview", page: "/expeditions_", title: "_Expedition Calculator Page" });
     //         }, 500);
@@ -453,20 +453,30 @@ export default function Expeditions() {
 
     return (
         <div
-            className="grid-container"
+            // className="grid-container"
             style={{
-                gridTemplateColumns: '4fr 4fr 4fr',
-                columnGap: '12px',
-                width: 'calc(100% - 0px)'
+                // gridTemplateColumns: '4fr 4fr 2fr',
+                // columnGap: '12px',
+                width: 'calc(100% - 0px)',
+                background: 'black',
+                display: 'flex'
             }}
         >
             {/* Grid Left */}
             <div
+                className='importantText'
                 style={{
                     height: 'calc(100vh - 52px)',
-                    border: '2px solid black',
-                    margin: '6px',
-                    padding: '0px 0 2px 0px'
+                    border: '2px solid rgba(255,255,255,0.8)',
+                    margin: '6px 12px 6px 6px',
+                    padding: '0px 0 0px 0px',
+                    backgroundColor: 'rgba(255,255,255, 0.05)',
+                    overflow: 'hidden',
+                    borderRadius: '6px',
+                    width: '33%',
+                    minWidth: '310px',
+                    maxWidth: '590px'
+
                 }}
             >
                 <div
@@ -475,20 +485,28 @@ export default function Expeditions() {
                         flexDirection: 'column',
                         minWidth: '300px',
                         height: '100%',
+                        backgroundColor: 'rgba(255,255,255, 0.05)',
                     }}
                 >
-                    <div>
+
+                    {/* Title header */}
+                    <div style={{ backgroundColor: 'rgba(255,255,255, 0.12)', }}>
 
                         <div
-                            style={{ fontSize: '32px', fontWeight: 'bold', width: '100%', borderBottom: '0px solid black' }}>
+                            style={{
+                                fontSize: '32px', fontWeight: 'bold', width: '100%', borderBottom: '0px solid rgba(255,255,255,0.8)',
+                                textAlign: 'center'
+                            }}>
                             Best Teams
                         </div>
                         <div style={{
-                            display: 'flex', fontSize: '20px', fontWeight: 'bold',
-                            borderTop: '2px solid black',
-                            borderBottom: '2px solid black'
+                            display: 'flex', fontSize: '20px',
+                            // fontWeight: 'bold',
+                            borderTop: '2px solid rgba(255,255,255,0.8)',
+                            borderBottom: '2px solid rgba(255,255,255,0.8)',
+                            textAlign: 'center'
                         }}>
-                            <div style={{ width: '50%', borderRight: '2px solid black' }}>
+                            <div style={{ width: '50%', borderRight: '2px solid rgba(255,255,255,0.8)' }}>
                                 {`Total Damage: ${damageTotal.toExponential(3)}`}
                             </div>
                             <div style={{ width: '50%' }}>
@@ -559,15 +577,14 @@ export default function Expeditions() {
                                 className="grid-row"
                                 key={(1 + index) * 9001}
                                 style={{
-                                    marginBottom: '6px'
+                                    backgroundColor: 'rgba(255,255,255, 0.12)',
                                 }}
                             >
-
                                 <div
-                                    style={{ display: 'flex', width: '100%', borderBottom: '1px solid black' }}
+                                    style={{ display: 'flex', width: '100%', borderBottom: '1px solid rgba(255,255,255,0.8)' }}
                                 >
                                     <div
-                                        style={{ borderRight: '1px solid black', width: '25%', }}>
+                                        style={{ borderRight: '1px solid rgba(255,255,255,0.8)', width: '25%', }}>
                                         <MouseOverPopover tooltip={groupTooltip}>
                                             <div
                                                 style={{ display: 'flex', alignItems: 'center', margin: '0 12px', }}
@@ -589,7 +606,7 @@ export default function Expeditions() {
 
 
                                     <div
-                                        style={{ width: '37.5%', borderRight: '1px solid black', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                                        style={{ width: '37.5%', borderRight: '1px solid rgba(255,255,255,0.8)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                                     >
                                         <div style={{ margin: '0 12px' }}>
 
@@ -610,7 +627,9 @@ export default function Expeditions() {
                             let GroupIcons =
                                 <div
                                     style={{
-                                        display: 'flex', padding: '0 6px 3px 6px'
+                                        display: 'flex', padding: '6px 6px 3px 6px',
+
+                                        backgroundColor: 'rgba(255,255,255, 0.05)',
                                     }}
                                 >
                                     {!!group && group.map((petData, idx) => {
@@ -673,7 +692,7 @@ export default function Expeditions() {
                                                         return;
                                                     }}
                                                 >
-                                                    <div style={{ width: '20px', height: '20px', position: 'relative' }} >
+                                                    <div style={{ width: '20px', height: '20px', position: 'relative', zIndex: '2' }} >
                                                         <Image
                                                             fill
                                                             src={pinIcon}
@@ -720,7 +739,7 @@ export default function Expeditions() {
 
                                                     }}
                                                 >
-                                                    <div style={{ width: '20px', height: '20px', position: 'relative' }} >
+                                                    <div style={{ width: '20px', height: '20px', position: 'relative', zIndex: '2' }} >
                                                         <Image
                                                             src={trashIcon}
                                                             alt='trash can'
@@ -736,16 +755,19 @@ export default function Expeditions() {
                                         );
                                     })}
                                 </div>
+
+
                             let finalRow = <div
                                 key={'group' + index}
                                 style={{
                                     display: 'flex',
                                     flexDirection: 'column',
-                                    border: groupRankCritera === 2 && groupTotal.tokenRewardCount > 0 ? '1px black solid' : 'none',
-                                    marginTop: index === 0 ? '12px' : '24px',
+                                    border: groupRankCritera === 2 && groupTotal.tokenRewardCount > 0 ? '1px black rgba(255,255,255,0.8)' : 'none',
+                                    marginTop: index === 0 ? '16px' : '22px',
                                     marginLeft: '6px',
                                     marginRight: '6px',
-                                    border: '1px solid black'
+                                    marginBottom: '12px',
+                                    border: '1px solid rgba(255,255,255,0.8)',
                                 }}>
                                 {GroupTitle}
                                 {GroupIcons}
@@ -758,15 +780,26 @@ export default function Expeditions() {
                 </div>
             </div>
 
+            {/* Grid Center */}
             <div
+                className='importantText'
                 style={{
-                    border: '2px black solid',
-                    marginRight: '6px',
-                    marginTop: '6px',
-                    maxHeight: 'calc(100vh - 50px)'
-                    // padding: '0 12px 0 12px'
+                    border: '2px solid rgba(255,255,255,0.8)',
+                    margin: '6px 12px 6px 6px',
+                    maxHeight: 'calc(100vh - 46px)',
+                    backgroundColor: 'rgba(255,255,255, 0.05)',
+                    overflow: 'hidden',
+                    borderRadius: '6px',
+                    width: '33%',
+                    minWidth: '410px',
+                    // maxWidth: '590px'
                 }}>
-                <div style={{ display: 'flex', width: '100%', borderBottom: '2px solid black' }}>
+
+                {/* Header */}
+                <div style={{
+                    display: 'flex', width: '100%', borderBottom: '2px solid  rgba(255,255,255,0.8)', justifyContent: 'center',
+                    backgroundColor: 'rgba(255,255,255, 0.12)',
+                }}>
 
                     <div style={{ fontSize: '32px', fontWeight: 'bold', }}>
                         Configuration
@@ -798,77 +831,26 @@ export default function Expeditions() {
                             {/* <img alt='Letter "I" inside a circle, shows more information on hover' src={infoIconAmber} style={{ height: '30px' }} /> */}
                         </MouseOverPopover>
                     </div>
-
-
                 </div>
+
+
+                {/* Info Configs */}
                 <div
                     style={{ padding: '6px 3px 1px 3px', overflow: 'auto', maxHeight: 'calc(100% - 50px)' }}
                 >
-                    <div style={{ display: 'flex', flexDirection: 'column' }}>
-                        {/* <div style={{ display: 'flex' }}>
-                            <div
-                                style={{
-                                    marginRight: '12px',
-                                    color: 'blue',
-                                    fontWeight: 'bold'
-                                }}
-                            >Filter</div>
-                            <select
-                                style={{ maxWidth: '144px' }}
-                                // disabled={refreshGroups}
-                                onChange={async (e) => {
+                    <div style={{
+                        display: 'flex', flexDirection: 'column',
+                        backgroundColor: 'rgba(255,255,255, 0.05)',
+                        margin: '6px 6px',
+                        padding: '6px',
+                        border: '1px solid rgba(255,255,255,0.8)',
+                    }}>
 
-
-                                    ReactGA.event({
-                                        category: "expedition_filter",
-                                        action: 'changed_filter',
-                                        label: 'expedition'
-                                    })
-
-                                    switch (e.target.value) {
-                                        case 'damage':
-
-                                            ReactGA.event({
-                                                category: "expedition_filter",
-                                                action: 'filter_damage',
-                                                label: 'expedition'
-                                            })
-                                            setGroupRankCriteria(1);
-                                            break;
-                                        case 'token':
-
-                                            ReactGA.event({
-                                                category: "expedition_filter",
-                                                action: 'filter_token',
-                                                label: 'expedition'
-                                            })
-                                            setGroupRankCriteria(2);
-                                            break;
-                                        case 'advanced':
-
-                                            ReactGA.event({
-                                                category: "expedition_filter",
-                                                action: 'filter_advanced',
-                                                label: 'expedition'
-                                            })
-                                            setGroupRankCriteria(3);
-                                            break;
-                                        default:
-                                            throw new Error('invalid dropdown selector');
-                                    }
-                                }}
-                                value={groupRankCritera === 1 ? 'damage' : 'token'}
-                            >
-                                <option value="damage">Max Damage</option>
-                                <option value="token">Max Tokens {`->`} Damage</option>
-                            </select>
-                        </div> */}
-                        <div style={{ display: 'flex' }}>
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
 
                             <div>{`Ignore Pets Rank`}</div>
                             <input
-                            aria-label='Force pets to rank 1'
-                                // disabled={refreshGroups}
+                                aria-label='Force pets to rank 1'
                                 type="checkbox"
                                 onChange={(e) => {
                                     setDefaultRank(e.target.checked ? 1 : 0)
@@ -877,9 +859,8 @@ export default function Expeditions() {
                                 value={!!defaultRank}
                             />
                         </div>
-                        <div style={{ display: 'flex' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', marginTop: '3px' }}>
                             <div style={{ marginRight: '12px' }}>
-
                                 {`Golden Clover Level: ${data.SoulGoldenClover}`}
                             </div>
                             <div>
@@ -887,7 +868,7 @@ export default function Expeditions() {
                                 {`Token Bonuses: ${helper.roundTwoDecimal(data.ExpeditionTokenBonuses)}`}
                             </div>
                         </div>
-                        <div style={{ display: 'flex', }}>
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
 
                             <MouseOverPopover tooltip={
                                 <div>
@@ -902,7 +883,7 @@ export default function Expeditions() {
 
 
                             <select
-                            aria-label='Specify desired combo bonus'
+                                aria-label='Specify desired combo bonus'
                                 style={{ maxWidth: '144px' }}
                                 // disabled={refreshGroups}
                                 onChange={
@@ -922,130 +903,63 @@ export default function Expeditions() {
                             </select>
 
                         </div>
-                    </div>
-                    <div
-                        style={{
-                            display: 'flex'
-                        }}
-                    >
-                        <div
-                            style={{
-                                marginRight: '12px'
-                            }}>
-                            Number of teams:
-                        </div>
-                        <input id='prepFormInput'
-                        aria-label='Number of teams to calculate'
-                            type='number'
-                            className='prepNumber'
-                            value={numTeams}
-                            onChange={
-                                (e) => {
-                                    try {
-                                        let x = Number(e.target.value);
-                                        x = Math.floor(x);
-                                        if (x < 1 || x > 7) {
-                                            return;
-                                        }
-                                        setNumTeams(e.target.value);
-                                    }
-                                    catch (err) {
-                                        console.log(err);
-                                    }
-                                    // console.log(`pressed: ${e.target.value}`)
-
-                                }}
-                            placeholder={numTeams + ''}
-                            min="1"
-                            max="7"
-                        />
-                    </div>
-
-
-                    {/* Damage Bias */}
-                    {groupRankCritera === 2 && (
-                        <div
-                            style={{
-                                display: 'flex'
-                            }}
-                        >
-                            <MouseOverPopover tooltip={
-                                <div>
-                                    <div>
-                                        Importance of token {`teams'`} damage priority
-                                    </div>
-                                    <div>
-                                        Higher value means higher generated damage (by giving higher damage pets to token teams)
-                                    </div>
-                                    <div>
-                                        Recommended range: 5-40
-                                    </div>
-                                </div>
-                            }>
-                                <div
-                                    style={{
-                                        marginRight: '12px',
-                                        color: 'red'
-                                    }}>
-                                    Token Team Damage Bias:
-                                </div>
-                            </MouseOverPopover>
-
-                            <input
-                            
-                            aria-label='damage bias to control when a pet should be considered'
+                        <div style={{ display: 'flex', alignItems: 'center' }} >
+                            <div
+                                style={{
+                                    marginRight: '12px'
+                                }}>
+                                Number of teams:
+                            </div>
+                            <input id='prepFormInput'
+                                aria-label='Number of teams to calculate'
                                 type='number'
                                 className='prepNumber'
-                                value={tokenDamageBias}
+                                value={numTeams}
                                 onChange={
                                     (e) => {
                                         try {
                                             let x = Number(e.target.value);
                                             x = Math.floor(x);
-                                            if (x < 1 || x > 100) {
+                                            if (x < 1 || x > 7) {
                                                 return;
                                             }
-                                            setTokenDamageBias(x);
+                                            setNumTeams(e.target.value);
                                         }
                                         catch (err) {
                                             console.log(err);
                                         }
+                                        // console.log(`pressed: ${e.target.value}`)
 
                                     }}
-                                placeholder={tokenDamageBias + ''}
-                                min="0"
-                                max="100"
-                                step={5}
-
+                                placeholder={numTeams + ''}
+                                min="1"
+                                max="7"
                             />
                         </div>
-                    )}
-                    {groupRankCritera === 1 && (
-                        <div style={{ display: 'flex', marginTop: '12px' }}>
 
-                            <div>{`Show all bonus totals`}</div>
-                            <input
-                            aria-label='Displays bonuses whose backgrounds can be coloured in'
-                                // disabled={refreshGroups}
-                                type="checkbox" onChange={(e) => {
-                                    setShowAllBonusTally(e.target.checked ? true : false)
-                                }} />
-                        </div>
-                    )}
-                    {/* Advanced filter table */}
-                    {groupRankCritera === 1 && (
-                        <div
-                            style={{
-                                margin: '0px 0 12px 0',
-                                display: 'flex',
-                                flexDirection: 'column',
-                                flex: '1',
-                                border: 'black 1px solid',
-                                padding: '6px 6px 6px 6px'
-                            }}
-                        >
+                        {groupRankCritera === 1 && (
+                            <div style={{ display: 'flex', alignItems: 'center', marginTop: '2px' }}>
 
-                            {/* Total bonuses pet amounts */}
+                                <div>{`Show all bonus totals`}</div>
+                                <input
+                                    aria-label='Displays bonuses whose backgrounds can be coloured in'
+                                    // disabled={refreshGroups}
+                                    type="checkbox" onChange={(e) => {
+                                        setShowAllBonusTally(e.target.checked ? true : false)
+                                    }} />
+                            </div>
+                        )}
+                    </div>
+
+                    {/* Card to toggle bonuses */}
+                    {showAllBonusTally && (
+                        <div style={{
+                            display: 'flex', flexDirection: 'column',
+                            backgroundColor: 'rgba(255,255,255, 0.05)',
+                            margin: '6px 6px',
+                            padding: '6px',
+                            border: '1px solid rgba(255,255,255,0.8)',
+                        }}>
                             <div
                                 style={{
                                     margin: '6px 0 6px 0',
@@ -1083,7 +997,7 @@ export default function Expeditions() {
                                                     {`damage bias`}
                                                 </div>
                                                 <input
-                                                aria-label='Damage bias to control when a pet should be put in'
+                                                    aria-label='Damage bias to control when a pet should be put in'
                                                     type='number'
                                                     className='prepNumber'
                                                     value={active_bon.relThresh}
@@ -1128,7 +1042,7 @@ export default function Expeditions() {
                                                     {`damage bias`}
                                                 </div>
                                                 <input
-                                                aria-label='Damage bias to control when a pet should be put in'
+                                                    aria-label='Damage bias to control when a pet should be put in'
                                                     type='number'
                                                     className='prepNumber'
                                                     value={active_bon.relThresh}
@@ -1190,7 +1104,7 @@ export default function Expeditions() {
                                                         <div style={{ display: 'flex' }}>
                                                             <div>{`Enable highlight`}</div>
                                                             <input
-                                                            aria-label={`Enables the highlight for this bonus`}
+                                                                aria-label={`Enables the highlight for this bonus`}
                                                                 type="checkbox"
                                                                 onChange={(e_inner) => {
                                                                     setEnabledBonusHighlight({ ...enabledBonusHighlight, [e.bonus]: e_inner.target.checked ? 1 : 0 })
@@ -1261,7 +1175,7 @@ export default function Expeditions() {
                                                             <div style={{ display: 'flex' }}>
                                                                 <div>{`Enable highlight`}</div>
                                                                 <input
-                                                                aria-label='Enables highlighting of pets with this bonus'
+                                                                    aria-label='Enables highlighting of pets with this bonus'
                                                                     type="checkbox"
                                                                     onChange={(e_inner) => {
                                                                         setEnabledBonusHighlight({ ...enabledBonusHighlight, [totalMessages[index + 1].bonus]: e_inner.target.checked ? 1 : 0 })
@@ -1291,10 +1205,22 @@ export default function Expeditions() {
                                             )}
                                         </div>
                                     )
-
-
                                 })}
                             </div>
+                        </div>
+                    )}
+
+                    {groupRankCritera === 1 && (
+                        <div
+                            style={{
+                                margin: '6px 6px',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                flex: '1',
+                                border: '1px solid rgba(255,255,255,0.8)',
+                                padding: '6px 6px 6px 6px'
+                            }}
+                        >
                             <h4 style={{ margin: '0' }}>Pet Whitelist</h4>
                             {/* Pet whitelist stuff */}
                             <div style={{ margin: '0 0 0 0', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '36px' }}>
@@ -1320,7 +1246,7 @@ export default function Expeditions() {
                                         Team Presets
                                     </div>
                                     <select
-                                    aria-label='Select your in game teams to quickly add those pets to whitelist'
+                                        aria-label='Select your in game teams to quickly add those pets to whitelist'
                                         style={{ maxWidth: '144px', }}
                                         onChange={
                                             (e) => {
@@ -1372,6 +1298,7 @@ export default function Expeditions() {
                                     </select>
                                 </div>
                             </div>
+
                             {/* Pet white/black list */}
                             <div
                                 style={{
@@ -1625,7 +1552,6 @@ export default function Expeditions() {
                                                         width: '100%',
                                                         display: 'flex',
                                                         justifyContent: 'space-between',
-                                                        // alignContent: 'space-between',
                                                         zIndex: '1'
                                                     }}
 
@@ -1671,30 +1597,12 @@ export default function Expeditions() {
                                                     />
                                                 </div>
 
-                                                {/* <img alt='X (cross to remove)'
-                                                    style={{
-                                                        maxHeight: '12px',
-                                                        margin: '0 12px 0 auto',
-                                                        zIndex: '2'
-                                                    }}
-                                                    onClick={(e) => {
-                                                        setPetWhiteList((curr) => {
-                                                            let temp = [...curr];
-                                                            temp = temp.filter((inner_pet) => {
-                                                                return inner_pet.id !== pet.id
-                                                            });
-                                                            return temp;
-                                                        })
-                                                        setRefreshGroups(true);
-                                                    }}
-                                                    src={xIcon}
-                                                /> */}
                                             </div>
                                             {/* Pet Placement */}
                                             <div style={{ width: 'calc(30% + 1px)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: `2px 0 2px -1px #ecf0f5`, }}>
 
                                                 <select
-                                                aria-label='Select what kind of placement the pet will have'
+                                                    aria-label='Select what kind of placement the pet will have'
                                                     style={{ maxWidth: '144px' }}
                                                     value={pet.placement}
                                                     onChange={
@@ -1728,7 +1636,7 @@ export default function Expeditions() {
                                                 {pet.placement === 'team' && (
                                                     <div>
                                                         <select
-                                                        aria-label='Select what team the pet will be placed in'
+                                                            aria-label='Select what team the pet will be placed in'
                                                             style={{ maxWidth: '144px' }}
                                                             value={pet.parameters.team}
                                                             onChange={
@@ -1758,7 +1666,7 @@ export default function Expeditions() {
 
                                                     >
                                                         <input
-                                                        aria-label='Damage bias to control when the pet should go in'
+                                                            aria-label='Damage bias to control when the pet should go in'
                                                             style={{ maxWidth: '36px' }}
                                                             type='number'
                                                             // className='prepNumber'
@@ -1818,6 +1726,27 @@ export default function Expeditions() {
                                 })}
                             </div>
 
+                        </div>
+                    )}
+
+                    {/* Left Over Pets*/}
+                    {groupRankCritera === 1 && (
+                        <div
+                            style={{
+                                margin: '6px 6px',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                flex: '1',
+                                border: '1px solid rgba(255,255,255,0.8)',
+                                padding: '6px 6px 6px 6px'
+                            }}
+                        >
+
+
+
+
+
+
 
                             {/* Alerting overall impossible filters combinations */}
                             {failedFilters['generic'] && (
@@ -1851,15 +1780,6 @@ export default function Expeditions() {
                                             // paddingLeft: '6px'
                                         }}
                                     >
-
-                                        <div
-                                            style={{
-                                                // margin: '6px 12px 0 12px'
-                                                marginRight: '6px'
-                                            }}
-                                        >
-                                            Select Bonus:
-                                        </div>
                                         <SearchBox
                                             updateBox={true}
                                             placeholder='Enter a bonus'
@@ -2063,10 +1983,18 @@ export default function Expeditions() {
                         </div>
                     )}
                 </div>
-
             </div>
+
+            {/* Grid Right */}
             <div
-                style={{ border: '2px solid black', marginTop: '6px', marginRight: '6px', maxHeight: 'calc(100vh - 50px)' }}
+                style={{
+                    border: '2px solid black',
+                    marginTop: '6px',
+                    marginRight: '6px',
+                    maxHeight: 'calc(100vh - 50px)',
+                    backgroundColor: 'rgba(255,255,255, 0.05)',
+                    width: '20%'
+                }}
             >
                 <div style={{ display: 'flex', flexDirection: 'column', marginBottom: '6px' }}>
                     <div style={{ display: 'flex', alignItems: 'center', width: '100%', borderBottom: '2px solid black' }}>

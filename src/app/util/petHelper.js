@@ -152,6 +152,7 @@ var helper = {
         let bestDamagePets = JSON.parse(JSON.stringify(petsCollection));
 
         //As required + miscellenaous pets are added, keep track of top 4 strongest -> to prevent adding non-special weak pets
+        //This really initially only stores required, exp dmg, exp time bonus pets
         let strongestGnd = [];
         let strongestAir = [];
 
@@ -212,6 +213,8 @@ var helper = {
 
         let dmgOnlyPets = [];
         let requiredPets = {};
+        let airDmgOnlyCount = 0;
+        let gndDmgOnlyCount = 0;
         if (other)
             if (other.requiredPets) {
                 for (let i = 0; i < other.requiredPets.length; i++) {
@@ -247,6 +250,12 @@ var helper = {
             }
             if (!added) {
                 dmgOnlyPets.push(cur);
+                if (cur.Type === 1) {
+                    gndDmgOnlyCount++;
+                }
+                else {
+                    airDmgOnlyCount++;
+                }
             }
             //Since it was added, update strongest list
             else {
@@ -254,121 +263,211 @@ var helper = {
             }
         }
 
-        dmgOnlyPets.sort((a, b) => this.calculatePetBaseDamage(b, defaultRank) - this.calculatePetBaseDamage(a, defaultRank));
+        const specialAir = strongestAir.length;
+        const specialGnd = strongestGnd.length;
+        let specialPets = strongestAir.concat(strongestGnd);
 
-
-        let airTotal = 0;
-        let groundTotal = 0;
-        dmgOnlyPets.map((curr) => {
-            if (curr.Type === 1) groundTotal++;
-            if (curr.Type === 2) airTotal++;
-        })
-
-
-
-        let ground = 0;//type 1
-        let air = 0; //type 2
-        let counter = 0;
-
-        if (groundTotal < 2) {
-            let ground = [];
-            groundTotal = 0;
-            dmgOnlyPets.map((cur) => {
-                if (cur.Type === 1) {
-                    ground.push(cur);
-                    finalCollection[cur.ID] = cur;
-                    dmgOnlyPets = dmgOnlyPets.filter((current) => {
-                        return current.ID !== cur.ID
-                    })
-                }
-            });
+        //Add all the special pets to the required list
+        for (let i = 0; i < specialPets; i++) {
+            finalCollection[pet.ID] = specialPets[i];
         }
-        if (airTotal < 2) {
-            let air = [];
-            airTotal = 0;
-            dmgOnlyPets.map((cur) => {
-                if (cur.Type === 2) {
-                    air.push(cur);
-                    finalCollection[cur.ID] = cur;
-                    dmgOnlyPets = dmgOnlyPets.filter((current) => {
-                        return current.ID !== cur.ID
-                    })
-                }
-            });
+
+        //How many more pets of each type I need to find still (i.e. if I have a total of 1 air pets, then i need 3 ground)
+        let extraGnd = 2;
+        let extraAir = 2;
+
+        if ((specialGnd + gndDmgOnlyCount) < 2) {
+            extraAir += 2 - (specialGnd + gndDmgOnlyCount)
+        }
+        if ((specialAir + airDmgOnlyCount) < 2) {
+            extraGnd += 2 - (specialAir + airDmgOnlyCount)
         }
 
 
+        let sortGnd = false;
+        let sortAir = false;
+
+        //Go over remaining pure dmg pets, and find the top 4 (preferable 2gnd and 2air to put in to consider together with special pets)
         for (let i = 0; i < dmgOnlyPets.length; i++) {
-            let cur = dmgOnlyPets[i];
+            let pet = dmgOnlyPets[i];
+            let dmg = this.calculatePetBaseDamage(pet, defaultRank);
 
-            if (ground < 2 && cur.Type === 1 || airTotal <= 0) {
-
-
-                //Check if we need to add current pet, or the strongestGnd are strong enough
-                if (strongestGnd.length > 0) {
-                    let j = 0;
-                    while (strongestGnd.length > 0 && j <= strongestGnd.length) {
-                        let stng = strongestGnd[j];
-                        if (stng) {
-
-                            if (this.calculatePetBaseDamage(stng, defaultRank) >= this.calculatePetBaseDamage(cur, defaultRank)) {
-                                strongestGnd.splice(j, 1);
-                                finalCollection[cur.ID] = cur;
-                                ground++;
-                                counter++;
-                                j--;
-                            }
+            if (pet.Type === 1) {//Ground pet
+                if (strongestGnd.length < extraGnd) {
+                    strongestGnd.push(pet);
+                    sortGnd = true;
+                }
+                else {
+                    for (let j = 0; j < strongestGnd.length; j++) {
+                        let innerPet = strongestGnd[j];
+                        let innerDmg = this.calculatePetBaseDamage(innerPet, defaultRank);
+                        if (dmg > innerDmg) {
+                            strongestGnd[j] = pet;
+                            sortGnd = true;
+                            break;
                         }
-                        j++;
                     }
                 }
-
-                //Potentially 2 strongest are better than current, so don't add it if we added the other 2, or if there are no air and counter less than 3
-                if (ground < 2 || (counter < 4 && airTotal <= 0)) {
-
-                    finalCollection[cur.ID] = cur;
-                    ground++;
-                    counter++;
-                    groundTotal--;
+            }
+            else {//Air pet
+                if (strongestAir.length < extraAir) {
+                    strongestAir.push(pet);
+                    sortAir = true;
+                }
+                else {
+                    for (let j = 0; j < strongestAir.length; j++) {
+                        let innerPet = strongestAir[j];
+                        let innerDmg = this.calculatePetBaseDamage(innerPet, defaultRank);
+                        if (dmg > innerDmg) {
+                            strongestAir[j] = pet;
+                            sortAir = true;
+                            break;
+                        }
+                    }
                 }
             }
 
-            else if (air < 2 && cur.Type === 2 || groundTotal <= 0) {
 
-                //Check if we need to add current pet, or the strongestGnd are strong enough
-                if (strongestAir.length > 0) {
-                    let j = 0;
-                    while (strongestAir.length > 0 && j <= strongestAir.length) {
-                        let stng = strongestAir[j];
-                        if (stng) {
-
-                            if (this.calculatePetBaseDamage(stng, defaultRank) >= this.calculatePetBaseDamage(cur, defaultRank)) {
-                                strongestAir.splice(j, 1);
-                                finalCollection[cur.ID] = cur;
-                                air++;
-                                counter++;
-                                j--;
-                            }
-                        }
-                        j++;
-                    }
-                }
-
-                //Potentially 2 strongest are better than current, so don't add it if we added the other 2, or if there are no air and counter less than 3
-                if (air < 2 || (counter < 4 && groundTotal <= 0)) {
-
-                    finalCollection[cur.ID] = cur;
-                    air++;
-                    counter++
-                    airTotal--;
-                }
+            //Make sure to sort in reverse order!! because i replace the first pet I beat (which needs to be the weakest one)
+            if (sortGnd) {
+                sortGnd = false;
+                strongestGnd.sort((a, b) => this.calculatePetBaseDamage(a, defaultRank) - this.calculatePetBaseDamage(b, defaultRank));
             }
-            if (counter > 3) break;
+            if (sortAir) {
+                sortAir = false;
+                strongestAir.sort((a, b) => this.calculatePetBaseDamage(a, defaultRank) - this.calculatePetBaseDamage(b, defaultRank));
+            }
+        }
+
+        //Make the updated list and add it all in, duplicates will just overwrite themselves so its fine
+        specialPets = strongestAir.concat(strongestGnd);
+
+        //Add all the special pets to the required list
+        for (let i = 0; i < specialPets.length; i++) {
+            finalCollection[specialPets[i].ID] = specialPets[i];
         }
 
         let finalPetsCollection = Object.values(finalCollection);
         finalPetsCollection.sort((a, b) => b.ID - a.ID);
         return finalPetsCollection;
+
+
+        // //Sort remaining
+        // dmgOnlyPets.sort((a, b) => this.calculatePetBaseDamage(b, defaultRank) - this.calculatePetBaseDamage(a, defaultRank));
+
+
+        // let airTotal = 0;
+        // let groundTotal = 0;
+        // dmgOnlyPets.map((curr) => {
+        //     if (curr.Type === 1) groundTotal++;
+        //     if (curr.Type === 2) airTotal++;
+        // })
+
+
+
+        // let ground = 0;//type 1
+        // let air = 0; //type 2
+        // let counter = 0;
+
+        // if (groundTotal < 2) {
+        //     let ground = [];
+        //     groundTotal = 0;
+        //     dmgOnlyPets.map((cur) => {
+        //         if (cur.Type === 1) {
+        //             ground.push(cur);
+        //             finalCollection[cur.ID] = cur;
+        //             dmgOnlyPets = dmgOnlyPets.filter((current) => {
+        //                 return current.ID !== cur.ID
+        //             })
+        //         }
+        //     });
+        // }
+        // if (airTotal < 2) {
+        //     let air = [];
+        //     airTotal = 0;
+        //     dmgOnlyPets.map((cur) => {
+        //         if (cur.Type === 2) {
+        //             air.push(cur);
+        //             finalCollection[cur.ID] = cur;
+        //             dmgOnlyPets = dmgOnlyPets.filter((current) => {
+        //                 return current.ID !== cur.ID
+        //             })
+        //         }
+        //     });
+        // }
+
+
+        // for (let i = 0; i < dmgOnlyPets.length; i++) {
+        //     let cur = dmgOnlyPets[i];
+
+        //     if (ground < 2 && cur.Type === 1 || airTotal <= 0) {
+
+
+        //         //Check if we need to add current pet, or the strongestGnd are strong enough
+        //         if (strongestGnd.length > 0) {
+        //             let j = 0;
+        //             while (strongestGnd.length > 0 && j <= strongestGnd.length) {
+        //                 let stng = strongestGnd[j];
+        //                 if (stng) {
+
+        //                     if (this.calculatePetBaseDamage(stng, defaultRank) >= this.calculatePetBaseDamage(cur, defaultRank)) {
+        //                         strongestGnd.splice(j, 1);
+        //                         finalCollection[cur.ID] = cur;
+        //                         ground++;
+        //                         counter++;
+        //                         j--;
+        //                     }
+        //                 }
+        //                 j++;
+        //             }
+        //         }
+
+        //         //Potentially 2 strongest are better than current, so don't add it if we added the other 2, or if there are no air and counter less than 3
+        //         if (ground < 2 || (counter < 4 && airTotal <= 0)) {
+
+        //             finalCollection[cur.ID] = cur;
+        //             ground++;
+        //             counter++;
+        //             groundTotal--;
+        //         }
+        //     }
+
+        //     else if (air < 2 && cur.Type === 2 || groundTotal <= 0) {
+
+        //         //Check if we need to add current pet, or the strongestGnd are strong enough
+        //         if (strongestAir.length > 0) {
+        //             let j = 0;
+        //             while (strongestAir.length > 0 && j <= strongestAir.length) {
+        //                 let stng = strongestAir[j];
+        //                 if (stng) {
+
+        //                     if (this.calculatePetBaseDamage(stng, defaultRank) >= this.calculatePetBaseDamage(cur, defaultRank)) {
+        //                         strongestAir.splice(j, 1);
+        //                         finalCollection[cur.ID] = cur;
+        //                         air++;
+        //                         counter++;
+        //                         j--;
+        //                     }
+        //                 }
+        //                 j++;
+        //             }
+        //         }
+
+        //         //Potentially 2 strongest are better than current, so don't add it if we added the other 2, or if there are no air and counter less than 3
+        //         if (air < 2 || (counter < 4 && groundTotal <= 0)) {
+
+        //             finalCollection[cur.ID] = cur;
+        //             air++;
+        //             counter++
+        //             airTotal--;
+        //         }
+        //     }
+        //     if (counter > 3) break;
+        // }
+
+        // let finalPetsCollection = Object.values(finalCollection);
+        // finalPetsCollection.sort((a, b) => b.ID - a.ID);
+        // return finalPetsCollection;
     },
     calcBestDamageGroup: function (PETSCOLLECTION, defaultRank, numGroups, other) {
         const k = 4; // Size of each group
@@ -852,6 +951,10 @@ var helper = {
 
 
         for (let g = 0; g < numGroups; g++) {
+
+            if (g === 2) {
+                let bigsad = -1;
+            }
 
             let remainingGroups = numGroups - g;
             let requiredPetsOverall = [];

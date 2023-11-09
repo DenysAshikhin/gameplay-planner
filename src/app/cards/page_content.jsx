@@ -21,13 +21,7 @@ import useLocalStorage from "use-local-storage";
 import DefaultSave from '../util/tempSave.json';
 
 import Image from 'next/image';
-// ReactGA.initialize([{
-//     trackingId: "G-GGLPK02VH8",
-//     // gaOptions: {...}, // optional
-//     gtagOptions: {
-//         send_page_view: false
-//     },
-// }]);
+import Script from 'next/script';
 
 const PREFIX = 'card';
 
@@ -39,10 +33,6 @@ const classes = {
 };
 ReactGA.initialize([{
     trackingId: "G-GGLPK02VH8",
-    // gaOptions: {...}, // optional
-    // gtagOptions: {
-    //     send_page_view: false
-    // },
 }]);
 
 const POTATO = 1;
@@ -1479,6 +1469,12 @@ export default function Cards() {
                 paddingLeft: '6px'
             }}
         >
+            {/* <Script
+                id="adsbygoogle-init"
+                strategy="afterInteractive"
+                crossOrigin="anonymous"
+                src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1393057374484862"
+            /> */}
             <div
                 className={chargesMax ? 'borderToFadeInAndOutRed' : ''}
                 style={{
