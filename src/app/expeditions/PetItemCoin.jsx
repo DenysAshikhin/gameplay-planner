@@ -227,6 +227,7 @@ export default function PetItem({ petData, isSelected, onClick, data, weightMap,
                         width: '100%',
                         backgroundColor: grayBackground ? '' : '',
                         textDecoration: grayBackground ? 'line-through ' : '',
+                        fontSize:'19px'
                     }}>
                     {`(${pet.Type === 1 ? 'Ground' : 'Air'}) ${name}`}
                 </div>

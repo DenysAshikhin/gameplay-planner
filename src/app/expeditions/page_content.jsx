@@ -1826,7 +1826,7 @@ export default function Expeditions() {
                                             display: 'flex',
                                             borderTop: '1px solid rgba(255,255,255,0.8)',
                                             borderBottom: '1px solid rgba(255,255,255,0.8)',
-                                            backgroundColor: 'rgba(255,255,255, 0.12)',
+                                            backgroundColor: 'rgba(255,255,255, 0.14)',
                                             margin: '6px 0 0 0'
                                         }}
                                     >
@@ -1912,7 +1912,8 @@ export default function Expeditions() {
                                                                 style={{
                                                                     width: '100%',
                                                                     borderTop: index === 0 ? '' : '1px solid rgba(255,255,255,0.8)',
-                                                                    paddingLeft: '6px'
+                                                                    paddingLeft: '6px',
+
                                                                 }}
                                                             >
                                                                 {/* {petNames[pet.ID].name} */}
@@ -1933,7 +1934,7 @@ export default function Expeditions() {
                                                         {!pet.whitelisted && (
                                                             <div
                                                                 style={{
-                                                                    height: '100%',
+                                                                    height: 'calc(100% - 1px)',
                                                                     width: '24px',
                                                                     display: 'flex',
                                                                     alignItems: 'center',
@@ -1964,8 +1965,6 @@ export default function Expeditions() {
                                                                         return;
 
                                                                     }}
-
-
                                                                 >
                                                                     <Image
                                                                         fill
