@@ -88,7 +88,7 @@ export default function Home() {
         justifyContent: 'center'
       }}
     >
-<GoogleAdSense publisherId="pub-1393057374484862" />
+{/* <GoogleAdSense publisherId="pub-1393057374484862" /> */}
       <Image
         style={{
           position: 'absolute', top: '0', left: '0', width: '100%', height: '100%', zIndex: '1',
