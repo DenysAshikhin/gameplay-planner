@@ -42,12 +42,12 @@ export const viewport = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <head 
-       dangerouslySetInnerHTML={{
-        __html: `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1393057374484862" crossorigin="anonymous"></script>`
-      }}
+      <head
+      //  dangerouslySetInnerHTML={{
+      //   __html: `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1393057374484862" crossorigin="anonymous"></script>`
+      // }}
       >
-      
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1393057374484862" crossorigin="anonymous"></script>
       </head>
       <body className=''>
         <div
