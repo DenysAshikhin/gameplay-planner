@@ -2025,120 +2025,123 @@ export default function Expeditions() {
             </div>
 
             {/* Grid Right */}
-            <div
-                className='importantText'
-                style={{
-                    border: '2px solid rgba(255,255,255,0.8)',
-                    borderRadius: '6px',
-                    marginTop: '6px',
-                    marginRight: '6px',
-                    maxHeight: 'calc(100vh - 50px)',
-                    backgroundColor: 'rgba(255,255,255, 0.05)',
-                    width: 'calc(100% - 66%)',
-                    minWidth: '200px',
-                    overflow: 'hidden'
-                }}
-            >
-                <div style={{ display: 'flex', flexDirection: 'column', marginBottom: '0' }}>
-                    <div style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        width: '100%',
-                        borderBottom: '2px solid rgba(255,255,255,0.8)',
-                        backgroundColor: 'rgba(255,255,255,0.12)',
-                        justifyContent: 'center'
-                    }}>
-                        <div style={{ fontWeight: 'bold', fontSize: '30px' }}>
-                            Pets
-                        </div>
-                        <div style={{ fontWeight: 'bold', alignSelf: 'end', marginLeft: '6px', marginBottom: '5px', fontSize: '16px' }}>
-                            (click to enable/disable)
-                        </div>
-                    </div>
-                    <div style={{ display: 'flex' }}>
-
-                        <div className='hover' style={{
+            <div style={{ display: 'flex', flex: '1' }}>
+                <div
+                    className='importantText'
+                    style={{
+                        border: '2px solid rgba(255,255,255,0.8)',
+                        borderRadius: '6px',
+                        marginTop: '6px',
+                        marginRight: '6px',
+                        maxHeight: 'calc(100vh - 50px)',
+                        backgroundColor: 'rgba(255,255,255, 0.05)',
+                        // width: 'calc(100% - 66%)',
+                        minWidth: '200px',
+                        overflow: 'hidden'
+                    }}
+                >
+                    <div style={{ display: 'flex', flexDirection: 'column', marginBottom: '0' }}>
+                        <div style={{
+                            display: 'flex',
+                            alignItems: 'center',
                             width: '100%',
                             borderBottom: '2px solid rgba(255,255,255,0.8)',
-                            display: 'flex',
-                            backgroundColor: 'rgba(255,255,255,0.12)'
+                            backgroundColor: 'rgba(255,255,255,0.12)',
+                            justifyContent: 'center'
                         }}>
-                            <div style={{ width: '25%', borderRight: '2px solid rgba(255,255,255,0.8)', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '1px' }} onClick={(e) => {
-                                ReactGA.event({
-                                    category: "expedition_pets",
-                                    action: 'enabled_all',
-                                    label: 'expedition'
-                                })
-                                if (data.PetsCollection) {
-                                    let petArr = [];
-                                    for (let i = 1; i < data.PetsCollection.length; i++) {
-                                        petArr.push(data.PetsCollection[i].ID)
-                                    }
-                                    handleItemSelected(petArr);
-                                }
+                            <div style={{ fontWeight: 'bold', fontSize: '30px' }}>
+                                Pets
+                            </div>
+                            <div style={{ fontWeight: 'bold', alignSelf: 'end', marginLeft: '6px', marginBottom: '5px', fontSize: '16px' }}>
+                                (click to enable/disable)
+                            </div>
+                        </div>
+                        <div style={{ display: 'flex' }}>
 
+                            <div className='hover' style={{
+                                width: '100%',
+                                borderBottom: '2px solid rgba(255,255,255,0.8)',
+                                display: 'flex',
+                                backgroundColor: 'rgba(255,255,255,0.12)'
                             }}>
-                                Enable All
-                            </div>
-                            <div className='hover' style={{ width: '25%', borderRight: '2px solid rgba(255,255,255,0.8)', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '1px' }}
-                                onClick={(e) => {
+                                <div style={{ width: '25%', borderRight: '2px solid rgba(255,255,255,0.8)', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '1px' }} onClick={(e) => {
                                     ReactGA.event({
                                         category: "expedition_pets",
-                                        action: 'disabled_all',
-                                        label: 'expedition'
-                                    })
-                                    if (data.PetsCollection) {
-                                        handleItemSelected([]);
-                                    }
-
-                                }}>
-                                Disable All
-                            </div>
-                            <div className='hover' style={{ width: '25%', borderRight: '2px solid rgba(255,255,255,0.8)', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '1px' }}
-                                onClick={(e) => {
-                                    ReactGA.event({
-                                        category: "expedition_pets",
-                                        action: 'reset_all',
+                                        action: 'enabled_all',
                                         label: 'expedition'
                                     })
                                     if (data.PetsCollection) {
                                         let petArr = [];
-                                        for (let i = 0; i < originalPets.length; i++) {
-                                            petArr.push(originalPets[i].ID)
+                                        for (let i = 1; i < data.PetsCollection.length; i++) {
+                                            petArr.push(data.PetsCollection[i].ID)
                                         }
                                         handleItemSelected(petArr);
                                     }
 
                                 }}>
-                                Reset
-                            </div>
-                            <div className='hover' style={{ width: '25%', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '1px' }}
-                                onClick={(e) => {
-                                    ReactGA.event({
-                                        category: "expedition_pets",
-                                        action: 'toggle_hide_locked',
-                                        label: hideLocked ? 'show_locked' : 'hide_locked',
-                                        value: hideLocked
-                                    })
-                                    setHideLocked(!hideLocked);
-                                }}
-                            >
-                                {hideLocked ? `Show Locked` : `Hide Locked`}
+                                    Enable All
+                                </div>
+                                <div className='hover' style={{ width: '25%', borderRight: '2px solid rgba(255,255,255,0.8)', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '1px' }}
+                                    onClick={(e) => {
+                                        ReactGA.event({
+                                            category: "expedition_pets",
+                                            action: 'disabled_all',
+                                            label: 'expedition'
+                                        })
+                                        if (data.PetsCollection) {
+                                            handleItemSelected([]);
+                                        }
+
+                                    }}>
+                                    Disable All
+                                </div>
+                                <div className='hover' style={{ width: '25%', borderRight: '2px solid rgba(255,255,255,0.8)', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '1px' }}
+                                    onClick={(e) => {
+                                        ReactGA.event({
+                                            category: "expedition_pets",
+                                            action: 'reset_all',
+                                            label: 'expedition'
+                                        })
+                                        if (data.PetsCollection) {
+                                            let petArr = [];
+                                            for (let i = 0; i < originalPets.length; i++) {
+                                                petArr.push(originalPets[i].ID)
+                                            }
+                                            handleItemSelected(petArr);
+                                        }
+
+                                    }}>
+                                    Reset
+                                </div>
+                                <div className='hover' style={{ width: '25%', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '1px' }}
+                                    onClick={(e) => {
+                                        ReactGA.event({
+                                            category: "expedition_pets",
+                                            action: 'toggle_hide_locked',
+                                            label: hideLocked ? 'show_locked' : 'hide_locked',
+                                            value: hideLocked
+                                        })
+                                        setHideLocked(!hideLocked);
+                                    }}
+                                >
+                                    {hideLocked ? `Show Locked` : `Hide Locked`}
+                                </div>
                             </div>
                         </div>
                     </div>
+
+
+                    <ItemSelection
+                        weightMap={weightMap}
+                        data={data}
+                        selectedItems={selectedItems}
+                        onItemSelected={handleItemSelected}
+                        defaultRank={defaultRank}
+                        showLocked={!hideLocked}
+                    />
                 </div>
-
-
-                <ItemSelection
-                    weightMap={weightMap}
-                    data={data}
-                    selectedItems={selectedItems}
-                    onItemSelected={handleItemSelected}
-                    defaultRank={defaultRank}
-                    showLocked={!hideLocked}
-                />
             </div>
+
         </div >
     );
 }

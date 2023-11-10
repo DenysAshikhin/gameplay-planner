@@ -92,6 +92,7 @@ const ItemSelection = ({ selectedItems, onItemSelected, data, weightMap, default
             backgroundColor: 'rgba(255,255,255,0.05)',
             display: 'flex',
             flexWrap: 'wrap',
+            alignContent: 'flex-start',
             flex: '1',
         }}>
             {newPetArray.map(
@@ -102,7 +103,7 @@ const ItemSelection = ({ selectedItems, onItemSelected, data, weightMap, default
                     return (
                         <div
                             key={petId}
-                            style={{ display: "flex", alignItems: 'center', justifyContent: 'center', margin: '12px auto 0 auto' }}
+                            style={{ display: "flex", alignItems: 'center', justifyContent: 'center', margin: '12px auto 0 auto', maxHeight: '84px' }}
                         >
                             <div style={{ margin: '0 3px' }}>
 
