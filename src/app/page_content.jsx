@@ -15,7 +15,7 @@ import MouseOverPopover from "./util/Tooltip.jsx";
 import backgroundImage from '../../public/images/coming_soon.png'
 //  /public/images/coming_soon.png';
 
-import { GoogleAdSense } from "nextjs-google-adsense";
+// import { GoogleAdSense } from "nextjs-google-adsense";
 import ReactGA from "react-ga4";
 ReactGA.initialize([{
   trackingId: "G-GGLPK02VH8",
