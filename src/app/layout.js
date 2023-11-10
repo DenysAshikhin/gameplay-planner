@@ -38,7 +38,7 @@ export const viewport = {
 //   gtag('config', 'G-GGLPK02VH8');
 // </script>
 
-import Script from 'next/script'
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
