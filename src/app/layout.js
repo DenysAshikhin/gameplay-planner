@@ -38,16 +38,22 @@ export const viewport = {
 //   gtag('config', 'G-GGLPK02VH8');
 // </script>
 
-
+import Script from 'next/script'
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head 
-       dangerouslySetInnerHTML={{
-        __html: `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1393057374484862" crossorigin="anonymous"></script>`
-      }}
+      //  dangerouslySetInnerHTML={{
+      //   __html: `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1393057374484862" crossorigin="anonymous"></script>`
+      // }}
       >
-      
+         <Script
+           id="Adsense-id"
+           data-ad-client="ca-pub-1393057374484862"
+           async="true"
+           strategy="beforeInteractive"
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+        />
       </head>
       <body className=''>
         <div
