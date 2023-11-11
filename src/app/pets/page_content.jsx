@@ -333,6 +333,13 @@ function findBestTeam(data, parameters) {
     // NOTE need to add counter for bonuses as well!!!
     for (const [key, value] of Object.entries(petWhiteList)) {
         if (value.mode === 'include') {
+
+
+            //Meaning we don't have this pet unlocked 
+            if (!value.BonusList) {
+                continue;
+            }
+
             if (value.Type === 1 && groundPets.length < groundLimit) {
                 groundPets.push(value);
             }
@@ -530,22 +537,26 @@ export default function Pets() {
 
 
     const [loadPreset, setLoadPreset] = useState('');
-    const [exportPreset, setExportPreset] = useState('');
 
-    // useEffect(() => {
-
-
-    //     // setTimeout(() => {
-    //     //     ReactGA.send({ hitType: "pageview", page: "/pets_", title: "_Pet Combos Page" });
-    //     // }, 500);
-
-    // }, []);
 
     const comboList = data.PetsSpecial;
 
     let airPets, groundPets, currentBonuses, selectedPetMap;
     [airPets, groundPets, currentBonuses, selectedPetMap] = useMemo(() => {
-        return findBestTeam(data, { priorityList: priorityList, priorityMap: priorityMap, petWhiteList: petWhiteList })
+        let result = findBestTeam(data, { priorityList: priorityList, priorityMap: priorityMap, petWhiteList: petWhiteList });
+        let currentBonuses = result[2];
+
+        for (const [key, value] of Object.entries(priorityMap)) {
+            if (value.id >= 1000) {
+                continue;
+            }
+            if (!currentBonuses[value.id]) {
+                currentBonuses[value.id] = { ID: value.id, Power: 0, Gain: 0, count: 0, sum: 0, label: value.label }
+            }
+        }
+
+
+        return result;
     },
         [data, priorityList, priorityMap, petWhiteList]
     );
@@ -713,7 +724,7 @@ export default function Pets() {
 
                         {/* List Table */}
                         <div
-                            style={{ alignSelf: 'flex-start', minWidth: '580px', margin:'0 12px' }}
+                            style={{ alignSelf: 'flex-start', minWidth: '580px', margin: '0 12px' }}
                         >
                             {/* Priority List */}
                             <div
@@ -767,35 +778,54 @@ export default function Pets() {
                                             style={{ maxWidth: '144px', marginLeft: '12px' }}
                                             onChange={
                                                 (selected_mode) => {
-                                                    setRecommendedSelected(true);
+                                                    // setRecommendedSelected(true);
                                                     ReactGA.event({
                                                         category: "pets_interaction",
                                                         action: `selected_recommended_team`,
                                                         label: selected_mode.target.value
                                                     })
+                                                    let presetPets = {};
                                                     switch (selected_mode.target.value) {
                                                         case 'Main Team':
                                                             setPriorityList(mainTeamSuggestions[data.AscensionCount].priorityList)
                                                             setPriorityMap(mainTeamSuggestions[data.AscensionCount].priorityMap);
+                                                            presetPets = mainTeamSuggestions[data.AscensionCount].petWhiteList ? mainTeamSuggestions[data.AscensionCount].petWhiteList : {};
                                                             break;
                                                         case 'Reinc. Team':
                                                             setPriorityList(reincTeamSuggestions[data.AscensionCount].priorityList)
                                                             setPriorityMap(reincTeamSuggestions[data.AscensionCount].priorityMap);
+                                                            presetPets = reincTeamSuggestions[data.AscensionCount].petWhiteList ? reincTeamSuggestions[data.AscensionCount].petWhiteList : {};
                                                             break;
                                                         case 'Gear Team':
                                                             setPriorityList(gearTeamSuggestions[data.AscensionCount].priorityList)
                                                             setPriorityMap(gearTeamSuggestions[data.AscensionCount].priorityMap);
+                                                            presetPets = gearTeamSuggestions[data.AscensionCount].petWhiteList ? gearTeamSuggestions[data.AscensionCount].petWhiteList : {};
                                                             break;
                                                         case 'Stat Team':
                                                             setPriorityList(statTeamSuggestions[data.AscensionCount].priorityList)
                                                             setPriorityMap(statTeamSuggestions[data.AscensionCount].priorityMap);
+                                                            presetPets = statTeamSuggestions[data.AscensionCount].petWhiteList ? statTeamSuggestions[data.AscensionCount].petWhiteList : {};
                                                             break;
                                                         case 'None':
-                                                            setRecommendedSelected(true);
+                                                            setPriorityList([]);
+                                                            setPriorityMap({});
+                                                            setPetWhiteList({});
+                                                            // setRecommendedSelected(true);
                                                             break;
                                                         default:
 
                                                     }
+
+                                                    let petWhiteListNew = {};
+                                                    for (const [key, value] of Object.entries(presetPets)) {
+                                                        if (!unlockedPetsMap[key]) {
+                                                            petWhiteListNew[key] = { ID: key, name: petNames[key].name, mode: value.mode };
+                                                        }
+                                                        else {
+                                                            petWhiteListNew[key] = { ...unlockedPetsMap[key], mode: value.mode };
+                                                        }
+                                                    }
+                                                    setPetWhiteList(petWhiteListNew);
                                                 }
                                             }
                                             defaultValue={' '}

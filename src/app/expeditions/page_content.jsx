@@ -1884,7 +1884,7 @@ export default function Expeditions() {
                                                     style={{
                                                         display: 'flex',
                                                         width: '100%',
-                                                        backgroundColor: (index % 2) === 0 ? 'rgba(255,255,255, 0.07)' : 'rgba(255,255,255, 0.005)',
+                                                        backgroundColor: (index % 2) === 0 ? 'rgba(255,255,255, 0.09)' : 'rgba(255,255,255, 0.03)',
                                                     }}
                                                 >
                                                     {/* Pet name + pin */}
