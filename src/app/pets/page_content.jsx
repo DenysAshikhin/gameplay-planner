@@ -550,7 +550,7 @@ export default function Pets() {
             if (value.id >= 1000) {
                 continue;
             }
-            if (!currentBonuses[value.id]) {
+            if (!currentBonuses[value.id] && value.count !== 0) {
                 currentBonuses[value.id] = { ID: value.id, Power: 0, Gain: 0, count: 0, sum: 0, label: value.label }
             }
         }
