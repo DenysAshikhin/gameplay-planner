@@ -9,7 +9,7 @@ function MouseOverPopover({
   extraClasses,
   opacity,
   forceOpen,
-  setForceOpen,
+  setForceOpen
 }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [forceShow, setForceShow] = useState(false);
@@ -51,7 +51,7 @@ function MouseOverPopover({
   return (
     <div
       className={
-        extraClasses ? extraClasses + "popoverContainer" : "popoverContainer"
+        extraClasses ? extraClasses + " popoverContainer" : "popoverContainer"
       }
       style={style ? style : {}}
     >
@@ -68,6 +68,7 @@ function MouseOverPopover({
         id="mouse-over-popover"
         sx={{
           pointerEvents: "none",
+          width:'100%'
         }}
         open={open}
         anchorEl={anchorEl}

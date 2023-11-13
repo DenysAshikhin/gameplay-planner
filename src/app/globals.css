@@ -182,7 +182,9 @@ code {
   cursor: move;
 }
 
-
+.maxHeight .MuiTypography-root {
+  height: 100%;
+}
 
 
 .teamBuilder ul {
@@ -195,7 +197,7 @@ code {
   display: flex;
   flex-direction: column;
   justify-content: center;
-align-items: center;
+  align-items: center;
 }
 
 .teamBuilder li {

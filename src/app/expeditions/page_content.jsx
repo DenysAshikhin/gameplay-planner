@@ -527,19 +527,21 @@ export default function Expeditions() {
                             let tempTokenScore = petHelper.calculateBestHours(group, null, { clover: data.SoulGoldenClover, residueToken: data.CowShopExpeditionToken, data: data }, comboSelector)[tokenSelections[index]]
                             let tokenScore = (tempTokenScore.tokenHR / tempTokenScore.hours).toExponential(3);
                             const score = groupTotal.groupScore;
-                            const displayedDamage = (score * 5 * data.PetDamageBonuses).toExponential(3);
+                            const displayedDamage = (score * 5 * data.PetDamageBonuses).toExponential(2);
                             const trueDamage = (5 * groupTotal.groupScoreMax * Number(data?.PetDamageBonuses)).toExponential(2);
 
                             let tokenInfo = ``;
 
                             let groupLabelDamage = ``;
                             let groupLabelToken = ``;
+                            let groupRankDamage = ``;
 
                             switch (groupRankCritera) {
                                 case 1://damage
                                     groupLabel = `Group ${index + 1}`;
                                     // groupLabelDamage = `Damage: ${displayedDamage}`
-                                    groupLabelDamage = `Damage: ${trueDamage}`
+                                    groupRankDamage = `Rank Dmg: ${displayedDamage}`
+                                    groupLabelDamage = `Game Dmg: ${trueDamage}`
                                     groupLabelToken = `Token/hr: ${tokenScore}`
                                     tokenInfo = petHelper.calculateBestHours(group, null, { clover: data.SoulGoldenClover, residueToken: data.CowShopExpeditionToken, data: data }, comboSelector);
 
@@ -584,29 +586,13 @@ export default function Expeditions() {
                                     style={{ display: 'flex', width: '100%', borderBottom: '1px solid rgba(255,255,255,0.8)' }}
                                 >
                                     <div
-                                        style={{ borderRight: '1px solid rgba(255,255,255,0.8)', width: '25%', }}>
-                                        <MouseOverPopover tooltip={groupTooltip}>
-                                            <div
-                                                style={{ display: 'flex', alignItems: 'center', margin: '0 12px', }}
-                                            >
-                                                <div>
-                                                    {groupLabel}
-                                                </div>
-                                                <div style={{ height: '18px', width: '18px', margin: '0 0 0 6px', position: 'relative' }} >
-                                                    <Image
-                                                        fill
-                                                        src={infoIcon}
-                                                        alt={`letter "I" in a circle, shows more information on hover`}
-                                                    />
-                                                </div>
-                                                {/* <img alt={`letter "I" in a circle, shows more information on hover`} style={{ height: '16px', margin: '0 0 0 6px' }} src={infoIcon} /> */}
-                                            </div>
-                                        </MouseOverPopover>
+                                        style={{ borderRight: '1px solid rgba(255,255,255,0.8)', width: '33%',  display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                                        {groupRankDamage}
                                     </div>
 
 
                                     <div
-                                        style={{ width: '37.5%', borderRight: '1px solid rgba(255,255,255,0.8)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                                        style={{ width: '33%', borderRight: '1px solid rgba(255,255,255,0.8)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                                     >
                                         <div style={{ margin: '0 12px' }}>
 
@@ -614,7 +600,7 @@ export default function Expeditions() {
                                         </div>
                                     </div>
                                     <div
-                                        style={{ width: '37.5%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                                        style={{ width: '33%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                                     >
                                         <div style={{ margin: '0 12px' }}>
                                             {groupLabelToken}
@@ -761,7 +747,6 @@ export default function Expeditions() {
                                 key={'group' + index}
                                 style={{
                                     display: 'flex',
-                                    flexDirection: 'column',
                                     border: groupRankCritera === 2 && groupTotal.tokenRewardCount > 0 ? '1px black rgba(255,255,255,0.8)' : 'none',
                                     marginTop: index === 0 ? '16px' : '22px',
                                     marginLeft: '6px',
@@ -769,8 +754,33 @@ export default function Expeditions() {
                                     marginBottom: '12px',
                                     border: '1px solid rgba(255,255,255,0.8)',
                                 }}>
-                                {GroupTitle}
-                                {GroupIcons}
+                                <div
+                                    style={{ display: 'flex', backgroundColor: 'rgba(255,255,255, 0.12)', borderRight: `1px solid rgba(255,255,255,0.8)` }}
+                                >
+                                    <MouseOverPopover tooltip={groupTooltip} extraClasses={`maxHeight`}>
+                                        <div
+                                            style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '0 2px' }}
+                                        >
+                                            <div style={{ fontSize: '20px' }}>
+                                                {index + 1}
+                                            </div>
+                                            <div style={{ height: '18px', width: '18px', margin: '0 0 0 0', position: 'relative' }} >
+                                                <Image
+                                                    fill
+                                                    src={infoIcon}
+                                                    alt={`letter "I" in a circle, shows more information on hover`}
+                                                />
+                                            </div>
+                                            {/* <img alt={`letter "I" in a circle, shows more information on hover`} style={{ height: '16px', margin: '0 0 0 6px' }} src={infoIcon} /> */}
+                                        </div>
+                                    </MouseOverPopover>
+                                </div>
+                                <div
+                                    style={{ display: 'flex', flexDirection: 'column', flex: '1' }}
+                                >
+                                    {GroupTitle}
+                                    {GroupIcons}
+                                </div>
                             </div>
                             accum.push(finalRow);
 
