@@ -600,7 +600,7 @@ export default function Expeditions() {
                                         </div>
                                     </div>
                                     <div
-                                        style={{ width: '33%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                                        style={{ width: '33%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin:'2px 0' }}
                                     >
                                         <div style={{ margin: '0 12px' }}>
                                             {groupLabelToken}
