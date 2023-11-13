@@ -186,6 +186,9 @@ code {
   height: 100%;
 }
 
+.suggestionHolder .MuiTypography-root {
+  flex-direction: column;
+}
 
 .teamBuilder ul {
   margin: 0;
