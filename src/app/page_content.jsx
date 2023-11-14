@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
@@ -30,21 +30,12 @@ ReactGA.initialize([{
 
 // useEffect(() => {
 //   setCustomPresetsClient(customPresets)
-// }, [customPresets])
+// }, [customPresets])s
 
 export default function Home() {
 
   const [userData, setUserData] = useLocalStorage('userData', DefaultSave);
   const router = useRouter();
-
-  // useEffect(() => {
-
-
-  //   let timeout = setTimeout(() => {
-
-  //     ReactGA.send({ hitType: "pageview", page: "/file_upload_", title: "_Landing Page (Upload)" });
-  //   }, 500);
-  // }, []);
 
   const handleFileUpload = async (e) => {
     const file = e.target.files[0];
@@ -76,6 +67,79 @@ export default function Home() {
 
   const [forceOpen, setForceOpen] = useState(false);
 
+  const aPressed = useRef(false);
+  const sPressed = useRef(false);
+  const dPressed = useRef(false);
+  const fileFlushed = useRef(false);
+
+  useEffect(() => {
+    const callback = (event) => {
+
+      switch (event.code) {
+        case 'KeyA':
+          aPressed.current = true;
+          break;
+        case 'KeyS':
+          sPressed.current = true;
+          break;
+        case 'KeyD':
+          dPressed.current = true;
+          break;
+        default:
+          break;
+      }
+
+      if (aPressed.current && sPressed.current && dPressed.current && !fileFlushed.current) {
+        console.log('flush file');
+        fileFlushed.current = true;
+
+        // create file in browser
+        const fileName = "fapi_save_planner";
+        const json = JSON.stringify(userData, null, 2);
+        const blob = new Blob([json], { type: "application/json" });
+        const href = URL.createObjectURL(blob);
+
+        // create "a" HTLM element with href to file
+        const link = document.createElement("a");
+        link.href = href;
+        link.download = fileName + ".txt";
+        document.body.appendChild(link);
+        link.click();
+
+        // clean up "a" element & remove ObjectURL
+        document.body.removeChild(link);
+        URL.revokeObjectURL(href);
+      }
+    };
+
+    const releaseCallback = (event) => {
+      switch (event.code) {
+        case 'KeyA':
+          aPressed.current = false;
+          break;
+        case 'KeyS':
+          sPressed.current = false;
+          break;
+        case 'KeyD':
+          dPressed.current = false;
+          break;
+        default:
+          break;
+      }
+
+      if (!aPressed.current && !sPressed.current && !dPressed.current && fileFlushed.current) {
+        fileFlushed.current = false;
+      }
+    }
+
+    document.addEventListener('keydown', callback);
+    document.addEventListener('keyup', releaseCallback);
+    return () => {
+      document.removeEventListener('keydown', callback);
+      document.removeEventListener('keyup', releaseCallback);
+    };
+  }, [userData]);
+
   return (
     <div
       style={{
@@ -88,7 +152,7 @@ export default function Home() {
         justifyContent: 'center'
       }}
     >
-{/* <GoogleAdSense publisherId="pub-1393057374484862" /> */}
+      {/* <GoogleAdSense publisherId="pub-1393057374484862" /> */}
       <Image
         style={{
           position: 'absolute', top: '0', left: '0', width: '100%', height: '100%', zIndex: '1',
