@@ -28,6 +28,18 @@
       "static/chunks/main-app.js",
       "static/css/app/cards/page.css",
       "static/chunks/app/cards/page.js"
+    ],
+    "/expeditions/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/expeditions/page.css",
+      "static/chunks/app/expeditions/page.js"
+    ],
+    "/farming/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/farming/page.css",
+      "static/chunks/app/farming/page.js"
     ]
   }
 }
