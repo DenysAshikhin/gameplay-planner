@@ -396,7 +396,9 @@ function findBestTeam(data, parameters) {
             if (bannedPets[ID]) {
                 continue;
             }
-
+            if (pet.ID === 54) {
+                let bigsad = -1;
+            }
             pet.BonusList.forEach((e) => {
 
                 if (ignoreStat[e.ID] || (e.ID >= 1000)) {
