@@ -60,8 +60,17 @@ export default function Protein() {
     tempList.sort((a, b) => a.label.localeCompare(b.label));
 
     let tempData = JSON.parse(JSON.stringify(data));
+
+    if (!tempData.ProteinCurrent) {
+        return (
+            <div>
+                <h1>{`Your save is most likely from an older version, please update your game and try with a new save. If that's not the case, please reach out on discord! Link can be found on the gratitude (heart) page`}</h1>
+            </div>
+        )
+    }
+
     let runningTime = 0;
-    let currProtein = mathHelper.createDecimal(data.ProteinCurrent);
+    let currProtein = mathHelper.createDecimal(tempData.ProteinCurrent);
     let protRate = farmingHelper.calcProteinPerSecond(tempData);
     let bestAssemblies = [];
     let totalLevels = 0;

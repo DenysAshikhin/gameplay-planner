@@ -155,89 +155,91 @@ const FarmingLanding = () => {
 
     const [timeCompleted, setTimeCompleted] = useState(null);
 
-    // useEffect(() => {
-
-
-    //         setTimeout(() => {
-    //             ReactGA.send({ hitType: "pageview", page: "/farming_", title: "_Farming Calculator Page" });
-    //         }, 500);
-    // }, [])
 
     let petPlantCombo = 1;
     let contagionPlantEXP = 1;
     let contagionPlantGrowth = 1;
     let contagionPlantProd = 1;
     let contagionHarvest = 1;
-
-    if (data.GrasshopperCollection[2].Locked > 0) {
-        let base = helper.calcPOW(data.GrasshopperCollection[2].BaseBonus);
-        let level = helper.calcPOW(data.GrasshopperCollection[2].Level);
-        contagionPlantEXP = Math.pow(1 + base * 0.01, level);
-    }
-    if (data.GrasshopperCollection[3].Locked > 0) {
-        let base = helper.calcPOW(data.GrasshopperCollection[3].BaseBonus);
-        let level = helper.calcPOW(data.GrasshopperCollection[3].Level);
-        contagionPlantProd = Math.pow(1 + base * 0.01, level);
-    }
-    if (data.GrasshopperCollection[4].Locked > 0) {
-        let base = helper.calcPOW(data.GrasshopperCollection[4].BaseBonus);
-        let level = helper.calcPOW(data.GrasshopperCollection[4].Level);
-        contagionPlantGrowth = Math.pow(1 + base * 0.01, level);
-    }
-    if (data.GrasshopperCollection[6].Locked > 0) {
-        let base = helper.calcPOW(data.GrasshopperCollection[6].BaseBonus);
-        let level = helper.calcPOW(data.GrasshopperCollection[6].Level);
-        contagionHarvest = Math.pow(1 + base * 0.01, level);
-    }
-
-    let soulPlantEXP = Math.pow(1.25, data.SoulLeafTreatment);
-
-    let shopGrowingSpeed = data.FarmingShopPlantGrowingSpeed;
-    let manualHarvestFormula = data.FarmingShopPlantManualHarvestFormula;
-    // let shopProdBonus = Math.pow(1.25, data.FarmingShopPlantTotalProduction);
-    let shopRankEXP = 1 + data.FarmingShopPlantRankExpEarned * 0.1;
-    let shopRankLevel = data.FarmingShopPlantRankExpEarned;
-    let picPlants = data.FarmingShopPlantImprovement;
-    let plants = data.PlantCollection;
-
-    let assemblyPlantExp = 1;
-    let assemblyProduction = 1;
-    let assemblyPlantharvest = 1;
-    if (data?.AssemblerCollection[0].BonusList[1].StartingLevel <= data?.AssemblerCollection[0].Level) {
-        assemblyPlantExp *= farmingHelper.calcAssembly(data, 0, 1);
-    }
-    if (data?.AssemblerCollection[5].BonusList[2].StartingLevel <= data?.AssemblerCollection[5].Level) {
-        assemblyPlantExp *= farmingHelper.calcAssembly(data, 5, 2);
-    }
-
-    if (data?.AssemblerCollection[3].BonusList[2].StartingLevel <= data?.AssemblerCollection[3].Level) {
-        assemblyProduction *= farmingHelper.calcAssembly(data, 3, 2);
-    }
-    if (data?.AssemblerCollection[7].BonusList[1].StartingLevel <= data?.AssemblerCollection[7].Level) {
-        assemblyProduction *= farmingHelper.calcAssembly(data, 7, 1);
-    }
-
-    if (data?.AssemblerCollection[7].BonusList[0].StartingLevel <= data?.AssemblerCollection[7].Level) {
-        assemblyPlantharvest *= farmingHelper.calcAssembly(data, 7, 0);
-    }
-    if (data?.AssemblerCollection[9].BonusList[3].StartingLevel <= data?.AssemblerCollection[9].Level) {
-        assemblyPlantharvest *= farmingHelper.calcAssembly(data, 9, 3);
-    }
-
-    for (let i = 0; i < data.PetsSpecial.length; i++) {
-        let t = data.PetsSpecial[i];
-        if (t.BonusID === 5015 && t.Active === 1) {
-            petPlantCombo += t.BonusPower / 100;
+    let soulPlantEXP, shopGrowingSpeed, manualHarvestFormula, shopRankEXP, shopRankLevel, picPlants, plants,
+        assemblyPlantExp, assemblyProduction, assemblyPlantharvest, potionRank, potionRankTime;
+    if (data.GrasshopperCollection) {
+        if (data.GrasshopperCollection[2].Locked > 0) {
+            let base = helper.calcPOW(data.GrasshopperCollection[2].BaseBonus);
+            let level = helper.calcPOW(data.GrasshopperCollection[2].Level);
+            contagionPlantEXP = Math.pow(1 + base * 0.01, level);
         }
-    }
+        if (data.GrasshopperCollection[3].Locked > 0) {
+            let base = helper.calcPOW(data.GrasshopperCollection[3].BaseBonus);
+            let level = helper.calcPOW(data.GrasshopperCollection[3].Level);
+            contagionPlantProd = Math.pow(1 + base * 0.01, level);
+        }
+        if (data.GrasshopperCollection[4].Locked > 0) {
+            let base = helper.calcPOW(data.GrasshopperCollection[4].BaseBonus);
+            let level = helper.calcPOW(data.GrasshopperCollection[4].Level);
+            contagionPlantGrowth = Math.pow(1 + base * 0.01, level);
+        }
+        if (data.GrasshopperCollection[6].Locked > 0) {
+            let base = helper.calcPOW(data.GrasshopperCollection[6].BaseBonus);
+            let level = helper.calcPOW(data.GrasshopperCollection[6].Level);
+            contagionHarvest = Math.pow(1 + base * 0.01, level);
+        }
 
-    let potionRankTime = data.SoulPotionHealthyRankTime;
-    let potionRank = potionRankTime > 0 ? data.SoulPotionHealthyRankBonus + 1 : 1;
-    if (forceRankPotion && potionRank === 1) {
-        potionRank = 1.5;
+
+        soulPlantEXP = Math.pow(1.25, data.SoulLeafTreatment);
+
+        shopGrowingSpeed = data.FarmingShopPlantGrowingSpeed;
+        manualHarvestFormula = data.FarmingShopPlantManualHarvestFormula;
+        // let shopProdBonus = Math.pow(1.25, data.FarmingShopPlantTotalProduction);
+        shopRankEXP = 1 + data.FarmingShopPlantRankExpEarned * 0.1;
+        shopRankLevel = data.FarmingShopPlantRankExpEarned;
+        picPlants = data.FarmingShopPlantImprovement;
+        plants = data.PlantCollection;
+
+        assemblyPlantExp = 1;
+        assemblyProduction = 1;
+        assemblyPlantharvest = 1;
+        if (data?.AssemblerCollection[0].BonusList[1].StartingLevel <= data?.AssemblerCollection[0].Level) {
+            assemblyPlantExp *= farmingHelper.calcAssembly(data, 0, 1);
+        }
+        if (data?.AssemblerCollection[5].BonusList[2].StartingLevel <= data?.AssemblerCollection[5].Level) {
+            assemblyPlantExp *= farmingHelper.calcAssembly(data, 5, 2);
+        }
+
+        if (data?.AssemblerCollection[3].BonusList[2].StartingLevel <= data?.AssemblerCollection[3].Level) {
+            assemblyProduction *= farmingHelper.calcAssembly(data, 3, 2);
+        }
+        if (data?.AssemblerCollection[7].BonusList[1].StartingLevel <= data?.AssemblerCollection[7].Level) {
+            assemblyProduction *= farmingHelper.calcAssembly(data, 7, 1);
+        }
+
+        if (data?.AssemblerCollection[7].BonusList[0].StartingLevel <= data?.AssemblerCollection[7].Level) {
+            assemblyPlantharvest *= farmingHelper.calcAssembly(data, 7, 0);
+        }
+        if (data?.AssemblerCollection[9].BonusList[3].StartingLevel <= data?.AssemblerCollection[9].Level) {
+            assemblyPlantharvest *= farmingHelper.calcAssembly(data, 9, 3);
+        }
+
+        for (let i = 0; i < data.PetsSpecial.length; i++) {
+            let t = data.PetsSpecial[i];
+            if (t.BonusID === 5015 && t.Active === 1) {
+                petPlantCombo += t.BonusPower / 100;
+            }
+        }
+
+        potionRankTime = data.SoulPotionHealthyRankTime;
+        potionRank = potionRankTime > 0 ? data.SoulPotionHealthyRankBonus + 1 : 1;
+        if (forceRankPotion && potionRank === 1) {
+            potionRank = 1.5;
+        }
+
+
     }
 
     const modifiers = useMemo(() => {
+        if (!data.GrasshopperCollection) {
+            return {};
+        }
         // console.log(`setin modif`);
         let tempy =
         {
@@ -294,6 +296,11 @@ const FarmingLanding = () => {
     const finalPlants = useMemo(() => {
         // console.log(`generating inter plants`);
         let tempArr = [];
+
+        if (!data.GrasshopperCollection) {
+            return [];
+        }
+
         //
         for (let i = 0; i < plants.length; i++) {
             let plant = plants[i];
@@ -324,7 +331,7 @@ const FarmingLanding = () => {
             tempArr.push(plant);
         }
         return tempArr;
-    }, [picPlants, plants, modifiers, plantAutosClient])
+    }, [picPlants, plants, modifiers, plantAutosClient, data.GrasshopperCollection])
 
 
     const [calcDone, setCalcDone] = useState(true);
@@ -333,7 +340,9 @@ const FarmingLanding = () => {
 
     let tempFuture = useMemo(() => {
         // console.log(`calcing`);
-
+        if (!data.GrasshopperCollection) {
+            return { plants: [] };
+        }
         if (false) {
             let final_steps = [];
             let completeRunTime = 0;
@@ -405,12 +414,14 @@ const FarmingLanding = () => {
         // console.log(`rough fry final (pre time bonus): ${finalFry.toExponential(3)}`)
         return result;
     },
-        [numSimulatedAutos, finalPlants, modifiers, futureTime, plantAutosClient, secondsHour]);
+        [numSimulatedAutos, finalPlants, modifiers, futureTime, plantAutosClient, data.GrasshopperCollection, secondsHour]);
 
     //Go through all datapoints, find highest exp, and reduce it for all equally if necessary so JS doesn't break
     const graphObjects = useMemo(() => {
         // console.log(`updating EXPDIFF`);
-
+        if (!data.GrasshopperCollection) {
+            return [];
+        }
         const maxExp = 300;
         let currMaxExp = 0;
         let diff_exp = 0;
@@ -545,7 +556,7 @@ const FarmingLanding = () => {
             bestPicPerc: bestPlantCombo?.bestPicPerc?.result?.result?.dataPointsPotatoes,
         }
 
-    }, [tempFuture, expDiff, expDiffFry, bestPlantCombo])
+    }, [tempFuture, expDiff, expDiffFry, data.GrasshopperCollection, bestPlantCombo])
 
     const runningGraphObjects = useMemo(() => {
         // console.log(`updating running EXPDIFF`);
@@ -1444,6 +1455,14 @@ const FarmingLanding = () => {
     }
 
     tooManyAuto = tooManyAuto > numSimulatedAutos;
+
+    if (!data.GrasshopperCollection) {
+        return (
+            <div>
+                <h1>{`Your save is most likely from an older version, please update your game and try with a new save. If that's not the case, please reach out on discord! Link can be found on the gratitude (heart) page`}</h1>
+            </div>
+        )
+    }
 
     return (
         <div style={{ height: '100%', display: 'flex', flex: 1, flexDirection: 'column', paddingLeft: '6px', maxWidth: 'calc(100% - 10px)' }}>
@@ -2627,7 +2646,7 @@ const FarmingLanding = () => {
                                                     marginTop: '6px',
                                                     alignItems: 'center',
                                                     paddingLeft: '4px',
-                                                    paddingBottom:'2px'
+                                                    paddingBottom: '2px'
                                                 }}>
                                                     <div style={{ minWidth: '270px', }}>
                                                         <div className='calcInfo' style={{
@@ -2660,7 +2679,7 @@ const FarmingLanding = () => {
                                                             height: '52px',
                                                             width: '272px',
                                                             marginRight: '0px',
-                                                            marginBottom:'1px'
+                                                            marginBottom: '1px'
                                                         }}>
                                                             <div>
                                                                 Next PIC after {calcedFutureTime} hours + x hours

@@ -52,7 +52,7 @@
       "static/chunks/528-bb4f4a674ef8bd7a.js",
       "static/chunks/244-69761622f8c48c8e.js",
       "static/css/449f9edc3634576f.css",
-      "static/chunks/app/cards/page-8c53f268455e5927.js"
+      "static/chunks/app/cards/page-3540bd3997db2b62.js"
     ],
     "/expeditions/page": [
       "static/chunks/webpack-e99b9ed12dcbe378.js",
@@ -81,7 +81,7 @@
       "static/chunks/209-9c2efbd252fe2de8.js",
       "static/chunks/528-bb4f4a674ef8bd7a.js",
       "static/css/36d15a5d0df21ca1.css",
-      "static/chunks/app/farming/page-2a5467101dff55f5.js"
+      "static/chunks/app/farming/page-c6ae29b8bba3e9e5.js"
     ],
     "/gratitude/page": [
       "static/chunks/webpack-e99b9ed12dcbe378.js",
@@ -120,7 +120,7 @@
       "static/chunks/209-9c2efbd252fe2de8.js",
       "static/chunks/528-bb4f4a674ef8bd7a.js",
       "static/chunks/244-69761622f8c48c8e.js",
-      "static/chunks/app/protein/page-352402ca7dd978b2.js"
+      "static/chunks/app/protein/page-db6dad1fc9b2fec0.js"
     ]
   }
 }

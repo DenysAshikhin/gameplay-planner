@@ -1310,6 +1310,17 @@ export default function Cards() {
         setResetCardWeights(num);
     }, [clientData]);
 
+
+  
+    if (!data.PetsSpecial[74]) {
+        return (
+            <div>
+                <h1>{`Your save is most likely from an older version, please update your game and try with a new save. If that's not the case, please reach out on discord! Link can be found on the gratitude (heart) page`}</h1>
+            </div>
+        )
+    }
+
+
     // const foundCards = CardsCollection.filter(card => card.Found === 1);
     const cardsById = CardsCollection.reduce((accum, card) => {
         accum[card.ID] = card;
