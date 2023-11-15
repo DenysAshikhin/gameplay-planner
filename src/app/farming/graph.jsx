@@ -50,7 +50,7 @@ function Graph({
 
           <MouseOverPopover extraClasses={'suggestionHolder'} key={'popover_too_many_auto'} tooltip={
             <div style={{ padding: '6px' }}>
-              You have assigned more autos total than `Unlocked Atuso` value!
+              You have assigned more autos total than `Unlocked Autos` value!
             </div>
           }>
             <div className='elementToFadeInAndOut' style={{ height: '24px', width: '24px', marginTop: '-4px', position: 'relative' }}>
