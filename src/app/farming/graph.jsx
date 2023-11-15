@@ -45,7 +45,7 @@ function Graph({
   return (
     <>
       {tooManyAuto && (
-        <div style={{ position: 'absolute', top: '16px', left: '125px' }}>
+        <div style={{ position: 'absolute', top: '16px', left: '125px', zIndex: '2' }}>
 
 
           <MouseOverPopover extraClasses={'suggestionHolder'} key={'popover_too_many_auto'} tooltip={
