@@ -60,7 +60,10 @@
 }
 
 .autoPicSuggestion {
-    border: 1px solid black;
+    border-top: 2px solid rgb(61, 132, 156);
+    border-left: 2px solid rgb(61, 132, 156);
+    border-right: 2px solid rgb(61, 132, 156);
+    border-bottom: 1px solid black;
     /* padding: 1px; */
     /* margin: -1px -2px -1px -1px; */
     width: 113px;
@@ -86,10 +89,12 @@
 
 .futurePicHolder {
     /* padding: 1px; */
-    border: 1px solid black;
+    border-bottom: 2px solid rgb(77, 196, 77);
+    border-left: 2px solid rgb(77, 196, 77);
+    border-right: 2px solid rgb(77, 196, 77);
     margin-top: 0px;
     width: 113px;
-    height: 30px;
+    height: 52px;
     display: flex;
     align-items: center;
     justify-content: center;

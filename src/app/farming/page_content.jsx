@@ -22,7 +22,7 @@ ReactGA.initialize([{
     // gtagOptions: {
     //     send_page_view: false
     // },
-  }]);
+}]);
 function generateCombinations(objects, people) {
     const result = [];
 
@@ -157,7 +157,7 @@ const FarmingLanding = () => {
 
     // useEffect(() => {
 
-           
+
     //         setTimeout(() => {
     //             ReactGA.send({ hitType: "pageview", page: "/farming_", title: "_Farming Calculator Page" });
     //         }, 500);
@@ -1437,6 +1437,13 @@ const FarmingLanding = () => {
 
     // let displayPicPerc = bestPlantCombo.pic !== bestPlantCombo.picPerc;
     let displayPicPerc = false;
+    let tooManyAuto = 0;
+
+    for (let i = 0; i < tempFuture.plants.length; i++) {
+        tooManyAuto += plantAutosClient[i];
+    }
+
+    tooManyAuto = tooManyAuto > numSimulatedAutos;
 
     return (
         <div style={{ height: '100%', display: 'flex', flex: 1, flexDirection: 'column', paddingLeft: '6px', maxWidth: 'calc(100% - 10px)' }}>
@@ -1480,7 +1487,7 @@ const FarmingLanding = () => {
                 <div style={{
                     display: 'flex', width: '100%',
                     flex: 1,
-                    margin: '18px 0 0 0'
+                    margin: '6px 0 0 0'
                     // backgroundColor: 'yellow'
                     // height: '100%'
                     //  height: '-webkit-fill-available' 
@@ -1531,7 +1538,7 @@ const FarmingLanding = () => {
                                         </MouseOverPopover>
 
                                         <input
-                                         aria-label='Specify how many hours to simulate/calculate for'
+                                            aria-label='Specify how many hours to simulate/calculate for'
                                             style={{
                                                 marginLeft: '6px',
                                                 width: '48px'
@@ -1583,7 +1590,7 @@ const FarmingLanding = () => {
                                         </MouseOverPopover>
 
                                         <input
-                                         aria-label='Specify how many auto plots to consider for best placements'
+                                            aria-label='Specify how many auto plots to consider for best placements'
                                             style={{
                                                 width: '48px',
                                                 marginLeft: '6px'
@@ -1659,7 +1666,7 @@ const FarmingLanding = () => {
                                     <div style={{ display: 'flex' }}>
                                         <div style={{ width: '160px' }}>Show Fries On Graph</div>
                                         <input type="checkbox" checked={showFries}
-                                         aria-label='Specify if fries should be displayed on the graph'
+                                            aria-label='Specify if fries should be displayed on the graph'
                                             id="enable display of fries on the graph"
                                             onChange={(e) => {
                                                 setShowFries(e.target.checked ? 1 : 0);
@@ -1674,7 +1681,7 @@ const FarmingLanding = () => {
                                     <div style={{ display: 'flex', marginBottom: '' }}>
                                         <div style={{ width: '160px' }}>Show HP On Graph</div>
                                         <input type="checkbox" checked={showHP}
-                                         aria-label='Specify if healthy potatoes should be displayed on the graph'
+                                            aria-label='Specify if healthy potatoes should be displayed on the graph'
                                             id="enable display of HP on the graph"
                                             onChange={(e) => {
                                                 setShowHP(e.target.checked ? 1 : 0);
@@ -1931,7 +1938,7 @@ const FarmingLanding = () => {
 
 
                                     <select
-                                     aria-label='Specify how many threads to use for calculations'
+                                        aria-label='Specify how many threads to use for calculations'
                                         style={{ maxWidth: '144px', marginLeft: '12px' }}
                                         onChange={
                                             (e) => {
@@ -2034,7 +2041,7 @@ const FarmingLanding = () => {
 
 
                                     <input
- aria-label='Specify if a farming potion should be considered for an entire run'
+                                        aria-label='Specify if a farming potion should be considered for an entire run'
                                         id="enable plant potion considered on entire run"
                                         type="checkbox"
                                         onChange={(e) => {
@@ -2193,7 +2200,7 @@ const FarmingLanding = () => {
                             <>
                                 {/* best potato */}
                                 {calcAFK && (
-                                    <div className='calcResult'>
+                                    <div className='calcResult' style={{ paddingRight: '6px' }}>
                                         <>
                                             <div style={{ display: 'flex' }}>
                                                 {/* style={{ marginRight: '24px', display: 'flex', alignItems: 'center' }}> */}
@@ -2201,19 +2208,45 @@ const FarmingLanding = () => {
                                                     minWidth: '270px',
                                                     display: 'flex',
                                                     flexDirection: 'column',
-                                                    justifyContent: 'flex-end',
-                                                    marginRight: '2px'
+                                                    // justifyContent: 'flex-end',
+                                                    marginRight: '-2px',
+                                                    // marginBottom: '12px',
+                                                    marginTop: '6px',
+                                                    paddingLeft: '4px'
                                                 }}>
+
                                                     <div className='calcInfo'
                                                         style={{
-                                                            margin: '-24px 0 16px 0'
+                                                            margin: '-4px 0 0 0',
+                                                            borderTop: '2px solid rgb(61, 132, 156)',
+                                                            borderLeft: '2px solid rgb(61, 132, 156)',
+                                                            borderRight: '2px solid rgb(61, 132, 156)',
+                                                            borderBottom: '1px solid black',
+                                                            height: '50px',
+                                                            display: 'flex',
+                                                            justifyContent: 'center',
+                                                            paddingRight: '6px'
                                                         }}
                                                     >
                                                         <div>
-                                                            Best Potatoe Generation, {`${100}% Fries`}:
+                                                            Best Potatoe Generation
+                                                        </div>
+                                                        <div>
+                                                            {`${100}% Fries`}:
                                                         </div>
                                                     </div>
-                                                    <div className='futurePicExplanation'>
+
+
+                                                    <div className='futurePicExplanation'
+                                                        style={{
+                                                            borderBottom: '2px solid rgb(77, 196, 77)',
+                                                            borderLeft: '2px solid rgb(77, 196, 77)',
+                                                            borderRight: '2px solid rgb(77, 196, 77)',
+                                                            paddingRight: '6px',
+                                                            height: '52px',
+                                                            width: '272px',
+                                                            marginRight: '0px'
+                                                        }}>
                                                         <div>
                                                             Next PIC after {calcedFutureTime} hours + x hours
                                                         </div>
@@ -2310,11 +2343,23 @@ const FarmingLanding = () => {
                                             {/* best raw pic levels */}
                                             <div style={{
                                                 display: 'flex',
-                                                marginTop: '-6px',
-                                                alignItems: 'center'
+                                                marginTop: '6px',
+                                                alignItems: 'center',
+                                                paddingLeft: '4px'
                                             }}>
-                                                <div style={{ minWidth: '270px', marginRight: '2px' }}>
-                                                    <div className='calcInfo' >
+                                                <div style={{ minWidth: '270px', marginRight: '-2px' }}>
+                                                    <div className='calcInfo'
+                                                        style={{
+                                                            margin: '0 0 0 0',
+                                                            borderTop: '2px solid rgb(61, 132, 156)',
+                                                            borderLeft: '2px solid rgb(61, 132, 156)',
+                                                            borderRight: '2px solid rgb(61, 132, 156)',
+                                                            borderBottom: '1px solid black',
+                                                            height: '50px',
+                                                            display: 'flex',
+                                                            justifyContent: 'center',
+                                                            paddingRight: '6px'
+                                                        }} >
                                                         <div>
                                                             Most PIC (+{`${bestPlantCombo.bestPic.result.picStats.picLevel} -> ${helper.roundTwoDecimal(bestPlantCombo.bestPic.result.picStats.picPercent * 100)}%`})
                                                         </div>
@@ -2325,7 +2370,15 @@ const FarmingLanding = () => {
                                                                 }% Fries`}
                                                         </div>
                                                     </div>
-                                                    <div className='futurePicExplanation'>
+                                                    <div className='futurePicExplanation' style={{
+                                                        borderBottom: '2px solid rgb(77, 196, 77)',
+                                                        borderLeft: '2px solid rgb(77, 196, 77)',
+                                                        borderRight: '2px solid rgb(77, 196, 77)',
+                                                        paddingRight: '6px',
+                                                        height: '52px',
+                                                        width: '272px',
+                                                        marginRight: '0px'
+                                                    }}>
                                                         <div>
                                                             Next PIC after {calcedFutureTime} hours + x hours
                                                         </div>
@@ -2420,7 +2473,7 @@ const FarmingLanding = () => {
 
                                 {/* Best step by step breakdown */}
                                 {calcStep && (
-                                    <div className='calcResult'>
+                                    <div className='calcResult' style={{ paddingRight: '6px' }} F>
                                         <>
                                             {/* <div style={{ display: 'flex' }}>
     
@@ -2441,19 +2494,39 @@ const FarmingLanding = () => {
                                                     minWidth: '270px',
                                                     display: 'flex',
                                                     flexDirection: 'column',
-                                                    justifyContent: 'flex-end',
-                                                    marginRight: '2px'
+                                                    // justifyContent: 'flex-end',
+                                                    marginRight: '-2px',
+                                                    // marginBottom: '12px',
+                                                    marginTop: '6px',
+                                                    paddingLeft: '4px'
                                                 }}>
                                                     <div className='calcInfo'
                                                         style={{
-                                                            margin: '-24px 0 16px 0'
+                                                            margin: '-4px 0 0 0',
+                                                            borderTop: '2px solid rgb(61, 132, 156)',
+                                                            borderLeft: '2px solid rgb(61, 132, 156)',
+                                                            borderRight: '2px solid rgb(61, 132, 156)',
+                                                            borderBottom: '1px solid black',
+                                                            height: '50px',
+                                                            display: 'flex',
+                                                            justifyContent: 'center',
+                                                            paddingRight: '6px'
                                                         }}
                                                     >
                                                         <div>
                                                             Best order, 100% Fries
                                                         </div>
                                                     </div>
-                                                    <div className='futurePicExplanation'>
+                                                    <div className='futurePicExplanation'
+                                                        style={{
+                                                            borderBottom: '2px solid rgb(77, 196, 77)',
+                                                            borderLeft: '2px solid rgb(77, 196, 77)',
+                                                            borderRight: '2px solid rgb(77, 196, 77)',
+                                                            paddingRight: '6px',
+                                                            height: '52px',
+                                                            width: '272px',
+                                                            marginRight: '0px'
+                                                        }}>
                                                         <div>
                                                             Next PIC after {calcedFutureTime} hours + x hours
                                                         </div>
@@ -2549,9 +2622,25 @@ const FarmingLanding = () => {
 
                                             {/* Best PIC */}
                                             {bestPlantCombo.bestPic.pic > 0 && (
-                                                <div style={{ display: 'flex', marginTop: '6px', alignItems: 'center' }}>
-                                                    <div style={{ minWidth: '270px' }}>
-                                                        <div className='calcInfo' >
+                                                <div style={{
+                                                    display: 'flex',
+                                                    marginTop: '6px',
+                                                    alignItems: 'center',
+                                                    paddingLeft: '4px',
+                                                    paddingBottom:'2px'
+                                                }}>
+                                                    <div style={{ minWidth: '270px', }}>
+                                                        <div className='calcInfo' style={{
+                                                            margin: '0 0 0 0',
+                                                            borderTop: '2px solid rgb(61, 132, 156)',
+                                                            borderLeft: '2px solid rgb(61, 132, 156)',
+                                                            borderRight: '2px solid rgb(61, 132, 156)',
+                                                            borderBottom: '1px solid black',
+                                                            height: '50px',
+                                                            display: 'flex',
+                                                            justifyContent: 'center',
+                                                            paddingRight: '6px'
+                                                        }}>
                                                             <div>
                                                                 Most PIC (+{`${bestPlantCombo.bestPic.result.picStats.picLevel} -> ${helper.roundTwoDecimal(bestPlantCombo.bestPic.result.picStats.picPercent * 100)}%`})
                                                             </div>
@@ -2563,7 +2652,16 @@ const FarmingLanding = () => {
                                                             </div>
                                                         </div>
 
-                                                        <div className='futurePicExplanation'>
+                                                        <div className='futurePicExplanation' style={{
+                                                            borderBottom: '2px solid rgb(77, 196, 77)',
+                                                            borderLeft: '2px solid rgb(77, 196, 77)',
+                                                            borderRight: '2px solid rgb(77, 196, 77)',
+                                                            paddingRight: '6px',
+                                                            height: '52px',
+                                                            width: '272px',
+                                                            marginRight: '0px',
+                                                            marginBottom:'1px'
+                                                        }}>
                                                             <div>
                                                                 Next PIC after {calcedFutureTime} hours + x hours
                                                             </div>
@@ -2673,7 +2771,7 @@ const FarmingLanding = () => {
                                 position: 'absolute',
                                 height: '99%',
                                 width: '100%',
-                                minWidth:'400px'
+                                minWidth: '400px'
                             }}>
                                 <Graph
                                     graphObjects={graphObjects}
@@ -2688,6 +2786,7 @@ const FarmingLanding = () => {
                                     calcAFK={calcAFK}
                                     showFries={showFries}
                                     showHP={showHP}
+                                    tooManyAuto={tooManyAuto}
                                 />
                             </div>
                         </div>
