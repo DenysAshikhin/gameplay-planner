@@ -1942,7 +1942,7 @@ const FarmingLanding = () => {
 
                                                 <MouseOverPopover opacity='0.95' tooltip={
                                                     <div style={{ padding: '6px' }}>
-                                                        Sets each plants' auto to the `Unlocked Autos` value
+                                                        {`Sets each plants' auto to the "Unlocked Autos" value`}
                                                     </div>
                                                 }>
                                                     <button onClick={(e) => {
@@ -1959,7 +1959,7 @@ const FarmingLanding = () => {
                                             <div style={{ display: 'flex', alignItems: 'center' }}>
                                                 <MouseOverPopover opacity='0.95' tooltip={
                                                     <div style={{ padding: '6px' }}>
-                                                        Sets each plants' auto to 0
+                                                        {`Sets each plants' auto to 0`}
                                                     </div>
                                                 }>
                                                     <button onClick={(e) => {
