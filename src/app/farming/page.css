@@ -6,7 +6,6 @@
     -webkit-text-stroke-color: black;
 }
 
-
 .outerExplanation {
     border: 1px solid black;
     margin: -1px 0 0 0;
@@ -34,75 +33,102 @@
 .innerExplanationShort {
     font-Weight: bold;
     margin: 0 6px 0 12px;
-
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
-
 }
 
 .explanationInner {
     margin: 3px;
 }
 
+.graySeperator {
+    background-color: lightgray;
+    height: 6px;
+    width: 100%;
+    display: flex;
+    border-bottom: 2px solid blue;
+}
+
+.calcHeaderPlantTab {
+    box-sizing: border-box;
+    width: 115px;
+    min-width: 115px;
+    text-align: center;
+    border-bottom: 2px solid blue;
+    border-top:1px solid blue;
+}
+
+.calcHeader {
+    margin: 0 0 0 0;
+    width: 100%;
+    display: flex;
+}
+
+
+.calcInfo {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    border-right: 2px solid blue;
+    border-bottom: 1px solid black;
+    height: 50px;
+    padding-right: 6px;
+}
+
+.futurePicExplanation {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    border-right: 2px solid blue;
+    height: 24px;
+    padding-right: 6px;
+}
+
+
+.autoPicSuggestion {
+    width: 115px;
+    height: 50px;
+    text-align: center;
+    border-bottom: 1px solid black;
+}
+
+.futurePicHolder {
+    width: 114px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .calcResult {
-    margin: 1px;
+    margin: 0 0 1px 0;
     border: 5px solid transparent;
+    padding: 0 0;
     border-image: linear-gradient(to bottom right, #b827fc 0%, #2c90fc 25%, #b8fd33 50%, #fec837 75%, #fd1892 100%);
     border-image-slice: 1;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     overflow-x: auto;
-    max-width: calc(100% - 10px);
+    /* height: 400px; */
+    /* max-width: calc(100% - 10px); */
 }
 
-.autoPicSuggestion {
-    border-top: 2px solid rgb(61, 132, 156);
-    border-left: 2px solid rgb(61, 132, 156);
-    border-right: 2px solid rgb(61, 132, 156);
-    border-bottom: 1px solid black;
-    /* padding: 1px; */
-    /* margin: -1px -2px -1px -1px; */
-    width: 113px;
-    /* margin-bottom: -1px; */
-    /* margin-right: 3px; */
-    /* margin-left: 3px; */
-    height: 50px;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-}
 
 .suggestionHolder {
-    margin: 1px 3px 1px 3px;
+    box-sizing: border-box;
     width: 115px;
     display: flex;
     justify-content: center;
     flex-direction: column;
-    /* background-color: blue; */
-    /* border: 1px solid black; */
-    /* margin: 3px; */
 }
 
-.futurePicHolder {
-    /* padding: 1px; */
-    border-bottom: 2px solid rgb(77, 196, 77);
-    border-left: 2px solid rgb(77, 196, 77);
-    border-right: 2px solid rgb(77, 196, 77);
-    margin-top: 0px;
-    width: 113px;
-    height: 52px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    /* margin-top: -1px; */
-    /* margin-right: 3px; */
-    /* margin-left: 3px; */
-    /* background-color: red; */
-}
 
 .bestSuggestion {
     width: 113px;
@@ -114,21 +140,8 @@
     /* padding: 0 0px 0 3px; */
 }
 
-.calcInfo {
-    height: 57px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    justify-content: flex-end;
-    margin-right: 2px;
-}
-
-
-.futurePicExplanation {
-    height: 57px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    justify-content: center;
-    margin-right: 2px;
-}
+/* .rainbowLeft {
+    border-left: 5px solid transparent;
+    border-image: linear-gradient(to bottom left, #b827fc 0%, #2c90fc 25%, #b8fd33 50%, #fec837 75%, #fd1892 100%);
+    border-image-slice: 1; 
+} */

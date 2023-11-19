@@ -17,6 +17,7 @@ import P8 from '../../../public/images/farming/plants/P8.png'
 import P9 from '../../../public/images/farming/plants/P9.png'
 import PrestigeStar from '../../../public/images/icons/prestige_star.png'
 import UpArrow from '../../../public/images/icons/up_arrow.svg';
+import InfoIcon from '../../../public/images/icons/info_white.svg'
 
 // import P1 from '../../../public/images/farming/plants/P1.png'
 
@@ -135,17 +136,16 @@ const FarmingPlant = ({ data }) => {
     <div
       style={{
         border: "1px solid black",
-        margin: "6px",
+        margin: "6px 3px",
         padding: "0 0 0 0",
         display: "flex",
-        height: fake ? "179px" : useFutureValues ? "204px" : "179px",
-        width: fake ? "228px" : "",
+        height: "179px",
+        width: 'auto',
         backgroundColor: "white",
         // maxHeight:'128px'
       }}
-      suppressHydrationWarning
     >
-      <div style={{ height: "214px", width: "214px", position: "relative" }}>
+      <div style={{ height: "185px", width: "185px", position: "relative" }}>
 
         {/* <img style={{
           height: "214px",
@@ -161,8 +161,8 @@ const FarmingPlant = ({ data }) => {
 
         <div
           style={{
-            height: "214px",
-            width: "214px",
+            height: "100%",
+            width: "100%",
             position: "absolute",
             bottom: "0",
             left: "0",
@@ -228,6 +228,74 @@ const FarmingPlant = ({ data }) => {
           }}
         >
           <MouseOverPopover
+          opacity='0.905'
+            tooltip={
+              <div>
+                {/* Harvest Amount */}
+                <div style={{ display: 'flex', }}>
+                  <div style={{ marginRight: '6px' }}>
+                    Harvest Amount
+                  </div>
+                  <div>
+                    {harvestAmount}
+                  </div>
+                </div>
+
+                {/* output mult */}
+                <div style={{ display: 'flex', }}>
+                  <div style={{ marginRight: '6px' }}>
+                    Output multiplier
+                  </div>
+                  <div>
+                    {totalProd + ` ` + outMult}
+                  </div>
+                </div>
+
+                {/* Harvest Amount */}
+                <div style={{ display: 'flex', }}>
+                  <div style={{ marginRight: '6px' }}>
+                    Total Harvest
+                  </div>
+                  <div>
+                    {totalMade + ` (${totalHarvest})`}
+                  </div>
+                </div>
+              </div>
+            }
+          >
+            <div
+              style={{
+                height: "28px",
+                width: "28px",
+                zIndex: "-1",
+                position: "relative",
+              }}
+            >
+              <Image
+                fill
+                alt="Letter i in a circle, hover for more information"
+                src={InfoIcon}
+                unoptimized={true}
+              />
+            </div>
+          </MouseOverPopover>
+        </div>
+
+        {/* Harvest Amount */}
+        {/* <div
+          style={{
+            zIndex: 2,
+            background: "black",
+            borderRadius: "6px",
+            padding: "0 1px 0 1px",
+            color: "white",
+            top: "1%",
+            right: "1%",
+            display: "flex",
+            position: "absolute",
+          }}
+        >
+          <MouseOverPopover
             tooltip={
               <div>
                 <div>Harvest Amount</div>
@@ -238,10 +306,10 @@ const FarmingPlant = ({ data }) => {
               {harvestAmount}
             </div>
           </MouseOverPopover>
-        </div>
+        </div> */}
 
         {/* output mult */}
-        <div
+        {/* <div
           style={{
             zIndex: 2,
             background: "black",
@@ -266,10 +334,10 @@ const FarmingPlant = ({ data }) => {
               {totalProd + ` ` + outMult}
             </div>
           </MouseOverPopover>
-        </div>
+        </div> */}
 
         {/* total harvest */}
-        <div
+        {/* <div
           style={{
             zIndex: 2,
             background: "black",
@@ -294,7 +362,7 @@ const FarmingPlant = ({ data }) => {
               {totalMade + ` (${totalHarvest})`}
             </div>
           </MouseOverPopover>
-        </div>
+        </div> */}
 
         {/* Rank */}
         <div
@@ -589,7 +657,7 @@ const FarmingPlant = ({ data }) => {
               height: "12px",
               padding: "0 1px 0 1px",
               color: "black",
-              bottom: fake ? "7%" : "7%",
+              bottom: "11px",
               left: "1%",
               display: "flex",
               position: "absolute",

@@ -208,6 +208,17 @@ code {
   /* width: 256px; */
 }
 
+.elementExpandHeight {
+  max-height: 100%;
+  transition: max-height 0.45s ease-in;
+}
+
+.elementCollapseHeight {
+  max-height: 0;
+  transition: max-height 0.45s ease-out;
+}
+
+
 .elementToFadeInAndOut {
   opacity: 1;
   animation: fade 2s linear infinite;
@@ -234,4 +245,16 @@ code {
 
 a {
   margin: 24px 0 24px 0;
+}
+
+
+.borderToFadeInAndOutRed {
+  opacity: 1;
+  animation: fadeBorderRed 2s linear infinite;
+}
+
+
+@keyframes fadeBorderRed {
+0%,100% { border: 3px solid rgba(255, 0, 0, 0) }
+50% { border: 3px solid rgba(255, 0, 0, 1)}
 }

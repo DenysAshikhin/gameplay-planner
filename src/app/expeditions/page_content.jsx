@@ -16,7 +16,9 @@ import pinIcon from "../../../public/images/icons/pin-line-icon.svg"
 import trashIcon from "../../../public/images/icons/trash-can-icon.svg"
 import infoIcon from '../../../public/images/icons/info.svg';
 import infoIconRed from '../../../public/images/icons/info_red.svg';
+import infoIconRedThick from '../../../public/images/icons/info_red_thick.svg';
 import infoIconGreen from '../../../public/images/icons/info_green.svg';
+import infoIconGreenThick from '../../../public/images/icons/info_green_thick.svg';
 import infoIconAmber from '../../../public/images/icons/info_amber.svg';
 // import rankExplain from "../../../public/images/rank_explain.png"
 
@@ -586,7 +588,7 @@ export default function Expeditions() {
                                     style={{ display: 'flex', width: '100%', borderBottom: '1px solid rgba(255,255,255,0.8)' }}
                                 >
                                     <div
-                                        style={{ borderRight: '1px solid rgba(255,255,255,0.8)', width: '33%',  display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                                        style={{ borderRight: '1px solid rgba(255,255,255,0.8)', width: '33%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                                         {groupRankDamage}
                                     </div>
 
@@ -600,7 +602,7 @@ export default function Expeditions() {
                                         </div>
                                     </div>
                                     <div
-                                        style={{ width: '33%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin:'2px 0' }}
+                                        style={{ width: '33%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '2px 0' }}
                                     >
                                         <div style={{ margin: '0 12px' }}>
                                             {groupLabelToken}
@@ -1676,10 +1678,10 @@ export default function Expeditions() {
                                                 }}
                                             >
                                                 {pet.placement === 'team' && (
-                                                    <div>
+                                                    <div style={{ marginLeft: (showGreen || showRed) ? '22px' : '' }}>
                                                         <select
                                                             className='importantText'
-                                                            style={{ maxWidth: '144px', backgroundColor: (index % 2) === 0 ? '#252525' : '#171717', borderRadius: '4px' }}
+                                                            style={{ maxWidth: '144px', backgroundColor: (index % 2) === 0 ? '#252525' : '#171717', borderRadius: '4px', width:'44px' }}
                                                             aria-label='Select what team the pet will be placed in'
                                                             value={pet.parameters.team}
                                                             onChange={
@@ -1705,7 +1707,7 @@ export default function Expeditions() {
                                                     </div>
                                                 )}
                                                 {pet.placement === `rel` && (
-                                                    <div >
+                                                    <div style={{ marginLeft: (showGreen || showRed) ? '22px' : '' }}>
                                                         <input
                                                             className='importantText textMedium2'
                                                             aria-label='Damage bias to control when the pet should go in'
@@ -1744,13 +1746,15 @@ export default function Expeditions() {
                                                     <>Unavailable</>
                                                 )}
                                                 {(showGreen || showRed) && (
-                                                    <div style={{ position: 'absolute', right: '25px' }}>
+                                                    <div
+                                                    // style={{ position: 'absolute', right: '5%' }}
+                                                    >
                                                         <MouseOverPopover muiHeight={'20px'} tooltip={<div>{hoverMsg}</div>} style={{ display: 'flex', alignItems: 'center', height: '20px' }}>
 
-                                                            <div style={{ height: '20px', width: '20px', marginLeft: '6px', marginTop: '2px', position: 'relative' }}>
+                                                            <div style={{ height: '20px', width: '20px', marginLeft: '3px', marginTop: '2px', position: 'relative' }}>
                                                                 <Image
                                                                     alt='on hover I in a cirlce icon, shows more information on hover'
-                                                                    src={showGreen ? infoIconGreen : infoIconRed}
+                                                                    src={showGreen ? infoIconGreenThick : infoIconRedThick}
                                                                     fill
                                                                 />
                                                             </div>

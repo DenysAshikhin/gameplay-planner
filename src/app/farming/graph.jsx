@@ -99,13 +99,15 @@ function Graph({
                 temp.exponent += expDiff;
                 return temp.toPrecision(3).toString();
               }}
-              width={95}
+              width={82}
+              // dx={25}
             >
               <Label
                 value="Total HP Made"
                 position="insideLeft"
                 angle={-90}
                 style={{ textAnchor: "middle" }}
+                dx={-15}
               />
             </YAxis>
           )}
@@ -121,13 +123,14 @@ function Graph({
                 temp.exponent += expDiffFry;
                 return temp.toPrecision(3).toString();
               }}
-            // width={95}
+            width={82}
             >
               <Label
                 value="Total Fries Made"
                 position="insideLeft"
                 angle={-90}
                 style={{ textAnchor: "middle" }}
+                dx={showHP ? 85 : -15}
               />
             </YAxis>
           )}
