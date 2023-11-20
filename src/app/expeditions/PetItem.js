@@ -141,7 +141,7 @@ const PetItem = ({ petData, isSelected, onClick, data, weightMap, petScoreFn, de
                 <div style={
                     circleBorder ? {
                         borderRadius: '45px',
-                        border: '2px solid rgba(255,255,255,0.8)',
+                        border: `2px solid ${isSelected ? 'rgba(107, 218,105,0.7)' : 'rgba(218, 53, 34,0.7)'} `,
                         backgroundColor: 'rgba(255,255,255,0.08)',
                         overflow: 'hidden',
                         // position: 'relative',
@@ -204,10 +204,10 @@ const PetItem = ({ petData, isSelected, onClick, data, weightMap, petScoreFn, de
                                 <Image
 
                                     style={{
-                                         objectFit: 'scale-down',
+                                        objectFit: 'scale-down',
                                         //   width: 'auto', 
                                         //   height: 'auto' 
-                                        }}
+                                    }}
                                     fill
                                     alt={`in game image of ${name}`} src={img}
                                     unoptimized={true}

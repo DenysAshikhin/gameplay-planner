@@ -1283,7 +1283,8 @@ export default function Expeditions() {
                                                                 let base = {
                                                                     id: selected,
                                                                     label: petNames[selected].name,
-                                                                    placement: 'rel',
+                                                                    // placement: 'rel',
+                                                                    placement: 'auto',
                                                                     parameters: { team: 0, damageBias: 17 },
                                                                     pet: data.PetsCollection.find((pet_search) => pet_search.ID === selected)
                                                                 }
@@ -1369,8 +1370,11 @@ export default function Expeditions() {
                                                 Group: Forces the pet to go into a certain group
                                             </div>
                                             <div>
-                                                Relative: Tries to find optimal placement automatically based on `damage bias`
+                                                Auto:  Tries to find optimal placement automatically
                                             </div>
+                                            {/* <div>
+                                                Relative: Tries to find optimal placement automatically based on `damage bias`
+                                            </div> */}
                                         </div>
                                     }>
                                         <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -1407,8 +1411,11 @@ export default function Expeditions() {
                                                     In Placement=Group, determines which group the pet is placed in
                                                 </div>
                                                 <div>
-                                                    In Placement=Relative, determines which group the pet is placed in based on the bias number (higher means more damage necessary to placed in)
+                                                    In Placement=Auto, tried to find the optimal placement automatically
                                                 </div>
+                                                {/* <div>
+                                                    In Placement=Relative, determines which group the pet is placed in based on the bias number (higher means more damage necessary to placed in)
+                                                </div> */}
                                             </div>
                                         </div>
                                     }>
@@ -1457,88 +1464,79 @@ export default function Expeditions() {
 
                                             let group = groups[group_index];
 
-                                            try {
-                                                //Can only check if not on bottom
-                                                if (group_index !== (groups.length - 1)) {
-                                                    //By default only need to check twice (2gnd or 2air)
-                                                    const maxChecks = 2;
-                                                    let originalGroupScore = petHelper.calculateGroupScore(group, defaultRank).groupScore;
-                                                    let tempGroup = [];
-                                                    let triedPets = {};
+                                            //Can only check if not on bottom
+                                            if (group_index !== (groups.length - 1)) {
+                                                //By default only need to check twice (2gnd or 2air)
+                                                const maxChecks = 2;
+                                                let originalGroupScore = petHelper.calculateGroupScore(group, defaultRank).groupScore;
+                                                let tempGroup = [];
+                                                let triedPets = {};
 
-                                                    for (let i = 0; i < maxChecks; i++) {//
-                                                        let foundNew = false;
+                                                for (let i = 0; i < maxChecks; i++) {//
+                                                    let foundNew = false;
 
-                                                        for (let j = 0; j < groups[group_index + 1].length; j++) {
+                                                    for (let j = 0; j < groups[group_index + 1].length; j++) {
 
-                                                            let temp_pet = groups[group_index + 1][j];
-                                                            if (temp_pet.Type === pet.pet.Type) {
-                                                                let bigsad = -1;
-                                                                if (!(temp_pet.ID in triedPets) && !foundNew) {
-                                                                    triedPets[temp_pet.ID] = true;
-                                                                    foundNew = true;
-                                                                    tempGroup = [...group];
-                                                                    let ind = tempGroup.findIndex((temp_repl) => temp_repl.ID === pet.pet.ID)
-                                                                    tempGroup[ind] = temp_pet;
-                                                                }
+                                                        let temp_pet = groups[group_index + 1][j];
+                                                        if (temp_pet.Type === pet.pet.Type) {
+                                                            let bigsad = -1;
+                                                            if (!(temp_pet.ID in triedPets) && !foundNew) {
+                                                                triedPets[temp_pet.ID] = true;
+                                                                foundNew = true;
+                                                                tempGroup = [...group];
+                                                                let ind = tempGroup.findIndex((temp_repl) => temp_repl.ID === pet.pet.ID)
+                                                                tempGroup[ind] = temp_pet;
                                                             }
                                                         }
-
-                                                        let newGroupScore = petHelper.calculateGroupScore(tempGroup, defaultRank).groupScore;
-
-                                                        if (newGroupScore > originalGroupScore) {
-                                                            showRed = true;
-                                                            hoverMsg = `${petLabel} might be too high, try ${pet.placement === 'rel' ? `increase` : `lowering`} the value to drop them to a lower team`
-                                                        }
-                                                        tempGroup = [];
                                                     }
+
+                                                    let newGroupScore = petHelper.calculateGroupScore(tempGroup, defaultRank).groupScore;
+
+                                                    if (newGroupScore > originalGroupScore) {
+                                                        showRed = true;
+                                                        hoverMsg = `${petLabel} might be too high, try ${pet.placement === 'rel' ? `increase` : `lowering`} the value to drop them to a lower team`
+                                                    }
+                                                    tempGroup = [];
                                                 }
                                             }
-                                            catch (err) {
-                                                let temppp = group_index;
-                                                console.log(err);
-                                            }
-                                            try {
-                                                //If they are not too high, check if they are too low (except for team 1)
-                                                if (!showRed && group_index > 0) {
-                                                    //By default only need to check twice (2gnd or 2air)
-                                                    const maxChecks = 2;
-                                                    let originalGroupScore = petHelper.calculateGroupScore(groups[group_index - 1], defaultRank).groupScore;
-                                                    let tempGroup = [];
-                                                    let triedPets = {};
 
-                                                    for (let i = 0; i < maxChecks; i++) {//
-                                                        let foundNew = false;
 
-                                                        for (let j = 0; j < groups[group_index - 1].length; j++) {
+                                            //If they are not too high, check if they are too low (except for team 1)
+                                            if (!showRed && group_index > 0) {
+                                                //By default only need to check twice (2gnd or 2air)
+                                                const maxChecks = 2;
+                                                let originalGroupScore = petHelper.calculateGroupScore(groups[group_index - 1], defaultRank).groupScore;
+                                                let tempGroup = [];
+                                                let triedPets = {};
 
-                                                            let temp_pet = groups[group_index - 1][j];
-                                                            if (temp_pet.Type === pet.pet.Type) {
-                                                                let bigsad = -1;
-                                                                if (!(temp_pet.ID in triedPets) && !foundNew) {
-                                                                    triedPets[temp_pet.ID] = true;
-                                                                    foundNew = true;
-                                                                    tempGroup = [...groups[group_index - 1]];
-                                                                    let ind = tempGroup.findIndex((temp_repl) => temp_repl.ID === temp_pet.ID)
-                                                                    tempGroup[ind] = pet.pet;
-                                                                }
+                                                for (let i = 0; i < maxChecks; i++) {//
+                                                    let foundNew = false;
+
+                                                    for (let j = 0; j < groups[group_index - 1].length; j++) {
+
+                                                        let temp_pet = groups[group_index - 1][j];
+                                                        if (temp_pet.Type === pet.pet.Type) {
+                                                            let bigsad = -1;
+                                                            if (!(temp_pet.ID in triedPets) && !foundNew) {
+                                                                triedPets[temp_pet.ID] = true;
+                                                                foundNew = true;
+                                                                tempGroup = [...groups[group_index - 1]];
+                                                                let ind = tempGroup.findIndex((temp_repl) => temp_repl.ID === temp_pet.ID)
+                                                                tempGroup[ind] = pet.pet;
                                                             }
                                                         }
-
-                                                        let newGroupScore = petHelper.calculateGroupScore(tempGroup, defaultRank).groupScore;
-
-                                                        if (newGroupScore > originalGroupScore) {
-                                                            showGreen = true;
-                                                            hoverMsg = ` ${petLabel} might be too low, try ${pet.placement === 'rel' ? `lowering` : `increasing`} the value to bump them to a higher team`
-                                                        }
-                                                        tempGroup = [];
                                                     }
+
+                                                    let newGroupScore = petHelper.calculateGroupScore(tempGroup, defaultRank).groupScore;
+
+                                                    if (newGroupScore > originalGroupScore) {
+                                                        showGreen = true;
+                                                        hoverMsg = ` ${petLabel} might be too low, try ${pet.placement === 'rel' ? `lowering` : `increasing`} the value to bump them to a higher team`
+                                                    }
+                                                    tempGroup = [];
                                                 }
                                             }
-                                            catch (err) {
-                                                let tempy = group_index;
-                                                console.log(err);
-                                            }
+
                                         }
                                         //Has a nan placement -> suggest decreasing the rel value
                                         else {
@@ -1660,7 +1658,8 @@ export default function Expeditions() {
                                                 >
                                                     <option value={'blacklist'}>Blacklist</option>
                                                     <option value={'team'}>Group</option>
-                                                    <option value={`rel`}>Relative</option>
+                                                    <option value={`auto`}>Auto</option>
+                                                    {/* <option value={`rel`}>Relative</option> */}
                                                 </select>
 
                                             </div>
@@ -1681,7 +1680,7 @@ export default function Expeditions() {
                                                     <div style={{ marginLeft: (showGreen || showRed) ? '22px' : '' }}>
                                                         <select
                                                             className='importantText'
-                                                            style={{ maxWidth: '144px', backgroundColor: (index % 2) === 0 ? '#252525' : '#171717', borderRadius: '4px', width:'44px' }}
+                                                            style={{ maxWidth: '144px', backgroundColor: (index % 2) === 0 ? '#252525' : '#171717', borderRadius: '4px', width: '44px' }}
                                                             aria-label='Select what team the pet will be placed in'
                                                             value={pet.parameters.team}
                                                             onChange={
@@ -1742,7 +1741,7 @@ export default function Expeditions() {
                                                         />
                                                     </div>
                                                 )}
-                                                {pet.placement === 'blacklist' && (
+                                                {(pet.placement === 'blacklist' || pet.placement === 'auto') && (
                                                     <>Unavailable</>
                                                 )}
                                                 {(showGreen || showRed) && (
@@ -1967,7 +1966,7 @@ export default function Expeditions() {
 
                                                                             let pet_inner = temp.find((sample_pet) => sample_pet.id === pet.ID);
                                                                             if (!pet_inner) {
-                                                                                temp.push({ label: petNames[pet.ID].name, pet: pet, id: pet.ID, placement: 'rel', parameters: { team: 0, damageBias: 17 } });
+                                                                                temp.push({ label: petNames[pet.ID].name, pet: pet, id: pet.ID, placement: 'auto', parameters: { team: 0, damageBias: 17 } });
                                                                             }
                                                                             else {
                                                                                 throw new Error(`should not have an existing pet in this list!`)

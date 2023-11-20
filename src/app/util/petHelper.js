@@ -472,6 +472,7 @@ var helper = {
     calcBestDamageGroup: function (PETSCOLLECTION, defaultRank, numGroups, other) {
         const k = 4; // Size of each group
         numGroups = numGroups ? numGroups : 7;
+        numGroups = Number(numGroups);
         const memo = {};
         let failedFiltersObj = {};
         let petsMap = {};
@@ -497,6 +498,13 @@ var helper = {
         let whitelist = {};
         let whitelistRel = {};
 
+        let lockedPets = {};
+        let autoPets = {};
+        let psuedoGroups = [];
+        for (let i = 0; i < numGroups; i++) {
+            psuedoGroups.push([]);
+        }
+
         if (other?.petWhiteList) {
             for (let i = 0; i < other.petWhiteList.length; i++) {
                 let cur = other.petWhiteList[i];
@@ -505,9 +513,35 @@ var helper = {
                 }
                 else if (cur.placement === 'team') {
                     whitelist[cur.id] = cur;
+                    lockedPets[cur.id] = cur;
+                    psuedoGroups[cur.parameters.team].push(cur);
+
                 }
                 else if (cur.placement === 'rel') {
                     whitelistRel[cur.id] = cur;
+                }
+            }
+
+            //Go over any `auto placements and slot them in in a pseudo manner
+            for (let i = 0; i < other.petWhiteList.length; i++) {
+                let cur = other.petWhiteList[i];
+
+                if (cur.placement === 'auto') {
+                    let bigsad = -1;
+
+                    for (let j = numGroups - 1; j >= 0; j--) {
+                        if (psuedoGroups[j].length < k) {
+                            cur.auto = true;
+                            cur.parameters.team = j;
+                            cur.placement = 'team';
+                            whitelist[cur.id] = cur;
+                            psuedoGroups[j].push(cur);
+                            autoPets[cur.id] = cur;
+                            break;
+                        }
+                    }
+
+
                 }
             }
         }
@@ -951,10 +985,6 @@ var helper = {
 
 
         for (let g = 0; g < numGroups; g++) {
-
-            if (g === 2) {
-                let bigsad = -1;
-            }
 
             let remainingGroups = numGroups - g;
             let requiredPetsOverall = [];
@@ -1490,8 +1520,144 @@ var helper = {
         console.log(`time to get best combo: ${(time4 - time3) / 1000} seconds`)
         if (other?.setFailedFilters) {
             other.setFailedFilters(failedFiltersObj);
-
         }
+
+        // Reset any auto placements back to proper auto for visual purposes
+        for (let i = 0; i < bestGroups.length; i++) {
+            let team = bestGroups[i];
+            for (let j = 0; j < team.length; j++) {
+                let pet = team[j];
+                if (autoPets[pet.ID]) {
+                    autoPets[pet.ID].placement = 'auto';
+                }
+            }
+        }
+
+
+        let swapHappened = true;
+        let numSwaps = -1;
+        while (swapHappened) {
+            numSwaps++;
+            swapHappened = false;
+            let copyGroups = JSON.parse(JSON.stringify(bestGroups));
+            const maxSwaps = 2;
+
+            // Go over each pet and bubble sort if possible
+            for (let group_index = 0; group_index < copyGroups.length; group_index++) {
+                let team = copyGroups[group_index];
+                for (let pet_index = 0; pet_index < team.length; pet_index++) {
+                    let pet = team[pet_index];
+                    let swapPet = null;
+
+                    let group = team;
+                    let tooHigh = false;
+                    let tooLow = false;
+
+                    // This pet was placed by `group` by user, do not shift!
+                    if (lockedPets[pet.ID]) {
+                        continue
+                    }
+
+
+                    //Might not need this since things start low and go up
+                    //First check if the pet should be on a lower team
+                    //Do this by seeing if a swap gives a higher damage on current team
+                    if (group_index < (bestGroups.length - 1)) {
+
+                        let subsequentGroup = copyGroups[group_index + 1];
+                        let triedPets = {};
+                        let currentGroupScore = this.calculateGroupScore(group, defaultRank).groupScore;
+
+                        for (let i = 0; i < maxSwaps; i++) {
+                            for (let j = 0; j < subsequentGroup.length; j++) {
+                                let newPet = subsequentGroup[j];
+                                if (newPet.Type === pet.Type && !triedPets[newPet.ID]) {
+                                    triedPets[newPet.ID] = newPet;
+
+                                    let newGroup = JSON.parse(JSON.stringify(team));
+                                    newGroup[pet_index] = newPet;
+
+                                    let newScore = this.calculateGroupScore(newGroup, defaultRank).groupScore;
+
+                                    // There is a better pet from lower team to grab!
+                                    if (newScore > currentGroupScore) {
+                                        let bigsad = -1;
+                                        tooHigh = true;
+                                        // swapHappened = true;
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+
+
+                    //Second check if the pet should be on a higher team
+                    //Do this by seeing if a swap gives a higher damage on to the previous team
+                    if (!tooHigh && group_index > 0) {
+
+                        let currentCounter = group_index - 1;
+
+                        while (currentCounter >= 0) {
+                            let previousGroup = copyGroups[currentCounter];
+                            let triedPets = {};
+                            let currentGroupScore = this.calculateGroupScore(previousGroup, defaultRank).groupScore;
+
+                            for (let i = 0; i < maxSwaps; i++) {
+
+                                for (let j = 0; j < previousGroup.length; j++) {
+                                    let newPet = previousGroup[j];
+                                    if (lockedPets[newPet.ID]) {
+                                        continue;
+                                    }
+                                    if (newPet.Type === pet.Type && !triedPets[newPet.ID]) {
+                                        triedPets[newPet.ID] = newPet;
+
+                                        let newGroup = JSON.parse(JSON.stringify(previousGroup));
+                                        newGroup[j] = pet;
+
+                                        let newScore = this.calculateGroupScore(newGroup, defaultRank).groupScore;
+
+                                        // There is a better pet from lower team to grab!
+                                        if (newScore > currentGroupScore) {
+                                            tooLow = true;
+                                            swapHappened = true;
+                                            bestGroups[group_index][pet_index] = JSON.parse(JSON.stringify(newPet));
+                                            bestGroups[currentCounter][j] = JSON.parse(JSON.stringify(pet));
+                                            let bigsad = -1;
+                                        }
+                                        break;
+                                    }
+                                    if (swapHappened) {
+                                        break;
+                                    }
+                                }
+                                if (swapHappened) {
+                                    break;
+                                }
+                            }
+                            if (swapHappened) {
+                                break;
+                            }
+                            currentCounter--;
+                        }
+
+                    }
+                    if (swapHappened) {
+                        break;
+                    }
+
+                }
+                if (swapHappened) {
+                    break;
+                }
+            }
+        }
+
+        console.log(`num swaps: ${numSwaps}`);
+
+
         return bestGroups;
     },
     calcBestTokenGroup: function (petsCollection, defaultRank, numGroups, other) {
