@@ -530,6 +530,26 @@ var helper = {
                     let bigsad = -1;
 
                     for (let j = numGroups - 1; j >= 0; j--) {
+
+                        let numGnd = 0;
+                        let numAir = 0;
+
+                        psuedoGroups[j].forEach((inner_pet) => {
+                            if (inner_pet.pet.Type === 1) {
+                                numGnd++;
+                            }
+                            if (inner_pet.pet.Type === 2) {
+                                numAir++;
+                            }
+                        })
+
+                        if (cur.pet.Type === 1 && numGnd > 1) {
+                            continue;
+                        }
+                        if (cur.pet.Type === 2 && numAir > 1) {
+                            continue;
+                        }
+
                         if (psuedoGroups[j].length < k) {
                             cur.auto = true;
                             cur.parameters.team = j;
@@ -540,8 +560,6 @@ var helper = {
                             break;
                         }
                     }
-
-
                 }
             }
         }
@@ -1615,6 +1633,7 @@ var helper = {
                                         continue;
                                     }
                                     if (newPet.Type === pet.Type && !triedPets[newPet.ID]) {
+                                        // if (!triedPets[newPet.ID]) {
                                         triedPets[newPet.ID] = newPet;
 
                                         let newGroup = JSON.parse(JSON.stringify(previousGroup));
@@ -1657,8 +1676,12 @@ var helper = {
                 }
             }
         }
-
         console.log(`num swaps: ${numSwaps}`);
+
+        bestGroups.forEach((inner_group) => {
+            inner_group.sort((a, b) => a.ID - b.ID);
+            inner_group.sort((a, b) => a.Type - b.Type);
+        })
 
 
         return bestGroups;
