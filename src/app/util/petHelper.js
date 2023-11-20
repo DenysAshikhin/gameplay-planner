@@ -586,7 +586,10 @@ var helper = {
                             requiredGnd[bonus.pet.ID] = true;
                         }
                         else if (!requiredGnd[bonus.pet.ID]) {
-                            requiredGnd[bonus.pet.ID] = true;
+                            requiredAir[bonus.pet.ID] = true;
+                        }
+                        else {
+                            let bigsad = -1;
                         }
                     }
                     else {
