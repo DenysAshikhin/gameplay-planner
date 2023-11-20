@@ -695,7 +695,7 @@ const FarmingLanding = () => {
     let futurePlants = [];//ss
     for (let i = 0; i < tempFuture.plants.length; i++) {
         let newPlant = tempFuture.plants[i];
-        let prestigeTimings = farmingHelper.calcTimeTillPrestige(newPlant, { ...modifiers, time: secondsHour * futureTime, numAuto: plantAutosClient[i] });
+        let prestigeTimings = farmingHelper.calcTimeTillPrestige(newPlant, { ...modifiers, time: secondsHour * futureTime, numAuto: timeStepMode ? numSimulatedAutos : plantAutosClient[i] });
 
         newPlant.nextPrestige = prestigeTimings.prestige;
         newPlant.timeToPrestige = prestigeTimings.remainingTime;
