@@ -1,6 +1,7 @@
 "use client";
 
 import helper from "../util/helper.js";
+
 import MouseOverPopover from "../util/Tooltip.jsx";
 import ReactGA from "react-ga4";
 import { memo, useState, useEffect, useMemo } from "react";
@@ -28,6 +29,9 @@ const FarmingPlant = ({ data }) => {
   useEffect(() => {
     setHydrated(true);
   }, []);
+
+  let hours, minutes = 0;
+
   let plant = data.plant;
 
   let index = data.index;
@@ -36,6 +40,14 @@ const FarmingPlant = ({ data }) => {
   let fake = data.fake;
   let plantAutos = data.plantAutos;
   let setPlantAutos = data.setPlantAutos;
+  let plantTimes = data.plantTimes;
+  let setPlantTimes = data.setPlantTimes;
+  let timeStepMode = data.timeStepMode;
+
+  if (timeStepMode) {
+    hours = Math.floor(data.plantTimes[index]);
+    minutes = helper.roundInt((data.plantTimes[index] - hours) * 60);
+  }
 
   if (plantAutos && modifiers) {
     modifiers.numAuto = plantAutos[index];
@@ -228,7 +240,7 @@ const FarmingPlant = ({ data }) => {
           }}
         >
           <MouseOverPopover
-          opacity='0.905'
+            opacity='0.905'
             tooltip={
               <div>
                 {/* Harvest Amount */}
@@ -280,89 +292,6 @@ const FarmingPlant = ({ data }) => {
             </div>
           </MouseOverPopover>
         </div>
-
-        {/* Harvest Amount */}
-        {/* <div
-          style={{
-            zIndex: 2,
-            background: "black",
-            borderRadius: "6px",
-            padding: "0 1px 0 1px",
-            color: "white",
-            top: "1%",
-            right: "1%",
-            display: "flex",
-            position: "absolute",
-          }}
-        >
-          <MouseOverPopover
-            tooltip={
-              <div>
-                <div>Harvest Amount</div>
-              </div>
-            }
-          >
-            <div style={{ fontSize: "12px", fontFamily: "sans-serif" }}>
-              {harvestAmount}
-            </div>
-          </MouseOverPopover>
-        </div> */}
-
-        {/* output mult */}
-        {/* <div
-          style={{
-            zIndex: 2,
-            background: "black",
-            borderRadius: "6px",
-            fontSize: "12px",
-            padding: "0 1px 0 1px",
-            color: "white",
-            top: "10%",
-            right: "3%",
-            display: "flex",
-            position: "absolute",
-          }}
-        >
-          <MouseOverPopover
-            tooltip={
-              <div>
-                <div>Output multiplier</div>
-              </div>
-            }
-          >
-            <div style={{ fontSize: "12px", fontFamily: "sans-serif" }}>
-              {totalProd + ` ` + outMult}
-            </div>
-          </MouseOverPopover>
-        </div> */}
-
-        {/* total harvest */}
-        {/* <div
-          style={{
-            zIndex: 2,
-            background: "black",
-            borderRadius: "6px",
-            fontSize: "12px",
-            padding: "0 1px 0 1px",
-            color: "white",
-            top: "20%",
-            right: "1%",
-            display: "flex",
-            position: "absolute",
-          }}
-        >
-          <MouseOverPopover
-            tooltip={
-              <div>
-                <div>Total Harvest</div>
-              </div>
-            }
-          >
-            <div style={{ fontSize: "12px", fontFamily: "sans-serif" }}>
-              {totalMade + ` (${totalHarvest})`}
-            </div>
-          </MouseOverPopover>
-        </div> */}
 
         {/* Rank */}
         <div
@@ -672,55 +601,162 @@ const FarmingPlant = ({ data }) => {
                 fontFamily: "sans-serif",
               }}
             >
-              <div style={{ display: "flex", alignItems: "center" }}>
-                <MouseOverPopover
-                  tooltip={
-                    <div>
-                      How many autos will be running for this plant for `Hours
-                      to calculate` duration
-                    </div>
-                  }
-                >
-                  <div>Num Autos</div>
-                </MouseOverPopover>
 
-                <input
-                  style={{
-                    // width: '48px'
-                    // , WebkitAppearance: 'none'
-                    height: "12px",
-                    width: "36px",
-                  }}
-                  type="number"
-                  className="prepNumber"
-                  value={plantAutos[index]}
-                  onChange={(e) => {
-                    try {
-                      let x = Number(e.target.value);
-                      x = Math.floor(x);
-                      if (x < 0 || x > 12) {
-                        return;
-                      }
-                      ReactGA.event({
-                        category: "farming_interaction",
-                        action: `changed_plant_${index}_auto`,
-                        label: `${x}`,
-                        value: x,
-                      });
-                      setPlantAutos((cur) => {
-                        let temp = [...cur];
-                        temp[index] = x;
-                        return temp;
-                      });
-                    } catch (err) {
-                      console.log(err);
+              {!timeStepMode && (
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <MouseOverPopover
+                    tooltip={
+                      <div>
+                        How many autos will be running for this plant for `Hours
+                        to calculate` duration
+                      </div>
                     }
-                  }}
-                  placeholder={plantAutos[index] + ""}
-                  min="0"
-                  max="12"
-                />
-              </div>
+                  >
+                    <div>Num Autos</div>
+                  </MouseOverPopover>
+
+                  <input
+                    style={{
+                      // width: '48px'
+                      // , WebkitAppearance: 'none'
+                      height: "12px",
+                      width: "36px",
+                    }}
+                    type="number"
+                    className="prepNumber"
+                    value={plantAutos[index]}
+                    onChange={(e) => {
+                      try {
+                        let x = Number(e.target.value);
+                        x = Math.floor(x);
+                        if (x < 0 || x > 12) {
+                          return;
+                        }
+                        ReactGA.event({
+                          category: "farming_interaction",
+                          action: `changed_plant_${index}_auto`,
+                          label: `${x}`,
+                          value: x,
+                        });
+                        setPlantAutos((cur) => {
+                          let temp = [...cur];
+                          temp[index] = x;
+                          return temp;
+                        });
+                      } catch (err) {
+                        console.log(err);
+                      }
+                    }}
+                    placeholder={plantAutos[index] + ""}
+                    min="0"
+                    max="12"
+                  />
+                </div>
+              )}
+
+              {!!timeStepMode && (
+                <div style={{ display: "flex", alignItems: "center" }}>
+
+                  {/* Hours */}
+                  <div style={{ display: 'flex', alignItems: 'center' }}>
+
+                    <MouseOverPopover
+                      tooltip={
+                        <div>
+                          How many hours this plant will have `Unlocked Autos` running for it exclusively
+                        </div>
+                      }
+                    >
+                      <div>Hours</div>
+                    </MouseOverPopover>
+
+                    <input
+                      style={{
+                        // width: '48px'
+                        // , WebkitAppearance: 'none'
+                        height: "12px",
+                        width: "36px",
+                      }}
+                      type="number"
+                      className="prepNumber"
+                      value={hours}
+                      onChange={(e) => {
+                        try {
+                          let x = Number(e.target.value);
+                          x = Math.floor(x);
+                          if (x < 0 || x > 9999) {
+                            return;
+                          }
+                          ReactGA.event({
+                            category: "farming_interaction",
+                            action: `changed_plant_${index}_hours`,
+                            label: `${x}`,
+                            value: x,
+                          });
+                          setPlantTimes((cur) => {
+                            let temp = [...cur];
+                            temp[index] = x + (minutes / 60);
+                            return temp;
+                          });
+                        } catch (err) {
+                          console.log(err);
+                        }
+                      }}
+                      min="0"
+                      max="9999"
+                    />
+                  </div>
+
+                  {/* Minutes */}
+                  <div style={{ display: 'flex', alignItems: 'center' }}>
+
+                    <MouseOverPopover
+                      tooltip={
+                        <div>
+                          How many minutes this plant will have `Unlocked Autos` running for it exclusively
+                        </div>
+                      }
+                    >
+                      <div style={{ marginLeft: '6px' }}>Mins</div>
+                    </MouseOverPopover>
+
+                    <input
+                      style={{
+                        height: "12px",
+                        width: "36px",
+                      }}
+                      type="number"
+                      className="prepNumber"
+                      value={minutes}
+                      onChange={(e) => {
+                        try {
+                          let x = Number(e.target.value);
+                          x = Math.floor(x);
+                          if (x < 0 || x > 9999) {
+                            return;
+                          }
+                          ReactGA.event({
+                            category: "farming_interaction",
+                            action: `changed_plant_${index}_minutes`,
+                            label: `${x}`,
+                            value: x,
+                          });
+                          setPlantTimes((cur) => {
+                            let temp = [...cur];
+                            let newTime = hours + (x / 60);
+                            temp[index] = newTime;
+                            return temp;
+                          });
+                        } catch (err) {
+                          console.log(err);
+                        }
+                      }}
+                      min="0"
+                      max="9999"
+                    />
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         )}
@@ -733,6 +769,7 @@ export default memo(FarmingPlant, function (prev, curr) {
   if (prev.data.fake !== curr.data.fake) return false;
   // if (curr.data.fake) return true;
   if (prev.data.index !== curr.data.index) return false;
+  if (prev.data.timeStepMode !== curr.data.timeStepMode) return false;
   //No need to check modifier values since if those are diff, plant values are diff as well
 
   if (
@@ -740,9 +777,17 @@ export default memo(FarmingPlant, function (prev, curr) {
     curr.data.plantAutos[prev.data.index]
   )
     return false;
+  if (
+    prev.data.plantTimes[prev.data.index] !==
+    curr.data.plantTimes[prev.data.index]
+  )
+    return false;
   if (prev.data.plant?.timeToLevel !== curr.data?.plant?.timeToLevel)
     return false;
   if (!prev.data.plant?.production.equals(curr.data?.plant?.production)) {
+    return false;
+  }
+  if (!prev.data.plant?.created.equals(curr.data?.plant?.created)) {
     return false;
   }
   return true; //Nothing changed

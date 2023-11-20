@@ -80,7 +80,7 @@ var farmingHelper = {
     },
     calcFryOutput: function (potatoes, modifiers) {
 
-
+        if (!potatoes) return 0;
         if (potatoes.lessThan(10000000000000000)) return 0;
 
 
@@ -657,9 +657,20 @@ var farmingHelper = {
             runningTime += steps[i].time;
 
         }
-        res.dataPointsPotatoes = potatoeSteps;
-        res.dataPointsFries = frySteps;
-        res.steps = steps;
+
+        if (res === -1) {
+            res = {};
+            res.dataPointsPotatoes = potatoeSteps;
+            res.dataPointsFries = frySteps;
+            res.steps = steps;
+        }
+        else {
+            res.dataPointsPotatoes = potatoeSteps;
+            res.dataPointsFries = frySteps;
+            res.steps = steps;
+        }
+
+
 
         return res;
     },

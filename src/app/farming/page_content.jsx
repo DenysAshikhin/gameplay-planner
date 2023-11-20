@@ -88,6 +88,14 @@ const FarmingLanding = () => {
 
     }, [plantAutos]);
 
+    const [plantTimes, setPlantTimes] = useLocalStorage("plantTimes", [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+    const [plantTimesClient, setPlantTimesClient] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+    useEffect(() => {
+        setPlantTimesClient(plantTimes);
+
+    }, [plantTimes]);
+
+
     const secondsHour = 3600;
     const farmCalcStarted = useRef({});
     const farmTotals = useRef([]);
@@ -105,12 +113,18 @@ const FarmingLanding = () => {
         setOpenedInstructionsRunTime(clientOpenedInstructions);
     }, [clientOpenedInstructions]);
 
-    // const [yScale, setYScale] = useState('log');
+
     const [yScale, setYScaleRunTime] = useState('log');
     const [yScaleClient, setYScale] = useLocalStorage("yScale", 'log');
     useEffect(() => {
         setYScaleRunTime(yScaleClient);
     }, [yScaleClient]);
+
+    const [timeStepMode, setTimeStepModeRunTime] = useState(false);
+    const [timeStepModeClient, setTimeStepMode] = useLocalStorage("timeStepMode", false);
+    useEffect(() => {
+        setTimeStepModeRunTime(timeStepModeClient);
+    }, [timeStepModeClient]);
 
     const [showFries, setShowFriesRunTime] = useState(true);
     const [showFriesClient, setShowFries] = useLocalStorage("showFries", true);
@@ -350,59 +364,40 @@ const FarmingLanding = () => {
         if (!data.GrasshopperCollection) {
             return { plants: [] };
         }
-        if (false) {
-            let final_steps = [];
-            let completeRunTime = 0;
 
-            for (let i = finalPlants.length - 1; i >= 0; i--) {
-                let runTime = 0;
-                let loop_flag = true;
 
-                let plants_inner = [...finalPlants];
-                let modif_inner = { ...modifiers }
-                let index = i;
-                let autos_inner = Array(numSimulatedAutos).fill(0);
-                while (loop_flag) {
 
-                    let temp_time = plants_inner[index].growthTime === 10 ? 60 : plants_inner[index].growthTime;
+        let tempModif;
+        let result;
 
-                    runTime += temp_time;
+        if (timeStepMode) {
 
-                    autos_inner[index] = numSimulatedAutos;
-                    let temp_result = farmingHelper.calcHPProd(plants_inner, { ...modif_inner, time: temp_time, numAutos: autos_inner });
+            let futureTime = 0;
 
-                    let mult_increase = mathHelper.subtractDecimal(temp_result.plants[index].futureMult, plants_inner[index].futureMult);
-                    let mult_increase_ind = mathHelper.divideDecimal(mult_increase, numSimulatedAutos);
-                    let mult_increase_perc = mathHelper.divideDecimal(mult_increase_ind, temp_result.plants[index].futureMult).toNumber();
+            tempModif = { ...modifiers, time: secondsHour * futureTime };
+            let steps = [];
 
-                    let mult_per_s = mult_increase_perc / (temp_time * (index === 0 ? 0.75 : 1));
-
-                    plants_inner = temp_result.plants;
-                    modif_inner = temp_result.finalModifiers;
-                    const thresh = 0.000024579935867502135 / 3;
-                    if (mult_per_s < thresh) {
-
-                        loop_flag = false;
-                    }
-                }
-                completeRunTime += runTime;
-                final_steps.push({ time: runTime, autos: autos_inner });
+            for (let i = 0; i < finalPlants.length; i++) {
+                futureTime += plantTimes[i];
+                let autos = Array(finalPlants.length).fill(0);
+                autos[i] = numSimulatedAutos;
+                steps.push({
+                    time: helper.roundInt(plantTimes[i] * secondsHour),
+                    autos: autos
+                })
             }
 
-            console.log(final_steps)
-            let temp_steps = farmingHelper.calcStepHPProd(finalPlants, { ...modifiers, steps: final_steps });
-            console.log(`temp steps: ${completeRunTime} -> ${helper.secondsToString(completeRunTime)}`);
-            console.log(temp_steps);
+            let tickRate = Math.floor((futureTime * secondsHour) * 0.01) < 1 ? 1 : Math.floor((futureTime * secondsHour) * 0.012);
+            steps.reverse();
 
-
-            // console.log(`final duration: ${helper.secondsToString(runTime)}`)
-            // let timeTillLevel_temp = farmingHelper.calcTimeTillLevel(finalPlants[6], {...modifiers});
+            result = farmingHelper.calcStepHPProd(finalPlants, { ...tempModif, steps: steps, tickRate: tickRate });
 
         }
+        else {
+            tempModif = { ...modifiers, time: secondsHour * futureTime, numAutos: plantAutosClient };
+            result = farmingHelper.calcHPProd(finalPlants, tempModif);
+        }
 
-        let tempModif = { ...modifiers, time: secondsHour * futureTime, numAutos: plantAutosClient };
-
-        let result = farmingHelper.calcHPProd(finalPlants, tempModif);
 
         for (let i = 0; i < result.dataPointsPotatoes.length; i++) {
             let cur = result.dataPointsPotatoes[i];
@@ -415,13 +410,13 @@ const FarmingLanding = () => {
             cur.originalFry = mathHelper.createDecimal(cur.fries.toString());
         }
 
-        // console.log(`future plants:`);
-        // console.log(result);
-        let finalFry = farmingHelper.calcFryOutput(result.totalPotatoes, result.finalModifiers);
-        // console.log(`rough fry final (pre time bonus): ${finalFry.toExponential(3)}`)
+
+        if (!result.plants) {
+            result.plants = finalPlants;
+        }
         return result;
     },
-        [numSimulatedAutos, finalPlants, modifiers, futureTime, plantAutosClient, data.GrasshopperCollection, secondsHour]);
+        [numSimulatedAutos, finalPlants, modifiers, futureTime, plantAutosClient, data.GrasshopperCollection, secondsHour, timeStepMode, plantTimes]);
 
     //Go through all datapoints, find highest exp, and reduce it for all equally if necessary so JS doesn't break
     const graphObjects = useMemo(() => {
@@ -696,8 +691,6 @@ const FarmingLanding = () => {
         }
     }, [showInstructions])
 
-
-
     let customFuturePlants = [];
     let futurePlants = [];//ss
     for (let i = 0; i < tempFuture.plants.length; i++) {
@@ -710,8 +703,6 @@ const FarmingLanding = () => {
         customFuturePlants.push(newPlant);
         futurePlants.push(newPlant);
     }
-
-
 
     const FarmerWorker = useRef(null);
     const FarmerWorker1 = useRef(null);
@@ -1509,7 +1500,10 @@ const FarmingLanding = () => {
                                     setCustomMultipliers: setCustomMultipliers,
                                     allowSetMultipliers: false,
                                     useFutureValues: true,
-                                    modifiers: modifiers
+                                    modifiers: modifiers,
+                                    timeStepMode: timeStepMode,
+                                    plantTimes: plantTimes,
+                                    setPlantTimes: setPlantTimes
                                 }
                             } />
                         }
@@ -1976,16 +1970,24 @@ const FarmingLanding = () => {
                                         </div>
 
                                         <div style={{ display: 'flex', marginTop: '6px' }}>
-                                            <div style={{ width: '260px' }}>Time Step Mode</div>
-                                            <input type="checkbox" checked={false} disabled
+                                            <MouseOverPopover tooltip={
+                                                <div>
+                                                    Enabes
+                                                </div>
+                                            }
+                                            >
+
+                                                <div style={{ width: '260px' }}>Time Step Mode</div>
+                                            </MouseOverPopover>
+                                            <input type="checkbox" checked={timeStepMode}
                                                 aria-label='Specify if time step mode should be used instead of num auto'
                                                 id="enable timestep mode for plants"
                                                 onChange={(e) => {
-                                                    return;
-                                                    setShowFries(e.target.checked ? 1 : 0);
+
+                                                    setTimeStepMode(e.target.checked ? 1 : 0);
                                                     ReactGA.event({
                                                         category: "farming_interaction",
-                                                        action: `changed_show_fry`,
+                                                        action: `changed_show_timeStep`,
                                                         label: `${e.target.checked}`,
                                                     })
                                                 }}

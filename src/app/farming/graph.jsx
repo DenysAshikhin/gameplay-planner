@@ -100,7 +100,7 @@ function Graph({
                 return temp.toPrecision(3).toString();
               }}
               width={82}
-              // dx={25}
+            // dx={25}
             >
               <Label
                 value="Total HP Made"
@@ -123,7 +123,7 @@ function Graph({
                 temp.exponent += expDiffFry;
                 return temp.toPrecision(3).toString();
               }}
-            width={82}
+              width={82}
             >
               <Label
                 value="Total Fries Made"
@@ -406,17 +406,22 @@ export default memo(Graph, function (prev, current) {
   //to avoid checking every single datapoint, we can be a bit smarter
   //if the graph was recalulcated, or calculating, update graph
   if (prev.showCalc !== current.showCalc) return false;
-  else if (prev.showFries !== current.showFries) return false;
+
+  //Otherwise, if the user's total potatoes changed (meaning they updated something else) update graph
+  if (!!prev.graphObjects.customProduction.totalPotatoes) {
+    if (
+      prev.graphObjects.customProduction.totalPotatoes.notEquals(
+        current.graphObjects.customProduction.totalPotatoes
+      )
+    ) {
+      return false;
+    }
+  }
+
+  if (prev.showFries !== current.showFries) return false;
   else if (prev.showHP !== current.showHP) return false;
   else if (prev.tooManyAuto !== current.tooManyAuto) return false;
-  //Otherwise, if the user's total potatoes changed (meaning they updated something else) update graph
-  else if (
-    prev.graphObjects.customProduction.totalPotatoes.notEquals(
-      current.graphObjects.customProduction.totalPotatoes
-    )
-  ) {
-    return false;
-  }
+
   //or if the y-axis scale is changed
   else if (prev.yScale !== current.yScale) return false;
   else if (current?.runningGraphObjects?.runningProd?.prod) {
