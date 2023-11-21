@@ -175,6 +175,34 @@ const NavBar = ({ }) => {
         </div>
       </Link>
 
+      <div style={{margin:'17px 0'}}>
+        {/* Residue Page */}
+        <Link href="/residue" alt="navigation to residue (milk) page">
+          <div
+            className="navItem"
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              // margin: "16px 0",
+            }}
+          >
+            <div
+              style={{
+                width: "52px",
+                height: "56px",
+                position: "relative",
+              }}
+            >
+              <Image
+                alt="milk carton navigation to residue page"
+                fill
+                src={`/images/icons/milk.svg`}
+              />
+            </div>
+          </div>
+        </Link>
+      </div>
 
       {/* Donation Redirect */}
       <Link href="/gratitude" alt="navigation to donate">
