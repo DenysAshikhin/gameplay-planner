@@ -1544,14 +1544,8 @@ var helper = {
         }
 
         // Reset any auto placements back to proper auto for visual purposes
-        for (let i = 0; i < bestGroups.length; i++) {
-            let team = bestGroups[i];
-            for (let j = 0; j < team.length; j++) {
-                let pet = team[j];
-                if (autoPets[pet.ID]) {
-                    autoPets[pet.ID].placement = 'auto';
-                }
-            }
+        for(const [key,value] of Object.entries(autoPets)){
+            autoPets[key].placement='auto';
         }
 
 
