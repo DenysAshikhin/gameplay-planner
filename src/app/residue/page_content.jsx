@@ -27,15 +27,20 @@ ReactGA.initialize([{
 
 
 const ResidueCard = ({ data, params }) => {
+
+    const [hovering, setHovering] = useState(false);
     const level = data[params.key];
-    const locked = data.AscensionCount < params.unlock;
+    const locked = (!hovering) && data.AscensionCount < params.unlock;
 
 
     return (
-        <div className='importantText residueCard'>
+        <div className='importantText residueCard'
+            onMouseEnter={() => { setHovering(true); }}
+            onMouseLeave={() => { setHovering(false); }}
+        >
             <div className='residueCardHeader'>
                 <div>
-                    {`${params.key_inner}: ${level}`}
+                    {locked ? `?????` : `${params.key_inner}: ${level}`}
                 </div>
                 {/* <div>
                     {`Level: ${data[params.key]}`}
@@ -60,48 +65,57 @@ const ResidueCard = ({ data, params }) => {
                         </div>
                     </MouseOverPopover>
                 </div>
-                <div style={{ position: 'absolute', left: '8px', bottom: '8px', zIndex: '2', display: 'flex', alignItems: 'center' }}>
-                    <div>
-                        Weight:
-                    </div>
-                    <div
-                        style={{ marginLeft: '6px' }}
-                    >
-                        <input
-                            aria-label='Specify how important this bonus is'
-                            className='importantText textMedium2'
-                            style={{ borderRadius: '4px', width: '48px', height: '12px', backgroundColor: '#1D1D1D' }}
-                            type='number'
-                            value={params.weight(level)}
-                            onChange={
-                                (inner_e) => {
-                                    return -1;
-                                    try {
-                                        let x = Number(inner_e.target.value);
-                                        // x = Math.floor(x);
-                                        if (x < 1 || x > 99) {
-                                            return;
+                {!locked && (
+                    <div style={{ position: 'absolute', left: '8px', bottom: '8px', zIndex: '2', display: 'flex', alignItems: 'center' }}>
+                        <div>
+                            Weight:
+                        </div>
+                        <div
+                            style={{ marginLeft: '6px' }}
+                        >
+                            <input
+                                aria-label='Specify how important this bonus is'
+                                className='importantText textMedium2'
+                                style={{ borderRadius: '4px', width: '48px', height: '12px', backgroundColor: '#1D1D1D' }}
+                                type='number'
+                                value={params.weight(level)}
+                                onChange={
+                                    (inner_e) => {
+                                        return -1;
+                                        try {
+                                            let x = Number(inner_e.target.value);
+                                            // x = Math.floor(x);
+                                            if (x < 1 || x > 99) {
+                                                return;
+                                            }
+                                            setNumAl(x);
+
+                                            ReactGA.event({
+                                                category: "protein_interaction",
+                                                action: `changed_num_AL`,
+                                                label: `${x}`,
+                                                value: x
+                                            })
+
                                         }
-                                        setNumAl(x);
-
-                                        ReactGA.event({
-                                            category: "protein_interaction",
-                                            action: `changed_num_AL`,
-                                            label: `${x}`,
-                                            value: x
-                                        })
-
-                                    }
-                                    catch (err) {
-                                        console.log(err);
-                                    }
-                                }}
-                            min="0"
-                            max="9999"
-                        />
+                                        catch (err) {
+                                            console.log(err);
+                                        }
+                                    }}
+                                min="0"
+                                max="9999"
+                            />
+                        </div>
                     </div>
-                </div>
-                <Image src={params.img} fill unoptimized alt={`${params.key} bonus from in game`}/>
+                )}
+
+                {!!locked && (
+
+                    <Image src={residueMap['locked'].img} fill unoptimized alt={`${params.key} bonus from in game`} />
+                )}
+                {!locked && (
+                    <Image src={params.img} fill unoptimized alt={`${params.key} bonus from in game`} />
+                )}
             </div>
             <div className='residueCardFooter'></div>
         </div>
@@ -137,9 +151,7 @@ export default function Residue() {
                 backgroundColor: 'rgba(255,255,255, 0.05)',
                 paddingLeft: '12px'
             }}>
-
                 <div style={{
-
                     display: 'flex',
                     flexDirection: 'column',
                     alignSelf: 'start',
@@ -147,15 +159,12 @@ export default function Residue() {
                     border: "2px solid rgba(255,255,255,0.8)",
                     margin: '12px 36px 12px 0px',
                     borderRadius: '12px',
-                    maxHeight: 'calc(100vh - 50px)',
+                    height: 'calc(100vh - 74px)',
                     paddingBottom: '12px'
                 }}>
                     {/* header */}
                     <div
-                        style={{
-                            backgroundColor: 'rgba(255,255,255, 0.05)',
-
-                        }}
+                        style={{ backgroundColor: 'rgba(255,255,255, 0.05)', }}
                     >
                         <div
                             className='importantText'
@@ -166,13 +175,21 @@ export default function Residue() {
                     </div >
 
                     {/* Card List */}
-                    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-                        {Object.entries(residueMap).filter((value) => value[0] !== 'locked').map((value, index) => {
-                            let key = value[0];
-                            let params = value[1];
+                    <div style={{
+                        height: 'calc(100% - 53px)', padding: '0 6px'
+                    }}>
 
-                            return <ResidueCard data={data} params={{ ...params, key_inner: key }} key={index}/>
-                        })}
+                        <div style={{
+                            display: 'flex', flexWrap: 'wrap', maxHeight: '100%',
+                            overflowY: 'auto',
+                        }}>
+                            {Object.entries(residueMap).filter((value) => value[0] !== 'locked').map((value, index) => {
+                                let key = value[0];
+                                let params = value[1];
+
+                                return <ResidueCard data={data} params={{ ...params, key_inner: key }} key={index} />
+                            })}
+                        </div>
                     </div>
                 </div >
             </div>
