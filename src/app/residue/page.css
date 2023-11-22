@@ -1,0 +1,27 @@
+.residueCard {
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 6px;
+    width: 160px;
+    height: 190px;
+    margin: 12px auto 0 auto
+}
+
+.residueCardHeader {
+    display: flex;
+    width: calc(100% - 12px);
+    justify-content: center;
+    padding: 6px 6px;
+    background-color: rgba(255, 255, 255, 0.05);
+    font-size: 20px
+}
+
+.residueCardBody {
+    position: relative;
+    height: calc(100% - 35px);
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+.residueCardFooter {
+    margin-top: 6px;
+}
