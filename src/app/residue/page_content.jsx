@@ -13,6 +13,7 @@ import { residueMap } from './residueMapping.js';
 import MouseOverPopover from "../util/Tooltip.jsx";
 
 import infoIcon from '../../../public/images/icons/info_white_thick.svg';
+import greenBorder from '../../../public/images/residue/ShopUpgradeSelected.png';
 // import infoIcon from '../../../public/images/icons/info_lightgray_thick.svg';
 import DefaultSave from '../util/tempSave.json';
 import useLocalStorage from "use-local-storage";
@@ -30,8 +31,26 @@ const ResidueCard = ({ data, params }) => {
 
     const [hovering, setHovering] = useState(false);
     const level = data[params.key];
-    const locked = (!hovering) && data.AscensionCount < params.unlock;
+    const asc_level = data.AscensionCount;
+    const locked = (!hovering) && asc_level < params.unlock;
+    const weight = params.weight(asc_level);
+    const cost = params.cost(level);
 
+    const reinc = residueMap['reinc'];
+    const reincLevel = data[reinc.key];
+    const reincWeight = reinc.weight(asc_level);
+    const reincCost = reinc.cost(reincLevel);
+
+    const ratio = weight / reincWeight;
+    const weightedCost = mathHelper.multiplyDecimal(reincCost, ratio);
+
+    let needPurchase = cost.lessThan(weightedCost);
+    if (level === 168) {
+        let bigsad = -1;
+    }
+    if (needPurchase) {
+        console.log(-1);
+    }
 
     return (
         <div className='importantText residueCard'
@@ -78,7 +97,7 @@ const ResidueCard = ({ data, params }) => {
                                 className='importantText textMedium2'
                                 style={{ borderRadius: '4px', width: '48px', height: '12px', backgroundColor: '#1D1D1D' }}
                                 type='number'
-                                value={params.weight(level)}
+                                value={params.weight(asc_level)}
                                 onChange={
                                     (inner_e) => {
                                         return -1;
@@ -111,10 +130,14 @@ const ResidueCard = ({ data, params }) => {
 
                 {!!locked && (
 
-                    <Image src={residueMap['locked'].img} fill unoptimized alt={`${params.key} bonus from in game`} />
+                    <Image src={residueMap['locked'].img} fill unoptimized alt={`locked bonus image from in game`} />
                 )}
                 {!locked && (
                     <Image src={params.img} fill unoptimized alt={`${params.key} bonus from in game`} />
+                )}
+                {!!needPurchase && (
+                    <Image src={greenBorder} fill unoptimized alt={`Green border to indicate an upgrade should be purchased`} />
+
                 )}
             </div>
             <div className='residueCardFooter'></div>
@@ -187,7 +210,7 @@ export default function Residue() {
                                 let key = value[0];
                                 let params = value[1];
 
-                                return <ResidueCard data={data} params={{ ...params, key_inner: key }} key={index} />
+                                return <ResidueCard data={data} params={{ ...params, key_inner: key, currentResidue: currentResidue }} key={index} />
                             })}
                         </div>
                     </div>
