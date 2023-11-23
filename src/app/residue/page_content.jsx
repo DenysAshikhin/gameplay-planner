@@ -155,11 +155,11 @@ export default function Residue() {
                     display: 'flex',
                     flexDirection: 'column',
                     alignSelf: 'start',
-                    width: '50%',
+                    width: '900px',
                     border: "2px solid rgba(255,255,255,0.8)",
                     margin: '12px 36px 12px 0px',
                     borderRadius: '12px',
-                    height: 'calc(100vh - 74px)',
+                    height: 'calc(100vh - 68px)',
                     paddingBottom: '12px'
                 }}>
                     {/* header */}
@@ -176,14 +176,14 @@ export default function Residue() {
 
                     {/* Card List */}
                     <div style={{
-                        height: 'calc(100% - 53px)', padding: '0 6px'
+                        height: 'calc(100% - 53px)', padding: '0 6px 0 0'
                     }}>
 
                         <div style={{
                             display: 'flex', flexWrap: 'wrap', maxHeight: '100%',
                             overflowY: 'auto',
                         }}>
-                            {Object.entries(residueMap).filter((value) => value[0] !== 'locked').map((value, index) => {
+                            {Object.entries(residueMap).filter((value) => value[0] !== 'locked').sort((a, b) => a[1].order - b[1].order).map((value, index) => {
                                 let key = value[0];
                                 let params = value[1];
 

@@ -477,6 +477,8 @@ var helper = {
         let failedFiltersObj = {};
         let petsMap = {};
 
+        other = JSON.parse(JSON.stringify(other));
+
         for (let i = 0; i < PETSCOLLECTION.length; i++) {
             petsMap[PETSCOLLECTION[i].ID] = JSON.parse(JSON.stringify(PETSCOLLECTION[i]))
         }
@@ -1543,10 +1545,10 @@ var helper = {
             other.setFailedFilters(failedFiltersObj);
         }
 
-        // Reset any auto placements back to proper auto for visual purposes
-        for(const [key,value] of Object.entries(autoPets)){
-            autoPets[key].placement='auto';
-        }
+        // // Reset any auto placements back to proper auto for visual purposes
+        // for (const [key, value] of Object.entries(autoPets)) {
+        //     autoPets[key].placement = 'auto';
+        // }
 
 
         let swapHappened = true;

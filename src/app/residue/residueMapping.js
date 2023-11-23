@@ -28,6 +28,8 @@ export const residueMap = {
 
     'attack': {
         img: AttackImg,
+        order: 1,
+        label: 'aa',
         unlock: 0,
         key: 'CowShopAttackBonus',
         bonus: (level) => {
@@ -51,6 +53,8 @@ export const residueMap = {
     },
     'hp': {
         img: HPImg,
+        order: 2,
+        label: 'aa',
         unlock: 0,
         key: 'CowShopHPBonus',
         bonus: (level) => {
@@ -74,6 +78,8 @@ export const residueMap = {
     },
     'potato': {
         img: PotatoImg,
+        order: 3,
+        label: 'aa',
         unlock: 0,
         key: 'CowShopPotatoBonus',
         bonus: (level) => {
@@ -97,6 +103,8 @@ export const residueMap = {
     },
     'class': {
         img: ClassImg,
+        order: 4,
+        label: 'aa',
         unlock: 0,
         key: 'CowShopClassExpBonus',
         bonus: (level) => {
@@ -120,6 +128,8 @@ export const residueMap = {
     },
     'skull': {
         img: SkullImg,
+        order: 6,
+        label: 'aa',
         unlock: 0,
         key: 'CowShopPerkBonus',
         bonus: (level) => {
@@ -143,6 +153,8 @@ export const residueMap = {
     },
     'confection': {
         img: ConfectionImg,
+        order: 5,
+        label: 'aa',
         unlock: 0,
         key: 'CowShopConfectionBonus',
         bonus: (level) => {
@@ -166,6 +178,8 @@ export const residueMap = {
     },
     'reinc': {
         img: ReincImg,
+        order: 7,
+        label: 'aa',
         unlock: 0,
         key: 'CowShopReincarnationBonus',
         bonus: (level) => {
@@ -189,6 +203,8 @@ export const residueMap = {
     },
     'ir': {
         img: IRImg,
+        order: 8,
+        label: 'aa',
         unlock: 0,
         key: 'CowShopItemRatingBonus',
         bonus: (level) => {
@@ -212,6 +228,8 @@ export const residueMap = {
     },
     'calcium': {
         img: CalciumImg,
+        order: 14,
+        label: 'aa',
         unlock: 6,
         key: 'CowShopCalciumBonus',
         bonus: (level) => {
@@ -235,6 +253,8 @@ export const residueMap = {
     },
     'ferment': {
         img: FermentImg,
+        order: 15,
+        label: 'aa',
         unlock: 7,
         key: 'CowShopFermentingExp',
         bonus: (level) => {
@@ -258,6 +278,8 @@ export const residueMap = {
     },
     'rp': {
         img: RPImg,
+        order: 19,
+        label: 'aa',
         unlock: 12,
         key: 'CowShopReincPtsBonus',
         bonus: (level) => {
@@ -281,6 +303,8 @@ export const residueMap = {
     },
     'milk': {
         img: MilkImg,
+        order: 9,
+        label: 'aa',
         unlock: 1,
         key: 'CowShopMilkBonus',
         bonus: (level) => {
@@ -304,6 +328,8 @@ export const residueMap = {
     },
     'worm_qty': {
         img: WormImg,
+        order: 10,
+        label: 'aa',
         unlock: 2,
         key: 'CowShopWormQtyBonus',
         bonus: (level) => {
@@ -327,6 +353,8 @@ export const residueMap = {
     },
     'brew': {
         img: BrewImg,
+        order: 11,
+        label: 'aa',
         unlock: 3,
         key: 'CowShopBrewExp',
         bonus: (level) => {
@@ -350,6 +378,8 @@ export const residueMap = {
     },
     'poop': {
         img: PoopImg,
+        order: 12,
+        label: 'aa',
         unlock: 4,
         key: 'CowShopPoopBonus',
         bonus: (level) => {
@@ -373,6 +403,8 @@ export const residueMap = {
     },
     'pet_dmg': {
         img: PetDMGImg,
+        order: 20,
+        label: 'aa',
         unlock: 14,
         key: 'CowShopPetDamageBonus',
         bonus: (level) => {
@@ -396,6 +428,8 @@ export const residueMap = {
     },
     'pet_exp': {
         img: PetEXPImg,
+        order: 13,
+        label: 'aa',
         unlock: 5,
         key: 'CowShopPetLevelExp',
         bonus: (level) => {
@@ -419,6 +453,8 @@ export const residueMap = {
     },
     'pet_rank': {
         img: PetRankImg,
+        order: 17,
+        label: 'aa',
         unlock: 9,
         key: 'CowShopPetRankExp',
         bonus: (level) => {
@@ -442,6 +478,8 @@ export const residueMap = {
     },
     'card_pow': {
         img: CardPOWImg,
+        order: 16,
+        label: 'aa',
         unlock: 8,
         key: 'CowShopCardPowerBonus',
         bonus: (level) => {
@@ -465,6 +503,8 @@ export const residueMap = {
     },
     'card_exp': {
         img: CardEXPImg,
+        order: 18,
+        label: 'aa',
         unlock: 10,
         key: 'CowShopCardExp',
         bonus: (level) => {
