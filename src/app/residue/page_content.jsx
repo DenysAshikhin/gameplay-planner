@@ -14,6 +14,7 @@ import MouseOverPopover from "../util/Tooltip.jsx";
 
 import infoIcon from '../../../public/images/icons/info_white_thick.svg';
 import greenBorder from '../../../public/images/residue/ShopUpgradeSelected.png';
+import StillBuying from '../../../public/images/residue/StillBuying.png';
 // import infoIcon from '../../../public/images/icons/info_lightgray_thick.svg';
 import DefaultSave from '../util/tempSave.json';
 import useLocalStorage from "use-local-storage";
@@ -45,6 +46,10 @@ const ResidueCard = ({ data, params }) => {
     const weightedCost = mathHelper.multiplyDecimal(reincCost, ratio);
 
     let needPurchase = cost.lessThan(weightedCost);
+
+    let highestPurchase = data[params.highestKey(params.key)];
+    const finishedBuying = level >= highestPurchase;
+
     if (level === 168) {
         let bigsad = -1;
     }
@@ -137,6 +142,10 @@ const ResidueCard = ({ data, params }) => {
                 )}
                 {!!needPurchase && (
                     <Image src={greenBorder} fill unoptimized alt={`Green border to indicate an upgrade should be purchased`} />
+
+                )}
+                {!finishedBuying && (
+                    <Image src={StillBuying} fill unoptimized alt={`Yellow border to indicate an upgrade is still autobuying`} />
 
                 )}
             </div>

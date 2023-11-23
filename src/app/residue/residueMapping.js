@@ -32,6 +32,11 @@ export const residueMap = {
         label: 'aa',
         unlock: 0,
         key: 'CowShopAttackBonus',
+         highestKey: (key) => {
+
+            let newKeyArr = key.split('CowShop');
+            return newKeyArr + 'Highest' + newKeyArr[1];
+        },
         bonus: (level) => {
             const base = 1.01;
             const total = mathHelper.pow(base, level);
@@ -57,6 +62,11 @@ export const residueMap = {
         label: 'aa',
         unlock: 0,
         key: 'CowShopHPBonus',
+        highestKey: (key) => {
+
+            let newKeyArr = key.split('CowShop');
+            return newKeyArr + 'Highest' + newKeyArr[1];
+        },
         bonus: (level) => {
             const base = 1.01;
             const total = mathHelper.pow(base, level);
@@ -82,6 +92,11 @@ export const residueMap = {
         label: 'aa',
         unlock: 0,
         key: 'CowShopPotatoBonus',
+         highestKey: (key) => {
+
+            let newKeyArr = key.split('CowShop');
+            return newKeyArr + 'Highest' + newKeyArr[1];
+        },
         bonus: (level) => {
             const base = 1.01;
             const total = mathHelper.pow(base, level);
@@ -107,6 +122,11 @@ export const residueMap = {
         label: 'aa',
         unlock: 0,
         key: 'CowShopClassExpBonus',
+         highestKey: (key) => {
+
+            let newKeyArr = key.split('CowShop');
+            return newKeyArr + 'Highest' + newKeyArr[1];
+        },
         bonus: (level) => {
             const base = 1.01;
             const total = mathHelper.pow(base, level);
@@ -132,6 +152,11 @@ export const residueMap = {
         label: 'aa',
         unlock: 0,
         key: 'CowShopPerkBonus',
+         highestKey: (key) => {
+
+            let newKeyArr = key.split('CowShop');
+            return newKeyArr + 'Highest' + newKeyArr[1];
+        },
         bonus: (level) => {
             const base = 1.01;
             const total = mathHelper.pow(base, level);
@@ -157,6 +182,11 @@ export const residueMap = {
         label: 'aa',
         unlock: 0,
         key: 'CowShopConfectionBonus',
+         highestKey: (key) => {
+
+            let newKeyArr = key.split('CowShop');
+            return newKeyArr + 'Highest' + newKeyArr[1];
+        },
         bonus: (level) => {
             const base = 1.01;
             const total = mathHelper.pow(base, level);
@@ -182,6 +212,11 @@ export const residueMap = {
         label: 'aa',
         unlock: 0,
         key: 'CowShopReincarnationBonus',
+         highestKey: (key) => {
+
+            let newKeyArr = key.split('CowShop');
+            return newKeyArr + 'Highest' + newKeyArr[1];
+        },
         bonus: (level) => {
             const base = 1.01;
             const total = mathHelper.pow(base, level);
@@ -207,6 +242,11 @@ export const residueMap = {
         label: 'aa',
         unlock: 0,
         key: 'CowShopItemRatingBonus',
+         highestKey: (key) => {
+
+            let newKeyArr = key.split('CowShop');
+            return newKeyArr + 'Highest' + newKeyArr[1];
+        },
         bonus: (level) => {
             const base = 1.01;
             const total = mathHelper.pow(base, level);
@@ -232,6 +272,11 @@ export const residueMap = {
         label: 'aa',
         unlock: 6,
         key: 'CowShopCalciumBonus',
+         highestKey: (key) => {
+
+            let newKeyArr = key.split('CowShop');
+            return newKeyArr + 'Highest' + newKeyArr[1];
+        },
         bonus: (level) => {
             const base = 1.01;
             const total = mathHelper.pow(base, level);
@@ -257,6 +302,11 @@ export const residueMap = {
         label: 'aa',
         unlock: 7,
         key: 'CowShopFermentingExp',
+         highestKey: (key) => {
+
+            let newKeyArr = key.split('CowShop');
+            return newKeyArr + 'Highest' + newKeyArr[1];
+        },
         bonus: (level) => {
             const base = 1.01;
             const total = mathHelper.pow(base, level);
@@ -282,6 +332,11 @@ export const residueMap = {
         label: 'aa',
         unlock: 12,
         key: 'CowShopReincPtsBonus',
+         highestKey: (key) => {
+
+            let newKeyArr = key.split('CowShop');
+            return newKeyArr + 'Highest' + newKeyArr[1];
+        },
         bonus: (level) => {
             const base = 1.01;
             const total = mathHelper.pow(base, level);
@@ -307,6 +362,11 @@ export const residueMap = {
         label: 'aa',
         unlock: 1,
         key: 'CowShopMilkBonus',
+         highestKey: (key) => {
+
+            let newKeyArr = key.split('CowShop');
+            return newKeyArr + 'Highest' + newKeyArr[1];
+        },
         bonus: (level) => {
             const base = 1.01;
             const total = mathHelper.pow(base, level);
@@ -332,6 +392,11 @@ export const residueMap = {
         label: 'aa',
         unlock: 2,
         key: 'CowShopWormQtyBonus',
+         highestKey: (key) => {
+
+            let newKeyArr = key.split('CowShop');
+            return newKeyArr + 'Highest' + newKeyArr[1];
+        },
         bonus: (level) => {
             const base = 1.01;
             const total = mathHelper.pow(base, level);
@@ -357,6 +422,11 @@ export const residueMap = {
         label: 'aa',
         unlock: 3,
         key: 'CowShopBrewExp',
+         highestKey: (key) => {
+
+            let newKeyArr = key.split('CowShop');
+            return newKeyArr + 'Highest' + newKeyArr[1];
+        },
         bonus: (level) => {
             const base = 1.01;
             const total = mathHelper.pow(base, level);
@@ -382,6 +452,11 @@ export const residueMap = {
         label: 'aa',
         unlock: 4,
         key: 'CowShopPoopBonus',
+         highestKey: (key) => {
+
+            let newKeyArr = key.split('CowShop');
+            return newKeyArr + 'Highest' + newKeyArr[1];
+        },
         bonus: (level) => {
             const base = 1.01;
             const total = mathHelper.pow(base, level);
@@ -407,6 +482,11 @@ export const residueMap = {
         label: 'aa',
         unlock: 14,
         key: 'CowShopPetDamageBonus',
+         highestKey: (key) => {
+
+            let newKeyArr = key.split('CowShop');
+            return newKeyArr + 'Highest' + newKeyArr[1];
+        },
         bonus: (level) => {
             const base = 1.01;
             const total = mathHelper.pow(base, level);
@@ -432,6 +512,11 @@ export const residueMap = {
         label: 'aa',
         unlock: 5,
         key: 'CowShopPetLevelExp',
+         highestKey: (key) => {
+
+            let newKeyArr = key.split('CowShop');
+            return newKeyArr + 'Highest' + newKeyArr[1];
+        },
         bonus: (level) => {
             const base = 1.01;
             const total = mathHelper.pow(base, level);
@@ -457,6 +542,11 @@ export const residueMap = {
         label: 'aa',
         unlock: 9,
         key: 'CowShopPetRankExp',
+         highestKey: (key) => {
+
+            let newKeyArr = key.split('CowShop');
+            return newKeyArr + 'Highest' + newKeyArr[1];
+        },
         bonus: (level) => {
             const base = 1.01;
             const total = mathHelper.pow(base, level);
@@ -482,6 +572,11 @@ export const residueMap = {
         label: 'aa',
         unlock: 8,
         key: 'CowShopCardPowerBonus',
+         highestKey: (key) => {
+
+            let newKeyArr = key.split('CowShop');
+            return newKeyArr + 'Highest' + newKeyArr[1];
+        },
         bonus: (level) => {
             const base = 1.01;
             const total = mathHelper.pow(base, level);
@@ -507,6 +602,11 @@ export const residueMap = {
         label: 'aa',
         unlock: 10,
         key: 'CowShopCardExp',
+         highestKey: (key) => {
+
+            let newKeyArr = key.split('CowShop');
+            return newKeyArr + 'Highest' + newKeyArr[1];
+        },
         bonus: (level) => {
             const base = 1.01;
             const total = mathHelper.pow(base, level);
