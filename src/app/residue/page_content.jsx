@@ -99,7 +99,11 @@ const ResidueCard = ({ data, params, desiredLevels, setDesiredLevels, forceReinc
 
     useEffect(() => {
         if (locked) {
+
             return setDesiredLevels((curr_levels) => {
+                if (!curr_levels[params.key]) {
+                    return curr_levels;
+                }
                 let temp = { ...curr_levels };
                 delete temp[params.key];
                 return temp;
@@ -140,7 +144,9 @@ const ResidueCard = ({ data, params, desiredLevels, setDesiredLevels, forceReinc
 
     let reincOverride = forceReinc && params.key_inner === 'reinc';
 
-
+    if (reincOverride) {
+        let bigsad = -1;
+    }
 
     return (
         <div className='importantText residueCard'
@@ -151,7 +157,7 @@ const ResidueCard = ({ data, params, desiredLevels, setDesiredLevels, forceReinc
                 <div>
                     {locked ? `?????` : `${params.label}: ${level}`}
                 </div>
-                {((finishedBuying && needPurchase) || (reincOverride)) && !locked && (
+                {((finishedBuying && needPurchase) || (finishedBuying && reincOverride)) && !locked && (
                     <div className='futurePurchase'>
                         <div>
                             {`${reincOverride ? 1 + desiredLevel : desiredLevel}`}
