@@ -222,7 +222,7 @@ const ResidueCard = ({ data, params, desiredLevels, setDesiredLevels, forceReinc
                                                 action: `changed_residue_weight`,
                                                 label: `${params.label}`,
                                                 value: x
-                                            })
+                                            });
 
                                         }
                                         catch (err) {
@@ -557,6 +557,12 @@ export default function Residue() {
                                 <h2 style={{ marginBottom: '3px' }}>Affordable Purchase Order</h2>
                                 <button
                                     onClick={() => {
+
+                                        ReactGA.event({
+                                            category: "residue_interaction",
+                                            action: `accept_affordable_order`,
+                                        });
+
                                         let finalLevels = {};
                                         affordablePurchases.forEach((purchase) => {
                                             finalLevels[purchase.params.key] = purchase.desiredLevel
@@ -581,6 +587,12 @@ export default function Residue() {
                                 <h2 style={{ marginBottom: '3px' }}>Future Purchase Order</h2>
                                 <button
                                     onClick={() => {
+
+                                        ReactGA.event({
+                                            category: "residue_interaction",
+                                            action: `accept_future_order`,
+                                        });
+
                                         let finalLevels = {};
                                         futurePurchases.forEach((purchase) => {
                                             finalLevels[purchase.params.key] = purchase.desiredLevel

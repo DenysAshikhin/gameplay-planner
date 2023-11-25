@@ -224,8 +224,8 @@ export const residueMap = {
             return total3;
         },
         cost: (level) => {
-            const base = 30;
-            const growth = 1.055;
+            const base = 50;
+            const growth = 1.0575;
 
             const exp1 = growth + level * 0.0002;
             const pow = mathHelper.pow(exp1, level);
