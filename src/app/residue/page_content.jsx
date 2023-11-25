@@ -88,7 +88,7 @@ const ResidueCard = ({ data, params, desiredLevels, setDesiredLevels, forceReinc
                 return temp;
             })
         }
-        else if ( desiredLevels[params.key]?.desiredLevel !== desiredLevel) {
+        else if (desiredLevels[params.key]?.desiredLevel !== desiredLevel) {
             setDesiredLevels((curr_levels) => {
                 let temp = { ...curr_levels };
                 temp[params.key] = {
@@ -315,6 +315,8 @@ export default function Residue() {
         return val[1];
     });
 
+    let stillBuying = data[reincParams.highestKey(reincParams.key)] > data[reincParams.key];
+
     let currentResidue = mathHelper.createDecimal(data.CurrentResidueBD);
 
     let runningCost = mathHelper.createDecimal(0);
@@ -434,7 +436,7 @@ export default function Residue() {
                             className='importantText'
                             style={{ fontSize: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '12px 0' }}
                         >
-                            Current Residue
+                            {`Current Residue${stillBuying ? ` - STILL BUYING` : ``}`}
                         </div >
                     </div >
 
@@ -495,62 +497,64 @@ export default function Residue() {
                     <div style={{
                         height: 'calc(100% - 42px)', padding: '0 6px 0 0'
                     }}>
-
-                        <div className='suggestedOrder importantText'
-                            style={{
-                                display: 'flex', flexDirection: 'column', height: 'calc(100% - 11px)',
-                                overflowY: 'auto', alignItems: 'center'
-                            }}
-                        >
-                            <h2 style={{ marginBottom: '3px' }}>Affordable Purchase Order</h2>
-                            <button
-                                onClick={() => {
-                                    let finalLevels = {};
-                                    affordablePurchases.forEach((purchase) => {
-                                        finalLevels[purchase.params.key] = purchase.desiredLevel
-                                    });
-                                    setDesiredLevels({});
-                                    setRunTimeData((curData) => {
-                                        let temp_data = { ...curData };
-                                        let leftoverRes = mathHelper.subtractDecimal(currentResidue, affordableCost);
-                                        temp_data.CurrentResidueBD = { mantissa: leftoverRes.mantissa, exponent: leftoverRes.exponent };
-                                        for (const [key, value] of Object.entries(finalLevels)) {
-                                            temp_data[key] = value;
-                                        }
-                                        return temp_data;
-                                    });
-
+                        {!stillBuying && (
+                            <div className='suggestedOrder importantText'
+                                style={{
+                                    display: 'flex', flexDirection: 'column', height: 'calc(100% - 11px)',
+                                    overflowY: 'auto', alignItems: 'center'
                                 }}
-                            >Accept</button>
-                            {affordablePurchases.map((val, index) => {
-                                // return <ResideOrderCard data={val} key={index} />
-                                return <ResideOrderCard data={val} key={index} />
-                            })}
-                            <h2 style={{ marginBottom: '3px' }}>Future Purchase Order</h2>
-                            <button
-                                onClick={() => {
-                                    let finalLevels = {};
-                                    futurePurchases.forEach((purchase) => {
-                                        finalLevels[purchase.params.key] = purchase.desiredLevel
-                                    });
-                                    setDesiredLevels({});
-                                    setRunTimeData((curData) => {
-                                        let temp_data = { ...curData };
-                                        let leftoverRes = mathHelper.subtractDecimal(currentResidue, runningCost);
-                                        temp_data.CurrentResidueBD = { mantissa: leftoverRes.mantissa, exponent: leftoverRes.exponent };
-                                        for (const [key, value] of Object.entries(finalLevels)) {
-                                            temp_data[key] = value;
-                                        }
-                                        return temp_data;
-                                    });
+                            >
+                                <h2 style={{ marginBottom: '3px' }}>Affordable Purchase Order</h2>
+                                <button
+                                    onClick={() => {
+                                        let finalLevels = {};
+                                        affordablePurchases.forEach((purchase) => {
+                                            finalLevels[purchase.params.key] = purchase.desiredLevel
+                                        });
+                                        setDesiredLevels({});
+                                        setRunTimeData((curData) => {
+                                            let temp_data = { ...curData };
+                                            let leftoverRes = mathHelper.subtractDecimal(currentResidue, affordableCost);
+                                            temp_data.CurrentResidueBD = { mantissa: leftoverRes.mantissa, exponent: leftoverRes.exponent };
+                                            for (const [key, value] of Object.entries(finalLevels)) {
+                                                temp_data[key] = value;
+                                            }
+                                            return temp_data;
+                                        });
 
-                                }}
-                            >Accept</button>
-                            {futurePurchases.map((val, index) => {
-                                // return <ResideOrderCard data={val} key={index} />
-                                return <ResideOrderCard data={val} key={index} />
-                            })}
-                        </div>
+                                    }}
+                                >Accept</button>
+                                {affordablePurchases.map((val, index) => {
+                                    // return <ResideOrderCard data={val} key={index} />
+                                    return <ResideOrderCard data={val} key={index} />
+                                })}
+                                <h2 style={{ marginBottom: '3px' }}>Future Purchase Order</h2>
+                                <button
+                                    onClick={() => {
+                                        let finalLevels = {};
+                                        futurePurchases.forEach((purchase) => {
+                                            finalLevels[purchase.params.key] = purchase.desiredLevel
+                                        });
+                                        setDesiredLevels({});
+                                        setRunTimeData((curData) => {
+                                            let temp_data = { ...curData };
+                                            let leftoverRes = mathHelper.subtractDecimal(currentResidue, runningCost);
+                                            temp_data.CurrentResidueBD = { mantissa: leftoverRes.mantissa, exponent: leftoverRes.exponent };
+                                            for (const [key, value] of Object.entries(finalLevels)) {
+                                                temp_data[key] = value;
+                                            }
+                                            return temp_data;
+                                        });
+
+                                    }}
+                                >Accept</button>
+                                {futurePurchases.map((val, index) => {
+                                    // return <ResideOrderCard data={val} key={index} />
+                                    return <ResideOrderCard data={val} key={index} />
+                                })}
+                            </div>
+                        )}
+
                     </div>
                 </div>
             </div>

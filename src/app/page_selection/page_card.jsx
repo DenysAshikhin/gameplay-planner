@@ -95,6 +95,7 @@ const PageCard = ({ page, setTab, redBorder }) => {
           }}
         >
           <div
+            className={page === 'residue' ? ` inverseX` : ``}
             style={{
               position: "relative",
               height: "calc(100% - 12px)",
