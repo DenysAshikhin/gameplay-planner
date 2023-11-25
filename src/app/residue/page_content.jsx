@@ -63,7 +63,7 @@ const ResidueCard = ({ data, params, desiredLevels, setDesiredLevels, forceReinc
 
     let reincOverride = forceReinc && params.key_inner === 'reinc';
     let inner_calcs = useMemo(() => {
-      
+
 
         let inner_orders = [];
         let needToIncrease = true;
@@ -81,8 +81,8 @@ const ResidueCard = ({ data, params, desiredLevels, setDesiredLevels, forceReinc
         const weightedCost = mathHelper.multiplyDecimal(reincCost, ratio);
 
 
-        if(reincOverride){
-            return [[],desiredLevel ];
+        if (reincOverride) {
+            return [[], desiredLevel];
         }
 
 
@@ -97,7 +97,7 @@ const ResidueCard = ({ data, params, desiredLevels, setDesiredLevels, forceReinc
             }
         }
         return [inner_orders, desiredLevel];
-    }, [params.key, params.key_inner, data, reincWeight, runTimeWeight,reincOverride]);
+    }, [params.key, params.key_inner, data, reincWeight, runTimeWeight, reincOverride]);
 
     let purchaseOrders = inner_calcs[0];
     desiredLevel = inner_calcs[1];
@@ -150,7 +150,7 @@ const ResidueCard = ({ data, params, desiredLevels, setDesiredLevels, forceReinc
 
 
 
-    
+
 
 
     return (
@@ -415,6 +415,7 @@ export default function Residue() {
                 if (current.params.key === suggestion.params.key) {
                     current.desiredLevel++;
                     current.totalCost = mathHelper.addDecimal(current.totalCost, suggestion.newCost);
+                    runningLevels[suggestion.params.key] = current.desiredLevel;
                 }
                 else {
                     futurePurchases.push({
@@ -422,6 +423,7 @@ export default function Residue() {
                         start: runningLevels[suggestion.params.key] ? runningLevels[suggestion.params.key] : suggestion.desiredLevel - 1,
                         totalCost: suggestion.newCost
                     });
+                    runningLevels[suggestion.params.key] = suggestion.desiredLevel;
                 }
             }
         }
