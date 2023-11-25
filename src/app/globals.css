@@ -244,7 +244,7 @@ code {
 
 
 a {
-  margin: 24px 0 24px 0;
+  margin: 0 0 0 0;
 }
 
 
@@ -257,4 +257,10 @@ a {
 @keyframes fadeBorderRed {
 0%,100% { border: 3px solid rgba(255, 0, 0, 0) }
 50% { border: 3px solid rgba(255, 0, 0, 1)}
+}
+
+
+.inverseX {
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
 }

@@ -8,20 +8,79 @@
 
 .residueCardHeader {
     display: flex;
-    width: calc(100% - 12px);
+    height: 30px;
+    width: calc(100% - 6px);
     justify-content: center;
-    padding: 6px 6px;
+    align-items: center;
+    padding: 3px 3px;
     background-color: rgba(255, 255, 255, 0.05);
     font-size: 20px
 }
 
 .residueCardBody {
     position: relative;
-    height: calc(100% - 35px);
+    height: calc(100% - 36px);
     width: 100%;
     background-color: rgba(255, 255, 255, 0.02);
 }
 
 .residueCardFooter {
     margin-top: 6px;
+}
+
+.suggestionCard {
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 6px;
+    /* width: 290px; */
+    /* height: 40px; */
+    /* height: 110px; */
+    margin: 12px auto 0 auto;
+    flex-shrink: 0;
+    /* padding: 6px; */
+    background-color: rgba(255, 255, 255, 0.1);
+
+}
+
+.suggestionCardHeader {
+    display: flex;
+    height: 26px;
+    width: calc(100% - 6px);
+    justify-content: center;
+    align-items: center;
+    padding: 3px 3px;
+    background-color: rgba(255, 255, 255, 0.05);
+    font-size: 20px
+}
+
+.suggestionCardBody {
+    /* height: calc(100% - 66px); */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.suggestionCardFooter {
+    height: 30px;
+    background-color: rgba(255, 255, 255, 0.05);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.futurePurchase {
+    font-size: 13px;
+    margin-left: auto;
+    color: rgba(10, 255, 1, 0.95);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.suggestedOrder {
+    display: flex;
+    flex-direction: column;
+}
+
+.suggestionCard {
+    margin: 6px 0 6px 3px;
 }

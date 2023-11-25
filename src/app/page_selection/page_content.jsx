@@ -44,7 +44,7 @@ export default function PageSelection() {
                 position: 'relative',
             }}
         >
-            <BlinkingDot data={data} />
+            {/* <BlinkingDot data={data} /> */}
             <div style={{
                 paddingLeft: '6px',
                 display: 'flex',

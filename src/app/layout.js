@@ -93,7 +93,7 @@ export default function RootLayout({ children }) {
             {/* navigation bar */}
             <NavBar />
             {/* actual page content */}
-            <div style={{ overflow: 'auto', width: '100%', display: 'flex', flex: 1 }}>
+            <div style={{ overflowX: 'auto', width: '100%', display: 'flex', flex: 1 }}>
               {children}
             </div>
           </div>

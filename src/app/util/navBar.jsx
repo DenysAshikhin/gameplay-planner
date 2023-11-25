@@ -1,16 +1,16 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import BlinkingDot from './Dot.jsx';
 
 const NavBar = ({ }) => {
   return (
     <div
       style={{
         width: "53px",
+        height:'100%',
         display: "flex",
         flexDirection: "column",
-        justifyContent: "center",
+        justifyContent: "space-around",
         position: "relative",
         backgroundColor: "#1F1B24",
       }}
@@ -175,34 +175,33 @@ const NavBar = ({ }) => {
         </div>
       </Link>
 
-      <div style={{margin:'17px 0'}}>
-        {/* Residue Page */}
-        <Link href="/residue" alt="navigation to residue (milk) page">
+
+      {/* Residue Page */}
+      <Link href="/residue" alt="navigation to residue (milk) page">
+        <div
+          className="navItem inverseX"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            // margin: "16px 0",
+          }}
+        >
           <div
-            className="navItem"
             style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              // margin: "16px 0",
+              width: "52px",
+              height: "56px",
+              position: "relative",
             }}
           >
-            <div
-              style={{
-                width: "52px",
-                height: "56px",
-                position: "relative",
-              }}
-            >
-              <Image
-                alt="milk carton navigation to residue page"
-                fill
-                src={`/images/icons/milk.svg`}
-              />
-            </div>
+            <Image
+              alt="milk carton navigation to residue page"
+              fill
+              src={`/images/icons/milk.svg`}
+            />
           </div>
-        </Link>
-      </div>
+        </div>
+      </Link>
 
       {/* Donation Redirect */}
       <Link href="/gratitude" alt="navigation to donate">

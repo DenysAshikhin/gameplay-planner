@@ -453,14 +453,17 @@ function findBestTeam(data, parameters) {
             let diff = b.score - a.score;
 
             if (diff === 0) {
-                diff = b.Rank - a.Rank;
-
-                let diff_abs = Math.abs(diff);
-                let max = b.Rank > a.Rank ? b.Rank : a.Rank;
-
-                if ((diff_abs / max) <= 0.1) {
-                    return b.Level - a.Level;
+                 if (b.Rank !== a.Rank) {
+                    return b.Rank - a.Rank;
                 }
+                // diff = b.Rank - a.Rank;
+
+                // let diff_abs = Math.abs(diff);
+                // let max = b.Rank > a.Rank ? b.Rank : a.Rank;
+
+                // if ((diff_abs / max) <= 0.1) {
+                //     return b.Level - a.Level;
+                // }
 
                 if (diff === 0) {
                     diff = b.Level - a.Level;

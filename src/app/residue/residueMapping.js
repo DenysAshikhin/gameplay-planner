@@ -20,6 +20,29 @@ import CardPOWImg from '../../../public/images/residue/ShopUpgrade19CardPowerSel
 import CardEXPImg from '../../../public/images/residue/ShopUpgrade20CardExpSelected.png';
 import LockedImg from '../../../public/images/residue/locked.png';
 
+
+
+import Attack_Label from '../../../public/images/bonus_labels/Attack_Exp.png';
+import Hp_Label from '../../../public/images/bonus_labels/HP_Exp.png';
+import Potatoe_Label from '../../../public/images/bonus_labels/Potatoes_Earned.png';
+import Class_Label from '../../../public/images/bonus_labels/Class_Exp.png';
+import Skull_Label from '../../../public/images/bonus_labels/Skulls_Earned.png';
+import Confection_Label from '../../../public/images/bonus_labels/Confection_Exp.png';
+import Reinc_Label from '../../../public/images/bonus_labels/Reincarnation_Exp.png';
+import Item_Rating from '../../../public/images/bonus_labels/Item_Rating_Bonus.png';
+import Calcium_Exp from '../../../public/images/bonus_labels/Calcium_Exp.png';
+import Ferment_Label from '../../../public/images/bonus_labels/Fermentation_Exp.png';
+import RP_Label from '../../../public/images/bonus_labels/Reincarnation_Point.png';
+import Milk_Label from '../../../public/images/bonus_labels/Milk_Created.png';
+import WormQty_Label from '../../../public/images/bonus_labels/Worms_Quantity.png';
+import Brew_Label from '../../../public/images/bonus_labels/Brewing_Exp.png';
+import Poop_Label from '../../../public/images/bonus_labels/Poop_Created.png';
+import PetDmg_Label from '../../../public/images/bonus_labels/Pet_Damage.png';
+import PetExp_Label from '../../../public/images/bonus_labels/Pet_Level_Exp.png';
+import PetRank_Label from '../../../public/images/bonus_labels/Pet_Rank_Exp.png';
+import CardPow_Label from '../../../public/images/bonus_labels/Card_Power.png';
+import CardExp_Label from '../../../public/images/bonus_labels/Card_Exp.png';
+
 import mathHelper from '../util/math.js';
 
 
@@ -28,14 +51,15 @@ export const residueMap = {
 
     'attack': {
         img: AttackImg,
+        label_img: Attack_Label,
         order: 1,
-        label: 'aa',
+        label: 'Attack',
         unlock: 0,
         key: 'CowShopAttackBonus',
-         highestKey: (key) => {
+        highestKey: (key) => {
 
             let newKeyArr = key.split('CowShop');
-            return newKeyArr + 'Highest' + newKeyArr[1];
+            return 'CowShop' + 'Highest' + newKeyArr[1];
         },
         bonus: (level) => {
             const base = 1.01;
@@ -58,14 +82,15 @@ export const residueMap = {
     },
     'hp': {
         img: HPImg,
+        label_img: Hp_Label,
         order: 2,
-        label: 'aa',
+        label: 'HP',
         unlock: 0,
         key: 'CowShopHPBonus',
         highestKey: (key) => {
 
             let newKeyArr = key.split('CowShop');
-            return newKeyArr + 'Highest' + newKeyArr[1];
+            return 'CowShop' + 'Highest' + newKeyArr[1];
         },
         bonus: (level) => {
             const base = 1.01;
@@ -88,14 +113,15 @@ export const residueMap = {
     },
     'potato': {
         img: PotatoImg,
+        label_img: Potatoe_Label,
         order: 3,
-        label: 'aa',
+        label: 'Potato',
         unlock: 0,
         key: 'CowShopPotatoBonus',
-         highestKey: (key) => {
+        highestKey: (key) => {
 
             let newKeyArr = key.split('CowShop');
-            return newKeyArr + 'Highest' + newKeyArr[1];
+            return 'CowShop' + 'Highest' + newKeyArr[1];
         },
         bonus: (level) => {
             const base = 1.01;
@@ -118,14 +144,15 @@ export const residueMap = {
     },
     'class': {
         img: ClassImg,
+        label_img: Class_Label,
         order: 4,
-        label: 'aa',
+        label: 'Class',
         unlock: 0,
         key: 'CowShopClassExpBonus',
-         highestKey: (key) => {
+        highestKey: (key) => {
 
             let newKeyArr = key.split('CowShop');
-            return newKeyArr + 'Highest' + newKeyArr[1];
+            return 'CowShop' + 'Highest' + newKeyArr[1];
         },
         bonus: (level) => {
             const base = 1.01;
@@ -148,14 +175,15 @@ export const residueMap = {
     },
     'skull': {
         img: SkullImg,
+        label_img: Skull_Label,
         order: 6,
-        label: 'aa',
+        label: 'Skull',
         unlock: 0,
         key: 'CowShopPerkBonus',
-         highestKey: (key) => {
+        highestKey: (key) => {
 
             let newKeyArr = key.split('CowShop');
-            return newKeyArr + 'Highest' + newKeyArr[1];
+            return 'CowShop' + 'Highest' + newKeyArr[1];
         },
         bonus: (level) => {
             const base = 1.01;
@@ -178,14 +206,15 @@ export const residueMap = {
     },
     'confection': {
         img: ConfectionImg,
+        label_img: Confection_Label,
         order: 5,
-        label: 'aa',
+        label: 'Conf.',
         unlock: 0,
         key: 'CowShopConfectionBonus',
-         highestKey: (key) => {
+        highestKey: (key) => {
 
             let newKeyArr = key.split('CowShop');
-            return newKeyArr + 'Highest' + newKeyArr[1];
+            return 'CowShop' + 'Highest' + newKeyArr[1];
         },
         bonus: (level) => {
             const base = 1.01;
@@ -208,14 +237,15 @@ export const residueMap = {
     },
     'reinc': {
         img: ReincImg,
+        label_img: Reinc_Label,
         order: 7,
-        label: 'aa',
+        label: 'Reinc.',
         unlock: 0,
         key: 'CowShopReincarnationBonus',
-         highestKey: (key) => {
+        highestKey: (key) => {
 
             let newKeyArr = key.split('CowShop');
-            return newKeyArr + 'Highest' + newKeyArr[1];
+            return 'CowShop' + 'Highest' + newKeyArr[1];
         },
         bonus: (level) => {
             const base = 1.01;
@@ -238,14 +268,15 @@ export const residueMap = {
     },
     'ir': {
         img: IRImg,
+        label_img: Item_Rating,
         order: 8,
-        label: 'aa',
+        label: 'IR',
         unlock: 0,
         key: 'CowShopItemRatingBonus',
-         highestKey: (key) => {
+        highestKey: (key) => {
 
             let newKeyArr = key.split('CowShop');
-            return newKeyArr + 'Highest' + newKeyArr[1];
+            return 'CowShop' + 'Highest' + newKeyArr[1];
         },
         bonus: (level) => {
             const base = 1.01;
@@ -268,14 +299,15 @@ export const residueMap = {
     },
     'calcium': {
         img: CalciumImg,
+        label_img: Calcium_Exp,
         order: 14,
-        label: 'aa',
+        label: 'Calc.',
         unlock: 6,
         key: 'CowShopCalciumBonus',
-         highestKey: (key) => {
+        highestKey: (key) => {
 
             let newKeyArr = key.split('CowShop');
-            return newKeyArr + 'Highest' + newKeyArr[1];
+            return 'CowShop' + 'Highest' + newKeyArr[1];
         },
         bonus: (level) => {
             const base = 1.01;
@@ -298,14 +330,15 @@ export const residueMap = {
     },
     'ferment': {
         img: FermentImg,
+        label_img: Ferment_Label,
         order: 15,
-        label: 'aa',
+        label: 'Ferm.',
         unlock: 7,
         key: 'CowShopFermentingExp',
-         highestKey: (key) => {
+        highestKey: (key) => {
 
             let newKeyArr = key.split('CowShop');
-            return newKeyArr + 'Highest' + newKeyArr[1];
+            return 'CowShop' + 'Highest' + newKeyArr[1];
         },
         bonus: (level) => {
             const base = 1.01;
@@ -328,14 +361,15 @@ export const residueMap = {
     },
     'rp': {
         img: RPImg,
+        label_img: RP_Label,
         order: 19,
-        label: 'aa',
+        label: 'RP',
         unlock: 12,
         key: 'CowShopReincPtsBonus',
-         highestKey: (key) => {
+        highestKey: (key) => {
 
             let newKeyArr = key.split('CowShop');
-            return newKeyArr + 'Highest' + newKeyArr[1];
+            return 'CowShop' + 'Highest' + newKeyArr[1];
         },
         bonus: (level) => {
             const base = 1.01;
@@ -358,14 +392,15 @@ export const residueMap = {
     },
     'milk': {
         img: MilkImg,
+        label_img: Milk_Label,
         order: 9,
-        label: 'aa',
+        label: 'Milk',
         unlock: 1,
         key: 'CowShopMilkBonus',
-         highestKey: (key) => {
+        highestKey: (key) => {
 
             let newKeyArr = key.split('CowShop');
-            return newKeyArr + 'Highest' + newKeyArr[1];
+            return 'CowShop' + 'Highest' + newKeyArr[1];
         },
         bonus: (level) => {
             const base = 1.01;
@@ -388,14 +423,15 @@ export const residueMap = {
     },
     'worm_qty': {
         img: WormImg,
+        label_img: WormQty_Label,
         order: 10,
-        label: 'aa',
+        label: 'Wrm Qty.',
         unlock: 2,
         key: 'CowShopWormQtyBonus',
-         highestKey: (key) => {
+        highestKey: (key) => {
 
             let newKeyArr = key.split('CowShop');
-            return newKeyArr + 'Highest' + newKeyArr[1];
+            return 'CowShop' + 'Highest' + newKeyArr[1];
         },
         bonus: (level) => {
             const base = 1.01;
@@ -418,14 +454,15 @@ export const residueMap = {
     },
     'brew': {
         img: BrewImg,
+        label_img: Brew_Label,
         order: 11,
-        label: 'aa',
+        label: 'Brew',
         unlock: 3,
         key: 'CowShopBrewExp',
-         highestKey: (key) => {
+        highestKey: (key) => {
 
             let newKeyArr = key.split('CowShop');
-            return newKeyArr + 'Highest' + newKeyArr[1];
+            return 'CowShop' + 'Highest' + newKeyArr[1];
         },
         bonus: (level) => {
             const base = 1.01;
@@ -448,14 +485,15 @@ export const residueMap = {
     },
     'poop': {
         img: PoopImg,
+        label_img: Poop_Label,
         order: 12,
-        label: 'aa',
+        label: 'Poop',
         unlock: 4,
         key: 'CowShopPoopBonus',
-         highestKey: (key) => {
+        highestKey: (key) => {
 
             let newKeyArr = key.split('CowShop');
-            return newKeyArr + 'Highest' + newKeyArr[1];
+            return 'CowShop' + 'Highest' + newKeyArr[1];
         },
         bonus: (level) => {
             const base = 1.01;
@@ -478,14 +516,15 @@ export const residueMap = {
     },
     'pet_dmg': {
         img: PetDMGImg,
+        label_img: PetDmg_Label,
         order: 20,
-        label: 'aa',
+        label: 'Pet Dmg.',
         unlock: 14,
         key: 'CowShopPetDamageBonus',
-         highestKey: (key) => {
+        highestKey: (key) => {
 
             let newKeyArr = key.split('CowShop');
-            return newKeyArr + 'Highest' + newKeyArr[1];
+            return 'CowShop' + 'Highest' + newKeyArr[1];
         },
         bonus: (level) => {
             const base = 1.01;
@@ -508,14 +547,15 @@ export const residueMap = {
     },
     'pet_exp': {
         img: PetEXPImg,
+        label_img: PetExp_Label,
         order: 13,
-        label: 'aa',
+        label: 'Pet Exp.',
         unlock: 5,
         key: 'CowShopPetLevelExp',
-         highestKey: (key) => {
+        highestKey: (key) => {
 
             let newKeyArr = key.split('CowShop');
-            return newKeyArr + 'Highest' + newKeyArr[1];
+            return 'CowShop' + 'Highest' + newKeyArr[1];
         },
         bonus: (level) => {
             const base = 1.01;
@@ -538,14 +578,15 @@ export const residueMap = {
     },
     'pet_rank': {
         img: PetRankImg,
+        label_img: PetRank_Label,
         order: 17,
-        label: 'aa',
+        label: 'Pet Rnk.',
         unlock: 9,
         key: 'CowShopPetRankExp',
-         highestKey: (key) => {
+        highestKey: (key) => {
 
             let newKeyArr = key.split('CowShop');
-            return newKeyArr + 'Highest' + newKeyArr[1];
+            return 'CowShop' + 'Highest' + newKeyArr[1];
         },
         bonus: (level) => {
             const base = 1.01;
@@ -568,14 +609,15 @@ export const residueMap = {
     },
     'card_pow': {
         img: CardPOWImg,
+        label_img: CardPow_Label,
         order: 16,
-        label: 'aa',
+        label: 'Card Pow.',
         unlock: 8,
         key: 'CowShopCardPowerBonus',
-         highestKey: (key) => {
+        highestKey: (key) => {
 
             let newKeyArr = key.split('CowShop');
-            return newKeyArr + 'Highest' + newKeyArr[1];
+            return 'CowShop' + 'Highest' + newKeyArr[1];
         },
         bonus: (level) => {
             const base = 1.01;
@@ -598,14 +640,15 @@ export const residueMap = {
     },
     'card_exp': {
         img: CardEXPImg,
+        label_img: CardExp_Label,
         order: 18,
-        label: 'aa',
+        label: 'Card Exp.',
         unlock: 10,
         key: 'CowShopCardExp',
-         highestKey: (key) => {
+        highestKey: (key) => {
 
             let newKeyArr = key.split('CowShop');
-            return newKeyArr + 'Highest' + newKeyArr[1];
+            return 'CowShop' + 'Highest' + newKeyArr[1];
         },
         bonus: (level) => {
             const base = 1.01;
