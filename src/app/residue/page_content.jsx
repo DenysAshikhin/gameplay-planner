@@ -77,7 +77,13 @@ const ResidueCard = ({ data, params, desiredLevels, setDesiredLevels, forceReinc
     let needPurchase = desiredLevel > level;
 
     useEffect(() => {
-        if (locked) { return; }
+        if (locked) {
+            return setDesiredLevels((curr_levels) => {
+                let temp = { ...curr_levels };
+                delete temp[params.key];
+                return temp;
+            })
+        }
         if (needPurchase && !desiredLevels[params.key]) {
             setDesiredLevels((curr_levels) => {
                 let temp = { ...curr_levels };
