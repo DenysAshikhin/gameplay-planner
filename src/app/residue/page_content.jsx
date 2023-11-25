@@ -61,8 +61,9 @@ const ResidueCard = ({ data, params, desiredLevels, setDesiredLevels, forceReinc
     let desiredLevel = level;
 
 
-
+    let reincOverride = forceReinc && params.key_inner === 'reinc';
     let inner_calcs = useMemo(() => {
+      
 
         let inner_orders = [];
         let needToIncrease = true;
@@ -79,6 +80,12 @@ const ResidueCard = ({ data, params, desiredLevels, setDesiredLevels, forceReinc
         const ratio = weight / reincWeight;
         const weightedCost = mathHelper.multiplyDecimal(reincCost, ratio);
 
+
+        if(reincOverride){
+            return [[],desiredLevel ];
+        }
+
+
         while (needToIncrease) {
             needToIncrease = false;
 
@@ -90,7 +97,7 @@ const ResidueCard = ({ data, params, desiredLevels, setDesiredLevels, forceReinc
             }
         }
         return [inner_orders, desiredLevel];
-    }, [params.key, params.key_inner, data, reincWeight, runTimeWeight]);
+    }, [params.key, params.key_inner, data, reincWeight, runTimeWeight,reincOverride]);
 
     let purchaseOrders = inner_calcs[0];
     desiredLevel = inner_calcs[1];
@@ -98,6 +105,7 @@ const ResidueCard = ({ data, params, desiredLevels, setDesiredLevels, forceReinc
     let needPurchase = desiredLevel > level;
 
     useEffect(() => {
+        let reincOverride = forceReinc && params.key_inner === 'reinc';
         if (locked) {
 
             return setDesiredLevels((curr_levels) => {
@@ -120,7 +128,7 @@ const ResidueCard = ({ data, params, desiredLevels, setDesiredLevels, forceReinc
                 return temp;
             })
         }
-        else if (desiredLevels[params.key]?.desiredLevel !== desiredLevel) {
+        else if (desiredLevels[params.key]?.desiredLevel !== desiredLevel && !reincOverride) {
             setDesiredLevels((curr_levels) => {
                 let temp = { ...curr_levels };
                 temp[params.key] = {
@@ -138,15 +146,12 @@ const ResidueCard = ({ data, params, desiredLevels, setDesiredLevels, forceReinc
         //         return temp;
         //     })
         // }
-    }, [desiredLevels, desiredLevel, level, params, setDesiredLevels, needPurchase, purchaseOrders, clientWeight, runTimeWeight, weight, locked])
+    }, [forceReinc, desiredLevels, desiredLevel, level, params, setDesiredLevels, needPurchase, purchaseOrders, clientWeight, runTimeWeight, weight, locked])
 
 
 
-    let reincOverride = forceReinc && params.key_inner === 'reinc';
+    
 
-    if (reincOverride) {
-        let bigsad = -1;
-    }
 
     return (
         <div className='importantText residueCard'
