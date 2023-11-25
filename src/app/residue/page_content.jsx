@@ -1,7 +1,7 @@
 "use client"
 
 import pagecss from './page.css';
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import ReactGA from "react-ga4";
 import { BonusMap } from '../util/itemMapping.js';
 import farmingHelper from '../util/farmingHelper.js';
@@ -45,13 +45,12 @@ const ResidueCard = ({ data, params, desiredLevels, setDesiredLevels, forceReinc
     const cost = params.cost(level);
 
     const reinc = residueMap['reinc'];
-    const reincLevel = data[reinc.key];
-    const reincWeight = reinc.weight(asc_level);
-    const reincCost = reinc.cost(reincLevel);
-
-
-    const ratio = weight / reincWeight;
-    const weightedCost = mathHelper.multiplyDecimal(reincCost, ratio);
+    const [reincWeightClient, setReincWeight] = useLocalStorage(`${reinc.label}_residue_weight`, -1);
+    const [reincWeight, setRunTimeReincWeight] = useState(data[reinc.key]);
+    useEffect(() => {
+        const reinc = residueMap['reinc'];
+        setRunTimeReincWeight(reincWeightClient === -1 ? reinc.weight(asc_level) : reincWeightClient);
+    }, [reincWeightClient, asc_level])
 
 
     let highestKey = params.highestKey(params.key);
@@ -60,19 +59,41 @@ const ResidueCard = ({ data, params, desiredLevels, setDesiredLevels, forceReinc
     const finishedBuying = level >= highestPurchase;
 
     let desiredLevel = level;
-    let needToIncrease = true;
-    let purchaseOrders = [];
 
-    while (needToIncrease) {
-        needToIncrease = false;
 
-        let newCost = params.cost(desiredLevel);
-        if (newCost.lessThan(weightedCost)) {
-            desiredLevel++;
-            needToIncrease = true;
-            purchaseOrders.push({ desiredLevel, newCost, weightedCost: mathHelper.divideDecimal(newCost, weight), weight: weight, params: params });
+
+    let inner_calcs = useMemo(() => {
+
+        let inner_orders = [];
+        let needToIncrease = true;
+        let inner_params = residueMap[params.key_inner];
+        const asc_level = data.AscensionCount;
+        const weight = runTimeWeight === -1 ? inner_params.weight(asc_level) : runTimeWeight;
+        const level = data[params.key];
+        let desiredLevel = level;
+        const reinc = residueMap['reinc'];
+        const reincLevel = data[reinc.key];
+
+        const reincCost = reinc.cost(reincLevel);
+
+        const ratio = weight / reincWeight;
+        const weightedCost = mathHelper.multiplyDecimal(reincCost, ratio);
+
+        while (needToIncrease) {
+            needToIncrease = false;
+
+            let newCost = inner_params.cost(desiredLevel);
+            if (newCost.lessThan(weightedCost)) {
+                desiredLevel++;
+                needToIncrease = true;
+                inner_orders.push({ desiredLevel, newCost, weightedCost: mathHelper.divideDecimal(newCost, weight), weight: weight, params: inner_params });
+            }
         }
-    }
+        return [inner_orders, desiredLevel];
+    }, [params.key, params.key_inner, data, reincWeight, runTimeWeight]);
+
+    let purchaseOrders = inner_calcs[0];
+    desiredLevel = inner_calcs[1];
 
     let needPurchase = desiredLevel > level;
 
@@ -106,9 +127,20 @@ const ResidueCard = ({ data, params, desiredLevels, setDesiredLevels, forceReinc
                 return temp;
             })
         }
-    }, [desiredLevels, needPurchase, clientWeight, runTimeWeight, weight, locked])
+        // else if (!needPurchase) {
+        //     setDesiredLevels((curr_levels) => {
+        //         let temp = { ...curr_levels };
+        //         delete temp[params.key];
+        //         return temp;
+        //     })
+        // }
+    }, [desiredLevels, desiredLevel, level, params, setDesiredLevels, needPurchase, purchaseOrders, clientWeight, runTimeWeight, weight, locked])
+
+
 
     let reincOverride = forceReinc && params.key_inner === 'reinc';
+
+
 
     return (
         <div className='importantText residueCard'
