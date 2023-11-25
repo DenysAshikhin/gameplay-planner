@@ -77,6 +77,7 @@ const ResidueCard = ({ data, params, desiredLevels, setDesiredLevels, forceReinc
     let needPurchase = desiredLevel > level;
 
     useEffect(() => {
+        if (locked) { return; }
         if (needPurchase && !desiredLevels[params.key]) {
             setDesiredLevels((curr_levels) => {
                 let temp = { ...curr_levels };
@@ -99,7 +100,7 @@ const ResidueCard = ({ data, params, desiredLevels, setDesiredLevels, forceReinc
                 return temp;
             })
         }
-    }, [desiredLevels, needPurchase, clientWeight, runTimeWeight, weight])
+    }, [desiredLevels, needPurchase, clientWeight, runTimeWeight, weight, locked])
 
     let reincOverride = forceReinc && params.key_inner === 'reinc';
 
@@ -112,7 +113,7 @@ const ResidueCard = ({ data, params, desiredLevels, setDesiredLevels, forceReinc
                 <div>
                     {locked ? `?????` : `${params.label}: ${level}`}
                 </div>
-                {((finishedBuying && needPurchase) || (reincOverride)) && (
+                {((finishedBuying && needPurchase) || (reincOverride)) && !locked && (
                     <div className='futurePurchase'>
                         <div>
                             {`${reincOverride ? 1 + desiredLevel : desiredLevel}`}
@@ -202,7 +203,7 @@ const ResidueCard = ({ data, params, desiredLevels, setDesiredLevels, forceReinc
                 {!locked && (
                     <Image src={params.img} fill unoptimized alt={`${params.key} bonus from in game`} />
                 )}
-                {(!!needPurchase || (reincOverride)) && (
+                {(!!needPurchase || (reincOverride)) && !locked && (
                     <Image src={greenBorder} fill unoptimized alt={`Green border to indicate an upgrade should be purchased`} />
                 )}
                 {!finishedBuying && (

@@ -26,7 +26,7 @@ import Attack_Label from '../../../public/images/bonus_labels/Attack_Exp.png';
 import Hp_Label from '../../../public/images/bonus_labels/HP_Exp.png';
 import Potatoe_Label from '../../../public/images/bonus_labels/Potatoes_Earned.png';
 import Class_Label from '../../../public/images/bonus_labels/Class_Exp.png';
-import Skull_Label from '../../../public/images/bonus_labels/Skulls_Earned.png';
+import Skull_Label from '../../../public/images/bonus_labels/Skull_Earned.png';
 import Confection_Label from '../../../public/images/bonus_labels/Confection_Exp.png';
 import Reinc_Label from '../../../public/images/bonus_labels/Reincarnation_Exp.png';
 import Item_Rating from '../../../public/images/bonus_labels/Item_Rating_Bonus.png';
@@ -425,7 +425,7 @@ export const residueMap = {
         img: WormImg,
         label_img: WormQty_Label,
         order: 10,
-        label: 'Wrm Qty.',
+        label: 'Worm Qty.',
         unlock: 2,
         key: 'CowShopWormQtyBonus',
         highestKey: (key) => {
@@ -580,7 +580,7 @@ export const residueMap = {
         img: PetRankImg,
         label_img: PetRank_Label,
         order: 17,
-        label: 'Pet Rnk.',
+        label: 'Pet Rank',
         unlock: 9,
         key: 'CowShopPetRankExp',
         highestKey: (key) => {
