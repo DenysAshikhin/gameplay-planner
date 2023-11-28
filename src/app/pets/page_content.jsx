@@ -1356,7 +1356,7 @@ export default function Pets() {
                                         onChange={
                                             (selected_mode) => {
                                                 setCustomSelected(true);
-
+                                                setRecommendedSelected(true);
                                                 ReactGA.event({
                                                     category: "pets_interaction",
                                                     action: `load_custom_preset`,
@@ -1457,7 +1457,7 @@ export default function Pets() {
                                                     category: "pets_interaction",
                                                     action: `imported_custom_preset`,
                                                 })
-
+                                                setRecommendedSelected(true);
                                                 let importPresetObj = JSON.parse(loadPreset);
                                                 setPriorityList(importPresetObj.priorityList);
                                                 setPriorityMap(importPresetObj.priorityMap);
