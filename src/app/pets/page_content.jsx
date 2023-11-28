@@ -396,9 +396,7 @@ function findBestTeam(data, parameters) {
             if (bannedPets[ID]) {
                 continue;
             }
-            if (pet.ID === 54) {
-                let bigsad = -1;
-            }
+
             pet.BonusList.forEach((e) => {
 
                 if (ignoreStat[e.ID] || (e.ID >= 1000)) {
@@ -453,7 +451,7 @@ function findBestTeam(data, parameters) {
             let diff = b.score - a.score;
 
             if (diff === 0) {
-                 if (b.Rank !== a.Rank) {
+                if (b.Rank !== a.Rank) {
                     return b.Rank - a.Rank;
                 }
                 // diff = b.Rank - a.Rank;
@@ -783,7 +781,7 @@ export default function Pets() {
                                             style={{ maxWidth: '144px', marginLeft: '12px' }}
                                             onChange={
                                                 (selected_mode) => {
-                                                    // setRecommendedSelected(true);
+                                                    setRecommendedSelected(true);
                                                     ReactGA.event({
                                                         category: "pets_interaction",
                                                         action: `selected_recommended_team`,
@@ -836,13 +834,14 @@ export default function Pets() {
                                             defaultValue={' '}
                                         // value={petWhiteList[e.ID].mode}
                                         >
-                                            {!recommendedSelected && (<option value="None">None</option>)}
+                                            {!recommendedSelected && (<option value="None">Select Preset</option>)}
                                             <option value="Main Team">Main Team</option>
                                             <option value="Reinc. Team">Reinc. Team</option>
                                             <option value="Gear Team">Gear Team</option>
                                             {data.AscensionCount >= 5 && (
                                                 <option value="Stat Team">Stat Team</option>
                                             )}
+                                            {recommendedSelected && (<option value="None">Blank</option>)}
                                         </select>
                                     </div>
                                 </div>
@@ -1158,136 +1157,141 @@ export default function Pets() {
                                     Best Team
 
                                 </div>
-                                {/* Current Team Bonuses! s*/}
-                                <div style={{ padding: '12px' }}>
-                                    {Object.values(currentBonuses).map((e, index) => {
-                                        if (e.ID >= bonusCutOff) {
-                                            return null
-                                        }
-                                        let color = 'lightgray';
-                                        let priority = priorityMap[e.ID];
-                                        if (priority) {
-                                            if (priority.count === -1) {
-                                                color = 'white';
-                                            }
-                                            else if (priority.count === 0) {
-                                                color = 'gray';
-                                            }
-                                            else if (priority.count === e.count) {
-                                                color = '#4caf50'
-                                            }
-                                            else if (priority.count < e.count) {
-                                                color = '#ffeb3b'; //yellow
-                                            }
-                                            else {
-                                                color = '#e53935'; //reds
-                                            }
-                                        }
-                                        else {
-                                            color = 'lightgray';
-                                        }
-                                        return (
-                                            <div key={index} style={{ display: 'flex', justifyContent: 'space-between' }}>
-                                                <div style={{ width: '150px' }}>
-                                                    {e.label}
-                                                </div>
-                                                <div style={{ display: 'flex', alignItems: 'center' }}>
-                                                    <div style={{ color: color, }}>
-                                                        {e.sum.toExponential(2) + '%'}
-                                                    </div>
-                                                    <div style={{ color: color, marginLeft: '6px' }}>
-                                                        {` (${currentBonuses[e.ID].count})`}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        )
-                                    }, [])}
-                                </div>
-
-                                {Object.values(specialCombos).length > 0 && (
+                                {!!recommendedSelected && (
                                     <>
-                                        < div
-                                            style={{ fontSize: '24px', fontWeight: 'bold', textAlign: 'center' }}
-                                        >
-                                            Team Combos
-                                        </div>
-
+                                        {/* Current Team Bonuses! s*/}
                                         <div style={{ padding: '12px' }}>
-                                            {Object.values(specialCombos).map((e, index) => {
+                                            {Object.values(currentBonuses).map((e, index) => {
+                                                if (e.ID >= bonusCutOff) {
+                                                    return null
+                                                }
+                                                let color = 'lightgray';
+                                                let priority = priorityMap[e.ID];
+                                                if (priority) {
+                                                    if (priority.count === -1) {
+                                                        color = 'white';
+                                                    }
+                                                    else if (priority.count === 0) {
+                                                        color = 'gray';
+                                                    }
+                                                    else if (priority.count === e.count) {
+                                                        color = '#4caf50'
+                                                    }
+                                                    else if (priority.count < e.count) {
+                                                        color = '#ffeb3b'; //yellow
+                                                    }
+                                                    else {
+                                                        color = '#e53935'; //reds
+                                                    }
+                                                }
+                                                else {
+                                                    color = 'lightgray';
+                                                }
                                                 return (
-                                                    <div key={index} style={{ display: 'flex' }}>
+                                                    <div key={index} style={{ display: 'flex', justifyContent: 'space-between' }}>
                                                         <div style={{ width: '150px' }}>
-                                                            {e.rootName}
+                                                            {e.label}
                                                         </div>
-                                                        <div>
-                                                            {e.odd && (<>
-                                                                {`x${e.count}`}
-                                                            </>
-                                                            )}
-                                                            {!e.odd && (
-                                                                <>
-                                                                    {helper.roundInt((e.BonusPower * e.count)) + '%'}
-                                                                </>
-                                                            )}
-
+                                                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                                                            <div style={{ color: color, }}>
+                                                                {e.sum.toExponential(2) + '%'}
+                                                            </div>
+                                                            <div style={{ color: color, marginLeft: '6px' }}>
+                                                                {` (${currentBonuses[e.ID].count})`}
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 )
                                             }, [])}
                                         </div>
+
+                                        {Object.values(specialCombos).length > 0 && (
+                                            <>
+                                                < div
+                                                    style={{ fontSize: '24px', fontWeight: 'bold', textAlign: 'center' }}
+                                                >
+                                                    Team Combos
+                                                </div>
+
+                                                <div style={{ padding: '12px' }}>
+                                                    {Object.values(specialCombos).map((e, index) => {
+                                                        return (
+                                                            <div key={index} style={{ display: 'flex' }}>
+                                                                <div style={{ width: '150px' }}>
+                                                                    {e.rootName}
+                                                                </div>
+                                                                <div>
+                                                                    {e.odd && (<>
+                                                                        {`x${e.count}`}
+                                                                    </>
+                                                                    )}
+                                                                    {!e.odd && (
+                                                                        <>
+                                                                            {helper.roundInt((e.BonusPower * e.count)) + '%'}
+                                                                        </>
+                                                                    )}
+
+                                                                </div>
+                                                            </div>
+                                                        )
+                                                    }, [])}
+                                                </div>
+                                            </>
+                                        )}
+
+                                        {/* Pets */}
+                                        <div>
+
+                                            {/* Ground Pets */}
+                                            <div style={{ display: 'flex' }}>
+                                                {groundPets.map((e, index) => {
+
+                                                    let staticPetData = petNameArray.find(staticPetDatum => staticPetDatum.petId === e.ID)
+                                                    return (
+                                                        <div key={index}
+                                                            style={{
+                                                                display: "flex",
+                                                                justifyContent: "center",
+                                                                alignItems: "center",
+                                                                width: '90px',
+                                                                height: '90px',
+                                                                border: '1px gray solid',
+                                                                borderRadius: '6px'
+                                                            }}
+                                                        >
+                                                            <StaticPetItem petData={{ ...staticPetData, pet: petMap[e.ID] }} />
+                                                        </div>
+                                                    );
+                                                }, [])}
+                                            </div>
+                                            {/* Air Pets */}
+                                            <div style={{ display: 'flex' }}>
+                                                {airPets.map((e, index) => {
+
+                                                    let staticPetData = petNameArray.find(staticPetDatum => staticPetDatum.petId === e.ID)
+                                                    return (
+                                                        <div key={index}
+                                                            style={{
+                                                                display: "flex",
+                                                                justifyContent: "center",
+                                                                alignItems: "center",
+                                                                width: '90px',
+                                                                height: '90px',
+                                                                border: '1px gray solid',
+                                                                borderRadius: '6px'
+                                                            }}
+                                                        >
+
+                                                            <StaticPetItem petData={{ ...staticPetData, pet: petMap[e.ID] }} />
+
+                                                        </div>
+                                                    );
+                                                }, [])}
+                                            </div>
+                                        </div>
                                     </>
                                 )}
 
-                                {/* Pets */}
-                                <div>
-
-                                    {/* Ground Pets */}
-                                    <div style={{ display: 'flex' }}>
-                                        {groundPets.map((e, index) => {
-
-                                            let staticPetData = petNameArray.find(staticPetDatum => staticPetDatum.petId === e.ID)
-                                            return (
-                                                <div key={index}
-                                                    style={{
-                                                        display: "flex",
-                                                        justifyContent: "center",
-                                                        alignItems: "center",
-                                                        width: '90px',
-                                                        height: '90px',
-                                                        border: '1px gray solid',
-                                                        borderRadius: '6px'
-                                                    }}
-                                                >
-                                                    <StaticPetItem petData={{ ...staticPetData, pet: petMap[e.ID] }} />
-                                                </div>
-                                            );
-                                        }, [])}
-                                    </div>
-                                    {/* Air Pets */}
-                                    <div style={{ display: 'flex' }}>
-                                        {airPets.map((e, index) => {
-
-                                            let staticPetData = petNameArray.find(staticPetDatum => staticPetDatum.petId === e.ID)
-                                            return (
-                                                <div key={index}
-                                                    style={{
-                                                        display: "flex",
-                                                        justifyContent: "center",
-                                                        alignItems: "center",
-                                                        width: '90px',
-                                                        height: '90px',
-                                                        border: '1px gray solid',
-                                                        borderRadius: '6px'
-                                                    }}
-                                                >
-
-                                                    <StaticPetItem petData={{ ...staticPetData, pet: petMap[e.ID] }} />
-
-                                                </div>
-                                            );
-                                        }, [])}
-                                    </div>
-                                </div>
                             </div>
 
                             {/* Custom Preset Area */}
