@@ -118,6 +118,7 @@ function MouseOverPopover({
             // }
           },
         }}
+        disableRestoreFocus
       >
         {tooltip}
       </Popover>

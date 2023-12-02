@@ -848,14 +848,14 @@ export default function Expeditions() {
 
                 {/* Info Configs */}
                 <div
-                    style={{ padding: '6px 3px 1px 3px', overflow: 'auto', maxHeight: 'calc(100% - 45px)' }}
+                    style={{ padding: '6px 3px 1px 3px', overflow: 'auto', maxHeight: 'calc(100% - 45px)', overflowAnchor: 'none' }}
                 >
                     <div style={{
                         display: 'flex', flexDirection: 'column',
                         backgroundColor: 'rgba(255,255,255, 0.05)',
                         margin: '6px 6px',
                         padding: '6px',
-                        border: '1px solid rgba(255,255,255,0.8)',
+                        border: '1px solid rgba(255,255,255,0.8)', overflowAnchor: 'none'
                     }}>
 
                         <div style={{ display: 'flex', alignItems: 'center' }}>
