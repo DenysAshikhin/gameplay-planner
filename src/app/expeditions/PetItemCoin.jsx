@@ -167,7 +167,8 @@ export default function PetItem({ petData, isSelected, onClick, data, weightMap,
                         <div
                             className="item-image-container"
                             style={{
-                                border: borderActive ? 'black 1px solid' : '',
+                               
+                                outline: borderActive ? 'white 4px solid' : '',
                                 position: 'relative',
                                 display: 'flex',
                                 justifyContent: 'center',
@@ -227,7 +228,7 @@ export default function PetItem({ petData, isSelected, onClick, data, weightMap,
                         width: '100%',
                         backgroundColor: grayBackground ? '' : '',
                         textDecoration: grayBackground ? 'line-through ' : '',
-                        fontSize:'19px'
+                        fontSize: '19px'
                     }}>
                     {`(${pet.Type === 1 ? 'Ground' : 'Air'}) ${name}`}
                 </div>
