@@ -89,7 +89,22 @@ export default function Expeditions() {
     const [petWhiteList, setPetWhiteListRunTime] = useState([]);
     const [petWhiteListClient, setPetWhiteList] = useLocalStorage("petWhiteList", []);
     useEffect(() => {
-        setPetWhiteListRunTime(petWhiteListClient);
+
+        let petWhiteListClientTemp = [];
+        let foundOld = false;
+        for (const [key, value] of Object.entries(petWhiteListClient)) {
+            if (value.placement === 'rel') {
+                let bigsad = -1;
+                foundOld = true;
+            }
+            else {
+                petWhiteListClientTemp.push(value);
+            }
+        }
+        if (foundOld) {
+            setPetWhiteList(petWhiteListClientTemp);
+        }
+        setPetWhiteListRunTime(petWhiteListClientTemp);
     }, [petWhiteListClient]);
 
     const [enabledBonusHighlight, setEnabledBonusHighlightRunTime] = useState({});
@@ -1479,6 +1494,7 @@ export default function Expeditions() {
                                                     for (let j = 0; j < groups[group_index + 1].length; j++) {
 
                                                         let temp_pet = groups[group_index + 1][j];
+
                                                         if (temp_pet.Type === pet.pet.Type) {
                                                             let bigsad = -1;
                                                             if (!(temp_pet.ID in triedPets) && !foundNew) {
