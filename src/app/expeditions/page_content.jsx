@@ -507,7 +507,7 @@ export default function Expeditions() {
         .map((inner_e) => {
             if (inner_e.id < 5000) {
                 if (inner_e.id >= 1000 && !inner_e.label.includes(`Expedition`)) {
-                    inner_e.label += ` Expedition`;
+                    inner_e.label = `Expedition ` + inner_e.label;
                 }
                 return inner_e;
             }
