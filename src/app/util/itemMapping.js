@@ -597,7 +597,7 @@ export const BonusMap = {
     1002: { id: 1002, label: "Class Exp gain" },
     1003: { id: 1003, label: "Skull Gain" },
     1004: { id: 1004, label: "Worm Qty Gain" },
-    1005: { id: 1005, label: "POOP Gain" },
+    1005: { id: 1005, label: "Poop Gain" },
     1006: { id: 1006, label: "Larva Qty Gain" },
     1007: { id: 1007, label: "Whack Gain" },
     1008: { id: 1008, label: "Milk Gain" },
