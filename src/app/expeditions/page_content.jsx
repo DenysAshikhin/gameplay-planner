@@ -271,23 +271,7 @@ export default function Expeditions() {
     }, [defaultRank, comboSelector, groupRankCritera, numTeams, tokenDamageBias, activeCustomBonuses,])
 
 
-
-
-
-
-
-
-
-
-
-    // useEffect(() => {
-
-
-    //         setTimeout(() => {
-    //             ReactGA.send({ hitType: "pageview", page: "/expeditions_", title: "_Expedition Calculator Page" });
-    //         }, 500);
-    // }, [])
-
+    let whiteListAlertText = '';
 
     let totalTokensHR = 0;
     let damageTotal = 0;
@@ -315,10 +299,65 @@ export default function Expeditions() {
     let whitelistedPets = {};
 
 
+    const maxPets = 4;
+    const maxType = 2 * numTeams;
+    const manualGroups = {};
+    let numGround = 0;
+    let numAir = 0;
+
     for (let i = 0; i < petWhiteList.length; i++) {
         let cur = petWhiteList[i];
-        if (cur.placement === `rel`) {
+        let inner_pet = cur.pet;
+
+        if (inner_pet.Type === 1) {
+            numGround++;
+        }
+        else {
+            numAir++;
+        }
+
+        // used to show which group it got sorted into
+        if (cur.placement === `auto`) {
             relWhiteListMap[cur.id] = { ...cur };
+        }
+        else if (cur.placement === 'team') {
+
+            if (!manualGroups[cur.parameters]) {
+                manualGroups[cur.parameters] = [];
+            }
+            manualGroups[cur.parameters].push(inner_pet);
+            if (manualGroups[cur.parameters].length > maxPets) {
+                whiteListAlertText = `Group ${cur.parameters.team + 1} has too many pets!`;
+            }
+
+            if (whiteListAlertText.length === 0) {
+
+                let airy = 0;
+                let groundy = 0;
+                manualGroups[cur.parameters].forEach((manual_pet) => {
+                    if (manual_pet.Type === 1) {
+                        groundy++;
+                    }
+                    else {
+                        airy++;
+                    }
+                });
+                if (airy > (maxPets / 2)) {
+                    whiteListAlertText = `Group ${cur.parameters} has too many air pets!`;
+                }
+                else if (airy > (maxPets / 2)) {
+                    whiteListAlertText = `Group ${cur.parameters} has too many ground pets!`;
+                }
+            }
+        }
+    }
+
+    if (whiteListAlertText.length === 0) {
+        if (numAir > maxType) {
+            whiteListAlertText = `There are too many air pets!`;
+        }
+        else if (numGround > maxType) {
+            whiteListAlertText = `There are too many ground pets!`;
         }
     }
 
@@ -455,7 +494,15 @@ export default function Expeditions() {
 
     leftOver1Pets = leftOver1Pets.sort((a, b) => petHelper.calculatePetBaseDamage(b, defaultRank) - petHelper.calculatePetBaseDamage(a, defaultRank))
 
+    let bonusesWithPets = {};
+    data.PetsCollection.forEach((bonus_pet) => {
+        bonus_pet.BonusList.forEach((pet_bonus_inner) => {
+            bonusesWithPets[pet_bonus_inner.ID] = bonus_pet;
+        })
+    })
+
     let filterableBonuses = Object.values(BonusMap)
+        .filter((e) => !!e && !leftOverIgnore[e.id] && !!bonusesWithPets[e.id])
         .sort((a, b) => a.label.localeCompare(b.label))
         .map((inner_e) => {
             if (inner_e.id < 5000) {
@@ -465,7 +512,6 @@ export default function Expeditions() {
                 return inner_e;
             }
         })
-        .filter((e) => !!e && !leftOverIgnore[e.id])
 
 
     return (
@@ -1254,7 +1300,10 @@ export default function Expeditions() {
                             }}
                         >
                             <div style={{}}>
-                                <h4 style={{ margin: '6px', textAlign: 'center', fontSize: '20px' }}>Pet Whitelist</h4>
+                                <div>
+                                    <h4 style={{ margin: '6px', textAlign: 'center', fontSize: '20px' }}>Pet Whitelist</h4>
+                                    <h4 style={{ margin: '6px', textAlign: 'center', fontSize: '20px', color: 'red' }}>{`${whiteListAlertText}`}</h4>
+                                </div>
                                 {/* Pet whitelist stuff */}
                                 <div style={{ margin: '6px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '36px' }}>
                                     <SearchBox data={{
@@ -1869,7 +1918,7 @@ export default function Expeditions() {
                                                 borderRight: '1px solid rgba(255,255,255,0.8)',
                                             }}
                                         >
-                                            Pet
+                                            {`${BonusMap[leftOverBonus1].label} Pets`}
                                         </div>
 
                                         {/* placement */}
