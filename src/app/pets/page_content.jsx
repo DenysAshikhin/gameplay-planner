@@ -649,10 +649,17 @@ export default function Pets() {
         }
     }
 
+    let bonusesWithPets = {};
+    data.PetsCollection.forEach((bonus_pet) => {
+        bonus_pet.BonusList.forEach((pet_bonus_inner) => {
+            bonusesWithPets[pet_bonus_inner.ID] = bonus_pet;
+        })
+    })
+
     let searchList = [];
     for (const [key, value] of Object.entries(BonusMap)) {
 
-        if (value.id >= bonusCutOff || priorityMap[key]) {
+        if (value.id >= bonusCutOff || priorityMap[key] || !bonusesWithPets[value.id]) {
             continue;
         }
         searchList.push({ label: value.label, id: value.id });
