@@ -13,7 +13,21 @@ const filterBonuses = (bonuses, filterFn) => {
         .filter(filterFn);
 };
 
-const PetItem = ({ petData, isSelected, onClick, data, weightMap, petScoreFn, defaultRank, borderActive, enabledBonusHighlight, fullPetData, showNameOnly, grayBackground, circleBorder }) => {
+const PetItem = ({ petData,
+    isSelected,
+    onClick,
+    data,
+    weightMap,
+    petScoreFn,
+    defaultRank,
+    borderActive,
+    enabledBonusHighlight,
+    fullPetData,
+    showNameOnly,
+    grayBackground,
+    circleBorder,
+    manualForce,
+}) => {
     if (!!data === false) return <div></div>;
     const { petId, location, img, name } = petData;
 
@@ -142,6 +156,8 @@ const PetItem = ({ petData, isSelected, onClick, data, weightMap, petScoreFn, de
                     circleBorder ? {
                         borderRadius: '45px',
                         border: `2px solid ${isSelected ? 'rgba(107, 218,105,0.7)' : 'rgba(218, 53, 34,0.7)'} `,
+                        borderLeft: manualForce ? `2px solid yellow` : `2px solid ${isSelected ? 'rgba(107, 218,105,0.7)' : 'rgba(218, 53, 34,0.7)'} `,
+                        borderRight: manualForce ? `2px solid yellow` : `2px solid ${isSelected ? 'rgba(107, 218,105,0.7)' : 'rgba(218, 53, 34,0.7)'} `,
                         backgroundColor: 'rgba(255,255,255,0.08)',
                         overflow: 'hidden',
                         // position: 'relative',

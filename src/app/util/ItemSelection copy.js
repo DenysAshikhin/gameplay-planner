@@ -3,7 +3,7 @@ import './ItemSelection.css';
 import { petNameArray, petNames } from './itemMapping';
 import PetItem from '../expeditions/PetItem';
 
-const ItemSelection = ({ selectedItems, onItemSelected, data, weightMap, defaultRank, showLocked, }) => {
+const ItemSelection = ({ selectedItems, onItemSelected, data, weightMap, defaultRank, showLocked, manualEnabledPets, originalPets }) => {
     const isSelected = (petId) => {
         return selectedItems.includes(petId);
     };
@@ -16,13 +16,11 @@ const ItemSelection = ({ selectedItems, onItemSelected, data, weightMap, default
         }
     };
 
-    const renderPet = (petData) => {
-
-    };
-
     let newPetArray = [...petNameArray];
     newPetArray.splice(newPetArray.length - 1);
     let lastID = newPetArray[newPetArray.length - 1].petId;
+
+    console.log(originalPets);
 
     for (let i = lastID - 1; i < data.PetsCollection.length; i++) {
         if (data.PetsCollection[i].ID > lastID) {
@@ -35,8 +33,7 @@ const ItemSelection = ({ selectedItems, onItemSelected, data, weightMap, default
     }
 
     if (!showLocked) {
-
-        newPetArray = newPetArray.filter((e) => selectedItems.includes(e.petId))
+        newPetArray = newPetArray.filter((e) => ((selectedItems.includes(e.petId) && manualEnabledPets[e.petId] !== 0) || manualEnabledPets[e.petId] === 1))
     }
 
     newPetArray = newPetArray.sort((a_inner, b_inner) => {
@@ -85,6 +82,7 @@ const ItemSelection = ({ selectedItems, onItemSelected, data, weightMap, default
     })
 
 
+
     return (
         <div style={{
             overflowY: 'auto',
@@ -99,6 +97,16 @@ const ItemSelection = ({ selectedItems, onItemSelected, data, weightMap, default
                 (petData) => {
                     const { petId } = petData;
                     const isItemSelected = isSelected(petId);
+
+                    //Used to control the yellow border indicating a manual forcing to be on or off
+                    let manualForce = false;
+                    let origPet = originalPets.find((a) => a.ID === petId);
+                    if (manualEnabledPets[petId] === 1 && !origPet) {
+                        manualForce = true;
+                    }
+                    else if (!!origPet && manualEnabledPets[petId] === 0) {
+                        manualForce = true;
+                    }
 
                     return (
                         <div
@@ -115,6 +123,7 @@ const ItemSelection = ({ selectedItems, onItemSelected, data, weightMap, default
                                     weightMap={weightMap}
                                     defaultRank={defaultRank}
                                     circleBorder={true}
+                                    manualForce={manualForce}
                                 />
                             </div>
                         </div>

@@ -107,6 +107,14 @@ export default function Expeditions() {
         setPetWhiteListRunTime(petWhiteListClientTemp);
     }, [petWhiteListClient]);
 
+    const [manualEnabledPetsLoaded, setManualEnabledPetsLoaded] = useState(false);
+    const [manualEnabledPets, setManualEnabledPetsRuneTime] = useState({});
+    const [manualEnabledPetsClient, setManualEnabledPets] = useLocalStorage("manualEnabledPets", {});
+    useEffect(() => {
+        setManualEnabledPetsLoaded(true);
+        setManualEnabledPetsRuneTime(manualEnabledPetsClient);
+    }, [manualEnabledPetsClient])
+
     const [enabledBonusHighlight, setEnabledBonusHighlightRunTime] = useState({});
     const [enabledBonusHighlightClient, setEnabledBonusHighlight] = useLocalStorage("enabledBonusHighlight", {});
     useEffect(() => {
@@ -219,7 +227,7 @@ export default function Expeditions() {
     useEffect(() => {
 
 
-        if (dataLoaded.current === false) {
+        if (dataLoaded.current === false && manualEnabledPetsLoaded) {
 
             dataLoaded.current = true;
             let uploadedData = clientData;
@@ -244,26 +252,31 @@ export default function Expeditions() {
             uploadedData.PetsCollection.sort((a, b) => a.ID - b.ID);
 
             let tempPets = [];
+            let origPets = [];
             const positiveRankedPets = uploadedData.PetsCollection.filter(
                 (pet) => {
-                    // const isValidRank = !!pet.Rank;//Instead of relying on defaultRank always = 0, select valid ranks if they exist (not 0)
                     const isValidLocked = includeLocked ? true : !!pet.Locked;
-                    if (isValidLocked) {
-                        tempPets.push(pet);
+                    if(isValidLocked){
+                        origPets.push(pet);
                     }
-                    return isValidLocked;
+                    //If set to 0, we manually want this pet disabled
+                    if ((isValidLocked && manualEnabledPets[pet.ID] !== 0) || manualEnabledPets[pet.ID] === 1) {
+                        tempPets.push(pet);
+                        return true;
+                    }
+                    return false;
                     // return isValidRank && isValidLocked;
                 }
             ).map((pet) => pet.ID);
             setSelectedItems(positiveRankedPets);
-            setOriginalPets(tempPets);
+            setOriginalPets(origPets);
             setSelectedPets(tempPets);
 
             setRefreshGroups(true);
 
             setRunTimeData(clientData);
         }
-    }, [clientData, includeLocked, numTeams, setComboSelector, setData, setNumTeams]);
+    }, [manualEnabledPetsLoaded, clientData, includeLocked, numTeams, setComboSelector, setData, setNumTeams]);
 
 
     useEffect(() => {
@@ -480,15 +493,43 @@ export default function Expeditions() {
 
         const petData = data?.PetsCollection || [];
         let localPets = [];
+        let enabledPets = {};
+
         for (let i = 0; i < items.length; i++) {
             localPets.push(petData[items[i]])
+            enabledPets[items[i]] = 1;
         }
 
         setSelectedPets(localPets);
+        setManualEnabledPets((curr_pets) => {
+
+            let newEnabled = { ...curr_pets };
+
+            //First check which ones should now be marked as 0 (disabled)
+            for (const [key, value] of Object.entries(curr_pets)) {
+                if (!enabledPets[key]) {
+                    newEnabled[key] = 0;
+                }
+            }
+
+            //Any others are now enabled
+            for (const [key, value] of Object.entries(enabledPets)) {
+
+                newEnabled[key] = 1;
+            }
+
+            //Go over previously selected pets, and if never logged them before, and are not tracked still, means they were disabled
+            for (let i = 0; i < selectedItems.length; i++) {
+                if (!newEnabled[selectedItems[i]]) {
+                    newEnabled[selectedItems[i]] = 0;
+                }
+            }
+
+            return newEnabled;
+        });
 
         if (items) {
             setRefreshGroups(true);
-            // handleGroups(data, items);
         }
     };
 
@@ -2186,6 +2227,7 @@ export default function Expeditions() {
                                                 petArr.push(originalPets[i].ID)
                                             }
                                             handleItemSelected(petArr);
+                                            setManualEnabledPets({});
                                         }
 
                                     }}>
@@ -2216,6 +2258,8 @@ export default function Expeditions() {
                         onItemSelected={handleItemSelected}
                         defaultRank={defaultRank}
                         showLocked={!hideLocked}
+                        manualEnabledPets={manualEnabledPets}
+                        originalPets={originalPets}
                     />
                 </div>
             </div>
