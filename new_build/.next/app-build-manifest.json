@@ -17,6 +17,17 @@
       "static/chunks/main-app.js",
       "static/css/app/farming/page.css",
       "static/chunks/app/farming/page.js"
+    ],
+    "/pets/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/pets/page.css",
+      "static/chunks/app/pets/page.js"
+    ],
+    "/page_selection/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/page_selection/page.js"
     ]
   }
 }

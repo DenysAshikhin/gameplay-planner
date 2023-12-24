@@ -1,3 +1,6 @@
 {
-  "/farming/page": "app/farming/page.js"
+  "/farming/page": "app/farming/page.js",
+  "/page": "app/page.js",
+  "/pets/page": "app/pets/page.js",
+  "/page_selection/page": "app/page_selection/page.js"
 }
