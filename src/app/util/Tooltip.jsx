@@ -9,7 +9,8 @@ function MouseOverPopover({
   extraClasses,
   opacity,
   forceOpen,
-  setForceOpen
+  setForceOpen,
+  disableRestoreFocusParam
 }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [forceShow, setForceShow] = useState(false);
@@ -118,7 +119,7 @@ function MouseOverPopover({
             // }
           },
         }}
-        disableRestoreFocus
+        disableRestoreFocus={!!disableRestoreFocusParam ? disableRestoreFocusParam : true}
       >
         {tooltip}
       </Popover>

@@ -50,6 +50,8 @@
   }
 }
 
+
+
 .borderToFadeInAndOutRed {
   opacity: 1;
   animation: fadeBorderRed 2s linear infinite;

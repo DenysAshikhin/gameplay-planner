@@ -1,6 +1,7 @@
 {
-  "/farming/page": "app/farming/page.js",
-  "/page": "app/page.js",
   "/pets/page": "app/pets/page.js",
-  "/page_selection/page": "app/page_selection/page.js"
+  "/page": "app/page.js",
+  "/page_selection/page": "app/page_selection/page.js",
+  "/cards/page": "app/cards/page.js",
+  "/protein/page": "app/protein/page.js"
 }

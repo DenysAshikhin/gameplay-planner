@@ -53,6 +53,8 @@
   }
 }
 
+
+
 .borderToFadeInAndOutRed {
   opacity: 1;
   animation: fadeBorderRed 2s linear infinite;
@@ -70,4 +72,3 @@
     border: 3px solid rgba(255, 0, 0, 1)
   }
 }
-

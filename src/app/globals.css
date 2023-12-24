@@ -247,6 +247,9 @@ a {
   margin: 0 0 0 0;
 }
 
+.whiteBorder {
+  border: 1.5px solid rgba(255,255,255,0.8);
+}
 
 .borderToFadeInAndOutRed {
   opacity: 1;
