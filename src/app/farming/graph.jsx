@@ -162,6 +162,7 @@ function Graph({
                       hide={true}
                       xAxisId={"bestPIC"}
                       name="time in seconds"
+                      key="pic_x_axis"
                     />
                     <Line
                       type="monotone"
@@ -173,6 +174,7 @@ function Graph({
                       name={`Most PIC HP`}
                       stroke="orange"
                       activeDot={{ r: 8 }}
+                      key="pic_line"
                     />
                   </>
                 )}

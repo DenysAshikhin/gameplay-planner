@@ -1557,7 +1557,7 @@ export default function Cards() {
                 className={chargesMax ? 'borderToFadeInAndOutRed' : 'whiteBorder' + ' importantText'}
                 style={{
                     display: 'flex',
-                    height: '70px',
+                    height: '60px',
                     alignSelf: 'flex-start',
                     padding: chargesMax ? '0 6px' : '',
                     alignItems: 'center',
@@ -1610,7 +1610,7 @@ export default function Cards() {
                         <Image
                             alt='in game charge (battery) image'
                             // fill
-                            style={{ height: '100%', width: 'auto' }}
+                            style={{  height: '60px', width: 'auto' }}
                             src={chargeImg}
                             unoptimized={true}
                         />
@@ -1656,7 +1656,7 @@ export default function Cards() {
                             <Image
                                 alt='in game charge (battery) image'
                                 // fill
-                                style={{ height: '100%', width: 'auto', maxHeight: '65px' }}
+                                style={{  height: '60px', width: 'auto', maxHeight: '65px' }}
                                 src={chargeImg}
                                 unoptimized={true}
                             />
