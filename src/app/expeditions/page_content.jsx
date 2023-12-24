@@ -105,7 +105,7 @@ export default function Expeditions() {
             setPetWhiteList(petWhiteListClientTemp);
         }
         setPetWhiteListRunTime(petWhiteListClientTemp);
-    }, [petWhiteListClient]);
+    }, [petWhiteListClient, setPetWhiteList]);
 
     const [manualEnabledPetsLoaded, setManualEnabledPetsLoaded] = useState(false);
     const [manualEnabledPets, setManualEnabledPetsRuneTime] = useState({});
@@ -276,7 +276,7 @@ export default function Expeditions() {
 
             setRunTimeData(clientData);
         }
-    }, [manualEnabledPetsLoaded, clientData, includeLocked, numTeams, setComboSelector, setData, setNumTeams]);
+    }, [manualEnabledPets, manualEnabledPetsLoaded, clientData, includeLocked, numTeams, setComboSelector, setData, setNumTeams]);
 
 
     useEffect(() => {
