@@ -106,6 +106,10 @@ export default function PetItem({ petData, isSelected, onClick, data, weightMap,
         }
     }
 
+if(!showNameOnly){
+    let bigsad = -1;
+}
+
     return (
 
         <MouseOverPopover

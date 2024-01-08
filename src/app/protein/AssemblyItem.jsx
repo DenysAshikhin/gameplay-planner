@@ -22,30 +22,33 @@ const AssemblyItem = ({ e, currentWeights, setCurrentWeights }) => {
             }
             return curWeight;
         })
-    }, [e, customWeight, setCurrentWeights])
+    }, [e, customWeight, setCurrentWeights]);
 
     return (
         <>
             <div style={{ width: '352px', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
 
-                <div style={{ height: '95%', width: '95%', position: 'absolute' }}>
-                    <Image
-                        alt={`in game ${e.label} bonus icon`}
-                        src={e.img}
-                        fill
-                        unoptimized
-                        priority
-                    />
-                </div>
+                {!!e.img && (
+                    <div style={{ height: '95%', width: '95%', position: 'absolute' }}>
+                        <Image
+                            alt={`in game ${e.label} bonus icon`}
+                            src={e.img}
+                            fill
+                            unoptimized
+                            priority
+                        />
+                    </div>
+                )}
+
 
                 {/* <img 
-                alt={`in game ${e.label} bonus icon`}
-                    src={e.img}
-                    style={{
-                        width: '95%',
-                        //  height: '90%',
-                        position: 'absolute'
-                    }} /> */}
+alt={`in game ${e.label} bonus icon`}
+    src={e.img}
+    style={{
+        width: '95%',
+        //  height: '90%',
+        position: 'absolute'
+    }} /> */}
 
                 <div className='textMedium blackTextStroke1' style={{
                     marginTop: '0', marginRight: '-32px', position: 'absolute', color: `rgba(255,255,255,0.9)`,
@@ -55,6 +58,8 @@ const AssemblyItem = ({ e, currentWeights, setCurrentWeights }) => {
                     {e.label}
                 </div>
             </div>
+
+
             <div style={{
                 width: '83px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxSizing: 'border-box',
                 borderRight: '1px solid rgba(255,255,255,0.8)', borderLeft: '1px solid rgba(255,255,255,0.8)'
@@ -63,10 +68,12 @@ const AssemblyItem = ({ e, currentWeights, setCurrentWeights }) => {
                     {e.defaultWeight}
                 </div>
             </div>
+
+
             <div style={{ display: 'flex', flex: '1', alignItems: 'center', justifyContent: 'center', padding: '2px 0' }}>
 
                 <input
-                  aria-label='Specify custom weight for this bonus'
+                    aria-label='Specify custom weight for this bonus'
                     className='importantText textMedium2'
                     style={{ borderRadius: '4px', width: '55%', height: '65%', backgroundColor: e.index % 2 === 0 ? '#2D2D2D' : '#353535' }}
                     type='number' value={customWeight === -1 ? e.defaultWeight : customWeight}

@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import useLocalStorage from "use-local-storage";
 import './JSONDisplay.css'; // Add this line to import the CSS file
-import { BonusMap, petNameArray, petNames, DefaultWeightMap } from '../util/itemMapping.js';
+import { BonusMap, petNameArray, petNames, getPet, DefaultWeightMap } from '../util/itemMapping.js';
 import PetItemCoin from './PetItemCoin.jsx';
 import ItemSelection from "../util/ItemSelection copy";
 import MouseOverPopover from "../util/Tooltip";
@@ -256,7 +256,7 @@ export default function Expeditions() {
             const positiveRankedPets = uploadedData.PetsCollection.filter(
                 (pet) => {
                     const isValidLocked = includeLocked ? true : !!pet.Locked;
-                    if(isValidLocked){
+                    if (isValidLocked) {
                         origPets.push(pet);
                     }
                     //If set to 0, we manually want this pet disabled
@@ -440,14 +440,9 @@ export default function Expeditions() {
 
                 return;
             }
-            try {
-                if (pet.ID > 0)
-                    filterablePets.push({ id: pet.ID, label: petNames[pet.ID].name })
-            }
-            catch (err) {
-                console.log(err);
-                let x = 0;
-            }
+            if (pet.ID > 0)
+                filterablePets.push({ id: pet.ID, label: getPet(pet.ID).name })
+
         })
     }
 
@@ -724,13 +719,15 @@ export default function Expeditions() {
                                 >
                                     {!!group && group.map((petData, idx) => {
                                         const { ID } = petData;
-                                        let staticPetData = petNameArray.find(staticPetDatum => staticPetDatum.petId === ID)
+                                        // let staticPetData = petNameArray.find(staticPetDatum => staticPetDatum.petId === ID)
 
-                                        if (!staticPetData) {
-                                            staticPetData = {
-                                                ...petNames[9999]
-                                            }
-                                        }
+                                        // if (!staticPetData) {
+                                        //     staticPetData = {
+                                        //         ...petNames[9999]
+                                        //     }
+                                        // }
+                                        let staticPetData = getPet(ID);
+
 
                                         return (
                                             <div
@@ -1037,7 +1034,7 @@ export default function Expeditions() {
                                         try {
                                             let x = Number(e.target.value);
                                             x = Math.floor(x);
-                                            if (x < 1 || x > 7) {
+                                            if (x < 1 || x > data.ExpeditionLimit) {
                                                 return;
                                             }
                                             setNumTeams(e.target.value);
@@ -1050,7 +1047,7 @@ export default function Expeditions() {
                                     }}
                                 placeholder={numTeams + ''}
                                 min="1"
-                                max="7"
+                                max={`${data.ExpeditionLimit}`}
                             />
                         </div>
 

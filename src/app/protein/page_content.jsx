@@ -51,11 +51,16 @@ export default function Protein() {
     let tempList = [];
 
     const cutOff = 100;
+
     Object.values(BonusMap).forEach((val) => {
+        if (!val) {
+            let bigsad = -1;
+        }
         if (val.id < cutOff) {
             tempList.push({ ...val, currentWeight: 0 })
         }
     })
+
 
     tempList.sort((a, b) => a.label.localeCompare(b.label));
 
@@ -470,7 +475,7 @@ export default function Protein() {
                                                     <AssemblyItem e={{ ...e, index: index }} currentWeight={currentWeights} setCurrentWeights={setCurrentWeights} />
                                                 </div>
                                             )
-                                        return null
+                                        return <></>
                                     })
                                 }
                             </div>

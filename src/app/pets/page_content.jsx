@@ -6,7 +6,7 @@ import ComboListCSS from './comboList.css';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { petNameArray, BonusMap, petNames } from "../util/itemMapping.js";
+import { petNameArray, BonusMap, petNames, getPet } from "../util/itemMapping.js";
 import { StaticPetItem } from './PetItem.js';
 import ReactGA from "react-ga4";
 import helper from '../util/helper.js';
@@ -55,6 +55,9 @@ const comboBonuses = {
 };
 
 function PetComboDisplay({ petCombos, unlockedPets, petMap }) {
+
+    if(!BonusMap[petCombos[0].BonusID]) return <></>
+
     const comboBonusLabel = BonusMap[petCombos[0].BonusID].label;
     const numCombos = petCombos.length;
     let numPossibleCombos = 0;
@@ -242,7 +245,7 @@ function populatePets(data, parameters) {
         let pet = data.PetsCollection[i];
         if (pet.ID === 0) continue;
 
-        pet.name = petNames[pet.ID].name;
+        pet.name = getPet(pet.ID).name;
 
         if (pet.Locked === 0) {
             continue;
@@ -571,13 +574,11 @@ export default function Pets() {
     comboList.forEach((combo, index) => {
         if (index === 0) return;
 
+        if (!BonusMap[combo.BonusID]) return;
+
         let matched = true;
         let required = 0;
         let partial = 0;
-
-        if (combo.BonusID === 5009) {
-            let bigsad = -1;
-        }
 
         for (let i = 0; i < combo.PetID.length; i++) {
 

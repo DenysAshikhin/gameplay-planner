@@ -20,8 +20,6 @@ const ItemSelection = ({ selectedItems, onItemSelected, data, weightMap, default
     newPetArray.splice(newPetArray.length - 1);
     let lastID = newPetArray[newPetArray.length - 1].petId;
 
-    console.log(originalPets);
-
     for (let i = lastID - 1; i < data.PetsCollection.length; i++) {
         if (data.PetsCollection[i].ID > lastID) {
             let temp = {

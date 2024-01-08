@@ -528,6 +528,111 @@ const PetNames = {
         "location": "Any",
         img: Strawberry
     },
+    83: {
+        "name": "Jack Ballon",
+        "location": "E19C",
+        img: unknown
+    },
+    84: {
+        "name": "Zack Canon",
+        "location": "E19R",
+        img: unknown
+    },
+    85: {
+        "name": "Miss Spook",
+        "location": "E20C",
+        img: unknown
+    },
+    86: {
+        "name": "Mister Spook",
+        "location": "E20R",
+        img: unknown
+    },
+    87: {
+        "name": "Touchy Cloud",
+        "location": "E21C",
+        img: unknown
+    },
+    88: {
+        "name": "Clover Worm",
+        "location": "E21R",
+        img: unknown
+    },
+    89: {
+        "name": "Decoy Billy",
+        "location": "E22C",
+        img: unknown
+    },
+    90: {
+        "name": "Pandora Box",
+        "location": "E22R",
+        img: unknown
+    },
+    91: {
+        "name": "Super Leek",
+        "location": "E23C",
+        img: unknown
+    },
+    92: {
+        "name": "Mister Radish",
+        "location": "E23R",
+        img: unknown
+    },
+    93: {
+        "name": "Super Star",
+        "location": "E24C",
+        img: unknown
+    },
+    94: {
+        "name": "Star Flower",
+        "location": "E24R",
+        img: unknown
+    },
+    95: {
+        "name": "Drone Mk1",
+        "location": "8-1",
+        img: unknown
+    },
+    96: {
+        "name": "Worm Scout",
+        "location": "8-2",
+        img: unknown
+    },
+    97: {
+        "name": "Thor",
+        "location": "8-3",
+        img: unknown
+    },
+    98: {
+        "name": "Australian Emu",
+        "location": "8-4",
+        img: unknown
+    },
+    99: {
+        "name": "Disco Ball",
+        "location": "8-5",
+        img: unknown
+    },
+    100: {
+        "name": "Cyber Dog",
+        "location": "8-6",
+        img: unknown
+    },
+    101: {
+        "name": "Marty",
+        "location": "8-7",
+        img: unknown
+    },
+    102: {
+        "name": "Brain Bot",
+        "location": "8-8",
+        img: unknown
+    },
+    103: {
+        "name": "Hyperion",
+        "location": "8-9",
+        img: unknown
+    },
     9999: {
         "name": "Unknown",
         "location": "??-??",
@@ -558,6 +663,13 @@ export const petNamesById = petNameArray.reduce((accum, petNameData) => {
     accum[petNameData.petId] = petNameData;
     return accum;
 }, {});
+
+export const getPet = (id) => {
+    if (id in petNames) {
+        return { ...petNames[id], petId: id };
+    }
+    return { ...petNames[9999], petId: id };
+}
 
 export const BonusMap = {
     1: { disabled: false, defaultWeight: 25, id: 1, label: "Potato", img: potatoesAL },
@@ -593,6 +705,8 @@ export const BonusMap = {
     31: { disabled: false, defaultWeight: 100, id: 31, label: "Reinc Point Bonus", img: reincPointsAL },
     32: { disabled: true, defaultWeight: 375, id: 32, label: "Plant Growth", img: null },
     33: { disabled: false, defaultWeight: 1000, id: 33, label: 'Exp. Token Bonus', img: expTokenAL },
+    34: { disabled: false, defaultWeight: 1, id: 34, label: 'Mining Exp', img: null },
+    35: { disabled: false, defaultWeight: 1, id: 35, label: 'Mining Power', img: null },
     1001: { id: 1001, label: "Potato Gain" },
     1002: { id: 1002, label: "Class Exp gain" },
     1003: { id: 1003, label: "Skull Gain" },
@@ -626,6 +740,8 @@ export const BonusMap = {
     5014: { id: 5014, label: "Faster Charge Tick +10%", rootName: 'Faster Charge Tick' },
     5015: { id: 5015, label: "Growth Speed +10%", rootName: 'Growth Speed' },
     5016: { id: 5016, label: "Grasshopper Damage +25%", rootName: 'Grasshopper Damage' },
+    5017: { id: 5017, label: "Mineral Type Chance +??%", rootName: 'Mineral Type' },
+    5018: { id: 5018, label: "Faster Town Building +??%", rootName: 'Town Building' },
 };
 
 const standardBonusesWeightListCount = Array.from({ length: 22 }, (x, i) => i);
