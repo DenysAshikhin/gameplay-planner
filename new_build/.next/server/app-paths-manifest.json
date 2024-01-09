@@ -7,7 +7,7 @@
   "/cards/page": "app/cards/page.js",
   "/farming/page": "app/farming/page.js",
   "/gratitude/page": "app/gratitude/page.js",
-  "/pets/page": "app/pets/page.js",
   "/protein/page": "app/protein/page.js",
-  "/residue/page": "app/residue/page.js"
+  "/residue/page": "app/residue/page.js",
+  "/pets/page": "app/pets/page.js"
 }
