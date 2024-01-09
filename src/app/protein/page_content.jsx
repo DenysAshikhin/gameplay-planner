@@ -31,9 +31,18 @@ export default function Protein() {
 
     const [clientData, setData] = useLocalStorage('userData', DefaultSave);
     const [data, setRunTimeData] = useState(DefaultSave);
+    const [assemblyBonuses, setAssemblyBonuses] = useState(-1);
 
     useEffect(() => {
         setRunTimeData(clientData);
+        let tempMap = {};
+        clientData.AssemblerCollection.forEach((val) => {
+            val.BonusList.forEach((inner_val) => {
+                tempMap[inner_val.ID] = true;
+            })
+        })
+        setAssemblyBonuses(tempMap);
+
     }, [clientData]);
 
 
@@ -460,6 +469,11 @@ export default function Protein() {
                             >
                                 {
                                     tempList.map((e, index) => {
+
+                                        if (assemblyBonuses !== -1 && !(e.id in assemblyBonuses)) {
+                                            return <div key={index}></div>
+                                        }
+
                                         if (!e.disabled)
                                             return (
                                                 <div
@@ -475,7 +489,7 @@ export default function Protein() {
                                                     <AssemblyItem e={{ ...e, index: index }} currentWeight={currentWeights} setCurrentWeights={setCurrentWeights} />
                                                 </div>
                                             )
-                                        return <></>
+                                            return <div key={index}></div>
                                     })
                                 }
                             </div>

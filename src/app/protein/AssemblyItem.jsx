@@ -40,16 +40,6 @@ const AssemblyItem = ({ e, currentWeights, setCurrentWeights }) => {
                     </div>
                 )}
 
-
-                {/* <img 
-alt={`in game ${e.label} bonus icon`}
-    src={e.img}
-    style={{
-        width: '95%',
-        //  height: '90%',
-        position: 'absolute'
-    }} /> */}
-
                 <div className='textMedium blackTextStroke1' style={{
                     marginTop: '0', marginRight: '-32px', position: 'absolute', color: `rgba(255,255,255,0.9)`,
                     fontWeight: 'bold',

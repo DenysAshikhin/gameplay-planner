@@ -111,8 +111,28 @@ import Apollo from '../../../public/images/pets/Apollo.png';
 import BigMouth from '../../../public/images/pets/BigMouth.png';
 import Neptune from '../../../public/images/pets/Neptune.png';
 import Strawberry from '../../../public/images/pets/Strawberry.png';
+import JackBallon from '../../../public/images/pets/Jack Ballon.png';
+import ZackCanon from '../../../public/images/pets/Zack Canon.png';
+import MissSpook from '../../../public/images/pets/Miss Spook.png';
+import MisterSpook from '../../../public/images/pets/Mister Spook.png';
+import TouchyCloud from '../../../public/images/pets/Touchy Cloud.png';
+import CloverWorm from '../../../public/images/pets/Clover Worm.png';
+import DecoyBilly from '../../../public/images/pets/Decoy Billy.png';
+import PandoraBox from '../../../public/images/pets/Pandora Box.png';
+import SuperLeek from '../../../public/images/pets/Super Leek.png';
+import MisterRadish from '../../../public/images/pets/Mister Radish.png';
+import SuperStar from '../../../public/images/pets/Super Star.png';
+import StarFlower from '../../../public/images/pets/Star Flower.png';
+import DroneMk1 from '../../../public/images/pets/Drone Mk1.png';
+import WormScout from '../../../public/images/pets/Worm Scout.png';
+import Thor from '../../../public/images/pets/Thor.png';
+import AustralianEmu from '../../../public/images/pets/Australian Emu.png';
+import DiscoBall from '../../../public/images/pets/Disco Ball.png';
+import CyberDog from '../../../public/images/pets/Cyber Dog.png';
+import Marty from '../../../public/images/pets/Marty.png';
+import BrainBot from '../../../public/images/pets/Brain Bot.png';
+import Hyperion from '../../../public/images/pets/Hyperion.png';
 import unknown from '../../../public/images/pets/missing.png';
-
 
 
 
@@ -531,107 +551,107 @@ const PetNames = {
     83: {
         "name": "Jack Ballon",
         "location": "E19C",
-        img: unknown
+        img: JackBallon
     },
     84: {
         "name": "Zack Canon",
         "location": "E19R",
-        img: unknown
+        img: ZackCanon
     },
     85: {
         "name": "Miss Spook",
         "location": "E20C",
-        img: unknown
+        img: MissSpook
     },
     86: {
         "name": "Mister Spook",
         "location": "E20R",
-        img: unknown
+        img: MisterSpook
     },
     87: {
         "name": "Touchy Cloud",
         "location": "E21C",
-        img: unknown
+        img: TouchyCloud
     },
     88: {
         "name": "Clover Worm",
         "location": "E21R",
-        img: unknown
+        img: CloverWorm
     },
     89: {
         "name": "Decoy Billy",
         "location": "E22C",
-        img: unknown
+        img: DecoyBilly
     },
     90: {
         "name": "Pandora Box",
         "location": "E22R",
-        img: unknown
+        img: PandoraBox
     },
     91: {
         "name": "Super Leek",
         "location": "E23C",
-        img: unknown
+        img: SuperLeek
     },
     92: {
         "name": "Mister Radish",
         "location": "E23R",
-        img: unknown
+        img: MisterRadish
     },
     93: {
         "name": "Super Star",
         "location": "E24C",
-        img: unknown
+        img: SuperStar
     },
     94: {
         "name": "Star Flower",
         "location": "E24R",
-        img: unknown
+        img: StarFlower
     },
     95: {
         "name": "Drone Mk1",
         "location": "8-1",
-        img: unknown
+        img: DroneMk1
     },
     96: {
         "name": "Worm Scout",
         "location": "8-2",
-        img: unknown
+        img: WormScout
     },
     97: {
         "name": "Thor",
         "location": "8-3",
-        img: unknown
+        img: Thor
     },
     98: {
         "name": "Australian Emu",
         "location": "8-4",
-        img: unknown
+        img: AustralianEmu
     },
     99: {
         "name": "Disco Ball",
         "location": "8-5",
-        img: unknown
+        img: DiscoBall
     },
     100: {
         "name": "Cyber Dog",
         "location": "8-6",
-        img: unknown
+        img: CyberDog
     },
     101: {
         "name": "Marty",
         "location": "8-7",
-        img: unknown
+        img: Marty
     },
     102: {
         "name": "Brain Bot",
         "location": "8-8",
-        img: unknown
+        img: BrainBot
     },
     103: {
         "name": "Hyperion",
         "location": "8-9",
-        img: unknown
+        img: Hyperion
     },
     9999: {
         "name": "Unknown",
