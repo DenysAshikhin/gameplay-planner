@@ -18,6 +18,12 @@ import card17 from '../../../public/images/cards_v2/card17.png';
 import card18 from '../../../public/images/cards_v2/card18.png';
 import card19 from '../../../public/images/cards_v2/card19.png';
 import card20 from '../../../public/images/cards_v2/card20.png';
+import card23 from '../../../public/images/cards_v2/card23.png';
+import card27 from '../../../public/images/cards_v2/card27.png';
+import card28 from '../../../public/images/cards_v2/card28.png';
+import card29 from '../../../public/images/cards_v2/card29.png';
+import card34 from '../../../public/images/cards_v2/card34.png';
+import card35 from '../../../public/images/cards_v2/card35.png';
 
 
 export const cardMapImg = {
@@ -80,5 +86,23 @@ export const cardMapImg = {
     },
     20: {
         img: card20
+    },
+    23: {
+        img: card23
+    },
+    27: {
+        img: card27
+    },
+    28: {
+        img: card28
+    },
+    29: {
+        img: card29
+    },
+    34: {
+        img: card34
+    },
+    35: {
+        img: card35
     },
 }

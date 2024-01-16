@@ -1,0 +1,74 @@
+/*!*************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[12].oneOf[12].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[12].oneOf[12].use[3]!./src/app/App.css ***!
+  \*************************************************************************************************************************************************************************************************************************************************************/
+* {
+  font-family: sans-serif !important;
+}
+
+.main-content {
+  overflow: auto;
+}
+
+.item {
+  cursor: pointer;
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+
+.item img {
+  max-width: 100%;
+  height: auto;
+}
+
+.disabled {
+  opacity: 0.3;
+}
+
+.item:hover {
+  opacity: 1;
+}
+
+.navItem {
+  margin: auto 0 auto 0;
+}
+
+.navItem:hover {
+  cursor: pointer;
+}
+
+.elementToFadeInAndOut {
+  opacity: 1;
+  animation: fade 2s linear infinite;
+}
+
+@keyframes fade {
+
+  0%,
+  100% {
+    opacity: 0
+  }
+
+  50% {
+    opacity: 1
+  }
+}
+
+
+
+.borderToFadeInAndOutRed {
+  opacity: 1;
+  animation: fadeBorderRed 2s linear infinite;
+}
+
+
+@keyframes fadeBorderRed {
+
+  0%,
+  100% {
+    border: 3px solid rgba(255, 0, 0, 0)
+  }
+
+  50% {
+    border: 3px solid rgba(255, 0, 0, 1)
+  }
+}

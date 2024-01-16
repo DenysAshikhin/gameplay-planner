@@ -60,6 +60,18 @@ const PETLEVELEXP = 19;
 const PETRANKEXP = 20;
 const CARDPOWERB = 21;
 const CARDEXPB = 22;
+const HEALTHYBONUS = 23;
+const FRIESBONUS = 27;
+const PROTEINBONUS = 28;
+const GHBONUS = 29;
+const MININGEXP = 34;
+const MININGPWR = 35;
+
+
+
+
+
+
 const cardIDMap = {
     [POTATO]: {
         id: POTATO, label: "Potatoes", icon: "", weights: {
@@ -831,12 +843,255 @@ const cardIDMap = {
             30: 0,
         }
     },
+    [HEALTHYBONUS]: {
+        id: HEALTHYBONUS, label: "Heal. Pot.", icon: "", weights: {
+            0: 1,
+            1: 1,
+            2: 1,
+            3: 1,
+            4: 1,
+            5: 1,
+            6: 1,
+            7: 1,
+            8: 1,
+            9: 1,
+            10: 1,
+            11: 1,
+            12: 1,
+            13: 1,
+            14: 1,
+            15: 1,
+            16: 1,
+            17: 1,
+            18: 1,
+            19: 1,
+            20: 1,
+            21: 1,
+            22: 1,
+            23: 1,
+            24: 1,
+            25: 1,
+            26: 1,
+            27: 1,
+            28: 1,
+            29: 1,
+            30: 1,
+        }
+    },
+    [FRIESBONUS]: {
+        id: FRIESBONUS, label: "Fries", icon: "", weights: {
+            0: 1,
+            1: 1,
+            2: 1,
+            3: 1,
+            4: 1,
+            5: 1,
+            6: 1,
+            7: 1,
+            8: 1,
+            9: 1,
+            10: 1,
+            11: 1,
+            12: 1,
+            13: 1,
+            14: 1,
+            15: 1,
+            16: 1,
+            17: 1,
+            18: 1,
+            19: 1,
+            20: 1,
+            21: 1,
+            22: 1,
+            23: 1,
+            24: 1,
+            25: 1,
+            26: 1,
+            27: 1,
+            28: 1,
+            29: 1,
+            30: 1,
+        }
+    },
+    [PROTEINBONUS]: {
+        id: PROTEINBONUS, label: "Protein", icon: "", weights: {
+            0: 2,
+            1: 2,
+            2: 2,
+            3: 2,
+            4: 2,
+            5: 2,
+            6: 2,
+            7: 2,
+            8: 2,
+            9: 2,
+            10: 2,
+            11: 2,
+            12: 2,
+            13: 2,
+            14: 2,
+            15: 2,
+            16: 2,
+            17: 2,
+            18: 2,
+            19: 2,
+            20: 2,
+            21: 2,
+            22: 2,
+            23: 2,
+            24: 2,
+            25: 2,
+            26: 2,
+            27: 2,
+            28: 2,
+            29: 2,
+            30: 2,
+        }
+    },
+    [GHBONUS]: {
+        id: GHBONUS, label: "GH Dmg", icon: "", weights: {
+            0: 3,
+            1: 3,
+            2: 3,
+            3: 3,
+            4: 3,
+            5: 3,
+            6: 3,
+            7: 3,
+            8: 3,
+            9: 3,
+            10: 3,
+            11: 3,
+            12: 3,
+            13: 3,
+            14: 3,
+            15: 3,
+            16: 3,
+            17: 3,
+            18: 3,
+            19: 3,
+            20: 3,
+            21: 3,
+            22: 3,
+            23: 3,
+            24: 3,
+            25: 3,
+            26: 3,
+            27: 3,
+            28: 3,
+            29: 3,
+            30: 3,
+        }
+    },
+    [MININGEXP]: {
+        id: MININGEXP, label: "Mining Exp", icon: "", weights: {
+            0: 1,
+            1: 1,
+            2: 1,
+            3: 1,
+            4: 1,
+            5: 1,
+            6: 1,
+            7: 1,
+            8: 1,
+            9: 1,
+            10: 1,
+            11: 1,
+            12: 1,
+            13: 1,
+            14: 1,
+            15: 1,
+            16: 1,
+            17: 1,
+            18: 1,
+            19: 1,
+            20: 1,
+            21: 1,
+            22: 1,
+            23: 1,
+            24: 1,
+            25: 1,
+            26: 1,
+            27: 1,
+            28: 1,
+            29: 1,
+            30: 1,
+        }
+    },
+    [MININGPWR]: {
+        id: MININGPWR, label: "Mining Pwr", icon: "", weights: {
+            0: 4,
+            1: 4,
+            2: 4,
+            3: 4,
+            4: 4,
+            5: 4,
+            6: 4,
+            7: 4,
+            8: 4,
+            9: 4,
+            10: 4,
+            11: 4,
+            12: 4,
+            13: 4,
+            14: 4,
+            15: 4,
+            16: 4,
+            17: 4,
+            18: 4,
+            19: 4,
+            20: 4,
+            21: 4,
+            22: 4,
+            23: 4,
+            24: 4,
+            25: 4,
+            26: 4,
+            27: 4,
+            28: 4,
+            29: 4,
+            30: 4,
+        }
+    },
 }
 
-function powerFormula(Pow, logBase, customConstant, isPerm = false) {
+function powerFormula(Pow, logBase, customConstant, params) {
 
+    params = params ? params : {};
+    const ID = params.ID ? params.ID : 1;
+    const isPerm = params.isPerm ? params.isPerm : false;
+
+
+    let base = 1.2;
+    if (!isPerm) {
+        switch (ID) {
+            case 23:
+            case 27:
+            case 28:
+            case 29:
+                base = 1.1;
+                break;
+            case 34:
+                base = 1.09;
+                break;
+            case 35:
+                base = 1.08;
+                break;
+        }
+    }
+    else {
+        switch (ID) {
+            case 23:
+            case 27:
+            case 28:
+            case 29:
+            case 34:
+            case 35:
+                base = 1.1;
+        }
+    }
     let result = mathHelper.pow(
-        1.2,
+        base,
         mathHelper.logDecimal(Pow, logBase)
     );
     result = mathHelper.multiplyDecimal(result, customConstant);
@@ -866,43 +1121,57 @@ const tempPowerBonusFormula = {
     18: (Pow) => powerFormula(Pow, 1.525, 0.003),
     19: (Pow) => powerFormula(Pow, 1.5, 0.002),
     20: (Pow) => powerFormula(Pow, 1.55, 0.001),
+    23: (Pow) => powerFormula(Pow, 7.0, 0.18, { ID: 23 }),
+    27: (Pow) => powerFormula(Pow, 7.0, 0.009, { ID: 27 }),
+    28: (Pow) => powerFormula(Pow, 7.0, 0.045, { ID: 28 }),
+    29: (Pow) => powerFormula(Pow, 7.0, 0.09, { ID: 29 }),
+    34: (Pow) => powerFormula(Pow, 8.0, 0.018, { ID: 34 }),
+    35: (Pow) => powerFormula(Pow, 9.0, 0.009, { ID: 35 }),
     _: (Pow) => 1.0
 };
 const permPowerBonusFormula = {
-    17: (Pow) => powerFormula(Pow, 1.5, 0.015, true),
-    1: (Pow) => powerFormula(Pow, 1.3, 0.018, true),
-    2: (Pow) => powerFormula(Pow, 1.35, 0.016, true),
-    3: (Pow) => powerFormula(Pow, 1.325, 0.015, true),
-    5: (Pow) => powerFormula(Pow, 1.55, 0.001, true),
-    6: (Pow) => powerFormula(Pow, 1.525, 0.002, true),
-    9: (Pow) => powerFormula(Pow, 1.325, 0.02, true),
-    7: (Pow) => powerFormula(Pow, 1.325, 0.016, true),
-    4: (Pow) => powerFormula(Pow, 1.3, 0.016, true),
-    8: (Pow) => powerFormula(Pow, 1.35, 0.012, true),
-    10: (Pow) => powerFormula(Pow, 1.325, 0.011, true),
-    11: (Pow) => powerFormula(Pow, 1.325, 0.01, true),
-    12: (Pow) => powerFormula(Pow, 1.4, 0.008, true),
-    13: (Pow) => powerFormula(Pow, 1.525, 0.002, true),
-    14: (Pow) => powerFormula(Pow, 1.4, 0.01, true),
-    15: (Pow) => powerFormula(Pow, 1.3, 0.015, true),
-    16: (Pow) => powerFormula(Pow, 1.3, 0.02, true),
-    18: (Pow) => powerFormula(Pow, 1.525, 0.003, true),
-    19: (Pow) => powerFormula(Pow, 1.5, 0.002, true),
-    20: (Pow) => powerFormula(Pow, 1.55, 0.001, true),
+    17: (Pow) => powerFormula(Pow, 1.5, 0.015, { isPerm: true, ID: 1 }),
+    1: (Pow) => powerFormula(Pow, 1.3, 0.018, { isPerm: true, ID: 1 }),
+    2: (Pow) => powerFormula(Pow, 1.35, 0.016, { isPerm: true, ID: 1 }),
+    3: (Pow) => powerFormula(Pow, 1.325, 0.015, { isPerm: true, ID: 1 }),
+    5: (Pow) => powerFormula(Pow, 1.55, 0.001, { isPerm: true, ID: 1 }),
+    6: (Pow) => powerFormula(Pow, 1.525, 0.002, { isPerm: true, ID: 1 }),
+    9: (Pow) => powerFormula(Pow, 1.325, 0.02, { isPerm: true, ID: 1 }),
+    7: (Pow) => powerFormula(Pow, 1.325, 0.016, { isPerm: true, ID: 1 }),
+    4: (Pow) => powerFormula(Pow, 1.3, 0.016, { isPerm: true, ID: 1 }),
+    8: (Pow) => powerFormula(Pow, 1.35, 0.012, { isPerm: true, ID: 1 }),
+    10: (Pow) => powerFormula(Pow, 1.325, 0.011, { isPerm: true, ID: 1 }),
+    11: (Pow) => powerFormula(Pow, 1.325, 0.01, { isPerm: true, ID: 1 }),
+    12: (Pow) => powerFormula(Pow, 1.4, 0.008, { isPerm: true, ID: 1 }),
+    13: (Pow) => powerFormula(Pow, 1.525, 0.002, { isPerm: true, ID: 1 }),
+    14: (Pow) => powerFormula(Pow, 1.4, 0.01, { isPerm: true, ID: 1 }),
+    15: (Pow) => powerFormula(Pow, 1.3, 0.015, { isPerm: true, ID: 1 }),
+    16: (Pow) => powerFormula(Pow, 1.3, 0.02, { isPerm: true, ID: 1 }),
+    18: (Pow) => powerFormula(Pow, 1.525, 0.003, { isPerm: true, ID: 1 }),
+    19: (Pow) => powerFormula(Pow, 1.5, 0.002, { isPerm: true, ID: 1 }),
+    20: (Pow) => powerFormula(Pow, 1.55, 0.001, { isPerm: true, ID: 1 }),
+    23: (Pow) => powerFormula(Pow, 7.0, 0.18, { isPerm: true, ID: 23 }),
+    27: (Pow) => powerFormula(Pow, 7.0, 0.009, { isPerm: true, ID: 27 }),
+    28: (Pow) => powerFormula(Pow, 7.0, 0.045, { isPerm: true, ID: 28 }),
+    29: (Pow) => powerFormula(Pow, 7.0, 0.009, { isPerm: true, ID: 29 }),
+    34: (Pow) => powerFormula(Pow, 7.0, 0.027, { isPerm: true, ID: 34 }),
+    35: (Pow) => powerFormula(Pow, 7.0, 0.009, { isPerm: true, ID: 35 }),
     // _: (Pow) => new Decimal(1.0)
 };
 
 const CARD_DISPLAY_IDS = [
     17, 1, 2, 3, 9,
     7, 4, 14, 15, 16,
-    8, 10, 11, 12, 13,
-    6, 5, 19, 18, 20
+    8, PROTEINBONUS, GHBONUS, HEALTHYBONUS,
+    10, 11, 12, 13,
+    6, 5, 19, 18, 20, MININGEXP, MININGPWR
 ];
 
-const CardCard = ({ vertical, displayMode, data, card, weightMap, i, applyWeights, cardMap, setCardMap, resetWeights, cardWeightInner,
-    cardWeight, setCardWeightNew
-
-}) => {
+const CardCard = ({
+    vertical,
+    displayMode,
+    data, card, weightMap, i, applyWeights, cardMap, setCardMap, resetWeights, cardWeightInner,
+    cardWeight, setCardWeightNew }) => {
 
     const {
         CurrentExp,
@@ -927,6 +1196,9 @@ const CardCard = ({ vertical, displayMode, data, card, weightMap, i, applyWeight
         defaultWeight /= 2;
     }
     const finalWeight = cardWeight === -1 ? defaultWeight : cardWeight;
+    if (card.ID === 34) {
+        let bigsad = -1;
+    }
 
     const [finalAfter, setFinalAfter] = useState(mathHelper.createDecimal(-1));
     const [finalBefore, setFinalBefore] = useState(mathHelper.createDecimal(-1));
@@ -975,7 +1247,9 @@ const CardCard = ({ vertical, displayMode, data, card, weightMap, i, applyWeight
         let percIncrease = mathHelper.divideDecimal(finalAfter, finalBefore);
         let flatIncrease = mathHelper.subtractDecimal(finalAfter, finalBefore);
         let weightIncrease = mathHelper.multiplyDecimal(mathHelper.divideDecimal(mathHelper.subtractDecimal(finalAfter, finalBefore), finalBefore), finalWeight);
-
+        if (ID === PROTEINBONUS) {
+            let bigsad = -1;
+        }
 
         setFinalTemp(tempValueAfter);
         setFinalAfter(finalAfter);
@@ -1326,6 +1600,28 @@ export default function Cards() {
         25: -1,
         26: -1,
         27: -1,
+        28: -1,
+        29: -1,
+        30: -1,
+        31: -1,
+        32: -1,
+        33: -1,
+        34: -1,
+        35: -1,
+        36: -1,
+        37: -1,
+        38: -1,
+        39: -1,
+        40: -1,
+        41: -1,
+        42: -1,
+        43: -1,
+        44: -1,
+        45: -1,
+        46: -1,
+        47: -1,
+        48: -1,
+        49: -1,
     })
     const [newCardWeightsClient, setNewCardWeights] = useLocalStorage('newCardWeights', {
         1: -1,
@@ -1355,6 +1651,28 @@ export default function Cards() {
         25: -1,
         26: -1,
         27: -1,
+        28: -1,
+        29: -1,
+        30: -1,
+        31: -1,
+        32: -1,
+        33: -1,
+        34: -1,
+        35: -1,
+        36: -1,
+        37: -1,
+        38: -1,
+        39: -1,
+        40: -1,
+        41: -1,
+        42: -1,
+        43: -1,
+        44: -1,
+        45: -1,
+        46: -1,
+        47: -1,
+        48: -1,
+        49: -1,
     })
     useEffect(() => {
         setNewCardWeightsRunTime(newCardWeightsClient);
@@ -1563,9 +1881,9 @@ export default function Cards() {
                     alignItems: 'center',
                     backgroundColor: 'rgba(255,255,255, 0.1)',
                     borderRadius: '6px',
-                    marginBottom:'6px',
-                    marginTop:'6px',
-                    padding:'0 3px'
+                    marginBottom: '6px',
+                    marginTop: '6px',
+                    padding: '0 3px'
                 }}>
                 {chargesMax && (
                     <MouseOverPopover tooltip={
@@ -1610,7 +1928,7 @@ export default function Cards() {
                         <Image
                             alt='in game charge (battery) image'
                             // fill
-                            style={{  height: '60px', width: 'auto' }}
+                            style={{ height: '60px', width: 'auto' }}
                             src={chargeImg}
                             unoptimized={true}
                         />
@@ -1656,7 +1974,7 @@ export default function Cards() {
                             <Image
                                 alt='in game charge (battery) image'
                                 // fill
-                                style={{  height: '60px', width: 'auto', maxHeight: '65px' }}
+                                style={{ height: '60px', width: 'auto', maxHeight: '65px' }}
                                 src={chargeImg}
                                 unoptimized={true}
                             />
