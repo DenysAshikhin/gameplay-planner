@@ -1195,7 +1195,7 @@ const CardCard = ({
     if (data.AscensionCount >= 15) {
         defaultWeight /= 2;
     }
-    const finalWeight = cardWeight === -1 ? defaultWeight : cardWeight;
+    const finalWeight = (cardWeight === -1 || typeof cardWeight === 'undefined') ? defaultWeight : cardWeight;
     if (card.ID === 34) {
         let bigsad = -1;
     }
