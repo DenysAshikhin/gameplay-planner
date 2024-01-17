@@ -17,6 +17,17 @@
       "static/css/496f6354efe76952.css",
       "static/chunks/app/layout-5e900383f35f7549.js"
     ],
+    "/page_selection/page": [
+      "static/chunks/webpack-c8b66bdd688a3b33.js",
+      "static/chunks/fd9d1056-b9dda61b927b93cb.js",
+      "static/chunks/472-0f6515bcbb2ee0a9.js",
+      "static/chunks/main-app-26285fbcd7fee8bd.js",
+      "static/chunks/413-8cee6ae60237d063.js",
+      "static/chunks/201-fc3be4f40976bc3c.js",
+      "static/chunks/326-e5b4ae3b24dba096.js",
+      "static/chunks/528-52921cfccb9e0d3e.js",
+      "static/chunks/app/page_selection/page-6eba646d2f32be9b.js"
+    ],
     "/page": [
       "static/chunks/webpack-c8b66bdd688a3b33.js",
       "static/chunks/fd9d1056-b9dda61b927b93cb.js",
@@ -29,30 +40,6 @@
       "static/chunks/528-52921cfccb9e0d3e.js",
       "static/css/f0c3cdc728e1bc42.css",
       "static/chunks/app/page-e1c913e289f64c8a.js"
-    ],
-    "/page_selection/page": [
-      "static/chunks/webpack-c8b66bdd688a3b33.js",
-      "static/chunks/fd9d1056-b9dda61b927b93cb.js",
-      "static/chunks/472-0f6515bcbb2ee0a9.js",
-      "static/chunks/main-app-26285fbcd7fee8bd.js",
-      "static/chunks/413-8cee6ae60237d063.js",
-      "static/chunks/201-fc3be4f40976bc3c.js",
-      "static/chunks/326-e5b4ae3b24dba096.js",
-      "static/chunks/528-52921cfccb9e0d3e.js",
-      "static/chunks/app/page_selection/page-6eba646d2f32be9b.js"
-    ],
-    "/cards/page": [
-      "static/chunks/webpack-c8b66bdd688a3b33.js",
-      "static/chunks/fd9d1056-b9dda61b927b93cb.js",
-      "static/chunks/472-0f6515bcbb2ee0a9.js",
-      "static/chunks/main-app-26285fbcd7fee8bd.js",
-      "static/chunks/413-8cee6ae60237d063.js",
-      "static/chunks/201-fc3be4f40976bc3c.js",
-      "static/chunks/385-d40c98b9e56d758a.js",
-      "static/chunks/528-52921cfccb9e0d3e.js",
-      "static/chunks/930-e6caa54ac0e7b309.js",
-      "static/css/449f9edc3634576f.css",
-      "static/chunks/app/cards/page-9cc17600b5edb148.js"
     ],
     "/expeditions/page": [
       "static/chunks/webpack-c8b66bdd688a3b33.js",
@@ -68,6 +55,19 @@
       "static/chunks/198-7d332b020e24be85.js",
       "static/css/6e4ba7c08522b020.css",
       "static/chunks/app/expeditions/page-ad0ec5a2e7971bdd.js"
+    ],
+    "/cards/page": [
+      "static/chunks/webpack-c8b66bdd688a3b33.js",
+      "static/chunks/fd9d1056-b9dda61b927b93cb.js",
+      "static/chunks/472-0f6515bcbb2ee0a9.js",
+      "static/chunks/main-app-26285fbcd7fee8bd.js",
+      "static/chunks/413-8cee6ae60237d063.js",
+      "static/chunks/201-fc3be4f40976bc3c.js",
+      "static/chunks/385-d40c98b9e56d758a.js",
+      "static/chunks/528-52921cfccb9e0d3e.js",
+      "static/chunks/930-e6caa54ac0e7b309.js",
+      "static/css/449f9edc3634576f.css",
+      "static/chunks/app/cards/page-bbbe4f19c01cd727.js"
     ],
     "/farming/page": [
       "static/chunks/webpack-c8b66bdd688a3b33.js",
