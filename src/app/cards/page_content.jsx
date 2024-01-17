@@ -1865,12 +1865,6 @@ export default function Cards() {
                 backgroundColor: 'black',
             }}
         >
-            {/* <Script
-                id="adsbygoogle-init"
-                strategy="afterInteractive"
-                crossOrigin="anonymous"
-                src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1393057374484862"
-            /> */}
             <div
                 className={chargesMax ? 'borderToFadeInAndOutRed' : 'whiteBorder' + ' importantText'}
                 style={{
@@ -2008,13 +2002,15 @@ export default function Cards() {
 
             <div
                 style={{
-                    display: 'flex'
+                    display: 'flex',
+                    flex: '1',
+                    maxHeight: 'calc(100% - 82px)'
                 }}
             >
                 {/* Original Cards */}
                 <div
                     style={{
-                        maxWidth: '724px',
+                        maxWidth: '747px',
                         padding: '6px 6px 0 6px',
                         display: 'flex',
                         flexWrap: 'wrap',
@@ -2022,7 +2018,8 @@ export default function Cards() {
                         border: '1.5px solid rgba(255,255,255,0.8)',
                         // border: '1px solid black',
                         borderRadius: '6px',
-                        backgroundColor: 'rgba(255,255,255, 0.1)'
+                        backgroundColor: 'rgba(255,255,255, 0.1)',
+                        overflow: 'auto'
                     }}
                 >
                     <div
@@ -2081,7 +2078,9 @@ export default function Cards() {
                         style={{
                             display: 'flex',
                             flexWrap: 'wrap',
-                            alignContent: 'flex-start'
+                            alignContent: 'flex-start',
+                            maxHeight: 'calc(100% - 22px)',
+                            overflow: 'auto'
                         }}
                     >
                         {weightedCardInfo}
@@ -2098,7 +2097,8 @@ export default function Cards() {
                         border: '1.5px solid rgba(255,255,255,0.8)',
                         borderRadius: '6px',
                         margin: '0 12px 0 24px',
-                        backgroundColor: 'rgba(255,255,255, 0.1)'
+                        backgroundColor: 'rgba(255,255,255, 0.1)',
+                        overflow: 'auto'
                     }}
                 >
                     <div
@@ -2131,7 +2131,8 @@ export default function Cards() {
                         border: '1.5px solid rgba(255,255,255,0.8)',
                         borderRadius: '6px',
                         margin: '0 24px 0 12px',
-                        backgroundColor: 'rgba(255,255,255, 0.1)'
+                        backgroundColor: 'rgba(255,255,255, 0.1)',
+                        overflow: 'auto'
                     }}
                 >
                     <div
