@@ -49,7 +49,14 @@ export default function Home() {
 
       const startPosition = decodedString.indexOf('{');
       const endPosition = decodedString.lastIndexOf('}') + 1;
-      const jsonString = decodedString.slice(startPosition, endPosition);
+      let jsonString = decodedString.slice(startPosition, endPosition);
+
+      let infIndex = jsonString.indexOf('Infinity');
+
+      while (infIndex > 0) {
+        jsonString = jsonString.replaceAll('Infinity', '-999');
+        infIndex = jsonString.indexOf('Infinity');
+      }
 
       try {
         const parsedJson = JSON.parse(jsonString);
