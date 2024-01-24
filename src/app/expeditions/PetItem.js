@@ -36,7 +36,8 @@ const PetItem = ({ petData,
 
     if (!pet) return null; // In case the pet is not found in the collection
 
-    const rank = defaultRank ? defaultRank : pet.Rank;
+    // const rank = defaultRank ? defaultRank : pet.Rank;
+    const rank =  pet.Rank;
     const level = pet.Level;
     const totalScore = Number(
         Number(data?.PetDamageBonuses) * pet.BaseDungeonDamage * (1.0 + rank * 0.05) * 5
@@ -60,13 +61,14 @@ const PetItem = ({ petData,
             {filterBonuses(pet.BonusList, (bonus) => {
                 return bonus.ID < 1000;
             }).map((activePetBonus, i) => {
-                const bonusBase = Number(1.0 + activePetBonus.Gain);
-                const bonusPower = Number(pet.Level === 0 ? 1 : pet.Level);
-                const result = (Math.pow(bonusBase, bonusPower) - 1) * (1 + .02 * Number(pet.Rank));
-
+                // const bonusBase = Number(1.0 + activePetBonus.Gain);
+                // const bonusPower = Number(pet.Level === 0 ? 1 : pet.Level);
+                // const result = (Math.pow(bonusBase, bonusPower) - 1) * (1 + .02 * Number(pet.Rank));
+                const equipedBonus = petHelper.calcEquipBonus(pet, activePetBonus);
+              
                 return (
                     <li key={i}>
-                        {BonusMap[activePetBonus.ID]?.label}: {result.toExponential(2)}
+                        {BonusMap[activePetBonus.ID]?.label}: {equipedBonus.toExponential(2)}
                     </li>
                 );
             })}
@@ -133,7 +135,7 @@ const PetItem = ({ petData,
                             {name}  ({totalScore})
                         </div>
                         <div>
-                            (Level: {level}) (Rank: {rank})  ({location})
+                            (Level: {level}) (Rank: {pet.Rank})  ({location})
 
                         </div>
                     </h3>
@@ -271,9 +273,7 @@ const StaticPetItem = ({ petData, highlight, showNameOnly }) => {
             {filterBonuses(pet.BonusList, (bonus) => {
                 return bonus.ID < 1000;
             }).map((activePetBonus, i) => {
-                const bonusBase = Number(1.0 + activePetBonus.Gain);
-                const bonusPower = Number(pet.Level === 0 ? 1 : pet.Level);
-                const result = (Math.pow(bonusBase, bonusPower) - 1) * (1 + .02 * Number(pet.Rank));
+                const result = petHelper.calcEquipBonus(pet, activePetBonus);
 
                 return (
                     <li key={i}>

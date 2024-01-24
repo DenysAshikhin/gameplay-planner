@@ -760,8 +760,8 @@ export const BonusMap = {
     5014: { id: 5014, label: "Faster Charge Tick +10%", rootName: 'Faster Charge Tick' },
     5015: { id: 5015, label: "Growth Speed +10%", rootName: 'Growth Speed' },
     5016: { id: 5016, label: "Grasshopper Damage +25%", rootName: 'Grasshopper Damage' },
-    5017: { id: 5017, label: "Mineral Type Chance +??%", rootName: 'Mineral Type' },
-    5018: { id: 5018, label: "Faster Town Building +??%", rootName: 'Town Building' },
+    5017: { id: 5017, label: "Mineral Type Chance +25%", rootName: 'Mineral Type' },
+    5018: { id: 5018, label: "Faster Town Building +25%", rootName: 'Town Building' },
 };
 
 const standardBonusesWeightListCount = Array.from({ length: 22 }, (x, i) => i);

@@ -1,13 +1,5 @@
 {
-  "/_not-found": "app/_not-found.js",
   "/page": "app/page.js",
-  "/page_selection/page": "app/page_selection/page.js",
   "/expeditions/page": "app/expeditions/page.js",
-  "/gratitude/page": "app/gratitude/page.js",
-  "/farming/page": "app/farming/page.js",
-  "/cards/page": "app/cards/page.js",
-  "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/pets/page": "app/pets/page.js",
-  "/protein/page": "app/protein/page.js",
-  "/residue/page": "app/residue/page.js"
+  "/pets/page": "app/pets/page.js"
 }

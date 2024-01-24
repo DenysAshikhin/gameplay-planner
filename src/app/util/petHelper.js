@@ -16,7 +16,8 @@ var helper = {
 
         let clover;
         let residueToken = tokenModifiers?.residueToken ? tokenModifiers.residueToken : 0;
-        let pd_token_bonus = tokenModifiers.data.ExpeditionTokenBonuses;
+        //contains clover and other                 contains active (special) bonuses
+        let pd_token_bonus = tokenModifiers.data.ExpeditionTokenBonuses * tokenModifiers.data.ExpeditionResourceBonuses;
 
         if (!hours) {
             hours = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
@@ -28,19 +29,20 @@ var helper = {
             combo = 1.0
         }
         const overall = this.calculateGroupScore(group);
-        // const tokenHR = overall.tokenMult * (Math.pow(1 + this.SOUL_CLOVER_STEP, clover)) * (1 + 0.05 * residueToken) * combo;
-        const tokenHR = overall.tokenMult * (Math.pow(1 + this.SOUL_CLOVER_STEP, clover)) * pd_token_bonus * combo;
+
+        //includes pet token gain 
+        const tokenHR = overall.tokenMult * pd_token_bonus * combo;
         let best = { hours: -1, totalTokens: -1, floored: -1, effeciency: -1 };
         let bestArr = [];
 
         for (let i = 0; i < hours.length; i++) {
             let h = hours[i];
-            let totalTokens = tokenHR * h;
+            let totalTokens = tokenHR + (1 / 3600) * tokenHR;//assuming 1hr runs
             let floored = Math.floor(totalTokens);
             let effeciency = floored / totalTokens;
             let wasted = totalTokens - floored;
             let wastedHR = wasted / h;
-            let temp = { wastedHR: wastedHR, tokenHR: tokenHR, wasted: wasted, hours: h, totalTokens: totalTokens, floored: floored, effeciency: effeciency };
+            let temp = { wastedHR: wastedHR, tokenHR: tokenHR + (1 / 3600) * tokenHR, wasted: wasted, hours: h, totalTokens: totalTokens, floored: floored, effeciency: effeciency };
             bestArr.push(temp);
 
             // if (effeciency > best.effeciency) {
@@ -1978,43 +1980,81 @@ var helper = {
 
         let bonus = 1;
         let curr = pet;
-
         if (bonusInner.ID === 23) {
 
-            let x1 = Math.pow(1.0 + bonusInner.Gain, curr.Level) - 1.0;
-            let x2 = general_helper.calculateLogarithm(1.0125, curr.Level + 1);
-            let x3 = Math.max(0.0, (x2 * 0.005 - 1.0) * 0.5);
-            let x4 = general_helper.calculateLogarithm(1.075, curr.Rank + 1);
-            let x5 = 1.0 + x4 * 0.005;
+            if (curr.Level < 1) return 0;
 
-            let tot1 = (x1 + x3);
-            let tot2 = tot1 * x5;
-            let tot3 = tot2 * 0.5;
+            let x1 = general_helper.calculateLogarithm( 1.1, curr.Level);
+            let x2 = Math.max(0, x1 - 45);
+            let x3 = Math.pow(1.15, x2);
+
+            let x4 = general_helper.calculateLogarithm( 1.1, curr.Rank);
+            let x5 = Math.max(0, x4 - 45);
+            let x6 = Math.pow(1.15, x5);
+
+            let tot3 = ((1 + (24 + x3) * 0.01) * (1 + x6 * 0.01) - 1);
             bonus = tot3;
         }
         else if (bonusInner.ID === 28) {
 
-            let x1 = Math.pow(1.0 + bonusInner.Gain, curr.Level) - 1.0;
-            let x2 = general_helper.calculateLogarithm(1.0125, curr.Level + 1);
-            let x3 = Math.max(0.0, (x2 * 0.005 - 1.0) * 0.25);
-            let x4 = general_helper.calculateLogarithm(1.075, curr.Rank + 1);
-            let x5 = 1.0 + x4 * 0.005;
 
-            let tot1 = (x1 + x3);
-            let tot2 = tot1 * x5;
-            bonus = tot2;
+            if (curr.Level < 1) return 0;
+
+            let x1 = general_helper.calculateLogarithm( 1.1, curr.Level);
+            let x2 = Math.max(0, x1 - 45);
+            let x3 = Math.pow(1.15, x2);
+
+            let x4 = general_helper.calculateLogarithm( 1.1, curr.Rank);
+            let x5 = Math.max(0, x4 - 45);
+            let x6 = Math.pow(1.15, x5);
+
+            let tot3 = ((1 + (24 + x3) * 0.001) * (1 + x6 * 0.01) - 1);
+            bonus = tot3;
         }
         else if (bonusInner.ID === 29) {
 
-            let x1 = Math.pow(1.0 + bonusInner.Gain, curr.Level) - 1.0;
-            let x2 = general_helper.calculateLogarithm(1.0125, curr.Level + 1);
-            let x3 = Math.max(0.0, (x2 * 0.005 - 1.0) * 0.125);
-            let x4 = general_helper.calculateLogarithm(1.075, curr.Rank + 1);
-            let x5 = 1.0 + x4 * 0.005;
+            if (curr.Level < 1) return 0;
 
-            let tot1 = (x1 + x3);
-            let tot2 = tot1 * x5;
-            bonus = tot2;
+            let x1 = general_helper.calculateLogarithm( 1.1, curr.Level);
+            let x2 = Math.max(0, x1 - 45);
+            let x3 = Math.pow(1.15, x2);
+
+            let x4 = general_helper.calculateLogarithm( 1.1, curr.Rank);
+            let x5 = Math.max(0, x4 - 45);
+            let x6 = Math.pow(1.15, x5);
+
+            let tot3 = ((1 + (24 + x3) * 0.0025) * (1 + x6 * 0.01) - 1);
+            bonus = tot3;
+        }
+        else if (bonusInner.ID === 34) {
+
+            if (curr.Level < 1) return 0;
+
+            let x1 = general_helper.calculateLogarithm( 1.1, curr.Level);
+            let x2 = Math.max(0, x1 - 45);
+            let x3 = Math.pow(1.125, x2);
+
+            let x4 = general_helper.calculateLogarithm( 1.1, curr.Rank);
+            let x5 = Math.max(0, x4 - 45);
+            let x6 = Math.pow(1.15, x5);
+
+            let tot3 = ((1 + (9 + x3) * 0.00025) * (1 + x6 * 0.001) - 1);
+            bonus = tot3;
+        }
+        else if (bonusInner.ID === 35) {
+
+            if (curr.Level < 1) return 0;
+
+            let x1 = general_helper.calculateLogarithm( 1.1, curr.Level);
+            let x2 = Math.max(0, x1 - 45);
+            let x3 = Math.pow(1.125, x2);
+
+            let x4 = general_helper.calculateLogarithm( 1.1, curr.Rank);
+            let x5 = Math.max(0, x4 - 45);
+            let x6 = Math.pow(1.15, x5);
+
+            let tot3 = ((1 + (9 + x3) * 5E-05) * (1 + x6 * 0.001) - 1);
+            bonus = tot3;
         }
         else {//s
             let x1 = Math.pow(1.0 + bonusInner.Gain, curr.Level) - 1.0;

@@ -976,7 +976,7 @@ export default function Expeditions() {
                             </div>
                             <div>
 
-                                {`Token Bonuses: ${helper.roundTwoDecimal(data.ExpeditionTokenBonuses)}`}
+                                {`Token Bonuses: ${helper.roundTwoDecimal(data.ExpeditionTokenBonuses) * helper.roundTwoDecimal(data.ExpeditionResourceBonuses)}`}
                             </div>
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center' }}>
