@@ -516,9 +516,11 @@ var helper = {
                     blackList[cur.id] = cur;
                 }
                 else if (cur.placement === 'team') {
-                    whitelist[cur.id] = cur;
-                    lockedPets[cur.id] = cur;
-                    psuedoGroups[cur.parameters.team].push(cur);
+                    if (psuedoGroups[cur.parameters.team]) {
+                        whitelist[cur.id] = cur;
+                        lockedPets[cur.id] = cur;
+                        psuedoGroups[cur.parameters.team].push(cur);
+                    }
 
                 }
                 else if (cur.placement === 'rel') {
@@ -1984,11 +1986,11 @@ var helper = {
 
             if (curr.Level < 1) return 0;
 
-            let x1 = general_helper.calculateLogarithm( 1.1, curr.Level);
+            let x1 = general_helper.calculateLogarithm(1.1, curr.Level);
             let x2 = Math.max(0, x1 - 45);
             let x3 = Math.pow(1.15, x2);
 
-            let x4 = general_helper.calculateLogarithm( 1.1, curr.Rank);
+            let x4 = general_helper.calculateLogarithm(1.1, curr.Rank);
             let x5 = Math.max(0, x4 - 45);
             let x6 = Math.pow(1.15, x5);
 
@@ -2000,11 +2002,11 @@ var helper = {
 
             if (curr.Level < 1) return 0;
 
-            let x1 = general_helper.calculateLogarithm( 1.1, curr.Level);
+            let x1 = general_helper.calculateLogarithm(1.1, curr.Level);
             let x2 = Math.max(0, x1 - 45);
             let x3 = Math.pow(1.15, x2);
 
-            let x4 = general_helper.calculateLogarithm( 1.1, curr.Rank);
+            let x4 = general_helper.calculateLogarithm(1.1, curr.Rank);
             let x5 = Math.max(0, x4 - 45);
             let x6 = Math.pow(1.15, x5);
 
@@ -2015,11 +2017,11 @@ var helper = {
 
             if (curr.Level < 1) return 0;
 
-            let x1 = general_helper.calculateLogarithm( 1.1, curr.Level);
+            let x1 = general_helper.calculateLogarithm(1.1, curr.Level);
             let x2 = Math.max(0, x1 - 45);
             let x3 = Math.pow(1.15, x2);
 
-            let x4 = general_helper.calculateLogarithm( 1.1, curr.Rank);
+            let x4 = general_helper.calculateLogarithm(1.1, curr.Rank);
             let x5 = Math.max(0, x4 - 45);
             let x6 = Math.pow(1.15, x5);
 
@@ -2030,11 +2032,11 @@ var helper = {
 
             if (curr.Level < 1) return 0;
 
-            let x1 = general_helper.calculateLogarithm( 1.1, curr.Level);
+            let x1 = general_helper.calculateLogarithm(1.1, curr.Level);
             let x2 = Math.max(0, x1 - 45);
             let x3 = Math.pow(1.125, x2);
 
-            let x4 = general_helper.calculateLogarithm( 1.1, curr.Rank);
+            let x4 = general_helper.calculateLogarithm(1.1, curr.Rank);
             let x5 = Math.max(0, x4 - 45);
             let x6 = Math.pow(1.15, x5);
 
@@ -2045,11 +2047,11 @@ var helper = {
 
             if (curr.Level < 1) return 0;
 
-            let x1 = general_helper.calculateLogarithm( 1.1, curr.Level);
+            let x1 = general_helper.calculateLogarithm(1.1, curr.Level);
             let x2 = Math.max(0, x1 - 45);
             let x3 = Math.pow(1.125, x2);
 
-            let x4 = general_helper.calculateLogarithm( 1.1, curr.Rank);
+            let x4 = general_helper.calculateLogarithm(1.1, curr.Rank);
             let x5 = Math.max(0, x4 - 45);
             let x6 = Math.pow(1.15, x5);
 

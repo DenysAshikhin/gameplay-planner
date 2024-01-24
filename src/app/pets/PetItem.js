@@ -48,9 +48,7 @@ export function PetItem({ petData, isSelected, onClick, data, weightMap, petScor
             {filterBonuses(pet.BonusList, (bonus) => {
                 return bonus.ID < 1000;
             }).map((activePetBonus, i) => {
-                const bonusBase = Number(1.0 + activePetBonus.Gain);
-                const bonusPower = Number(pet.Level === 0 ? 1 : pet.Level);
-                const result = (Math.pow(bonusBase, bonusPower) - 1) * (1 + .02 * Number(pet.Rank));
+                const result = petHelper.calcEquipBonus(pet, activePetBonus);
 
                 return (
                     <li key={i}>
@@ -266,9 +264,7 @@ export function PetItemExpeditions({ petData, isSelected, onClick, data, weightM
             {filterBonuses(pet.BonusList, (bonus) => {
                 return bonus.ID < 1000;
             }).map((activePetBonus, i) => {
-                const bonusBase = Number(1.0 + activePetBonus.Gain);
-                const bonusPower = Number(pet.Level === 0 ? 1 : pet.Level);
-                const result = (Math.pow(bonusBase, bonusPower) - 1) * (1 + .02 * Number(pet.Rank));
+                const result = petHelper.calcEquipBonus(pet, activePetBonus);
 
                 return (
                     <li key={i}>
@@ -462,9 +458,7 @@ export function StaticPetItem({ petData, highlight, showNameOnly }) {
             {filterBonuses(pet.BonusList, (bonus) => {
                 return bonus.ID < 1000;
             }).map((activePetBonus, i) => {
-                const bonusBase = Number(1.0 + activePetBonus.Gain);
-                const bonusPower = Number(pet.Level === 0 ? 1 : pet.Level);
-                const result = (Math.pow(bonusBase, bonusPower) - 1) * (1 + .02 * Number(pet.Rank));
+                const result = petHelper.calcEquipBonus(pet, activePetBonus);
 
                 return (
                     <li key={i}>

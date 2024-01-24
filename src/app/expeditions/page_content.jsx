@@ -335,11 +335,11 @@ export default function Expeditions() {
         }
         else if (cur.placement === 'team') {
 
-            if (!manualGroups[cur.parameters]) {
-                manualGroups[cur.parameters] = [];
+            if (!manualGroups[cur.parameters.team]) {
+                manualGroups[cur.parameters.team] = [];
             }
-            manualGroups[cur.parameters].push(inner_pet);
-            if (manualGroups[cur.parameters].length > maxPets) {
+            manualGroups[cur.parameters.team].push(inner_pet);
+            if (manualGroups[cur.parameters.team].length > maxPets) {
                 whiteListAlertText = `Group ${cur.parameters.team + 1} has too many pets!`;
             }
 
@@ -347,7 +347,7 @@ export default function Expeditions() {
 
                 let airy = 0;
                 let groundy = 0;
-                manualGroups[cur.parameters].forEach((manual_pet) => {
+                manualGroups[cur.parameters.team].forEach((manual_pet) => {
                     if (manual_pet.Type === 1) {
                         groundy++;
                     }
@@ -356,10 +356,10 @@ export default function Expeditions() {
                     }
                 });
                 if (airy > (maxPets / 2)) {
-                    whiteListAlertText = `Group ${cur.parameters} has too many air pets!`;
+                    whiteListAlertText = `Group ${cur.parameters.team} has too many air pets!`;
                 }
                 else if (airy > (maxPets / 2)) {
-                    whiteListAlertText = `Group ${cur.parameters} has too many ground pets!`;
+                    whiteListAlertText = `Group ${cur.parameters.team} has too many ground pets!`;
                 }
             }
         }

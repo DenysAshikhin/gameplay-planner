@@ -48,9 +48,7 @@ export default function PetItem({ petData, isSelected, onClick, data, weightMap,
             {filterBonuses(pet.BonusList, (bonus) => {
                 return bonus.ID < 1000;
             }).map((activePetBonus, i) => {
-                const bonusBase = Number(1.0 + activePetBonus.Gain);
-                const bonusPower = Number(pet.Level === 0 ? 1 : pet.Level);
-                const result = (Math.pow(bonusBase, bonusPower) - 1) * (1 + .02 * Number(pet.Rank));
+                const result = petHelper.calcEquipBonus(pet, activePetBonus);
 
                 return (
                     <li key={i}>
@@ -106,9 +104,9 @@ export default function PetItem({ petData, isSelected, onClick, data, weightMap,
         }
     }
 
-if(!showNameOnly){
-    let bigsad = -1;
-}
+    if (!showNameOnly) {
+        let bigsad = -1;
+    }
 
     return (
 
@@ -125,7 +123,7 @@ if(!showNameOnly){
                             {name}  ({totalScore})
                         </div>
                         <div>
-                            (Level: {level}) (Rank: {rank})  ({location})
+                            (Level: {level}) (Rank: {pet.Rank})  ({location})
 
                         </div>
                     </h3>
@@ -171,7 +169,7 @@ if(!showNameOnly){
                         <div
                             className="item-image-container"
                             style={{
-                               
+
                                 outline: borderActive ? 'white 4px solid' : '',
                                 position: 'relative',
                                 display: 'flex',
