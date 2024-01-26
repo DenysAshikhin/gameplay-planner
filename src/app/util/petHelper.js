@@ -1,4 +1,6 @@
 import general_helper from './helper.js';
+import { mainTeamSuggestions, reincTeamSuggestions, gearTeamSuggestions, statTeamSuggestions } from '../pets/teamSuggestions.js';
+import { getPet, BonusMap } from "./itemMapping.js";
 
 var helper = {
     EXP_DMG_MOD: .1,
@@ -2065,8 +2067,268 @@ var helper = {
         }
 
         return bonus * 100;
-    }
+    },
+    populatePets: function (data, parameters) {
+        let petList = {};
+        let petBonusMap = {};
 
+        let groundAllowed = parameters.ground;
+        let airAllowed = parameters.air;
+        let bannedPets = parameters.banned;
+        let manualEnabledPets = parameters.manualEnabledPets ? parameters.manualEnabledPets : {};
+
+        for (let i = 0; i < data.PetsCollection.length; i++) {
+            let pet = data.PetsCollection[i];
+            if (pet.ID === 0) continue;
+
+            pet.name = getPet(pet.ID).name;
+
+            if ((pet.Locked === 0 && manualEnabledPets[pet.ID] !== 1) || manualEnabledPets[pet.ID] === 0) {
+                continue;
+            }
+            else if (!groundAllowed && pet.Type === 1) {
+                continue;
+            }
+            else if (!airAllowed && pet.Type === 2) {
+                continue;
+            }
+            else if (bannedPets[pet.ID]) {
+                continue;
+            }
+
+            petList[pet.ID] = pet;
+            pet.BonusList.forEach((e) => {
+                if (!petBonusMap[e.ID]) {
+                    petBonusMap[e.ID] = {};
+                }
+                petBonusMap[e.ID][pet.ID] = pet;
+            })
+        }
+        return { petList, petBonusMap };
+    },
+    calcCurrentBonuses: function (groundPets, airPets) {
+        let currentBonuses = {};
+        for (let i = 0; i < groundPets.length; i++) {
+            let pet = groundPets[i];
+            pet.BonusList.forEach((e) => {
+                if (!currentBonuses[e.ID]) {
+                    currentBonuses[e.ID] = { ...e, count: 0, sum: 0 };
+                }
+                currentBonuses[e.ID].count++;
+                currentBonuses[e.ID].sum += this.calcEquipBonus(pet, e);
+
+            })
+        }
+        for (let i = 0; i < airPets.length; i++) {
+            let pet = airPets[i];
+            pet.BonusList.forEach((e) => {
+                if (!currentBonuses[e.ID]) {
+                    currentBonuses[e.ID] = { ...e, count: 0, sum: 0 };
+                }
+                currentBonuses[e.ID].count++;
+                currentBonuses[e.ID].sum += this.calcEquipBonus(pet, e);
+            })
+        }
+        return currentBonuses;
+    },
+    findBestTeam: function (data, parameters) {
+
+        let res;
+        let petList = {};
+        let petBonusMap = {};
+        let currentBonuses = {};
+        let bannedPets = {};
+
+        let groundPets = [];
+        const groundLimit = data.SlotGround;
+        let airPets = [];
+        const airLimit = data.SlotAir;
+
+        let priorities = parameters.priorityList ? parameters.priorityList : [];
+        let priorityMap = parameters.priorityMap ? parameters.priorityMap : [];
+        let petWhiteList = parameters.petWhiteList ? parameters.petWhiteList : {};
+
+        let tempArr = [];//
+        for (let i = 0; i < priorities.length; i++) {
+            let curr = priorities[i];
+            tempArr.push({ ...priorityMap[curr], selectedPets: [] });
+        }
+        priorities = tempArr;
+
+        // NOTE need to add counter for bonuses as well!!!
+        for (const [key, value] of Object.entries(petWhiteList)) {
+            if (value.mode === 'include') {
+
+
+                //Meaning we don't have this pet unlocked 
+                if (!value.BonusList) {
+                    continue;
+                }
+
+                if (value.Type === 1 && groundPets.length < groundLimit) {
+                    groundPets.push(value);
+                }
+                else if (value.Type === 2 && airPets.length < airLimit) {
+                    airPets.push(value)
+                }
+
+                for (let j = 0; j < value.BonusList.length; j++) {
+                    let found = priorities.find((cur_pri) => cur_pri.id === value.BonusList[j].ID);
+                    if (found) {
+                        found.current++;
+                    }
+                }
+
+            }
+            bannedPets[value.ID] = value;
+        }
+
+
+        res = this.populatePets(data, { manualEnabledPets: parameters.manualEnabledPets, ground: groundPets.length < groundLimit, air: airPets.length < airLimit, banned: bannedPets });
+        petList = res.petList;
+        petBonusMap = res.petBonusMap;
+        currentBonuses = this.calcCurrentBonuses(groundPets, airPets);//s
+
+        let selectedPetMap = {};
+        for (let i = 0; i < priorities.length; i++) {
+            selectedPetMap[priorities[i].id] = [];
+        }
+
+
+        while ((groundPets.length < groundLimit || airPets.length < airLimit) && Object.values(petList).length > 0) {
+
+            // let currentPriority = priorities.shift();sssssssss
+
+            let pets = [];
+            let scoreTick = 1 / priorities.length;
+
+            let scoreMode = 'unique';//unique || priorities
+            let ignoreStat = {};
+
+            for (let j = 0; j < priorities.length; j++) {
+
+                if (priorities[j].count === 0 || (priorities[j].count === priorities[j].current)) {
+                    ignoreStat[priorities[j].id] = priorities[j];
+                }
+                else if ((priorities[j].count > priorities[j].current) || (priorities[j].count === -1)) {
+
+                    scoreMode = 'priorities';
+                }
+            }
+
+            for (const [ID, value] of Object.entries(petList)) {
+                let pet = { ...value, score: 0, bonuses: [], sharedBonuses: [] };
+                if (bannedPets[ID]) {
+                    continue;
+                }
+
+                pet.BonusList.forEach((e) => {
+
+                    if (ignoreStat[e.ID] || (e.ID >= 1000)) {
+                        return;
+                    }
+
+                    if (scoreMode === 'priorities') {
+                        let found = false;
+
+                        for (let j = 0; j < priorities.length; j++) {
+
+                            if (priorities[j].id === e.ID && (priorities[j].count > priorities[j].current || priorities[j].count === -1)) {
+
+                                found = true;
+                                pet.bonuses.push(priorities[j]);
+
+                                pet.score += scoreTick * (priorities.length - j);
+                                break;
+                            }
+                        }
+
+                        if (!found) {
+                            if (currentBonuses[e.ID]) {
+                                pet.score += (scoreTick / (10 * (currentBonuses[e.ID].count + 1)));
+                            }
+                            else {
+                                pet.score += (scoreTick / 10);
+                            }
+                        }
+                    }
+                    //Search for uniques!
+                    else {
+                        if (ignoreStat[e.ID] || e.ID >= 1000) {
+
+                        }
+                        else if (currentBonuses[e.ID]) {
+                            pet.score += ((0.01) / (currentBonuses[e.ID].count + 1));
+                            pet.sharedBonuses.push(BonusMap[e.ID]);
+                        }
+                        else {
+                            pet.score += 1;
+                            pet.bonuses.push(BonusMap[e.ID]);
+                        }
+                    }
+                });
+                pet.score = general_helper.roundFiveDecimal(pet.score);
+                pets.push(pet);
+            }
+
+
+            pets.sort((a, b) => {
+                let diff = b.score - a.score;
+
+                if (diff === 0) {
+                    if (b.Rank !== a.Rank) {
+                        return b.Rank - a.Rank;
+                    }
+                    // diff = b.Rank - a.Rank;
+
+                    // let diff_abs = Math.abs(diff);
+                    // let max = b.Rank > a.Rank ? b.Rank : a.Rank;
+
+                    // if ((diff_abs / max) <= 0.1) {
+                    //     return b.Level - a.Level;
+                    // }
+
+                    if (diff === 0) {
+                        diff = b.Level - a.Level;
+                    }
+                }
+                return diff
+            });
+            let bestPet = pets[0];
+
+
+            //Add pet counters to each priority bonus:
+            for (let j = 0; j < bestPet.BonusList.length; j++) {
+                let found = priorities.find((cur_pri) => cur_pri.id === bestPet.BonusList[j].ID);
+                if (found) {
+                    found.current++;
+                }
+            }
+
+            if (bestPet.Type === 1) {
+                groundPets.push(bestPet);
+            }
+            else {
+                airPets.push(bestPet);
+            }
+            bannedPets[bestPet.ID] = bestPet;
+
+            res = this.populatePets(data, { manualEnabledPets: parameters.manualEnabledPets, ground: groundPets.length < groundLimit, air: airPets.length < airLimit, banned: bannedPets });
+            petList = res.petList;
+            petBonusMap = res.petBonusMap;
+            currentBonuses = this.calcCurrentBonuses(groundPets, airPets);
+        }
+
+
+
+        let numBonuses = 0;
+        for (const [key, value] of Object.entries(currentBonuses)) {
+            numBonuses++;
+            value.label = BonusMap[key].label;
+        }
+
+        return [airPets, groundPets, currentBonuses, selectedPetMap];
+    },
 }
 
 

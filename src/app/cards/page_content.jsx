@@ -1635,7 +1635,7 @@ export default function Cards() {
             return setNewCardWeights(defaultWeights);
         }
         setNewCardWeightsRunTime(newCardWeightsClient);
-    }, [newCardWeightsClient])
+    }, [newCardWeightsClient, setNewCardWeights])
 
     const { CardsCollection } = data;
 

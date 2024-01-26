@@ -26,6 +26,7 @@ import ReactGA from "react-ga4";
 import SearchBox from '../util/search.jsx';
 import petHelper from '../util/petHelper.js';
 import DefaultSave from '../util/tempSave.json';
+import { mainTeamSuggestions, reincTeamSuggestions, gearTeamSuggestions, statTeamSuggestions } from '../pets/teamSuggestions.js';
 
 ReactGA.initialize([{
     trackingId: "G-GGLPK02VH8",
@@ -108,11 +109,11 @@ export default function Expeditions() {
     }, [petWhiteListClient, setPetWhiteList]);
 
     const [manualEnabledPetsLoaded, setManualEnabledPetsLoaded] = useState(false);
-    const [manualEnabledPets, setManualEnabledPetsRuneTime] = useState({});
+    const [manualEnabledPets, setManualEnabledPetsRunTime] = useState({});
     const [manualEnabledPetsClient, setManualEnabledPets] = useLocalStorage("manualEnabledPets", {});
     useEffect(() => {
         setManualEnabledPetsLoaded(true);
-        setManualEnabledPetsRuneTime(manualEnabledPetsClient);
+        setManualEnabledPetsRunTime(manualEnabledPetsClient);
     }, [manualEnabledPetsClient])
 
     const [enabledBonusHighlight, setEnabledBonusHighlightRunTime] = useState({});
@@ -181,6 +182,7 @@ export default function Expeditions() {
     const [weightMap, setWeightMap] = useState(DefaultWeightMap);
     const [selectedItems, setSelectedItems] = useState(defaultPetSelection);
     const [tokenDamageBias, setTokenDamageBias] = useState(15);
+    const [recommendedSelected, setRecommendedSelected] = useState(false);
 
     const includeLocked = false;
 
@@ -1358,67 +1360,171 @@ export default function Expeditions() {
                                             setRefreshGroups(true);
                                         }}
                                     />
-                                    <div
-                                        style={{ display: 'flex' }}
-                                    >
+                                    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+
                                         <div
-                                            style={{ marginRight: '6px' }}
+                                            style={{ display: 'flex', justifyContent: 'space-between' }}
                                         >
-                                            Team Presets
-                                        </div>
-                                        <select
-                                            className='importantText'
-                                            style={{ maxWidth: '144px', backgroundColor: '#171717', borderRadius: '4px' }}
-                                            aria-label='Select your in game teams to quickly add those pets to whitelist'
-                                            onChange={
-                                                (e) => {
+                                            <div
+                                                style={{ marginRight: '6px' }}
+                                            >
+                                                Team Presets
+                                            </div>
+                                            <select
+                                                className='importantText'
+                                                style={{ maxWidth: '144px', backgroundColor: '#171717', borderRadius: '4px' }}
+                                                aria-label='Select your in game teams to quickly add those pets to whitelist'
+                                                onChange={
+                                                    (e) => {
 
-                                                    let selectedTeam = data.PetsLoadout[Number(e.target.value)]
-                                                    console.log(selectedTeam);
+                                                        let selectedTeam = data.PetsLoadout[Number(e.target.value)];
 
-                                                    setPetWhiteList((curr) => {
-                                                        let temp = [...curr];
-                                                        // temp.push({ ...e, placement: 'blacklist', parameters: { team: 0, damageBias: 17 } });
+                                                        setPetWhiteList((curr) => {
+                                                            let temp = [...curr];
+                                                            // temp.push({ ...e, placement: 'blacklist', parameters: { team: 0, damageBias: 17 } });
 
-                                                        for (let x = 0; x < selectedTeam.IDs.length; x++) {
-                                                            let selected = selectedTeam.IDs[x];
-                                                            if (selected > 0) {
-                                                                let base = {
-                                                                    id: selected,
-                                                                    label: petNames[selected].name,
-                                                                    // placement: 'rel',
-                                                                    placement: 'auto',
-                                                                    parameters: { team: 0, damageBias: 17 },
-                                                                    pet: data.PetsCollection.find((pet_search) => pet_search.ID === selected)
-                                                                }
-                                                                if (!temp.find((inner_find) => inner_find.id === base.id)) {
-                                                                    temp.push(base);
+                                                            for (let x = 0; x < selectedTeam.IDs.length; x++) {
+                                                                let selected = selectedTeam.IDs[x];
+                                                                if (selected > 0) {
+                                                                    let base = {
+                                                                        id: selected,
+                                                                        label: petNames[selected].name,
+                                                                        // placement: 'rel',
+                                                                        placement: 'auto',
+                                                                        parameters: { team: 0, damageBias: 17 },
+                                                                        pet: data.PetsCollection.find((pet_search) => pet_search.ID === selected)
+                                                                    }
+                                                                    if (!temp.find((inner_find) => inner_find.id === base.id)) {
+                                                                        temp.push(base);
+                                                                    }
                                                                 }
                                                             }
-                                                        }
-                                                        return temp;
-                                                    })
-                                                    setRefreshGroups(true);
-
+                                                            return temp;
+                                                        })
+                                                        setRefreshGroups(true);
+                                                    }
                                                 }
-                                            }
-                                            value={''}
+                                                value={''}
+                                            >
+                                                {
+                                                    [<option value='' key={'initial one'}>Select Team</option>, ...data.PetsLoadout.map((cur, index) => {
+
+                                                        if (cur.Locked === 0) return;
+
+                                                        return (
+                                                            <option
+                                                                key={index}
+                                                                value={index}
+
+                                                            >{cur.Name}</option>
+                                                        )
+                                                    })]
+                                                }
+                                            </select>
+                                        </div>
+                                        <div
+                                            style={{ display: 'flex', justifyContent: 'space-between' }}
                                         >
-                                            {
-                                                [<option value='' key={'initial one'}>Select Team</option>, ...data.PetsLoadout.map((cur, index) => {
+                                            <div
+                                                style={{ marginRight: '6px' }}
+                                            >
+                                                Recommended Teams
+                                            </div>
+                                            <select
+                                                aria-label='Select a default team preset'
+                                                className='importantText'
+                                                style={{ maxWidth: '144px', backgroundColor: '#171717', borderRadius: '4px', marginleft: '12px' }}
+                                                onChange={
+                                                    (selected_mode) => {
+                                                        setRecommendedSelected(true);
+                                                        let priorityList = {};
+                                                        let priorityMap = {};
+                                                        let petWhiteList = {};
+                                                        let presetPets = {};
 
-                                                    if (cur.Locked === 0) return;
+                                                        switch (selected_mode.target.value) {
+                                                            case 'Main Team':
+                                                                priorityList = mainTeamSuggestions[data.AscensionCount].priorityList;
+                                                                priorityMap = mainTeamSuggestions[data.AscensionCount].priorityMap;
+                                                                presetPets = mainTeamSuggestions[data.AscensionCount].petWhiteList ? mainTeamSuggestions[data.AscensionCount].petWhiteList : {};
+                                                                break;
+                                                            case 'Reinc. Team':
+                                                                priorityList = reincTeamSuggestions[data.AscensionCount].priorityList;
+                                                                priorityMap = reincTeamSuggestions[data.AscensionCount].priorityMap;
+                                                                presetPets = reincTeamSuggestions[data.AscensionCount].petWhiteList ? reincTeamSuggestions[data.AscensionCount].petWhiteList : {};
+                                                                break;
+                                                            case 'Gear Team':
+                                                                priorityList = gearTeamSuggestions[data.AscensionCount].priorityList;
+                                                                priorityMap = gearTeamSuggestions[data.AscensionCount].priorityMap;
+                                                                presetPets = gearTeamSuggestions[data.AscensionCount].petWhiteList ? gearTeamSuggestions[data.AscensionCount].petWhiteList : {};
+                                                                break;
+                                                            case 'Stat Team':
+                                                                priorityList = statTeamSuggestions[data.AscensionCount].priorityList;
+                                                                priorityMap = statTeamSuggestions[data.AscensionCount].priorityMap;
+                                                                presetPets = statTeamSuggestions[data.AscensionCount].petWhiteList ? statTeamSuggestions[data.AscensionCount].petWhiteList : {};
+                                                                break;
+                                                            case 'None':
+                                                                priorityList = [];
+                                                                priorityMap = {};
+                                                                break;
+                                                            default:
 
-                                                    return (
-                                                        <option
-                                                            key={index}
-                                                            value={index}
+                                                        }
 
-                                                        >{cur.Name}</option>
-                                                    )
-                                                })]
-                                            }
-                                        </select>
+                                                        let petWhiteListNew = {};
+                                                        for (const [key, value] of Object.entries(presetPets)) {
+                                                            if (!unlockedPetsMap[key]) {
+                                                                petWhiteListNew[key] = { ID: key, name: petNames[key].name, mode: value.mode };
+                                                            }
+                                                            else {
+                                                                petWhiteListNew[key] = { ...unlockedPetsMap[key], mode: value.mode };
+                                                            }
+                                                        }
+                                                        petWhiteList = petWhiteListNew;
+                                                        let airPets, groundPets, currentBonuses, selectedPetMap;
+                                                        [airPets, groundPets, currentBonuses, selectedPetMap] = petHelper.findBestTeam(
+                                                            data,
+                                                            { manualEnabledPets: manualEnabledPets, priorityList: priorityList, priorityMap: priorityMap, petWhiteList: petWhiteList }
+                                                        );
+                                                   
+                                                        let combinedList = airPets.concat(groundPets);
+
+                                                        setPetWhiteList((curr) => {
+                                                            let temp = [...curr];
+                                                            
+
+                                                            for (let x = 0; x < combinedList.length; x++) {
+                                                                let selected = combinedList[x].ID;
+                                                                if (selected > 0) {
+                                                                    let base = {
+                                                                        id: selected,
+                                                                        label: petNames[selected].name,
+                                                                        // placement: 'rel',
+                                                                        placement: 'auto',
+                                                                        parameters: { team: 0, damageBias: 17 },
+                                                                        pet: data.PetsCollection.find((pet_search) => pet_search.ID === selected)
+                                                                    }
+                                                                    if (!temp.find((inner_find) => inner_find.id === base.id)) {
+                                                                        temp.push(base);
+                                                                    }
+                                                                }
+                                                            }
+                                                            return temp;
+                                                        })
+                                                        setRefreshGroups(true);
+
+                                                    }
+                                                }
+                                                defaultValue={' '}
+                                            // value={petWhiteList[e.ID].mode}
+                                            >
+                                                {!recommendedSelected && (<option value="None">Select Preset</option>)}
+                                                <option value="Main Team">Main Team</option>
+                                                <option value="Reinc. Team">Reinc. Team</option>
+                                                <option value="Gear Team">Gear Team</option>
+                                            </select>
+
+                                        </div>
                                     </div>
                                 </div>
                             </div>

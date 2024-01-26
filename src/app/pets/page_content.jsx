@@ -35,28 +35,9 @@ ReactGA.initialize([{
 
 const bonusCutOff = 1000;
 
-const comboBonuses = {
-    5001: 'Spawn More Potatoes',
-    5002: 'Fewer Potatoes Per Wave',
-    5003: 'Potatoes Spawn Speed',
-    5004: 'Minimum Item Rarity',
-    5005: 'Base Residue',
-    5006: 'Drop Bonus Cap',
-    5007: 'Expedition Reward',
-    5008: 'Combo Pet Damage',
-    5009: 'Breeding Timer',
-    5010: 'Milk Timer',
-    5011: 'Attack Speed',
-    5012: 'Whack Buff Timer',
-    5013: 'Breeding and Milk Timer',
-    5014: 'Faster Charge Tick',
-    5015: 'Plant Growth Rate +10%',
-    5016: 'Grasshopper Damage +25%',
-};
-
 function PetComboDisplay({ petCombos, unlockedPets, petMap }) {
 
-    if(!BonusMap[petCombos[0].BonusID]) return <></>
+    if (!BonusMap[petCombos[0].BonusID]) return <></>
 
     const comboBonusLabel = BonusMap[petCombos[0].BonusID].label;
     const numCombos = petCombos.length;
@@ -232,281 +213,7 @@ function PetComboDisplay({ petCombos, unlockedPets, petMap }) {
     );
 }
 
-function populatePets(data, parameters) {
-    let petList = {};
-    let petBonusMap = {};
 
-    let groundAllowed = parameters.ground;
-    let airAllowed = parameters.air;
-    let bannedPets = parameters.banned;
-
-
-    for (let i = 0; i < data.PetsCollection.length; i++) {
-        let pet = data.PetsCollection[i];
-        if (pet.ID === 0) continue;
-
-        pet.name = getPet(pet.ID).name;
-
-        if (pet.Locked === 0) {
-            continue;
-        }
-        else if (!groundAllowed && pet.Type === 1) {
-            continue;
-        }
-        else if (!airAllowed && pet.Type === 2) {
-            continue;
-        }
-        else if (bannedPets[pet.ID]) {
-            continue;
-        }
-
-        petList[pet.ID] = pet;
-        pet.BonusList.forEach((e) => {
-            if (!petBonusMap[e.ID]) {
-                petBonusMap[e.ID] = {};
-            }
-            petBonusMap[e.ID][pet.ID] = pet;
-        })
-    }
-    return { petList, petBonusMap };
-}
-
-function calcCurrentBonuses(groundPets, airPets) {
-    let currentBonuses = {};
-    for (let i = 0; i < groundPets.length; i++) {
-        let pet = groundPets[i];
-        pet.BonusList.forEach((e) => {
-            if (!currentBonuses[e.ID]) {
-                currentBonuses[e.ID] = { ...e, count: 0, sum: 0 };
-            }
-            currentBonuses[e.ID].count++;
-            currentBonuses[e.ID].sum += petHelper.calcEquipBonus(pet, e);
-
-        })
-    }
-    for (let i = 0; i < airPets.length; i++) {
-        let pet = airPets[i];
-        pet.BonusList.forEach((e) => {
-            if (!currentBonuses[e.ID]) {
-                currentBonuses[e.ID] = { ...e, count: 0, sum: 0 };
-            }
-            currentBonuses[e.ID].count++;
-            currentBonuses[e.ID].sum += petHelper.calcEquipBonus(pet, e);
-        })
-    }
-    return currentBonuses;
-}
-
-function listItem(e) {
-    return (
-        <div style={{ margin: '6px', border: '1px solid gray' }}>
-            <div>
-                <div className="dragHandle" style={{ margin: '3px', background: 'green' }} >
-                    X
-                </div>
-            </div>
-            {e.item.label}
-        </div>
-    )
-}
-
-function findBestTeam(data, parameters) {
-
-    let res;
-    let petList = {};
-    let petBonusMap = {};
-    let currentBonuses = {};
-    let bannedPets = {};
-
-    let groundPets = [];
-    const groundLimit = data.SlotGround;
-    let airPets = [];
-    const airLimit = data.SlotAir;
-
-    let priorities = parameters.priorityList ? parameters.priorityList : [];
-    let priorityMap = parameters.priorityMap ? parameters.priorityMap : [];
-    let petWhiteList = parameters.petWhiteList ? parameters.petWhiteList : {};
-    let tempArr = [];//
-    for (let i = 0; i < priorities.length; i++) {
-        let curr = priorities[i];
-        tempArr.push({ ...priorityMap[curr], selectedPets: [] });
-    }
-    priorities = tempArr;
-
-    // NOTE need to add counter for bonuses as well!!!
-    for (const [key, value] of Object.entries(petWhiteList)) {
-        if (value.mode === 'include') {
-
-
-            //Meaning we don't have this pet unlocked 
-            if (!value.BonusList) {
-                continue;
-            }
-
-            if (value.Type === 1 && groundPets.length < groundLimit) {
-                groundPets.push(value);
-            }
-            else if (value.Type === 2 && airPets.length < airLimit) {
-                airPets.push(value)
-            }
-
-            for (let j = 0; j < value.BonusList.length; j++) {
-                let found = priorities.find((cur_pri) => cur_pri.id === value.BonusList[j].ID);
-                if (found) {
-                    found.current++;
-                }
-            }
-
-        }
-        bannedPets[value.ID] = value;
-    }
-
-
-    res = populatePets(data, { ground: groundPets.length < groundLimit, air: airPets.length < airLimit, banned: bannedPets });
-    petList = res.petList;
-    petBonusMap = res.petBonusMap;
-    currentBonuses = calcCurrentBonuses(groundPets, airPets);//s
-
-    let selectedPetMap = {};
-    for (let i = 0; i < priorities.length; i++) {
-        selectedPetMap[priorities[i].id] = [];
-    }
-
-
-    while ((groundPets.length < groundLimit || airPets.length < airLimit) && Object.values(petList).length > 0) {
-
-        // let currentPriority = priorities.shift();sssssssss
-
-        let pets = [];
-        let scoreTick = 1 / priorities.length;
-
-        let scoreMode = 'unique';//unique || priorities
-        let ignoreStat = {};
-
-        for (let j = 0; j < priorities.length; j++) {
-
-            if (priorities[j].count === 0 || (priorities[j].count === priorities[j].current)) {
-                ignoreStat[priorities[j].id] = priorities[j];
-            }
-            else if ((priorities[j].count > priorities[j].current) || (priorities[j].count === -1)) {
-
-                scoreMode = 'priorities';
-            }
-        }
-
-        for (const [ID, value] of Object.entries(petList)) {
-            let pet = { ...value, score: 0, bonuses: [], sharedBonuses: [] };
-            if (bannedPets[ID]) {
-                continue;
-            }
-
-            pet.BonusList.forEach((e) => {
-
-                if (ignoreStat[e.ID] || (e.ID >= 1000)) {
-                    return;
-                }
-
-                if (scoreMode === 'priorities') {
-                    let found = false;
-
-                    for (let j = 0; j < priorities.length; j++) {
-
-                        if (priorities[j].id === e.ID && (priorities[j].count > priorities[j].current || priorities[j].count === -1)) {
-
-                            found = true;
-                            pet.bonuses.push(priorities[j]);
-
-                            pet.score += scoreTick * (priorities.length - j);
-                            break;
-                        }
-                    }
-
-                    if (!found) {
-                        if (currentBonuses[e.ID]) {
-                            pet.score += (scoreTick / (10 * (currentBonuses[e.ID].count + 1)));
-                        }
-                        else {
-                            pet.score += (scoreTick / 10);
-                        }
-                    }
-                }
-                //Search for uniques!
-                else {
-                    if (ignoreStat[e.ID] || e.ID >= 1000) {
-
-                    }
-                    else if (currentBonuses[e.ID]) {
-                        pet.score += ((0.01) / (currentBonuses[e.ID].count + 1));
-                        pet.sharedBonuses.push(BonusMap[e.ID]);
-                    }
-                    else {
-                        pet.score += 1;
-                        pet.bonuses.push(BonusMap[e.ID]);
-                    }
-                }
-            });
-            pet.score = helper.roundFiveDecimal(pet.score);
-            pets.push(pet);
-        }
-
-
-        pets.sort((a, b) => {
-            let diff = b.score - a.score;
-
-            if (diff === 0) {
-                if (b.Rank !== a.Rank) {
-                    return b.Rank - a.Rank;
-                }
-                // diff = b.Rank - a.Rank;
-
-                // let diff_abs = Math.abs(diff);
-                // let max = b.Rank > a.Rank ? b.Rank : a.Rank;
-
-                // if ((diff_abs / max) <= 0.1) {
-                //     return b.Level - a.Level;
-                // }
-
-                if (diff === 0) {
-                    diff = b.Level - a.Level;
-                }
-            }
-            return diff
-        });
-        let bestPet = pets[0];
-
-
-        //Add pet counters to each priority bonus:
-        for (let j = 0; j < bestPet.BonusList.length; j++) {
-            let found = priorities.find((cur_pri) => cur_pri.id === bestPet.BonusList[j].ID);
-            if (found) {
-                found.current++;
-            }
-        }
-
-        if (bestPet.Type === 1) {
-            groundPets.push(bestPet);
-        }
-        else {
-            airPets.push(bestPet);
-        }
-        bannedPets[bestPet.ID] = bestPet;
-
-        res = populatePets(data, { ground: groundPets.length < groundLimit, air: airPets.length < airLimit, banned: bannedPets });
-        petList = res.petList;
-        petBonusMap = res.petBonusMap;
-        currentBonuses = calcCurrentBonuses(groundPets, airPets);
-    }
-
-
-
-    let numBonuses = 0;
-    for (const [key, value] of Object.entries(currentBonuses)) {
-        numBonuses++;
-        value.label = BonusMap[key].label;
-    }
-
-    return [airPets, groundPets, currentBonuses, selectedPetMap];
-}
 
 export default function Pets() {
 
@@ -517,6 +224,22 @@ export default function Pets() {
     useEffect(() => {
         setRunTimeData(clientData);
     }, [clientData]);
+
+
+    const [clientUseExpedition, setUseExpedition] = useLocalStorage('useExpedition', false);
+    const [useExpedition, setRunTimeUseExpedition] = useState(false);
+
+    useEffect(() => {
+        setRunTimeUseExpedition(clientUseExpedition);
+    }, [clientUseExpedition]);
+
+    const [manualEnabledPetsLoaded, setManualEnabledPetsLoaded] = useState(false);
+    const [manualEnabledPets, setManualEnabledPetsRunTime] = useState({});
+    const [manualEnabledPetsClient, setManualEnabledPets] = useLocalStorage("manualEnabledPets", {});
+    useEffect(() => {
+        setManualEnabledPetsLoaded(true);
+        setManualEnabledPetsRunTime(manualEnabledPetsClient);
+    }, [manualEnabledPetsClient])
 
 
     const [priorityList, setPriorityList] = useState([]);
@@ -549,7 +272,7 @@ export default function Pets() {
 
     let airPets, groundPets, currentBonuses, selectedPetMap;
     [airPets, groundPets, currentBonuses, selectedPetMap] = useMemo(() => {
-        let result = findBestTeam(data, { priorityList: priorityList, priorityMap: priorityMap, petWhiteList: petWhiteList });
+        let result = petHelper.findBestTeam(data, { manualEnabledPets: useExpedition ? manualEnabledPets : {}, priorityList: priorityList, priorityMap: priorityMap, petWhiteList: petWhiteList });
         let currentBonuses = result[2];
 
         for (const [key, value] of Object.entries(priorityMap)) {
@@ -560,11 +283,9 @@ export default function Pets() {
                 currentBonuses[value.id] = { ID: value.id, Power: 0, Gain: 0, count: 0, sum: 0, label: value.label }
             }
         }
-
-
         return result;
     },
-        [data, priorityList, priorityMap, petWhiteList]
+        [data, priorityList, priorityMap, petWhiteList, useExpedition, manualEnabledPets]
     );
 
 
@@ -737,13 +458,14 @@ export default function Pets() {
                         <div
                             style={{ alignSelf: 'flex-start', minWidth: '580px', margin: '0 12px' }}
                         >
-                            {/* Priority List */}
-                            <div
-                                style={{ fontSize: '32px', fontWeight: 'bold', textAlign: 'center' }}
-                            >
-                                Priority List
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                {/* Priority List */}
+                                <div
+                                    style={{ fontSize: '32px', fontWeight: 'bold', textAlign: 'center', }}
+                                >
+                                    Priority List
+                                </div>
                             </div>
-
                             <div
                                 style={{
                                     display: 'flex',
@@ -785,8 +507,9 @@ export default function Pets() {
                                     </div>
                                     <div>
                                         <select
+                                          className='importantText'
                                             aria-label='Select a default team preset'
-                                            style={{ maxWidth: '144px', marginLeft: '12px' }}
+                                            style={{ maxWidth: '144px', marginLeft: '12px', backgroundColor: '#171717', borderRadius: '4px' }}
                                             onChange={
                                                 (selected_mode) => {
                                                     setRecommendedSelected(true);
@@ -863,7 +586,7 @@ export default function Pets() {
                                 // padding: '6px 0',
                                 backgroundColor: 'rgba(255,255,255, 0.04)',
                                 borderRadius: '6px',
-                                maxHeight: '38vh',
+                                maxHeight: '58vh',
                                 paddingLeft: '6px',
                                 overflow: "hidden"
                             }}>
@@ -1068,7 +791,7 @@ export default function Pets() {
                                 margin: '6px',
                                 backgroundColor: 'rgba(255,255,255, 0.04)',
                                 borderRadius: '6px',
-                                maxHeight: '35vh',
+                                maxHeight: '19.5vh',
                                 overflow: 'hidden'
                             }}>
                                 <div style={{ maxHeight: '100%', overflow: 'auto', width: '100%' }}>
@@ -1517,7 +1240,39 @@ export default function Pets() {
                                 </div>
                             </div>
 
+                            {/* Miscellaneous settings */}
+                            <div style={{
+                                backgroundColor: 'rgba(255,255,255, 0.07)',
+                                padding: '6px',
+                                marginTop: '12px',
+                                borderRadius: '6px'
+                            }}>
+                                {/* header */}
+                                <div
+                                    style={{ fontSize: '24px', fontWeight: 'bold', textAlign: 'center', marginBottom: "6px" }}
+                                >
+                                    Miscellaneous Settings
+                                </div>
+                                <div style={{ display: 'flex', justifyContent: 'center' }} >
 
+
+                                    <div style={{}}>
+                                        Use expedition pets
+                                    </div>
+                                    <div>
+                                        <input
+                                            aria-label='use selected pets from expedition page'
+                                            type="checkbox"
+                                            onChange={(e) => {
+                                                setUseExpedition(e.target.checked ? true : false)
+                                            }}
+                                            checked={!!useExpedition}
+                                            value={!!useExpedition}
+                                        />
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
 
                     </div>)}
