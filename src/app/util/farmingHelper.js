@@ -465,6 +465,7 @@ var farmingHelper = {
                 prodMult = 0.95;
             }
         }
+        prodMult = 1.0;
         const fryMult = 1.05;
         //Iterate over each second
         for (; i < simulationTime / tickRate || finalPass; i++) {
