@@ -458,7 +458,7 @@ export default function Residue() {
             setForceReinc(false);
         }
 
-    }, [desiredLevels, dataLoaded.current])
+    }, [desiredLevels, dataLoaded])
 
     //loop over affordable purchases and combine them into one bulk (no need to step them since it's all bought anyways)
     let finalAffordablePurchasesMap = {};
