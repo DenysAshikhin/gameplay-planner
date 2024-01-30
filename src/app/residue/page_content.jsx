@@ -38,9 +38,7 @@ const ResidueCard = ({ data, params, desiredLevels, setDesiredLevels, forceReinc
     const [hovering, setHovering] = useState(false);
 
     const level = data[params.key];
-    if (level === 518 || level === 475) {
-        let bigsad = -1;
-    }
+
     const asc_level = data.AscensionCount;
     const weight = runTimeWeight === -1 ? params.weight(asc_level) : runTimeWeight;
     const locked = (!hovering) && asc_level < params.unlock;

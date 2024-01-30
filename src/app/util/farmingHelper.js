@@ -49,18 +49,11 @@ var farmingHelper = {
     calcProdOutput: function (plant_input, modifiers_input) {
 
         let TotalCreated = plant_input.totalMade;
-        // let ManuallyCreated = plant_input.created;
-        // let shovel = modifiers_input.manualHarvestFormula;
         let shopProdBonus = modifiers_input.shopProdBonus;
-        //note bigsad = -1 -> need to take into account assumbly in the future
-        // const assemblyBonus = modifiers_input.assemblyProduction;
         let prestige = plant_input.prestige;
-        // GM.PD.PlantTotalProductionBonus = 1 * BigDouble.Pow(1.25, GM.PD.FarmingShopPlantTotalProduction) * GM.ASMA.GetAssemblerBonus(26) * GM.GHLM.GetBonus(3) * Math.Pow(1.01, Math.Max(0, GM.PD.CurrentEventPoint - 75));
-        // let PlantTotalProductionBonus = mathHelper.multiplyDecimal(mathHelper.multiplyDecimal(shopProdBonus, assemblyBonus), modifiers_input.contagionPlantProd);
         let PlantTotalProductionBonus = mathHelper.createDecimal(modifiers_input.originalShopProdBonus);
         PlantTotalProductionBonus = mathHelper.divideDecimal(PlantTotalProductionBonus, this.calcShopProdBonus(null, modifiers_input.originalShopProdLevel));
         PlantTotalProductionBonus = mathHelper.multiplyDecimal(shopProdBonus, PlantTotalProductionBonus);
-
 
         let plantMult = plant_input.futureMult;
 
@@ -196,8 +189,7 @@ var farmingHelper = {
         );
     },
     calcFutureMult: function (plant_input, modifiers_input) {
-        //bigsad = -1 need to make costs big decimal as well now
-        // console.log(`calcing future mult${plant_input.ID}`)
+        
         let plant = modifiers_input.string === false ? plant_input : JSON.parse(JSON.stringify(plant_input));
         let modifiers = modifiers_input.string === false ? modifiers_input : JSON.parse(JSON.stringify(modifiers_input));
         let remainingTime = modifiers.time;

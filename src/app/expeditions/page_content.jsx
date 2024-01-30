@@ -95,7 +95,6 @@ export default function Expeditions() {
         let foundOld = false;
         for (const [key, value] of Object.entries(petWhiteListClient)) {
             if (value.placement === 'rel') {
-                let bigsad = -1;
                 foundOld = true;
             }
             else {
@@ -1689,7 +1688,7 @@ export default function Expeditions() {
                                                         let temp_pet = groups[group_index + 1][j];
 
                                                         if (temp_pet.Type === pet.pet.Type) {
-                                                            let bigsad = -1;
+                                                         
                                                             if (!(temp_pet.ID in triedPets) && !foundNew) {
                                                                 triedPets[temp_pet.ID] = true;
                                                                 foundNew = true;
@@ -1726,7 +1725,6 @@ export default function Expeditions() {
 
                                                         let temp_pet = groups[group_index - 1][j];
                                                         if (temp_pet.Type === pet.pet.Type) {
-                                                            let bigsad = -1;
                                                             if (!(temp_pet.ID in triedPets) && !foundNew) {
                                                                 triedPets[temp_pet.ID] = true;
                                                                 foundNew = true;
@@ -1756,7 +1754,6 @@ export default function Expeditions() {
 
                                     }
 
-                                    let bigsad = -1;
                                     return (
                                         <div
                                             key={pet.label}

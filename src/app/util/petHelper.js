@@ -535,7 +535,6 @@ var helper = {
                 let cur = other.petWhiteList[i];
 
                 if (cur.placement === 'auto') {
-                    let bigsad = -1;
 
                     for (let j = numGroups - 1; j >= 0; j--) {
 
@@ -613,9 +612,6 @@ var helper = {
                         }
                         else if (!requiredGnd[bonus.pet.ID]) {
                             requiredAir[bonus.pet.ID] = true;
-                        }
-                        else {
-                            let bigsad = -1;
                         }
                     }
                     else {
@@ -717,18 +713,8 @@ var helper = {
                         validTeam = false;
                     }
 
-                    if (relAirTotal > 0 || relGndTotal > 0) {
-                        let bigsad = -1;
-                    }
-
 
                     if (validTeam) {
-
-                        if (bonusList.length > 0) {
-                            let bigsad = -1;
-
-                        }
-
 
                         //First confirm the the combination satisfies all bonuses
                         for (let i = 0; i < bonusList.length; i++) {
@@ -908,27 +894,6 @@ var helper = {
                             }
                         }
 
-
-                        // for (let x = 0; x < bonusList.length; x++) {
-                        //     let temp_inner = bonusList[x];
-                        //     if (temp_inner.placement) {
-                        //         //bigsad = -1 note does not handle the rel filter for bonuses very well
-                        //         if (temp_inner.parameters.fake) {
-
-
-                        //             let pet = temp_inner.pet;
-                        //             if (pet.Type === 1 && relGndTotal > gndLimit) {
-                        //                 continue;
-                        //             }
-                        //             else if (relAirTotal > airLimit) {
-                        //                 continue;
-                        //             }
-
-                        //             maxRel++;
-                        //         }
-                        //     }
-                        // }
-
                         //Check if we have all the req pets, and enough rel pets
                         if (maxRel > 0 && validTeam) {
 
@@ -945,9 +910,6 @@ var helper = {
                             }
 
 
-                        }
-                        if (validTeam) {
-                            let bigsad = -1;
                         }
 
                         if (validTeam) {
@@ -1604,7 +1566,6 @@ var helper = {
 
                                     // There is a better pet from lower team to grab!
                                     if (newScore > currentGroupScore) {
-                                        let bigsad = -1;
                                         tooHigh = true;
                                         // swapHappened = true;
                                     }
@@ -1649,7 +1610,6 @@ var helper = {
                                             swapHappened = true;
                                             bestGroups[group_index][pet_index] = JSON.parse(JSON.stringify(newPet));
                                             bestGroups[currentCounter][j] = JSON.parse(JSON.stringify(pet));
-                                            let bigsad = -1;
                                         }
                                         break;
                                     }

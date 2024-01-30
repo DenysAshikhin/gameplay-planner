@@ -5,6 +5,10 @@ var helper = {
 
         return deci;
     },
+    createDecimalString: function(number_string){
+        let deci =  new Decimal(number_string);
+        return deci;
+    },
     multiplyDecimal: function (a, b) {
         a = a.mantissa || a.mantissa === 0 ? a : this.createDecimal(a);
         return a.times(b);

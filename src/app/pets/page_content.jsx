@@ -164,11 +164,7 @@ function PetComboDisplay({ petCombos, unlockedPets, petMap }) {
                                 border: `5px solid ${possibleCombosMap[petCombo.BonusID][petCombo.ID] ? 'green' : 'red'}`
                             }} key={i}>
                                 {PetIDArray.map((petId, j) => {
-
-                                    if (petId === -99) {
-                                        let bigsad = -1;
-                                    }
-
+ 
                                     let staticPetData = petNameArray.find(staticPetDatum => staticPetDatum.petId === petId)
                                     return (
                                         <div key={j}
@@ -607,7 +603,6 @@ export default function Pets() {
                                             // }sss
                                         }>
                                         {priorityList.map((item, index) => {
-                                            let bigsad = -12;
                                             let showSelectedPets = false;
                                             let color = 'gray';
                                             let priority = priorityMap[item];

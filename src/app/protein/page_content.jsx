@@ -48,6 +48,7 @@ export default function Protein() {
 
     const [currentWeights, setCurrentWeights] = useState({});
     const [cumulativeTime, setCumulativeTime] = useLocalStorage(`cumulativeTime`, false);
+    const [simplifiedView, setSimplifiedView] = useLocalStorage(`simplifiedView`, false);
     const [numAL, setNumAl] = useLocalStorage(`numAL`, 5);
 
     // useEffect(() => {
@@ -62,9 +63,7 @@ export default function Protein() {
     const cutOff = 100;
 
     Object.values(BonusMap).forEach((val) => {
-        if (!val) {
-            let bigsad = -1;
-        }
+
         if (val.id < cutOff) {
             tempList.push({ ...val, currentWeight: 0 })
         }
@@ -216,6 +215,45 @@ export default function Protein() {
         }
     }
 
+    let bestAssemblyFinal = [];
+    bestAssemblies.forEach((inner_val) => {
+
+        if (bestAssemblies.length === 0) return;
+        if (bestAssemblyFinal.length === 0) {
+
+
+            return bestAssemblyFinal.push(inner_val);
+        }
+
+        let current = bestAssemblyFinal[bestAssemblyFinal.length - 1];
+
+        if (current.assembly.ID !== inner_val.assembly.ID) {
+            bestAssemblyFinal.push(inner_val);
+        }
+        else {
+            //create a desired level of + 1
+            if (!current.desiredLevel) {
+                current.desiredLevel = current.assembly.Level + 2;
+            }
+            else {
+                current.desiredLevel += 1;
+            }
+            let tempCost = mathHelper.createDecimalString(current.cost);
+            let futureCost = mathHelper.createDecimalString(inner_val.cost);
+            let newCost = mathHelper.addDecimal(tempCost, futureCost);
+            current.cost = newCost;
+
+            if (cumulativeTime) {
+                current.purchaseTime = inner_val.purchaseTime;
+            }
+            else {
+                current.purchaseTime = mathHelper.addDecimal(current.purchaseTime, inner_val.purchaseTime);
+            }
+        }
+    });
+
+    bestAssemblies = bestAssemblyFinal;
+
     return (
         <div
             style={{
@@ -258,25 +296,48 @@ export default function Protein() {
                         >
                             Best Purchase Sequence
                         </div >
+
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '-3px', marginBottom: '6px' }}>
-                            {/* Cumulative time  */}
-                            <div
-                                className='importantText'
-                                style={{ fontSize: '18px', }}
-                            >
-                                Use cumulative purchase time:
+
+                            <div>
+                                {/* Cumulative time  */}
+                                <div
+                                    className='importantText'
+                                    style={{ fontSize: '18px', }}
+                                >
+                                    Use cumulative purchase time:
 
 
-                                <input
-                                    aria-label='Specify if the time to purchase should be individual or cumlative in order of suggested purchases'
-                                    type="checkbox"
-                                    onChange={(e) => {
-                                        setCumulativeTime(e.target.checked ? 1 : 0)
-                                    }}
-                                    checked={!!cumulativeTime}
-                                    value={!!cumulativeTime}
-                                />
+                                    <input
+                                        aria-label='Specify if the time to purchase should be individual or cumlative in order of suggested purchases'
+                                        type="checkbox"
+                                        onChange={(e) => {
+                                            setCumulativeTime(e.target.checked ? 1 : 0)
+                                        }}
+                                        checked={!!cumulativeTime}
+                                        value={!!cumulativeTime}
+                                    />
 
+                                </div>
+                              
+                                {/* Minified View */}
+                                <div
+                                    className='importantText'
+                                    style={{ fontSize: '18px', }}
+                                >
+                                    Use minifed view:
+
+                                    <input
+                                        aria-label='Specify if each assembly line should be collapsed to hide the bonuses and only show costs, levels and times'
+                                        type="checkbox"
+                                        onChange={(e) => {
+                                            setSimplifiedView(e.target.checked ? 1 : 0)
+                                        }}
+                                        checked={!!simplifiedView}
+                                        value={!!simplifiedView}
+                                    />
+
+                                </div>
                             </div>
 
 
@@ -374,13 +435,18 @@ export default function Protein() {
                                 {bestAssemblies.length > 0 && (
                                     <>
                                         {bestAssemblies.map((e, index) => {
-                                            return <AssemblyLine key={index} key_inner={index} data={e.data} assemblyID={e.assembly.ID} index={index + 1} purchaseTime={e.purchaseTime} cost={e.cost} />
+                                            return <AssemblyLine
+                                                key={index}
+                                                key_inner={index}
+                                                data={e.data}
+                                                assemblyID={e.assembly.ID}
+                                                index={index + 1}
+                                                purchaseTime={e.purchaseTime}
+                                                cost={e.cost}
+                                                futureLevel={e.desiredLevel ? e.desiredLevel : e.assembly.Level + 1}
+                                                simplifiedView={simplifiedView}
+                                            />
                                         })}
-                                        {/* <AssemblyLine data={bestAssemblies[0].data} assemblyID={bestAssemblies[0].assembly.ID} index={1} purchaseTime={bestAssemblies[0].purchaseTime} cost={bestAssemblies[0].cost} />
-                                        <AssemblyLine data={bestAssemblies[1].data} assemblyID={bestAssemblies[1].assembly.ID} index={2} purchaseTime={bestAssemblies[1].purchaseTime} cost={bestAssemblies[1].cost} />
-                                        <AssemblyLine data={bestAssemblies[2].data} assemblyID={bestAssemblies[2].assembly.ID} index={3} purchaseTime={bestAssemblies[2].purchaseTime} cost={bestAssemblies[2].cost} />
-                                        <AssemblyLine data={bestAssemblies[3].data} assemblyID={bestAssemblies[3].assembly.ID} index={4} purchaseTime={bestAssemblies[3].purchaseTime} cost={bestAssemblies[3].cost} />
-                                        <AssemblyLine data={bestAssemblies[4].data} assemblyID={bestAssemblies[4].assembly.ID} index={5} purchaseTime={bestAssemblies[4].purchaseTime} cost={bestAssemblies[4].cost} /> */}
                                     </>
                                 )
                                 }
@@ -489,7 +555,7 @@ export default function Protein() {
                                                     <AssemblyItem e={{ ...e, index: index }} currentWeight={currentWeights} setCurrentWeights={setCurrentWeights} />
                                                 </div>
                                             )
-                                            return <div key={index}></div>
+                                        return <div key={index}></div>
                                     })
                                 }
                             </div>

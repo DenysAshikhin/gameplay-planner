@@ -1196,9 +1196,6 @@ const CardCard = ({
         defaultWeight /= 2;
     }
     const finalWeight = cardWeight === -1 ? defaultWeight : cardWeight;
-    if (card.ID === 34) {
-        let bigsad = -1;
-    }
 
     const [finalAfter, setFinalAfter] = useState(mathHelper.createDecimal(-1));
     const [finalBefore, setFinalBefore] = useState(mathHelper.createDecimal(-1));
@@ -1247,9 +1244,6 @@ const CardCard = ({
         let percIncrease = mathHelper.divideDecimal(finalAfter, finalBefore);
         let flatIncrease = mathHelper.subtractDecimal(finalAfter, finalBefore);
         let weightIncrease = mathHelper.multiplyDecimal(mathHelper.divideDecimal(mathHelper.subtractDecimal(finalAfter, finalBefore), finalBefore), finalWeight);
-        if (ID === PROTEINBONUS) {
-            let bigsad = -1;
-        }
 
         setFinalTemp(tempValueAfter);
         setFinalAfter(finalAfter);
@@ -1332,15 +1326,8 @@ const CardCard = ({
         extraText = `(+${tempy})`
     }
     else if (displayMode === 'weight') {
-        try {
-
-            let tempy = mathHelper.multiplyDecimal(mathHelper.divideDecimal(mathHelper.subtractDecimal(finalAfter, finalBefore), finalBefore), finalWeight)
-            extraText = `(${tempy.toNumber().toExponential(2)})`
-        }
-        catch (err) {
-            console.log(err);
-            let bigsad = -1;
-        }
+        let tempy = mathHelper.multiplyDecimal(mathHelper.divideDecimal(mathHelper.subtractDecimal(finalAfter, finalBefore), finalBefore), finalWeight)
+        extraText = `(${tempy.toNumber().toExponential(2)})`
     }
     const multiplier = vertical ? 110 : 140;
 
@@ -1630,7 +1617,7 @@ export default function Cards() {
     useEffect(() => {
 
         //Fixes issues with outdated caches
-        if(!newCardWeightsClient[40]){
+        if (!newCardWeightsClient[40]) {
             setNewCardWeightsRunTime(defaultWeights);
             return setNewCardWeights(defaultWeights);
         }
