@@ -16,15 +16,16 @@ import Image from 'next/image';
 
 //Need to manually check if unlocked or not later
 
-const AssemblyInnerBonus = ({ line, al_level, key_inner }) => {
+const AssemblyInnerBonus = ({ line, al_level, key_inner, futureLevel }) => {
 
     const [showLocked, setShowLocked] = useState(false);
 
     let data = BonusMap[line.ID];
     let bonusAmount = farmingHelper.calcAssemblyLine(line, al_level);
-    let futureBonusAmount = farmingHelper.calcAssemblyLine(line, al_level + 1);
+    // let futureBonusAmount = farmingHelper.calcAssemblyLine(line, al_level + 1);
+    let futureBonusAmount = farmingHelper.calcAssemblyLine(line, futureLevel);
     let locked = false;
-    if ((al_level + 1) < line.StartingLevel) {
+    if (futureLevel < line.StartingLevel) {
         locked = true;
     }
     return (
@@ -103,14 +104,20 @@ const AssemblyInnerBonus = ({ line, al_level, key_inner }) => {
 
 
 
-const AssemblyLine = ({ data, assemblyID, index, purchaseTime, cost, key_inner }) => {
+const AssemblyLine = ({
+    data,
+    assemblyID,
+    index,
+    purchaseTime,
+    cost,
+    key_inner,
+    futureLevel
+}) => {
 
 
     let assembly = data.AssemblerCollection[assemblyID];
     if (!assembly)
         return null;
-
-
 
     let stringTimeToPurchase = helper.secondsToString(purchaseTime);
 
@@ -143,8 +150,24 @@ const AssemblyLine = ({ data, assemblyID, index, purchaseTime, cost, key_inner }
                 <div style={{ marginLeft: '6px' }}>
                     Purchase #{index}: Assembly {assemblyID + 1}
                 </div>
-                <div style={{ marginRight: '6px' }}>
-                    Level: {assembly.Level}
+                <div style={{
+                    marginRight: '6px',
+                    display: 'flex',
+                    alignContent: 'center'
+                }}>
+                    <div>
+                        {`Level:`}
+                    </div>
+                    <div 
+                    className={(futureLevel - assembly.Level) ? 'elementToFadeInAndOut' : ''}
+                    style={{
+                        marginLeft: '3px',
+                        color: (futureLevel - assembly.Level) > 1 ? 'rgb(66, 174, 41)' : '',
+                        fontWeight: (futureLevel - assembly.Level) > 1 ? 'bold' : ''
+                    }}>
+                        {`${assembly.Level} -> ${futureLevel}`}
+                    </div>
+
                 </div>
             </div>
 
@@ -155,7 +178,13 @@ const AssemblyLine = ({ data, assemblyID, index, purchaseTime, cost, key_inner }
                 }}
             >
                 {assembly.BonusList.map((e, inner_index) => {
-                    return <AssemblyInnerBonus key={inner_index} key_inner={inner_index} line={e} al_level={assembly.Level} />
+                    return <AssemblyInnerBonus
+                        key={inner_index}
+                        key_inner={inner_index}
+                        line={e}
+                        al_level={assembly.Level}
+                        futureLevel={futureLevel}
+                    />
                 })}
                 <div style={{ marginBottom: '6px' }}></div>
             </div>
