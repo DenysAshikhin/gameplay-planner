@@ -48,6 +48,7 @@ export default function Protein() {
 
     const [currentWeights, setCurrentWeights] = useState({});
     const [cumulativeTime, setCumulativeTime] = useLocalStorage(`cumulativeTime`, false);
+    const [simplifiedView, setSimplifiedView] = useLocalStorage(`simplifiedView`, false);
     const [numAL, setNumAl] = useLocalStorage(`numAL`, 5);
 
     // useEffect(() => {
@@ -220,10 +221,10 @@ export default function Protein() {
     bestAssemblies.forEach((inner_val) => {
 
         if (bestAssemblies.length === 0) return;
-        if (bestAssemblyFinal.length === 0) { 
-        
-           
-            return bestAssemblyFinal.push(inner_val); 
+        if (bestAssemblyFinal.length === 0) {
+
+
+            return bestAssemblyFinal.push(inner_val);
         }
 
         let current = bestAssemblyFinal[bestAssemblyFinal.length - 1];
@@ -247,8 +248,8 @@ export default function Protein() {
             if (cumulativeTime) {
                 current.purchaseTime = inner_val.purchaseTime;
             }
-            else{
-                current.purchaseTime = mathHelper.addDecimal(current.purchaseTime,inner_val.purchaseTime);
+            else {
+                current.purchaseTime = mathHelper.addDecimal(current.purchaseTime, inner_val.purchaseTime);
             }
         }
     });
@@ -297,25 +298,48 @@ export default function Protein() {
                         >
                             Best Purchase Sequence
                         </div >
+
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '-3px', marginBottom: '6px' }}>
-                            {/* Cumulative time  */}
-                            <div
-                                className='importantText'
-                                style={{ fontSize: '18px', }}
-                            >
-                                Use cumulative purchase time:
+
+                            <div>
+                                {/* Cumulative time  */}
+                                <div
+                                    className='importantText'
+                                    style={{ fontSize: '18px', }}
+                                >
+                                    Use cumulative purchase time:
 
 
-                                <input
-                                    aria-label='Specify if the time to purchase should be individual or cumlative in order of suggested purchases'
-                                    type="checkbox"
-                                    onChange={(e) => {
-                                        setCumulativeTime(e.target.checked ? 1 : 0)
-                                    }}
-                                    checked={!!cumulativeTime}
-                                    value={!!cumulativeTime}
-                                />
+                                    <input
+                                        aria-label='Specify if the time to purchase should be individual or cumlative in order of suggested purchases'
+                                        type="checkbox"
+                                        onChange={(e) => {
+                                            setCumulativeTime(e.target.checked ? 1 : 0)
+                                        }}
+                                        checked={!!cumulativeTime}
+                                        value={!!cumulativeTime}
+                                    />
 
+                                </div>
+                              
+                                {/* Minified View */}
+                                <div
+                                    className='importantText'
+                                    style={{ fontSize: '18px', }}
+                                >
+                                    Use minifed view:
+
+                                    <input
+                                        aria-label='Specify if each assembly line should be collapsed to hide the bonuses and only show costs, levels and times'
+                                        type="checkbox"
+                                        onChange={(e) => {
+                                            setSimplifiedView(e.target.checked ? 1 : 0)
+                                        }}
+                                        checked={!!simplifiedView}
+                                        value={!!simplifiedView}
+                                    />
+
+                                </div>
                             </div>
 
 
@@ -422,6 +446,7 @@ export default function Protein() {
                                                 purchaseTime={e.purchaseTime}
                                                 cost={e.cost}
                                                 futureLevel={e.desiredLevel ? e.desiredLevel : e.assembly.Level + 1}
+                                                simplifiedView={simplifiedView}
                                             />
                                         })}
                                     </>

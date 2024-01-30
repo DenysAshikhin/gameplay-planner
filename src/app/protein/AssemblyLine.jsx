@@ -111,7 +111,8 @@ const AssemblyLine = ({
     purchaseTime,
     cost,
     key_inner,
-    futureLevel
+    futureLevel,
+    simplifiedView
 }) => {
 
 
@@ -158,13 +159,13 @@ const AssemblyLine = ({
                     <div>
                         {`Level:`}
                     </div>
-                    <div 
-                    className={(futureLevel - assembly.Level) ? 'elementToFadeInAndOut' : ''}
-                    style={{
-                        marginLeft: '3px',
-                        color: (futureLevel - assembly.Level) > 1 ? 'rgb(66, 174, 41)' : '',
-                        fontWeight: (futureLevel - assembly.Level) > 1 ? 'bold' : ''
-                    }}>
+                    <div
+                        className={(futureLevel - assembly.Level) > 1 ? 'elementToFadeInAndOut' : ''}
+                        style={{
+                            marginLeft: '3px',
+                            color: (futureLevel - assembly.Level) > 1 ? 'rgb(66, 174, 41)' : '',
+                            fontWeight: (futureLevel - assembly.Level) > 1 ? 'bold' : ''
+                        }}>
                         {`${assembly.Level} -> ${futureLevel}`}
                     </div>
 
@@ -177,17 +178,23 @@ const AssemblyLine = ({
                     marginTop: '12px'
                 }}
             >
-                {assembly.BonusList.map((e, inner_index) => {
-                    return <AssemblyInnerBonus
-                        key={inner_index}
-                        key_inner={inner_index}
-                        line={e}
-                        al_level={assembly.Level}
-                        futureLevel={futureLevel}
-                    />
-                })}
+                {!simplifiedView && (
+                    <>
+                        {assembly.BonusList.map((e, inner_index) => {
+                            return <AssemblyInnerBonus
+                                key={inner_index}
+                                key_inner={inner_index}
+                                line={e}
+                                al_level={assembly.Level}
+                                futureLevel={futureLevel}
+                            />
+                        })}
+                    </>
+
+                )}
                 <div style={{ marginBottom: '6px' }}></div>
             </div>
+
 
             <div className='importantText'
                 style={{
