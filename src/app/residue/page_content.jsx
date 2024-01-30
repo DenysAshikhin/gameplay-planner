@@ -38,6 +38,9 @@ const ResidueCard = ({ data, params, desiredLevels, setDesiredLevels, forceReinc
     const [hovering, setHovering] = useState(false);
 
     const level = data[params.key];
+    if (level === 518 || level === 475) {
+        let bigsad = -1;
+    }
     const asc_level = data.AscensionCount;
     const weight = runTimeWeight === -1 ? params.weight(asc_level) : runTimeWeight;
     const locked = (!hovering) && asc_level < params.unlock;
@@ -117,6 +120,7 @@ const ResidueCard = ({ data, params, desiredLevels, setDesiredLevels, forceReinc
                 return temp;
             })
         }
+
         if (needPurchase && !desiredLevels[params.key]) {
             setDesiredLevels((curr_levels) => {
                 let temp = { ...curr_levels };
@@ -128,7 +132,8 @@ const ResidueCard = ({ data, params, desiredLevels, setDesiredLevels, forceReinc
                 return temp;
             })
         }
-        else if (desiredLevels[params.key]?.desiredLevel !== desiredLevel && !reincOverride) {
+        else if (desiredLevels[params.key]?.desiredLevel !== desiredLevel && !reincOverride
+            || (desiredLevels[params.key]?.purchaseOrders !== purchaseOrders)) {
             setDesiredLevels((curr_levels) => {
                 let temp = { ...curr_levels };
                 temp[params.key] = {
@@ -139,14 +144,21 @@ const ResidueCard = ({ data, params, desiredLevels, setDesiredLevels, forceReinc
                 return temp;
             })
         }
-        // else if (!needPurchase) {
-        //     setDesiredLevels((curr_levels) => {
-        //         let temp = { ...curr_levels };
-        //         delete temp[params.key];
-        //         return temp;
-        //     })
-        // }
-    }, [forceReinc, desiredLevels, desiredLevel, level, params, setDesiredLevels, needPurchase, purchaseOrders, clientWeight, runTimeWeight, weight, locked])
+    }, [
+        forceReinc,
+        desiredLevels,
+        desiredLevel,
+        level,
+        params,
+        setDesiredLevels,
+        needPurchase,
+        purchaseOrders,
+        clientWeight,
+        runTimeWeight,
+        weight,
+        locked,
+        data
+    ])
 
 
 
@@ -369,6 +381,7 @@ export default function Residue() {
 
     let currentResidue = mathHelper.createDecimal(data.CurrentResidueBD);
 
+
     let runningCost = mathHelper.createDecimal(0);
     let affordableCost = mathHelper.createDecimal(0);
     let affordablePurchases = [];
@@ -381,7 +394,6 @@ export default function Residue() {
     suggestedPurchases.forEach((suggestion) => {
 
         runningCost = mathHelper.addDecimal(runningCost, suggestion.newCost);
-
         if (runningCost.lessThan(currentResidue)) {
             affordableCost = mathHelper.addDecimal(affordableCost, suggestion.newCost);
             if (affordablePurchases.length === 0) {
@@ -446,8 +458,24 @@ export default function Residue() {
             setForceReinc(false);
         }
 
-    }, [desiredLevels, dataLoaded])
+    }, [desiredLevels, dataLoaded.current])
 
+    //loop over affordable purchases and combine them into one bulk (no need to step them since it's all bought anyways)
+    let finalAffordablePurchasesMap = {};
+    affordablePurchases.forEach((inner_val)=>{
+        if(!finalAffordablePurchasesMap[inner_val.params.key]){
+            finalAffordablePurchasesMap[inner_val.params.key] = inner_val;
+        }
+        else{
+            finalAffordablePurchasesMap[inner_val.params.key].desiredLevel = inner_val.desiredLevel;
+        }
+    })
+
+    affordablePurchases = [];
+    for(const [key, val] of Object.entries(finalAffordablePurchasesMap)){
+        affordablePurchases.push(val);
+    }
+    affordablePurchases.sort((a, b)=> b.weight - a.weight);
 
     return (
         <div
