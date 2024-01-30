@@ -66,9 +66,7 @@ self.onmessage = ({ data: { data, id, data1 } }) => {
                     result = helper.calcStepHPProd(finalPlants, { ...dataObj, steps: combo });
                     break;
                 case 'step':
-                    if (combo[0] === 0 && combo[1] === 0 && combo[2] === 0 && combo[3] === 0 && combo[4] === 0) {
-                        let bigsad = -1;
-                    }
+                  
                     let steps = [];
 
                     let curStep = 0;

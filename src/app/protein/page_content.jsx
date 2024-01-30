@@ -63,9 +63,7 @@ export default function Protein() {
     const cutOff = 100;
 
     Object.values(BonusMap).forEach((val) => {
-        if (!val) {
-            let bigsad = -1;
-        }
+
         if (val.id < cutOff) {
             tempList.push({ ...val, currentWeight: 0 })
         }
