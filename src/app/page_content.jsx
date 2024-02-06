@@ -159,7 +159,6 @@ export default function Home() {
         justifyContent: 'center'
       }}
     >
-      {/* <GoogleAdSense publisherId="pub-1393057374484862" /> */}
       <Image
         style={{
           position: 'absolute', top: '0', left: '0', width: '100%', height: '100%', zIndex: '1',
@@ -170,23 +169,6 @@ export default function Home() {
         priority={true}
         unoptimized={true}
       />
-
-      {/* <img style={{
-        position: 'absolute', top: '0', left: '0', width: '100%', height: '100%', zIndex: '1',
-        opacity: '0.3'
-      }} alt='fullscreen picture of a Farmer Against Potatoes Idle game'
-        src={'/images/coming_soon.png'}
-      /> */}
-      {/* <div style={{
-        position: 'absolute', top: '0', left: '0', width: '100%', height: '100%', zIndex: '1',
-        opacity: '0.3'
-      }}>
-        <Image alt='fullscreen picture of a Farmer Against Potatoes Idle game'
-          src={'/images/coming_soon.png'}
-          // src={backgroundImage}
-          fill />
-      </div> */}
-
       <div
         style={{
           display: 'flex',
@@ -200,6 +182,7 @@ export default function Home() {
         <MouseOverPopover
           forceOpen={forceOpen}
           setForceOpen={setForceOpen}
+          forceXPlacement={'right'}
           tooltip={
             <div
               onMouseEnter={(e) => { if (!forceOpen) setForceOpen(true) }}
