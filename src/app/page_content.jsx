@@ -183,7 +183,7 @@ export default function Home() {
       }}>
         <Image alt='fullscreen picture of a Farmer Against Potatoes Idle game'
           src={'/images/coming_soon.png'}
-          // src={backgroundImage} 
+          // src={backgroundImage}
           fill />
       </div> */}
 
@@ -234,11 +234,11 @@ export default function Home() {
               </div>
             </div>
           }>
+          <div className="mediumImportantText blackTextStroke" style={{ margin: '0 0 0 0', fontSize: '60px', fontWeight: 'bold' }}>Upload save file to view calculator</div>
           <div
             onMouseEnter={(e) => { if (!forceOpen) setForceOpen(true) }}
             onMouseLeave={(e) => { if (forceOpen) setForceOpen(false) }}
             style={{ display: 'flex', alignItems: 'center' }}>
-            <div className="mediumImportantText blackTextStroke" style={{ margin: '0 0 0 0', fontSize: '60px', fontWeight: 'bold' }}>Upload save file to view calculator</div>
             <div style={{ position: 'relative', height: '36px', width: '36px', marginLeft: '6px', marginTop: '6px' }}>
               <Image alt='on hover I in a cirlce icon, shows more information on hover' src={'/images/icons/info_lightgray.svg'}
                 fill />
@@ -248,11 +248,7 @@ export default function Home() {
         <div className="mediumImportantText blackTextStroke" style={{ margin: '0 0 0 0', fontSize: '35px', fontWeight: 'bold', textStroke: '' }}>Warning: contains spoilers!</div>
 
         <div style={{ marginTop: '16px', }}>
-          <input
-            aria-label='save file upload button'
-            style={{
-              width: '150px'
-            }} type="file" onChange={handleFileUpload} />
+          <input aria-label='save file upload button' type="file" onChange={handleFileUpload} />
         </div>
       </div>
     </div>
