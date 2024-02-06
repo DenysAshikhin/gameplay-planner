@@ -534,6 +534,7 @@ export const residueMap = {
             return total3;
         },
         cost: (level) => {
+
             const base = 1e11;
             const growth = 1.3;
 

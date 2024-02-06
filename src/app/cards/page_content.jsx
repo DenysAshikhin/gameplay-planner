@@ -12,6 +12,7 @@ import mathHelper from '../util/math.js';
 import reincHelper from '../util/reincHelper.js';
 import helper from '../util/helper.js';
 
+import rightArrow from '../../../public/images/icons/right_arrow_white.svg';
 import infoIcon from '../../../public/images/icons/info_thick.svg';
 import infoIconRed from '../../../public/images/icons/info_red.svg';
 // import chargeImg from '../../../public/images/cards/charge.png'
@@ -1539,7 +1540,6 @@ const CardCard = ({
     );
 }
 
-
 const defaultWeights = {
     1: -1,
     2: -1,
@@ -1592,6 +1592,151 @@ const defaultWeights = {
     49: -1,
 }
 
+const CalcReinc = function (data, reincCardCharges) {
+
+    let classExp = mathHelper.multiplyDecimal(data.CurrentLevel, mathHelper.pow(1.001, mathHelper.min(1000.0, data.CurrentLevel)));
+    let class2 = mathHelper.max(1.0, mathHelper.subtractDecimal(mathHelper.logDecimal(data.CurrentLevel, 5.0), 2.0));
+    let class3 = mathHelper.max(1.0, 1.0 + (data.CurrentLevel / 2000.0 - 0.5));
+    let classTotal = mathHelper.multiplyDecimal(classExp, mathHelper.multiplyDecimal(class2, class3))
+    let timerBonuses = data.TimerReincBonuses;
+    let otherBonuses = mathHelper.createDecimal(data.ReincarnationBonusesBD);
+
+
+    if (reincCardCharges) {
+        const { CardsCollection } = data;
+        const cardsById = CardsCollection.reduce((accum, card) => {
+            accum[card.ID] = card;
+            return accum;
+        }, {});
+
+        let card = cardsById[REINCARNATIONEXP];
+
+        const {
+            CurrentExp,
+            ExpNeeded,
+            Found,
+            ID,
+            Level,
+            PowerPermaBD,
+            PowerTempBD,
+        } = card;
+        const { ChargeTransfertPowerPerma, ChargeTransfertPowerTemp } = data;
+
+        let tempValueBefore = mathHelper.createDecimal(PowerTempBD);
+        let permValueBefore = mathHelper.createDecimal(PowerPermaBD);
+
+        let tempBonusBefore = tempPowerBonusFormula[ID](tempValueBefore);
+        let permBonusBefore = permPowerBonusFormula[ID](permValueBefore);
+
+
+        let tempValueAfter = mathHelper.multiplyDecimal(tempValueBefore, (1 - ChargeTransfertPowerTemp));
+        let permValueAfter = mathHelper.addDecimal(permValueBefore,
+            mathHelper.multiplyDecimal(tempValueBefore, ChargeTransfertPowerPerma)
+        );
+
+
+        let finalBefore = mathHelper.multiplyDecimal(
+            mathHelper.subtractDecimal(
+                mathHelper.multiplyDecimal(tempBonusBefore, permBonusBefore),
+                1
+            ),
+            ((1.0 + Level * 0.02) * 100)
+        );
+
+        let temp1 = tempPowerBonusFormula[ID](mathHelper.multiplyDecimal(tempValueBefore, (1.0 - ChargeTransfertPowerTemp)))
+        let temp2 = permPowerBonusFormula[ID](
+            mathHelper.addDecimal(permValueBefore, mathHelper.multiplyDecimal(tempValueBefore, ChargeTransfertPowerPerma))
+        )
+        let finalAfter =
+            mathHelper.multiplyDecimal(
+                mathHelper.subtractDecimal(mathHelper.multiplyDecimal(temp1, temp2), 1),
+                (1.0 + Level * 0.02) * 100);
+
+        if (reincCardCharges > 1) {
+            for (let i = 1; i < reincCardCharges; i++) {
+                tempValueBefore = mathHelper.addDecimal(tempValueAfter, 0);
+                permValueBefore = mathHelper.addDecimal(permValueAfter, 0);
+
+
+                tempValueAfter = mathHelper.multiplyDecimal(tempValueBefore, (1 - ChargeTransfertPowerTemp));
+                permValueAfter = mathHelper.addDecimal(permValueBefore,
+                    mathHelper.multiplyDecimal(tempValueBefore, ChargeTransfertPowerPerma)
+                );
+
+                temp1 = tempPowerBonusFormula[ID](mathHelper.multiplyDecimal(tempValueBefore, (1.0 - ChargeTransfertPowerTemp)))
+                temp2 = permPowerBonusFormula[ID](
+                    mathHelper.addDecimal(permValueBefore, mathHelper.multiplyDecimal(tempValueBefore, ChargeTransfertPowerPerma))
+                )
+                finalAfter =
+                    mathHelper.multiplyDecimal(
+                        mathHelper.subtractDecimal(mathHelper.multiplyDecimal(temp1, temp2), 1),
+                        (1.0 + Level * 0.02) * 100);
+
+            }
+        }
+
+        otherBonuses = mathHelper.divideDecimal(otherBonuses, finalBefore);
+        otherBonuses = mathHelper.multiplyDecimal(otherBonuses, finalAfter);
+    }
+
+
+
+    let waves = (1.0 + data.BestProgress / 5000.0);
+
+    let confLog = mathHelper.logDecimal(data.ConfectionTotalLevel / 5000000.0, 2.0)
+    let confDiv = mathHelper.divideDecimal(confLog, 2)
+    let confection = mathHelper.addDecimal(
+        1,
+        mathHelper.min(
+            mathHelper.max(
+                1.0,
+                mathHelper.addDecimal(confDiv, 1)
+            )
+            ,
+            data.ConfectionTotalLevel / 5000000.0
+        )
+    )
+
+
+    let temp1 = mathHelper.multiplyDecimal(timerBonuses, otherBonuses)
+
+    let currentReincExp = mathHelper.multiplyDecimal(mathHelper.multiplyDecimal(mathHelper.multiplyDecimal(classTotal, temp1), waves), confection);
+    let requiredReincExp = mathHelper.createDecimal(data.ReincarnationExpRequiredBD);
+    let currentReincLevel = mathHelper.createDecimal(data.ReincarnationLevel).toNumber();
+    let calcedReincExp = reincHelper.calcRequiredReincExp(currentReincLevel, data)
+    let requiredReincLevel = data.AscensionReincLevelRequired;
+    let currReincTime = data.CurrentReincarnationTimer / (60 * 60);
+
+
+    let futureReincLevel = currentReincLevel;
+    let loopFlag = true;
+    while (loopFlag) {
+
+        let required = reincHelper.calcRequiredReincExp(futureReincLevel, data);
+        if (currentReincExp.greaterThan(required)) {
+            futureReincLevel++;
+            currentReincExp = mathHelper.subtractDecimal(currentReincExp, required);
+        }
+        else {
+            loopFlag = false;
+        }
+    }
+
+    let levelDiff = futureReincLevel - currentReincLevel;
+    if (levelDiff === 0) levelDiff = 1;
+
+    let reincHr = (levelDiff) / currReincTime;
+    let remTime = (requiredReincLevel - futureReincLevel) / reincHr;
+    let soulClock = data.SoulOldClock;
+    let chargeTimerReduction = ((1 + 0.25 * soulClock) * (1.0 + data.WAPCardChargeTimer * 0.01)) - 1;
+    let chargeDuration = 12 * chargeTimerReduction;
+    let tickRate = (1.0 + (data.PetsSpecial[67].Active + data.PetsSpecial[68].Active + data.PetsSpecial[74].Active) * 0.1)
+    // let remainingCharges = Math.floor((remTime * tickRate) / chargeDuration);
+    let remainingCharges = Math.floor(remTime / chargeDuration);
+
+    return { futureReincLevel, levelDiff, reincHr, remTime, soulClock, chargeTimerReduction, chargeDuration, remainingCharges }
+}
+
 export default function Cards() {
 
     // useEffect(() => {
@@ -1611,6 +1756,7 @@ export default function Cards() {
     const [cardMap, setCardMap] = useState({})
     const [resetCardWeights, setResetCardWeights] = useState(-1);
     const [forceRefresh, setForceRefresh] = useState(false);
+    const [numReincCharges, setNumReincCharges] = useState(1);
 
     const [newCardWeights, setNewCardWeightsRunTime] = useState(defaultWeights)
     const [newCardWeightsClient, setNewCardWeights] = useLocalStorage('newCardWeights', defaultWeights)
@@ -1683,9 +1829,35 @@ export default function Cards() {
 
     let finalPercIncrease = topPercIncrease.slice(0, 5).map((value, index, arr) => {
         return (
-            <div key={index} style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
-                <div className='importantText' style={{ fontSize: '36px', margin: '0 6px 0 0', }}>
-                    {index + 1}
+            <div style={{
+                // display: 'flex', 
+                // alignItems: 'center',
+                //  width: '100%',
+                position: 'relative'
+            }}
+                key={index}
+            >
+                <div
+                    className='importantText'
+                    style={{
+                        fontSize: '30px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        alignSelf: 'start',
+                        position: 'absolute',
+                        top: '0',
+                        left: '0',
+                        zIndex: '2',
+                        width: '40px',
+                        height: '40px',
+                        border: '1.5px solid rgba(255,255,255,0.8)',
+                        borderRadius: '20px',
+                        backgroundColor: 'rgba(49, 49, 49, 0.8)',
+                    }}>
+                    <div>
+                        {index + 1}
+                    </div>
                 </div>
                 <CardCard
                     cardWeight={newCardWeights[value.ID]}
@@ -1718,11 +1890,35 @@ export default function Cards() {
     });
     let finalWeightIncrease = weightIncrease.slice(0, 5).map((value, index, arr) => {
         return (
-            <div style={{ display: 'flex', alignItems: 'center', width: '100%' }} key={index}>
+            <div style={{
+                // display: 'flex', 
+                // alignItems: 'center',
+                //  width: '100%',
+                position: 'relative'
+            }}
+                key={index}
+            >
                 <div
                     className='importantText'
-                    style={{ fontSize: '36px', margin: '0 6px 0 0', }}>
-                    {index + 1}
+                    style={{
+                        fontSize: '30px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        alignSelf: 'start',
+                        position: 'absolute',
+                        top: '0',
+                        left: '0',
+                        zIndex: '2',
+                        width: '40px',
+                        height: '40px',
+                        border: '1.5px solid rgba(255,255,255,0.8)',
+                        borderRadius: '20px',
+                        backgroundColor: 'rgba(49, 49, 49, 0.8)',
+                    }}>
+                    <div>
+                        {index + 1}
+                    </div>
                 </div>
                 <CardCard
                     cardWeight={newCardWeights[value.ID]}
@@ -1737,69 +1933,26 @@ export default function Cards() {
                     weightMap={weightMap}
                     classes={classes}
                     key={`${index}-perc`
-                    }></CardCard>
+                    } />
             </div>
         )
     }, []);
 
-    let classExp = mathHelper.multiplyDecimal(data.CurrentLevel, mathHelper.pow(1.001, mathHelper.min(1000.0, data.CurrentLevel)));
-    let class2 = mathHelper.max(1.0, mathHelper.subtractDecimal(mathHelper.logDecimal(data.CurrentLevel, 5.0), 2.0));
-    let class3 = mathHelper.max(1.0, 1.0 + (data.CurrentLevel / 2000.0 - 0.5));
-    let classTotal = mathHelper.multiplyDecimal(classExp, mathHelper.multiplyDecimal(class2, class3))
-    let timerBonuses = data.TimerReincBonuses;
-    let otherBonuses = mathHelper.createDecimal(data.ReincarnationBonusesBD);
-    let waves = (1.0 + data.BestProgress / 5000.0);
-
-    let confLog = mathHelper.logDecimal(data.ConfectionTotalLevel / 5000000.0, 2.0)
-    let confDiv = mathHelper.divideDecimal(confLog, 2)
-    let confection = mathHelper.addDecimal(
-        1,
-        mathHelper.min(
-            mathHelper.max(
-                1.0,
-                mathHelper.addDecimal(confDiv, 1)
-            )
-            ,
-            data.ConfectionTotalLevel / 5000000.0
-        )
-    )
-
-
-    let temp1 = mathHelper.multiplyDecimal(timerBonuses, otherBonuses)
-
-    let currentReincExp = mathHelper.multiplyDecimal(mathHelper.multiplyDecimal(mathHelper.multiplyDecimal(classTotal, temp1), waves), confection);
-    let requiredReincExp = mathHelper.createDecimal(data.ReincarnationExpRequiredBD);
-    let currentReincLevel = mathHelper.createDecimal(data.ReincarnationLevel).toNumber();
-    let calcedReincExp = reincHelper.calcRequiredReincExp(currentReincLevel, data)
-    let requiredReincLevel = data.AscensionReincLevelRequired;
-    let currReincTime = data.CurrentReincarnationTimer / (60 * 60);
-
-
-    let futureReincLevel = currentReincLevel;
-    let loopFlag = true;
-    while (loopFlag) {
-
-        let required = reincHelper.calcRequiredReincExp(futureReincLevel, data);
-        if (currentReincExp.greaterThan(required)) {
-            futureReincLevel++;
-            currentReincExp = mathHelper.subtractDecimal(currentReincExp, required);
-        }
-        else {
-            loopFlag = false;
-        }
-    }
-
-    let levelDiff = futureReincLevel - currentReincLevel;
-    if (levelDiff === 0) levelDiff = 1;
-
-    let reincHr = (levelDiff) / currReincTime;
-    let remTime = (requiredReincLevel - futureReincLevel) / reincHr;
-    let soulClock = data.SoulOldClock;
-    let chargeDuration = 12 * (1 - 0.25 * soulClock);
-    let tickRate = (1.0 + (data.PetsSpecial[67].Active + data.PetsSpecial[68].Active + data.PetsSpecial[74].Active) * 0.1)
-    let remainingCharges = Math.floor((remTime * tickRate) / chargeDuration);
 
     const chargesMax = data.CurrentCardCharge === data.MaxCardCharge;
+
+    let baseReincInfo = CalcReinc(data);
+    let remainingCharges = baseReincInfo.remainingCharges;
+    let requiredReincLevel = baseReincInfo.requiredReincLevel;
+    let currentReincLevel = baseReincInfo.futureReincLevel;
+    let currentReincLevelDiff = baseReincInfo.levelDiff;
+    let reincHr = baseReincInfo.reincHr;
+    let remTime = baseReincInfo.remTime;
+    let chargeTimerReduction = baseReincInfo.chargeTimerReduction;
+
+    let cardChargedReincInfo = CalcReinc(data, numReincCharges);
+    let futureReincLevel = cardChargedReincInfo.futureReincLevel;
+    let futureReincLevelDiff = cardChargedReincInfo.levelDiff;
 
     return (
         <div
@@ -1811,141 +1964,148 @@ export default function Cards() {
                 backgroundColor: 'black',
             }}
         >
-            <div
-                className={chargesMax ? 'borderToFadeInAndOutRed' : 'whiteBorder' + ' importantText'}
-                style={{
-                    display: 'flex',
-                    height: '60px',
-                    alignSelf: 'flex-start',
-                    padding: chargesMax ? '0 6px' : '',
-                    alignItems: 'center',
-                    backgroundColor: 'rgba(255,255,255, 0.1)',
-                    borderRadius: '6px',
-                    marginBottom: '6px',
-                    marginTop: '6px',
-                    padding: '0 3px'
-                }}>
-                {chargesMax && (
-                    <MouseOverPopover tooltip={
 
-                        <div >
-                            {`You have max card charges!`}
-                        </div>
-                    }
-                        opacity={1}
-                    >
-                        <div className='elementToFadeInAndOut' style={{ position: 'relative', height: '32px', width: '32px', marginRight: '12px' }}>
-                            <Image
-                                alt='on hover I in a cirlce icon, shows more information on hover'
-                                fill
-                                src={infoIconRed}
-                                unoptimized={true}
-                            />
-                        </div>
-                        {/* <img
-                            className='elementToFadeInAndOut'
-                            alt='on hover I in a cirlce icon, shows more information on hover'
-                            style={{ height: '32px', marginLeft: '6px', marginRight: '12px' }}
-                            src={infoIconRed} /> */}
-                    </MouseOverPopover >
-                )}
-                {/* Current Charge */}
+            {/* Charge Information */}
+            {false && (
                 <div
+                    className={chargesMax ? 'borderToFadeInAndOutRed' : 'whiteBorder' + ' importantText'}
                     style={{
-                        display: 'flex', marginBottom: '0px', marginRight: '36px',
-                        // width: '455px', 
-                        alignItems: 'center'
-                    }}
-                >
+                        display: 'flex',
+                        height: '60px',
+                        alignSelf: 'flex-start',
+                        padding: chargesMax ? '0 6px' : '',
+                        alignItems: 'center',
+                        backgroundColor: 'rgba(255,255,255, 0.1)',
+                        borderRadius: '6px',
+                        marginBottom: '6px',
+                        marginTop: '6px',
+                        padding: '0 3px'
+                    }}>
+                    {chargesMax && (
+                        <MouseOverPopover tooltip={
+
+                            <div >
+                                {`You have max card charges!`}
+                            </div>
+                        }
+                            opacity={1}
+                        >
+                            <div className='elementToFadeInAndOut' style={{ position: 'relative', height: '32px', width: '32px', marginRight: '12px' }}>
+                                <Image
+                                    alt='on hover I in a cirlce icon, shows more information on hover'
+                                    fill
+                                    src={infoIconRed}
+                                    unoptimized={true}
+                                />
+                            </div>
+                            {/* <img
+             className='elementToFadeInAndOut'
+             alt='on hover I in a cirlce icon, shows more information on hover'
+             style={{ height: '32px', marginLeft: '6px', marginRight: '12px' }}
+             src={infoIconRed} /> */}
+                        </MouseOverPopover >
+                    )}
+                    {/* Current Charge */}
                     <div
-                        style={{ display: 'flex', alignItems: 'center', fontSize: '48px' }}
-                    >
-                        {`Current Charges: `}
-                    </div>
-
-                    <div style={{ display: 'flex', alignItems: 'center', fontSize: '48px' }}>
-                        <div style={{ marginRight: '6px' }}>{data?.CurrentCardCharge}</div>
-                        <Image
-                            alt='in game charge (battery) image'
-                            // fill
-                            style={{ height: '60px', width: 'auto' }}
-                            src={chargeImg}
-                            unoptimized={true}
-                        />
-                    </div>
-                    {/* <div style={{
-                        position: 'relative', height: '100%',
-                        // width: '30px', 
-                    }}> */}
-                    {/* <Image
-                        alt='in game charge (battery) image'
-                        // fill
-                        style={{ height: '100%', width: 'auto' }}
-                        src={chargeImg}
-                        unoptimized={true}
-                    /> */}
-                    {/* </div> */}
-                    {/* <img 
-                    alt='in game charge (battery) image' 
-                    style={{ height: '55px' }}
-                     src={`/fapi_fork_personal/cards/charge.png`} 
-                     /> */}
-                </div>
-
-                {/* Charges till Ascension */}
-                <MouseOverPopover tooltip={
-
-                    <div>
-                        {` ${requiredReincLevel - futureReincLevel} remaining levels at ${helper.roundTwoDecimal(reincHr)} levels/hr =  ${helper.roundTwoDecimal(remTime)} hours remaining`}
-                    </div>
-                }
-                    opacity={1}
-                >
-                    <div
-                        style={{ display: 'flex', marginBottom: '0px', marginleft: '36px', alignItems: 'center', }}
+                        style={{
+                            display: 'flex', marginBottom: '0px', marginRight: '36px',
+                            // width: '455px', 
+                            alignItems: 'center'
+                        }}
                     >
                         <div
                             style={{ display: 'flex', alignItems: 'center', fontSize: '48px' }}
                         >
-                            {`Remaining Charges in ascension: `}
+                            {`Current Charges: `}
                         </div>
+
                         <div style={{ display: 'flex', alignItems: 'center', fontSize: '48px' }}>
-                            <div style={{ marginRight: '6px' }}>{` ${remainingCharges}`}</div>
+                            <div style={{ marginRight: '6px' }}>{data?.CurrentCardCharge}</div>
                             <Image
                                 alt='in game charge (battery) image'
                                 // fill
-                                style={{ height: '60px', width: 'auto', maxHeight: '65px' }}
+                                style={{ height: '60px', width: 'auto' }}
                                 src={chargeImg}
                                 unoptimized={true}
                             />
                         </div>
-
-
-
-                        {/* <img
-                            alt='in game charge (battery) image'
-                            style={{ height: '55px' }}
-                            src={`/fapi_fork_personal/cards/charge.png`}
-                        /> */}
-
-                        <div style={{ position: 'relative', height: '55px', width: '55px', marginLeft: '6px' }}>
-                            <Image
-                                alt='on hover I in a cirlce icon, shows more information on hover'
-                                fill
-                                src={infoIcon}
-                                unoptimized={true}
-                            />
-                        </div>
-                        {/* <img alt='on hover I in a cirlce icon, shows more information on hover' style={{ height: '32px', marginLeft: '6px' }} src={infoIcon} /> */}
-
-
                     </div>
 
+                    {/* Charges till Ascension */}
+                    <MouseOverPopover tooltip={
+
+                        <div>
+                            {` ${requiredReincLevel - futureReincLevel} remaining levels at ${helper.roundTwoDecimal(reincHr)} levels/hr =  ${helper.roundTwoDecimal(remTime)} hours remaining`}
+                        </div>
+                    }
+                        opacity={1}
+                    >
+                        <div
+                            style={{ display: 'flex', marginBottom: '0px', marginleft: '36px', alignItems: 'center', }}
+                        >
+                            <div
+                                style={{ display: 'flex', alignItems: 'center', fontSize: '48px' }}
+                            >
+                                {`Remaining Charges in ascension: `}
+                            </div>
+                            <div style={{ display: 'flex', alignItems: 'center', fontSize: '48px' }}>
+                                <div style={{ marginRight: '6px' }}>{` ${remainingCharges}`}</div>
+                                <Image
+                                    alt='in game charge (battery) image'
+                                    // fill
+                                    style={{ height: '60px', width: 'auto', maxHeight: '65px' }}
+                                    src={chargeImg}
+                                    unoptimized={true}
+                                />
+                            </div>
+
+                            <div style={{ position: 'relative', height: '55px', width: '55px', marginLeft: '6px' }}>
+                                <Image
+                                    alt='on hover I in a cirlce icon, shows more information on hover'
+                                    fill
+                                    src={infoIcon}
+                                    unoptimized={true}
+                                />
+                            </div>
+                        </div>
+
+                    </MouseOverPopover >
+                </div>
+            )}
+
+            <div className='importantText' style={{ display: 'flex', alignItems: 'end' }}>
+                <h1 style={{ margin: '6px 6px', fontSize: '48px' }}>
+                    Cards Guide
+                </h1>
+                {/* Charges till Ascension */}
+                <MouseOverPopover
+                    tooltip={
+
+                        <div>
+                            <div>
+                                {`Remaining charges are calculated based on your remaining reincarnation levels left to ascend multiplied by your current reincarnation levels / hr. \nThis is calculated based on how many reincarnation levels you would gain if you reincarnate now divded by the current reincarnation duration.`}
+                            </div>
+                            <div>
+                                {` ${requiredReincLevel - futureReincLevel} remaining levels at ${helper.roundTwoDecimal(reincHr)} levels/hr =  ${helper.roundTwoDecimal(remTime)} hours remaining`}
+                            </div>
+                            <div>
+                                {`Current charge timer reduction: ${helper.roundTwoDecimal(chargeTimerReduction * 100)}%`}
+                            </div>
+                        </div>
+                    }
+                    opacity={1}
+                >
+                    <div style={{ position: 'relative', height: '24px', width: '24px', marginLeft: '6px', marginBottom: '16px' }}>
+                        <Image
+                            alt='on hover I in a cirlce icon, shows more information on hover'
+                            fill
+                            src={infoIcon}
+                            unoptimized={true}
+                        />
+                        {/* </div> */}
+                    </div>
                 </MouseOverPopover >
             </div>
-
-
-
             <div
                 style={{
                     display: 'flex',
@@ -1962,7 +2122,6 @@ export default function Cards() {
                         flexWrap: 'wrap',
                         alignContent: 'flex-start',
                         border: '1.5px solid rgba(255,255,255,0.8)',
-                        // border: '1px solid black',
                         borderRadius: '6px',
                         backgroundColor: 'rgba(255,255,255, 0.1)',
                         overflow: 'auto'
@@ -2032,69 +2191,331 @@ export default function Cards() {
                         {weightedCardInfo}
                     </div>
                 </div>
-                {/* Top 5 Weighted increase */}
+
+                {/* next charges + suggestions */}
                 <div
                     style={{
-                        maxWidth: '474px',
-                        padding: '6px',
                         display: 'flex',
-                        flexWrap: 'wrap',
-                        alignContent: 'flex-start',
-                        border: '1.5px solid rgba(255,255,255,0.8)',
-                        borderRadius: '6px',
-                        margin: '0 12px 0 24px',
-                        backgroundColor: 'rgba(255,255,255, 0.1)',
+                        flex: '1',
+                        flexDirection: 'column',
+                        marginLeft: '12px',
+                        // border: '1.5px solid rgba(255,255,255,0.8)',
+                        // borderRadius: '6px',
+                        // backgroundColor: 'rgba(255,255,255, 0.1)',
                         overflow: 'auto'
                     }}
                 >
+
+                    {/* Current/Future Charges */}
                     <div
                         style={{
                             display: 'flex',
-                            flexDirection: 'column',
-                            width: '100%',
-                            justifyContent: 'center',
-                            alignItems: 'center'
+                            flexWrap: 'wrap',
+                            alignContent: 'flex-start',
+                            border: '1.5px solid rgba(255,255,255,0.8)',
+                            borderRadius: '6px',
+                            overflow: 'auto',
+                            height: '72px',
+                            backgroundColor: 'rgba(255,255,255, 0.07)',
+                            marginBottom: '12px'
                         }}
                     >
+                        {/* Current Charges */}
+                        <div style={{
+                            display: 'flex',
+                            flex: "1",
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            width: '100%',
+                            height: '100%'
+                        }}>
+                            <h3
+                                className='importantText'
+                                style={{ marginTop: '6px', marginBottom: '6px', fontSize: '32px' }}
+                            >
+                                <div style={{ marginRight: '6px', display: 'flex', justifyContent: 'center' }}>{`Current Charges: ${data?.CurrentCardCharge}`}</div>
+                            </h3>
+                        </div>
 
-                        <h3
-                            className='importantText'
-                            style={{ marginTop: '-3px', marginBottom: '6px' }}
-                        >Best Weight</h3>
+                        {/* Seperater */}
+                        {true && (
+                            <div style={{ height: 'calc(100%', width: '64px', overflow: 'hidden' }}>
+                                <svg
+                                    style={{
+                                        height: '100%',
+                                        width: '100%'
+                                    }}
+                                    viewBox="0 0 100 10" preserveAspectRatio="none">
+                                    {/* <polygon fill='rgba(255,255,255, 0.6)' points="66 0 100 0 33 10 0 10" /> */}
+                                    <polygon
+                                        // stroke="black" strokeWidth="0.5"
+                                        fill='rgba(255,255,255, 0.6)' points="75 0 100 0 25 10 0 10" />
+                                </svg>
+                            </div>
+                        )}
 
-                        {finalWeightIncrease}
+                        {/* Future Charges */}
+                        <div style={{
+                            display: 'flex',
+                            flex: "1",
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            width: '100%',
+                            height: '100%'
+                        }}>
+                            <h3
+                                className='importantText'
+                                style={{ marginTop: '6px', marginBottom: '6px', fontSize: '32px' }}
+                            >
+                                <div style={{ marginRight: '6px' }}>{`Remaining Charges: ${remainingCharges}`}</div>
+                            </h3>
+                        </div>
                     </div>
 
-                </div>
-                {/* Top 5 % increase */}
-                <div
-                    style={{
-                        maxWidth: '474px',
-                        padding: '6px',
-                        display: 'flex',
-                        flexWrap: 'wrap',
-                        alignContent: 'flex-start',
-                        border: '1.5px solid rgba(255,255,255,0.8)',
-                        borderRadius: '6px',
-                        margin: '0 24px 0 12px',
-                        backgroundColor: 'rgba(255,255,255, 0.1)',
-                        overflow: 'auto'
-                    }}
-                >
+                    {/* Current/Future Reincarnation Levels */}
                     <div
                         style={{
                             display: 'flex',
-                            flexDirection: 'column',
-                            width: '100%',
-                            justifyContent: 'center',
-                            alignItems: 'center'
+                            flexWrap: 'wrap',
+                            alignItems: 'center',
+                            border: '1.5px solid rgba(255,255,255,0.8)',
+                            borderRadius: '6px',
+                            overflow: 'auto',
+                            height: '117px',
+                            marginBottom: '12px'
                         }}
                     >
-                        <h3
-                            className='importantText'
-                            style={{ marginTop: '-3px', marginBottom: '6px' }}
-                        >Best Percen.</h3>
-                        {finalPercIncrease}
+
+
+                        <div style={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            width: '100%',
+                            backgroundColor: 'rgba(255,255,255, 0.06)',
+                        }}>
+                            <h3
+                                className='importantText'
+                                style={{ marginTop: '6px', marginBottom: '6px', fontSize: '32px', display: 'flex', alignItems: 'center ' }}
+                            >
+                                <div>
+                                    {`Reincarnation levels to ascend:`}
+                                </div>
+                                <div style={{ fontWeight: 'normal', marginLeft: '6px' }}>
+                                    {`${data.AscensionReincLevelRequired}`}
+                                </div>
+                            </h3>
+                        </div>
+
+                        <div style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            width: '100%',
+                            backgroundColor: 'rgba(255,255,255, 0.09)',
+                        }}>
+                            {/* Current Reincarnation levels */}
+                            <div style={{
+                                display: 'flex',
+                                flex: "1",
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                width: '100%',
+                                height: '100%'
+                            }}>
+                                <h3
+                                    className='importantText'
+                                    style={{ marginTop: '6px', marginBottom: '6px', fontSize: '24px' }}
+                                >
+                                    <div style={{ marginRight: '6px', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+                                        <div>
+                                            {`Current Reincarnation Level:`}
+                                        </div>
+                                        <div style={{ fontWeight: 'normal' }}>
+                                            {`${currentReincLevel} (+${currentReincLevelDiff})`}
+                                        </div>
+                                    </div>
+                                </h3>
+                            </div>
+
+                            {/* Seperater */}
+                            {true && (
+                                <div>
+                                    {/* Num Charges */}
+                                    <div>
+                                        <div
+                                            style={{
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                bottom: '23px',
+                                                left: '30px',
+                                                zIndex: '3',
+                                                marginBottom:'-6px'
+                                            }}
+                                        >
+                                            <input
+                                                aria-label='How many reinc card charges to simulate being charged'
+                                                style={{
+                                                    width: '30px',
+                                                    // color: cardWeight !== defaultWeight && cardWeight !== -1 ? 'black' : 'gray',
+                                                    // fontWeight: cardWeight !== defaultWeight && cardWeight !== -1 ? 'bold' : '',
+                                                    borderRadius: '6px',
+                                                    fontSize: '12px',
+                                                    padding: '0 0 0 0',
+                                                    margin: '0',
+                                                    textAlign: 'center'
+                                                }}
+                                                type='number'
+                                                value={numReincCharges}
+                                                onChange={
+                                                    (e) => {
+                                                        try {
+                                                            let x = Number(e.target.value);
+                                                            x = Math.floor(x);
+                                                            if (x < 1 || x > 99) {
+                                                                return;
+                                                            }
+                                                            setNumReincCharges(x);
+                                                        }
+                                                        catch (err) {
+                                                            console.log(err);
+                                                        }
+                                                    }}
+                                                min="0"
+                                                max="999999"
+                                            />
+
+                                            <MouseOverPopover tooltip={
+
+                                                <div>
+                                                    {`How many reincarnation card charges to simulate being used`}
+                                                </div>
+                                            }
+                                                opacity={1}
+                                            >
+                                                <div style={{ position: 'relative', height: '16px', width: '16px', marginLeft: '2px' }}>
+                                                    <Image
+                                                        alt='on hover I in a cirlce icon, shows more information on hover'
+                                                        fill
+                                                        src={infoIcon}
+                                                        unoptimized={true}
+                                                    />
+                                                </div>
+                                            </MouseOverPopover>
+                                        </div>
+                                    </div>
+                                    <div style={{ height: '48px', width: '48px', position: 'relative', margin: '0 -3px' }}>
+                                        <Image
+                                            alt='arrow point to the left'
+                                            src={rightArrow}
+                                            fill
+                                            unoptimized
+                                        />
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* Future Reincarnation Levels */}
+                            <div style={{
+                                display: 'flex',
+                                flex: "1",
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                width: '100%',
+                                height: '100%'
+                            }}>
+                                <h3
+                                    className='importantText'
+                                    style={{ marginTop: '6px', marginBottom: '6px', fontSize: '24px' }}
+                                >
+                                    <div style={{ marginRight: '6px', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+                                        <div>
+                                            {`Future Reincarnation Level:`}
+                                        </div>
+                                        <div style={{ fontWeight: 'normal' }}>
+                                            {`${futureReincLevel} (+${futureReincLevelDiff})`}
+                                        </div>
+                                    </div>
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Top 5 Weighted increase */}
+                    <div
+                        style={{
+                            display: 'flex',
+                            flexWrap: 'wrap',
+                            alignContent: 'flex-start',
+                            border: '1.5px solid rgba(255,255,255,0.8)',
+                            borderRadius: '6px',
+                            overflow: 'auto',
+                            height: '215px',
+                            marginBottom: '12px'
+                        }}
+                    >
+                        <div style={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            width: '100%',
+                            backgroundColor: 'rgba(255,255,255, 0.06)',
+                        }}>
+                            <h3
+                                className='importantText'
+                                style={{ marginTop: '6px', marginBottom: '6px', fontSize: '32px' }}
+                            >
+                                Best Weight
+                            </h3>
+                        </div>
+                        <div
+                            style={{
+                                display: 'flex',
+                                // flexDirection: 'column',
+                                width: '100%',
+                                justifyContent: 'space-around',
+                                alignItems: 'center',
+                                backgroundColor: 'rgba(255,255,255, 0.1)',
+                            }}
+                        >
+                            {finalWeightIncrease}
+                        </div>
+
+                    </div>
+                    {/* Top 5 % increase */}
+                    <div
+                        style={{
+                            display: 'flex',
+                            flexWrap: 'wrap',
+                            alignContent: 'flex-start',
+                            border: '1.5px solid rgba(255,255,255,0.8)',
+                            borderRadius: '6px',
+                            overflow: 'auto',
+                            height: '215px'
+                        }}
+                    >
+                        <div style={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            width: '100%',
+                            backgroundColor: 'rgba(255,255,255, 0.06)',
+                        }}>
+                            <h3
+                                className='importantText'
+                                style={{ marginTop: '6px', marginBottom: '6px', fontSize: '32px' }}
+                            >
+                                Best Percentage
+                            </h3>
+                        </div>
+                        <div
+                            style={{
+                                display: 'flex',
+                                // flexDirection: 'column',
+                                width: '100%',
+                                justifyContent: 'space-around',
+                                alignItems: 'center',
+                                backgroundColor: 'rgba(255,255,255, 0.1)',
+                            }}
+                        >
+                            {finalPercIncrease}
+                        </div>
                     </div>
                 </div>
             </div>
