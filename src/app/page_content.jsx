@@ -213,13 +213,13 @@ export default function Home() {
                 </div>
                 <div>
                   <div>
-                    %APPDATA%\your_username_here\LocalLow\Oni Gaming\Farmer Against Potatoes Idle\fapi-save.txt
+                    %LOCALAPPDATA%Low\Oni Gaming\Farmer Against Potatoes Idle\fapi-save.txt
                   </div>
                   <div style={{ textAlign: 'center', fontWeight: 'bold' }}>
                     or you can copy:
                   </div>
                   <div>
-                    %APPDATA%\..\LocalLow\Oni Gaming\Farmer Against Potatoes Idle
+                    %LOCALAPPDATA%Low\Oni Gaming\Farmer Against Potatoes Idle
                   </div>
                 </div>
               </div>
