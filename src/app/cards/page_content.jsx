@@ -1310,12 +1310,14 @@ const CardCard = ({
 
 
     let margin = ``;
-    if (vertical) {
+    if (vertical && false) {
         margin = num % 2 === 0 && num + 1 ? '6px 0' : ''
     }
     else {
         margin = middleCard ? `0 6px ${num > 1 && num % 5 === 0 ? '12px' : ''} 6px` : '';
     }
+
+    vertical  = false;
 
     let extraText = `(+${mathHelper.subtractDecimal(finalAfter, finalBefore).toExponential(2)})`;
     if (displayMode === 'perc') {
@@ -1830,10 +1832,8 @@ export default function Cards() {
     let finalPercIncrease = topPercIncrease.slice(0, 5).map((value, index, arr) => {
         return (
             <div style={{
-                // display: 'flex', 
-                // alignItems: 'center',
-                //  width: '100%',
-                position: 'relative'
+                position: 'relative',
+                display:'flex'
             }}
                 key={index}
             >
@@ -1845,7 +1845,8 @@ export default function Cards() {
                         alignItems: 'center',
                         justifyContent: 'center',
                         alignSelf: 'start',
-                        position: 'absolute',
+                        marginRight:'6px',
+                        // position: 'absolute',
                         top: '0',
                         left: '0',
                         zIndex: '2',
@@ -1891,10 +1892,8 @@ export default function Cards() {
     let finalWeightIncrease = weightIncrease.slice(0, 5).map((value, index, arr) => {
         return (
             <div style={{
-                // display: 'flex', 
-                // alignItems: 'center',
-                //  width: '100%',
-                position: 'relative'
+                position: 'relative',
+                display:'flex'
             }}
                 key={index}
             >
@@ -1906,7 +1905,8 @@ export default function Cards() {
                         alignItems: 'center',
                         justifyContent: 'center',
                         alignSelf: 'start',
-                        position: 'absolute',
+                        marginRight:'6px',
+                        // position: 'absolute',
                         top: '0',
                         left: '0',
                         zIndex: '2',
@@ -2448,7 +2448,7 @@ export default function Cards() {
                             border: '1.5px solid rgba(255,255,255,0.8)',
                             borderRadius: '6px',
                             overflow: 'auto',
-                            height: '215px',
+                            height: '250px',
                             marginBottom: '12px'
                         }}
                     >
@@ -2488,7 +2488,7 @@ export default function Cards() {
                             border: '1.5px solid rgba(255,255,255,0.8)',
                             borderRadius: '6px',
                             overflow: 'auto',
-                            height: '215px'
+                            height: '250px',
                         }}
                     >
                         <div style={{
