@@ -323,6 +323,9 @@ export default function Expeditions() {
         let cur = petWhiteList[i];
         let inner_pet = cur.pet;
 
+        if (cur.placement === 'blacklist') {
+            continue;
+        }
         if (inner_pet.Type === 1) {
             numGround++;
         }
@@ -1485,12 +1488,12 @@ export default function Expeditions() {
                                                             data,
                                                             { manualEnabledPets: manualEnabledPets, priorityList: priorityList, priorityMap: priorityMap, petWhiteList: petWhiteList }
                                                         );
-                                                   
+
                                                         let combinedList = airPets.concat(groundPets);
 
                                                         setPetWhiteList((curr) => {
                                                             let temp = [...curr];
-                                                            
+
 
                                                             for (let x = 0; x < combinedList.length; x++) {
                                                                 let selected = combinedList[x].ID;
@@ -1528,12 +1531,23 @@ export default function Expeditions() {
                                 </div>
                             </div>
 
+                            <div className='importantText'
+                                style={{
+                                    width: '100%',
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    fontWeight: 'bold',
+                                    color: numGround > maxType ? 'red' : ''
+                                }}
+                            >
+                                {`Ground Pets (${numGround}/${maxType})`}
+                            </div>
 
                             {/* Pet white/black list */}
                             <div
                                 style={{
                                     display: 'flex',
-                                    margin: '12px 0 0 0',
+                                    margin: '0 0 0 0',
                                     borderTop: '1px solid rgba(255,255,255,0.8)',
                                     borderBottom: '1px solid rgba(255,255,255,0.8)',
                                     backgroundColor: 'rgba(255,255,255, 0.12)',
@@ -1644,10 +1658,14 @@ export default function Expeditions() {
                                     </MouseOverPopover>
                                 </div>
                             </div>
+
                             <div style={{
                                 margin: '0 0 0 0',
                             }}>
-                                {petWhiteList.map((pet, index) => {
+                                {petWhiteList.sort((a, b) => a.label.localeCompare(b.label)).map((pet, index) => {
+
+                                    if (pet.pet.Type === 2) return <></>;
+
                                     let petLabel = pet.label;
                                     let petGroup = ``
                                     if (pet.id in relWhiteListMap) {
@@ -1688,7 +1706,7 @@ export default function Expeditions() {
                                                         let temp_pet = groups[group_index + 1][j];
 
                                                         if (temp_pet.Type === pet.pet.Type) {
-                                                         
+
                                                             if (!(temp_pet.ID in triedPets) && !foundNew) {
                                                                 triedPets[temp_pet.ID] = true;
                                                                 foundNew = true;
@@ -1762,6 +1780,7 @@ export default function Expeditions() {
                                                 width: '100%',
                                                 height: '25px',
                                                 backgroundColor: (index % 2) === 0 ? 'rgba(255,255,255, 0.07)' : 'rgba(255,255,255, 0.005)',
+                                                color: numGround > maxType ? 'red' : ''
                                             }}
 
                                         >
@@ -1978,6 +1997,479 @@ export default function Expeditions() {
                                 })}
                             </div>
 
+
+                            <div className='importantText'
+                                style={{
+                                    width: '100%',
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    fontWeight: 'bold',
+                                    borderTop: '1px solid rgba(255,255,255,0.8)',
+                                    paddingTop: '6px',
+                                    paddingBottom: '6px',
+                                    color: numAir > maxType ? 'red' : ''
+                                    // marginTop: '6px'
+                                }}
+                            >
+                                {`Air Pets (${numAir}/${maxType})`}
+                            </div>
+
+                            {/* Pet white/black list */}
+                            <div
+                                style={{
+                                    display: 'flex',
+                                    margin: '0 0 0 0',
+                                    borderTop: '1px solid rgba(255,255,255,0.8)',
+                                    borderBottom: '1px solid rgba(255,255,255,0.8)',
+                                    backgroundColor: 'rgba(255,255,255, 0.12)',
+                                }}
+                            >
+
+                                {/* Pet */}
+                                <div
+                                    style={{
+                                        // background: 'red',
+                                        width: '50%',
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+
+                                    }}
+                                >
+                                    Pet
+                                </div>
+
+                                {/* placement */}
+                                <div
+                                    style={{
+                                        // background: 'yellow',
+                                        width: '25%',
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        borderRight: '1px solid rgba(255,255,255,0.8)',
+                                        borderLeft: '1px solid rgba(255,255,255,0.8)',
+                                    }}
+                                >
+                                    <MouseOverPopover tooltip={
+                                        <div style={{ padding: '6px' }}>
+                                            <div>
+                                                Determines the order in which the pets are slotted in:
+                                            </div>
+                                            <div>
+                                                Blacklist: Omits this pet from any group
+                                            </div>
+                                            <div>
+                                                Group: Forces the pet to go into a certain group
+                                            </div>
+                                            <div>
+                                                Auto:  Tries to find optimal placement automatically
+                                            </div>
+                                            {/* <div>
+                                                Relative: Tries to find optimal placement automatically based on `damage bias`
+                                            </div> */}
+                                        </div>
+                                    }>
+                                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                                            <div>
+                                                Placement
+                                            </div>
+                                            <div style={{ height: '18px', width: '18px', position: 'relative', marginLeft: '6px' }} >
+                                                <Image
+                                                    alt='on hover I in a cirlce icon, shows more information on hover'
+                                                    src={infoIcon}
+                                                    fill
+                                                />
+                                            </div>
+                                            {/* <img alt='on hover I in a cirlce icon, shows more information on hover' style={{ height: '16px', marginLeft: '6px' }} src={infoIcon} /> */}
+                                        </div>
+                                    </MouseOverPopover>
+
+                                </div>
+                                {/* Parameters */}
+                                <div
+                                    style={{
+                                        // background: 'blue',
+                                        width: '25%',
+                                        display: 'flex',
+                                        // boxShadow: `0 0 0 1px #ecf0f5`,
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                    }}
+                                >
+                                    <MouseOverPopover tooltip={
+                                        <div style={{ padding: '6px' }}>
+                                            <div>
+                                                <div>
+                                                    In Placement=Group, determines which group the pet is placed in
+                                                </div>
+                                                <div>
+                                                    In Placement=Auto, tried to find the optimal placement automatically
+                                                </div>
+                                                {/* <div>
+                                                    In Placement=Relative, determines which group the pet is placed in based on the bias number (higher means more damage necessary to placed in)
+                                                </div> */}
+                                            </div>
+                                        </div>
+                                    }>
+
+                                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                                            <div>
+                                                Parameters
+                                            </div>
+                                            <div style={{ height: '18px', width: '18px', position: 'relative', marginLeft: '6px' }} >
+                                                <Image
+                                                    alt='on hover I in a cirlce icon, shows more information on hover'
+                                                    src={infoIcon}
+                                                    fill
+                                                />
+                                            </div>
+                                            {/* <img alt='on hover I in a cirlce icon, shows more information on hover' style={{ height: '16px', marginLeft: '6px' }} src={infoIcon} /> */}
+                                        </div>
+                                    </MouseOverPopover>
+                                </div>
+                            </div>
+
+                            <div style={{
+                                margin: '0 0 0 0',
+                            }}>
+                                {petWhiteList.sort((a, b) => a.label.localeCompare(b.label)).map((pet, index) => {
+
+                                    if (pet.pet.Type === 1) return <></>;
+
+                                    let petLabel = pet.label;
+                                    let petGroup = ``
+                                    if (pet.id in relWhiteListMap) {
+                                        // petLabel += ` (Group: ${relWhiteListMap[pet.id].finalGroup + 1})`
+                                        petGroup += `(Group: ${relWhiteListMap[pet.id].finalGroup + 1})`
+                                    }
+
+                                    let showRed = false;//Too high
+                                    let showGreen = false;// Too low
+                                    let hoverMsg = ``;
+
+                                    //Check whether this pet is placed too low or too high
+                                    if (pet.placement !== `blacklist`) {
+
+                                        let group_index = groups.findIndex((temp_e) => {
+                                            return temp_e.find((temp_e2) => temp_e2.ID === pet.id)
+                                        });
+
+                                        if (group_index > -1) {
+
+                                            //Check if this pet got put in too high
+
+                                            let group = groups[group_index];
+
+                                            //Can only check if not on bottom
+                                            if (group_index !== (groups.length - 1)) {
+                                                //By default only need to check twice (2gnd or 2air)
+                                                const maxChecks = 2;
+                                                let originalGroupScore = petHelper.calculateGroupScore(group, defaultRank).groupScore;
+                                                let tempGroup = [];
+                                                let triedPets = {};
+
+                                                for (let i = 0; i < maxChecks; i++) {//
+                                                    let foundNew = false;
+
+                                                    for (let j = 0; j < groups[group_index + 1].length; j++) {
+
+                                                        let temp_pet = groups[group_index + 1][j];
+
+                                                        if (temp_pet.Type === pet.pet.Type) {
+
+                                                            if (!(temp_pet.ID in triedPets) && !foundNew) {
+                                                                triedPets[temp_pet.ID] = true;
+                                                                foundNew = true;
+                                                                tempGroup = [...group];
+                                                                let ind = tempGroup.findIndex((temp_repl) => temp_repl.ID === pet.pet.ID)
+                                                                tempGroup[ind] = temp_pet;
+                                                            }
+                                                        }
+                                                    }
+
+                                                    let newGroupScore = petHelper.calculateGroupScore(tempGroup, defaultRank).groupScore;
+
+                                                    if (newGroupScore > originalGroupScore) {
+                                                        showRed = true;
+                                                        hoverMsg = `${petLabel} might be too high, try ${pet.placement === 'rel' ? `increase` : `lowering`} the value to drop them to a lower team`
+                                                    }
+                                                    tempGroup = [];
+                                                }
+                                            }
+
+
+                                            //If they are not too high, check if they are too low (except for team 1)
+                                            if (!showRed && group_index > 0) {
+                                                //By default only need to check twice (2gnd or 2air)
+                                                const maxChecks = 2;
+                                                let originalGroupScore = petHelper.calculateGroupScore(groups[group_index - 1], defaultRank).groupScore;
+                                                let tempGroup = [];
+                                                let triedPets = {};
+
+                                                for (let i = 0; i < maxChecks; i++) {//
+                                                    let foundNew = false;
+
+                                                    for (let j = 0; j < groups[group_index - 1].length; j++) {
+
+                                                        let temp_pet = groups[group_index - 1][j];
+                                                        if (temp_pet.Type === pet.pet.Type) {
+                                                            if (!(temp_pet.ID in triedPets) && !foundNew) {
+                                                                triedPets[temp_pet.ID] = true;
+                                                                foundNew = true;
+                                                                tempGroup = [...groups[group_index - 1]];
+                                                                let ind = tempGroup.findIndex((temp_repl) => temp_repl.ID === temp_pet.ID)
+                                                                tempGroup[ind] = pet.pet;
+                                                            }
+                                                        }
+                                                    }
+
+                                                    let newGroupScore = petHelper.calculateGroupScore(tempGroup, defaultRank).groupScore;
+
+                                                    if (newGroupScore > originalGroupScore) {
+                                                        showGreen = true;
+                                                        hoverMsg = ` ${petLabel} might be too low, try ${pet.placement === 'rel' ? `lowering` : `increasing`} the value to bump them to a higher team`
+                                                    }
+                                                    tempGroup = [];
+                                                }
+                                            }
+
+                                        }
+                                        //Has a nan placement -> suggest decreasing the rel value
+                                        else {
+                                            hoverMsg = `Try lowering this value until ${petLabel} is put in`;
+                                            showGreen = true;
+                                        }
+
+                                    }
+
+                                    return (
+                                        <div
+                                            key={pet.label}
+                                            style={{
+                                                display: 'flex',
+                                                width: '100%',
+                                                height: '25px',
+                                                backgroundColor: (index % 2) === 0 ? 'rgba(255,255,255, 0.07)' : 'rgba(255,255,255, 0.005)',
+                                                color: numAir > maxType ? 'red' : ''
+                                            }}
+
+                                        >
+                                            {/* Pet name + delete */}
+                                            <div style={{
+                                                width: '50%',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                position: 'relative',
+                                                borderTop: index === 0 ? '' : '1px solid rgba(255,255,255,0.8)',
+                                            }}
+                                                onMouseEnter={() => {
+                                                    setActivePet(pet.id)
+                                                }}
+                                                onMouseLeave={() => {
+                                                    setActivePet(-1);
+                                                }}
+                                            >
+                                                <div
+                                                    style={{
+                                                        position: 'absolute',
+                                                        width: '100%',
+                                                        display: 'flex',
+                                                        justifyContent: 'space-between',
+                                                        zIndex: '1'
+                                                    }}
+
+                                                >
+                                                    <div
+                                                        style={{
+                                                            marginLeft: '6px'
+                                                        }}
+                                                    >
+                                                        {petLabel}
+                                                    </div>
+                                                    <div
+                                                        style={{
+                                                            marginRight: '34px'
+                                                        }}
+                                                    >
+                                                        {petGroup}
+                                                    </div>
+                                                </div>
+
+                                                <div
+                                                    style={{
+                                                        height: '12px', width: '12px',
+                                                        margin: '0 12px 0 auto',
+                                                        zIndex: '2',
+                                                        position: 'relative'
+                                                    }}
+                                                    onClick={(e) => {
+                                                        setPetWhiteList((curr) => {
+                                                            let temp = [...curr];
+                                                            temp = temp.filter((inner_pet) => {
+                                                                return inner_pet.id !== pet.id
+                                                            });
+                                                            return temp;
+                                                        })
+                                                        setRefreshGroups(true);
+                                                    }}
+                                                >
+                                                    <Image
+                                                        alt='X (cross to remove)'
+                                                        src={xIcon}
+                                                        fill
+                                                    />
+                                                </div>
+
+                                            </div>
+                                            {/* Pet Placement */}
+                                            <div style={{
+                                                width: '25%',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                borderRight: '1px solid rgba(255,255,255,0.8)',
+                                                borderLeft: '1px solid rgba(255,255,255,0.8)',
+                                                borderTop: index === 0 ? '' : '1px solid rgba(255,255,255,0.8)',
+
+                                            }}>
+
+                                                <select
+                                                    className='importantText'
+                                                    style={{ maxWidth: '144px', backgroundColor: (index % 2) === 0 ? '#252525' : '#171717', borderRadius: '4px' }}
+                                                    aria-label='Select what kind of placement the pet will have'
+                                                    value={pet.placement}
+                                                    onChange={
+                                                        (choice) => {
+                                                            console.log(choice);
+                                                            setPetWhiteList((curr) => {
+                                                                let temp = [...curr];
+                                                                let tempPet = temp.find((inner_pet) => inner_pet.id === pet.id);
+                                                                tempPet.placement = choice.target.value;
+                                                                return temp;
+                                                            })
+                                                            setRefreshGroups(true);
+                                                        }
+                                                    }
+                                                >
+                                                    <option value={'blacklist'}>Blacklist</option>
+                                                    <option value={'team'}>Group</option>
+                                                    <option value={`auto`}>Auto</option>
+                                                    {/* <option value={`rel`}>Relative</option> */}
+                                                </select>
+
+                                            </div>
+                                            {/* parameters */}
+                                            <div
+                                                disabled={pet.placement === 'blacklist'}
+                                                style={{
+                                                    width: '25%',
+                                                    position: 'relative',
+                                                    opacity: pet.placement === 'blacklist' ? '0.4' : '',
+                                                    display: 'flex',
+                                                    justifyContent: 'center',
+                                                    alignItems: 'center',
+                                                    borderTop: index === 0 ? '' : '1px solid rgba(255,255,255,0.8)'
+                                                }}
+                                            >
+                                                {pet.placement === 'team' && (
+                                                    <div style={{ marginLeft: (showGreen || showRed) ? '22px' : '' }}>
+                                                        <select
+                                                            className='importantText'
+                                                            style={{ maxWidth: '144px', backgroundColor: (index % 2) === 0 ? '#252525' : '#171717', borderRadius: '4px', width: '44px' }}
+                                                            aria-label='Select what team the pet will be placed in'
+                                                            value={pet.parameters.team}
+                                                            onChange={
+                                                                (choice) => {
+                                                                    setPetWhiteList((curr) => {
+                                                                        let temp = [...curr];
+                                                                        let tempPet = temp.find((inner_pet) => inner_pet.id === pet.id);
+                                                                        tempPet.parameters.team = Number(choice.target.value);
+                                                                        return temp;
+                                                                    })
+                                                                    setRefreshGroups(true);
+                                                                }
+                                                            }
+                                                        >
+                                                            {Array.apply(null, Array(Number(numTeams)))
+                                                                .map((e, index) => {
+                                                                    return <option value={index} key={index}>{index + 1}</option>
+                                                                })}
+
+
+                                                        </select>
+
+                                                    </div>
+                                                )}
+                                                {pet.placement === `rel` && (
+                                                    <div style={{ marginLeft: (showGreen || showRed) ? '22px' : '' }}>
+                                                        <input
+                                                            className='importantText textMedium2'
+                                                            aria-label='Damage bias to control when the pet should go in'
+                                                            style={{ maxWidth: '36px', backgroundColor: '#1b1b1b', borderRadius: '4px', backgroundColor: (index % 2) === 0 ? '#252525' : '#171717', }}
+                                                            type='number'
+                                                            // className='prepNumber'
+                                                            value={pet.parameters.damageBias}
+                                                            onChange={
+                                                                (e) => {
+                                                                    try {
+                                                                        let x = Number(e.target.value);
+                                                                        x = Math.floor(x);
+                                                                        if (x < 0 || x > 100) {
+                                                                            return;
+                                                                        }
+
+                                                                        setPetWhiteList((curr) => {
+                                                                            let temp = [...curr];
+                                                                            let tempPet = temp.find((inner_pet) => inner_pet.id === pet.id);
+                                                                            tempPet.parameters.damageBias = Number(x);
+                                                                            return temp;
+                                                                        })
+                                                                        setRefreshGroups(true);
+                                                                    }
+                                                                    catch (err) {
+                                                                        console.log(err);
+                                                                    }
+                                                                }}
+                                                            placeholder={pet.parameters.damageBias + ''}
+                                                            min="0"
+                                                            max="100"
+                                                        />
+                                                    </div>
+                                                )}
+                                                {(pet.placement === 'blacklist' || pet.placement === 'auto') && (
+                                                    <>Unavailable</>
+                                                )}
+                                                {(showGreen || showRed) && (
+                                                    <div
+                                                    // style={{ position: 'absolute', right: '5%' }}
+                                                    >
+                                                        <MouseOverPopover muiHeight={'20px'} tooltip={<div>{hoverMsg}</div>} style={{ display: 'flex', alignItems: 'center', height: '20px' }}>
+
+                                                            <div style={{ height: '20px', width: '20px', marginLeft: '3px', marginTop: '2px', position: 'relative' }}>
+                                                                <Image
+                                                                    alt='on hover I in a cirlce icon, shows more information on hover'
+                                                                    src={showGreen ? infoIconGreenThick : infoIconRedThick}
+                                                                    fill
+                                                                />
+                                                            </div>
+
+
+                                                            {/* <img alt='on hover I in a cirlce icon, shows more information on hover'
+                                                                style={{ height: '18px', marginLeft: '6px', marginTop: '2px' }}
+                                                                src={showGreen ? infoIconGreen : infoIconRed} /> */}
+                                                        </MouseOverPopover>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </div>
+                                    )
+                                })}
+                            </div>
+
+
+
                         </div>
                     )}
 
@@ -2011,7 +2503,20 @@ export default function Expeditions() {
                                     <div
                                         style={{ display: 'flex', margin: '6px', alignSelf: 'center' }}
                                     >
-                                        <h4 style={{ margin: '0', fontSize: '20px', textAlign: 'center' }}> Leftover Pets</h4>
+                                        <h4 style={{ margin: '0', fontSize: '20px', textAlign: 'center', display: 'flex', alignItems: 'center' }}>
+                                            <div>
+                                                {`Pet Bonus Finder`}
+                                            </div>
+                                            <div style={{ fontSize: '16px', fontWeight: 'normal', color: numGround >= maxType ? 'red' : '', marginLeft: "6px" }}>
+                                                {`(${numGround} / ${maxType} Ground)`}
+                                            </div>
+                                            <div style={{ marginLeft: '6px',fontSize: '16px', fontWeight: 'normal', }}>
+                                                {`&`}
+                                            </div>
+                                            <div style={{ fontSize: '16px', fontWeight: 'normal', color: numAir >= maxType ? 'red' : '', marginLeft: "6px" }}>
+                                                {`(${numAir} / ${maxType} Air) `}
+                                            </div>
+                                        </h4>
 
                                     </div>
 
