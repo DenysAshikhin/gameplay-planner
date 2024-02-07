@@ -1354,9 +1354,8 @@ export default function Expeditions() {
                                         onSelect={(e) => {
                                             setPetWhiteList((curr) => {
                                                 let temp = [...curr];
-                                                // let petObj = originalPets.find((search_pet) => search_pet.ID === e.id);
                                                 let petObj = data.PetsCollection.find((search_pet) => search_pet.ID === e.id);
-                                                temp.push({ ...e, placement: 'blacklist', parameters: { team: 0, damageBias: 17 }, pet: petObj });
+                                                temp.push({ ...e, placement: 'auto', parameters: { team: 0, damageBias: 17 }, pet: petObj });
                                                 return temp;
                                             })
                                             setRefreshGroups(true);
