@@ -230,8 +230,9 @@ export default function Home() {
         </MouseOverPopover>
         <div className="mediumImportantText blackTextStroke" style={{ margin: '0 0 0 0', fontSize: '35px', fontWeight: 'bold', textStroke: '' }}>Warning: contains spoilers!</div>
 
-        <div style={{ marginTop: '16px', }}>
-          <input aria-label='save file upload button' type="file" onChange={handleFileUpload} />
+        <div style={{ marginTop: '16px' }}>
+          <input style={{ display: 'none' }} id='chooseFileButton' aria-label='save file upload button' type="file" title="" accept=".txt" onChange={handleFileUpload} />
+          <button style={{ fontSize: '1.3rem' }} onClick={(e) => { chooseFileButton.click(); return false; }}>Choose File</button>
         </div>
       </div>
     </div>
