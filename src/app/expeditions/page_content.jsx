@@ -1491,7 +1491,6 @@ export default function Expeditions() {
                                                         setPetWhiteList((curr) => {
                                                             let temp = [...curr];
 
-
                                                             for (let x = 0; x < combinedList.length; x++) {
                                                                 let selected = combinedList[x].ID;
                                                                 if (selected > 0) {
@@ -1511,7 +1510,6 @@ export default function Expeditions() {
                                                             return temp;
                                                         })
                                                         setRefreshGroups(true);
-
                                                     }
                                                 }
                                                 defaultValue={' '}
