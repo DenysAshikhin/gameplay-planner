@@ -1736,7 +1736,7 @@ const CalcReinc = function (data, reincCardCharges) {
     // let remainingCharges = Math.floor((remTime * tickRate) / chargeDuration);
     let remainingCharges = Math.floor(remTime / chargeDuration);
 
-    return { futureReincLevel, levelDiff, reincHr, remTime, soulClock, chargeTimerReduction, chargeDuration, remainingCharges }
+    return { requiredReincLevel, futureReincLevel, levelDiff, reincHr, remTime, soulClock, chargeTimerReduction, chargeDuration, remainingCharges }
 }
 
 export default function Cards() {
