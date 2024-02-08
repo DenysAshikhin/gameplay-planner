@@ -1,7 +1,6 @@
 "use client"
 
 import React, { useState, useEffect } from 'react';
-import { ReactSearchAutocomplete } from 'react-search-autocomplete'
 
 import AutoComplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
@@ -89,7 +88,6 @@ const SearchBox = ({ data, onSelect, placeholder, updateBox, margin }) => {
                     else {
                         return option.label === value.label;
                     }
-
                 }
                 }
                 // inputValue='hi'
@@ -97,11 +95,9 @@ const SearchBox = ({ data, onSelect, placeholder, updateBox, margin }) => {
                     if (!value) return;
                     onSelect(value);
                     if (!updateBox) {
-                        // setValue({ label: '', id: -1 });
                     }
                     else {
                         setValue(value);
-
                     }
                 }}
             />

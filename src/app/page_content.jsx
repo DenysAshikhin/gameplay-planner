@@ -159,7 +159,6 @@ export default function Home() {
         justifyContent: 'center'
       }}
     >
-      {/* <GoogleAdSense publisherId="pub-1393057374484862" /> */}
       <Image
         style={{
           position: 'absolute', top: '0', left: '0', width: '100%', height: '100%', zIndex: '1',
@@ -170,23 +169,6 @@ export default function Home() {
         priority={true}
         unoptimized={true}
       />
-
-      {/* <img style={{
-        position: 'absolute', top: '0', left: '0', width: '100%', height: '100%', zIndex: '1',
-        opacity: '0.3'
-      }} alt='fullscreen picture of a Farmer Against Potatoes Idle game'
-        src={'/images/coming_soon.png'}
-      /> */}
-      {/* <div style={{
-        position: 'absolute', top: '0', left: '0', width: '100%', height: '100%', zIndex: '1',
-        opacity: '0.3'
-      }}>
-        <Image alt='fullscreen picture of a Farmer Against Potatoes Idle game'
-          src={'/images/coming_soon.png'}
-          // src={backgroundImage} 
-          fill />
-      </div> */}
-
       <div
         style={{
           display: 'flex',
@@ -200,6 +182,7 @@ export default function Home() {
         <MouseOverPopover
           forceOpen={forceOpen}
           setForceOpen={setForceOpen}
+          forceXPlacement={'right'}
           tooltip={
             <div
               onMouseEnter={(e) => { if (!forceOpen) setForceOpen(true) }}
@@ -213,13 +196,13 @@ export default function Home() {
                 </div>
                 <div>
                   <div>
-                    %APPDATA%\your_username_here\LocalLow\Oni Gaming\Farmer Against Potatoes Idle\fapi-save.txt
+                    %LOCALAPPDATA%Low\Oni Gaming\Farmer Against Potatoes Idle\fapi-save.txt
                   </div>
                   <div style={{ textAlign: 'center', fontWeight: 'bold' }}>
                     or you can copy:
                   </div>
                   <div>
-                    %APPDATA%\..\LocalLow\Oni Gaming\Farmer Against Potatoes Idle
+                    %LOCALAPPDATA%Low\Oni Gaming\Farmer Against Potatoes Idle
                   </div>
                 </div>
               </div>
@@ -234,11 +217,11 @@ export default function Home() {
               </div>
             </div>
           }>
+          <div className="mediumImportantText blackTextStroke" style={{ margin: '0 0 0 0', fontSize: '60px', fontWeight: 'bold' }}>Upload save file to view calculator</div>
           <div
             onMouseEnter={(e) => { if (!forceOpen) setForceOpen(true) }}
             onMouseLeave={(e) => { if (forceOpen) setForceOpen(false) }}
             style={{ display: 'flex', alignItems: 'center' }}>
-            <div className="mediumImportantText blackTextStroke" style={{ margin: '0 0 0 0', fontSize: '60px', fontWeight: 'bold' }}>Upload save file to view calculator</div>
             <div style={{ position: 'relative', height: '36px', width: '36px', marginLeft: '6px', marginTop: '6px' }}>
               <Image alt='on hover I in a cirlce icon, shows more information on hover' src={'/images/icons/info_lightgray.svg'}
                 fill />
@@ -247,12 +230,9 @@ export default function Home() {
         </MouseOverPopover>
         <div className="mediumImportantText blackTextStroke" style={{ margin: '0 0 0 0', fontSize: '35px', fontWeight: 'bold', textStroke: '' }}>Warning: contains spoilers!</div>
 
-        <div style={{ marginTop: '16px', }}>
-          <input
-            aria-label='save file upload button'
-            style={{
-              width: '150px'
-            }} type="file" onChange={handleFileUpload} />
+        <div style={{ marginTop: '16px' }}>
+          <input style={{ display: 'none' }} id='chooseFileButton' aria-label='save file upload button' type="file" title="" accept=".txt" onChange={handleFileUpload} />
+          <button style={{ fontSize: '1.3rem' }} onClick={(e) => { chooseFileButton.click(); return false; }}>Choose File</button>
         </div>
       </div>
     </div>
