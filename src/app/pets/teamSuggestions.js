@@ -1160,7 +1160,7 @@ export const statTeamSuggestions = {
 // exports.statTeamSuggestions = statTeamSuggestions;
 
 export const statTeamMasterList = {
-    "priorityList": [35, 34, 13, 28, 8, 3, 2, 1, 10, 11, 12, 4, 15, 7, 14, 16, 29, 23, 9, 21, 22, 6, 5,],
+    "priorityList": [35, 34, 13, 28, 8, 3, 2, 1, 10, 11, 12, 4, 15, 7, 14, 16, 29, 23, 9, 21, 22, 5, 6,],
     "priorityMap": {
         "1": { "mode": "max", "label": "Potato", "id": 1, "count": 1, "current": 0 },
         "2": { "mode": "max", "label": "Class Exp", "id": 2, "count": 1, "current": 0 },
