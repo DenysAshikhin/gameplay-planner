@@ -980,7 +980,7 @@ export default function Expeditions() {
                             </div>
                             <div>
 
-                                {`Token Bonuses: ${helper.roundTwoDecimal(data.ExpeditionTokenBonuses) * helper.roundTwoDecimal(data.ExpeditionResourceBonuses)}`}
+                                {`Token Bonuses: ${helper.roundThreeDecimal(helper.roundTwoDecimal(data.ExpeditionTokenBonuses) * helper.roundTwoDecimal(data.ExpeditionResourceBonuses) * comboSelector)}`}
                             </div>
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -994,8 +994,6 @@ export default function Expeditions() {
                                     Expedition Reward Combo
                                 </div>
                             </MouseOverPopover>
-
-
 
                             <select
                                 className='importantText'
@@ -2509,7 +2507,7 @@ export default function Expeditions() {
                                             <div style={{ fontSize: '16px', fontWeight: 'normal', color: numGround >= maxType ? 'red' : '', marginLeft: "6px" }}>
                                                 {`(${numGround} / ${maxType} Ground)`}
                                             </div>
-                                            <div style={{ marginLeft: '6px',fontSize: '16px', fontWeight: 'normal', }}>
+                                            <div style={{ marginLeft: '6px', fontSize: '16px', fontWeight: 'normal', }}>
                                                 {`&`}
                                             </div>
                                             <div style={{ fontSize: '16px', fontWeight: 'normal', color: numAir >= maxType ? 'red' : '', marginLeft: "6px" }}>
