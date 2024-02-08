@@ -1158,3 +1158,33 @@ export const statTeamSuggestions = {
 
 }
 // exports.statTeamSuggestions = statTeamSuggestions;
+
+export const statTeamMasterList = {
+    "priorityList": [35, 34, 13, 28, 8, 3, 2, 1, 10, 11, 12, 4, 15, 7, 14, 16, 29, 23, 9, 21, 22, 6, 5,],
+    "priorityMap": {
+        "1": { "mode": "max", "label": "Potato", "id": 1, "count": 1, "current": 0 },
+        "2": { "mode": "max", "label": "Class Exp", "id": 2, "count": 1, "current": 0 },
+        "3": { "mode": "max", "label": "Skull", "id": 3, "count": 1, "current": 0 },
+        "4": { "mode": "max", "label": "Confection Exp", "id": 4, "count": 1, "current": 0 },
+        "5": { "mode": "max", "label": "Reincarnation Exp", "id": 5, "count": -1, "current": 0 },
+        "6": { "mode": "max", "label": "Item Rating", "id": 6, "count": -1, "current": 0 },
+        "7": { "mode": "max", "label": "Poop Bonus", "id": 7, "count": 1, "current": 0 },
+        "8": { "mode": "max", "label": "Milk Bonus", "id": 8, "count": 1, "current": 0 },
+        "9": { "mode": "max", "label": "Whack Score", "id": 9, "count": 0, "current": 0 },
+        "10": { "mode": "max", "label": "Brewing Exp", "id": 10, "count": 1, "current": 0 },
+        "11": { "mode": "max", "label": "Calcium Exp", "id": 11, "count": 1, "current": 0 },
+        "12": { "mode": "max", "label": "Fermenting Exp", "id": 12, "count": 1, "current": 0 },
+        "13": { "mode": "max", "label": "Residue Bonus", "id": 13, "count": 1, "current": 0 },
+        "14": { "mode": "max", "label": "Worm Qty", "id": 14, "count": 1, "current": 0 },
+        "15": { "mode": "max", "label": "Larva Qty", "id": 15, "count": 1, "current": 0 },
+        "16": { "mode": "max", "label": "Larva EFF", "id": 16, "count": 1, "current": 0 },
+        "21": { "mode": "max", "label": "Card Power", "id": 21, "count": -1, "current": 0 },
+        "22": { "mode": "max", "label": "Card Exp", "id": 22, "count": -1, "current": 0 },
+        "23": { "mode": "max", "label": "Healthy Potatoe", "id": 23, "count": 1, "current": 0 },
+        "28": { "mode": "max", "label": "Protein Bonus", "id": 28, "count": 1, "current": 0 },
+        "29": { "mode": "max", "label": "Grasshopper Dmg", "id": 29, "count": 1, "current": 0 },
+        "34": { "mode": "max", "label": "Mining Exp", "id": 34, "count": 1, "current": 0 },
+        "35": { "mode": "max", "label": "Mining Power", "id": 35, "count": 1, "current": 0 }
+    },
+    "petWhiteList": {}
+}

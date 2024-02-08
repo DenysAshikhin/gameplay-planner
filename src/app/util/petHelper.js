@@ -2289,6 +2289,9 @@ var helper = {
 
         return [airPets, groundPets, currentBonuses, selectedPetMap];
     },
+    findBesdStatTeam: function(data, parameters){
+        
+    }
 }
 
 
