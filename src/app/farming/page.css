@@ -45,11 +45,11 @@
 }
 
 .graySeperator {
-    background-color: lightgray;
+    background-color: rgba(211, 211, 211, 0.424);
     height: 6px;
     width: 100%;
     display: flex;
-    border-bottom: 2px solid blue;
+    border-bottom: 2px solid rgba(0, 119, 255, 0.563);
 }
 
 .calcHeaderPlantTab {
@@ -57,8 +57,8 @@
     width: 115px;
     min-width: 115px;
     text-align: center;
-    border-bottom: 2px solid blue;
-    border-top:1px solid blue;
+    border-bottom: 2px solid rgba(0, 119, 255, 0.563);
+    border-top: 1px solid rgba(0, 119, 255, 0.563);
 }
 
 .calcHeader {
@@ -74,8 +74,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: flex-end;
-    border-right: 2px solid blue;
-    border-bottom: 1px solid black;
+    border-right: 2px solid rgba(0, 119, 255, 0.563);
+    border-bottom: 1px solid white;
     height: 50px;
     padding-right: 6px;
 }
@@ -85,7 +85,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: flex-end;
-    border-right: 2px solid blue;
+    border-right: 2px solid rgba(0, 119, 255, 0.563);
     height: 24px;
     padding-right: 6px;
 }
@@ -93,9 +93,9 @@
 
 .autoPicSuggestion {
     width: 115px;
-    height: 50px;
+    height: 54px;
     text-align: center;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid white;
 }
 
 .futurePicHolder {
@@ -136,8 +136,16 @@
     margin-top: 1px;
     margin-left: 3px;
     margin-bottom: 0;
-    border: 1px solid black;
+    border: 1px solid white;
     /* padding: 0 0px 0 3px; */
+}
+
+text {
+    fill: white !important;
+}
+
+.recharts-tooltip-label {
+    color: black;
 }
 
 /* .rainbowLeft {

@@ -75,10 +75,11 @@ const Timer = () => {
           <input
            aria-label='Specify how many days to run for'
             type="number"
-            className="prepNumber"
+            className="prepNumber importantText"
             value={innerDays}
             style={{
-              width: "33px",
+              width: "33px", backgroundColor: '#1b1b1b',
+              borderRadius: '4px', 
             }}
             onChange={(e) => {
               try {
@@ -103,10 +104,11 @@ const Timer = () => {
           <input
              aria-label='Specify how many hours to run for'
             type="number"
-            className="prepNumber"
+            className="prepNumber importantText"
             value={innerHours}
             style={{
-              width: "33px",
+              width: "33px", backgroundColor: '#1b1b1b',
+              borderRadius: '4px', 
             }}
             onChange={(e) => {
               try {
@@ -131,10 +133,11 @@ const Timer = () => {
           <input
              aria-label='Specify how many minutes to run for'
             type="number"
-            className="prepNumber"
+            className="prepNumber importantText"
             value={innerMinutes}
             style={{
-              width: "33px",
+              width: "33px", backgroundColor: '#1b1b1b',
+              borderRadius: '4px', 
             }}
             onChange={(e) => {
               try {
@@ -159,10 +162,11 @@ const Timer = () => {
           <input
              aria-label='Specify how many seconds to run for'
             type="number"
-            className="prepNumber"
+            className="prepNumber importantText"
             value={innerSeconds}
             style={{
-              width: "33px",
+              width: "33px", backgroundColor: '#1b1b1b',
+              borderRadius: '4px', 
             }}
             onChange={(e) => {
               try {
