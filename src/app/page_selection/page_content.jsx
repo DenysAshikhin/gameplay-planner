@@ -68,6 +68,11 @@ export default function PageSelection() {
                     <PageCard page='cards' redBorder={chargesMax} />
                     <PageCard page='protein' />
                     <PageCard page='residue' />
+                    <PageCard page='infinity_corner' />
+                </div>
+                <div
+                    style={{ display: 'flex', marginTop: '36px' }}
+                >
                     <PageCard page='gratitude' />
                 </div>
 

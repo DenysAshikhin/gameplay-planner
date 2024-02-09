@@ -60,6 +60,11 @@ const PageCard = ({ page, setTab, redBorder }) => {
       nameString = 'Residue';
       url = '/residue';
       break;
+      case 'infinity_corner':
+        imgString = 'star';
+        nameString = "Infinity Corner";
+        url = '/infinity_corner';
+        break;
     default:
       imgString = `file_upload`;
       nameString = `Upload`;

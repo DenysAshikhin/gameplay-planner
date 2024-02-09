@@ -203,6 +203,33 @@ const NavBar = ({ }) => {
         </div>
       </Link>
 
+      {/* Infinity Corner Page */}
+      <Link href="/infinity_corner" alt="navigation to residue (milk) page">
+        <div
+          className="navItem"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            // margin: "16px 0",
+          }}
+        >
+          <div
+            style={{
+              width: "52px",
+              height: "56px",
+              position: "relative",
+            }}
+          >
+            <Image
+              alt="star shape navigation to infinity corner page"
+              fill
+              src={`/images/icons/star.svg`}
+            />
+          </div>
+        </div>
+      </Link>
+
       {/* Donation Redirect */}
       <Link href="/gratitude" alt="navigation to donate">
         <div
