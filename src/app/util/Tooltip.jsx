@@ -11,7 +11,8 @@ function MouseOverPopover({
   forceOpen,
   setForceOpen,
   disableRestoreFocusParam,
-  forceXPlacement
+  forceXPlacement,
+  forceYPlacement
 }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [forceShow, setForceShow] = useState(false);
@@ -52,6 +53,9 @@ function MouseOverPopover({
 
   if(forceXPlacement){
     xPlacement = forceXPlacement;
+  }
+  if(forceYPlacement){
+    yPlacement = forceYPlacement;
   }
 
   return (

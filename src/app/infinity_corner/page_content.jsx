@@ -50,6 +50,7 @@ export default function Infinity_Corner() {
                     margin: '12px 12px 0 12px'
                 }}
             >
+
                 <Image
                     alt={`panelbackground for the infinity corner`}
                     src={panel_background}
@@ -64,12 +65,12 @@ export default function Infinity_Corner() {
                     width: '100%',
                     height: '100%'
                 }}>
-                    <Image
+                    {/* <Image
                         alt={`panelbackground for the infinity corner`}
                         src={star_normal}
                         fill
                         priority
-                    />
+                    /> */}
                     {Object.keys(ic_mapping).map((inner_val) => {
 
                         if (inner_val !== 'locked') {

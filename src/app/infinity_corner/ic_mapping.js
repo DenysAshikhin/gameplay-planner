@@ -18,6 +18,7 @@ import WhackImg from '../../../public/images/infinity_corner/8UpgradeWhackScore.
 import LarvaEffImg from '../../../public/images/infinity_corner/20UpgradeLarvaEff.png';
 import IRImg from '../../../public/images/infinity_corner/9UpgradeItemRating.png';
 import ResidueImg from '../../../public/images/infinity_corner/24UpgradeResidue.png';
+import star_normal from '../../../public/images/infinity_corner/LastEraTopBackground.png';
 import LockedImg from '../../../public/images/infinity_corner/ButtonLock #2864.png';
 
 export const ic_mapping = {
@@ -135,7 +136,7 @@ export const ic_mapping = {
         order: 6,
         label: 'Skull',
         unlock: 0,
-        key: 'REP3PerkLevel',
+        key: 'REP3SkullLevel',
         left: '70%',
         top: '5%',
         bonus: (level) => {
@@ -490,6 +491,33 @@ export const ic_mapping = {
         key: 'REP3LarvaEffLevel',
         left: '85%',
         top: '33%',
+        bonus: (level) => {
+            const base = 1.01;
+            const total = mathHelper.pow(base, level);
+            const total2 = mathHelper.subtractDecimal(total, 1);
+            const total3 = mathHelper.multiplyDecimal(total2, 100);
+            return total3;
+        },
+        cost: (level) => {
+            const base = 1e5;
+            const growth = 1.15;
+
+            const exp1 = growth + level * 0.0002;
+            const pow = mathHelper.pow(exp1, level);
+            const finalCost = mathHelper.multiplyDecimal(base, pow).floor();
+            return finalCost;
+
+        },
+        weight: (ascension) => { if (ascension >= 15) return 100; return 5; }
+    },
+    'star': {
+        img: star_normal,
+        order: 16,
+        label: 'All Levels',
+        unlock: 8,
+        key: 'REP3UpgradeAllLevel',
+        left: '0%',
+        top: '0%',
         bonus: (level) => {
             const base = 1.01;
             const total = mathHelper.pow(base, level);

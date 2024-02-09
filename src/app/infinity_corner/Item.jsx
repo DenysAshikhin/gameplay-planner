@@ -33,22 +33,116 @@ export default function Item({
                 position: 'absolute',
                 left: itemObj.left,
                 top: itemObj.top,
-                width: '154px',
-                height: '161px'
-
+                width: map_key === 'star' ? '100%' : '154px',
+                height: map_key === 'star' ? '100%' : '161px',
+                zIndex: map_key === 'star' ? '2' : '3',
             }}
         >
-            <Image
-                alt={`panelbackground for the infinity corner`}
-                src={itemObj.img}
-                fill
-                priority
-            />
+
+
+            {map_key === 'star' && (
+                <Image
+                    alt={`panelbackground for the infinity corner`}
+                    src={itemObj.img}
+                    fill
+                    priority
+
+                />
+            )}
+            {map_key !== 'star' && (
+                <MouseOverPopover
+                    tooltip={
+                        <div style={{ padding: '6px' }}>
+                            <h3 style={{ margin: 0, textAlign: 'center' }}>
+                                {itemObj.label}
+                            </h3>
+                            <div>
+                                Current Bonus:
+                            </div>
+                            <div>
+                                Charged Bonus:
+                            </div>
+                            <div>
+                                Absolute Increase:
+                            </div>
+                            <div>
+                                Percentage Increase:
+                            </div>
+                            <div>
+                                Weighted Increase:
+                            </div>
+                            <div>
+                                Current Weight:
+                            </div>
+                        </div>
+                    }
+
+                >
+                    <div>
+                        <Image
+                            alt={`panelbackground for the infinity corner`}
+                            src={itemObj.img}
+                            fill
+                            priority
+
+                        />
+                    </div>
+                </MouseOverPopover>
+            )}
+
+            <MouseOverPopover
+                tooltip={
+                    <div style={{ padding: '6px' }}>
+                        <h3 style={{ margin: 0, textAlign: 'center' }}>
+                            {itemObj.label}
+                        </h3>
+                        <div>
+                            Current Bonus:
+                        </div>
+                        <div>
+                            Charged Bonus:
+                        </div>
+                        <div>
+                            Absolute Increase:
+                        </div>
+                        <div>
+                            Percentage Increase:
+                        </div>
+                        <div>
+                            Weighted Increase:
+                        </div>
+                        <div>
+                            Current Weight:
+                        </div>
+                    </div>
+                }
+                forceXPlacement={'center'}
+                forceYPlacement={'bottom'}
+
+            >
+                <div>
+                    <Image
+                        alt={`panelbackground for the infinity corner`}
+                        src={itemObj.img}
+                        fill
+                        priority
+
+                    />
+                </div>
+            </MouseOverPopover>
+
+
+
+
+
+
+
+
             <div
                 className='importantText'
                 style={{
                     position: 'absolute',
-                    top: '77%',
+                    top: map_key === 'star' ? '95%' : '77%',
                     left: '0',
                     width: '100%',
                     display: 'flex',
@@ -63,7 +157,12 @@ export default function Item({
                         justifyContent: 'center'
                     }}
                 >
-                    {`Level: ${data[itemObj.key]}`}
+                    <div>
+                        {`Level: ${data[itemObj.key]}`}
+                    </div>
+                    <div style={{ marginLeft: '6px' }}>
+                        {`-> xxx`}
+                    </div>
                 </div>
                 <div
                     style={{
