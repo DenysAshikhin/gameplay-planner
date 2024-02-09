@@ -1317,7 +1317,7 @@ const CardCard = ({
         margin = middleCard ? `0 6px ${num > 1 && num % 5 === 0 ? '12px' : ''} 6px` : '';
     }
 
-    vertical  = false;
+    vertical = false;
 
     let extraText = `(+${mathHelper.subtractDecimal(finalAfter, finalBefore).toExponential(2)})`;
     if (displayMode === 'perc') {
@@ -1833,7 +1833,7 @@ export default function Cards() {
         return (
             <div style={{
                 position: 'relative',
-                display:'flex'
+                display: 'flex'
             }}
                 key={index}
             >
@@ -1845,7 +1845,7 @@ export default function Cards() {
                         alignItems: 'center',
                         justifyContent: 'center',
                         alignSelf: 'start',
-                        marginRight:'6px',
+                        marginRight: '6px',
                         // position: 'absolute',
                         top: '0',
                         left: '0',
@@ -1893,7 +1893,7 @@ export default function Cards() {
         return (
             <div style={{
                 position: 'relative',
-                display:'flex'
+                display: 'flex'
             }}
                 key={index}
             >
@@ -1905,7 +1905,7 @@ export default function Cards() {
                         alignItems: 'center',
                         justifyContent: 'center',
                         alignSelf: 'start',
-                        marginRight:'6px',
+                        marginRight: '6px',
                         // position: 'absolute',
                         top: '0',
                         left: '0',
@@ -2348,7 +2348,7 @@ export default function Cards() {
                                                 bottom: '23px',
                                                 left: '30px',
                                                 zIndex: '3',
-                                                marginBottom:'-6px'
+                                                marginBottom: '-6px'
                                             }}
                                         >
                                             <input
@@ -2409,6 +2409,9 @@ export default function Cards() {
                                             fill
                                             unoptimized
                                         />
+                                    </div>
+                                    <div style={{ color: 'green', marginTop: '-10px' }}>
+                                       {`+${futureReincLevel - currentReincLevel}`}
                                     </div>
                                 </div>
                             )}
