@@ -767,7 +767,6 @@ export default function Pets() {
                                 display: 'flex', flex: '1',
                                 border: '1px solid gray',
                                 margin: '6px', justifyContent: 'center',
-                                // padding: '6px 0',
                                 backgroundColor: 'rgba(255,255,255, 0.04)',
                                 borderRadius: '6px',
                                 maxHeight: '58vh',
@@ -778,18 +777,7 @@ export default function Pets() {
                                     <Reorder.Group
                                         axis="y"
                                         values={priorityList}
-                                        // layoutScroll
-                                        // style={{ overflowY: "scroll" }}
-                                        onReorder={setPriorityList
-                                            //     (newList) => {
-
-                                            //     for (let i = 0; i < newList.length; i++) {
-                                            //         if (newList[i] !== priorityList[i]) {
-                                            //             return setPriorityList(newList)
-                                            //         }
-                                            //     }
-                                            // }sss
-                                        }>
+                                        onReorder={setPriorityList}>
                                         {priorityList.map((item, index) => {
                                             let showSelectedPets = false;
                                             let color = 'gray';
@@ -840,12 +828,7 @@ export default function Pets() {
                                                                 style={{ height: '24px', width: 'auto', marginLeft: '3px' }}
                                                                 alt='hand in a fist with index poting at a vertical line with arrows on both ends'
                                                             />
-                                                            {/* <img 
-                                                        className='drag noPointerEvents' 
-                                                        src={DragIcon} 
-                                                        style={{ height: '24px', marginLeft: '3px' }} 
-                                                        alt='hand in a fist with index poting at a vertical line with arrows on both ends' 
-                                                        /> */}
+
 
                                                             <div style={{ marginLeft: '6px' }}>
                                                                 {` ${priorityMap[item].label}`}
