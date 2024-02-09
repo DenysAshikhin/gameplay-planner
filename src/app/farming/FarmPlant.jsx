@@ -30,7 +30,7 @@ const FarmingPlant = ({ data }) => {
     setHydrated(true);
   }, []);
 
-  let hours, minutes = 0;
+  let hours, minutes = 0.01;
 
   let plant = data.plant;
 
@@ -47,6 +47,9 @@ const FarmingPlant = ({ data }) => {
   if (timeStepMode) {
     hours = Math.floor(data.plantTimes[index]);
     minutes = helper.roundInt((data.plantTimes[index] - hours) * 60);
+    if(hours === 0 && minutes < 0.01){
+      minutes = 1;
+    }
   }
 
   if (plantAutos && modifiers) {
@@ -146,6 +149,7 @@ const FarmingPlant = ({ data }) => {
 
   return (
     <div
+      className='importantText'
       style={{
         border: "1px solid black",
         margin: "6px 3px",
@@ -153,7 +157,11 @@ const FarmingPlant = ({ data }) => {
         display: "flex",
         height: "179px",
         width: 'auto',
-        backgroundColor: "white",
+        backgroundColor: 'rgba(255,255,255, 0.1)',
+        border: "1px solid rgba(255,255,255,0.8)",
+        borderRadius: '12px',
+        overflow:'hidden',
+        maxHeight: "185px", maxWidth: "185px",
         // maxHeight:'128px'
       }}
     >
@@ -230,6 +238,7 @@ const FarmingPlant = ({ data }) => {
           style={{
             zIndex: 2,
             background: "black",
+            background: "black",
             borderRadius: "6px",
             padding: "0 1px 0 1px",
             color: "white",
@@ -237,6 +246,7 @@ const FarmingPlant = ({ data }) => {
             right: "1%",
             display: "flex",
             position: "absolute",
+            borderRadius:'12px'
           }}
         >
           <MouseOverPopover
@@ -591,6 +601,9 @@ const FarmingPlant = ({ data }) => {
               display: "flex",
               position: "absolute",
               zIndex: "2",
+              display:'flex',
+              justifyContent:'center',
+              width:'100%'
             }}
           >
             <div
@@ -603,7 +616,7 @@ const FarmingPlant = ({ data }) => {
             >
 
               {!timeStepMode && (
-                <div style={{ display: "flex", alignItems: "center" }}>
+                <div style={{ display: "flex", alignItems: "center", justifyContent:'center',  }}>
                   <MouseOverPopover
                     tooltip={
                       <div>
@@ -612,7 +625,7 @@ const FarmingPlant = ({ data }) => {
                       </div>
                     }
                   >
-                    <div>Num Autos</div>
+                    <div className='importantText' style={{ marginRight: '6px' }}>Num Autos</div>
                   </MouseOverPopover>
 
                   <input
@@ -621,9 +634,11 @@ const FarmingPlant = ({ data }) => {
                       // , WebkitAppearance: 'none'
                       height: "12px",
                       width: "36px",
+                      backgroundColor: '#1b1b1b',
+                      borderRadius: '4px',
                     }}
                     type="number"
-                    className="prepNumber"
+                    className="prepNumber importantText"
                     value={plantAutos[index]}
                     onChange={(e) => {
                       try {
@@ -655,7 +670,7 @@ const FarmingPlant = ({ data }) => {
               )}
 
               {!!timeStepMode && (
-                <div style={{ display: "flex", alignItems: "center" }}>
+                <div className='importantText' style={{ display: "flex", alignItems: "center", marginLeft:'-6px' }}>
 
                   {/* Hours */}
                   <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -672,13 +687,13 @@ const FarmingPlant = ({ data }) => {
 
                     <input
                       style={{
-                        // width: '48px'
-                        // , WebkitAppearance: 'none'
+                        backgroundColor: '#1b1b1b',
+                        borderRadius: '4px',
                         height: "12px",
                         width: "36px",
                       }}
                       type="number"
-                      className="prepNumber"
+                      className="prepNumber importantText"
                       value={hours}
                       onChange={(e) => {
                         try {
@@ -732,7 +747,7 @@ const FarmingPlant = ({ data }) => {
                         try {
                           let x = Number(e.target.value);
                           x = Math.floor(x);
-                          if (x < 0 || x > 9999) {
+                          if (x < 0.01 || x > 9999) {
                             return;
                           }
                           ReactGA.event({
@@ -751,7 +766,7 @@ const FarmingPlant = ({ data }) => {
                           console.log(err);
                         }
                       }}
-                      min="0"
+                      min="0.01"
                       max="9999"
                     />
                   </div>

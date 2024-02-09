@@ -294,7 +294,7 @@ const FarmingLanding = () => {
             nextCosts: farmingHelper.getNextShopCosts(data),
             curPotatoes: mathHelper.createDecimal(data.HealthyPotatoCurrent),
             totalPotatoes: mathHelper.createDecimal(data.HealthyPotatoTotal),
-            expBonus: shopRankEXP * soulPlantEXP * contagionPlantEXP * assemblyPlantExp,
+            // expBonus: shopRankEXP * soulPlantEXP * contagionPlantEXP * assemblyPlantExp,
             autoBuyPBC: autoBuyPBC,
             // tickRate: Math.floor((futureTime * secondsHour) * 0.0015) < 1 ? 1 : Math.floor((futureTime * secondsHour) * 0.0015),
             tickRate: Math.floor((futureTime * secondsHour) * 0.01) < 1 ? 1 : Math.floor((futureTime * secondsHour) * 0.012),
@@ -1476,7 +1476,9 @@ const FarmingLanding = () => {
     }
 
     return (
-        <div style={{ height: '100%', display: 'flex', flex: 1, flexDirection: 'column', paddingLeft: '6px', maxWidth: 'calc(100% - 10px)', minHeight: '0' }}>
+        <div
+            // className='importantText'
+            style={{ height: '100%', display: 'flex', flex: 1, flexDirection: 'column', paddingLeft: '6px', maxWidth: 'calc(100% - 10px)', minHeight: '0', backgroundColor: 'black', }}>
             <div style={{
                 display: 'flex', flex: 1,
                 flexDirection: 'column',
@@ -1518,16 +1520,19 @@ const FarmingLanding = () => {
 
 
 
-                <div style={{
-                    display: 'flex', width: '100%',
-                    flex: 1,
-                    margin: '3px 0 0 0',
-                    minHeight: '0'
-                    // backgroundColor: 'yellow'
-                    // height: '100%'
-                    //  height: '-webkit-fill-available' 
-                }}>
+                <div
+                    className='importantText'
+                    style={{
+                        display: 'flex', width: '100%',
+                        flex: 1,
+                        margin: '3px 0 0 0',
+                        minHeight: '0',
+                        // backgroundColor: 'yellow'
+                        // height: '100%'
+                        //  height: '-webkit-fill-available' 
+                    }}>
                     <div
+                        className='importantText'
                         style={{
                             color: 'black', width: '325px', minWidth: '325px', display: 'flex',
                             flexDirection: 'column',
@@ -1538,6 +1543,7 @@ const FarmingLanding = () => {
 
                         {/* timer + buttons */}
                         <div
+                            className='importantText'
                             style={{
                                 display: 'flex',
                                 flexDirection: 'column',
@@ -1550,22 +1556,26 @@ const FarmingLanding = () => {
 
 
                             {/* Calc buttons */}
-                            <div style={{
-                                display: 'flex', flexDirection: 'column',
-                                // border: '1px solid black',
-                                border: '2px solid purple',
-                                borderRadius: '5px',
-                                padding: '3px',
-                                width: '100%',
-                                minHeight: '110px',
-                                justifyContent: 'space-between'
-                            }}>
+                            <div
+
+                                style={{
+                                    display: 'flex', flexDirection: 'column',
+                                    // border: '1px solid black',
+                                    border: '2px solid purple',
+                                    borderRadius: '5px',
+                                    padding: '3px',
+                                    width: '100%',
+                                    minHeight: '110px',
+                                    justifyContent: 'space-between',
+                                    backgroundColor: 'rgba(255,255,255, 0.07)',
+                                }}>
                                 <MouseOverPopover tooltip={
                                     <div style={{ padding: '6px' }}>
                                         Calculates the best auto distribution for desired time into the future
                                     </div>
                                 }>
                                     <div
+                                        className='importantText'
                                         style={{ fontWeight: 'bold', display: 'flex', justifyContent: 'center', marginBottom: '3px', marginTop: '-3px' }}
                                     >
                                         Calculate best auto placements
@@ -1573,6 +1583,7 @@ const FarmingLanding = () => {
                                 </MouseOverPopover>
 
                                 <div
+                                    className='importantText'
                                     style={{ display: 'flex', flexDirection: 'column', width: '298px' }}
                                 >
 
@@ -1595,11 +1606,12 @@ const FarmingLanding = () => {
                                             aria-label='Specify how many hours to simulate/calculate for'
                                             style={{
                                                 marginLeft: '6px',
-                                                width: '48px'
-                                                // , WebkitAppearance: 'none' 
+                                                width: '48px',
+                                                backgroundColor: '#1b1b1b',
+                                                borderRadius: '4px',
                                             }}
                                             type='number'
-                                            className='prepNumber'
+                                            className='prepNumber importantText textMedium2'
                                             value={futureTime}
                                             onChange={
                                                 (e) => {
@@ -1646,12 +1658,13 @@ const FarmingLanding = () => {
                                         <input
                                             aria-label='Specify how many auto plots to consider for best placements'
                                             style={{
+                                                marginLeft: '6px',
                                                 width: '48px',
-                                                marginLeft: '6px'
-                                                // , WebkitAppearance: 'none' 
+                                                backgroundColor: '#1b1b1b',
+                                                borderRadius: '4px',
                                             }}
                                             type='number'
-                                            className='prepNumber'
+                                            className='prepNumber importantText textMedium2'
                                             value={numSimulatedAutos}
                                             onChange={
                                                 (e) => {
@@ -1688,7 +1701,7 @@ const FarmingLanding = () => {
                                 <div style={{ display: 'flex', flex: '1', marginTop: '6px' }}>
                                     <div style={{
                                         maxWidth: '50%', margin: '0',
-                                        border: notEnoughAuto ? '1px solid black' : '',
+                                        border: notEnoughAuto ? '1px solid white' : '',
                                         display: 'flex',
                                         flexDirection: 'column'
                                     }}>
@@ -1784,9 +1797,10 @@ const FarmingLanding = () => {
 
                                     <div style={{
                                         maxWidth: '50%', margin: '0 6px',
-                                        border: futureTime < 1 ? '1px solid black' : '',
+                                        border: futureTime < 1 ? '1px solid white' : '',
                                         display: 'flex',
-                                        flexDirection: 'column'
+                                        flexDirection: 'column',
+                                        backgroundColor: 'rgba(255,255,255, 0.07)',
                                     }}>
                                         <MouseOverPopover opacity='0.95' tooltip={
                                             <div style={{ padding: '6px' }}>
@@ -1905,6 +1919,7 @@ const FarmingLanding = () => {
                                             padding: '3px',
                                             width: '100%',
                                             marginTop: '12px',
+                                            backgroundColor: 'rgba(255,255,255, 0.07)',
                                             // flex: '1',
                                             // flexDirection: 'column',
                                             //  width: '172px'
@@ -2006,11 +2021,17 @@ const FarmingLanding = () => {
                                 alignSelf: 'flex-start',
                                 flexDirection: 'column',
                                 width: '97%',
+
                             }}
                         >
 
                             <div
-                                style={{ border: '1px solid black', padding: '3px', width: '100%', marginBottom: '12px' }}
+                                className='importantText'
+                                style={{
+                                    border: "1px solid rgba(255,255,255,0.8)",
+                                    backgroundColor: 'rgba(255,255,255, 0.07)',
+                                    padding: '3px', width: '100%', marginBottom: '12px',
+                                }}
                             >
 
 
@@ -2028,8 +2049,9 @@ const FarmingLanding = () => {
                                     </MouseOverPopover>
 
                                     <select
+                                        className='importantText'
                                         aria-label='Specify how many threads to use for calculations'
-                                        style={{ maxWidth: '144px', marginLeft: '12px' }}
+                                        style={{ maxWidth: '144px', marginLeft: '12px', backgroundColor: '#171717', borderRadius: '4px' }}
                                         onChange={
                                             (e) => {
                                                 setNumThreads(Number(e.target.value));
@@ -2203,8 +2225,12 @@ const FarmingLanding = () => {
 
                             {/* Timer Stuff */}
                             <div
+                                className='importantText'
                                 style={{
-                                    margin: '0 0 0 0', border: '1px solid black', padding: '3px',
+                                    margin: '0 0 0 0',
+                                    border: "1px solid rgba(255,255,255,0.8)",
+                                    backgroundColor: 'rgba(255,255,255, 0.07)',
+                                    padding: '3px',
                                     width: '100%',
 
                                 }}
@@ -2235,11 +2261,11 @@ const FarmingLanding = () => {
 
 
                             <div
-                                className={showInstructions ? 'elementExpandHeight' : 'elementCollapseHeight'}
+                                className={(showInstructions ? 'elementExpandHeight' : 'elementCollapseHeight') + ' importantText'}
                                 style={{
                                     margin: '0 0 0 0',
-                                    border: showInstructionsBorder ? '1px solid black' : '',
-                                    // height: showInstructions ? '' : '0px',
+                                    border: showInstructionsBorder ? "1px solid rgba(255,255,255,0.8)" : '',
+                                    backgroundColor: 'rgba(255,255,255, 0.07)',
                                     padding: showInstructionsBorder ? '3px' : '',
                                     width: '100%',
                                     overflow: 'hidden'
@@ -2263,14 +2289,21 @@ const FarmingLanding = () => {
                         flex: 1,
                         flexDirection: 'column',
                         alignItems: 'flex-start',
-                        marginLeft: '12px'
+                        marginLeft: '12px',
+                        backgroundColor: 'rgba(255,255,255, 0.07)',
+                        fill: '#fffff!important'
                     }}>
 
                         {(farmCalcProgress.current === farmCalcProgress.max && farmCalcProgress.current !== 0 && bestPlantCombo.prod && calcDone) && (
                             <>
                                 {/* best potato */}
                                 {calcAFK && (
-                                    <div className='calcResult' style={{ width: `calc(200px + ${tempFuture.plants.length * 115}px)`, maxWidth: 'calc(100% - 6px)' }}>
+                                    <div className='calcResult'
+                                        style={{
+                                            width: `calc(200px + ${tempFuture.plants.length * 115}px)`,
+                                            maxWidth: 'calc(100% - 6px)',
+                                            backgroundColor: 'rgba(255,255,255,0.05)'
+                                        }}>
                                         <>
                                             {/* Top Header */}
                                             <div className='calcHeader'>
@@ -2283,8 +2316,8 @@ const FarmingLanding = () => {
                                                         alignItems: 'center',
                                                         flex: '1',
                                                         paddingRight: '6px',
-                                                        borderRight: '2px solid blue',
-                                                        borderBottom: '2px solid blue',
+                                                        borderRight: '2px solid rgba(0, 119, 255, 0.563)',
+                                                        borderBottom: '2px solid rgba(0, 119, 255, 0.563)',
                                                     }}>Goal</div>
                                                 </div>
                                                 <div
@@ -2301,7 +2334,7 @@ const FarmingLanding = () => {
 
                                                         {bestPlantCombo.pot.map((val, index) => {
                                                             return (
-                                                                <div className='calcHeaderPlantTab' key={index} style={{ borderRight: index === 0 ? '' : '1px solid blue' }}>
+                                                                <div className='calcHeaderPlantTab' key={index} style={{ borderRight: index === 0 ? '' : '1px solid rgba(0, 119, 255, 0.563)' }}>
                                                                     {`P${index + 1}`}
                                                                 </div>
                                                             )
@@ -2310,7 +2343,7 @@ const FarmingLanding = () => {
                                                 </div>
                                             </div>
 
-                                            <div style={{ display: 'flex', borderBottom: '2px solid blue' }}>
+                                            <div style={{ display: 'flex', borderBottom: '2px solid rgba(0, 119, 255, 0.563)' }}>
                                                 <div style={{
                                                     width: '200px',
                                                     display: 'flex',
@@ -2340,7 +2373,7 @@ const FarmingLanding = () => {
 
                                                 {bestPlantCombo.pot.map((val, index) => {
                                                     return (
-                                                        <div className='suggestionHolder' key={index} style={{ borderRight: index === 0 ? '' : '1px solid blue' }}>
+                                                        <div className='suggestionHolder' key={index} style={{ borderRight: index === 0 ? '' : '1px solid rgba(0, 119, 255, 0.563)' }}>
                                                             <MouseOverPopover extraClasses={'suggestionHolder'} key={'popover' + index} tooltip={
                                                                 <div>
                                                                     <div>
@@ -2421,15 +2454,15 @@ const FarmingLanding = () => {
 
                                             {/* Gray seperater */}
                                             <div className='graySeperator' style={{ width: `calc(200px + ${tempFuture.plants.length * 115}px)` }}>
-                                                <div style={{ width: '200px', height: '6px', boxSizing: 'border-box', borderRight: '2px solid blue' }}></div>
+                                                <div style={{ width: '200px', height: '6px', boxSizing: 'border-box', borderRight: '2px solid rgba(0, 119, 255, 0.563)' }}></div>
                                                 {bestPlantCombo.pot.map((val, index) => {
-                                                    return <div key={index} style={{ boxSizing: 'border-box', height: '6px', width: '115px', borderRight: index === 0 ? '' : '1px solid blue' }} />
+                                                    return <div key={index} style={{ boxSizing: 'border-box', height: '6px', width: '115px', borderRight: index === 0 ? '' : '1px solid rgba(0, 119, 255, 0.563)' }} />
                                                 }).reverse()}
                                             </div>
 
 
                                             {/* best raw pic levels */}
-                                            <div style={{ display: 'flex', borderBottom: '2px solid blue' }}>
+                                            <div style={{ display: 'flex', borderBottom: '2px solid rgba(0, 119, 255, 0.563)' }}>
                                                 <div style={{
                                                     width: '200px',
                                                     display: 'flex',
@@ -2456,7 +2489,7 @@ const FarmingLanding = () => {
                                                 </div>
                                                 {bestPlantCombo.pic.map((val, index) => {
                                                     return (
-                                                        <div className='suggestionHolder' key={index} style={{ borderRight: index === 0 ? '' : '1px solid blue' }}>
+                                                        <div className='suggestionHolder' key={index} style={{ borderRight: index === 0 ? '' : '1px solid rgba(0, 119, 255, 0.563)' }}>
                                                             <MouseOverPopover extraClasses={'suggestionHolder'} key={'popover' + index} tooltip={
                                                                 <div>
                                                                     <div>
@@ -2556,8 +2589,8 @@ const FarmingLanding = () => {
                                                         alignItems: 'center',
                                                         flex: '1',
                                                         paddingRight: '6px',
-                                                        borderRight: '2px solid blue',
-                                                        borderBottom: '2px solid blue',
+                                                        borderRight: '2px solid rgba(0, 119, 255, 0.563)',
+                                                        borderBottom: '2px solid rgba(0, 119, 255, 0.563)',
                                                     }}>Goal</div>
                                                 </div>
                                                 <div
@@ -2574,7 +2607,7 @@ const FarmingLanding = () => {
 
                                                         {bestPlantCombo.pot.map((val, index) => {
                                                             return (
-                                                                <div className='calcHeaderPlantTab' key={index} style={{ borderRight: index === 0 ? '' : '1px solid blue' }}>
+                                                                <div className='calcHeaderPlantTab' key={index} style={{ borderRight: index === 0 ? '' : '1px solid rgba(0, 119, 255, 0.563)' }}>
                                                                     {`P${index + 1}`}
                                                                 </div>
                                                             )
@@ -2584,7 +2617,7 @@ const FarmingLanding = () => {
                                             </div>
 
 
-                                            <div style={{ display: 'flex', borderBottom: '2px solid blue' }}>
+                                            <div style={{ display: 'flex', borderBottom: '2px solid rgba(0, 119, 255, 0.563)' }}>
                                                 <div style={{
                                                     width: '200px',
                                                     display: 'flex',
@@ -2605,7 +2638,7 @@ const FarmingLanding = () => {
 
                                                 {bestPlantCombo.bestPot.result.result.steps.map((val, index) => {
                                                     return (
-                                                        <div className='suggestionHolder' key={index} style={{ borderRight: index !== (bestPlantCombo.bestPot.result.result.steps.length - 1) ? '1px solid blue' : '' }}>
+                                                        <div className='suggestionHolder' key={index} style={{ borderRight: index !== (bestPlantCombo.bestPot.result.result.steps.length - 1) ? '1px solid rgba(0, 119, 255, 0.563)' : '' }}>
                                                             <MouseOverPopover extraClasses={'suggestionHolder'} key={'popover' + index} tooltip={
                                                                 <div>
                                                                     <div>
@@ -2685,16 +2718,16 @@ const FarmingLanding = () => {
 
                                             {/* Gray seperater */}
                                             <div className='graySeperator' style={{ width: `calc(200px + ${tempFuture.plants.length * 115}px)` }}>
-                                                <div style={{ width: '200px', height: '6px', boxSizing: 'border-box', borderRight: '2px solid blue' }}></div>
+                                                <div style={{ width: '200px', height: '6px', boxSizing: 'border-box', borderRight: '2px solid rgba(0, 119, 255, 0.563)' }}></div>
                                                 {bestPlantCombo.pot.map((val, index) => {
-                                                    return <div key={index} style={{ boxSizing: 'border-box', height: '6px', width: '115px', borderRight: index === 0 ? '' : '1px solid blue' }} />
+                                                    return <div key={index} style={{ boxSizing: 'border-box', height: '6px', width: '115px', borderRight: index === 0 ? '' : '1px solid rgba(0, 119, 255, 0.563)' }} />
                                                 }).reverse()}
                                             </div>
 
 
                                             {/* Best PIC */}
                                             {bestPlantCombo.bestPic.pic > 0 && (
-                                                <div style={{ display: 'flex', borderBottom: '2px solid blue' }}>
+                                                <div style={{ display: 'flex', borderBottom: '2px solid rgba(0, 119, 255, 0.563)' }}>
                                                     <div style={{
                                                         width: '200px',
                                                         display: 'flex',
@@ -2722,7 +2755,7 @@ const FarmingLanding = () => {
                                                     {bestPlantCombo.bestPic.result.result.steps.map((val, index) => {
 
                                                         return (
-                                                            <div className='suggestionHolder' key={index} style={{ borderRight: index !== (bestPlantCombo.bestPot.result.result.steps.length - 1) ? '1px solid blue' : '' }}>
+                                                            <div className='suggestionHolder' key={index} style={{ borderRight: index !== (bestPlantCombo.bestPot.result.result.steps.length - 1) ? '1px solid rgba(0, 119, 255, 0.563)' : '' }}>
                                                                 <MouseOverPopover key={'popover' + index} tooltip={
                                                                     <div>
                                                                         <div>
@@ -2799,15 +2832,16 @@ const FarmingLanding = () => {
                             </>
                         )}
 
-                        <div className="rainbowLeft" style={{
-                            display: 'flex',
-                            flex: 1,
-                            flexDirection: 'column',
-                            position: 'relative',
-                            minHeight: '200px',
-                            width: 'calc(100% - 12px)',
+                        <div className="rainbowLeft"
+                            style={{
+                                display: 'flex',
+                                flex: 1,
+                                flexDirection: 'column',
+                                position: 'relative',
+                                minHeight: '200px',
+                                width: 'calc(100% - 12px)'
 
-                        }}>
+                            }}>
                             {/* Graph stuff */}
                             <div style={{
                                 display: 'flex',

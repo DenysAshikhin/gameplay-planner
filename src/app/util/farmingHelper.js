@@ -457,7 +457,7 @@ var farmingHelper = {
                 prodMult = 0.95;
             }
         }
-        prodMult = 1.0;
+        prodMult = 0.95;
         const fryMult = 1.05;
         //Iterate over each second
         for (; i < simulationTime / tickRate || finalPass; i++) {
@@ -469,7 +469,7 @@ var farmingHelper = {
                 let toAdd = j === plants.length - 1 ? 0 :
                     tickRate > 1 ?
                         //Some basic calculus to find total assuming linear growth
-                        mathHelper.multiplyDecimal(mathHelper.addDecimal(prevPlantsProd[j + 1], plants[j + 1].production), 0.5 * tickRate * prodMult)
+                        mathHelper.multiplyDecimal(mathHelper.addDecimal(prevPlantsProd[j + 1], plants[j + 1].production), 0.45 * tickRate * prodMult)
                         :
                         mathHelper.multiplyDecimal(plants[j + 1].production, tickRate);
                 curr.totalMade = mathHelper.addDecimal(curr.totalMade, toAdd);
@@ -497,7 +497,7 @@ var farmingHelper = {
             let curTime = helper.roundInt(i * tickRate + startTime);
 
             let HPToAdd = tickRate > 1 ?
-                mathHelper.multiplyDecimal(mathHelper.addDecimal(HPInitial, plants[0].production), 0.525 * tickRate * prodMult)
+                mathHelper.multiplyDecimal(mathHelper.addDecimal(HPInitial, plants[0].production), 0.45 * tickRate * prodMult)
                 :
                 plants[0].production;
 
