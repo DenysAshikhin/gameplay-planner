@@ -2107,6 +2107,8 @@ var helper = {
         let priorities = parameters.priorityList ? parameters.priorityList : [];
         let priorityMap = parameters.priorityMap ? parameters.priorityMap : [];
         let petWhiteList = parameters.petWhiteList ? parameters.petWhiteList : {};
+        const statMode = parameters.statMode ? parameters.statMode : false;
+        const statModePets = parameters.statModePets ? parameters.statModePets : {};
 
         let tempArr = [];//
         for (let i = 0; i < priorities.length; i++) {
@@ -2164,14 +2166,19 @@ var helper = {
 
             let scoreMode = 'unique';//unique || priorities
             let ignoreStat = {};
+            let searchingForStat = false;
 
             for (let j = 0; j < priorities.length; j++) {
+
+
 
                 if (priorities[j].count === 0 || (priorities[j].count === priorities[j].current)) {
                     ignoreStat[priorities[j].id] = priorities[j];
                 }
+                else if (priorities[j].count > 0 && (priorities[j].count !== priorities[j].current)) {
+                    searchingForStat = true;
+                }
                 else if ((priorities[j].count > priorities[j].current) || (priorities[j].count === -1)) {
-
                     scoreMode = 'priorities';
                 }
             }
@@ -2192,6 +2199,16 @@ var helper = {
                         let found = false;
 
                         for (let j = 0; j < priorities.length; j++) {
+
+                            //If we are in stat mode, only get points for any -1 if you are in one of the main/gear/reinc teams
+                            if (searchingForStat === true && statMode === true && priorities[j].count === -1) {
+                                if (pet.ID in statModePets) {
+                                    let bigsad = -1;
+                                }
+                                else {
+                                    return;
+                                }
+                            }
 
                             if (priorities[j].id === e.ID && (priorities[j].count > priorities[j].current || priorities[j].count === -1)) {
 
@@ -2288,9 +2305,6 @@ var helper = {
         }
 
         return [airPets, groundPets, currentBonuses, selectedPetMap];
-    },
-    findBesdStatTeam: function(data, parameters){
-        
     }
 }
 

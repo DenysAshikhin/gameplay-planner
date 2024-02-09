@@ -221,6 +221,8 @@ export default function Pets() {
         setRunTimeData(clientData);
     }, [clientData]);
 
+    const [statMode, setStatMode] = useState(false);
+    const [statModePets, setStatModePets] = useState({});
 
     const [clientUseExpedition, setUseExpedition] = useLocalStorage('useExpedition', false);
     const [useExpedition, setRunTimeUseExpedition] = useState(false);
@@ -268,7 +270,15 @@ export default function Pets() {
 
     let airPets, groundPets, currentBonuses, selectedPetMap;
     [airPets, groundPets, currentBonuses, selectedPetMap] = useMemo(() => {
-        let result = petHelper.findBestTeam(data, { manualEnabledPets: useExpedition ? manualEnabledPets : {}, priorityList: priorityList, priorityMap: priorityMap, petWhiteList: petWhiteList });
+        let result = petHelper.findBestTeam(data,
+            {
+                statMode: statMode,
+                statModePets: statModePets,
+                manualEnabledPets: useExpedition ? manualEnabledPets : {},
+                priorityList: priorityList,
+                priorityMap: priorityMap,
+                petWhiteList: petWhiteList
+            });
         let currentBonuses = result[2];
 
         for (const [key, value] of Object.entries(priorityMap)) {
@@ -281,7 +291,7 @@ export default function Pets() {
         }
         return result;
     },
-        [data, priorityList, priorityMap, petWhiteList, useExpedition, manualEnabledPets]
+        [data, priorityList, priorityMap, petWhiteList, useExpedition, manualEnabledPets, statMode]
     );
 
 
@@ -413,9 +423,13 @@ export default function Pets() {
                 poopCombo.team = gearTeam;
             }
         }
-        
+
         let fullPetList = mainTeam.concat(reincTeam.concat(gearTeam));
+        let fullPetMap = {};
         fullPetList.forEach((inner_val) => {
+
+            fullPetMap[inner_val.ID] = inner_val;
+
             inner_val.BonusList.forEach((inner_bonus) => {
                 if (inner_bonus.ID >= 1000) return;
                 if (!existingStats[inner_bonus.ID]) {
@@ -432,6 +446,7 @@ export default function Pets() {
         setStatPriorityList(newPriorityList);
         setStatPriorityMap(newPriorityMap);
         setStatPriorityWhitelist(newPetWhiteList);
+        setStatModePets(fullPetMap);
 
         for (const [key, value] of Object.entries(newPriorityMap)) {
             //only turn off poop stuff if we have the combo in the other teams
@@ -442,7 +457,7 @@ export default function Pets() {
             }
             //Do not reset card power or exp, also reinc and ir for lower A fallback
             else if (key in existingStats && key !== '21' && key !== '22'
-            && key !== '5' && key !== '6'
+                && key !== '5' && key !== '6'
             ) {
                 newPriorityMap[key].count = 0;
             }
@@ -683,16 +698,19 @@ export default function Pets() {
                                                     let presetPets = {};
                                                     switch (selected_mode.target.value) {
                                                         case 'Main Team':
+                                                            setStatMode(false);
                                                             setPriorityList(JSON.parse(JSON.stringify(mainTeamSuggestions[data.AscensionCount].priorityList)))
                                                             setPriorityMap(JSON.parse(JSON.stringify(mainTeamSuggestions[data.AscensionCount].priorityMap)));
                                                             presetPets = mainTeamSuggestions[data.AscensionCount].petWhiteList ? JSON.parse(JSON.stringify(mainTeamSuggestions[data.AscensionCount].petWhiteList)) : {};
                                                             break;
                                                         case 'Reinc. Team':
+                                                            setStatMode(false);
                                                             setPriorityList(JSON.parse(JSON.stringify(reincTeamSuggestions[data.AscensionCount].priorityList)))
                                                             setPriorityMap(JSON.parse(JSON.stringify(reincTeamSuggestions[data.AscensionCount].priorityMap)));
                                                             presetPets = reincTeamSuggestions[data.AscensionCount].petWhiteList ? JSON.parse(JSON.stringify(reincTeamSuggestions[data.AscensionCount].petWhiteList)) : {};
                                                             break;
                                                         case 'Gear Team':
+                                                            setStatMode(false);
                                                             setPriorityList(JSON.parse(JSON.stringify(gearTeamSuggestions[data.AscensionCount].priorityList)))
                                                             setPriorityMap(JSON.parse(JSON.stringify(gearTeamSuggestions[data.AscensionCount].priorityMap)));
                                                             presetPets = gearTeamSuggestions[data.AscensionCount].petWhiteList ? JSON.parse(JSON.stringify(gearTeamSuggestions[data.AscensionCount].petWhiteList)) : {};
@@ -704,6 +722,7 @@ export default function Pets() {
                                                             setPriorityList(JSON.parse(JSON.stringify(statPriorityList)));
                                                             setPriorityMap(JSON.parse(JSON.stringify(statPriorityMap)));
                                                             presetPets = JSON.parse(JSON.stringify(statPriorityWhitelist));
+                                                            setStatMode(true);
                                                             break;
                                                         case 'None':
                                                             setPriorityList([]);
