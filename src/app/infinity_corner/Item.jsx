@@ -8,7 +8,7 @@ ReactGA.initialize([{
 import Image from 'next/image';
 import useLocalStorage from "use-local-storage";
 import MouseOverPopover from "../util/Tooltip.jsx";
-import { ic_mapping } from './ic_mapping.js';
+import { ic_mapping, calc_bonus } from './ic_mapping.js';
 
 import DefaultSave from '../util/tempSave.json';
 
@@ -23,12 +23,41 @@ export default function Item({
     data
 }) {
 
+    const [forceShow, setForceShow] = useState(false);
+
+    const star_level = data[ic_mapping['star'].key];
+
     let itemObj = ic_mapping[map_key];
-    const defaultWeight = itemObj.weight(data.AscenscionCount);
-    const itemWeight = itemObj.weight(data.AscenscionCount);
+    const level = data[itemObj.key];
+    const label = itemObj.label;
+
+    const isStar = map_key === 'star';
+    const isLocked = level < itemObj.unlock;
+    const defaultWeight = itemObj.weight(data.AscensionCount);
+    const itemWeight = itemObj.weight(data.AscensionCount);
+
+    const cost = itemObj.cost(level);
+    const bonus = calc_bonus(star_level, level, isStar);
+
+
+    const tooltip = <div style={{ padding: '6px' }}>
+        <h3 style={{ margin: 0, textAlign: 'center' }}>
+            {label}
+        </h3>
+
+        <div>
+            {`Current Bonus: ${bonus.toExponential(2)}`}
+        </div>
+        <div>
+            {`Current Cost: ${cost.toExponential(2)}`}
+        </div>
+    </div>
+
 
     return (
         <div
+            onMouseEnter={() => { if (map_key === 'star') return; setForceShow(true); }}
+            onMouseLeave={() => { if (map_key === 'star') return; setForceShow(false); }}
             style={{
                 position: 'absolute',
                 left: itemObj.left,
@@ -40,191 +69,193 @@ export default function Item({
         >
 
 
-            {map_key === 'star' && (
-                <Image
-                    alt={`panelbackground for the infinity corner`}
-                    src={itemObj.img}
-                    fill
-                    priority
-
-                />
-            )}
-            {map_key !== 'star' && (
-                <MouseOverPopover
-                    tooltip={
-                        <div style={{ padding: '6px' }}>
-                            <h3 style={{ margin: 0, textAlign: 'center' }}>
-                                {itemObj.label}
-                            </h3>
-                            <div>
-                                Current Bonus:
-                            </div>
-                            <div>
-                                Charged Bonus:
-                            </div>
-                            <div>
-                                Absolute Increase:
-                            </div>
-                            <div>
-                                Percentage Increase:
-                            </div>
-                            <div>
-                                Weighted Increase:
-                            </div>
-                            <div>
-                                Current Weight:
-                            </div>
-                        </div>
-                    }
-
-                >
-                    <div>
-                        <Image
-                            alt={`panelbackground for the infinity corner`}
-                            src={itemObj.img}
-                            fill
-                            priority
-
-                        />
-                    </div>
-                </MouseOverPopover>
-            )}
-
-            <MouseOverPopover
-                tooltip={
-                    <div style={{ padding: '6px' }}>
-                        <h3 style={{ margin: 0, textAlign: 'center' }}>
-                            {itemObj.label}
-                        </h3>
-                        <div>
-                            Current Bonus:
-                        </div>
-                        <div>
-                            Charged Bonus:
-                        </div>
-                        <div>
-                            Absolute Increase:
-                        </div>
-                        <div>
-                            Percentage Increase:
-                        </div>
-                        <div>
-                            Weighted Increase:
-                        </div>
-                        <div>
-                            Current Weight:
-                        </div>
-                    </div>
-                }
-                forceXPlacement={'center'}
-                forceYPlacement={'bottom'}
-
-            >
-                <div>
+            {isStar && (
+                <>
                     <Image
-                        alt={`panelbackground for the infinity corner`}
+                        alt={`upgrade all star image`}
                         src={itemObj.img}
                         fill
                         priority
 
                     />
-                </div>
-            </MouseOverPopover>
-
-
-
-
-
-
-
-
-            <div
-                className='importantText'
-                style={{
-                    position: 'absolute',
-                    top: map_key === 'star' ? '95%' : '77%',
-                    left: '0',
-                    width: '100%',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    flexDirection: 'column'
-                }}
-            >
-                <div
-                    style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center'
-                    }}
-                >
-                    <div>
-                        {`Level: ${data[itemObj.key]}`}
-                    </div>
-                    <div style={{ marginLeft: '6px' }}>
-                        {`-> xxx`}
-                    </div>
-                </div>
-                <div
-                    style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center'
-                    }}
-                >
-                    <input
-                        aria-label='Specify the weight/importance for this stat'
+                    <div
                         style={{
-                            width: '55px',
-                            color: itemWeight !== defaultWeight && itemWeight !== -1 ? 'black' : 'gray',
-                            fontWeight: itemWeight !== defaultWeight && itemWeight !== -1 ? 'bold' : '',
-                            borderRadius: '6px',
-                            fontSize: '12px',
-                            padding: '0 0 0 0',
-                            margin: '0',
-                            textAlign: 'center'
+                            position: 'absolute',
+                            top: '78%',
+                            left: 'calc(50% - 77px)',
+                            zIndex: '5',
+                            // backgroundColor: 'red',
+                            width: '154px',
+                            height: '161px',
+                            marginTop: '-4px'
                         }}
-                        type='number'
-                        value={itemWeight}
-                        onChange={
-                            (e) => {
-                                try {
-                                    return
-                                    // let x = Number(e.target.value);
-                                    // // x = Math.floor(x);
-                                    // if (x < 0 || x > 999999) {
-                                    //     return;
-                                    // }
-                                    // setCardWeightNew(x);
-                                    // setRefreshMath(true);                        
-                                }
-                                catch (err) {
-                                    console.log(err);
-                                }
-                            }}
-                        min="0"
-                        max="999999"
-                    />
-
-                    <MouseOverPopover tooltip={
-
-                        <div>
-                            {`The weight (importance) of this stat. Feel free to change this`}
-                        </div>
-                    }
-                        opacity={1}
                     >
-                        <div style={{ position: 'relative', height: '16px', width: '16px', marginLeft: '2px' }}>
-                            <Image
-                                alt='on hover I in a cirlce icon, shows more information on hover'
-                                fill
-                                src={infoIcon}
-                                unoptimized={true}
-                            />
+                        <MouseOverPopover
+                            tooltip={tooltip}
+                        >
+                            <div
+                                style={{
+                                    width: '164px',
+                                    height: '121px',
+                                    // backgroundColor: 'blue'
+
+                                }}
+                                onMouseEnter={() => { setForceShow(true) }}
+                                onMouseLeave={() => { setForceShow(false) }}
+                            >
+                                {!(!isLocked || forceShow) && (
+                                    <div
+
+                                    >
+
+                                        <Image
+                                            alt={`locked symbol`}
+                                            src={ic_mapping['locked'].img}
+                                            fill
+                                            priority
+
+                                        />
+                                    </div>
+                                )}
+                            </div>
+
+                        </MouseOverPopover>
+                    </div>
+
+                </>
+            )}
+            {!isStar && (
+                <MouseOverPopover
+                    tooltip={tooltip}
+                    forceYPlacement={'top'}
+                    forceClose={!forceShow}
+
+                >
+                    <div
+                        onMouseEnter={() => { setForceShow(true); }}
+                        onMouseLeave={() => { setForceShow(false); }}
+                    >
+                        <Image
+                            alt={`${label} upgrade image`}
+                            // src={!isLocked || forceShow ? itemObj.img : ic_mapping['locked'].img}
+                            src={itemObj.img}
+                            fill
+                            priority
+                        />
+                        {!(!isLocked || forceShow) && (
+                            <div
+                                style={{
+                                    position: 'relative',
+                                    width: '154px',
+                                    height: '161px',
+                                    marginTop: '-4px'
+                                }}
+                            >
+                                <Image
+                                    alt={`locked symbol`}
+                                    src={ic_mapping['locked'].img}
+                                    fill
+                                    priority
+
+                                />
+                            </div>
+                        )}
+                    </div>
+                </MouseOverPopover>
+            )}
+
+
+            {/* Weights/levels */}
+            {(!isLocked || forceShow) && (
+                <div
+                    className='importantText'
+                    style={{
+                        position: 'absolute',
+                        top: map_key === 'star' ? '95%' : '77%',
+                        left: '0',
+                        width: '100%',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        flexDirection: 'column'
+                    }}
+                >
+                    <div
+                        style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                        }}
+                    >
+                        <div>
+                            {`Level: ${level}`}
                         </div>
-                        {/* <img alt='on hover I in a cirlce icon, shows more information on hover' style={{ height: '16px', marginLeft: '6px' }} src={infoIcon} /> */}
-                    </MouseOverPopover>
+                        <div style={{ marginLeft: '6px' }}>
+                            {`-> xxx`}
+                        </div>
+                    </div>
+                    <div
+                        style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                        }}
+                    >
+                        <input
+                            aria-label='Specify the weight/importance for this stat'
+                            style={{
+                                width: '55px',
+                                color: itemWeight !== defaultWeight && itemWeight !== -1 ? 'black' : 'gray',
+                                fontWeight: itemWeight !== defaultWeight && itemWeight !== -1 ? 'bold' : '',
+                                borderRadius: '6px',
+                                fontSize: '12px',
+                                padding: '0 0 0 0',
+                                margin: '0',
+                                textAlign: 'center'
+                            }}
+                            type='number'
+                            value={itemWeight}
+                            onChange={
+                                (e) => {
+                                    try {
+                                        return
+                                        // let x = Number(e.target.value);
+                                        // // x = Math.floor(x);
+                                        // if (x < 0 || x > 999999) {
+                                        //     return;
+                                        // }
+                                        // setCardWeightNew(x);
+                                        // setRefreshMath(true);                        
+                                    }
+                                    catch (err) {
+                                        console.log(err);
+                                    }
+                                }}
+                            min="0"
+                            max="999999"
+                        />
+
+                        <MouseOverPopover tooltip={
+
+                            <div>
+                                {`The weight (importance) of this stat. Feel free to change this`}
+                            </div>
+                        }
+                            opacity={1}
+                        >
+                            <div style={{ position: 'relative', height: '16px', width: '16px', marginLeft: '2px' }}>
+                                <Image
+                                    alt='on hover I in a cirlce icon, shows more information on hover'
+                                    fill
+                                    src={infoIcon}
+                                    unoptimized={true}
+                                />
+                            </div>
+                            {/* <img alt='on hover I in a cirlce icon, shows more information on hover' style={{ height: '16px', marginLeft: '6px' }} src={infoIcon} /> */}
+                        </MouseOverPopover>
+                    </div>
                 </div>
-            </div>
+            )}
+
         </div>
     )
 }
