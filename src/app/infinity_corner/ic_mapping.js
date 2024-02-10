@@ -70,8 +70,8 @@ const PROTEINBONUS = 28;
 const GHBONUS = 29;
 const MININGEXP = 34;
 const MININGPWR = 35;
-const ATTACK = 35;
-const STAR = 36;
+const ATTACK = 99;
+const STAR = 98;
 
 
 

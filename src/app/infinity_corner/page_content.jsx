@@ -28,6 +28,34 @@ export default function Infinity_Corner() {
     }, [clientData]);
 
 
+    const [upgradeWeightsClient, setUpgradeWeights] = useLocalStorage('ic_upgrade_weights', {});
+    const [upgradeWeights, setRunTimeUpgradeWeights] = useState(DefaultSave);
+
+    useEffect(() => {
+
+        let tempVal = JSON.parse(JSON.stringify(upgradeWeightsClient));
+        let found = false;
+
+        //Check that we aren't missing any upgrade weights:
+        for (const [key, value] of Object.entries(ic_mapping)) {
+            if (key === 'star' || key === 'locked') {
+                continue;
+            }
+            if (!tempVal[key]) {
+                found = true;
+                tempVal[key] = -1;
+            }
+        }
+
+        if (found) {
+            setUpgradeWeights(JSON.parse(JSON.stringify(tempVal)));
+        }
+
+        setRunTimeUpgradeWeights(JSON.parse(JSON.stringify(tempVal)));
+    }, [data, upgradeWeightsClient]);
+
+
+
     return (
         <div
             style={{

@@ -15,13 +15,21 @@ import DefaultSave from '../util/tempSave.json';
 import panel_background from '../../../public/images/infinity_corner/panel_background.png';
 import star_normal from '../../../public/images/infinity_corner/LastEraTopBackground.png';
 import infoIcon from '../../../public/images/icons/info_thick.svg';
-
+import RefreshIcon from '../../../public/images/icons/refresh_lightgray.svg';
 
 
 export default function Item({
     map_key,
     data
 }) {
+
+
+    const [clientUpgradeWeight, setUpgradeWeight] = useLocalStorage(`${map_key}_rep3`, -1);
+    const [upgradeWeight, setRunTimeUpgradeWeight] = useState(-1);
+
+    useEffect(() => {
+        setRunTimeUpgradeWeight(clientUpgradeWeight);
+    }, [clientUpgradeWeight]);
 
     const [forceShow, setForceShow] = useState(false);
 
@@ -34,7 +42,7 @@ export default function Item({
     const isStar = map_key === 'star';
     const isLocked = level < itemObj.unlock;
     const defaultWeight = itemObj.weight(data.AscensionCount);
-    const itemWeight = itemObj.weight(data.AscensionCount);
+    const itemWeight = upgradeWeight === -1 ? itemObj.weight(data.AscensionCount) : upgradeWeight;
 
     const cost = itemObj.cost(level);
     const bonus = calc_bonus(star_level, level, isStar);
@@ -217,12 +225,12 @@ export default function Item({
                             onChange={
                                 (e) => {
                                     try {
-                                        return
-                                        // let x = Number(e.target.value);
-                                        // // x = Math.floor(x);
-                                        // if (x < 0 || x > 999999) {
-                                        //     return;
-                                        // }
+                                        let x = Number(e.target.value);
+                                        // x = Math.floor(x);
+                                        if (x < 0 || x > 999999) {
+                                            return;
+                                        }
+                                        setUpgradeWeight(x);
                                         // setCardWeightNew(x);
                                         // setRefreshMath(true);                        
                                     }
@@ -252,6 +260,19 @@ export default function Item({
                             </div>
                             {/* <img alt='on hover I in a cirlce icon, shows more information on hover' style={{ height: '16px', marginLeft: '6px' }} src={infoIcon} /> */}
                         </MouseOverPopover>
+
+
+                        {(itemWeight !== defaultWeight && itemWeight !== -1) && (
+                            <div className='hover'
+                                style={{ position: 'relative', width: '18px', height: '18px', marginLeft: '6px' }}
+                                onClick={() => {
+                                    setUpgradeWeight(-1);
+                                }}
+                            >
+                                <Image src={RefreshIcon} fill unoptimized alt='reset, 2 arrows in a circle' />
+                            </div>
+                        )}
+
                     </div>
                 </div>
             )}
