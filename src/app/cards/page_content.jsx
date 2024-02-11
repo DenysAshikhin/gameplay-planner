@@ -1596,6 +1596,7 @@ const defaultWeights = {
 
 const CalcReinc = function (data, reincCardCharges) {
 
+    data = JSON.parse(JSON.stringify(data));
     let classExp = mathHelper.multiplyDecimal(data.CurrentLevel, mathHelper.pow(1.001, mathHelper.min(1000.0, data.CurrentLevel)));
     let class2 = mathHelper.max(1.0, mathHelper.subtractDecimal(mathHelper.logDecimal(data.CurrentLevel, 5.0), 2.0));
     let class3 = mathHelper.max(1.0, 1.0 + (data.CurrentLevel / 2000.0 - 0.5));
@@ -1998,19 +1999,12 @@ export default function Cards() {
                                     unoptimized={true}
                                 />
                             </div>
-                            {/* <img
-             className='elementToFadeInAndOut'
-             alt='on hover I in a cirlce icon, shows more information on hover'
-             style={{ height: '32px', marginLeft: '6px', marginRight: '12px' }}
-             src={infoIconRed} /> */}
                         </MouseOverPopover >
                     )}
                     {/* Current Charge */}
                     <div
                         style={{
-                            display: 'flex', marginBottom: '0px', marginRight: '36px',
-                            // width: '455px', 
-                            alignItems: 'center'
+                            display: 'flex', marginBottom: '0px', marginRight: '36px', alignItems: 'center'
                         }}
                     >
                         <div
@@ -2035,7 +2029,7 @@ export default function Cards() {
                     <MouseOverPopover tooltip={
 
                         <div>
-                            {` ${requiredReincLevel - futureReincLevel} remaining levels at ${helper.roundTwoDecimal(reincHr)} levels/hr =  ${helper.roundTwoDecimal(remTime)} hours remaining`}
+                            {`${requiredReincLevel - currentReincLevel} remaining levels at ${helper.roundTwoDecimal(reincHr)} levels/hr =  ${helper.roundTwoDecimal(remTime)} hours remaining`}
                         </div>
                     }
                         opacity={1}
@@ -2086,7 +2080,7 @@ export default function Cards() {
                                 {`Remaining charges are calculated based on your remaining reincarnation levels left to ascend multiplied by your current reincarnation levels / hr. \nThis is calculated based on how many reincarnation levels you would gain if you reincarnate now divded by the current reincarnation duration.`}
                             </div>
                             <div>
-                                {` ${requiredReincLevel - futureReincLevel} remaining levels at ${helper.roundTwoDecimal(reincHr)} levels/hr =  ${helper.roundTwoDecimal(remTime)} hours remaining`}
+                            {`${requiredReincLevel - currentReincLevel} remaining levels at ${helper.roundTwoDecimal(reincHr)} levels/hr =  ${helper.roundTwoDecimal(remTime)} hours remaining`}
                             </div>
                             <div>
                                 {`Current charge timer reduction: ${helper.roundTwoDecimal(chargeTimerReduction * 100)}%`}
@@ -2411,7 +2405,7 @@ export default function Cards() {
                                         />
                                     </div>
                                     <div style={{ color: 'green', marginTop: '-10px' }}>
-                                       {`+${futureReincLevel - currentReincLevel}`}
+                                        {`+${futureReincLevel - currentReincLevel}`}
                                     </div>
                                 </div>
                             )}
