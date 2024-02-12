@@ -74,7 +74,7 @@ const ATTACK = 99;
 const STAR = 98;
 
 
-
+const maxKey = 30;
 
 
 
@@ -1165,7 +1165,7 @@ export const ic_mapping = {
         },
         weight: (ascension) => {
             const ID = ATTACK;
-            return itemIDMap[ID].weights[ascension];
+            return itemIDMap[ID].weights[ascension > maxKey ? maxKey : ascension];
         }
     },
     'hp': {
@@ -1194,7 +1194,7 @@ export const ic_mapping = {
         },
         weight: (ascension) => {
             const ID = HEALTH;
-            return itemIDMap[ID].weights[ascension];
+            return itemIDMap[ID].weights[ascension > maxKey ? maxKey : ascension];
         }
     },
     'potato': {
@@ -1223,7 +1223,7 @@ export const ic_mapping = {
         },
         weight: (ascension) => {
             const ID = POTATO;
-            return itemIDMap[ID].weights[ascension];
+            return itemIDMap[ID].weights[ascension > maxKey ? maxKey : ascension];
         }
     },
     'class': {
@@ -1252,7 +1252,7 @@ export const ic_mapping = {
         },
         weight: (ascension) => {
             const ID = CLASSEXP;
-            return itemIDMap[ID].weights[ascension];
+            return itemIDMap[ID].weights[ascension > maxKey ? maxKey : ascension];
         }
     },
     'skull': {
@@ -1281,7 +1281,7 @@ export const ic_mapping = {
         },
         weight: (ascension) => {
             const ID = SKULL;
-            return itemIDMap[ID].weights[ascension];
+            return itemIDMap[ID].weights[ascension > maxKey ? maxKey : ascension];
         }
     },
     'confection': {
@@ -1310,7 +1310,7 @@ export const ic_mapping = {
         },
         weight: (ascension) => {
             const ID = CONFECTIONEXP;
-            return itemIDMap[ID].weights[ascension];
+            return itemIDMap[ID].weights[ascension > maxKey ? maxKey : ascension];
         }
     },
     'ir': {
@@ -1339,7 +1339,7 @@ export const ic_mapping = {
         },
         weight: (ascension) => {
             const ID = ITEMRATING;
-            return itemIDMap[ID].weights[ascension];
+            return itemIDMap[ID].weights[ascension > maxKey ? maxKey : ascension];
         }
     },
     'calcium': {
@@ -1368,7 +1368,7 @@ export const ic_mapping = {
         },
         weight: (ascension) => {
             const ID = CALCIUMEXP;
-            return itemIDMap[ID].weights[ascension];
+            return itemIDMap[ID].weights[ascension > maxKey ? maxKey : ascension];
         }
     },
     'ferment': {
@@ -1397,7 +1397,7 @@ export const ic_mapping = {
         },
         weight: (ascension) => {
             const ID = FERMENTINGEXP;
-            return itemIDMap[ID].weights[ascension];
+            return itemIDMap[ID].weights[ascension > maxKey ? maxKey : ascension];
         }
     },
     'milk': {
@@ -1426,7 +1426,7 @@ export const ic_mapping = {
         },
         weight: (ascension) => {
             const ID = MILKBONUS;
-            return itemIDMap[ID].weights[ascension];
+            return itemIDMap[ID].weights[ascension > maxKey ? maxKey : ascension];
         }
     },
     'brew': {
@@ -1455,7 +1455,7 @@ export const ic_mapping = {
         },
         weight: (ascension) => {
             const ID = BREWINGEXP;
-            return itemIDMap[ID].weights[ascension];
+            return itemIDMap[ID].weights[ascension > maxKey ? maxKey : ascension];
         }
     },
     'poop': {
@@ -1484,7 +1484,7 @@ export const ic_mapping = {
         },
         weight: (ascension) => {
             const ID = POOPBONUS;
-            return itemIDMap[ID].weights[ascension];
+            return itemIDMap[ID].weights[ascension > maxKey ? maxKey : ascension];
         }
     },
     'pet_dmg': {
@@ -1513,7 +1513,7 @@ export const ic_mapping = {
         },
         weight: (ascension) => {
             const ID = PETDMG;
-            return itemIDMap[ID].weights[ascension];
+            return itemIDMap[ID].weights[ascension > maxKey ? maxKey : ascension];
         }
     },
     'pet_exp': {
@@ -1542,7 +1542,7 @@ export const ic_mapping = {
         },
         weight: (ascension) => {
             const ID = PETLEVELEXP;
-            return itemIDMap[ID].weights[ascension];
+            return itemIDMap[ID].weights[ascension > maxKey ? maxKey : ascension];
         }
     },
     'card_pow': {
@@ -1571,7 +1571,7 @@ export const ic_mapping = {
         },
         weight: (ascension) => {
             const ID = CARDPOWERB;
-            return itemIDMap[ID].weights[ascension];
+            return itemIDMap[ID].weights[ascension > maxKey ? maxKey : ascension];
         }
     },
     'residue': {
@@ -1600,7 +1600,7 @@ export const ic_mapping = {
         },
         weight: (ascension) => {
             const ID = RESIDUEBONUS;
-            return itemIDMap[ID].weights[ascension];
+            return itemIDMap[ID].weights[ascension > maxKey ? maxKey : ascension];
         }
     },
     'whack': {
@@ -1629,7 +1629,7 @@ export const ic_mapping = {
         },
         weight: (ascension) => {
             const ID = WHACKSCORE;
-            return itemIDMap[ID].weights[ascension];
+            return itemIDMap[ID].weights[ascension > maxKey ? maxKey : ascension];
         }
     },
     'larva_eff': {
@@ -1658,7 +1658,7 @@ export const ic_mapping = {
         },
         weight: (ascension) => {
             const ID = LARVAEFF;
-            return itemIDMap[ID].weights[ascension];
+            return itemIDMap[ID].weights[ascension > maxKey ? maxKey : ascension];
         }
     },
     'star': {
@@ -1687,7 +1687,7 @@ export const ic_mapping = {
         },
         weight: (ascension) => {
             const ID = STAR;
-            return itemIDMap[ID].weights[ascension];
+            return itemIDMap[ID].weights[ascension > maxKey ? maxKey : ascension];
         }
     },
     'locked': {
