@@ -1,3 +1,4 @@
+export const maxKey = 30;
 
 export const mainTeamSuggestions = {
     0: {

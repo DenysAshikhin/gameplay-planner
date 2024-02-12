@@ -26,7 +26,7 @@ import ReactGA from "react-ga4";
 import SearchBox from '../util/search.jsx';
 import petHelper from '../util/petHelper.js';
 import DefaultSave from '../util/tempSave.json';
-import { mainTeamSuggestions, reincTeamSuggestions, gearTeamSuggestions, statTeamSuggestions } from '../pets/teamSuggestions.js';
+import { mainTeamSuggestions, reincTeamSuggestions, gearTeamSuggestions, statTeamSuggestions, maxKey } from '../pets/teamSuggestions.js';
 
 ReactGA.initialize([{
     trackingId: "G-GGLPK02VH8",
@@ -1443,24 +1443,24 @@ export default function Expeditions() {
 
                                                         switch (selected_mode.target.value) {
                                                             case 'Main Team':
-                                                                priorityList = mainTeamSuggestions[data.AscensionCount].priorityList;
-                                                                priorityMap = mainTeamSuggestions[data.AscensionCount].priorityMap;
-                                                                presetPets = mainTeamSuggestions[data.AscensionCount].petWhiteList ? mainTeamSuggestions[data.AscensionCount].petWhiteList : {};
+                                                                priorityList = JSON.parse(JSON.stringify(mainTeamSuggestions[data.AscensionCount > maxKey ? maxKey : data.AscensionCount].priorityList));
+                                                                priorityMap = JSON.parse(JSON.stringify(mainTeamSuggestions[data.AscensionCount > maxKey ? maxKey : data.AscensionCount].priorityMap));
+                                                                presetPets = mainTeamSuggestions[data.AscensionCount > maxKey ? maxKey : data.AscensionCount].petWhiteList ? JSON.parse(JSON.stringify(mainTeamSuggestions[data.AscensionCount > maxKey ? maxKey : data.AscensionCount].petWhiteList)) : {};
                                                                 break;
                                                             case 'Reinc. Team':
-                                                                priorityList = reincTeamSuggestions[data.AscensionCount].priorityList;
-                                                                priorityMap = reincTeamSuggestions[data.AscensionCount].priorityMap;
-                                                                presetPets = reincTeamSuggestions[data.AscensionCount].petWhiteList ? reincTeamSuggestions[data.AscensionCount].petWhiteList : {};
+                                                                priorityList = JSON.parse(JSON.stringify(reincTeamSuggestions[data.AscensionCount > maxKey ? maxKey : data.AscensionCount].priorityList));
+                                                                priorityMap = JSON.parse(JSON.stringify(reincTeamSuggestions[data.AscensionCount > maxKey ? maxKey : data.AscensionCount].priorityMap));
+                                                                presetPets = reincTeamSuggestions[data.AscensionCount > maxKey ? maxKey : data.AscensionCount].petWhiteList ? JSON.parse(JSON.stringify(reincTeamSuggestions[data.AscensionCount > maxKey ? maxKey : data.AscensionCount].petWhiteList)) : {};
                                                                 break;
                                                             case 'Gear Team':
-                                                                priorityList = gearTeamSuggestions[data.AscensionCount].priorityList;
-                                                                priorityMap = gearTeamSuggestions[data.AscensionCount].priorityMap;
-                                                                presetPets = gearTeamSuggestions[data.AscensionCount].petWhiteList ? gearTeamSuggestions[data.AscensionCount].petWhiteList : {};
+                                                                priorityList = JSON.parse(JSON.stringify(gearTeamSuggestions[data.AscensionCount > maxKey ? maxKey : data.AscensionCount].priorityList));
+                                                                priorityMap = JSON.parse(JSON.stringify(gearTeamSuggestions[data.AscensionCount > maxKey ? maxKey : data.AscensionCount].priorityMap));
+                                                                presetPets = gearTeamSuggestions[data.AscensionCount > maxKey ? maxKey : data.AscensionCount].petWhiteList ? JSON.parse(JSON.stringify(gearTeamSuggestions[data.AscensionCount > maxKey ? maxKey : data.AscensionCount].petWhiteList)) : {};
                                                                 break;
                                                             case 'Stat Team':
-                                                                priorityList = statTeamSuggestions[data.AscensionCount].priorityList;
-                                                                priorityMap = statTeamSuggestions[data.AscensionCount].priorityMap;
-                                                                presetPets = statTeamSuggestions[data.AscensionCount].petWhiteList ? statTeamSuggestions[data.AscensionCount].petWhiteList : {};
+                                                                priorityList = JSON.parse(JSON.stringify(statTeamSuggestions[data.AscensionCount > maxKey ? maxKey : data.AscensionCount].priorityList));
+                                                                priorityMap = JSON.parse(JSON.stringify(statTeamSuggestions[data.AscensionCount > maxKey ? maxKey : data.AscensionCount].priorityMap));
+                                                                presetPets = statTeamSuggestions[data.AscensionCount > maxKey ? maxKey : data.AscensionCount].petWhiteList ? JSON.parse(JSON.stringify(statTeamSuggestions[data.AscensionCount > maxKey ? maxKey : data.AscensionCount].petWhiteList)) : {};
                                                                 break;
                                                             case 'None':
                                                                 priorityList = [];
@@ -1932,11 +1932,11 @@ export default function Expeditions() {
                                                             className='importantText textMedium2'
                                                             aria-label='Damage bias to control when the pet should go in'
                                                             style={{
-                                                                 maxWidth: '36px', 
-                                                                 backgroundColor: '#1b1b1b',
-                                                                  borderRadius: '4px', 
-                                                                  backgroundColor: (index % 2) === 0 ? '#252525' : '#171717',
-                                                                 }}
+                                                                maxWidth: '36px',
+                                                                backgroundColor: '#1b1b1b',
+                                                                borderRadius: '4px',
+                                                                backgroundColor: (index % 2) === 0 ? '#252525' : '#171717',
+                                                            }}
                                                             type='number'
                                                             // className='prepNumber'
                                                             value={pet.parameters.damageBias}

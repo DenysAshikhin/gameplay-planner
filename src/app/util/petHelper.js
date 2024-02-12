@@ -2175,7 +2175,7 @@ var helper = {
                 if (priorities[j].count === 0 || (priorities[j].count === priorities[j].current)) {
                     ignoreStat[priorities[j].id] = priorities[j];
                 }
-                else if (priorities[j].count > 0 && (priorities[j].count !== priorities[j].current)) {
+                else if (priorities[j].count > 0 && (priorities[j].count !== priorities[j].current) && statMode) {
                     searchingForStat = true;
                 }
                 else if ((priorities[j].count > priorities[j].current) || (priorities[j].count === -1)) {
