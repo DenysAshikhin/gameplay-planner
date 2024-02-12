@@ -69,7 +69,7 @@ const MININGEXP = 34;
 const MININGPWR = 35;
 
 
-
+const maxKey = 30;
 
 
 
@@ -1192,7 +1192,7 @@ const CardCard = ({
     //     setInternalWeight(cardWeight);
     // }, [cardWeight])
 
-    let defaultWeight = cardIDMap[ID].weights[data.AscensionCount];
+    let defaultWeight = cardIDMap[ID].weights[data.AscensionCount > maxKey ? maxKey : data.AscensionCount];
     if (data.AscensionCount >= 15) {
         defaultWeight /= 2;
     }

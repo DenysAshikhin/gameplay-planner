@@ -20,7 +20,7 @@ import CrossIcon from '../../../public/images/icons/x_icon.svg';
 import DragIcon from '../../../public/images/icons/drag_icon.svg';
 
 import DefaultSave from '../util/tempSave.json';
-import { mainTeamSuggestions, reincTeamSuggestions, gearTeamSuggestions, statTeamSuggestions, statTeamMasterList } from './teamSuggestions.js';
+import { mainTeamSuggestions, reincTeamSuggestions, gearTeamSuggestions, statTeamSuggestions, statTeamMasterList, maxKey } from './teamSuggestions.js';
 
 import Image from 'next/image';
 
@@ -313,19 +313,19 @@ export default function Pets() {
         for (let i = 0; i < 3; i++) {
             switch (i) {
                 case 0:
-                    priorityList = mainTeamSuggestions[data.AscensionCount].priorityList;
-                    priorityMap = mainTeamSuggestions[data.AscensionCount].priorityMap;
-                    presetPets = mainTeamSuggestions[data.AscensionCount].petWhiteList ? mainTeamSuggestions[data.AscensionCount].petWhiteList : {};
+                    priorityList = JSON.parse(JSON.stringify(mainTeamSuggestions[data.AscensionCount > maxKey ? maxKey : data.AscensionCount].priorityList));
+                    priorityMap = JSON.parse(JSON.stringify(mainTeamSuggestions[data.AscensionCount > maxKey ? maxKey : data.AscensionCount].priorityMap));
+                    presetPets = mainTeamSuggestions[data.AscensionCount > maxKey ? maxKey : data.AscensionCount].petWhiteList ? JSON.parse(JSON.stringify(mainTeamSuggestions[data.AscensionCount > maxKey ? maxKey : data.AscensionCount].petWhiteList)) : {};
                     break;
                 case 1:
-                    priorityList = reincTeamSuggestions[data.AscensionCount].priorityList;
-                    priorityMap = reincTeamSuggestions[data.AscensionCount].priorityMap;
-                    presetPets = reincTeamSuggestions[data.AscensionCount].petWhiteList ? reincTeamSuggestions[data.AscensionCount].petWhiteList : {};
+                    priorityList = JSON.parse(JSON.stringify(reincTeamSuggestions[data.AscensionCount > maxKey ? maxKey : data.AscensionCount].priorityList));
+                    priorityMap = JSON.parse(JSON.stringify(reincTeamSuggestions[data.AscensionCount > maxKey ? maxKey : data.AscensionCount].priorityMap));
+                    presetPets = reincTeamSuggestions[data.AscensionCount > maxKey ? maxKey : data.AscensionCount].petWhiteList ? JSON.parse(JSON.stringify(reincTeamSuggestions[data.AscensionCount > maxKey ? maxKey : data.AscensionCount].petWhiteList)) : {};
                     break;
                 case 2:
-                    priorityList = gearTeamSuggestions[data.AscensionCount].priorityList;
-                    priorityMap = gearTeamSuggestions[data.AscensionCount].priorityMap;
-                    presetPets = gearTeamSuggestions[data.AscensionCount].petWhiteList ? gearTeamSuggestions[data.AscensionCount].petWhiteList : {};
+                    priorityList = JSON.parse(JSON.stringify(gearTeamSuggestions[data.AscensionCount > maxKey ? maxKey : data.AscensionCount].priorityList));
+                    priorityMap = JSON.parse(JSON.stringify(gearTeamSuggestions[data.AscensionCount > maxKey ? maxKey : data.AscensionCount].priorityMap));
+                    presetPets = gearTeamSuggestions[data.AscensionCount > maxKey ? maxKey : data.AscensionCount].petWhiteList ? JSON.parse(JSON.stringify(gearTeamSuggestions[data.AscensionCount > maxKey ? maxKey : data.AscensionCount].petWhiteList)) : {};
                     break;
                 case 'None':
                     priorityList = [];
@@ -699,26 +699,26 @@ export default function Pets() {
                                                     switch (selected_mode.target.value) {
                                                         case 'Main Team':
                                                             setStatMode(false);
-                                                            setPriorityList(JSON.parse(JSON.stringify(mainTeamSuggestions[data.AscensionCount].priorityList)))
-                                                            setPriorityMap(JSON.parse(JSON.stringify(mainTeamSuggestions[data.AscensionCount].priorityMap)));
-                                                            presetPets = mainTeamSuggestions[data.AscensionCount].petWhiteList ? JSON.parse(JSON.stringify(mainTeamSuggestions[data.AscensionCount].petWhiteList)) : {};
+                                                            setPriorityList(JSON.parse(JSON.stringify(mainTeamSuggestions[data.AscensionCount > maxKey ? maxKey : data.AscensionCount].priorityList)))
+                                                            setPriorityMap(JSON.parse(JSON.stringify(mainTeamSuggestions[data.AscensionCount > maxKey ? maxKey : data.AscensionCount].priorityMap)));
+                                                            presetPets = mainTeamSuggestions[data.AscensionCount > maxKey ? maxKey : data.AscensionCount].petWhiteList ? JSON.parse(JSON.stringify(mainTeamSuggestions[data.AscensionCount > maxKey ? maxKey : data.AscensionCount].petWhiteList)) : {};
                                                             break;
                                                         case 'Reinc. Team':
                                                             setStatMode(false);
-                                                            setPriorityList(JSON.parse(JSON.stringify(reincTeamSuggestions[data.AscensionCount].priorityList)))
-                                                            setPriorityMap(JSON.parse(JSON.stringify(reincTeamSuggestions[data.AscensionCount].priorityMap)));
-                                                            presetPets = reincTeamSuggestions[data.AscensionCount].petWhiteList ? JSON.parse(JSON.stringify(reincTeamSuggestions[data.AscensionCount].petWhiteList)) : {};
+                                                            setPriorityList(JSON.parse(JSON.stringify(reincTeamSuggestions[data.AscensionCount > maxKey ? maxKey : data.AscensionCount].priorityList)))
+                                                            setPriorityMap(JSON.parse(JSON.stringify(reincTeamSuggestions[data.AscensionCount > maxKey ? maxKey : data.AscensionCount].priorityMap)));
+                                                            presetPets = reincTeamSuggestions[data.AscensionCount > maxKey ? maxKey : data.AscensionCount].petWhiteList ? JSON.parse(JSON.stringify(reincTeamSuggestions[data.AscensionCount > maxKey ? maxKey : data.AscensionCount].petWhiteList)) : {};
                                                             break;
                                                         case 'Gear Team':
                                                             setStatMode(false);
-                                                            setPriorityList(JSON.parse(JSON.stringify(gearTeamSuggestions[data.AscensionCount].priorityList)))
-                                                            setPriorityMap(JSON.parse(JSON.stringify(gearTeamSuggestions[data.AscensionCount].priorityMap)));
-                                                            presetPets = gearTeamSuggestions[data.AscensionCount].petWhiteList ? JSON.parse(JSON.stringify(gearTeamSuggestions[data.AscensionCount].petWhiteList)) : {};
+                                                            setPriorityList(JSON.parse(JSON.stringify(gearTeamSuggestions[data.AscensionCount > maxKey ? maxKey : data.AscensionCount].priorityList)))
+                                                            setPriorityMap(JSON.parse(JSON.stringify(gearTeamSuggestions[data.AscensionCount > maxKey ? maxKey : data.AscensionCount].priorityMap)));
+                                                            presetPets = gearTeamSuggestions[data.AscensionCount > maxKey ? maxKey : data.AscensionCount].petWhiteList ? JSON.parse(JSON.stringify(gearTeamSuggestions[data.AscensionCount > maxKey ? maxKey : data.AscensionCount].petWhiteList)) : {};
                                                             break;
                                                         case 'Stat Team':
-                                                            // setPriorityList(statTeamSuggestions[data.AscensionCount].priorityList)
-                                                            // setPriorityMap(statTeamSuggestions[data.AscensionCount].priorityMap);
-                                                            // presetPets = statTeamSuggestions[data.AscensionCount].petWhiteList ? statTeamSuggestions[data.AscensionCount].petWhiteList : {};
+                                                            // setPriorityList(statTeamSuggestions[data.AscensionCount > maxKey ? maxKey : data.AscensionCount].priorityList)
+                                                            // setPriorityMap(statTeamSuggestions[data.AscensionCount > maxKey ? maxKey : data.AscensionCount].priorityMap);
+                                                            // presetPets = statTeamSuggestions[data.AscensionCount > maxKey ? maxKey : data.AscensionCount].petWhiteList ? statTeamSuggestions[data.AscensionCount > maxKey ? maxKey : data.AscensionCount].petWhiteList : {};
                                                             setPriorityList(JSON.parse(JSON.stringify(statPriorityList)));
                                                             setPriorityMap(JSON.parse(JSON.stringify(statPriorityMap)));
                                                             presetPets = JSON.parse(JSON.stringify(statPriorityWhitelist));
