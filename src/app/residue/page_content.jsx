@@ -27,13 +27,13 @@ ReactGA.initialize([{
 }]);
 
 
-const ResidueCard = ({ data, params, desiredLevels, setDesiredLevels, forceReinc }) => {
+const ResidueCard = ({ data, params, desiredLevels, setDesiredLevels, forceReinc, reincLevelIncrease }) => {
     // const weight = params.weight(asc_level);
     const [clientWeight, setClientWeight] = useLocalStorage(`${params.label}_residue_weight`, -1);
     const [runTimeWeight, setRunTimeWeight] = useState(1);
     useEffect(() => {
         setRunTimeWeight(clientWeight)
-    }, [clientWeight])
+    }, [clientWeight]);
 
     const [hovering, setHovering] = useState(false);
 
@@ -62,7 +62,8 @@ const ResidueCard = ({ data, params, desiredLevels, setDesiredLevels, forceReinc
     let desiredLevel = level;
 
 
-    let reincOverride = forceReinc && params.key_inner === 'reinc';
+    let reincOverride = forceReinc && params.key_inner === 'reinc' || (params.key_inner === 'reinc' && reincLevelIncrease > 0);
+
     let inner_calcs = useMemo(() => {
 
 
@@ -74,7 +75,7 @@ const ResidueCard = ({ data, params, desiredLevels, setDesiredLevels, forceReinc
         const level = data[params.key];
         let desiredLevel = level;
         const reinc = residueMap['reinc'];
-        const reincLevel = data[reinc.key];
+        const reincLevel = data[reinc.key] + reincLevelIncrease;
 
         const reincCost = reinc.cost(reincLevel);
 
@@ -98,7 +99,7 @@ const ResidueCard = ({ data, params, desiredLevels, setDesiredLevels, forceReinc
             }
         }
         return [inner_orders, desiredLevel];
-    }, [params.key, params.key_inner, data, reincWeight, runTimeWeight, reincOverride]);
+    }, [params.key, params.key_inner, data, reincWeight, runTimeWeight, reincOverride, reincLevelIncrease]);
 
     let purchaseOrders = inner_calcs[0];
     desiredLevel = inner_calcs[1];
@@ -106,7 +107,7 @@ const ResidueCard = ({ data, params, desiredLevels, setDesiredLevels, forceReinc
     let needPurchase = desiredLevel > level;
 
     useEffect(() => {
-        let reincOverride = forceReinc && params.key_inner === 'reinc';
+        let reincOverride = forceReinc && params.key_inner === 'reinc' || (params.key_inner === 'reinc' && reincLevelIncrease > 0);
         if (locked) {
 
             return setDesiredLevels((curr_levels) => {
@@ -155,7 +156,8 @@ const ResidueCard = ({ data, params, desiredLevels, setDesiredLevels, forceReinc
         runTimeWeight,
         weight,
         locked,
-        data
+        data,
+        reincLevelIncrease
     ])
 
 
@@ -175,10 +177,10 @@ const ResidueCard = ({ data, params, desiredLevels, setDesiredLevels, forceReinc
                 {((finishedBuying && needPurchase) || (finishedBuying && reincOverride)) && !locked && (
                     <div className='futurePurchase'>
                         <div>
-                            {`${reincOverride ? 1 + desiredLevel : desiredLevel}`}
+                            {`${reincOverride ? (reincLevelIncrease > 0 ? reincLevelIncrease : 1) + desiredLevel : desiredLevel}`}
                         </div>
                         <div>
-                            {`+${reincOverride ? desiredLevel - level + 1 : desiredLevel - level}`}
+                            {`+${reincOverride ? desiredLevel - level + (reincLevelIncrease > 0 ? reincLevelIncrease : 1) : desiredLevel - level}`}
                         </div>
                     </div>
                 )}
@@ -338,16 +340,38 @@ const ResideOrderCard = ({ data }) => {
 
 export default function Residue() {
 
+    const [desiredLevels, setDesiredLevels] = useState({});
+    const [forceReinc, setForceReinc] = useState(false);
+    const [reincLevelIncrease, setReincLevelIncrease] = useState(0);
+    const [needToIncreaseReinc, setNeedToIncreaseReinc] = useState(false);
+    const increasingReinc = useRef(false);
+    const increasingReinc2 = useRef(false);
+
     const [clientData, setData] = useLocalStorage('userData', DefaultSave);
     const [data, setRunTimeData] = useState(DefaultSave);
     const dataLoaded = useRef(false);
     useEffect(() => {
-        setRunTimeData(clientData);
-        dataLoaded.current = true;
-    }, [clientData]);
+        if (!dataLoaded.current) {
+            setRunTimeData(clientData);
+            dataLoaded.current = true;
+            setReincLevelIncrease(0);
+            setNeedToIncreaseReinc(false);
+        }
+    }, [clientData, dataLoaded]);
 
-    const [desiredLevels, setDesiredLevels] = useState({});
-    const [forceReinc, setForceReinc] = useState(false);
+
+    useEffect(() => {
+        if (needToIncreaseReinc && increasingReinc.current === false) {
+            increasingReinc.current = true;
+            setTimeout(() => {
+                setReincLevelIncrease(reincLevelIncrease + 1);
+                setNeedToIncreaseReinc(false);
+                increasingReinc.current = false;
+                increasingReinc2.current = false;
+            }, 5);
+        }
+        
+    }, [reincLevelIncrease, needToIncreaseReinc, increasingReinc, increasingReinc2]);//If you remove (reincLevelIncrease) it will to rerender even though it shouldn't need it
 
     let suggestedPurchases = [];
     let reincParams = residueMap['reinc'];
@@ -367,7 +391,30 @@ export default function Residue() {
                 desiredLevel: data[reincParams.key] + 1, level: data[reincParams.key], weight: reincParams.weight(data.AscensionCount)
             }
         }
-        : desiredLevels
+        : desiredLevels;
+
+
+    if (reincLevelIncrease > 0) {
+
+        let reincStart = {
+            ...reincParams,
+            purchaseOrders: [],
+            desiredLevel: data[reincParams.key] + reincLevelIncrease, level: data[reincParams.key], weight: reincParams.weight(data.AscensionCount)
+        };
+
+        for (let i = 0; i < reincLevelIncrease; i++) {
+            reincStart.purchaseOrders.push({
+                desiredLevel: data[reincParams.key] + (i + 1),
+                newCost: reincParams.cost(data[reincParams.key] + i),
+                weightedCost: mathHelper.divideDecimal(reincParams.cost(data[reincParams.key] + i), reincParams.weight(data.AscensionCount)),
+                weight: reincParams.weight(data.AscensionCount),
+                params: reincParams
+            })
+        }
+        objToIterate['reinc'] = reincStart;
+        // delete objToIterate['CowShopReincarnationBonus'];
+    }
+
     Object.entries(objToIterate).map((val) => {
 
         val[1].purchaseOrders.forEach((inner_val) => suggestedPurchases.push(inner_val));
@@ -460,20 +507,28 @@ export default function Residue() {
 
     //loop over affordable purchases and combine them into one bulk (no need to step them since it's all bought anyways)
     let finalAffordablePurchasesMap = {};
-    affordablePurchases.forEach((inner_val)=>{
-        if(!finalAffordablePurchasesMap[inner_val.params.key]){
+    affordablePurchases.forEach((inner_val) => {
+        if (!finalAffordablePurchasesMap[inner_val.params.key]) {
             finalAffordablePurchasesMap[inner_val.params.key] = inner_val;
         }
-        else{
+        else {
             finalAffordablePurchasesMap[inner_val.params.key].desiredLevel = inner_val.desiredLevel;
         }
     })
 
     affordablePurchases = [];
-    for(const [key, val] of Object.entries(finalAffordablePurchasesMap)){
+    for (const [key, val] of Object.entries(finalAffordablePurchasesMap)) {
         affordablePurchases.push(val);
     }
-    affordablePurchases.sort((a, b)=> b.weight - a.weight);
+    affordablePurchases.sort((a, b) => b.weight - a.weight);
+
+
+    //Meaning we can afford everythingg, pretend like the reinc level went up +1, recalc
+    if (futurePurchases.length === 0 && !increasingReinc2.current && dataLoaded.current) {
+        // setReincLevelIncrease((inner_val) => inner_val + 1);
+        setNeedToIncreaseReinc(true);
+        increasingReinc2.current = true;
+    }
 
     return (
         <div
@@ -538,6 +593,7 @@ export default function Residue() {
                                     params={{ ...params, key_inner: key, currentResidue: currentResidue }}
                                     key={index}
                                     forceReinc={forceReinc}
+                                    reincLevelIncrease={reincLevelIncrease}
                                 />
                             })}
                         </div>
@@ -605,7 +661,7 @@ export default function Residue() {
                                             }
                                             return temp_data;
                                         });
-
+                                        setReincLevelIncrease(0);
                                     }}
                                 >Accept</button>
                                 {affordablePurchases.map((val, index) => {
@@ -635,7 +691,7 @@ export default function Residue() {
                                             }
                                             return temp_data;
                                         });
-
+                                        setReincLevelIncrease(0);
                                     }}
                                 >Accept</button>
                                 {futurePurchases.map((val, index) => {
