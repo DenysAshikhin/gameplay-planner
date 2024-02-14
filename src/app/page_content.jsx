@@ -32,10 +32,15 @@ ReactGA.initialize([{
 //   setCustomPresetsClient(customPresets)
 // }, [customPresets])s
 
+import { stringy } from './sample_string.js'
+
+
 export default function Home() {
+
 
   const [userData, setUserData] = useLocalStorage('userData', DefaultSave);
   const router = useRouter();
+  const stringInputRef = useRef(null);
 
   const handleFileUpload = async (e) => {
     const file = e.target.files[0];
@@ -233,6 +238,43 @@ export default function Home() {
         <div style={{ marginTop: '16px' }}>
           <input style={{ display: 'none' }} id='chooseFileButton' aria-label='save file upload button' type="file" title="" accept=".txt" onChange={handleFileUpload} />
           <button style={{ fontSize: '1.3rem' }} onClick={(e) => { chooseFileButton.click(); return false; }}>Choose File</button>
+        </div>
+        <div style={{ marginTop: '16px' }}>
+          <input type="string" id='stringSave' ref={stringInputRef} placeholder={'Paste save string here'} style={{ marginRight: '12px' }} />
+          <button style={{ fontSize: '1.3rem' }}
+            onClick={async (e) => {
+
+              let incomingString = stringInputRef.current.value;
+              try {
+                incomingString = atob(incomingString)
+                const startPosition = incomingString.indexOf('{');
+                const endPosition = incomingString.lastIndexOf('}') + 1;
+                let jsonString = incomingString.slice(startPosition, endPosition);
+
+                let infIndex = jsonString.indexOf('Infinity');
+
+                while (infIndex > 0) {
+                  jsonString = jsonString.replaceAll('Infinity', '-999');
+                  infIndex = jsonString.indexOf('Infinity');
+                }
+
+                try {
+                  const parsedJson = JSON.parse(jsonString);
+                  setUserData(parsedJson);
+                  console.log(parsedJson);
+                  console.log(`trying to redirect`)
+                  return router.push('/page_selection');
+                } catch (error) {
+                  console.error('Invalid JSON:', error);
+                }
+              }
+              catch (err) {
+                console.log(err);
+                console.log(`caught error reading string save`)
+              }
+            }}>
+            Load
+          </button>
         </div>
       </div>
     </div>
