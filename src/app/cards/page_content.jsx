@@ -1,6 +1,7 @@
 "use client"
 
 
+import { isMobile } from 'mobile-device-detect';
 import './card.css';
 import { useState, useEffect, useRef } from 'react';
 import ReactGA from "react-ga4";
@@ -1831,6 +1832,19 @@ export default function Cards() {
     //     }, 500);
     // }, []);
 
+    const [mobileMode, setMobileMode] = useState(false);
+    useEffect(() => {
+        setMobileMode(isMobile);
+        if (isMobile) {
+            setTimeout(() => {
+                var viewport = document.querySelector('meta[name="viewport"]');
+                if (viewport) {
+                    viewport.content = "initial-scale=0.1";
+                    viewport.content = "width=1200";
+                }
+            }, 500);
+        }
+    }, [isMobile]);
 
     const [clientData, setData] = useLocalStorage('userData', DefaultSave);
     const [data, setRunTimeData] = useState(DefaultSave);

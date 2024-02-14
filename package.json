@@ -15,6 +15,7 @@
     "@mui/material": "^5.14.16",
     "break_infinity.js": "^2.2.0",
     "framer-motion": "^10.16.4",
+    "mobile-device-detect": "^0.4.3",
     "next": "14.0.1",
     "nextjs-google-adsense": "^1.0.0",
     "pako": "^2.1.0",

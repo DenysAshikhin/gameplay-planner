@@ -4,6 +4,8 @@
 import Image from 'next/image';
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import useLocalStorage from "use-local-storage";
+
+import { isMobile } from 'mobile-device-detect';
 import './JSONDisplay.css'; // Add this line to import the CSS file
 import { BonusMap, petNameArray, petNames, getPet, DefaultWeightMap } from '../util/itemMapping.js';
 import PetItemCoin from './PetItemCoin.jsx';
@@ -81,6 +83,22 @@ import Head from 'next/head';
 
 
 export default function Expeditions() {
+
+
+    const [mobileMode, setMobileMode] = useState(false);
+    useEffect(() => {
+        setMobileMode(isMobile);
+        if (isMobile) {
+            setTimeout(() => {
+                var viewport = document.querySelector('meta[name="viewport"]');
+                if (viewport) {
+                    viewport.content = "initial-scale=0.1";
+                    viewport.content = "width=1200";
+                }
+            }, 500);
+        }
+    }, [isMobile]);
+
 
 
     const [clientData, setData] = useLocalStorage('userData', DefaultSave);
@@ -562,7 +580,8 @@ export default function Expeditions() {
                 // columnGap: '12px',
                 width: 'calc(100% - 0px)',
                 background: 'black',
-                display: 'flex'
+                display: 'flex',
+                overflow: 'auto'
             }}
         >
             {/* Grid Left */}
@@ -577,9 +596,8 @@ export default function Expeditions() {
                     overflow: 'hidden',
                     borderRadius: '6px',
                     width: '33%',
-                    minWidth: '310px',
+                    minWidth: '283px',
                     maxWidth: '590px'
-
                 }}
             >
                 <div

@@ -1,5 +1,6 @@
 "use client"
 
+import { isMobile } from 'mobile-device-detect';
 import { useState, useEffect, useRef, useMemo } from 'react';
 import Image from 'next/image';
 
@@ -71,7 +72,19 @@ function splitArrayIndices(arr, x) {
 
 
 const FarmingLanding = () => {
-
+    const [mobileMode, setMobileMode] = useState(false);
+    useEffect(() => {
+        setMobileMode(isMobile);
+        if (isMobile) {
+            setTimeout(() => {
+                var viewport = document.querySelector('meta[name="viewport"]');
+                if (viewport) {
+                    viewport.content = "initial-scale=0.1";
+                    viewport.content = "width=1200";
+                }
+            }, 500);
+        }
+    }, [isMobile]);
     const [clientData, setData] = useLocalStorage('userData', DefaultSave);
     const [data, setRunTimeData] = useState(DefaultSave);
 
@@ -2879,91 +2892,3 @@ const FarmingLanding = () => {
 };
 
 export default FarmingLanding;
-
-
-
-
-{/* Explanation */ }
-//       < div style={{ display: 'flex', width: '100%', marginTop: '12px', flexDirection: 'column' }}>
-
-//       <h3 style={{ margin: '0' }}>How to use</h3>
-//       <div
-//           style={{ display: 'flex' }}>
-//           <div style={{ fontWeight: 'bold', marginRight: '12px' }}>
-//               Quickstart:
-//           </div>
-//           Enter how many hours you want to simulate into the future above (Hours to calculate). This should coincide with how long you want your overall run to be. So if you are 12 hours into a 48 hour run, enter 36hours.
-//       </div>
-//       <div style={{ marginTop: '6px' }} >
-//           <div className='outerExplanation'>
-//               <div style={{ display: 'flex', alignItems: 'center' }}>
-//                   <div className='explanationLeft'>
-//                       <div className="dot" ></div>
-//                       <div className='innerExplanationShort'>
-//                           Hours to calculate
-//                       </div>
-//                   </div>
-//                   <div className='explanationInner'>
-//                       how far into the future to calculate best auto distributions, as well as future PIC/Levels for plants
-//                   </div>
-//               </div>
-//           </div>
-//           <div className='outerExplanation'>
-//               <div style={{ display: 'flex', alignItems: 'center' }}>
-//                   <div className='explanationLeft'>
-//                       <div className="dot" ></div>
-//                       <div className='innerExplanationShort'>
-//                           Calculate best auto placements
-//                       </div>
-//                   </div>
-//                   <div className='explanationInner'>
-//                       <div>
-//                           Calculate AFK: Best `set-and-forget` distibution
-//                       </div>
-//                       <div>
-//                           Calculate Step: Best possible timing switches of each plant (much more active)
-//                       </div>
-//                   </div>
-//               </div>
-//           </div>
-//           <div className='outerExplanation'>
-//               <div style={{ display: 'flex', alignItems: 'center' }}>
-//                   <div className='explanationLeft'>
-//                       <div className="dot" ></div>
-//                       <div className='innerExplanationShort'>
-//                           Num threads to use for calculating
-//                       </div>
-//                   </div>
-//                   <div className='explanationInner'>
-//                       How many parallel simulations to run, higher number means more CPU usage but quicker result (diminishing returns with more threads)
-//                   </div>
-//               </div>
-//           </div>
-//           <div className='outerExplanation'>
-//               <div style={{ display: 'flex', alignItems: 'center' }}>
-//                   <div className='explanationLeft'>
-//                       <div className="dot" ></div>
-//                       <div className='innerExplanationShort'>
-//                           Auto purchase Page 1 Upgrades (PBC)
-//                       </div>
-//                   </div>
-//                   <div className='explanationInner'>
-//                       Whether the simulation should automatically buy Farming Shop page 1 (Plant Boost Corner) upgrades. (This is an ascension perk)
-//                   </div>
-//               </div>
-//           </div>
-//           <div className='outerExplanation'>
-//               <div style={{ display: 'flex', alignItems: 'center' }}>
-//                   <div className='explanationLeft'>
-//                       <div className="dot" ></div>
-//                       <div className='innerExplanationShort'>
-//                           Lock in above `Num Autos`
-//                       </div>
-//                   </div>
-//                   <div className='explanationInner'>
-//                       If checked, generates only possible auto distributions from your `Num Autos` selected above. If there are more autos assigned than you have purchased, then it will be disabled
-//                   </div>
-//               </div>
-//           </div>
-//       </div>
-//   </div >

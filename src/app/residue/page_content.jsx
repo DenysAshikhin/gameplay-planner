@@ -1,5 +1,6 @@
 "use client"
 
+import { isMobile } from 'mobile-device-detect';
 import pagecss from './page.css';
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import ReactGA from "react-ga4";
@@ -339,7 +340,19 @@ const ResideOrderCard = ({ data }) => {
 
 
 export default function Residue() {
-
+    const [mobileMode, setMobileMode] = useState(false);
+    useEffect(() => {
+        setMobileMode(isMobile);
+        if (isMobile) {
+            setTimeout(() => {
+                var viewport = document.querySelector('meta[name="viewport"]');
+                if (viewport) {
+                    viewport.content = "initial-scale=0.1";
+                    viewport.content = "width=1200";
+                }
+            }, 500);
+        }
+    }, [isMobile]);
     const [desiredLevels, setDesiredLevels] = useState({});
     const [forceReinc, setForceReinc] = useState(false);
     const [reincLevelIncrease, setReincLevelIncrease] = useState(0);

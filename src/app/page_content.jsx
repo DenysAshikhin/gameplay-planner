@@ -3,6 +3,7 @@
 import { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { isMobile } from 'mobile-device-detect';
 
 import './App.css';
 
@@ -17,26 +18,9 @@ import backgroundImage from '../../public/images/coming_soon.png'
 
 // import { GoogleAdSense } from "nextjs-google-adsense";
 import ReactGA from "react-ga4";
-ReactGA.initialize([{
-  trackingId: "G-GGLPK02VH8",
-  // gaOptions: {...}, // optional
-  // gtagOptions: {
-  //   send_page_view: false
-  // },
-}]);
-
-// const [customPresets, setCustomPresets] = useLocalStorage(`customPresets`, -1);
-// const [customPresetsClient, setCustomPresetsClient] = useState(-1);
-
-// useEffect(() => {
-//   setCustomPresetsClient(customPresets)
-// }, [customPresets])s
-
-import { stringy } from './sample_string.js'
-
+ReactGA.initialize([{ trackingId: "G-GGLPK02VH8", }]);
 
 export default function Home() {
-
 
   const [userData, setUserData] = useLocalStorage('userData', DefaultSave);
   const router = useRouter();
@@ -152,6 +136,11 @@ export default function Home() {
     };
   }, [userData]);
 
+  const [mobileMode, setMobileMode] = useState(false);
+  useEffect(() => {
+    setMobileMode(isMobile);
+  }, [isMobile]);
+  
   return (
     <div
       style={{
@@ -180,7 +169,7 @@ export default function Home() {
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
-          marginTop: 'calc(0px - 50vh)',
+          marginTop: mobileMode ? '-20vh' : 'calc(0px - 50vh)',
           zIndex: '2'
         }}
       >
@@ -246,7 +235,7 @@ export default function Home() {
 
               let incomingString = stringInputRef.current.value;
               try {
-                incomingString = atob(incomingString)
+                incomingString = atob(incomingString);
                 const startPosition = incomingString.indexOf('{');
                 const endPosition = incomingString.lastIndexOf('}') + 1;
                 let jsonString = incomingString.slice(startPosition, endPosition);
