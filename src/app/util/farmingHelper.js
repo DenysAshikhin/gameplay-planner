@@ -116,7 +116,8 @@ var farmingHelper = {
         let frenchBonus = mathHelper.createDecimal(modifiers.fryBonus);
         let step4 = mathHelper.multiplyDecimal(inter2, frenchBonus);
         let step5 = mathHelper.multiplyDecimal(step4, timerBonus);
-        return step5;
+        let step6 = mathHelper.pow(step5, modifiers.fryBonusExponent);
+        return step6;
 
     },
     calcCarryOverEXP_OLD: function ({ plant, numAutos, expTick }) {
