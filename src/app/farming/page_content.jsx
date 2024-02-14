@@ -315,7 +315,12 @@ const FarmingLanding = () => {
             potionRank: potionRank,
             forceRankPotion: forceRankPotion,
             fryBonus: data.FrenchFriesBonus,
-            fryBonusExponent: 1 + 0.01 * (data.FarmingShopUniqueFries[16] +data.FarmingShopUniqueFries[17] +data.FarmingShopUniqueFries[18]),
+            fryBonusExponent: 1 + 0.01
+                * (
+                    (data.FarmingShopUniqueFries[16] ? data.FarmingShopUniqueFries[16] : 0)
+                    + (data.FarmingShopUniqueFries[17] ? data.FarmingShopUniqueFries[17] : 0)
+                    + (data.FarmingShopUniqueFries[18] ? data.FarmingShopUniqueFries[18] : 0)
+                ),
             timePassed: data.TimePassedFarming
         }
         tempy.originalShopProdBonus = data.PlantTotalProductionBonus;
