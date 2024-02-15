@@ -191,7 +191,7 @@ var farmingHelper = {
         );
     },
     calcFutureMult: function (plant_input, modifiers_input) {
-        
+
         let plant = modifiers_input.string === false ? plant_input : JSON.parse(JSON.stringify(plant_input));
         let modifiers = modifiers_input.string === false ? modifiers_input : JSON.parse(JSON.stringify(modifiers_input));
         let remainingTime = modifiers.time;
@@ -725,7 +725,15 @@ var farmingHelper = {
     },
     calcProteinPerSecond: function (data) {
         let proteinBonus = mathHelper.createDecimal(data.ProteinBonus);
+        let proteinExponent = 1 + 0.03
+            * (
+                (data.FarmingShopUniqueProtein[18] ? data.FarmingShopUniqueProtein[18] : 0)
+                + (data.FarmingShopUniqueProtein[19] ? data.FarmingShopUniqueProtein[19] : 0)
+                + (data.FarmingShopUniqueProtein[20] ? data.FarmingShopUniqueProtein[20] : 0)
+                + (data.FarmingShopUniqueProtein[21] ? data.FarmingShopUniqueProtein[21] : 0)
+            );
         let frenchTotal = mathHelper.createDecimal(data.FrenchFriesTotal);
+
         let result = mathHelper.createDecimal(1);
         if (frenchTotal.greaterThan(10000000000.0)) {
             let log1 = mathHelper.logDecimal(frenchTotal, 5);
@@ -735,6 +743,7 @@ var farmingHelper = {
             result = mathHelper.multiplyDecimal(
                 mathHelper.multiplyDecimal(log1, mathHelper.pow(1.1, log2)),
                 proteinBonus);
+            result = mathHelper.pow(result, proteinExponent)
         }
         return result;
     },
