@@ -304,6 +304,13 @@ const FarmingLanding = () => {
             shopProdLevel: data.FarmingShopPlantTotalProduction,
             contagionPlantProd: contagionPlantProd,
             hpBonus: mathHelper.createDecimal(data.HealthyPotatoBonus),
+            hpBonusExponent: 1 + 0.01
+                * (
+                    (data.FarmingShopUniqueHealthy[32] ? data.FarmingShopUniqueHealthy[32] : 0)
+                    + (data.FarmingShopUniqueHealthy[33] ? data.FarmingShopUniqueHealthy[33] : 0)
+                    + (data.FarmingShopUniqueHealthy[34] ? data.FarmingShopUniqueHealthy[34] : 0)
+                    + (data.FarmingShopUniqueHealthy[35] ? data.FarmingShopUniqueHealthy[35] : 0)
+                ),
             nextCosts: farmingHelper.getNextShopCosts(data),
             curPotatoes: mathHelper.createDecimal(data.HealthyPotatoCurrent),
             totalPotatoes: mathHelper.createDecimal(data.HealthyPotatoTotal),
