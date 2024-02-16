@@ -20,17 +20,15 @@ import RefreshIcon from '../../../public/images/icons/refresh_lightgray.svg';
 
 export default function Item({
     map_key,
-    data
+    data,
+    setUpgradeWeights
 }) {
 
 
     const [clientUpgradeWeight, setUpgradeWeight] = useLocalStorage(`${map_key}_rep3`, -1);
     const [upgradeWeight, setRunTimeUpgradeWeight] = useState(-1);
 
-    useEffect(() => {
-        setRunTimeUpgradeWeight(clientUpgradeWeight);
-    }, [clientUpgradeWeight]);
-
+  
     const [forceShow, setForceShow] = useState(false);
 
     const star_level = data[ic_mapping['star'].key];
@@ -46,6 +44,29 @@ export default function Item({
 
     const cost = itemObj.cost(level);
     const bonus = calc_bonus(star_level, level, isStar);
+
+    useEffect(() => {
+        setRunTimeUpgradeWeight(clientUpgradeWeight);
+        if (map_key !== 'star') {
+            setUpgradeWeights((current_global_weights) => {
+
+                if(defaultWeight === clientUpgradeWeight){
+                    let temp = {...current_global_weights};
+                    temp[map_key] = -1;
+                    return temp;
+                }
+                else{
+                    let temp = {...current_global_weights};
+                    temp[map_key] = clientUpgradeWeight;
+                    return temp;
+                }
+
+                return current_global_weights;
+            });
+        }
+    }, [clientUpgradeWeight, defaultWeight,  map_key]);
+
+
 
 
     const tooltip = <div style={{ padding: '6px' }}>

@@ -8,7 +8,8 @@ ReactGA.initialize([{
 import Image from 'next/image';
 import useLocalStorage from "use-local-storage";
 
-import { ic_mapping } from './ic_mapping.js';
+import mathHelper from '../util/math.js';
+import { ic_mapping, maxKey } from './ic_mapping.js';
 import Item from './Item.jsx';
 
 import DefaultSave from '../util/tempSave.json';
@@ -54,6 +55,31 @@ export default function Infinity_Corner() {
         setRunTimeUpgradeWeights(JSON.parse(JSON.stringify(tempVal)));
     }, [data, upgradeWeightsClient]);
 
+
+    const bigResults = useMemo(() => {
+
+        let runData = JSON.parse(JSON.stringify(data));
+        const currentPoints = mathHelper.createDecimal(runData['ReincarnationPointCurrentBD']);
+        const runningCost = mathHelper.createDecimal(0);
+        const a_key = runData.AscensionCount > maxKey ? maxKey : runData.AscensionCount;
+        let totalWeight = 0;
+
+        //Get sum of all weights
+        Object.entries(upgradeWeights).forEach((inner_val) => {
+            if (inner_val[0] === 'star') {
+                return;
+            }
+            totalWeight += inner_val[1];
+        });
+
+        let bestIncrease = {original_item: {}};
+
+        for(const [key, value] of Object.entries(upgradeWeights)){
+
+        }
+
+        return -1;
+    }, [upgradeWeights, maxKey, data])
 
 
     return (
@@ -101,7 +127,7 @@ export default function Infinity_Corner() {
                     {Object.keys(ic_mapping).map((inner_val) => {
 
                         if (inner_val !== 'locked') {
-                            return <Item key={`${inner_val}-item`} map_key={inner_val} data={data} />
+                            return <Item key={`${inner_val}-item`} map_key={inner_val} data={data} setUpgradeWeights={setUpgradeWeights} />
                         }
                         else {
                             return <div key={`${inner_val}-item`} />

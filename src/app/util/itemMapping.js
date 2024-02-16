@@ -737,7 +737,6 @@ export const BonusMap = {
     1008: { id: 1008, label: "Milk Gain" },
     1009: { id: 1009, label: "Residue Gain" },
     1010: { id: 1010, label: "Card Power Gain" },
-    // 1011: {id: 1011, label: "DUNGEON EFF"},
     1011: { id: 1011, label: "Expedition Reward" },
     1012: { id: 1012, label: "Expedition Time Gain" },
     1013: { id: 1013, label: "Expedition Damage" },

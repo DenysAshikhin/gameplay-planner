@@ -74,7 +74,7 @@ const ATTACK = 99;
 const STAR = 98;
 
 
-const maxKey = 30;
+export const maxKey = 30;
 
 
 
