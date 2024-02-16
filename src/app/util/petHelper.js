@@ -2206,7 +2206,7 @@ var helper = {
                                     let bigsad = -1;
                                 }
                                 else {
-                                    return;
+                                    continue;
                                 }
                             }
 

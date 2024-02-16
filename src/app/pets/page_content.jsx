@@ -730,9 +730,6 @@ export default function Pets() {
                                                             presetPets = gearTeamSuggestions[data.AscensionCount > maxKey ? maxKey : data.AscensionCount].petWhiteList ? JSON.parse(JSON.stringify(gearTeamSuggestions[data.AscensionCount > maxKey ? maxKey : data.AscensionCount].petWhiteList)) : {};
                                                             break;
                                                         case 'Stat Team':
-                                                            // setPriorityList(statTeamSuggestions[data.AscensionCount > maxKey ? maxKey : data.AscensionCount].priorityList)
-                                                            // setPriorityMap(statTeamSuggestions[data.AscensionCount > maxKey ? maxKey : data.AscensionCount].priorityMap);
-                                                            // presetPets = statTeamSuggestions[data.AscensionCount > maxKey ? maxKey : data.AscensionCount].petWhiteList ? statTeamSuggestions[data.AscensionCount > maxKey ? maxKey : data.AscensionCount].petWhiteList : {};
                                                             setPriorityList(JSON.parse(JSON.stringify(statPriorityList)));
                                                             setPriorityMap(JSON.parse(JSON.stringify(statPriorityMap)));
                                                             presetPets = JSON.parse(JSON.stringify(statPriorityWhitelist));
@@ -746,7 +743,6 @@ export default function Pets() {
                                                             // setRecommendedSelected(true);
                                                             break;
                                                         default:
-
                                                     }
 
                                                     let petWhiteListNew = {};
