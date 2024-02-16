@@ -739,6 +739,7 @@ export default function Pets() {
                                                             setStatMode(true);
                                                             break;
                                                         case 'None':
+                                                            setStatMode(false);
                                                             setPriorityList([]);
                                                             setPriorityMap({});
                                                             setPetWhiteList({});
