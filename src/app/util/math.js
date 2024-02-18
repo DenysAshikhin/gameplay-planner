@@ -50,6 +50,10 @@ var helper = {
             return number1;
         }
         return number2;
+    },
+    round: function(number1){
+        number1 = number1.mantissa || number1.mantissa === 0 ? number1 : this.createDecimal(number1);
+        return Decimal.round(number1);
     }
 }
 
