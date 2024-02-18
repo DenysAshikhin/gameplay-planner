@@ -9,7 +9,7 @@ import Image from 'next/image';
 import useLocalStorage from "use-local-storage";
 
 import mathHelper from '../util/math.js';
-import { ic_mapping, maxKey } from './ic_mapping.js';
+import { ic_mapping, maxKey, calc_bonus } from './ic_mapping.js';
 import Item from './Item.jsx';
 
 import DefaultSave from '../util/tempSave.json';
@@ -30,7 +30,7 @@ export default function Infinity_Corner() {
 
 
     const [upgradeWeightsClient, setUpgradeWeights] = useLocalStorage('ic_upgrade_weights', {});
-    const [upgradeWeights, setRunTimeUpgradeWeights] = useState(DefaultSave);
+    const [upgradeWeights, setRunTimeUpgradeWeights] = useState({});
 
     useEffect(() => {
 
@@ -70,17 +70,69 @@ export default function Infinity_Corner() {
             if (inner_val[0] === 'star') {
                 return;
             }
-            totalWeight += inner_val[1];
+
+
+            totalWeight += inner_val[1] === -1 ? ic_mapping[inner_val[0]].weight(runData.AscensionCount) : inner_val[1];
         });
 
-        let bestIncrease = { original_item: {} };
+        let bestIncrease = null;
         let bestIncreases = [];
+        let allIncrease = [];
 
         for (const [key, value] of Object.entries(upgradeWeights)) {
-            let upgradeItem = ic_mapping[key];
-            let bigsad = -1;
+            try {
+                let upgradeItem = ic_mapping[key];
+
+                if (key === 'star') {
+                    continue;
+                }
+
+
+                const weight_ratio = value / totalWeight;
+                let currentBonus = calc_bonus(star_level, runData[upgradeItem.key]);
+                let futureBonus = calc_bonus(star_level, runData[upgradeItem.key] + 1);
+                let cost = upgradeItem.cost(runData[upgradeItem.key]);
+
+                let increase = mathHelper.divideDecimal(futureBonus, currentBonus);
+                let finalIncrease = mathHelper.multiplyDecimal(increase, weight_ratio);
+                const finalObj = {
+                    weighedIncrease: finalIncrease,
+                    increase: increase,
+                    current_bonus: currentBonus,
+                    future_bonus: futureBonus,
+                    item: upgradeItem,
+                    cost: cost
+                };
+
+                allIncrease.push(finalObj);
+
+                if (!bestIncrease) {
+                    bestIncrease = finalObj;
+                }
+                else if (finalIncrease > bestIncrease.weighedIncrease) {
+                    bestIncrease = finalObj;
+                }
+
+                let bigsad = -1;
+            }
+            catch (err) {
+                console.log(err);
+                let bigsad = -1;
+            }
         }
 
+        allIncrease.sort((a, b) => {
+            try {
+
+                a.weighedIncrease.greaterThan(b.weightedIncrease)
+            }
+
+            catch (err) {
+                return 0;
+            }
+        })
+        console.log(`best increase: `);
+        console.log(bestIncrease);
         return -1;
     }, [upgradeWeights, maxKey, data])
 
