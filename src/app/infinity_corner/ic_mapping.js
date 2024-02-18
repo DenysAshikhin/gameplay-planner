@@ -22,24 +22,6 @@ import star_normal from '../../../public/images/infinity_corner/LastEraTopBackgr
 import LockedImg from '../../../public/images/infinity_corner/locked.png';
 
 
-export const calc_bonus = function (star_level, item_level, isStar) {
-    // (level * 2) * (1.0 + GM.PD.REP3UpgradeAllLevel * 0.01) * Math.Pow(1.01 + GM.PD.REP3UpgradeAllLevel * 0.0001, level);
-    // (a) * (b) * math.pow(c, item_level);
-
-    if (isStar) {
-        return 1111;
-    };
-
-    const a = mathHelper.multiplyDecimal(item_level, 2);
-    const b = mathHelper.addDecimal(1.0, mathHelper.multiplyDecimal(star_level, 0.01));
-    const c = mathHelper.addDecimal(1.01, mathHelper.multiplyDecimal(star_level, 0.0001));
-    const d = mathHelper.pow(c, item_level);
-    const step1 = mathHelper.multiplyDecimal(a, b);
-    const finalCost = mathHelper.multiplyDecimal(step1, d);
-    return finalCost;
-}
-
-
 
 
 const POTATO = 1;
@@ -75,8 +57,6 @@ const STAR = 98;
 
 
 export const maxKey = 30;
-
-
 
 const itemIDMap = {
     [POTATO]: {
@@ -1132,9 +1112,22 @@ const itemIDMap = {
 }
 
 
+export const calc_bonus = function (star_level, item_level, isStar) {
+    // (level * 2) * (1.0 + GM.PD.REP3UpgradeAllLevel * 0.01) * Math.Pow(1.01 + GM.PD.REP3UpgradeAllLevel * 0.0001, level);
+    // (a) * (b) * math.pow(c, item_level);
 
+    if (isStar) {
+        return mathHelper.createDecimal(star_level);
+    };
 
-
+    const a = mathHelper.multiplyDecimal(item_level, 2);
+    const b = mathHelper.addDecimal(1.0, mathHelper.multiplyDecimal(star_level, 0.01));
+    const c = mathHelper.addDecimal(1.01, mathHelper.multiplyDecimal(star_level, 0.0001));
+    const d = mathHelper.pow(c, item_level);
+    const step1 = mathHelper.multiplyDecimal(a, b);
+    const finalCost = mathHelper.multiplyDecimal(step1, d);
+    return finalCost;
+}
 
 
 export const ic_mapping = {

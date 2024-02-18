@@ -75,7 +75,7 @@ export default function Item({
         </h3>
 
         <div>
-            {`Current Bonus: ${bonus.toExponential(2)}`}
+            {`Current Bonus: ${bonus.toExponential(2)}%`}
         </div>
         <div>
             {`Current Cost: ${cost.toExponential(2)}`}

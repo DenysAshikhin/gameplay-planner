@@ -59,6 +59,7 @@ export default function Infinity_Corner() {
     const bigResults = useMemo(() => {
 
         let runData = JSON.parse(JSON.stringify(data));
+        const star_level = runData[ic_mapping['star'].key];
         const currentPoints = mathHelper.createDecimal(runData['ReincarnationPointCurrentBD']);
         const runningCost = mathHelper.createDecimal(0);
         const a_key = runData.AscensionCount > maxKey ? maxKey : runData.AscensionCount;
@@ -72,10 +73,12 @@ export default function Infinity_Corner() {
             totalWeight += inner_val[1];
         });
 
-        let bestIncrease = {original_item: {}};
+        let bestIncrease = { original_item: {} };
+        let bestIncreases = [];
 
-        for(const [key, value] of Object.entries(upgradeWeights)){
-
+        for (const [key, value] of Object.entries(upgradeWeights)) {
+            let upgradeItem = ic_mapping[key];
+            let bigsad = -1;
         }
 
         return -1;
