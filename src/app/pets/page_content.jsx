@@ -349,7 +349,12 @@ export default function Pets() {
             let airPets, groundPets, currentBonuses, selectedPetMap;
             [airPets, groundPets, currentBonuses, selectedPetMap] = petHelper.findBestTeam(
                 data,
-                { manualEnabledPets: manualEnabledPets, priorityList: priorityList, priorityMap: priorityMap, petWhiteList: petWhiteList }
+                {
+                    priorityList: priorityList,
+                    priorityMap: priorityMap,
+                    petWhiteList: petWhiteList,
+                    manualEnabledPets: useExpedition ? manualEnabledPets : {},
+                }
             );
 
             let combinedList = airPets.concat(groundPets);
@@ -476,7 +481,7 @@ export default function Pets() {
             }
         }
     },
-        [data, manualEnabledPets])
+        [data, manualEnabledPets, useExpedition])
     // statTeamMasterList
 
     let specialCombos = {};
@@ -1441,7 +1446,13 @@ export default function Pets() {
                                             aria-label='use selected pets from expedition page'
                                             type="checkbox"
                                             onChange={(e) => {
-                                                setUseExpedition(e.target.checked ? true : false)
+                                                setUseExpedition(e.target.checked ? true : false);
+                                                if (statMode) {
+                                                    setTimeout(() => {
+                                                        setPriorityList(JSON.parse(JSON.stringify(statPriorityList)));
+                                                        setPriorityMap(JSON.parse(JSON.stringify(statPriorityMap)));
+                                                    }, 100);
+                                                }
                                             }}
                                             checked={!!useExpedition}
                                             value={!!useExpedition}
