@@ -9,7 +9,6 @@ import Image from 'next/image';
 import useLocalStorage from "use-local-storage";
 
 import mathHelper from '../util/math.js';
-import helper from '../util/helper.js';
 import { ic_mapping, maxKey, calc_bonus } from './ic_mapping.js';
 import Item from './Item.jsx';
 import infoIcon from '../../../public/images/icons/info_thick.svg';
