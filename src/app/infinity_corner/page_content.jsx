@@ -402,11 +402,8 @@ export default function Infinity_Corner() {
         let runUpgradeWeights = JSON.parse(JSON.stringify(upgradeWeights));
         const star_level = runData[ic_mapping['star'].key];
         let currentPoints = mathHelper.createDecimal(runData['ReincarnationPointCurrentBD']);
-        const runningCost = mathHelper.createDecimal(0);
         const a_key = runData.AscensionCount > maxKey ? maxKey : runData.AscensionCount;
         let totalWeight = 0;
-
-        let weught = [];
 
         //Get sum of all weights
         Object.entries(runUpgradeWeights).forEach((inner_val) => {
@@ -414,40 +411,89 @@ export default function Infinity_Corner() {
                 return;
             }
 
-            weught.push(inner_val[1] === -1 ? ic_mapping[inner_val[0]].weight(runData.AscensionCount) : inner_val[1])
-            totalWeight += inner_val[1] === -1 ? ic_mapping[inner_val[0]].weight(runData.AscensionCount) : inner_val[1];
+            totalWeight += inner_val[1] === -1 ? ic_mapping[inner_val[0]].weight(a_key) : inner_val[1];
         });
+
+        runUpgradeWeights['star'] = -1;
 
         let futureBuy = null;
         let bestIncreases = [];
         let canAfford = true;
 
-
-        let attackIncreaseCounter = 0;
-        let remainingRp_list = [];
-
         while (canAfford) {
 
             let allIncrease = [];
+
+
+            let starItem = ic_mapping['star'];
+            const starLevel = runData[starItem.key];
+            const starCost = starItem.cost(starLevel);
+            if (starItem.unlock <= a_key) {
+                let starIncreaseBonus = 0;
+                let starIncreaseWeightedBonus = 0;
+                //calc the bonus gain from increasing the star level
+                for (const [key, value] of Object.entries(runUpgradeWeights)) {
+
+                    let upgradeItem = ic_mapping[key];
+
+                    if (upgradeItem.unlock > a_key || key === 'star') {
+                        continue;
+                    }
+
+                    let weight_ratio = (value === -1 ? ic_mapping[key].weight(a_key) : value) / totalWeight;
+                    let key_temp = upgradeItem.key;
+
+                    let currentBonus = mathHelper.divideDecimal(calc_bonus(starLevel, runData[key_temp]), 100);
+                    let futureBonus = mathHelper.divideDecimal(calc_bonus(starLevel + 1, runData[key_temp]), 100);
+
+                    //((future bonus + 1) / (current bonus + 1)) - 1
+                    let increase =
+                        mathHelper.subtractDecimal(
+                            mathHelper.divideDecimal(
+                                mathHelper.addDecimal(futureBonus, 1),
+                                mathHelper.addDecimal(currentBonus, 1)
+                            ),
+                            1
+                        );
+                    let weightedIncrease = mathHelper.multiplyDecimal(increase, weight_ratio);
+                    starIncreaseBonus = mathHelper.addDecimal(increase, starIncreaseBonus);
+                    starIncreaseWeightedBonus = mathHelper.addDecimal(weightedIncrease, starIncreaseWeightedBonus);
+                }
+                const starCostIncrease = mathHelper.divideDecimal(starIncreaseWeightedBonus, starCost);
+
+
+                const finalStarObj = {
+                    level: starLevel,
+                    costIncrease: starCostIncrease,
+                    weighedIncrease: starIncreaseWeightedBonus,
+                    increase: starIncreaseBonus,
+                    current_bonus: -1,
+                    future_bonus: -1,
+                    item: starItem,
+                    cost: starCost,
+                    ratio: -1,
+                    tempIncrease: -1
+                };
+                allIncrease.push(finalStarObj);
+            }
+
+
+            //calc the bonus gain from all bonuses 
             for (const [key, value] of Object.entries(runUpgradeWeights)) {
 
                 let upgradeItem = ic_mapping[key];
 
-                if (upgradeItem.unlock > runData.AscensionCount) {
+                if (upgradeItem.unlock > a_key || key === 'star') {
                     continue;
                 }
 
-                let weight_ratio = (value === -1 ? ic_mapping[key].weight(runData.AscensionCount) : value) / totalWeight;
+                let weight_ratio = (value === -1 ? ic_mapping[key].weight(a_key) : value) / totalWeight;
                 let key_temp = upgradeItem.key;
                 const level = runData[upgradeItem.key];
                 let cost = upgradeItem.cost(level);
                 let currentBonus = mathHelper.divideDecimal(calc_bonus(star_level, runData[key_temp]), 100);
                 let futureBonus = mathHelper.divideDecimal(calc_bonus(star_level, runData[key_temp] + 1), 100);
 
-                if (key === 'star') {
-                    weight_ratio = 1;
-                    continue;
-                }
 
                 //((future bonus + 1) / (current bonus + 1)) - 1
                 let increase =
@@ -482,30 +528,12 @@ export default function Infinity_Corner() {
                 let comparison = a.costIncrease.greaterThan(b.costIncrease) ? -1 : 1;
                 return comparison;
             })
-            if (remainingRp_list.length === 81) {
-                let bigsad = -1;
-            }
             let bestIncrease = allIncrease[0];
             if (bestIncrease) {
                 if (currentPoints.greaterThanOrEqualTo(bestIncrease.cost)) {
 
-                    if (bestIncrease.item.key === 'REP3AttackLevel') {
-                        attackIncreaseCounter++;
-                    }
-                    if (attackIncreaseCounter === 68) {
-                        let bigsad = -1;
-                    }
-
                     bestIncreases.push(bestIncrease);
                     currentPoints = mathHelper.subtractDecimal(currentPoints, bestIncrease.cost);
-                    remainingRp_list.push(helper.roundInt(currentPoints.toNumber()));
-                    for (let i = 0; i < remainingRp_list.length; i++) {
-                        let my_val = remainingRp_list[i];
-                        let prom_val = prom_list[i];
-                        if (my_val != prom_val) {
-                            let bigsad = -1;
-                        }
-                    }
                     runData[bestIncrease.item.key]++;
                 }
                 else {
@@ -527,7 +555,6 @@ export default function Infinity_Corner() {
                 buyMap[inner_val.item.label] = { item: inner_val.item, numPurchases: 0 };
             }
             buyMap[inner_val.item.label].numPurchases++;
-            let bigsad = -1;
         });
 
         for (const [key, value] of Object.entries(buyMap)) {

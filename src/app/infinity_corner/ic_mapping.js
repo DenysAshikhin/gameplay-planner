@@ -1670,12 +1670,22 @@ export const ic_mapping = {
             return total3;
         },
         cost: (level) => {
-            const growthMulti = 250;
+            const growthMulti = 370;
             const growth = 1.2;
 
             const level_next = level;
-            const power = mathHelper.pow(growth, level_next);
-            const finalCost = mathHelper.multiplyDecimal(growthMulti, power);
+
+            const step1 = mathHelper.addDecimal(5, mathHelper.multiplyDecimal(5, level_next));
+            const step2 = mathHelper.pow(growth, level_next);
+            const step3 = mathHelper.max(
+                1,
+                mathHelper.pow(
+                    1.5,
+                    mathHelper.subtractDecimal(level_next, 40)
+                )
+            );
+
+            const finalCost = mathHelper.multiplyDecimal(step1, mathHelper.multiplyDecimal(step2, step3));
             return finalCost;
         },
         weight: (ascension) => {
