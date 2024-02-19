@@ -67,7 +67,7 @@ export default function Item({
                 return current_global_weights;
             });
         }
-    }, [clientUpgradeWeight, defaultWeight, map_key]);
+    }, [setUpgradeWeights,clientUpgradeWeight, defaultWeight, map_key]);
 
     const desiredLevel =
         futureBuyMode ? futureBuy?.item?.label === label ? level + 1 : 0

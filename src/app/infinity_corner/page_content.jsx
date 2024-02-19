@@ -393,7 +393,7 @@ export default function Infinity_Corner() {
         }
 
         setRunTimeUpgradeWeights(JSON.parse(JSON.stringify(tempVal)));
-    }, [data, upgradeWeightsClient]);
+    }, [data, upgradeWeightsClient, setUpgradeWeights]);
 
 
     const bigResults = useMemo(() => {
@@ -563,7 +563,7 @@ export default function Infinity_Corner() {
 
 
         return { buyMap: buyMap, raw_increases: bestIncreases, futureBuy: futureBuy, grouped_buys: grouped_buys, futureBuyMode: grouped_buys.length === 0 };
-    }, [upgradeWeights, maxKey, data])
+    }, [upgradeWeights, data])
 
 
     return (

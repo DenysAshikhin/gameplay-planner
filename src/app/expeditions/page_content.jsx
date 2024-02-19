@@ -253,7 +253,7 @@ export default function Expeditions() {
             });
             setGroupsCache(groupCacheMap);
         }
-    }, [activeCustomBonuses, defaultRank, groupRankCritera, numTeams, petWhiteList, tokenDamageBias, refreshGroups, data, selectedItems])
+    }, [setGroupsCache, activeCustomBonuses, defaultRank, groupRankCritera, numTeams, petWhiteList, tokenDamageBias, refreshGroups, data, selectedItems])
 
 
     const dataLoaded = useRef(false);
