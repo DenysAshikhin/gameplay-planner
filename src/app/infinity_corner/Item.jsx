@@ -105,6 +105,7 @@ export default function Item({
                         src={itemObj.img}
                         fill
                         priority
+                        unoptimized
                     />
                     <div
                         style={{
@@ -141,7 +142,7 @@ export default function Item({
                                             src={ic_mapping['locked'].img}
                                             fill
                                             priority
-
+                                            unoptimized
                                         />
                                     </div>
                                 )}
@@ -169,6 +170,7 @@ export default function Item({
                             src={itemObj.img}
                             fill
                             priority
+                            unoptimized
                         />
                         {!(!isLocked || forceShow) && (
                             <div
@@ -184,7 +186,7 @@ export default function Item({
                                     src={ic_mapping['locked'].img}
                                     fill
                                     priority
-
+                                    unoptimized
                                 />
                             </div>
                         )}
