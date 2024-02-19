@@ -9,11 +9,6 @@ import Image from 'next/image';
 import useLocalStorage from "use-local-storage";
 import MouseOverPopover from "../util/Tooltip.jsx";
 import { ic_mapping, calc_bonus } from './ic_mapping.js';
-
-import DefaultSave from '../util/tempSave.json';
-
-import panel_background from '../../../public/images/infinity_corner/panel_background.png';
-import star_normal from '../../../public/images/infinity_corner/LastEraTopBackground.png';
 import infoIcon from '../../../public/images/icons/info_thick.svg';
 import RefreshIcon from '../../../public/images/icons/refresh_lightgray.svg';
 
