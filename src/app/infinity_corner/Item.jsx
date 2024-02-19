@@ -82,9 +82,6 @@ export default function Item({
         </div>
     </div>
 
-    if (futureBuyMode) {
-        let bigsad = -1;
-    }
 
     return (
         <div
@@ -108,7 +105,6 @@ export default function Item({
                         src={itemObj.img}
                         fill
                         priority
-
                     />
                     <div
                         style={{
