@@ -244,6 +244,13 @@ export default function Pets() {
         setRunTimeUseExpedition(clientUseExpedition);
     }, [clientUseExpedition]);
 
+
+    const [groupsCacheRunTime, setGroupsCacheRunTime] = useState({});
+    const [groupsCacheClient, setGroupsCache] = useLocalStorage("groupsCache", {});
+    useEffect(() => {
+        setGroupsCacheRunTime(groupsCacheClient);
+    }, [groupsCacheClient]);
+
     const [manualEnabledPetsLoaded, setManualEnabledPetsLoaded] = useState(false);
     const [manualEnabledPets, setManualEnabledPetsRunTime] = useState({});
     const [manualEnabledPetsClient, setManualEnabledPets] = useLocalStorage("manualEnabledPets", {});
@@ -1169,10 +1176,15 @@ export default function Pets() {
                                                                 width: '90px',
                                                                 height: '90px',
                                                                 border: '1px gray solid',
-                                                                borderRadius: '6px'
+                                                                borderRadius: '6px',
+                                                                position: 'relative'
                                                             }}
                                                         >
-                                                            <StaticPetItem petData={{ ...staticPetData, pet: petMap[e.ID] }} />
+                                                            <StaticPetItem
+                                                                suggestedPet={true}
+                                                                statMode={statMode}
+                                                                groupsCacheRunTime={groupsCacheRunTime}
+                                                                petData={{ ...staticPetData, pet: petMap[e.ID] }} />
                                                         </div>
                                                     );
                                                 }, [])}
@@ -1191,11 +1203,16 @@ export default function Pets() {
                                                                 width: '90px',
                                                                 height: '90px',
                                                                 border: '1px gray solid',
-                                                                borderRadius: '6px'
+                                                                borderRadius: '6px',
+                                                                position: 'relative'
                                                             }}
                                                         >
 
-                                                            <StaticPetItem petData={{ ...staticPetData, pet: petMap[e.ID] }} />
+                                                            <StaticPetItem
+                                                                suggestedPet={true}
+                                                                statMode={statMode}
+                                                                groupsCacheRunTime={groupsCacheRunTime}
+                                                                petData={{ ...staticPetData, pet: petMap[e.ID] }} />
 
                                                         </div>
                                                     );

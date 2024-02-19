@@ -188,6 +188,13 @@ export default function Expeditions() {
     }, [numTeamsClient]);
 
 
+    const [groupsCacheRunTime, setGroupsCacheRunTime] = useState({});
+    const [groupsCacheClient, setGroupsCache] = useLocalStorage("groupsCache", {});
+    useEffect(() => {
+        setGroupsCacheRunTime(groupsCacheClient);
+    }, [groupsCacheClient]);
+
+
     const tokenSelections = { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12: 0 };
     const [hoveredBonus, setHoveredBonus] = useState(0);
     const [activePet, setActivePet] = useState(-1);
@@ -236,7 +243,15 @@ export default function Expeditions() {
             );
             setGroupCache({ ...groupCache, [keyString]: groups })
             setGroups(groups);
-
+            let groupCacheMap = {};
+            groups.forEach((inner_group) => {
+                inner_group.forEach((group_pet) => {
+                    let finalPet = group_pet = JSON.parse(JSON.stringify(group_pet));
+                    finalPet.name = petNames[finalPet.ID].name;
+                    groupCacheMap[group_pet.ID] = finalPet;
+                });
+            });
+            setGroupsCache(groupCacheMap);
         }
     }, [activeCustomBonuses, defaultRank, groupRankCritera, numTeams, petWhiteList, tokenDamageBias, refreshGroups, data, selectedItems])
 

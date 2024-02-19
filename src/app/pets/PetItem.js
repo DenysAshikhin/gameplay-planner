@@ -7,7 +7,7 @@ import { BonusMap } from "../util/itemMapping";
 import petHelper from '../util/petHelper.js';
 
 import Image from 'next/image';
-
+import infoIconAmber from '../../../public/images/icons/info_amber.svg';
 
 const filterBonuses = (bonuses, filterFn) => {
     return bonuses
@@ -447,7 +447,8 @@ export function PetItemExpeditions({ petData, isSelected, onClick, data, weightM
     );
 };
 
-export function StaticPetItem({ petData, highlight, showNameOnly }) {
+
+export function StaticPetItem({ petData, highlight, showNameOnly, statMode, groupsCacheRunTime, suggestedPet }) {
     const { petId, location, img, name, pet } = petData;
     //ss
 
@@ -494,78 +495,120 @@ export function StaticPetItem({ petData, highlight, showNameOnly }) {
 
 
     return (
-        // <div key={petId} className={`static-item-tile`}>
-        // <div
-        //     className="item-image-container"
-        //     style={{
-        //         position: 'relative'
-        //     }}>
+        <>
 
-        <MouseOverPopover
-            tooltip={
-                <div
-                    className="tooltip-custom "
-                >
-                    <h3
-                        style={{ marginTop: '0', marginBottom: '3px', textAlign: 'center' }}
+            <MouseOverPopover
+                tooltip={
+                    <div
+                        className="tooltip-custom "
                     >
-                        {`${name} -> ${location}`}
-                    </h3>
-                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <div>
-                            {`Rank: ${pet.Rank}`}
+                        <h3
+                            style={{ marginTop: '0', marginBottom: '3px', textAlign: 'center' }}
+                        >
+                            {`${name} -> ${location}`}
+                        </h3>
+                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                            <div>
+                                {`Rank: ${pet.Rank}`}
+                            </div>
+                            <div>
+                                {`Level: ${pet.Level}`}
+                            </div>
+                            <div>
+                                {`Damage: ${baseDmg}`}
+                            </div>
                         </div>
                         <div>
-                            {`Level: ${pet.Level}`}
+                            <h4
+                                style={{ margin: '6px 0 6px 0' }}
+                            >Active Bonuses</h4>
+                            {section1Bonuses}
                         </div>
                         <div>
-                            {`Damage: ${baseDmg}`}
+                            <h4
+                                style={{ margin: '6px 0 6px 0' }}
+                            >Expedition Bonuses:</h4>
+                            {section2Bonuses}
                         </div>
                     </div>
-                    <div>
-                        <h4
-                            style={{ margin: '6px 0 6px 0' }}
-                        >Active Bonuses</h4>
-                        {section1Bonuses}
-                    </div>
-                    <div>
-                        <h4
-                            style={{ margin: '6px 0 6px 0' }}
-                        >Expedition Bonuses:</h4>
-                        {section2Bonuses}
-                    </div>
-                </div>
-            }>
-            {!showNameOnly && (
+                }>
+                {!showNameOnly && (
+                    <>
+                        <Image
+                            alt={`in game image of ${name}`}
+                            src={img}
+                            className='item-image'
+                            style={{
+                                objectFit: 'scale-down',
+                                width: 'auto', height: 'auto'
+                            }}
+                            unoptimized
+                            priority
+                        />
+                    </>
 
-                <Image
-                    alt={`in game image of ${name}`}
-                    src={img}
-                    className='item-image'
+                    // <img alt={`in game image of ${name}`} src={img} className='item-image' />
+                )}
+
+                {showNameOnly && (
+                    <>
+                        {name}
+                    </>
+                )}
+
+            </MouseOverPopover>
+            {!showNameOnly && suggestedPet && (!groupsCacheRunTime[pet.ID]) && (
+                <div
+                    className='elementToFadeInAndOut'
                     style={{
-                        objectFit: 'scale-down',
-                        width: 'auto', height: 'auto'
-                    }}
-                    unoptimized
-                    priority
+                        position: 'absolute',
+                        top: '0',
+                        right: '0',
+                        width: '32px',
+                        height: '32px',
+                        zIndex: '4'
+                    }}>
 
-                />
+                    <MouseOverPopover
+                        tooltip={
+                            <div
+                                className="tooltip-custom"
+                            >
+                                <div>
+                                    This pet is not in an expedition team,
+                                </div>
+                                <div style={{  }}>
+                                    you should probably put it in
+                                </div>
+                                {statMode && (
+                                    <div style={{ marginTop: '6px' }}>
+                                        <div>
+                                            or if preferred, blacklist it
+                                        </div>
+                                        <div style={{  }}>
+                                            on this page to get a different suggestion
+                                        </div>
 
-                // <img alt={`in game image of ${name}`} src={img} className='item-image' />
+                                    </div>
+                                )}
+                            </div>
+                        }
+
+                        forceXPlacement={'right'}
+
+                    >
+                        <Image
+                            alt='Letter "I" inside a circle, shows more information on hover'
+                            src={infoIconAmber}
+                            fill
+                        />
+                    </MouseOverPopover>
+                </div>
             )}
 
-            {showNameOnly && (
-                <>
-                    {name}
-                </>
-            )}
-
-        </MouseOverPopover>
 
 
-        //  </div> 
-        // </div>
-    );
+        </>);
 };
 
 
