@@ -2188,7 +2188,8 @@ var helper = {
                 if (bannedPets[ID]) {
                     continue;
                 }
-                if (pet.name.toLowerCase() === 'fujin' || pet.name.toLowerCase() === 'abby') {
+                // if (pet.name.toLowerCase() === 'fujin' || pet.name.toLowerCase() === 'abby') {
+                if (pet.name.toLowerCase() === 'zack' || pet.name.toLowerCase() === 'garuda') {
                     let bigsad = -1;
                 }
                 pet.BonusList.forEach((e) => {
@@ -2268,15 +2269,6 @@ var helper = {
                     if (b.Rank !== a.Rank) {
                         return b.Rank - a.Rank;
                     }
-                    // diff = b.Rank - a.Rank;
-
-                    // let diff_abs = Math.abs(diff);
-                    // let max = b.Rank > a.Rank ? b.Rank : a.Rank;
-
-                    // if ((diff_abs / max) <= 0.1) {
-                    //     return b.Level - a.Level;
-                    // }
-
                     if (diff === 0) {
                         diff = b.Level - a.Level;
                     }
