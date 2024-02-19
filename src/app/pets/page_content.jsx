@@ -1,5 +1,6 @@
 "use client"
 
+import { isMobile } from 'mobile-device-detect';
 import React, { useEffect, useState, useRef, useMemo } from 'react';
 import Accordion from '@mui/material/Accordion';
 import ComboListCSS from './comboList.css';
@@ -213,7 +214,19 @@ function PetComboDisplay({ petCombos, unlockedPets, petMap }) {
 
 export default function Pets() {
 
-
+    const [mobileMode, setMobileMode] = useState(false);
+    useEffect(() => {
+        setMobileMode(isMobile);
+        if (isMobile) {
+            setTimeout(() => {
+                var viewport = document.querySelector('meta[name="viewport"]');
+                if (viewport) {
+                    viewport.content = "initial-scale=0.1";
+                    viewport.content = "width=1200";
+                }
+            }, 500);
+        }
+    }, []);
     const [clientData, setData] = useLocalStorage('userData', DefaultSave);
     const [data, setRunTimeData] = useState(DefaultSave);
 
@@ -291,7 +304,7 @@ export default function Pets() {
         }
         return result;
     },
-        [data, priorityList, priorityMap, petWhiteList, useExpedition, manualEnabledPets, statMode]
+        [data, priorityList, priorityMap, petWhiteList, useExpedition, manualEnabledPets, statMode, statModePets]
     );
 
 
@@ -336,7 +349,12 @@ export default function Pets() {
             let airPets, groundPets, currentBonuses, selectedPetMap;
             [airPets, groundPets, currentBonuses, selectedPetMap] = petHelper.findBestTeam(
                 data,
-                { manualEnabledPets: manualEnabledPets, priorityList: priorityList, priorityMap: priorityMap, petWhiteList: petWhiteList }
+                {
+                    priorityList: priorityList,
+                    priorityMap: priorityMap,
+                    petWhiteList: petWhiteList,
+                    manualEnabledPets: useExpedition ? manualEnabledPets : {},
+                }
             );
 
             let combinedList = airPets.concat(groundPets);
@@ -463,7 +481,7 @@ export default function Pets() {
             }
         }
     },
-        [data, petWhiteList, useExpedition, manualEnabledPets])
+        [data, manualEnabledPets, useExpedition])
     // statTeamMasterList
 
     let specialCombos = {};
@@ -628,7 +646,8 @@ export default function Pets() {
                             overflow: 'auto',
                             display: 'flex',
                             alignItems: 'flex-start',
-                            backgroundColor: 'rgba(255,255,255, 0.05)'
+                            backgroundColor: 'rgba(255,255,255, 0.05)',
+                            minWidth: mobileMode ? '903px' : ''
                         }}>
 
                         {/* List Table */}
@@ -716,22 +735,19 @@ export default function Pets() {
                                                             presetPets = gearTeamSuggestions[data.AscensionCount > maxKey ? maxKey : data.AscensionCount].petWhiteList ? JSON.parse(JSON.stringify(gearTeamSuggestions[data.AscensionCount > maxKey ? maxKey : data.AscensionCount].petWhiteList)) : {};
                                                             break;
                                                         case 'Stat Team':
-                                                            // setPriorityList(statTeamSuggestions[data.AscensionCount > maxKey ? maxKey : data.AscensionCount].priorityList)
-                                                            // setPriorityMap(statTeamSuggestions[data.AscensionCount > maxKey ? maxKey : data.AscensionCount].priorityMap);
-                                                            // presetPets = statTeamSuggestions[data.AscensionCount > maxKey ? maxKey : data.AscensionCount].petWhiteList ? statTeamSuggestions[data.AscensionCount > maxKey ? maxKey : data.AscensionCount].petWhiteList : {};
                                                             setPriorityList(JSON.parse(JSON.stringify(statPriorityList)));
                                                             setPriorityMap(JSON.parse(JSON.stringify(statPriorityMap)));
                                                             presetPets = JSON.parse(JSON.stringify(statPriorityWhitelist));
                                                             setStatMode(true);
                                                             break;
                                                         case 'None':
+                                                            setStatMode(false);
                                                             setPriorityList([]);
                                                             setPriorityMap({});
                                                             setPetWhiteList({});
                                                             // setRecommendedSelected(true);
                                                             break;
                                                         default:
-
                                                     }
 
                                                     let petWhiteListNew = {};
@@ -1430,7 +1446,13 @@ export default function Pets() {
                                             aria-label='use selected pets from expedition page'
                                             type="checkbox"
                                             onChange={(e) => {
-                                                setUseExpedition(e.target.checked ? true : false)
+                                                setUseExpedition(e.target.checked ? true : false);
+                                                if (statMode) {
+                                                    setTimeout(() => {
+                                                        setPriorityList(JSON.parse(JSON.stringify(statPriorityList)));
+                                                        setPriorityMap(JSON.parse(JSON.stringify(statPriorityMap)));
+                                                    }, 100);
+                                                }
                                             }}
                                             checked={!!useExpedition}
                                             value={!!useExpedition}

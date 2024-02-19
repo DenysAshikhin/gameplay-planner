@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import ReactGA from "react-ga4";
 import PageCard from './page_card.jsx';
 import BlinkingDot from '../util/BlinkingDot.jsx';
+import { isMobile } from 'mobile-device-detect';
 import useLocalStorage from 'use-local-storage';
 
 import DefaultSave from '../util/tempSave.json';
@@ -15,7 +16,19 @@ ReactGA.initialize([{
     // },
 }]);
 export default function PageSelection() {
-
+    const [mobileMode, setMobileMode] = useState(false);
+    useEffect(() => {
+        setMobileMode(isMobile);
+        if (isMobile) {
+            setTimeout(() => {
+                var viewport = document.querySelector('meta[name="viewport"]');
+                if (viewport) {
+                    viewport.content = "initial-scale=0.1";
+                    viewport.content = "width=1200";
+                }
+            }, 500);
+        }
+    }, []);
     useEffect(() => {
 
 

@@ -67,6 +67,7 @@ var farmingHelper = {
 
         if (plant_input.ID === 1) {
             output = mathHelper.multiplyDecimal(output, modifiers_input.hpBonus);
+            output = mathHelper.pow(output, modifiers_input.hpBonusExponent)
         }
 
         return output;
@@ -116,7 +117,8 @@ var farmingHelper = {
         let frenchBonus = mathHelper.createDecimal(modifiers.fryBonus);
         let step4 = mathHelper.multiplyDecimal(inter2, frenchBonus);
         let step5 = mathHelper.multiplyDecimal(step4, timerBonus);
-        return step5;
+        let step6 = mathHelper.pow(step5, modifiers.fryBonusExponent);
+        return step6;
 
     },
     calcCarryOverEXP_OLD: function ({ plant, numAutos, expTick }) {
@@ -189,7 +191,7 @@ var farmingHelper = {
         );
     },
     calcFutureMult: function (plant_input, modifiers_input) {
-        
+
         let plant = modifiers_input.string === false ? plant_input : JSON.parse(JSON.stringify(plant_input));
         let modifiers = modifiers_input.string === false ? modifiers_input : JSON.parse(JSON.stringify(modifiers_input));
         let remainingTime = modifiers.time;
@@ -723,7 +725,15 @@ var farmingHelper = {
     },
     calcProteinPerSecond: function (data) {
         let proteinBonus = mathHelper.createDecimal(data.ProteinBonus);
+        let proteinExponent = 1 + 0.03
+            * (
+                (data.FarmingShopUniqueProtein[18] ? data.FarmingShopUniqueProtein[18] : 0)
+                + (data.FarmingShopUniqueProtein[19] ? data.FarmingShopUniqueProtein[19] : 0)
+                + (data.FarmingShopUniqueProtein[20] ? data.FarmingShopUniqueProtein[20] : 0)
+                + (data.FarmingShopUniqueProtein[21] ? data.FarmingShopUniqueProtein[21] : 0)
+            );
         let frenchTotal = mathHelper.createDecimal(data.FrenchFriesTotal);
+
         let result = mathHelper.createDecimal(1);
         if (frenchTotal.greaterThan(10000000000.0)) {
             let log1 = mathHelper.logDecimal(frenchTotal, 5);
@@ -733,6 +743,7 @@ var farmingHelper = {
             result = mathHelper.multiplyDecimal(
                 mathHelper.multiplyDecimal(log1, mathHelper.pow(1.1, log2)),
                 proteinBonus);
+            result = mathHelper.pow(result, proteinExponent)
         }
         return result;
     },
@@ -827,62 +838,13 @@ var farmingHelper = {
         }
 
         return bonus;
-    },
-    calcHPBonus: function (data) {
-
-
-        // let bonus = 1;
-        // let assemblyHP = this.calcAssemblyHP(data);
-        // bonus *= assemblyHP;
-
-        // let contagionHP = this.calcContagionBonus(data, 0);
-        // bonus *= contagionHP;
-
-        // let soulBonus = Math.pow(1.25, data.SoulFertilizer);
-        // bonus *= soulBonus;
-
-        // let expeditionBonus = this.calcExpeditionHP(data);
-        // bonus *= expeditionBonus;
-
-        // let FarmingShopPlantHealthyPotatoEarning = Math.pow(1.1, data.FarmingShopPlantHealthyPotatoEarning);
-        // bonus *= FarmingShopPlantHealthyPotatoEarning;
-
-        // let uniqueHPBonus = this.calcUniqueHPBonus(data);
-        // bonus *= uniqueHPBonus;
-
-        // let fryHPBonus = this.calcFriesHPBonus(data);
-        // bonus *= fryHPBonus;
-
-        // let petHPBonus = this.calcPetHPBonus(data);
-        // bonus *= petHPBonus;
-
-        // let residueHPBonus = Math.pow(1.05, data.CowShopHealthyPotato ? data.CowShopHealthyPotato : 0);
-        // bonus *= residueHPBonus;
-
-        // //(1 + 
-        // // milk: 
-        // let step1 = Math.max(0,
-        //     helper.calcPOW(data.BoostHealthyPotatoMilkBD) >= 1E+20 ?
-        //         helper.calculateLogarithm(Math.max(1.001, helper.calculateLogarithm(helper.calcPOW(data.BoostHealthyPotatoMilkBD) + 1, 1.001) - 10.0), helper.calcPOW(data.BoostHealthyPotatoMilkBD) + 1)
-        //         :
-        //         0
-        // );
-
-
-        // let temp2 = (1.0 + data.BrewingHealthyPotatoLevel * 0.005) * ((helper.calcPOW(data.BoostHealthyPotatoCalciumBD) >= 1E+20)
-        //     ? (Math.pow(1.05, helper.calculateLogarithm(Math.max(1.001, helper.calculateLogarithm(1.001, helper.calcPOW(data.BoostHealthyPotatoCalciumBD) + 1) - 10.0), helper.calcPOW(data.BoostHealthyPotatoCalciumBD) + 1)) - 0.228)
-        //     : 1)
-        // let tempy = (Math.pow(1.05, helper.calculateLogarithm(helper.calcPOW(Math.max(1.001, helper.calculateLogarithm(1.001, helper.calcPOW(data.BoostHealthyPotatoCalciumBD) + 1) - 10.0), data.BoostHealthyPotatoCalciumBD) + 1)) - 0.228);
-
-        // let temp3 = helper.calculateLogarithm(data.BoostHealthyPotatoMilkBD + 1, 1.001)
-        // //brewing:  
-        // //fermenting: (1.0 + GM.PD.HealthyPotatoPetRankExpFermentingLevel * 0.0025)))
-        // let milkHPBonus = helper.calcPOW(data.BoostHealthyPotatoMilkBD);
-        // // bonus *= milkHPBonus;
-
-        let legitBonus = helper.calcPOW(data.HealthyPotatoBonus);
-        return legitBonus;
     }
+    // ,
+    // calcHPBonus: function (data) {
+
+    //     let legitBonus = helper.calcPOW(data.HealthyPotatoBonus);
+    //     return legitBonus;
+    // }
 }
 
 export default farmingHelper;

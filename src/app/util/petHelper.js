@@ -2188,10 +2188,12 @@ var helper = {
                 if (bannedPets[ID]) {
                     continue;
                 }
-
+                if (pet.name.toLowerCase() === 'fujin' || pet.name.toLowerCase() === 'abby') {
+                    let bigsad = -1;
+                }
                 pet.BonusList.forEach((e) => {
 
-                    if (ignoreStat[e.ID] || (e.ID >= 1000)) {
+                    if ((ignoreStat[e.ID] && !statMode) || (e.ID >= 1000)) {
                         return;
                     }
 
@@ -2206,7 +2208,7 @@ var helper = {
                                     let bigsad = -1;
                                 }
                                 else {
-                                    return;
+                                    continue;
                                 }
                             }
 
@@ -2220,7 +2222,18 @@ var helper = {
                             }
                         }
 
-                        if (!found) {
+
+                        if (statMode && !found) {
+                            //give marginal bonus based on how far down the stat is
+                            let index_temp = priorities.findIndex((stat_to_find) => {
+                                return stat_to_find.id === e.ID;
+                            });
+                            if (index_temp === -1) {
+                                return;
+                            }
+                            pet.score += 0.001 * ((priorities.length - index_temp) / priorities.length);
+                        }
+                        else if (!found) {
                             if (currentBonuses[e.ID]) {
                                 pet.score += (scoreTick / (10 * (currentBonuses[e.ID].count + 1)));
                             }
@@ -2251,7 +2264,6 @@ var helper = {
 
             pets.sort((a, b) => {
                 let diff = b.score - a.score;
-
                 if (diff === 0) {
                     if (b.Rank !== a.Rank) {
                         return b.Rank - a.Rank;

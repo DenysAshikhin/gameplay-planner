@@ -1,5 +1,7 @@
 "use client"
 
+import { isMobile } from 'mobile-device-detect';
+import { useState, useEffect } from 'react';
 import ReactGA from "react-ga4";
 ReactGA.initialize([{
     trackingId: "G-GGLPK02VH8",
@@ -13,7 +15,19 @@ import Link from 'next/link';
 
 export default function Expeditions() {
 
-
+    const [mobileMode, setMobileMode] = useState(false);
+    useEffect(() => {
+        setMobileMode(isMobile);
+        if (isMobile) {
+            setTimeout(() => {
+                var viewport = document.querySelector('meta[name="viewport"]');
+                if (viewport) {
+                    viewport.content = "initial-scale=0.1";
+                    viewport.content = "width=1200";
+                }
+            }, 500);
+        }
+    }, []);
 
     return (
         <div

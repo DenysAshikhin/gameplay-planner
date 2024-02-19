@@ -57,6 +57,9 @@ const Header = ({ }) => {
         className="dobra importantText"
         style={{
           marginLeft: "6px",
+          whiteSpace:'nowrap',
+          overflow:'hidden',
+          textOverflow:'ellipsis'
         }}
       >
         Idle gameplay planner

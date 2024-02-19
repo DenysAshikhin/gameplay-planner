@@ -3,6 +3,7 @@
 import { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { isMobile } from 'mobile-device-detect';
 
 import './App.css';
 
@@ -17,25 +18,13 @@ import backgroundImage from '../../public/images/coming_soon.png'
 
 // import { GoogleAdSense } from "nextjs-google-adsense";
 import ReactGA from "react-ga4";
-ReactGA.initialize([{
-  trackingId: "G-GGLPK02VH8",
-  // gaOptions: {...}, // optional
-  // gtagOptions: {
-  //   send_page_view: false
-  // },
-}]);
-
-// const [customPresets, setCustomPresets] = useLocalStorage(`customPresets`, -1);
-// const [customPresetsClient, setCustomPresetsClient] = useState(-1);
-
-// useEffect(() => {
-//   setCustomPresetsClient(customPresets)
-// }, [customPresets])s
+ReactGA.initialize([{ trackingId: "G-GGLPK02VH8", }]);
 
 export default function Home() {
 
   const [userData, setUserData] = useLocalStorage('userData', DefaultSave);
   const router = useRouter();
+  const stringInputRef = useRef(null);
 
   const handleFileUpload = async (e) => {
     const file = e.target.files[0];
@@ -147,6 +136,11 @@ export default function Home() {
     };
   }, [userData]);
 
+  const [mobileMode, setMobileMode] = useState(false);
+  useEffect(() => {
+    setMobileMode(isMobile);
+  }, []);
+
   return (
     <div
       style={{
@@ -175,7 +169,7 @@ export default function Home() {
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
-          marginTop: 'calc(0px - 50vh)',
+          marginTop: mobileMode ? '-20vh' : 'calc(0px - 50vh)',
           zIndex: '2'
         }}
       >
@@ -189,7 +183,26 @@ export default function Home() {
               onMouseLeave={(e) => { if (forceOpen) setForceOpen(false) }}
             >
               <h3 style={{ marginTop: '6px', marginBottom: '12px' }}>Your save file can be found at:</h3>
+
+
+              <div style={{ display: 'flex', marginTop: '12px', marginBottom: '24px' }}>
+                <div
+                  style={{ fontWeight: 'bold', marginRight: '6px', color:"darkred"}}>
+                  All Platforms:
+                </div>
+                <div>
+                  enter: 
+                </div>
+                <div style={{fontWeight: 'bold', color:"darkred", margin:"0 6px"}}>
+                {`"copysave"`}
+                </div>
+                <div>
+                in the reward code box (found in settings, gift box icon)
+              </div>
+              </div>
+
               <div style={{ display: 'flex' }}>
+
                 <div
                   style={{ fontWeight: 'bold', marginRight: '6px' }}>
                   PC:
@@ -222,7 +235,7 @@ export default function Home() {
             onMouseEnter={(e) => { if (!forceOpen) setForceOpen(true) }}
             onMouseLeave={(e) => { if (forceOpen) setForceOpen(false) }}
             style={{ display: 'flex', alignItems: 'center' }}>
-            <div style={{ position: 'relative', height: '36px', width: '36px', marginLeft: '6px', marginTop: '6px' }}>
+            <div className='elementToFadeInAndOut' style={{ position: 'relative', height: '36px', width: '36px', marginLeft: '6px', marginTop: '6px' }}>
               <Image alt='on hover I in a cirlce icon, shows more information on hover' src={'/images/icons/info_lightgray.svg'}
                 fill />
             </div>
@@ -233,6 +246,43 @@ export default function Home() {
         <div style={{ marginTop: '16px' }}>
           <input style={{ display: 'none' }} id='chooseFileButton' aria-label='save file upload button' type="file" title="" accept=".txt" onChange={handleFileUpload} />
           <button style={{ fontSize: '1.3rem' }} onClick={(e) => { chooseFileButton.click(); return false; }}>Choose File</button>
+        </div>
+        <div style={{ marginTop: '16px' }}>
+          <input type="string" id='stringSave' ref={stringInputRef} placeholder={'Paste save string here'} style={{ marginRight: '12px' }} />
+          <button style={{ fontSize: '1.3rem' }}
+            onClick={async (e) => {
+
+              let incomingString = stringInputRef.current.value;
+              try {
+                incomingString = atob(incomingString);
+                const startPosition = incomingString.indexOf('{');
+                const endPosition = incomingString.lastIndexOf('}') + 1;
+                let jsonString = incomingString.slice(startPosition, endPosition);
+
+                let infIndex = jsonString.indexOf('Infinity');
+
+                while (infIndex > 0) {
+                  jsonString = jsonString.replaceAll('Infinity', '-999');
+                  infIndex = jsonString.indexOf('Infinity');
+                }
+
+                try {
+                  const parsedJson = JSON.parse(jsonString);
+                  setUserData(parsedJson);
+                  console.log(parsedJson);
+                  console.log(`trying to redirect`)
+                  return router.push('/page_selection');
+                } catch (error) {
+                  console.error('Invalid JSON:', error);
+                }
+              }
+              catch (err) {
+                console.log(err);
+                console.log(`caught error reading string save`)
+              }
+            }}>
+            Load
+          </button>
         </div>
       </div>
     </div>
