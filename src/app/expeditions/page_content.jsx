@@ -97,7 +97,7 @@ export default function Expeditions() {
                 }
             }, 500);
         }
-    }, [isMobile]);
+    }, []);
 
 
 

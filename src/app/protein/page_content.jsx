@@ -41,7 +41,7 @@ export default function Protein() {
                 }
             }, 500);
         }
-    }, [isMobile]);
+    }, []);
     const [clientData, setData] = useLocalStorage('userData', DefaultSave);
     const [data, setRunTimeData] = useState(DefaultSave);
     const [assemblyBonuses, setAssemblyBonuses] = useState(-1);

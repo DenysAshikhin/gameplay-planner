@@ -1844,7 +1844,7 @@ export default function Cards() {
                 }
             }, 500);
         }
-    }, [isMobile]);
+    }, []);
 
     const [clientData, setData] = useLocalStorage('userData', DefaultSave);
     const [data, setRunTimeData] = useState(DefaultSave);

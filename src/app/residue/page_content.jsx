@@ -352,7 +352,7 @@ export default function Residue() {
                 }
             }, 500);
         }
-    }, [isMobile]);
+    }, []);
     const [desiredLevels, setDesiredLevels] = useState({});
     const [forceReinc, setForceReinc] = useState(false);
     const [reincLevelIncrease, setReincLevelIncrease] = useState(0);

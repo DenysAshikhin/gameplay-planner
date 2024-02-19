@@ -226,7 +226,7 @@ export default function Pets() {
                 }
             }, 500);
         }
-    }, [isMobile]);
+    }, []);
     const [clientData, setData] = useLocalStorage('userData', DefaultSave);
     const [data, setRunTimeData] = useState(DefaultSave);
 
@@ -304,7 +304,7 @@ export default function Pets() {
         }
         return result;
     },
-        [data, priorityList, priorityMap, petWhiteList, useExpedition, manualEnabledPets, statMode]
+        [data, priorityList, priorityMap, petWhiteList, useExpedition, manualEnabledPets, statMode, statModePets]
     );
 
 
@@ -476,7 +476,7 @@ export default function Pets() {
             }
         }
     },
-        [data, petWhiteList, useExpedition, manualEnabledPets])
+        [data, manualEnabledPets])
     // statTeamMasterList
 
     let specialCombos = {};

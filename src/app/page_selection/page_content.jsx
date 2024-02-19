@@ -28,7 +28,7 @@ export default function PageSelection() {
                 }
             }, 500);
         }
-    }, [isMobile]);
+    }, []);
     useEffect(() => {
 
 

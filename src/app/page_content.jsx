@@ -139,7 +139,7 @@ export default function Home() {
   const [mobileMode, setMobileMode] = useState(false);
   useEffect(() => {
     setMobileMode(isMobile);
-  }, [isMobile]);
+  }, []);
 
   return (
     <div
