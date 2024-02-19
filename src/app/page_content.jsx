@@ -140,7 +140,7 @@ export default function Home() {
   useEffect(() => {
     setMobileMode(isMobile);
   }, [isMobile]);
-  
+
   return (
     <div
       style={{
@@ -183,7 +183,26 @@ export default function Home() {
               onMouseLeave={(e) => { if (forceOpen) setForceOpen(false) }}
             >
               <h3 style={{ marginTop: '6px', marginBottom: '12px' }}>Your save file can be found at:</h3>
+
+
+              <div style={{ display: 'flex', marginTop: '12px', marginBottom: '24px' }}>
+                <div
+                  style={{ fontWeight: 'bold', marginRight: '6px', color:"darkred"}}>
+                  All Platforms:
+                </div>
+                <div>
+                  enter: 
+                </div>
+                <div style={{fontWeight: 'bold', color:"darkred", margin:"0 6px"}}>
+                "copysave"
+                </div>
+                <div>
+                in the reward code box (found in settings, gift box icon)
+              </div>
+              </div>
+
               <div style={{ display: 'flex' }}>
+
                 <div
                   style={{ fontWeight: 'bold', marginRight: '6px' }}>
                   PC:
@@ -216,7 +235,7 @@ export default function Home() {
             onMouseEnter={(e) => { if (!forceOpen) setForceOpen(true) }}
             onMouseLeave={(e) => { if (forceOpen) setForceOpen(false) }}
             style={{ display: 'flex', alignItems: 'center' }}>
-            <div style={{ position: 'relative', height: '36px', width: '36px', marginLeft: '6px', marginTop: '6px' }}>
+            <div className='elementToFadeInAndOut' style={{ position: 'relative', height: '36px', width: '36px', marginLeft: '6px', marginTop: '6px' }}>
               <Image alt='on hover I in a cirlce icon, shows more information on hover' src={'/images/icons/info_lightgray.svg'}
                 fill />
             </div>
