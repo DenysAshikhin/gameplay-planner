@@ -399,6 +399,7 @@ export default function Infinity_Corner() {
     const bigResults = useMemo(() => {
 
         let runData = JSON.parse(JSON.stringify(data));
+        let runUpgradeWeights = JSON.parse(JSON.stringify(upgradeWeights));
         const star_level = runData[ic_mapping['star'].key];
         let currentPoints = mathHelper.createDecimal(runData['ReincarnationPointCurrentBD']);
         const runningCost = mathHelper.createDecimal(0);
@@ -408,7 +409,7 @@ export default function Infinity_Corner() {
         let weught = [];
 
         //Get sum of all weights
-        Object.entries(upgradeWeights).forEach((inner_val) => {
+        Object.entries(runUpgradeWeights).forEach((inner_val) => {
             if (inner_val[0] === 'star') {
                 return;
             }
@@ -428,7 +429,7 @@ export default function Infinity_Corner() {
         while (canAfford) {
 
             let allIncrease = [];
-            for (const [key, value] of Object.entries(upgradeWeights)) {
+            for (const [key, value] of Object.entries(runUpgradeWeights)) {
 
                 let upgradeItem = ic_mapping[key];
 
