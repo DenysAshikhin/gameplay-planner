@@ -6,8 +6,8 @@ import Cards from './page_content.jsx';
 export async function generateMetadata({ params, searchParams }, parent) {
 
   return {
-    title: 'Gratitude - Donation + Outreach - Gameplay Planner',
-    description: "Donations for helping keep the Gameplay planner up and running for everyone and a discord social link to reach out to me"
+    title: 'Infinity Corner - Gameplay Planner',
+    description:"Infinity Corner - Help you build, plan and optimise your infinity corner purchases. Includes a weight list to prioritise stats bonuses. Displays cost, level, hidden and future bonuses"
   }
 }
 export const viewport = {
