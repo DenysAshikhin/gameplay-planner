@@ -209,7 +209,7 @@ export default function Home() {
               <div style={{ display: 'flex', marginTop: '12px' }}>
                 <div
                   style={{ fontWeight: 'bold', marginRight: '6px' }}>
-                  Mobile:
+                  Android:
                 </div>
                 <div>
                   /storage/emulated/0/Android/data/com.oninou.FAPI/files/fapi-save.txt
