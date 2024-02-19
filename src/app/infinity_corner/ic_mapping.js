@@ -1,7 +1,7 @@
 import mathHelper from '../util/math.js';
 
 // import AttackImg from '../../../public/images/infinity_corner/1UpgradeAtk.png';
-import AttackImg from "../../../public/images/infinity_corner/1UpgradeAtk.png";
+import AttackImg from "../../../public/images/infinityCorner/1UpgradeAtk.png";
 import HPImg from '../../../public/images/infinity_corner/2UpgradeHP.png';
 import PotatoImg from '../../../public/images/infinity_corner/3UpgradePotato.png';
 import ClassImg from '../../../public/images/infinity_corner/4UpgradeClassExpBuy.png';
