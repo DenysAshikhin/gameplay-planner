@@ -62,7 +62,7 @@ export default function Item({
                 return current_global_weights;
             });
         }
-    }, [setUpgradeWeights,clientUpgradeWeight, defaultWeight, map_key]);
+    }, [setUpgradeWeights, clientUpgradeWeight, defaultWeight, map_key]);
 
     const desiredLevel =
         futureBuyMode ? futureBuy?.item?.label === label ? level + 1 : 0
@@ -96,6 +96,23 @@ export default function Item({
                 zIndex: map_key === 'star' ? '2' : '3',
             }}
         >
+
+            {!isStar && (desiredLevel > 0 || futureBuyMode) && (
+                <div
+                    // className='elementToFadeInAndOut'
+                    style={{
+                        width: '100%',
+                        height: '100%',
+                        // backgroundColor: 'red',
+                        border: desiredLevel > 0 ? '3px solid green' : '3px solid yellow',
+                        borderRadius: '6px',
+                        zIndex: '5',
+                        marginLeft: '-3px',
+                        marginTop: '-3px'
+                    }}
+                >
+                </div>
+            )}
 
 
             {isStar && (
@@ -150,6 +167,24 @@ export default function Item({
 
                         </MouseOverPopover>
                     </div>
+                    {(futureBuyMode || desiredLevel > 0) && (
+                        <div
+                            style={{
+                                position: 'absolute',
+                                top: '78%',
+                                left: 'calc(50% - 77px)',
+                                width: '154px',
+                                height: '161px',
+                                border: desiredLevel > 0 ? '3px solid green' : '3px solid yellow',
+                                borderRadius: '6px',
+                                zIndex: '4',
+                                marginLeft: '-3px',
+                                marginTop: '-7px'
+                            }}
+                        >
+                        </div>
+                    )
+                    }
 
                 </>
             )}
@@ -191,6 +226,8 @@ export default function Item({
                             </div>
                         )}
                     </div>
+
+
                 </MouseOverPopover>
             )}
 
