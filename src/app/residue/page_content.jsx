@@ -28,7 +28,7 @@ ReactGA.initialize([{
 }]);
 
 
-const ResidueCard = ({ data, params, desiredLevels, setDesiredLevels, forceReinc, reincLevelIncrease }) => {
+const ResidueCard = ({ data, params, desiredLevels, setDesiredLevels, forceReinc, reincLevelIncrease, finalAffordablePurchasesMap }) => {
     // const weight = params.weight(asc_level);
     const [clientWeight, setClientWeight] = useLocalStorage(`${params.label}_residue_weight`, -1);
     const [runTimeWeight, setRunTimeWeight] = useState(1);
@@ -161,11 +161,6 @@ const ResidueCard = ({ data, params, desiredLevels, setDesiredLevels, forceReinc
         reincLevelIncrease
     ])
 
-
-
-
-
-
     return (
         <div className='importantText residueCard'
             onMouseEnter={() => { setHovering(true); }}
@@ -177,12 +172,30 @@ const ResidueCard = ({ data, params, desiredLevels, setDesiredLevels, forceReinc
                 </div>
                 {((finishedBuying && needPurchase) || (finishedBuying && reincOverride)) && !locked && (
                     <div className='futurePurchase'>
-                        <div>
-                            {`${reincOverride ? (reincLevelIncrease > 0 ? reincLevelIncrease : 1) + desiredLevel : desiredLevel}`}
-                        </div>
-                        <div>
-                            {`+${reincOverride ? desiredLevel - level + (reincLevelIncrease > 0 ? reincLevelIncrease : 1) : desiredLevel - level}`}
-                        </div>
+
+                        {!finalAffordablePurchasesMap[params.key] && (
+                            <>
+                                <div>
+                                    {`${reincOverride ? (reincLevelIncrease > 0 ? reincLevelIncrease : 1) + desiredLevel : desiredLevel}`}
+                                </div>
+                                <div>
+                                    {`+${reincOverride ? desiredLevel - level + (reincLevelIncrease > 0 ? reincLevelIncrease : 1) : desiredLevel - level}`}
+                                </div>
+                            </>
+                        )}
+
+
+                        {finalAffordablePurchasesMap[params.key] && (
+                            <>
+                                <div>
+                                    {`${finalAffordablePurchasesMap[params.key].desiredLevel}`}
+                                </div>
+                                <div>
+                                    {`+${finalAffordablePurchasesMap[params.key].desiredLevel - finalAffordablePurchasesMap[params.key].start}`}
+                                </div>
+                            </>
+                        )}
+
                     </div>
                 )}
             </div>
@@ -383,7 +396,7 @@ export default function Residue() {
                 increasingReinc2.current = false;
             }, 5);
         }
-        
+
     }, [reincLevelIncrease, needToIncreaseReinc, increasingReinc, increasingReinc2]);//If you remove (reincLevelIncrease) it will to rerender even though it shouldn't need it
 
     let suggestedPurchases = [];
@@ -607,6 +620,7 @@ export default function Residue() {
                                     key={index}
                                     forceReinc={forceReinc}
                                     reincLevelIncrease={reincLevelIncrease}
+                                    finalAffordablePurchasesMap={finalAffordablePurchasesMap}
                                 />
                             })}
                         </div>
