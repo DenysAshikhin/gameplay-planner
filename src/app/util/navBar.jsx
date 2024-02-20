@@ -10,7 +10,7 @@ const NavBar = ({ }) => {
         height:'100%',
         display: "flex",
         flexDirection: "column",
-        justifyContent: "space-around",
+        justifyContent: "space-evenly",
         position: "relative",
         backgroundColor: "#1F1B24",
       }}
