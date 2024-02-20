@@ -1172,6 +1172,7 @@ const CARD_DISPLAY_IDS = [
 const CardCard = ({
     vertical,
     displayMode,
+    bonusMode,
     data, card, weightMap, i, applyWeights, cardMap, setCardMap, resetWeights, cardWeightInner,
     cardWeight, setCardWeightNew }) => {
 
@@ -1336,6 +1337,20 @@ const CardCard = ({
     }
     const multiplier = vertical ? 110 : 140;
 
+
+    let finalBonusDisplay = finalAfter;
+    switch (bonusMode) {
+        case 'current':
+            finalBonusDisplay = finalBefore;
+            break;
+        case 'future':
+            finalBonusDisplay = finalAfter;
+            break;
+        case '%gain':
+            finalBonusDisplay = finalAfter.eq(finalBefore) ? mathHelper.createDecimal(0) : percIncrease;
+            break;
+    }
+
     return (
         <div
             key={i}
@@ -1384,11 +1399,8 @@ const CardCard = ({
                                 </div>
                             </div>
                         }
-
-
                     >
                         <div>
-
                             <div style={{
                                 width: `${227 / 227 * multiplier}px`,
                                 height: `${316 / 227 * multiplier}px`,
@@ -1432,7 +1444,12 @@ const CardCard = ({
                                         right: '8px',
                                     }}
                                 >
-                                    {`${finalAfter.toExponential(2)}%`}
+                                    {`${bonusMode === '%gain' ?
+                                        finalBonusDisplay.toNumber() > 9999 ?
+                                            helper.roundInt(finalBonusDisplay.toNumber()).toLocaleString()
+                                            :
+                                            helper.roundTwoDecimal(finalBonusDisplay.toNumber()).toLocaleString()
+                                        : finalBonusDisplay.toExponential(2)}%`}
                                 </div>
 
                                 {/* Final temp */}
@@ -1882,6 +1899,14 @@ export default function Cards() {
         setResetCardWeights(num);
     }, [clientData]);
 
+    //current, future, % gain
+    const [clientDisplayMode, setDisplayMode] = useLocalStorage('displayModeCards', 'current');
+    const [displayMode, setRunTimeDisplayMode] = useState('current');
+    useEffect(() => {
+        setRunTimeDisplayMode(clientDisplayMode);
+    }, [clientDisplayMode]);
+
+
     if (!data.PetsSpecial[74]) {
         return (
             <div>
@@ -1910,7 +1935,9 @@ export default function Cards() {
                         return temp;
                     })
                 }}
-                resetWeights={resetCardWeights} displayMode='original' cardMap={cardMap} setCardMap={setCardMap} data={data} i={i} card={cardsById[CARD_DISPLAY_IDS[i]]} weightMap={weightMap} classes={classes} applyWeights={true} key={`${i}-orig`}></CardCard>
+                resetWeights={resetCardWeights}
+                bonusMode={displayMode}//what bonus to show, current, future, % gain etc
+                displayMode='original' cardMap={cardMap} setCardMap={setCardMap} data={data} i={i} card={cardsById[CARD_DISPLAY_IDS[i]]} weightMap={weightMap} classes={classes} applyWeights={true} key={`${i}-orig`}></CardCard>
         )
     }
 
@@ -2226,7 +2253,11 @@ export default function Cards() {
                         style={{
                             display: 'flex',
                             width: '100%',
-                            justifyContent: 'center'
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            marginTop: '-3px',
+                            marginBottom: '3px',
+                            position: 'relative'
                         }}
                     >
 
@@ -2272,6 +2303,26 @@ export default function Cards() {
 
                                 }}
                             >Reset Weights</button>
+                        </div>
+
+                        {/* display mode selector */}
+                        <div style={{ marginRight: '12px', position: 'absolute', right: '12px' }}>
+                            <select
+                                className='importantText'
+                                aria-label='Select a default team preset'
+                                style={{ maxWidth: '144px', marginLeft: '12px', backgroundColor: '#171717', borderRadius: '4px', borderColor: '#ff691c' }}
+                                onChange={
+                                    (selected_mode) => {
+                                        setDisplayMode(selected_mode.target.value);
+                                    }
+                                }
+                                defaultValue={displayMode}
+                            >
+                                <option value="current">Current Bonus</option>
+                                <option value="future">Future Bonus</option>
+                                <option value="%gain">% Gain</option>
+                                {/* <option value="Current Bonus">Current Bonus</option> */}
+                            </select>
                         </div>
                     </div>
                     <div
