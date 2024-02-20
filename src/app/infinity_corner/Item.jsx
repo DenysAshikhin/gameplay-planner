@@ -97,14 +97,14 @@ export default function Item({
             }}
         >
 
-            {!isStar && (desiredLevel > 0 || futureBuyMode) && (
+            {!isStar && (desiredLevel > 0) && (
                 <div
                     // className='elementToFadeInAndOut'
                     style={{
                         width: '100%',
                         height: '100%',
                         // backgroundColor: 'red',
-                        border: desiredLevel > 0 ? '3px solid green' : '3px solid yellow',
+                        border: !futureBuyMode ? '3px solid green' : '3px solid yellow',
                         borderRadius: '6px',
                         zIndex: '5',
                         marginLeft: '-3px',
@@ -167,7 +167,7 @@ export default function Item({
 
                         </MouseOverPopover>
                     </div>
-                    {(futureBuyMode || desiredLevel > 0) && (
+                    {(desiredLevel > 0) && (
                         <div
                             style={{
                                 position: 'absolute',
@@ -175,7 +175,7 @@ export default function Item({
                                 left: 'calc(50% - 77px)',
                                 width: '154px',
                                 height: '161px',
-                                border: desiredLevel > 0 ? '3px solid green' : '3px solid yellow',
+                                border: !futureBuyMode ? '3px solid green' : '3px solid yellow',
                                 borderRadius: '6px',
                                 zIndex: '4',
                                 marginLeft: '-3px',
