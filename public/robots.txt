@@ -1,3 +1,3 @@
 User-agent: *
-Sitemap: https://gameplayplanner.com/expeditions/sitemap.xml
+Sitemap: https://www.gameplayplanner.com/sitemap.xml
 Disallow:
