@@ -189,8 +189,8 @@ const NavBar = ({ }) => {
         >
           <div
             style={{
-              width: "52px",
-              height: "56px",
+              width: "50px",
+              height: "50px",
               position: "relative",
             }}
           >
@@ -216,8 +216,8 @@ const NavBar = ({ }) => {
         >
           <div
             style={{
-              width: "52px",
-              height: "56px",
+              width: "42px",
+              height: "42px",
               position: "relative",
             }}
           >
