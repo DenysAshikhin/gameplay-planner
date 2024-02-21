@@ -1347,6 +1347,9 @@ const CardCard = ({
             finalBonusDisplay = finalAfter;
             break;
         case '%gain':
+            finalBonusDisplay = finalAfter.eq(finalBefore) ? mathHelper.createDecimal(0) : mathHelper.multiplyDecimal(percIncrease, 100);
+            break;
+        case 'xgain':
             finalBonusDisplay = finalAfter.eq(finalBefore) ? mathHelper.createDecimal(0) : percIncrease;
             break;
     }
@@ -1389,7 +1392,7 @@ const CardCard = ({
                                     Absolute Increase: {flatIncrease.toExponential(2).toString()}
                                 </div>
                                 <div>
-                                    Percentage Increase: {percIncrease.toExponential(2).toString()}
+                                    Percentage Increase: {mathHelper.multiplyDecimal(percIncrease, 100).toExponential(2).toString()}
                                 </div>
                                 <div>
                                     Weighted Increase: {weightIncrease.toExponential(2).toString()}
@@ -1444,12 +1447,12 @@ const CardCard = ({
                                         right: '8px',
                                     }}
                                 >
-                                    {`${bonusMode === '%gain' ?
+                                    {`${bonusMode === '%gain' || bonusMode === 'xgain' ?
                                         finalBonusDisplay.toNumber() > 9999 ?
                                             helper.roundInt(finalBonusDisplay.toNumber()).toLocaleString()
                                             :
                                             helper.roundTwoDecimal(finalBonusDisplay.toNumber()).toLocaleString()
-                                        : finalBonusDisplay.toExponential(2)}%`}
+                                        : finalBonusDisplay.toExponential(2)}${bonusMode === 'xgain' ? 'X' : '%'}`}
                                 </div>
 
                                 {/* Final temp */}
@@ -2321,6 +2324,7 @@ export default function Cards() {
                                 <option value="current">Current Bonus</option>
                                 <option value="future">Future Bonus</option>
                                 <option value="%gain">% Gain</option>
+                                <option value="xgain">X gain</option>
                                 {/* <option value="Current Bonus">Current Bonus</option> */}
                             </select>
                         </div>
