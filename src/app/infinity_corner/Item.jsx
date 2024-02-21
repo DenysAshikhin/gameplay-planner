@@ -150,10 +150,7 @@ export default function Item({
                                 onMouseLeave={() => { setForceShow(false) }}
                             >
                                 {!(!isLocked || forceShow) && (
-                                    <div
-
-                                    >
-
+                                    <div>
                                         <Image
                                             alt={`locked symbol`}
                                             src={ic_mapping['locked'].img}
@@ -169,6 +166,7 @@ export default function Item({
                     </div>
                     {(desiredLevel > 0) && (
                         <div
+                            // className='elementToFadeInAndOut'
                             style={{
                                 position: 'absolute',
                                 top: '78%',
@@ -258,7 +256,7 @@ export default function Item({
                         </div>
                         {desiredLevel > 0 && (
                             <div
-                                className='elementToFadeInAndOut'
+                                // className='elementToFadeInAndOut'
                                 style={{
                                     marginLeft: '6px', color: futureBuyMode ? 'yellow' : 'green',
                                     fontWeight: 'bold'
