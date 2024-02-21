@@ -546,7 +546,8 @@ export default function Residue() {
     for (const [key, val] of Object.entries(finalAffordablePurchasesMap)) {
         affordablePurchases.push(val);
     }
-    affordablePurchases.sort((a, b) => b.weight - a.weight);
+    // affordablePurchases.sort((a, b) => b.weight - a.weight);
+    affordablePurchases.sort((a, b) => a.params.order - b.params.order);
 
 
     //Meaning we can afford everythingg, pretend like the reinc level went up +1, recalc
