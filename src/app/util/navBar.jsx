@@ -204,7 +204,7 @@ const NavBar = ({ }) => {
       </Link>
 
       {/* Infinity Corner Page */}
-      <Link href="/infinity_corner" alt="navigation to residue (milk) page">
+      <Link href="/infinity_corner" alt="navigation to infinity corner page">
         <div
           className="navItem"
           style={{
@@ -225,6 +225,33 @@ const NavBar = ({ }) => {
               alt="star shape navigation to infinity corner page"
               fill
               src={`/images/icons/star.svg`}
+            />
+          </div>
+        </div>
+      </Link>
+
+      {/* Guides Page */}
+      <Link href="/guides" alt="navigation to guides page">
+        <div
+          className="navItem"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            // margin: "16px 0",
+          }}
+        >
+          <div
+            style={{
+              width: "42px",
+              height: "42px",
+              position: "relative",
+            }}
+          >
+            <Image
+              alt="vertical paper scroll navigation to guides page"
+              fill
+              src={`/images/icons/paper_scroll.svg`}
             />
           </div>
         </div>
