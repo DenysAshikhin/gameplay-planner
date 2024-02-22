@@ -2319,7 +2319,7 @@ export default function Cards() {
                                         setDisplayMode(selected_mode.target.value);
                                     }
                                 }
-                                defaultValue={displayMode}
+                                value={displayMode}
                             >
                                 <option value="current">Current Bonus</option>
                                 <option value="future">Future Bonus</option>

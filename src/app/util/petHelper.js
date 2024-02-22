@@ -20,6 +20,11 @@ var helper = {
         let residueToken = tokenModifiers?.residueToken ? tokenModifiers.residueToken : 0;
         //contains clover and other                 contains active (special) bonuses
         let pd_token_bonus = tokenModifiers.data.ExpeditionTokenBonuses * tokenModifiers.data.ExpeditionResourceBonuses;
+        if (!tokenModifiers.finalTokenBonus) {
+            throw new Error(`out dated calc best hours call! Missing finalTokenBonus`)
+        }
+
+        const finalTokenBonus = tokenModifiers.finalTokenBonus;
 
         if (!hours) {
             hours = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
@@ -33,7 +38,8 @@ var helper = {
         const overall = this.calculateGroupScore(group);
 
         //includes pet token gain 
-        const tokenHR = overall.tokenMult * pd_token_bonus * combo;
+        // const tokenHR = overall.tokenMult * pd_token_bonus * combo;
+        const tokenHR = overall.tokenMult * finalTokenBonus;
         let best = { hours: -1, totalTokens: -1, floored: -1, effeciency: -1 };
         let bestArr = [];
 
