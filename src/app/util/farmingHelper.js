@@ -503,6 +503,9 @@ var farmingHelper = {
                 :
                 plants[0].production;
 
+            HPToAdd = mathHelper.divideDecimal(HPToAdd, modifiers.originalPotionRank > 0 ? 1.5 : 1);
+            HPToAdd = mathHelper.multiplyDecimal(HPToAdd, modifiers.potionRank);
+
             totalPotatoes = mathHelper.addDecimal(totalPotatoes, HPToAdd);
             currPotatoes = mathHelper.addDecimal(currPotatoes, HPToAdd);
 

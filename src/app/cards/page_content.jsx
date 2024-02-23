@@ -1347,7 +1347,7 @@ const CardCard = ({
             finalBonusDisplay = finalAfter;
             break;
         case '%gain':
-            finalBonusDisplay = finalAfter.eq(finalBefore) ? mathHelper.createDecimal(0) : mathHelper.multiplyDecimal(percIncrease, 100);
+            finalBonusDisplay = finalAfter.eq(finalBefore) ? mathHelper.createDecimal(0) : mathHelper.multiplyDecimal(mathHelper.subtractDecimal(percIncrease, 1), 100);
             break;
         case 'xgain':
             finalBonusDisplay = finalAfter.eq(finalBefore) ? mathHelper.createDecimal(0) : percIncrease;
@@ -2319,7 +2319,7 @@ export default function Cards() {
                                         setDisplayMode(selected_mode.target.value);
                                     }
                                 }
-                                defaultValue={displayMode}
+                                value={displayMode}
                             >
                                 <option value="current">Current Bonus</option>
                                 <option value="future">Future Bonus</option>

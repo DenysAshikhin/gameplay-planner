@@ -207,6 +207,7 @@ export default function Expeditions() {
     const [selectedItems, setSelectedItems] = useState(defaultPetSelection);
     const [tokenDamageBias, setTokenDamageBias] = useState(15);
     const [recommendedSelected, setRecommendedSelected] = useState(false);
+    const [defaultSpecialCombo, setDefaultSpecialCombo] = useState(1.0);
 
     const includeLocked = false;
 
@@ -274,9 +275,10 @@ export default function Expeditions() {
                     specialPetCombo += t.BonusPower / 100;
                 }
             }
-            specialPetCombo = helper.roundTwoDecimal(specialPetCombo);
+            specialPetCombo = helper.roundThreeDecimal(specialPetCombo);
 
             setComboSelector(specialPetCombo);
+            setDefaultSpecialCombo(specialPetCombo);
 
             if (numTeams === -1) {
                 setNumTeams(uploadedData.ExpeditionLimit);
@@ -411,6 +413,7 @@ export default function Expeditions() {
         }
     }
 
+    const finalTokenBonus = data.ExpeditionTokenBonuses * data.ExpeditionResourceBonuses * comboSelector / defaultSpecialCombo;
 
     // if (groups && groupRankCritera === 2)
     if (groups.length > 0)
@@ -433,7 +436,17 @@ export default function Expeditions() {
             })
 
 
-            const groupBests = petHelper.calculateBestHours(group, null, { clover: data.SoulGoldenClover, residueToken: data.CowShopExpeditionToken, data: data }, comboSelector)[tokenSelections[index]];
+            const groupBests = petHelper.calculateBestHours(
+                group,
+                null,
+                {
+                    clover: data.SoulGoldenClover,
+                    residueToken: data.CowShopExpeditionToken,
+                    data: data,
+                    finalTokenBonus: finalTokenBonus
+                },
+                comboSelector
+            )[tokenSelections[index]];
             // totalTokensHR += groupBests.tokenHR;
             // totalTokensHR += groupBests.totalTokens / groupBests.hours;
             totalTokensHR += groupBests.tokenHR / groupBests.hours;
@@ -660,7 +673,10 @@ export default function Expeditions() {
                             // let tokenScore = groupTotal.tokenMult * (Math.pow(1 + petHelper.SOUL_CLOVER_STEP, data.SoulGoldenClover)) * (1 + 0.05 * data.SoulGoldenClover) * comboSelector;s
                             // let tokenScore = groupTotal.tokenMult * (Math.pow(1 + petHelper.SOUL_CLOVER_STEP, data.SoulGoldenClover)) * comboSelector * data.ExpeditionTokenBonuses;
                             // tokenScore = tokenScore.toExponential(3);
-                            let tempTokenScore = petHelper.calculateBestHours(group, null, { clover: data.SoulGoldenClover, residueToken: data.CowShopExpeditionToken, data: data }, comboSelector)[tokenSelections[index]]
+                            let tempTokenScore = petHelper.calculateBestHours(group, null, {
+                                clover: data.SoulGoldenClover, residueToken: data.CowShopExpeditionToken, data: data,
+                                finalTokenBonus: finalTokenBonus
+                            }, comboSelector)[tokenSelections[index]]
                             let tokenScore = (tempTokenScore.tokenHR / tempTokenScore.hours).toExponential(3);
                             const score = groupTotal.groupScore;
                             const displayedDamage = (score * 5 * data.PetDamageBonuses).toExponential(2);
@@ -679,7 +695,10 @@ export default function Expeditions() {
                                     groupRankDamage = `Rank Dmg: ${displayedDamage}`
                                     groupLabelDamage = `Game Dmg: ${trueDamage}`
                                     groupLabelToken = `Token/hr: ${tokenScore}`
-                                    tokenInfo = petHelper.calculateBestHours(group, null, { clover: data.SoulGoldenClover, residueToken: data.CowShopExpeditionToken, data: data }, comboSelector);
+                                    tokenInfo = petHelper.calculateBestHours(group, null, {
+                                        clover: data.SoulGoldenClover, residueToken: data.CowShopExpeditionToken, data: data,
+                                        finalTokenBonus: finalTokenBonus
+                                    }, comboSelector);
 
                                     break;
                                 case 2://token
@@ -687,14 +706,20 @@ export default function Expeditions() {
                                     // groupLabelDamage = `Damage: ${displayedDamage}`
                                     groupLabelDamage = `Damage: ${trueDamage}`
                                     groupLabelToken = `Token/hr: ${tokenScore}`
-                                    tokenInfo = petHelper.calculateBestHours(group, null, { clover: data.SoulGoldenClover, residueToken: data.CowShopExpeditionToken, data: data }, comboSelector);
+                                    tokenInfo = petHelper.calculateBestHours(group, null, {
+                                        clover: data.SoulGoldenClover, residueToken: data.CowShopExpeditionToken, data: data,
+                                        finalTokenBonus: finalTokenBonus
+                                    }, comboSelector);
                                     break;
                                 case 3://Advanced
                                     groupLabel = `Group ${index + 1}`;
                                     // groupLabelDamage = `Damage: ${displayedDamage}`
                                     groupLabelDamage = `Damage: ${trueDamage}`
                                     groupLabelToken = `Token/hr: ${tokenScore}`
-                                    tokenInfo = petHelper.calculateBestHours(group, null, { clover: data.SoulGoldenClover, residueToken: data.CowShopExpeditionToken, data: data }, comboSelector);
+                                    tokenInfo = petHelper.calculateBestHours(group, null, {
+                                        clover: data.SoulGoldenClover, residueToken: data.CowShopExpeditionToken, data: data,
+                                        finalTokenBonus: finalTokenBonus
+                                    }, comboSelector);
                                     break;
                                 default:
                                     break;
@@ -1013,7 +1038,7 @@ export default function Expeditions() {
                             </div>
                             <div>
 
-                                {`Token Bonuses: ${helper.roundThreeDecimal(helper.roundTwoDecimal(data.ExpeditionTokenBonuses) * helper.roundTwoDecimal(data.ExpeditionResourceBonuses) * comboSelector)}`}
+                                {`Token Bonuses: ${helper.roundThreeDecimal(finalTokenBonus)}`}
                             </div>
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center' }}>
