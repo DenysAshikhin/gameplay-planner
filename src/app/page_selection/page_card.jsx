@@ -65,6 +65,11 @@ const PageCard = ({ page, setTab, redBorder }) => {
         nameString = "Infinity Corner";
         url = '/infinity_corner';
         break;
+      case 'guides':
+        imgString = 'paper_scroll';
+        nameString = "Guides";
+        url = '/guides';
+        break;
     default:
       imgString = `file_upload`;
       nameString = `Upload`;

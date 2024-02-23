@@ -1,7 +1,7 @@
 "use client"
 
 import { isMobile } from 'mobile-device-detect';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import ReactGA from "react-ga4";
 ReactGA.initialize([{
     trackingId: "G-GGLPK02VH8",
@@ -10,10 +10,27 @@ ReactGA.initialize([{
 import PIC_ExplanationImage from '../../../../public/images/guides/farm/pic_explanation.png';
 import ProductionTabLetteredImage from '../../../../public/images/guides/farm/production_tab_lettered.png';
 import FrenchFryCornerImage from '../../../../public/images/guides/farm/french_Fry_corner.png';
+import UniqueFrenchFryCornerImage from '../../../../public/images/guides/farm/unique_french_fries_corner.png';
+import contagionImage from '../../../../public/images/guides/farm/contagion.png';
+import farm_landingImage from '../../../../public/images/guides/farm/farm_landing.png';
+import copyLinkSvg from '../../../../public/images/icons/copy_link.svg';
 
 import Image from 'next/image';
+import { useSearchParams } from 'next/navigation';
+
+const baseLink = 'https://www.gameplayplanner.com/guides/farming_guide?section=';
 
 export default function Guides() {
+
+    const containerRef = useRef(null);
+    const prodRef = useRef(null);
+    const picRef = useRef(null);
+    const frenchFryRef = useRef(null);
+    const uniqueFryRef = useRef(null);
+    const contagionRef = useRef(null);
+    const proteinRef = useRef(null);
+    const generalRef = useRef(null);
+
 
     const [mobileMode, setMobileMode] = useState(false);
     useEffect(() => {
@@ -29,7 +46,42 @@ export default function Guides() {
         }
     }, []);
 
-    
+
+    const searchParams = useSearchParams();
+    useEffect(() => {
+        if (!containerRef.current) {
+            return;
+        }
+        const section = searchParams.get('section')?.toLowerCase();
+        let bigsad = -1;
+        switch (section) {
+            case 'production':
+                prodRef.current.scrollIntoView();
+                break;
+            case 'pic':
+                picRef.current.scrollIntoView();
+                break;
+            case 'frenchfry':
+                frenchFryRef.current.scrollIntoView();
+                break;
+            case 'frenchfryunique':
+                uniqueFryRef.current.scrollIntoView();
+                break;
+            case 'contagion':
+                contagionRef.current.scrollIntoView();
+                break;
+            case 'protein':
+                proteinRef.current.scrollIntoView();
+                break;
+            case 'general':
+                generalRef.current.scrollIntoView();
+                break;
+            default:
+                break;
+        }
+    }, [containerRef]);
+
+
 
 
     return (
@@ -43,7 +95,12 @@ export default function Guides() {
         >
 
             {/* Header */}
-            <div style={{ display: 'flex', flex: '1', flexDirection: 'column', overflow: 'auto' }}>
+            <div ref={containerRef}
+                style={{
+                    display: 'flex', flex: '1', flexDirection: 'column', overflow: 'auto',
+                    scrollBehavior: 'smooth'
+                }}
+            >
                 <div className="importantText"
                     style={{
                         fontSize: '32px',
@@ -63,11 +120,15 @@ export default function Guides() {
 
                 {/* Production Tab */}
                 <div
+                    ref={prodRef}
                     style={{
                         display: 'flex',
                         backgroundColor: 'rgba(255,255,255, 0.06)',
                         border: '1px solid white',
                         margin: '0 12px 24px 12px',
+                    }}
+                    onClick={() => {
+                        navigator.clipboard.writeText(baseLink + 'production')
                     }}
                 >
                     <div
@@ -88,8 +149,21 @@ export default function Guides() {
                             style={{
                                 fontSize: "26px", display: 'flex', justifyContent: 'center', marginLeft: '-256px', marginTop: '6px',
                                 textDecoration: 'underline'
-                            }}>
-                            Production Tab Explanation
+                            }}
+                        >
+                            <div>
+                                Production Tab Explanation
+                            </div>
+                            <div style={{ position: 'relative', width: '32px', height: '32px' }}>
+                                <Image
+                                    alt={`clipboard with a dash to copy link reference`}
+                                    src={copyLinkSvg}
+                                    fill
+                                    priority
+                                    unoptimized
+                                />
+                            </div>
+
                         </div>
                         <div style={{ padding: '12px' }}>
                             <div>
@@ -190,6 +264,7 @@ export default function Guides() {
 
                 {/* PIC Explanation */}
                 <div
+                    ref={picRef}
                     style={{
                         display: 'flex',
                         backgroundColor: 'rgba(255,255,255, 0.06)',
@@ -215,8 +290,24 @@ export default function Guides() {
                             style={{
                                 fontSize: "26px", display: 'flex', justifyContent: 'center', marginLeft: '-256px', marginTop: '6px',
                                 textDecoration: 'underline'
-                            }}>
-                            Permanent Improvement Corner (PIC)
+                            }}
+                            onClick={() => {
+                                navigator.clipboard.writeText(baseLink + 'pic')
+                            }}
+                        >
+                            <div>
+                                Permanent Improvement Corner (PIC)
+                            </div>
+                            <div style={{ position: 'relative', width: '32px', height: '32px' }}>
+                                <Image
+                                    alt={`clipboard with a dash to copy link reference`}
+                                    src={copyLinkSvg}
+                                    fill
+                                    priority
+                                    unoptimized
+                                />
+                            </div>
+
                         </div>
                         <div style={{ padding: '12px' }}>
 
@@ -252,6 +343,7 @@ export default function Guides() {
 
                 {/* French Fry Corner */}
                 <div
+                    ref={frenchFryRef}
                     style={{
                         display: 'flex',
                         backgroundColor: 'rgba(255,255,255, 0.06)',
@@ -260,7 +352,7 @@ export default function Guides() {
                     }}
                 >
                     <div
-                        style={{ position: 'relative',  minWidth:'512px', height: '256px' }}
+                        style={{ position: 'relative', minWidth: '512px', height: '256px' }}
                     >
                         <Image
                             alt={`French Fry Corner Tab Marked Up`}
@@ -275,8 +367,23 @@ export default function Guides() {
                         <div className='hover' style={{
                             fontSize: "26px", display: 'flex', justifyContent: 'center', marginLeft: '-512px', marginTop: '6px',
                             textDecoration: 'underline'
-                        }}>
-                            French Fry Corner
+                        }}
+                            onClick={() => {
+                                navigator.clipboard.writeText(baseLink + 'frenchfry')
+                            }}
+                        >
+                            <div>
+                                French Fry Corner
+                            </div>
+                            <div style={{ position: 'relative', width: '32px', height: '32px' }}>
+                                <Image
+                                    alt={`clipboard with a dash to copy link reference`}
+                                    src={copyLinkSvg}
+                                    fill
+                                    priority
+                                    unoptimized
+                                />
+                            </div>
                         </div>
                         <div style={{ padding: '12px' }}>
                             {`The French Fry Corner upgrades should be bought in the following order (#1 being the most important and first, #8 being the last). The auto plot takes
@@ -284,6 +391,211 @@ export default function Guides() {
                         </div>
 
                     </div>
+                </div>
+
+                {/* Unique French Fry Corner */}
+                <div
+                    ref={uniqueFryRef}
+                    style={{
+                        display: 'flex',
+                        backgroundColor: 'rgba(255,255,255, 0.06)',
+                        border: '1px solid white',
+                        margin: '0 12px 24px 12px',
+                    }}
+                >
+                    <div
+                        style={{ position: 'relative', minWidth: '450px', height: '64px' }}
+                    >
+                        <Image
+                            alt={`Unique French Fry Corner Tab Marked Up`}
+                            src={UniqueFrenchFryCornerImage}
+                            fill
+                            priority
+                            unoptimized
+                        />
+                    </div>
+
+                    <div className='importantText' style={{ display: 'flex', flexDirection: 'column' }}>
+                        <div
+                            className='hover' style={{
+                                fontSize: "26px", display: 'flex', justifyContent: 'center', marginLeft: '-456px', marginTop: '6px',
+                                textDecoration: 'underline'
+                            }}
+                            onClick={() => {
+                                navigator.clipboard.writeText(baseLink + 'frenchfryunique')
+                            }}
+                        >
+                            <div>
+                                Unique French Fry Corner
+                            </div>
+
+                            <div style={{ position: 'relative', width: '32px', height: '32px' }}>
+                                <Image
+                                    alt={`clipboard with a dash to copy link reference`}
+                                    src={copyLinkSvg}
+                                    fill
+                                    priority
+                                    unoptimized
+                                />
+                            </div>
+
+                        </div>
+                        <div style={{ padding: '12px' }}>
+                            {`The Unique French Fry Corner upgrades should be bought when they cost less than 10% of your fry amount after a reset. This can be ignored for major unlocks (extra Ascension point for example).`}
+                        </div>
+
+                    </div>
+                </div>
+
+                {/* Contagion */}
+                <div
+                    ref={contagionRef}
+                    style={{
+                        display: 'flex',
+                        backgroundColor: 'rgba(255,255,255, 0.06)',
+                        border: '1px solid white',
+                        margin: '0 12px 24px 12px',
+                    }}
+                >
+                    <div
+                        style={{ position: 'relative', minWidth: '450px', height: '256px' }}
+                    >
+                        <Image
+                            alt={`Contagion Sample Image from in game`}
+                            src={contagionImage}
+                            fill
+                            priority
+                            unoptimized
+                        />
+                    </div>
+
+                    <div className='importantText' style={{ display: 'flex', flexDirection: 'column' }}>
+                        <div
+                            className='hover' style={{
+                                fontSize: "26px", display: 'flex', justifyContent: 'center', marginLeft: '-456px', marginTop: '6px',
+                                textDecoration: 'underline'
+                            }}
+                            onClick={() => {
+                                navigator.clipboard.writeText(baseLink + 'contagion')
+                            }}
+                        >
+                            <div>
+                                Contagion
+                            </div>
+
+                            <div style={{ position: 'relative', width: '32px', height: '32px' }}>
+                                <Image
+                                    alt={`clipboard with a dash to copy link reference`}
+                                    src={copyLinkSvg}
+                                    fill
+                                    priority
+                                    unoptimized
+                                />
+                            </div>
+                        </div>
+                        <div style={{ padding: '12px' }}>
+                            {`Contagion is a bit of a slow burn early on so don't stress over it too hard. You can either distribute your grasshoppers equally, or pump them all into a relevant bonus as needed.
+                            For example, if you are close to resetting, pump more FRY bonus. Not strictly necessary, but if min-maxing can give you a nice boost.`}
+                        </div>
+                    </div>
+                </div>
+
+                {/* General Approach Guide */}
+                <div
+                    ref={generalRef}
+                    style={{
+                        display: 'flex',
+                        backgroundColor: 'rgba(255,255,255, 0.06)',
+                        border: '1px solid white',
+                        margin: '0 12px 24px 12px',
+                    }}
+                >
+                    <div
+                        style={{ position: 'relative', minWidth: '450px', height: '256px' }}
+                    >
+                        <Image
+                            alt={`Contagion Sample Image from in game`}
+                            src={farm_landingImage}
+                            fill
+                            priority
+                            unoptimized
+                        />
+                    </div>
+
+                    <div className='importantText' style={{ display: 'flex', flexDirection: 'column', flex: '1' }}>
+                        <div
+                            className='hover' style={{
+                                fontSize: "26px", display: 'flex', justifyContent: 'center', marginLeft: '-456px', marginTop: '6px',
+                                textDecoration: 'underline'
+                            }}
+                            onClick={() => {
+                                navigator.clipboard.writeText(baseLink + 'general')
+                            }}
+                        >
+                            <div>
+                                General Guide/Tips
+                            </div>
+
+                            <div style={{ position: 'relative', width: '32px', height: '32px' }}>
+                                <Image
+                                    alt={`clipboard with a dash to copy link reference`}
+                                    src={copyLinkSvg}
+                                    fill
+                                    priority
+                                    unoptimized
+                                />
+                            </div>
+                        </div>
+                        <div style={{ padding: '12px' }}>
+                            <div>
+                                {`There are several guidelines/tips to simplify farming:`}
+                            </div>
+                            <div style={{ display: 'flex', marginTop: '6px' }}>
+                                <div style={{ marginRight: '6px' }}>
+                                    {`1)`}
+                                </div>
+                                <div>
+                                    {`Farm resets (fryscencions) shouldn't be longer that 5 days until later on. As for how to know when to reset, you if you have 10x fry earned or meaningful page 4 upgrades you
+                                    can consider resetting. If you are approaching 5 days and don't have one of the previous two points, consider pushing as many PIC levels as possible and then resetting`}
+                                </div>
+                            </div>
+                            <div style={{ display: 'flex', marginTop: '6px' }}>
+                                <div style={{ marginRight: '6px' }}>
+                                    {`2)`}
+                                </div>
+                                <div>
+                                    {`If you want a more AFK approach to farming, planting 1 plant of each is perfectly valid, just make sure to get some PICs before resetting.`}
+                                </div>
+                            </div>
+                            <div style={{ display: 'flex', marginTop: '6px' }}>
+                                <div style={{ marginRight: '6px' }}>
+                                    {`3)`}
+                                </div>
+                                <div>
+                                    {`If you want a more optimal (active) approach, consider a step process. Here you will plant your highest plant in every plot. Then later switch to your 2nd highest, 3rd, etc.
+                                    I recommend using the "calc step" option on the farming page of the planner for this one to get optimal timings.`}
+                                </div>
+                            </div>
+                            <div style={{ display: 'flex', marginTop: '6px' }}>
+                                <div style={{ marginRight: '6px' }}>
+                                    {`4)`}
+                                </div>
+                                <div>
+                                    {`Do not buy PIC levels, unless it's the first couple harvests EVER of a plant (i.e. after you unlocked it for the first time) at the start of a run. If it is brand new, then do it as this will
+                                     let you squeeze out a few extra PIC levels without hurting your farm run too much.`}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                {/* Empty spacer */}
+                <div
+                    style={{ minHeight: '100%' }}
+                >
+
                 </div>
             </div>
         </div >
