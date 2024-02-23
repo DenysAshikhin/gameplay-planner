@@ -81,7 +81,7 @@ export default function Guides() {
                     >
                         {/* <PageCard page='expedition' />
                     <PageCard page='pets' /> */}
-                        <PageCard page='farm' url_force={'guides/farming_guide'} />
+                        <PageCard page='farm' url_force={'guides/farming_explanation'} />
                     </div>
                     {/*<div
                         style={{ display: 'flex', marginTop: '36px' }}
