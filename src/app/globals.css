@@ -218,6 +218,9 @@ code {
   transition: max-height 0.45s ease-out;
 }
 
+.hover {
+  cursor: pointer;
+}
 
 .elementToFadeInAndOut {
   opacity: 1;
@@ -248,7 +251,7 @@ a {
 }
 
 .whiteBorder {
-  border: 1.5px solid rgba(255,255,255,0.8);
+  border: 1.5px solid rgba(255, 255, 255, 0.8);
 }
 
 .borderToFadeInAndOutRed {
@@ -258,8 +261,15 @@ a {
 
 
 @keyframes fadeBorderRed {
-0%,100% { border: 3px solid rgba(255, 0, 0, 0) }
-50% { border: 3px solid rgba(255, 0, 0, 1)}
+
+  0%,
+  100% {
+    border: 3px solid rgba(255, 0, 0, 0)
+  }
+
+  50% {
+    border: 3px solid rgba(255, 0, 0, 1)
+  }
 }
 
 
