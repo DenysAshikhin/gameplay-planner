@@ -1259,7 +1259,6 @@ const CardCard = ({
         let loggedWeightIncrease2 =
             finalBefore.greaterThan(finalAfter) ? mathHelper.createDecimal(-1) : mathHelper.logDecimal(mathHelper.addDecimal(finalAfter, 1), finalBefore);
 
-
         setFinalTemp(tempValueAfter);
         setFinalAfter(finalAfter);
         setFinalBefore(finalBefore);
@@ -1279,7 +1278,8 @@ const CardCard = ({
                         flatIncrease: flatIncrease,
                         weightIncrease: weightIncrease,
                         loggedWeightIncrease: loggedWeightIncrease,
-                        loggedWeightIncrease2: loggedWeightIncrease2
+                        loggedWeightIncrease2: loggedWeightIncrease2,
+                        weight: finalWeight
                     };
                     return tempy;
                 })
@@ -1292,7 +1292,8 @@ const CardCard = ({
                         flatIncrease: flatIncrease,
                         weightIncrease: weightIncrease,
                         loggedWeightIncrease: loggedWeightIncrease,
-                        loggedWeightIncrease2: loggedWeightIncrease2
+                        loggedWeightIncrease2: loggedWeightIncrease2,
+                        weight: finalWeight
                     };
                     return tempy;
                 })
@@ -2064,12 +2065,20 @@ export default function Cards() {
         )
     }, []);
 
-    let loggedWeightIncrease2 = baseCardArr.sort((b, a) => {
+    let loggedWeightIncrease2 = baseCardArr.sort((a, b) => {
+
+        if (a.loggedWeightIncrease2.eq(0) && !b.loggedWeightIncrease2.eq(0)) {
+            return 1;
+        }
+        if (!a.loggedWeightIncrease2.eq(0) && b.loggedWeightIncrease2.eq(0)) {
+            return -1;
+        }
+
         let res = a.loggedWeightIncrease2.greaterThan(b.loggedWeightIncrease2) ? 1 : -1;
         return res;
 
     });
-    let finalLoggedWeightIncrease2 = loggedWeightIncrease.slice(0, 5).map((value, index, arr) => {
+    let finalLoggedWeightIncrease2 = loggedWeightIncrease2.slice(0, 5).map((value, index, arr) => {
         return (
             <div style={{ display: 'flex', alignItems: 'center', width: '100%' }} key={index}>
                 <div
