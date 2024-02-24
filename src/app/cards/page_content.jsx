@@ -1257,7 +1257,17 @@ const CardCard = ({
                     finalWeight
                 );
         let loggedWeightIncrease2 =
-            finalBefore.greaterThan(finalAfter) ? mathHelper.createDecimal(-1) : mathHelper.logDecimal(mathHelper.addDecimal(finalAfter, 1), finalBefore);
+            finalBefore.greaterThan(finalAfter) ? mathHelper.createDecimal(-1) :
+
+                mathHelper.logDecimal(
+                    mathHelper.multiplyDecimal(
+                        mathHelper.addDecimal(finalAfter, 1)
+                        , finalWeight
+                    ),
+                    finalBefore);
+
+        // let loggedWeightIncrease2 =
+        //     finalBefore.greaterThan(finalAfter) ? mathHelper.createDecimal(-1) : mathHelper.logDecimal(mathHelper.addDecimal(finalAfter, 1), finalBefore);
 
         setFinalTemp(tempValueAfter);
         setFinalAfter(finalAfter);
@@ -2065,7 +2075,7 @@ export default function Cards() {
         )
     }, []);
 
-    let loggedWeightIncrease2 = baseCardArr.sort((a, b) => {
+    let loggedWeightIncrease2 = baseCardArr.sort((b, a) => {
 
         if (a.loggedWeightIncrease2.eq(0) && !b.loggedWeightIncrease2.eq(0)) {
             return 1;
@@ -2897,7 +2907,7 @@ export default function Cards() {
 
 
                         {/* Top 5  logged% increase 2 */}
-                        <div
+                        {/* <div
                             style={{
                                 display: 'flex',
                                 flexDirection: 'column',
@@ -2956,7 +2966,7 @@ export default function Cards() {
                                 {finalLoggedWeightIncrease2}
                             </div>
 
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>
