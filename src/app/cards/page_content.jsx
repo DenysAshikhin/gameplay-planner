@@ -1244,7 +1244,9 @@ const CardCard = ({
                 mathHelper.subtractDecimal(mathHelper.multiplyDecimal(temp1, temp2), 1),
                 (1.0 + Level * 0.02) * 100);
 
-
+        if (finalWeight === 0) {
+            let bigsad = -1;
+        }
 
         let percIncrease = mathHelper.divideDecimal(finalAfter, finalBefore);
         let flatIncrease = mathHelper.subtractDecimal(finalAfter, finalBefore);
@@ -1253,7 +1255,7 @@ const CardCard = ({
         let loggedWeightIncrease =
             finalBefore.greaterThan(finalAfter) ? mathHelper.createDecimal(-1) :
                 mathHelper.multiplyDecimal(
-                    mathHelper.logDecimal(mathHelper.addDecimal(finalAfter, 1), finalBefore),
+                    mathHelper.logDecimal(mathHelper.addDecimal(finalAfter, 1), mathHelper.addDecimal(finalBefore, 0.0000001)),
                     finalWeight
                 );
         let loggedWeightIncrease2 =
@@ -1262,7 +1264,7 @@ const CardCard = ({
                 mathHelper.logDecimal(
                     mathHelper.multiplyDecimal(
                         mathHelper.addDecimal(finalAfter, 1)
-                        , finalWeight
+                        , finalWeight + 0.0000001
                     ),
                     finalBefore);
 
@@ -1887,14 +1889,6 @@ const CalcReinc = function (data, reincCardCharges) {
 
 export default function Cards() {
 
-    // useEffect(() => {
-
-
-    //     setTimeout(() => {
-    //         ReactGA.send({ hitType: "pageview", page: "/cards_", title: "_Card Calculator Page" });
-    //     }, 500);
-    // }, []);
-
     const [mobileMode, setMobileMode] = useState(false);
     useEffect(() => {
         setMobileMode(isMobile);
@@ -2083,10 +2077,13 @@ export default function Cards() {
         if (!a.loggedWeightIncrease2.eq(0) && b.loggedWeightIncrease2.eq(0)) {
             return -1;
         }
-
-        let res = a.loggedWeightIncrease2.greaterThan(b.loggedWeightIncrease2) ? 1 : -1;
-        return res;
-
+        else {
+            console.log(a);
+            console.log(b);
+            console.log('---------')
+            let res = a.loggedWeightIncrease2.greaterThan(b.loggedWeightIncrease2) ? 1 : -1;
+            return res;
+        }
     });
     let finalLoggedWeightIncrease2 = loggedWeightIncrease2.slice(0, 5).map((value, index, arr) => {
         return (
