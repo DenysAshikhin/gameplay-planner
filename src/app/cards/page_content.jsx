@@ -2469,15 +2469,16 @@ export default function Cards() {
                     <div
                         style={{
                             display: 'flex',
+                            alignContent:'center',
                             // flexWrap: 'wrap',
-                            alignContent: 'flex-start',
-                            justifyContent: 'center',
+                            // alignContent: 'flex-start',
+                            // justifyContent: 'center',
                             border: '1.5px solid rgba(255,255,255,0.8)',
                             borderRadius: '6px',
                             overflow: 'auto',
-                            overflowY: 'hidden',
-                            overflowX: 'auto',
                             height: '48px',
+                            minWidth:'256px',
+                            minHeight:'40px',
                             backgroundColor: 'rgba(255,255,255, 0.07)',
                             marginBottom: '6px',
                         }}
@@ -2526,7 +2527,7 @@ export default function Cards() {
                             alignItems: 'center',
                             // width: '100%',
                             height: '100%',
-                            minWidth: '290px',
+                            minWidth: '296px',
                             margin: '0 auto'
                         }}>
                             <h3
@@ -2548,7 +2549,8 @@ export default function Cards() {
                             borderRadius: '6px',
                             overflow: 'auto',
                             height: '110px',
-                            marginBottom: '6px'
+                            marginBottom: '6px',
+                            minHeight:'84px'
                         }}
                     >
 
