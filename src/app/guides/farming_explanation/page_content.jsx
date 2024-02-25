@@ -7,11 +7,11 @@ ReactGA.initialize([{
     trackingId: "G-GGLPK02VH8",
 }]);
 
-import PIC_ExplanationImage from '../../../../public/images/guides/farm/pic_explanation.png';
-import ProductionTabLetteredImage from '../../../../public/images/guides/farm/production_tab_lettered.png';
-import FrenchFryCornerImage from '../../../../public/images/guides/farm/french_Fry_corner.png';
-import UniqueFrenchFryCornerImage from '../../../../public/images/guides/farm/unique_french_fries_corner.png';
-import contagionImage from '../../../../public/images/guides/farm/contagion.png';
+import best_auto_placements_image from '../../../../public/images/guides/farm/best_auto_placements.png';
+import afk_marked_up_image from '../../../../public/images/guides/farm/afk_marked_up.png';
+import step_marked_up_image from '../../../../public/images/guides/farm/step_marked_up.png';
+import top_plant_settings_markedup_image from '../../../../public/images/guides/farm/top_plant_settings_markedup.png';
+import graph_base_image from '../../../../public/images/guides/farm/graph_base.png';
 import farm_landingImage from '../../../../public/images/guides/farm/farm_landing.png';
 import copyLinkSvg from '../../../../public/images/icons/copy_link.svg';
 
@@ -53,28 +53,21 @@ export default function Guides() {
             return;
         }
         const section = searchParams.get('section')?.toLowerCase();
-        let bigsad = -1;
         switch (section) {
-            case 'production':
+            case 'auto_placement':
                 prodRef.current.scrollIntoView();
                 break;
-            case 'pic':
+            case 'afk_table':
                 picRef.current.scrollIntoView();
                 break;
-            case 'frenchfry':
+            case 'step_table':
                 frenchFryRef.current.scrollIntoView();
                 break;
-            case 'frenchfryunique':
+            case 'plant_settings':
                 uniqueFryRef.current.scrollIntoView();
                 break;
-            case 'contagion':
+            case 'graph':
                 contagionRef.current.scrollIntoView();
-                break;
-            case 'protein':
-                proteinRef.current.scrollIntoView();
-                break;
-            case 'general':
-                generalRef.current.scrollIntoView();
                 break;
             default:
                 break;
@@ -118,7 +111,7 @@ export default function Guides() {
                     Farming Page Explanation
                 </div>
 
-                {/* Production Tab */}
+                {/* Best Auto Placements */}
                 <div
                     ref={prodRef}
                     style={{
@@ -128,7 +121,7 @@ export default function Guides() {
                         margin: '0 12px 24px 12px',
                     }}
                     onClick={() => {
-                        navigator.clipboard.writeText(baseLink + 'production')
+                        navigator.clipboard.writeText(baseLink + 'auto_placement')
                     }}
                 >
                     <div
@@ -136,468 +129,405 @@ export default function Guides() {
                     >
                         <Image
                             alt={`farming production tab`}
-                            src={ProductionTabLetteredImage}
+                            src={best_auto_placements_image}
                             fill
                             priority
                             unoptimized
                         />
                     </div>
 
-                    <div className='importantText' style={{ display: 'flex', flexDirection: 'column', }}>
-                        <div
-                            className='hover'
-                            style={{
-                                fontSize: "26px", display: 'flex', justifyContent: 'center', marginLeft: '-256px', marginTop: '6px',
-                                textDecoration: 'underline'
-                            }}
-                        >
-                            <div>
-                                Production Tab Explanation
-                            </div>
-                            <div style={{ position: 'relative', width: '32px', height: '32px' }}>
-                                <Image
-                                    alt={`clipboard with a dash to copy link reference`}
-                                    src={copyLinkSvg}
-                                    fill
-                                    priority
-                                    unoptimized
-                                />
-                            </div>
-
-                        </div>
-                        <div style={{ padding: '12px' }}>
-                            <div>
-                                The production tab consists of the production summary of each plant, this summary is composed of 4 numbers:
-                            </div>
-                            <div style={{ display: 'flex', flexDirection: 'column', }}>
-                                {/* A */}
-                                <div style={{ display: 'flex', alignItems: 'center', width: '100%', marginTop: '12px' }}>
-                                    <div style={{ fontWeight: 'bold', fontSize: '24px', color: 'yellow' }}>
-                                        A
-                                    </div>
-                                    <div style={{ marginLeft: '6px' }}>
-                                        {`The total output per second. The first plant produces Healthy Potatoes (HP), while every other plant produces the plant before it. This means
-                                that plant 4 produces plant 3, plant 3 produces plant 2, and so on.`}
-                                    </div>
-                                </div>
-                                {/* B */}
-                                <div style={{ display: 'flex', alignItems: 'center', width: '100%', marginTop: '12px' }}>
-                                    <div style={{ fontWeight: 'bold', fontSize: '24px', color: 'yellow', }}>
-                                        B
-                                    </div>
-                                    <div style={{ marginLeft: '6px', display: 'flex', alignItems: 'center', flexWrap: 'wrap' }}>
-                                        <div>
-                                            {`The production multipler. This number is included in (`}
-                                        </div>
-                                        <div style={{ fontWeight: 'bold', color: 'yellow', }}>
-                                            {`A`}
-                                        </div>
-                                        <div>
-                                            {`) and is calculated by the plant harvest (`}
-                                        </div>
-                                        <div style={{ fontWeight: 'bold', color: 'yellow', }}>
-                                            {`D`}
-                                        </div>
-                                        <div>
-                                            {`) and "Improve Harvest Formula" (`}
-                                        </div>
-                                        <div>
-                                            {`referred to as the shovel upgrade)`}
-                                        </div>
-                                    </div>
-                                </div>
-                                {/* C */}
-                                <div style={{ display: 'flex', alignItems: 'center', width: '100%', marginTop: '12px' }}>
-                                    <div style={{ fontWeight: 'bold', fontSize: '24px', color: 'yellow' }}>
-                                        C
-                                    </div>
-                                    <div style={{ marginLeft: '6px', display: 'flex', alignItems: 'center', flexWrap: 'wrap' }}>
-                                        <div>
-                                            {`How much you have of this plant. This is increased by either harvesting the plant (clicking on it when it is ready or an auto harvest)`}
-                                        </div>
-                                        <div style={{ margin: '0 6px', fontWeight: 'bold' }}>
-                                            {`OR`}
-                                        </div>
-                                        <div>
-                                            {`produced by the plant after it. This number together with (`}
-                                        </div>
-                                        <div style={{ fontWeight: 'bold', color: 'yellow', }}>
-                                            {`B`}
-                                        </div>
-                                        <div>
-                                            {`) determines `}
-                                        </div>
-                                        <div>
-                                            {`your total production (`}
-                                        </div>
-                                        <div style={{ fontWeight: 'bold', color: 'yellow', }}>
-                                            {`A`}
-                                        </div>
-                                        <div>
-                                            {`)`}
-                                        </div>
-                                    </div>
-                                </div>
-                                {/* D */}
-                                <div style={{ display: 'flex', alignItems: 'center', width: '100%', marginTop: '12px' }}>
-                                    <div style={{ fontWeight: 'bold', fontSize: '24px', color: 'yellow' }}>
-                                        D
-                                    </div>
-                                    <div style={{ marginLeft: '6px', display: 'flex', alignItems: 'center', flexWrap: 'wrap' }}>
-                                        <div>
-                                            {`HARVESTED amount of this plant. `}
-                                        </div>
-                                        <div style={{ margin: '0 6px' }}>
-                                            {`This value is used for Permanent Improvement Corner (PIC). `}
-                                        </div>
-                                        <div>
-                                            {` This is increased by either harvesting the plant (clicking on it when it is ready or an auto harvest).`}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-
-                {/* PIC Explanation */}
-                <div
-                    ref={picRef}
-                    style={{
-                        display: 'flex',
-                        backgroundColor: 'rgba(255,255,255, 0.06)',
-                        border: '1px solid white',
-                        margin: '0 12px 24px 12px',
-                    }}
-                >
+                    <div className='importantText' style={{ display: 'flex', flexDirection: 'column', flex: "1" }}>
                     <div
-                        style={{ position: 'relative', minWidth: '256px', height: '460px' }}
-                    >
-                        <Image
-                            alt={`farming production tab`}
-                            src={PIC_ExplanationImage}
-                            fill
-                            priority
-                            unoptimized
-                        />
-                    </div>
-
-                    <div className='importantText' style={{ display: 'flex', flexDirection: 'column' }}>
-                        <div
-                            className='hover'
-                            style={{
-                                fontSize: "26px", display: 'flex', justifyContent: 'center', marginLeft: '-256px', marginTop: '6px',
-                                textDecoration: 'underline'
-                            }}
-                            onClick={() => {
-                                navigator.clipboard.writeText(baseLink + 'pic')
-                            }}
-                        >
-                            <div>
-                                Permanent Improvement Corner (PIC)
-                            </div>
-                            <div style={{ position: 'relative', width: '32px', height: '32px' }}>
-                                <Image
-                                    alt={`clipboard with a dash to copy link reference`}
-                                    src={copyLinkSvg}
-                                    fill
-                                    priority
-                                    unoptimized
-                                />
-                            </div>
-
-                        </div>
-                        <div style={{ padding: '12px' }}>
-
-                            <div >
-                                {`The Permanent Improvement Corner (PIC) tab allows you to gain permanent upgrades for your plants. In general, it is best to purchase them right before 
-                            resetting your farm run, and after the first few harvests of unlocking a new plant for the first time.`}
-                            </div>
-                            <div style={{ display: 'flex', flexDirection: 'column', }}>
-                                {/* A */}
-                                <div style={{ display: 'flex', alignItems: 'center', width: '100%', marginTop: '12px' }}>
-                                    <div style={{ fontWeight: 'bold', fontSize: '24px', color: 'yellow' }}>
-                                        A
-                                    </div>
-                                    <div style={{ marginLeft: '6px' }}>
-                                        {`How much harvest this upgrade costs. Harvests are only acquired when a plant fully grows and collected (manually clicked on or by an auto plot).`}
-                                    </div>
-                                </div>
-                                {/* B */}
-                                <div style={{ display: 'flex', alignItems: 'center', width: '100%', marginTop: '12px' }}>
-                                    <div style={{ fontWeight: 'bold', fontSize: '24px', color: 'yellow', }}>
-                                        B
-                                    </div>
-                                    <div style={{ marginLeft: '6px', display: 'flex', alignItems: 'center', flexWrap: 'wrap' }}>
-                                        <div>
-                                            {`How much harvest you have of this plant. `}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                {/* French Fry Corner */}
-                <div
-                    ref={frenchFryRef}
-                    style={{
-                        display: 'flex',
-                        backgroundColor: 'rgba(255,255,255, 0.06)',
-                        border: '1px solid white',
-                        margin: '0 12px 24px 12px',
-                    }}
-                >
-                    <div
-                        style={{ position: 'relative', minWidth: '512px', height: '256px' }}
-                    >
-                        <Image
-                            alt={`French Fry Corner Tab Marked Up`}
-                            src={FrenchFryCornerImage}
-                            fill
-                            priority
-                            unoptimized
-                        />
-                    </div>
-
-                    <div className='importantText' style={{ display: 'flex', flexDirection: 'column' }}>
-                        <div className='hover' style={{
-                            fontSize: "26px", display: 'flex', justifyContent: 'center', marginLeft: '-512px', marginTop: '6px',
+                        className='hover'
+                        style={{
+                            fontSize: "26px", display: 'flex', justifyContent: 'center', marginLeft: '-256px', marginTop: '6px',
                             textDecoration: 'underline'
                         }}
-                            onClick={() => {
-                                navigator.clipboard.writeText(baseLink + 'frenchfry')
-                            }}
-                        >
-                            <div>
-                                French Fry Corner
-                            </div>
-                            <div style={{ position: 'relative', width: '32px', height: '32px' }}>
-                                <Image
-                                    alt={`clipboard with a dash to copy link reference`}
-                                    src={copyLinkSvg}
-                                    fill
-                                    priority
-                                    unoptimized
-                                />
-                            </div>
-                        </div>
-                        <div style={{ padding: '12px' }}>
-                            {`The French Fry Corner upgrades should be bought in the following order (#1 being the most important and first, #8 being the last). The auto plot takes
-                            precedence over all others on this page. The extra starting plot should be bought only when it is less than 10% of the fries earned from resetting.`}
-                        </div>
-
-                    </div>
-                </div>
-
-                {/* Unique French Fry Corner */}
-                <div
-                    ref={uniqueFryRef}
-                    style={{
-                        display: 'flex',
-                        backgroundColor: 'rgba(255,255,255, 0.06)',
-                        border: '1px solid white',
-                        margin: '0 12px 24px 12px',
-                    }}
-                >
-                    <div
-                        style={{ position: 'relative', minWidth: '450px', height: '64px' }}
                     >
-                        <Image
-                            alt={`Unique French Fry Corner Tab Marked Up`}
-                            src={UniqueFrenchFryCornerImage}
-                            fill
-                            priority
-                            unoptimized
-                        />
-                    </div>
-
-                    <div className='importantText' style={{ display: 'flex', flexDirection: 'column' }}>
-                        <div
-                            className='hover' style={{
-                                fontSize: "26px", display: 'flex', justifyContent: 'center', marginLeft: '-456px', marginTop: '6px',
-                                textDecoration: 'underline'
-                            }}
-                            onClick={() => {
-                                navigator.clipboard.writeText(baseLink + 'frenchfryunique')
-                            }}
-                        >
-                            <div>
-                                Unique French Fry Corner
-                            </div>
-
-                            <div style={{ position: 'relative', width: '32px', height: '32px' }}>
-                                <Image
-                                    alt={`clipboard with a dash to copy link reference`}
-                                    src={copyLinkSvg}
-                                    fill
-                                    priority
-                                    unoptimized
-                                />
-                            </div>
-
+                        <div>
+                            Best Auto Placement
                         </div>
-                        <div style={{ padding: '12px' }}>
-                            {`The Unique French Fry Corner upgrades should be bought when they cost less than 10% of your fry amount after a reset. This can be ignored for major unlocks (extra Ascension point for example).`}
+                        <div style={{ position: 'relative', width: '32px', height: '32px' }}>
+                            <Image
+                                alt={`clipboard with a dash to copy link reference`}
+                                src={copyLinkSvg}
+                                fill
+                                priority
+                                unoptimized
+                            />
                         </div>
 
                     </div>
-                </div>
-
-                {/* Contagion */}
-                <div
-                    ref={contagionRef}
-                    style={{
-                        display: 'flex',
-                        backgroundColor: 'rgba(255,255,255, 0.06)',
-                        border: '1px solid white',
-                        margin: '0 12px 24px 12px',
-                    }}
-                >
-                    <div
-                        style={{ position: 'relative', minWidth: '450px', height: '256px' }}
-                    >
-                        <Image
-                            alt={`Contagion Sample Image from in game`}
-                            src={contagionImage}
-                            fill
-                            priority
-                            unoptimized
-                        />
-                    </div>
-
-                    <div className='importantText' style={{ display: 'flex', flexDirection: 'column' }}>
-                        <div
-                            className='hover' style={{
-                                fontSize: "26px", display: 'flex', justifyContent: 'center', marginLeft: '-456px', marginTop: '6px',
-                                textDecoration: 'underline'
-                            }}
-                            onClick={() => {
-                                navigator.clipboard.writeText(baseLink + 'contagion')
-                            }}
-                        >
-                            <div>
-                                Contagion
-                            </div>
-
-                            <div style={{ position: 'relative', width: '32px', height: '32px' }}>
-                                <Image
-                                    alt={`clipboard with a dash to copy link reference`}
-                                    src={copyLinkSvg}
-                                    fill
-                                    priority
-                                    unoptimized
-                                />
-                            </div>
+                    <div style={{ padding: '12px' }}>
+                        <div>
+                            This is one of the most important parts of this page so read the following closely:
                         </div>
-                        <div style={{ padding: '12px' }}>
-                            {`Contagion is a bit of a slow burn early on so don't stress over it too hard. You can either distribute your grasshoppers equally, or pump them all into a relevant bonus as needed.
-                            For example, if you are close to resetting, pump more FRY bonus. Not strictly necessary, but if min-maxing can give you a nice boost.`}
-                        </div>
-                    </div>
-                </div>
-
-                {/* General Approach Guide */}
-                <div
-                    ref={generalRef}
-                    style={{
-                        display: 'flex',
-                        backgroundColor: 'rgba(255,255,255, 0.06)',
-                        border: '1px solid white',
-                        margin: '0 12px 24px 12px',
-                    }}
-                >
-                    <div
-                        style={{ position: 'relative', minWidth: '450px', height: '256px' }}
-                    >
-                        <Image
-                            alt={`Contagion Sample Image from in game`}
-                            src={farm_landingImage}
-                            fill
-                            priority
-                            unoptimized
-                        />
-                    </div>
-
-                    <div className='importantText' style={{ display: 'flex', flexDirection: 'column', flex: '1' }}>
-                        <div
-                            className='hover' style={{
-                                fontSize: "26px", display: 'flex', justifyContent: 'center', marginLeft: '-456px', marginTop: '6px',
-                                textDecoration: 'underline'
-                            }}
-                            onClick={() => {
-                                navigator.clipboard.writeText(baseLink + 'general')
-                            }}
-                        >
-                            <div>
-                                General Guide/Tips
-                            </div>
-
-                            <div style={{ position: 'relative', width: '32px', height: '32px' }}>
-                                <Image
-                                    alt={`clipboard with a dash to copy link reference`}
-                                    src={copyLinkSvg}
-                                    fill
-                                    priority
-                                    unoptimized
-                                />
-                            </div>
-                        </div>
-                        <div style={{ padding: '12px' }}>
-                            <div>
-                                {`There are several guidelines/tips to simplify farming:`}
-                            </div>
-                            <div style={{ display: 'flex', marginTop: '6px' }}>
-                                <div style={{ marginRight: '6px' }}>
-                                    {`1)`}
+                        <div style={{ display: 'flex', flexDirection: 'column', }}>
+                            {/* A */}
+                            <div style={{ display: 'flex', alignItems: 'center', width: '100%', marginTop: '12px' }}>
+                                <div style={{ fontWeight: 'bold', fontSize: '24px', color: 'yellow' }}>
+                                    A
                                 </div>
-                                <div>
-                                    {`Farm resets (fryscencions) shouldn't be longer that 5 days until later on. As for how to know when to reset, you if you have 10x fry earned or meaningful page 4 upgrades you
-                                    can consider resetting. If you are approaching 5 days and don't have one of the previous two points, consider pushing as many PIC levels as possible and then resetting`}
+                                <div style={{ marginLeft: '6px' }}>
+                                    {`How many hours to simulate to find the optimal plant placements. You should set this to however long you think your current run will go on for. I.E.
+                                        you are looking to do a 3 day run and you are 1 day into your current one, then set this to 48 hours (72 - 24).`}
                                 </div>
                             </div>
-                            <div style={{ display: 'flex', marginTop: '6px' }}>
-                                <div style={{ marginRight: '6px' }}>
-                                    {`2)`}
+                            {/* B */}
+                            <div style={{ display: 'flex', alignItems: 'center', width: '100%', marginTop: '12px' }}>
+                                <div style={{ fontWeight: 'bold', fontSize: '24px', color: 'yellow', }}>
+                                    B
                                 </div>
-                                <div>
-                                    {`If you want a more AFK approach to farming, planting 1 plant of each is perfectly valid, just make sure to get some PICs before resetting.`}
-                                </div>
-                            </div>
-                            <div style={{ display: 'flex', marginTop: '6px' }}>
-                                <div style={{ marginRight: '6px' }}>
-                                    {`3)`}
-                                </div>
-                                <div>
-                                    {`If you want a more optimal (active) approach, consider a step process. Here you will plant your highest plant in every plot. Then later switch to your 2nd highest, 3rd, etc.
-                                    I recommend using the "calc step" option on the farming page of the planner for this one to get optimal timings.`}
+                                <div style={{ marginLeft: '6px', display: 'flex', alignItems: 'center', flexWrap: 'wrap' }}>
+                                    <div>
+                                        {`How many autos you want the simulation to use. Recommended to set this to the same number as auto plots in your game.`}
+                                    </div>
                                 </div>
                             </div>
-                            <div style={{ display: 'flex', marginTop: '6px' }}>
-                                <div style={{ marginRight: '6px' }}>
-                                    {`4)`}
+                            {/* C */}
+                            <div style={{ display: 'flex', alignItems: 'center', width: '100%', marginTop: '12px' }}>
+                                <div style={{ fontWeight: 'bold', fontSize: '24px', color: 'yellow' }}>
+                                    C
                                 </div>
-                                <div>
-                                    {`Do not buy PIC levels, unless it's the first couple harvests EVER of a plant (i.e. after you unlocked it for the first time) at the start of a run. If it is brand new, then do it as this will
-                                     let you squeeze out a few extra PIC levels without hurting your farm run too much.`}
+                                <div style={{ marginLeft: '6px', display: 'flex', alignItems: 'center', flexWrap: 'wrap' }}>
+                                    <div>
+                                        {`Press this to get the best distribution of plants for an AFK approach. Meaning you can set-up your plants exactly
+                                            how it tells you and leave it for however long you set the "Hours to calculate" (`}
+                                    </div>
+                                    <div style={{ fontWeight: 'bold', color: 'yellow', }}>
+                                        {`A`}
+                                    </div>
+                                    <div>
+                                        {`).`}
+                                    </div>
+                                </div>
+                            </div>
+                            {/* D */}
+                            <div style={{ display: 'flex', alignItems: 'center', width: '100%', marginTop: '12px' }}>
+                                <div style={{ fontWeight: 'bold', fontSize: '24px', color: 'yellow' }}>
+                                    D
+                                </div>
+                                <div style={{ marginLeft: '6px', display: 'flex', alignItems: 'center', flexWrap: 'wrap' }}>
+                                    <div>
+                                        {`Press this to get the most optimal plant rotation, but it is more active. It will suggest the duration you should run each plant in
+                                            all of your plots starting from your highest plant, then going down (I.E. Plant 3->Plant 2->Plant 1). This is much more active but
+                                            can net you 10%-50% more Fries per run which will add up across many runs.`}
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-
-
-
-                {/* Empty spacer */}
-                <div
-                    style={{ minHeight: '100%' }}
-                >
 
                 </div>
             </div>
+
+
+            {/* AFK Table */}
+            <div
+                ref={picRef}
+                style={{
+                    display: 'flex',
+                    backgroundColor: 'rgba(255,255,255, 0.06)',
+                    border: '1px solid white',
+                    margin: '0 12px 24px 12px',
+                }}
+            >
+                <div
+                    style={{ position: 'relative', minWidth: '512px', height: '256px' }}
+                >
+                    <Image
+                        alt={`farming production tab`}
+                        src={afk_marked_up_image}
+                        fill
+                        priority
+                        unoptimized
+                    />
+                </div>
+
+                <div className='importantText' style={{ display: 'flex', flexDirection: 'column', flex: "1" }}>
+                    <div
+                        className='hover'
+                        style={{
+                            fontSize: "26px", display: 'flex', justifyContent: 'center', marginLeft: '-512px', marginTop: '6px',
+                            textDecoration: 'underline'
+                        }}
+                        onClick={() => {
+                            navigator.clipboard.writeText(baseLink + 'afk_table')
+                        }}
+                    >
+                        <div>
+                            AFK Table Results
+                        </div>
+                        <div style={{ position: 'relative', width: '32px', height: '32px' }}>
+                            <Image
+                                alt={`clipboard with a dash to copy link reference`}
+                                src={copyLinkSvg}
+                                fill
+                                priority
+                                unoptimized
+                            />
+                        </div>
+
+                    </div>
+                    <div style={{ padding: '12px' }}>
+
+                        <div >
+                            {`This table summarizes the results for running "Calculate AFK".`}
+                        </div>
+                        <div style={{ display: 'flex', flexDirection: 'column', }}>
+                            {/* A */}
+                            <div style={{ display: 'flex', alignItems: 'center', width: '100%', marginTop: '12px' }}>
+                                <div style={{ fontWeight: 'bold', fontSize: '24px', color: 'yellow' }}>
+                                    A
+                                </div>
+                                <div style={{ marginLeft: '6px' }}>
+                                    {`This row shows you the most optimal placement (how many auto plots to use per plant) to generate the maximum amount of Health Potatoes.`}
+                                </div>
+                            </div>
+                            {/* B */}
+                            <div style={{ display: 'flex', alignItems: 'center', width: '100%', marginTop: '12px' }}>
+                                <div style={{ fontWeight: 'bold', fontSize: '24px', color: 'yellow', }}>
+                                    B
+                                </div>
+                                <div style={{ marginLeft: '6px', display: 'flex', alignItems: 'center', flexWrap: 'wrap' }}>
+                                    <div>
+                                        {`This row shows you the most optimal placement (how many auto plots to use per plant) to generate the maximum amount of PIC levels
+                                            while preserving as much HP as possible. It is recommended to consider following this distribution if the amount of Fries doign this is
+                                            >90% (currently it is 93.35% so is a valid idea to approach to get 4x the PIC levels compare to just "Best Potatoe Generation")`}
+                                    </div>
+                                </div>
+                            </div>
+                            {/* C */}
+                            <div style={{ display: 'flex', alignItems: 'center', width: '100%', marginTop: '12px' }}>
+                                <div style={{ fontWeight: 'bold', fontSize: '24px', color: 'yellow', }}>
+                                    C
+                                </div>
+                                <div style={{ marginLeft: '6px', display: 'flex', alignItems: 'center', flexWrap: 'wrap' }}>
+                                    <div>
+                                        {`This row shows you how long it would take to get the next PIC level for each plant if you ran ALL autos for that 1 plant AFTER the
+                                         "Hours to calculate". I.E. To get the next P7 PIC, I need to run all 10 autos of it for 4 hours and 31 minutes`}
+                                    </div>
+                                </div>
+                            </div>
+                            {/* D */}
+                            <div style={{ display: 'flex', alignItems: 'center', width: '100%', marginTop: '12px' }}>
+                                <div style={{ fontWeight: 'bold', fontSize: '24px', color: 'yellow', }}>
+                                    D
+                                </div>
+                                <div style={{ marginLeft: '6px', display: 'flex', alignItems: 'center', flexWrap: 'wrap' }}>
+                                    <div>
+                                        {`This shows how many auto plots need to run this plant and how many PIC levels you will get after "Hours to calculate". I.E. after 4 autos
+                                            running P2, I will get 1 PIC level. If after I'm done "Hours to calculate" I can get 1 more PIC level by running all 10 autos for 4 hours if
+                                            I wanted to.`}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* Step Table */}
+            <div
+                ref={frenchFryRef}
+                style={{
+                    display: 'flex',
+                    backgroundColor: 'rgba(255,255,255, 0.06)',
+                    border: '1px solid white',
+                    margin: '0 12px 24px 12px',
+                }}
+            >
+                <div
+                    style={{ position: 'relative', minWidth: '512px', height: '256px' }}
+                >
+                    <Image
+                        alt={`French Fry Corner Tab Marked Up`}
+                        src={step_marked_up_image}
+                        fill
+                        priority
+                        unoptimized
+                    />
+                </div>
+
+                <div className='importantText' style={{ display: 'flex', flexDirection: 'column', flex: "1" }}>
+                    <div className='hover' style={{
+                        fontSize: "26px", display: 'flex', justifyContent: 'center', marginLeft: '-512px', marginTop: '6px',
+                        textDecoration: 'underline'
+                    }}
+                        onClick={() => {
+                            navigator.clipboard.writeText(baseLink + 'step_table')
+                        }}
+                    >
+                        <div>
+                            Step Table Results
+                        </div>
+                        <div style={{ position: 'relative', width: '32px', height: '32px' }}>
+                            <Image
+                                alt={`clipboard with a dash to copy link reference`}
+                                src={copyLinkSvg}
+                                fill
+                                priority
+                                unoptimized
+                            />
+                        </div>
+                    </div>
+                    <div style={{ padding: '12px' }}>
+                        {`This table is identical to the one explained above ("AFK Table Results") with the exception of highlighted area. Instead of placing the correct
+                            number of auto plots per plant, you will start from the highest plant (left side of the table) and work your way down. For each 'step'
+                            you will place all autos to be running the specified plant for the specified duration. I.E. in my case it recommends 0hours for plants P7-4 so I will
+                            skip those. Instead, I start with P3 for 3 hours. Then put all P2 for 6 hours, etc.`}
+                    </div>
+
+                </div>
+            </div>
+
+            {/* Top Plant Settings */}
+            <div
+                ref={uniqueFryRef}
+                style={{
+                    display: 'flex',
+                    backgroundColor: 'rgba(255,255,255, 0.06)',
+                    border: '1px solid white',
+                    margin: '0 12px 24px 12px',
+                }}
+            >
+                <div
+                    style={{ position: 'relative', minWidth: '450px', height: '128px' }}
+                >
+                    <Image
+                        alt={`Unique French Fry Corner Tab Marked Up`}
+                        src={top_plant_settings_markedup_image}
+                        fill
+                        priority
+                        unoptimized
+                    />
+                </div>
+
+                <div className='importantText' style={{ display: 'flex', flexDirection: 'column', flex: "1" }}>
+                    <div
+                        className='hover' style={{
+                            fontSize: "26px", display: 'flex', justifyContent: 'center', marginLeft: '-456px', marginTop: '6px',
+                            textDecoration: 'underline'
+                        }}
+                        onClick={() => {
+                            navigator.clipboard.writeText(baseLink + 'plant_settings')
+                        }}
+                    >
+                        <div>
+                            Top Plant Settings
+                        </div>
+
+                        <div style={{ position: 'relative', width: '32px', height: '32px' }}>
+                            <Image
+                                alt={`clipboard with a dash to copy link reference`}
+                                src={copyLinkSvg}
+                                fill
+                                priority
+                                unoptimized
+                            />
+                        </div>
+
+                    </div>
+                    <div style={{ padding: '12px' }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', }}>
+                            {/* A */}
+                            <div style={{ display: 'flex', alignItems: 'center', width: '100%', marginTop: '12px' }}>
+                                <div style={{ fontWeight: 'bold', fontSize: '24px', color: 'yellow' }}>
+                                    A
+                                </div>
+                                <div style={{ marginLeft: '6px' }}>
+                                    {`Makes each plant have "Unlocked Autos" number of autos set (the plants at the top of the screen). This affects "Current Production".`}
+                                </div>
+                            </div>
+                            {/* B */}
+                            <div style={{ display: 'flex', alignItems: 'center', width: '100%', marginTop: '12px' }}>
+                                <div style={{ fontWeight: 'bold', fontSize: '24px', color: 'yellow', }}>
+                                    B
+                                </div>
+                                <div style={{ marginLeft: '6px', display: 'flex', alignItems: 'center', flexWrap: 'wrap' }}>
+                                    <div>
+                                        {`Makes each plant have 0 autos (the plants at the top of the screen).`}
+                                    </div>
+                                </div>
+                            </div>
+                            {/* C */}
+                            <div style={{ display: 'flex', alignItems: 'center', width: '100%', marginTop: '12px' }}>
+                                <div style={{ fontWeight: 'bold', fontSize: '24px', color: 'yellow', }}>
+                                    C
+                                </div>
+                                <div style={{ marginLeft: '6px', display: 'flex', alignItems: 'center', flexWrap: 'wrap' }}>
+                                    <div>
+                                        {`Switches between AFK mode (being able to set number of autos for the duration of "Hours to calculate") and Step mode
+                                            (number of hours of max autos per plant). This affects the "Currently Selected Production".`}
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            {/* Graph */}
+            <div
+                ref={contagionRef}
+                style={{
+                    display: 'flex',
+                    backgroundColor: 'rgba(255,255,255, 0.06)',
+                    border: '1px solid white',
+                    margin: '0 12px 24px 12px',
+                }}
+            >
+                <div
+                    style={{ position: 'relative', minWidth: '720px', height: '256px' }}
+                >
+                    <Image
+                        alt={`Contagion Sample Image from in game`}
+                        src={graph_base_image}
+                        fill
+                        priority
+                        unoptimized
+                    />
+                </div>
+
+                <div className='importantText' style={{ display: 'flex', flexDirection: 'column', flex: "1" }}>
+                    <div
+                        className='hover' style={{
+                            fontSize: "26px", display: 'flex', justifyContent: 'center', marginLeft: '-720px', marginTop: '6px',
+                            textDecoration: 'underline'
+                        }}
+                        onClick={() => {
+                            navigator.clipboard.writeText(baseLink + 'graph')
+                        }}
+                    >
+                        <div>
+                            Graph Results
+                        </div>
+
+                        <div style={{ position: 'relative', width: '32px', height: '32px' }}>
+                            <Image
+                                alt={`clipboard with a dash to copy link reference`}
+                                src={copyLinkSvg}
+                                fill
+                                priority
+                                unoptimized
+                            />
+                        </div>
+                    </div>
+                    <div style={{ padding: '12px' }}>
+                        {`The graph will display up to 6 lines: 1 representing the HP the other Fries. "Currently selected production" refers to the plant distribution selected at the top.
+                        "Best Production" and "Most PIC" will be based on "Calculate AFK" or "Calculate Steps". If the scaling or axis looks off, just toggle 'axis-scale' to the left.`}
+                    </div>
+                </div>
+            </div>
+            {/* Empty spacer */}
+            <div
+                style={{ minHeight: '100%' }}
+            >
+
+            </div>
+        </div>
         </div >
     );
 }
