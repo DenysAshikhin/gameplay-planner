@@ -581,7 +581,7 @@ export default function Guides() {
                                     {`4)`}
                                 </div>
                                 <div>
-                                    {`Do not buy PIC levels, unless it's the first couple harvests EVER of a plant (i.e. after you unlocked it for the first time) at the start of a run. If it is brand new, then do it as this will
+                                    {`Only buy PIC levels right before you reset your farm, unless it's the first couple harvests EVER of a plant (i.e. after you unlocked it for the first time) at the start of a run. If it is brand new, then do it as this will
                                      let you squeeze out a few extra PIC levels without hurting your farm run too much.`}
                                 </div>
                             </div>
