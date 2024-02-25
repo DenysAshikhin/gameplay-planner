@@ -1205,6 +1205,8 @@ const CardCard = ({
     const [flatIncrease, setFlatIncrease] = useState(mathHelper.createDecimal(-1));
     const [percIncrease, setPercentIncrease] = useState(mathHelper.createDecimal(-1));
     const [weightIncrease, setWeightIncrease] = useState(mathHelper.createDecimal(-1));
+    const [loggedWeightIncrease, setLoggedWeightIncrease] = useState(mathHelper.createDecimal(-1));
+    const [loggedWeightIncrease2, setLoggedWeightIncrease2] = useState(mathHelper.createDecimal(-1));
     const [finalTemp, setFinalTemp] = useState(mathHelper.createDecimal(-1));
 
     const [refreshMath, setRefreshMath] = useState(true);
@@ -1242,11 +1244,32 @@ const CardCard = ({
                 mathHelper.subtractDecimal(mathHelper.multiplyDecimal(temp1, temp2), 1),
                 (1.0 + Level * 0.02) * 100);
 
-
+        if (finalWeight === 0) {
+            let bigsad = -1;
+        }
 
         let percIncrease = mathHelper.divideDecimal(finalAfter, finalBefore);
         let flatIncrease = mathHelper.subtractDecimal(finalAfter, finalBefore);
         let weightIncrease = mathHelper.multiplyDecimal(mathHelper.divideDecimal(mathHelper.subtractDecimal(finalAfter, finalBefore), finalBefore), finalWeight);
+        // let loggedWeightIncrease = tempValueAfter.eq(mathHelper.createDecimal(0)) ? mathHelper.createDecimal(0) : mathHelper.logDecimal(percIncrease, finalWeight + 1);
+        let loggedWeightIncrease =
+            finalBefore.greaterThan(finalAfter) ? mathHelper.createDecimal(-1) :
+                mathHelper.multiplyDecimal(
+                    mathHelper.logDecimal(mathHelper.addDecimal(finalAfter, 1), mathHelper.addDecimal(finalBefore, 0.0000001)),
+                    finalWeight
+                );
+        let loggedWeightIncrease2 =
+            finalBefore.greaterThan(finalAfter) ? mathHelper.createDecimal(-1) :
+
+                mathHelper.logDecimal(
+                    mathHelper.multiplyDecimal(
+                        mathHelper.addDecimal(finalAfter, 1)
+                        , finalWeight + 0.0000001
+                    ),
+                    finalBefore);
+
+        // let loggedWeightIncrease2 =
+        //     finalBefore.greaterThan(finalAfter) ? mathHelper.createDecimal(-1) : mathHelper.logDecimal(mathHelper.addDecimal(finalAfter, 1), finalBefore);
 
         setFinalTemp(tempValueAfter);
         setFinalAfter(finalAfter);
@@ -1254,6 +1277,8 @@ const CardCard = ({
         setWeightIncrease(weightIncrease);
         setFlatIncrease(flatIncrease);
         setPercentIncrease(percIncrease);
+        setLoggedWeightIncrease(loggedWeightIncrease);
+        setLoggedWeightIncrease2(loggedWeightIncrease2);
 
         if (resetWeights !== -3) {
             if (!(ID in cardMap)) {
@@ -1263,7 +1288,10 @@ const CardCard = ({
                         ID: ID, finalAfter: finalAfter,
                         percIncrease: percIncrease,
                         flatIncrease: flatIncrease,
-                        weightIncrease: weightIncrease
+                        weightIncrease: weightIncrease,
+                        loggedWeightIncrease: loggedWeightIncrease,
+                        loggedWeightIncrease2: loggedWeightIncrease2,
+                        weight: finalWeight
                     };
                     return tempy;
                 })
@@ -1274,7 +1302,10 @@ const CardCard = ({
                     tempy[ID] = {
                         ID: ID, finalAfter: finalAfter, percIncrease: percIncrease,
                         flatIncrease: flatIncrease,
-                        weightIncrease: weightIncrease
+                        weightIncrease: weightIncrease,
+                        loggedWeightIncrease: loggedWeightIncrease,
+                        loggedWeightIncrease2: loggedWeightIncrease2,
+                        weight: finalWeight
                     };
                     return tempy;
                 })
@@ -1286,8 +1317,7 @@ const CardCard = ({
 
     }, [cardMap, finalWeight, ChargeTransfertPowerPerma, ChargeTransfertPowerTemp, setCardMap,
         cardWeight, setCardWeightNew,
-        resetWeights
-        ,
+        resetWeights,
         ID,
         Level,
         PowerPermaBD,
@@ -1633,7 +1663,22 @@ const CardCard = ({
                                     fontSize: '20px'
                                 }}
                             >
-                                {displayMode === 'weight' ? weightIncrease.toExponential(2).toString() : percIncrease.toExponential(2).toString() + '%'}
+                                {displayMode === 'logged' && (
+                                    <>
+                                        {loggedWeightIncrease.toExponential(2).toString()}
+                                    </>
+                                )}
+                                {displayMode === 'logged2' && (
+                                    <>
+                                        {loggedWeightIncrease2.toExponential(2).toString()}
+                                    </>
+                                )}
+                                {(displayMode !== 'logged' && displayMode !== 'logged2') && (
+                                    <>
+                                        {displayMode === 'weight' ? weightIncrease.toExponential(2).toString() : percIncrease.toExponential(2).toString() + '%'}
+                                    </>
+                                )}
+
                             </div>
                         </div>
                     </MouseOverPopover>
@@ -1844,14 +1889,6 @@ const CalcReinc = function (data, reincCardCharges) {
 
 export default function Cards() {
 
-    // useEffect(() => {
-
-
-    //     setTimeout(() => {
-    //         ReactGA.send({ hitType: "pageview", page: "/cards_", title: "_Card Calculator Page" });
-    //     }, 500);
-    // }, []);
-
     const [mobileMode, setMobileMode] = useState(false);
     useEffect(() => {
         setMobileMode(isMobile);
@@ -1995,22 +2032,93 @@ export default function Cards() {
     }, []);
 
 
-    let flatIncrease = baseCardArr.sort((a, b) => {
-        let res = b.flatIncrease.greaterThan(a.flatIncrease) ? 1 : -1;
+    let loggedWeightIncrease = baseCardArr.sort((b, a) => {
+        let res = a.loggedWeightIncrease.greaterThan(b.loggedWeightIncrease) ? 1 : -1;
         return res;
+
     });
-    let finalFlatIncrease = flatIncrease.slice(0, 5).map((value, index, arr) => {
+    let finalLoggedWeightIncrease = loggedWeightIncrease.slice(0, 5).map((value, index, arr) => {
         return (
             <div style={{ display: 'flex', alignItems: 'center', width: '100%' }} key={index}>
-                <div style={{ fontSize: '36px', margin: '0 6px 0 0', }}>
+                <div
+                    className='importantText'
+                    style={{
+                        fontSize: '28px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        // alignSelf: 'start',
+                        marginRight: '6px',
+                        marginTop: '6px',
+                        // position: 'absolute',
+                        top: '0',
+                        left: '0',
+                        zIndex: '2',
+                        width: '30px',
+                        height: '30px',
+                        border: '1.5px solid rgba(255,255,255,0.8)',
+                        borderRadius: '15px',
+                        backgroundColor: 'rgba(49, 49, 49, 0.8)',
+                    }}>
                     {index + 1}
                 </div>
                 <CardCard
                     cardWeight={newCardWeights[value.ID]}
-                    resetWeights={-3} displayMode='flat' vertical={true} cardMap={cardMap} setCardMap={null} data={data} i={index} card={cardsById[value.ID]} weightMap={weightMap} classes={classes} key={`${index}-perc`}></CardCard>
+                    resetWeights={-3} displayMode='logged' vertical={true} cardMap={cardMap} setCardMap={null} data={data} i={index} card={cardsById[value.ID]} weightMap={weightMap} classes={classes} key={`${index}-perc`}></CardCard>
             </div>
         )
     }, []);
+
+    let loggedWeightIncrease2 = baseCardArr.sort((b, a) => {
+
+        if (a.loggedWeightIncrease2.eq(0) && !b.loggedWeightIncrease2.eq(0)) {
+            return 1;
+        }
+        if (!a.loggedWeightIncrease2.eq(0) && b.loggedWeightIncrease2.eq(0)) {
+            return -1;
+        }
+        else {
+            console.log(a);
+            console.log(b);
+            console.log('---------')
+            let res = a.loggedWeightIncrease2.greaterThan(b.loggedWeightIncrease2) ? 1 : -1;
+            return res;
+        }
+    });
+    let finalLoggedWeightIncrease2 = loggedWeightIncrease2.slice(0, 5).map((value, index, arr) => {
+        return (
+            <div style={{ display: 'flex', alignItems: 'center', width: '100%' }} key={index}>
+                <div
+                    className='importantText'
+                    style={{
+                        fontSize: '28px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        // alignSelf: 'start',
+                        marginRight: '6px',
+                        marginTop: '6px',
+                        // position: 'absolute',
+                        top: '0',
+                        left: '0',
+                        zIndex: '2',
+                        width: '30px',
+                        height: '30px',
+                        border: '1.5px solid rgba(255,255,255,0.8)',
+                        borderRadius: '15px',
+                        backgroundColor: 'rgba(49, 49, 49, 0.8)',
+                    }}>
+                    {index + 1}
+                </div>
+                <CardCard
+                    cardWeight={newCardWeights[value.ID]}
+                    resetWeights={-3} displayMode='logged2' vertical={true} cardMap={cardMap} setCardMap={null} data={data} i={index} card={cardsById[value.ID]} weightMap={weightMap} classes={classes} key={`${index}-perc`}></CardCard>
+            </div>
+        )
+    }, []);
+
+
+
 
     let weightIncrease = baseCardArr.sort((a, b) => {
         let res = b.weightIncrease.greaterThan(a.weightIncrease) ? 1 : -1;
@@ -2361,15 +2469,16 @@ export default function Cards() {
                     <div
                         style={{
                             display: 'flex',
+                            alignContent:'center',
                             // flexWrap: 'wrap',
-                            alignContent: 'flex-start',
-                            justifyContent: 'center',
+                            // alignContent: 'flex-start',
+                            // justifyContent: 'center',
                             border: '1.5px solid rgba(255,255,255,0.8)',
                             borderRadius: '6px',
                             overflow: 'auto',
-                            overflowY: 'hidden',
-                            overflowX: 'auto',
                             height: '48px',
+                            minWidth:'256px',
+                            minHeight:'40px',
                             backgroundColor: 'rgba(255,255,255, 0.07)',
                             marginBottom: '6px',
                         }}
@@ -2418,7 +2527,7 @@ export default function Cards() {
                             alignItems: 'center',
                             // width: '100%',
                             height: '100%',
-                            minWidth: '290px',
+                            minWidth: '296px',
                             margin: '0 auto'
                         }}>
                             <h3
@@ -2440,7 +2549,8 @@ export default function Cards() {
                             borderRadius: '6px',
                             overflow: 'auto',
                             height: '110px',
-                            marginBottom: '6px'
+                            marginBottom: '6px',
+                            minHeight:'84px'
                         }}
                     >
 
@@ -2731,8 +2841,131 @@ export default function Cards() {
                             >
                                 {finalPercIncrease}
                             </div>
-
                         </div>
+
+                        {/* Top 5  logged% increase */}
+                        <div
+                            style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                // flexWrap: 'wrap',
+                                alignContent: 'flex-start',
+                                border: '1.5px solid rgba(255,255,255,0.8)',
+                                borderRadius: '6px',
+                                overflow: 'auto',
+                                // height: '250px',
+                                maxWidth: '360px',
+                                minWidth: '273px',
+                                width: '100%',
+                                // marginRight: 'auto'
+                                // marginBottom: '12px',
+                                // marginLeft: '12px'
+                            }}
+                        >
+                            <div style={{
+                                display: 'flex',
+                                justifyContent: 'center',
+                                // width: '100%',
+                                backgroundColor: 'rgba(255,255,255, 0.06)',
+                            }}>
+                                <h3
+                                    className='importantText'
+                                    style={{ marginTop: '6px', marginBottom: '6px', fontSize: '28px' }}
+                                >
+                                    EXPERIMENTAL!
+                                </h3>
+                            </div>
+                            <div
+                                style={{
+                                    display: 'flex',
+                                    fontSize: '24px',
+                                    padding: '0 12px 0 12px'
+                                }}
+                            >
+                                <div className='importantText'>
+                                    Card
+                                </div>
+                                <div className='importantText' style={{ marginLeft: 'auto' }}>
+                                    Score
+                                </div>
+                            </div>
+                            <div
+                                style={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    // width: '100%',
+                                    justifyContent: 'space-around',
+                                    alignItems: 'center',
+                                    backgroundColor: 'rgba(255,255,255, 0.1)',
+                                    padding: '6px'
+                                }}
+                            >
+                                {finalLoggedWeightIncrease}
+                            </div>
+                        </div>
+
+
+                        {/* Top 5  logged% increase 2 */}
+                        {/* <div
+                            style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                // flexWrap: 'wrap',
+                                alignContent: 'flex-start',
+                                border: '1.5px solid rgba(255,255,255,0.8)',
+                                borderRadius: '6px',
+                                overflow: 'auto',
+                                // height: '250px',
+                                maxWidth: '360px',
+                                minWidth: '273px',
+                                width: '100%',
+                                // marginRight: 'auto'
+                                // marginBottom: '12px',
+                                // marginLeft: '12px'
+                            }}
+                        >
+                            <div style={{
+                                display: 'flex',
+                                justifyContent: 'center',
+                                // width: '100%',
+                                backgroundColor: 'rgba(255,255,255, 0.06)',
+                            }}>
+                                <h3
+                                    className='importantText'
+                                    style={{ marginTop: '6px', marginBottom: '6px', fontSize: '28px' }}
+                                >
+                                    EXPERIMENTAL! V2
+                                </h3>
+                            </div>
+                            <div
+                                style={{
+                                    display: 'flex',
+                                    fontSize: '24px',
+                                    padding: '0 12px 0 12px'
+                                }}
+                            >
+                                <div className='importantText'>
+                                    Card
+                                </div>
+                                <div className='importantText' style={{ marginLeft: 'auto' }}>
+                                    Score
+                                </div>
+                            </div>
+                            <div
+                                style={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    // width: '100%',
+                                    justifyContent: 'space-around',
+                                    alignItems: 'center',
+                                    backgroundColor: 'rgba(255,255,255, 0.1)',
+                                    padding: '6px'
+                                }}
+                            >
+                                {finalLoggedWeightIncrease2}
+                            </div>
+
+                        </div> */}
                     </div>
                 </div>
             </div>
