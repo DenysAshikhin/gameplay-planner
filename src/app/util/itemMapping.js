@@ -692,6 +692,7 @@ export const getPet = (id) => {
 }
 
 export const BonusMap = {
+    _: { disabled: false, defaultWeight: 1, id: -1, label: "Unknown", img: null },
     1: { disabled: false, defaultWeight: 25, id: 1, label: "Potato", img: potatoesAL },
     2: { disabled: false, defaultWeight: 40, id: 2, label: "Class Exp", img: classAL },
     3: { disabled: false, defaultWeight: 60, id: 3, label: "Skull", img: skullsAL },
@@ -727,6 +728,8 @@ export const BonusMap = {
     33: { disabled: false, defaultWeight: 1000, id: 33, label: 'Exp. Token Bonus', img: expTokenAL },
     34: { disabled: false, defaultWeight: 1, id: 34, label: 'Mining Exp', img: null },
     35: { disabled: false, defaultWeight: 1, id: 35, label: 'Mining Power', img: null },
+    36: { disabled: false, defaultWeight: 1500, id: 36, label: 'Building Speed', img: null },
+    37: { disabled: false, defaultWeight: 1500, id: 37, label: 'Renown Bonus', img: null },
     1001: { id: 1001, label: "Potato Gain" },
     1002: { id: 1002, label: "Class Exp gain" },
     1003: { id: 1003, label: "Skull Gain" },

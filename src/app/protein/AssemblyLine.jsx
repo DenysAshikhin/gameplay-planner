@@ -21,6 +21,9 @@ const AssemblyInnerBonus = ({ line, al_level, key_inner, futureLevel }) => {
     const [showLocked, setShowLocked] = useState(false);
 
     let data = BonusMap[line.ID];
+    if (!data) {
+        data = BonusMap['_'];
+    }
     let bonusAmount = farmingHelper.calcAssemblyLine(line, al_level);
     // let futureBonusAmount = farmingHelper.calcAssemblyLine(line, al_level + 1);
     let futureBonusAmount = farmingHelper.calcAssemblyLine(line, futureLevel);
@@ -28,27 +31,33 @@ const AssemblyInnerBonus = ({ line, al_level, key_inner, futureLevel }) => {
     if (futureLevel < line.StartingLevel) {
         locked = true;
     }
+
+    try {
+        if (!data.label) {
+            let bigsad = -1;
+        }
+    }
+    catch (err) {
+        console.log(err);
+        let bigsad = -1;
+    }
     return (
         <div
             onMouseEnter={(e) => { setShowLocked(true) }}
             onMouseLeave={(e) => { setShowLocked(false) }}
             key={key_inner}
-            style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', width: '100%', height: '100%' }}>
-            {/* <div style={{ height: '95%', width: '90%', position: 'relative' }}> */}
-            <Image
-                alt={`in game ${data.label} assembly line image`}
-                src={!locked || showLocked ? data.img : lockedAssembly}
-                style={{ height: 'auto', width: '95%' }}
-                // fill
-                unoptimized
-                priority
-            />
-            {/* </div> */}
-
-
-            {/* <img alt={`in game ${data.label} assembly line image`} src={!locked || showLocked ? data.img : lockedAssembly} style={{ width: '95%' }} /> */}
-
-
+            style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', width: '100%', height: '58px' }}
+        >
+            {data.img && (
+                <Image
+                    alt={`in game ${data.label} assembly line image`}
+                    src={!locked || showLocked ? data.img : lockedAssembly}
+                    style={{ height: 'auto', width: '95%' }}
+                    // fill
+                    unoptimized
+                    priority
+                />
+            )}
             {(!locked || showLocked) && (
                 <div
                     className='textMedium blackTextStroke1'
@@ -95,7 +104,6 @@ const AssemblyInnerBonus = ({ line, al_level, key_inner, futureLevel }) => {
                     </div>
                 </div>
             )}
-
         </div>
     )
 }

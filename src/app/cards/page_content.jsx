@@ -1478,8 +1478,8 @@ const CardCard = ({
                                     }}
                                 >
                                     {`${bonusMode === '%gain' || bonusMode === 'xgain' ?
-                                        finalBonusDisplay.toNumber() > 9999 ?
-                                            helper.roundInt(finalBonusDisplay.toNumber()).toLocaleString()
+                                        finalBonusDisplay.exponent > 5 ?
+                                            finalBonusDisplay.toExponential(2)
                                             :
                                             helper.roundTwoDecimal(finalBonusDisplay.toNumber()).toLocaleString()
                                         : finalBonusDisplay.toExponential(2)}${bonusMode === 'xgain' ? 'X' : '%'}`}
@@ -2469,7 +2469,7 @@ export default function Cards() {
                     <div
                         style={{
                             display: 'flex',
-                            alignContent:'center',
+                            alignContent: 'center',
                             // flexWrap: 'wrap',
                             // alignContent: 'flex-start',
                             // justifyContent: 'center',
@@ -2477,8 +2477,8 @@ export default function Cards() {
                             borderRadius: '6px',
                             overflow: 'auto',
                             height: '48px',
-                            minWidth:'256px',
-                            minHeight:'40px',
+                            minWidth: '256px',
+                            minHeight: '40px',
                             backgroundColor: 'rgba(255,255,255, 0.07)',
                             marginBottom: '6px',
                         }}
@@ -2550,7 +2550,7 @@ export default function Cards() {
                             overflow: 'auto',
                             height: '110px',
                             marginBottom: '6px',
-                            minHeight:'84px'
+                            minHeight: '84px'
                         }}
                     >
 
