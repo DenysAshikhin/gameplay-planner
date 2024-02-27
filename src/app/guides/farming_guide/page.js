@@ -6,7 +6,7 @@ import Farming_Guide from './page_content.jsx';
 export async function generateMetadata({ params, searchParams }, parent) {
 
   return {
-    title: 'Farming Guide - Gameplay Planner',
+    title: 'Farming Tutorial - Gameplay Planner',
     description: "Farmer Against Potatoe Idle farming and plant guide + explanation. Best method for farming, what to buy, what to plant, best order, permanent improvment corner and more!"
   }
 }
