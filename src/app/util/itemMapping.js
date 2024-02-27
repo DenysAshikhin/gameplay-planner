@@ -28,6 +28,10 @@ import skullsAL from '../../../public/images/farming/assembly/Skulls_Earned.png'
 import starGHAL from '../../../public/images/farming/assembly/Star_Grasshopper.png';
 import whackAL from '../../../public/images/farming/assembly/Whack_Score_Bonus.png';
 import wormsAL from '../../../public/images/farming/assembly/Worms_Quantity.png';
+import renownAL from '../../../public/images/farming/assembly/Renown.png';
+import buildTime_AL from '../../../public/images/farming/assembly/Build_Time_Reduction.png';
+import mining_exp_al from '../../../public/images/farming/assembly/Mining_Exp.png';
+import mining_pow_al from '../../../public/images/farming/assembly/Mining_Power.png';
 
 import cocoricoImg from '../../../public/images/pets/Cocorico.png';
 import Rico from '../../../public/images/pets/Rico.png';
@@ -726,10 +730,10 @@ export const BonusMap = {
     31: { disabled: false, defaultWeight: 100, id: 31, label: "Reinc Point Bonus", img: reincPointsAL },
     32: { disabled: true, defaultWeight: 375, id: 32, label: "Plant Growth", img: null },
     33: { disabled: false, defaultWeight: 1000, id: 33, label: 'Exp. Token Bonus', img: expTokenAL },
-    34: { disabled: false, defaultWeight: 1, id: 34, label: 'Mining Exp', img: null },
-    35: { disabled: false, defaultWeight: 1, id: 35, label: 'Mining Power', img: null },
-    36: { disabled: false, defaultWeight: 1500, id: 36, label: 'Building Speed', img: null },
-    37: { disabled: false, defaultWeight: 1500, id: 37, label: 'Renown Bonus', img: null },
+    34: { disabled: false, defaultWeight: 1, id: 34, label: 'Mining Exp', img: mining_exp_al },
+    35: { disabled: false, defaultWeight: 1, id: 35, label: 'Mining Power', img: mining_pow_al },
+    36: { disabled: false, defaultWeight: 1500, id: 36, label: 'Building Speed', img: buildTime_AL },
+    37: { disabled: false, defaultWeight: 1500, id: 37, label: 'Renown Bonus', img: renownAL },
     1001: { id: 1001, label: "Potato Gain" },
     1002: { id: 1002, label: "Class Exp gain" },
     1003: { id: 1003, label: "Skull Gain" },
