@@ -600,6 +600,20 @@ export default function Expeditions() {
         })
 
 
+        let unlockedPetsMap = {};
+
+        const positiveRankedPets = data.PetsCollection.filter(
+            (pet) => {
+                const isValidLocked = !!pet.Locked;
+                return isValidLocked;
+            }
+        )
+    
+        for (let i = 0; i < positiveRankedPets.length; i++) {
+            let cur = positiveRankedPets[i];
+            unlockedPetsMap[cur.ID] = cur;
+        }
+
     return (
         <div
             // className="grid-container"
