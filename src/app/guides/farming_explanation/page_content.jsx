@@ -1,7 +1,10 @@
 "use client"
 
 import { isMobile } from 'mobile-device-detect';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, Suspense } from 'react';
+
+
+import ScrollComponent from '../../util/ScrollComponent.jsx';
 import ReactGA from "react-ga4";
 ReactGA.initialize([{
     trackingId: "G-GGLPK02VH8",
@@ -16,7 +19,6 @@ import farm_landingImage from '../../../../public/images/guides/farm/farm_landin
 import copyLinkSvg from '../../../../public/images/icons/copy_link.svg';
 
 import Image from 'next/image';
-import { useSearchParams } from 'next/navigation';
 
 const baseLink = 'https://www.gameplayplanner.com/guides/farming_explanation?section=';
 
@@ -46,19 +48,10 @@ export default function Guides({ noSearchParams }) {
         }
     }, []);
 
-    let searchParams;
-    if (noSearchParams) {
-        searchParams = {};
-    }
-    else {
-        searchParams = useSearchParams();
-    }
+    const [searchParams, setSearchParam] = useState("");
+
     useEffect(() => {
-        if (!containerRef.current) {
-            return;
-        }
-        const section = searchParams.get('section')?.toLowerCase();
-        switch (section) {
+        switch (searchParams) {
             case 'auto_placement':
                 prodRef.current.scrollIntoView();
                 break;
@@ -77,7 +70,7 @@ export default function Guides({ noSearchParams }) {
             default:
                 break;
         }
-    }, [containerRef]);
+    }, [searchParams]);
 
 
 
@@ -91,7 +84,9 @@ export default function Guides({ noSearchParams }) {
                 position: 'relative',
             }}
         >
-
+            <Suspense fallback={<div></div>}>
+                <ScrollComponent setSearchParam={setSearchParam} />
+            </Suspense>
             {/* Header */}
             <div ref={containerRef}
                 style={{
