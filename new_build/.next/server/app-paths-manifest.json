@@ -3,15 +3,15 @@
   "/favicon.ico/route": "app/favicon.ico/route.js",
   "/page": "app/page.js",
   "/page_selection/page": "app/page_selection/page.js",
-  "/cards/page": "app/cards/page.js",
-  "/expeditions/page": "app/expeditions/page.js",
+  "/guides/farming_explanation/page": "app/guides/farming_explanation/page.js",
   "/farming/page": "app/farming/page.js",
+  "/expeditions/page": "app/expeditions/page.js",
+  "/cards/page": "app/cards/page.js",
+  "/guides/page": "app/guides/page.js",
   "/gratitude/page": "app/gratitude/page.js",
   "/guides/farming_guide/page": "app/guides/farming_guide/page.js",
-  "/guides/farming_explanation/page": "app/guides/farming_explanation/page.js",
-  "/guides/page": "app/guides/page.js",
   "/infinity_corner/page": "app/infinity_corner/page.js",
-  "/protein/page": "app/protein/page.js",
+  "/residue/page": "app/residue/page.js",
   "/pets/page": "app/pets/page.js",
-  "/residue/page": "app/residue/page.js"
+  "/protein/page": "app/protein/page.js"
 }
