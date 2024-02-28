@@ -14,7 +14,7 @@ export default function ScrollComponent({ setSearchParam }) {
             }
             return existingVal;
         });
-    }, [searchParams])
+    }, [searchParams, setSearchParam])
 
     return (
         <>
