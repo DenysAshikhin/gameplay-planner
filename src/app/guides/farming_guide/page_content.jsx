@@ -1,11 +1,13 @@
 "use client"
 
 import { isMobile } from 'mobile-device-detect';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, Suspense } from 'react';
 import ReactGA from "react-ga4";
 ReactGA.initialize([{
     trackingId: "G-GGLPK02VH8",
 }]);
+import ScrollComponent from '../../util/ScrollComponent.jsx';
+
 
 import PIC_ExplanationImage from '../../../../public/images/guides/farm/pic_explanation.png';
 import ProductionTabLetteredImage from '../../../../public/images/guides/farm/production_tab_lettered.png';
@@ -47,14 +49,13 @@ export default function Guides() {
     }, []);
 
 
-    const searchParams = useSearchParams();
+    const [searchParams, setSearchParam] = useState("");
+
     useEffect(() => {
         if (!containerRef.current) {
             return;
         }
-        const section = searchParams.get('section')?.toLowerCase();
-        let bigsad = -1;
-        switch (section) {
+        switch (searchParams) {
             case 'production':
                 prodRef.current.scrollIntoView();
                 break;
@@ -79,7 +80,7 @@ export default function Guides() {
             default:
                 break;
         }
-    }, [containerRef]);
+    }, [searchParams]);
 
 
 
@@ -93,7 +94,9 @@ export default function Guides() {
                 position: 'relative',
             }}
         >
-
+            <Suspense fallback={<div></div>}>
+                <ScrollComponent setSearchParam={setSearchParam} />
+            </Suspense>
             {/* Header */}
             <div ref={containerRef}
                 style={{

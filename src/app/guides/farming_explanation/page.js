@@ -2,7 +2,6 @@
 
 import Farming_Guide from './page_content.jsx';
 
-import { Suspense } from 'react'
 
 export async function generateMetadata({ params, searchParams }, parent) {
 
@@ -17,9 +16,5 @@ export const viewport = {
 }
 export default function Page() {
 
-  return (
-    <Suspense fallback={<Farming_Guide noSearchParams={true} />}>
-      < Farming_Guide />
-    </ Suspense>
-  )
+  return <Farming_Guide />
 }
