@@ -6,7 +6,7 @@ import Pets_Guide from './page_content.jsx';
 export async function generateMetadata({ params, searchParams }, parent) {
 
   return {
-    title: 'Pets Guide - Gameplay Planner',
+    title: 'Pets Tutorial - Gameplay Planner',
     description: "Farmer Against Potatoe Idle pets guide + explanation. Best pets to use, what teams to make, when to use them and more!"
   }
 }
