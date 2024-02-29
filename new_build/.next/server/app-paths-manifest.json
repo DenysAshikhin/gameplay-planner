@@ -5,13 +5,15 @@
   "/page_selection/page": "app/page_selection/page.js",
   "/cards/page": "app/cards/page.js",
   "/expeditions/page": "app/expeditions/page.js",
+  "/farming/page": "app/farming/page.js",
   "/guides/farming_explanation/page": "app/guides/farming_explanation/page.js",
   "/gratitude/page": "app/gratitude/page.js",
   "/guides/farming_guide/page": "app/guides/farming_guide/page.js",
-  "/farming/page": "app/farming/page.js",
+  "/guides/pets_explanation/page": "app/guides/pets_explanation/page.js",
   "/guides/page": "app/guides/page.js",
+  "/guides/pets_guide/page": "app/guides/pets_guide/page.js",
   "/pets/page": "app/pets/page.js",
   "/infinity_corner/page": "app/infinity_corner/page.js",
-  "/protein/page": "app/protein/page.js",
-  "/residue/page": "app/residue/page.js"
+  "/residue/page": "app/residue/page.js",
+  "/protein/page": "app/protein/page.js"
 }
