@@ -35,20 +35,78 @@ export default function Guides() {
                 flex: '1',
                 backgroundColor: 'black',
                 position: 'relative',
-                padding:'12px'
+                padding: '12px'
             }}
         >
 
 
-{/* How to use */}
+            {/* Guides */}
             <div
                 style={{
                     display: 'flex',
                     flexDirection: 'column',
-                    minWidth: '512px',
+                    // minWidth: '512px',
+                    border: '1px solid white',
+                    borderRadius: '12px',
+                    marginTop: '12px'
+                }}
+            >
+                <div className="importantText"
+                    style={{
+                        fontSize: '32px',
+                        fontWeight: "bold",
+                        backgroundColor: 'rgba(255,255,255, 0.08)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        borderBottom: '1px solid white'
+                    }}
+                >
+                    Game Guides
+                </div>
+
+
+                <div
+                    style={{
+                        paddingLeft: '6px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        backgroundColor: 'rgba(255,255,255, 0.05)',
+                        padding: '6px'
+                    }}
+                >
+                    <div
+                        style={{
+                            display: 'flex',
+                            justifyContent: 'space-evenly',
+                        }}
+                    >
+                        {/* <PageCard page='expedition' />*/}
+                        <PageCard page='pets' url_force={'guides/pets_guide'} />
+                        <PageCard page='farm' url_force={'guides/farming_guide'} />
+                    </div>
+                    {/*<div
+                        style={{ display: 'flex', marginTop: '36px' }}
+                    >
+                        <PageCard page='cards' />
+                    <PageCard page='protein' />
+                    <PageCard page='residue' />
+                    <PageCard page='infinity_corner' /> 
+                    </div>*/}
+                </div>
+            </div>
+
+
+            {/* How to use */}
+            <div
+                style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    // minWidth: '512px',
                     border: '1px solid white',
                     marginBottom: '12px',
-                    borderRadius:'12px'
+                    marginTop: '24px',
+                    borderRadius: '12px'
                 }}
             >
                 <div className="importantText"
@@ -69,6 +127,7 @@ export default function Guides() {
                 <div style={{
                     paddingLeft: '6px',
                     display: 'flex',
+                    flexWrap: 'wrap',
                     flexDirection: 'column',
                     backgroundColor: 'rgba(255,255,255, 0.05)',
                     padding: '6px'
@@ -77,10 +136,11 @@ export default function Guides() {
                         style={{
                             display: 'flex',
                             justifyContent: 'space-evenly',
+                            flexWrap: 'wrap'
                         }}
                     >
-                        {/* <PageCard page='expedition' />
-                    <PageCard page='pets' /> */}
+                        {/* <PageCard page='expedition' />/ */}
+                        <PageCard page='pets' url_force={'guides/pets_explanation'} />
                         <PageCard page='farm' url_force={'guides/farming_explanation'} />
                     </div>
                     {/*<div
@@ -95,58 +155,7 @@ export default function Guides() {
             </div>
 
 
-{/* Guides */}
-            <div
-                style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    minWidth: '512px',
-                    border: '1px solid white',
-                    borderRadius:'12px'
-                }}
-            >
-                <div className="importantText"
-                    style={{
-                        fontSize: '32px',
-                        fontWeight: "bold",
-                        backgroundColor: 'rgba(255,255,255, 0.08)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        borderBottom: '1px solid white'
-                    }}
-                >
-                    Game Guides
-                </div>
 
-
-                <div style={{
-                    paddingLeft: '6px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    backgroundColor: 'rgba(255,255,255, 0.05)',
-                    padding: '6px'
-                }}>
-                    <div
-                        style={{
-                            display: 'flex',
-                            justifyContent: 'space-evenly',
-                        }}
-                    >
-                        {/* <PageCard page='expedition' />
-                    <PageCard page='pets' /> */}
-                        <PageCard page='farm' url_force={'guides/farming_guide'} />
-                    </div>
-                    {/*<div
-                        style={{ display: 'flex', marginTop: '36px' }}
-                    >
-                        <PageCard page='cards' />
-                    <PageCard page='protein' />
-                    <PageCard page='residue' />
-                    <PageCard page='infinity_corner' /> 
-                    </div>*/}
-                </div>
-            </div>
 
 
         </div>

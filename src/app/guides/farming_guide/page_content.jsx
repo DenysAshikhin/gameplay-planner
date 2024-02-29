@@ -18,7 +18,6 @@ import farm_landingImage from '../../../../public/images/guides/farm/farm_landin
 import copyLinkSvg from '../../../../public/images/icons/copy_link.svg';
 
 import Image from 'next/image';
-import { useSearchParams } from 'next/navigation';
 
 const baseLink = 'https://www.gameplayplanner.com/guides/farming_guide?section=';
 
