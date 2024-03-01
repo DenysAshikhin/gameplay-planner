@@ -3,8 +3,8 @@
   "/favicon.ico/route": "app/favicon.ico/route.js",
   "/page": "app/page.js",
   "/page_selection/page": "app/page_selection/page.js",
-  "/cards/page": "app/cards/page.js",
   "/expeditions/page": "app/expeditions/page.js",
+  "/cards/page": "app/cards/page.js",
   "/farming/page": "app/farming/page.js",
   "/gratitude/page": "app/gratitude/page.js",
   "/guides/farming_explanation/page": "app/guides/farming_explanation/page.js",
@@ -13,7 +13,7 @@
   "/guides/pets_guide/page": "app/guides/pets_guide/page.js",
   "/guides/pets_explanation/page": "app/guides/pets_explanation/page.js",
   "/infinity_corner/page": "app/infinity_corner/page.js",
-  "/pets/page": "app/pets/page.js",
   "/protein/page": "app/protein/page.js",
+  "/pets/page": "app/pets/page.js",
   "/residue/page": "app/residue/page.js"
 }
