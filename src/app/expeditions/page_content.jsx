@@ -1047,9 +1047,9 @@ export default function Expeditions() {
                             />
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center', marginTop: '3px' }}>
-                            <div style={{ marginRight: '12px' }}>
+                            {/* <div style={{ marginRight: '12px' }}>
                                 {`Golden Clover Level: ${data.SoulGoldenClover}`}
-                            </div>
+                            </div> */}
                             <div>
 
                                 {`Token Bonuses: ${helper.roundThreeDecimal(finalTokenBonus)}`}

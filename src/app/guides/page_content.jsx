@@ -79,9 +79,10 @@ export default function Guides() {
                         style={{
                             display: 'flex',
                             justifyContent: 'space-evenly',
+                            flex:'wrap'
                         }}
                     >
-                        {/* <PageCard page='expedition' />*/}
+                        <PageCard page='expedition' url_force={'guides/expedition_pets_guide'} />
                         <PageCard page='pets' url_force={'guides/pets_guide'} />
                         <PageCard page='farm' url_force={'guides/farming_guide'} />
                     </div>
@@ -124,14 +125,16 @@ export default function Guides() {
                 </div>
 
 
-                <div style={{
-                    paddingLeft: '6px',
-                    display: 'flex',
-                    flexWrap: 'wrap',
-                    flexDirection: 'column',
-                    backgroundColor: 'rgba(255,255,255, 0.05)',
-                    padding: '6px'
-                }}>
+                <div
+                    style={{
+                        paddingLeft: '6px',
+                        display: 'flex',
+                        flexWrap: 'wrap',
+                        flexDirection: 'column',
+                        backgroundColor: 'rgba(255,255,255, 0.05)',
+                        padding: '6px'
+                    }}
+                >
                     <div
                         style={{
                             display: 'flex',
@@ -139,7 +142,7 @@ export default function Guides() {
                             flexWrap: 'wrap'
                         }}
                     >
-                        {/* <PageCard page='expedition' />/ */}
+                        <PageCard page='expedition' url_force={'guides/expedition_pets_explanation'} />
                         <PageCard page='pets' url_force={'guides/pets_explanation'} />
                         <PageCard page='farm' url_force={'guides/farming_explanation'} />
                     </div>
