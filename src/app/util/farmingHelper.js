@@ -476,21 +476,32 @@ var farmingHelper = {
             //Calculate new values for each plant
             let HPInitial = 0;
             for (let j = plants.length - 1; j >= 0; j--) {
-                let curr = plants[j];
+                // let curr = plants[j];
 
-                let toAdd = j === plants.length - 1 ? 0 :
+                // let toAdd = j === plants.length - 1 ? 0 :
+                //     tickRate > 1 ?
+                //         //Some basic calculus to find total assuming linear growth
+                //         mathHelper.multiplyDecimal(mathHelper.addDecimal(prevPlantsProd[j + 1], plants[j + 1].production), 0.45 * tickRate * prodMult)
+                //         :
+                //         mathHelper.multiplyDecimal(plants[j + 1].production, tickRate);
+                // curr.totalMade = mathHelper.addDecimal(curr.totalMade, toAdd);
+
+
+                plants[j].totalMade = mathHelper.addDecimal(plants[j].totalMade, (j === plants.length - 1 ? 0 :
                     tickRate > 1 ?
                         //Some basic calculus to find total assuming linear growth
                         mathHelper.multiplyDecimal(mathHelper.addDecimal(prevPlantsProd[j + 1], plants[j + 1].production), 0.45 * tickRate * prodMult)
                         :
-                        mathHelper.multiplyDecimal(plants[j + 1].production, tickRate);
-                curr.totalMade = mathHelper.addDecimal(curr.totalMade, toAdd);
-                let res = this.calcFutureMult(curr, { ...modifiers, time: tickRate, numAuto: numAutos[j], string: false });
-                curr = res;
-                if (curr.ID === 1) {
+                        mathHelper.multiplyDecimal(plants[j + 1].production, tickRate)));
+
+
+                // let res = this.calcFutureMult(curr, { ...modifiers, time: tickRate, numAuto: numAutos[j], string: false });
+                // curr = res;
+                plants[j] = this.calcFutureMult(plants[j], { ...modifiers, time: tickRate, numAuto: numAutos[j], string: false });
+                if (plants[j].ID === 1) {
                     HPInitial = prevPlantsProd[j];
                 }
-                prevPlantsProd[j] = curr.production;
+                prevPlantsProd[j] = plants[j].production;
 
             }
 
