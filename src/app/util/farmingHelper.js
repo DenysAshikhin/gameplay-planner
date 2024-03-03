@@ -4,30 +4,26 @@ import mathHelper from './math.js';
 var farmingHelper = {
     findMultipliersWithMinPercentage: function (sum, numbers, minPercentage) {
         const multipliers = [];
-        let count = 0;
-
         function backtrack(index, currentSum, currentMultipliers) {
-            count++;
 
             if (index === numbers.length) {
-                const productSum = currentMultipliers.reduce((acc, multiplier, i) => acc + multiplier * numbers[i], 0);
-                if (productSum >= minPercentage * sum) {
+                // const productSum = currentMultipliers.reduce((acc, multiplier, i) => acc + multiplier * numbers[i], 0);
+                if ((currentMultipliers.reduce((acc, multiplier, i) => acc + multiplier * numbers[i], 0)) >= minPercentage * sum) {
                     multipliers.push([...currentMultipliers]);
                 }
                 return;
             }
-            let max = Math.floor((sum - currentSum) / numbers[index]);
-            for (let multiplier = 0; multiplier <= max; multiplier++) {
+            // let max = Math.floor((sum - currentSum) / numbers[index]);
+            for (let multiplier = 0; multiplier <= (Math.floor((sum - currentSum) / numbers[index])); multiplier++) {
                 currentMultipliers[index] = multiplier;
-                let tempSum = currentSum + multiplier * numbers[index];
-                if (tempSum < sum) {
+                // let tempSum = currentSum + multiplier * numbers[index];
+                if ((currentSum + multiplier * numbers[index]) < sum) {
                     backtrack(index + 1, currentSum + multiplier * numbers[index], currentMultipliers);
                 }
             }
         }
 
         backtrack(0, 0, []);
-        console.log(count);
         return multipliers;
     },
     calcGrowthTime: function (plant, modifiers) {
@@ -39,30 +35,31 @@ var farmingHelper = {
         return num < 10 ? 10 : num;
     },
     calcPlantHarvest: function (plant, modifiers) {
-        let num = helper.roundInt((1 + plant.Rank) * Math.pow(1.05, plant.Rank)) * Math.pow(1.02, plant.prestige) * modifiers.manualHarvestBonus;
-        return num;
+        // let num = helper.roundInt((1 + plant.Rank) * Math.pow(1.05, plant.Rank)) * Math.pow(1.02, plant.prestige) * modifiers.manualHarvestBonus;
+        return helper.roundInt((1 + plant.Rank) * Math.pow(1.05, plant.Rank)) * Math.pow(1.02, plant.prestige) * modifiers.manualHarvestBonus;
     },
     calcShopProdBonus: function (modifiers_input, shopLevel) {
-        shopLevel = shopLevel || shopLevel === 0 ? shopLevel : modifiers_input.FarmingShopPlantTotalProduction;
-        return mathHelper.pow(1.25, shopLevel);
+        // shopLevel = shopLevel || shopLevel === 0 ? shopLevel : modifiers_input.FarmingShopPlantTotalProduction;
+        return mathHelper.pow(1.25, shopLevel || shopLevel === 0 ? shopLevel : modifiers_input.FarmingShopPlantTotalProduction);
     },
     calcProdOutput: function (plant_input, modifiers_input) {
 
-        let TotalCreated = plant_input.totalMade;
-        let shopProdBonus = modifiers_input.shopProdBonus;
-        let prestige = plant_input.prestige;
+        // let TotalCreated = plant_input.totalMade;
+        // let shopProdBonus = modifiers_input.shopProdBonus;
+        // let prestige = plant_input.prestige;
+        
         let PlantTotalProductionBonus = mathHelper.createDecimal(modifiers_input.originalShopProdBonus);
         PlantTotalProductionBonus = mathHelper.divideDecimal(PlantTotalProductionBonus, this.calcShopProdBonus(null, modifiers_input.originalShopProdLevel));
-        PlantTotalProductionBonus = mathHelper.multiplyDecimal(shopProdBonus, PlantTotalProductionBonus);
+        PlantTotalProductionBonus = mathHelper.multiplyDecimal(modifiers_input.shopProdBonus, PlantTotalProductionBonus);
 
         let plantMult = plant_input.futureMult;
 
         let output = mathHelper.multiplyDecimal(
             mathHelper.multiplyDecimal(
                 mathHelper.multiplyDecimal(
-                    TotalCreated, plantMult),
+                    plant_input.totalMade, plantMult),
                 PlantTotalProductionBonus),
-            mathHelper.createDecimal(Math.pow(1.02, prestige))
+            mathHelper.createDecimal(Math.pow(1.02, plant_input.prestige))
         );
 
         if (plant_input.ID === 1) {
