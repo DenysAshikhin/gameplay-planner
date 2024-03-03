@@ -4,30 +4,26 @@ import mathHelper from './math.js';
 var farmingHelper = {
     findMultipliersWithMinPercentage: function (sum, numbers, minPercentage) {
         const multipliers = [];
-        let count = 0;
-
         function backtrack(index, currentSum, currentMultipliers) {
-            count++;
 
             if (index === numbers.length) {
-                const productSum = currentMultipliers.reduce((acc, multiplier, i) => acc + multiplier * numbers[i], 0);
-                if (productSum >= minPercentage * sum) {
+                // const productSum = currentMultipliers.reduce((acc, multiplier, i) => acc + multiplier * numbers[i], 0);
+                if ((currentMultipliers.reduce((acc, multiplier, i) => acc + multiplier * numbers[i], 0)) >= minPercentage * sum) {
                     multipliers.push([...currentMultipliers]);
                 }
                 return;
             }
-            let max = Math.floor((sum - currentSum) / numbers[index]);
-            for (let multiplier = 0; multiplier <= max; multiplier++) {
+            // let max = Math.floor((sum - currentSum) / numbers[index]);
+            for (let multiplier = 0; multiplier <= (Math.floor((sum - currentSum) / numbers[index])); multiplier++) {
                 currentMultipliers[index] = multiplier;
-                let tempSum = currentSum + multiplier * numbers[index];
-                if (tempSum < sum) {
+                // let tempSum = currentSum + multiplier * numbers[index];
+                if ((currentSum + multiplier * numbers[index]) < sum) {
                     backtrack(index + 1, currentSum + multiplier * numbers[index], currentMultipliers);
                 }
             }
         }
 
         backtrack(0, 0, []);
-        console.log(count);
         return multipliers;
     },
     calcGrowthTime: function (plant, modifiers) {
@@ -39,30 +35,31 @@ var farmingHelper = {
         return num < 10 ? 10 : num;
     },
     calcPlantHarvest: function (plant, modifiers) {
-        let num = helper.roundInt((1 + plant.Rank) * Math.pow(1.05, plant.Rank)) * Math.pow(1.02, plant.prestige) * modifiers.manualHarvestBonus;
-        return num;
+        // let num = helper.roundInt((1 + plant.Rank) * Math.pow(1.05, plant.Rank)) * Math.pow(1.02, plant.prestige) * modifiers.manualHarvestBonus;
+        return helper.roundInt((1 + plant.Rank) * Math.pow(1.05, plant.Rank)) * Math.pow(1.02, plant.prestige) * modifiers.manualHarvestBonus;
     },
     calcShopProdBonus: function (modifiers_input, shopLevel) {
-        shopLevel = shopLevel || shopLevel === 0 ? shopLevel : modifiers_input.FarmingShopPlantTotalProduction;
-        return mathHelper.pow(1.25, shopLevel);
+        // shopLevel = shopLevel || shopLevel === 0 ? shopLevel : modifiers_input.FarmingShopPlantTotalProduction;
+        return mathHelper.pow(1.25, shopLevel || shopLevel === 0 ? shopLevel : modifiers_input.FarmingShopPlantTotalProduction);
     },
     calcProdOutput: function (plant_input, modifiers_input) {
 
-        let TotalCreated = plant_input.totalMade;
-        let shopProdBonus = modifiers_input.shopProdBonus;
-        let prestige = plant_input.prestige;
+        // let TotalCreated = plant_input.totalMade;
+        // let shopProdBonus = modifiers_input.shopProdBonus;
+        // let prestige = plant_input.prestige;
+
         let PlantTotalProductionBonus = mathHelper.createDecimal(modifiers_input.originalShopProdBonus);
         PlantTotalProductionBonus = mathHelper.divideDecimal(PlantTotalProductionBonus, this.calcShopProdBonus(null, modifiers_input.originalShopProdLevel));
-        PlantTotalProductionBonus = mathHelper.multiplyDecimal(shopProdBonus, PlantTotalProductionBonus);
+        PlantTotalProductionBonus = mathHelper.multiplyDecimal(modifiers_input.shopProdBonus, PlantTotalProductionBonus);
 
-        let plantMult = plant_input.futureMult;
+        // let plantMult = plant_input.futureMult;
 
         let output = mathHelper.multiplyDecimal(
             mathHelper.multiplyDecimal(
                 mathHelper.multiplyDecimal(
-                    TotalCreated, plantMult),
+                    plant_input.totalMade, plant_input.futureMult),
                 PlantTotalProductionBonus),
-            mathHelper.createDecimal(Math.pow(1.02, prestige))
+            mathHelper.createDecimal(Math.pow(1.02, plant_input.prestige))
         );
 
         if (plant_input.ID === 1) {
@@ -169,17 +166,18 @@ var farmingHelper = {
         return { leftOver, numLevels, reqExp };
     },
     calcEXPBonus: function (modifiers) {
-        let originalBonus = modifiers.originalRankLevelBonus;
-        let originalLevel = modifiers.originalShopRankLevel;
-        let currentShopLevel = modifiers.shopRankLevel;
-        let originalPotion = modifiers.originalPotionRank;
-        let currentPotion = modifiers.potionRank;
-        let expBonus = mathHelper.createDecimal(originalBonus);
-        expBonus = mathHelper.divideDecimal(expBonus, 1 + originalLevel * 0.1);
-        expBonus = mathHelper.divideDecimal(expBonus, originalPotion > 0 ? 1.5 : 1);
+        // let originalBonus = modifiers.originalRankLevelBonus;
+        // let originalLevel = modifiers.originalShopRankLevel;
+        // let currentShopLevel = modifiers.shopRankLevel;
+        // let originalPotion = modifiers.originalPotionRank;
+        // let currentPotion = modifiers.potionRank;
 
-        expBonus = mathHelper.multiplyDecimal(expBonus, 1 + currentShopLevel * 0.1);
-        expBonus = mathHelper.multiplyDecimal(expBonus, currentPotion);
+        let expBonus = mathHelper.createDecimal(modifiers.originalRankLevelBonus);
+        expBonus = mathHelper.divideDecimal(expBonus, 1 + modifiers.originalShopRankLevel * 0.1);
+        expBonus = mathHelper.divideDecimal(expBonus, modifiers.originalPotionRank > 0 ? 1.5 : 1);
+
+        expBonus = mathHelper.multiplyDecimal(expBonus, 1 + modifiers.shopRankLevel * 0.1);
+        expBonus = mathHelper.multiplyDecimal(expBonus, modifiers.potionRank);
         expBonus = expBonus.toNumber();
 
         return expBonus;
@@ -194,26 +192,24 @@ var farmingHelper = {
 
         let plant = modifiers_input.string === false ? plant_input : JSON.parse(JSON.stringify(plant_input));
         let modifiers = modifiers_input.string === false ? modifiers_input : JSON.parse(JSON.stringify(modifiers_input));
-        let remainingTime = modifiers.time;
+
         let numAutos = modifiers.numAuto || modifiers?.numAuto === 0 ? modifiers.numAuto : 1;
-
-        let newExpBonus = this.calcEXPBonus(modifiers);
-        let expTick = plant.prestigeBonus * newExpBonus;
-
         plant.growthTime = this.calcGrowthTime(plant, modifiers);
 
         if (numAutos === 0) {
-            let newOutPut = this.calcProdOutput(plant, modifiers);
-
-            plant.production = newOutPut;
+            plant.production = this.calcProdOutput(plant, modifiers);
             return plant;
         }
 
+        let remainingTime = modifiers.time;
+        let newExpBonus = this.calcEXPBonus(modifiers);
+        let expTick = plant.prestigeBonus * newExpBonus;
+        let elapsedTime = 0;
+        let numHarvests = 0;
         while (remainingTime > 0) {
 
             plant.timeToLevel = this.calcTimeTillLevel(plant, modifiers);
-
-            let elapsedTime = 0;
+            elapsedTime = 0;
 
             let rankIncrease = false;
             if (plant.timeToLevel > remainingTime) {
@@ -227,7 +223,7 @@ var farmingHelper = {
             remainingTime -= elapsedTime;
             plant.elapsedTime += elapsedTime;
 
-            let numHarvests = 0;
+            numHarvests = 0;
             if (plant.elapsedTime >= plant.growthTime) {
                 numHarvests = Math.floor(plant.elapsedTime / plant.growthTime);
 
@@ -249,31 +245,27 @@ var farmingHelper = {
                     plant.reqExp = leftOver.reqExp;
                 }
                 else {
-                    let gainedEXP = numHarvests * expTick * numAutos;
-                    let totalExp = plant.curExp + gainedEXP;
-                    plant.curExp = totalExp;
+                    plant.curExp = plant.curExp + numHarvests * expTick * numAutos;
                 }
                 plant.elapsedTime = plant.elapsedTime % plant.growthTime;
             }
         }
 
-        let newOutPut = this.calcProdOutput(plant, modifiers);
-
-        plant.production = newOutPut;
+        plant.production = this.calcProdOutput(plant, modifiers);
         return plant;
     },
-    calcTimeTillLevel: function (plant_input, modifiers_input) {
-        let plant = plant_input;
-        let modifiers = modifiers_input;
+    calcTimeTillLevel: function (plant, modifiers) {
+        // let plant = plant_input;
+        // let modifiers = modifiers_input;
         let numAutos = modifiers.numAuto || modifiers?.numAuto === 0 ? modifiers.numAuto : 1;
         if (numAutos === 0) return Infinity;
 
-        let remExp = plant.reqExp - plant.curExp;
-        let newExpBonus = this.calcEXPBonus(modifiers);
-        let expBonus = plant.prestigeBonus * newExpBonus * numAutos;
+        // let remExp = plant.reqExp - plant.curExp;
+        // let newExpBonus = this.calcEXPBonus(modifiers);
+        // let expBonus = plant.prestigeBonus * this.calcEXPBonus(modifiers) * numAutos;
 
-        let ticksTillLevel = Math.ceil((remExp) / expBonus);
-        return ticksTillLevel * plant.growthTime - plant.elapsedTime;
+        // let ticksTillLevel = Math.ceil((remExp) / expBonus);
+        return Math.ceil((plant.reqExp - plant.curExp) / (plant.prestigeBonus * this.calcEXPBonus(modifiers) * numAutos)) * plant.growthTime - plant.elapsedTime;
     },
     getNextShopCosts: function (data) {
 
@@ -310,9 +302,11 @@ var farmingHelper = {
         let start = plant_input.prestige;
         let runningHarvests = 0;
         let flag = true;
+        let requiredPerPic = 10 * Math.pow(2, start);
+        let requiredHarvests = runningHarvests + requiredPerPic;
         while (flag) {
-            let requiredPerPic = 10 * Math.pow(2, start);
-            let requiredHarvests = runningHarvests + requiredPerPic;
+            requiredPerPic = 10 * Math.pow(2, start);
+            requiredHarvests = runningHarvests + requiredPerPic;
             if (plant_input.created.greaterThanOrEqualTo(requiredHarvests)) {
                 start++;
                 runningHarvests += requiredPerPic;
@@ -335,12 +329,29 @@ var farmingHelper = {
         let newExpBonus = this.calcEXPBonus(modifiers);
         let expTick = plant.prestigeBonus * newExpBonus;
 
+
+
+        let timeToLevel = this.calcTimeTillLevel(plant, modifiers);
+        let requiredPerPic = 10 * Math.pow(2, plant.prestige);
+        let requiredHarvests = runningHarvests + requiredPerPic;
+        let remainingHarvests = mathHelper.subtractDecimal(requiredHarvests, plant.created);//minimum number of ticks
+        let timeTillPrestige =
+            mathHelper.multiplyDecimal(
+                mathHelper.divideDecimal(
+                    remainingHarvests,
+                    (plant.perHarvest * numAutos)
+                ).ceil(),
+                plant.growthTime
+            ).ceil().toNumber()
+            ;
+
+
         while (!prestiged) {
-            let timeToLevel = this.calcTimeTillLevel(plant, modifiers);
-            let requiredPerPic = 10 * Math.pow(2, plant.prestige);
-            let requiredHarvests = runningHarvests + requiredPerPic;
-            let remainingHarvests = mathHelper.subtractDecimal(requiredHarvests, plant.created);//minimum number of ticks
-            let timeTillPrestige =
+            timeToLevel = this.calcTimeTillLevel(plant, modifiers);
+            requiredPerPic = 10 * Math.pow(2, plant.prestige);
+            requiredHarvests = runningHarvests + requiredPerPic;
+            remainingHarvests = mathHelper.subtractDecimal(requiredHarvests, plant.created);//minimum number of ticks
+            timeTillPrestige =
                 mathHelper.multiplyDecimal(
                     mathHelper.divideDecimal(
                         remainingHarvests,
@@ -466,21 +477,32 @@ var farmingHelper = {
             //Calculate new values for each plant
             let HPInitial = 0;
             for (let j = plants.length - 1; j >= 0; j--) {
-                let curr = plants[j];
+                // let curr = plants[j];
 
-                let toAdd = j === plants.length - 1 ? 0 :
+                // let toAdd = j === plants.length - 1 ? 0 :
+                //     tickRate > 1 ?
+                //         //Some basic calculus to find total assuming linear growth
+                //         mathHelper.multiplyDecimal(mathHelper.addDecimal(prevPlantsProd[j + 1], plants[j + 1].production), 0.45 * tickRate * prodMult)
+                //         :
+                //         mathHelper.multiplyDecimal(plants[j + 1].production, tickRate);
+                // curr.totalMade = mathHelper.addDecimal(curr.totalMade, toAdd);
+
+
+                plants[j].totalMade = mathHelper.addDecimal(plants[j].totalMade, (j === plants.length - 1 ? 0 :
                     tickRate > 1 ?
                         //Some basic calculus to find total assuming linear growth
                         mathHelper.multiplyDecimal(mathHelper.addDecimal(prevPlantsProd[j + 1], plants[j + 1].production), 0.45 * tickRate * prodMult)
                         :
-                        mathHelper.multiplyDecimal(plants[j + 1].production, tickRate);
-                curr.totalMade = mathHelper.addDecimal(curr.totalMade, toAdd);
-                let res = this.calcFutureMult(curr, { ...modifiers, time: tickRate, numAuto: numAutos[j], string: false });
-                curr = res;
-                if (curr.ID === 1) {
+                        mathHelper.multiplyDecimal(plants[j + 1].production, tickRate)));
+
+
+                // let res = this.calcFutureMult(curr, { ...modifiers, time: tickRate, numAuto: numAutos[j], string: false });
+                // curr = res;
+                plants[j] = this.calcFutureMult(plants[j], { ...modifiers, time: tickRate, numAuto: numAutos[j], string: false });
+                if (plants[j].ID === 1) {
                     HPInitial = prevPlantsProd[j];
                 }
-                prevPlantsProd[j] = curr.production;
+                prevPlantsProd[j] = plants[j].production;
 
             }
 
