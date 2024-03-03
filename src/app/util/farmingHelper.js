@@ -52,12 +52,12 @@ var farmingHelper = {
         PlantTotalProductionBonus = mathHelper.divideDecimal(PlantTotalProductionBonus, this.calcShopProdBonus(null, modifiers_input.originalShopProdLevel));
         PlantTotalProductionBonus = mathHelper.multiplyDecimal(modifiers_input.shopProdBonus, PlantTotalProductionBonus);
 
-        let plantMult = plant_input.futureMult;
+        // let plantMult = plant_input.futureMult;
 
         let output = mathHelper.multiplyDecimal(
             mathHelper.multiplyDecimal(
                 mathHelper.multiplyDecimal(
-                    plant_input.totalMade, plantMult),
+                    plant_input.totalMade, plant_input.futureMult),
                 PlantTotalProductionBonus),
             mathHelper.createDecimal(Math.pow(1.02, plant_input.prestige))
         );
@@ -205,6 +205,7 @@ var farmingHelper = {
         let newExpBonus = this.calcEXPBonus(modifiers);
         let expTick = plant.prestigeBonus * newExpBonus;
         let elapsedTime = 0;
+        let numHarvests = 0;
         while (remainingTime > 0) {
 
             plant.timeToLevel = this.calcTimeTillLevel(plant, modifiers);
@@ -222,7 +223,7 @@ var farmingHelper = {
             remainingTime -= elapsedTime;
             plant.elapsedTime += elapsedTime;
 
-            let numHarvests = 0;
+            numHarvests = 0;
             if (plant.elapsedTime >= plant.growthTime) {
                 numHarvests = Math.floor(plant.elapsedTime / plant.growthTime);
 
