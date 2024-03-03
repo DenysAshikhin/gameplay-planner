@@ -192,7 +192,7 @@ var farmingHelper = {
 
         let plant = modifiers_input.string === false ? plant_input : JSON.parse(JSON.stringify(plant_input));
         let modifiers = modifiers_input.string === false ? modifiers_input : JSON.parse(JSON.stringify(modifiers_input));
-        
+
         let numAutos = modifiers.numAuto || modifiers?.numAuto === 0 ? modifiers.numAuto : 1;
         plant.growthTime = this.calcGrowthTime(plant, modifiers);
 
@@ -250,21 +250,21 @@ var farmingHelper = {
             }
         }
 
-        plant.production =  this.calcProdOutput(plant, modifiers);
+        plant.production = this.calcProdOutput(plant, modifiers);
         return plant;
     },
-    calcTimeTillLevel: function (plant_input, modifiers_input) {
-        let plant = plant_input;
-        let modifiers = modifiers_input;
+    calcTimeTillLevel: function (plant, modifiers) {
+        // let plant = plant_input;
+        // let modifiers = modifiers_input;
         let numAutos = modifiers.numAuto || modifiers?.numAuto === 0 ? modifiers.numAuto : 1;
         if (numAutos === 0) return Infinity;
 
-        let remExp = plant.reqExp - plant.curExp;
-        let newExpBonus = this.calcEXPBonus(modifiers);
-        let expBonus = plant.prestigeBonus * newExpBonus * numAutos;
+        // let remExp = plant.reqExp - plant.curExp;
+        // let newExpBonus = this.calcEXPBonus(modifiers);
+        // let expBonus = plant.prestigeBonus * this.calcEXPBonus(modifiers) * numAutos;
 
-        let ticksTillLevel = Math.ceil((remExp) / expBonus);
-        return ticksTillLevel * plant.growthTime - plant.elapsedTime;
+        // let ticksTillLevel = Math.ceil((remExp) / expBonus);
+        return Math.ceil((plant.reqExp - plant.curExp) / (plant.prestigeBonus * this.calcEXPBonus(modifiers) * numAutos)) * plant.growthTime - plant.elapsedTime;
     },
     getNextShopCosts: function (data) {
 
@@ -301,9 +301,11 @@ var farmingHelper = {
         let start = plant_input.prestige;
         let runningHarvests = 0;
         let flag = true;
+        let requiredPerPic = 10 * Math.pow(2, start);
+        let requiredHarvests = runningHarvests + requiredPerPic;
         while (flag) {
-            let requiredPerPic = 10 * Math.pow(2, start);
-            let requiredHarvests = runningHarvests + requiredPerPic;
+            requiredPerPic = 10 * Math.pow(2, start);
+            requiredHarvests = runningHarvests + requiredPerPic;
             if (plant_input.created.greaterThanOrEqualTo(requiredHarvests)) {
                 start++;
                 runningHarvests += requiredPerPic;
@@ -326,12 +328,29 @@ var farmingHelper = {
         let newExpBonus = this.calcEXPBonus(modifiers);
         let expTick = plant.prestigeBonus * newExpBonus;
 
+
+
+        let timeToLevel = this.calcTimeTillLevel(plant, modifiers);
+        let requiredPerPic = 10 * Math.pow(2, plant.prestige);
+        let requiredHarvests = runningHarvests + requiredPerPic;
+        let remainingHarvests = mathHelper.subtractDecimal(requiredHarvests, plant.created);//minimum number of ticks
+        let timeTillPrestige =
+            mathHelper.multiplyDecimal(
+                mathHelper.divideDecimal(
+                    remainingHarvests,
+                    (plant.perHarvest * numAutos)
+                ).ceil(),
+                plant.growthTime
+            ).ceil().toNumber()
+            ;
+
+
         while (!prestiged) {
-            let timeToLevel = this.calcTimeTillLevel(plant, modifiers);
-            let requiredPerPic = 10 * Math.pow(2, plant.prestige);
-            let requiredHarvests = runningHarvests + requiredPerPic;
-            let remainingHarvests = mathHelper.subtractDecimal(requiredHarvests, plant.created);//minimum number of ticks
-            let timeTillPrestige =
+            timeToLevel = this.calcTimeTillLevel(plant, modifiers);
+            requiredPerPic = 10 * Math.pow(2, plant.prestige);
+            requiredHarvests = runningHarvests + requiredPerPic;
+            remainingHarvests = mathHelper.subtractDecimal(requiredHarvests, plant.created);//minimum number of ticks
+            timeTillPrestige =
                 mathHelper.multiplyDecimal(
                     mathHelper.divideDecimal(
                         remainingHarvests,
