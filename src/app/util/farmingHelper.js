@@ -47,7 +47,7 @@ var farmingHelper = {
         // let TotalCreated = plant_input.totalMade;
         // let shopProdBonus = modifiers_input.shopProdBonus;
         // let prestige = plant_input.prestige;
-        
+
         let PlantTotalProductionBonus = mathHelper.createDecimal(modifiers_input.originalShopProdBonus);
         PlantTotalProductionBonus = mathHelper.divideDecimal(PlantTotalProductionBonus, this.calcShopProdBonus(null, modifiers_input.originalShopProdLevel));
         PlantTotalProductionBonus = mathHelper.multiplyDecimal(modifiers_input.shopProdBonus, PlantTotalProductionBonus);
@@ -166,17 +166,18 @@ var farmingHelper = {
         return { leftOver, numLevels, reqExp };
     },
     calcEXPBonus: function (modifiers) {
-        let originalBonus = modifiers.originalRankLevelBonus;
-        let originalLevel = modifiers.originalShopRankLevel;
-        let currentShopLevel = modifiers.shopRankLevel;
-        let originalPotion = modifiers.originalPotionRank;
-        let currentPotion = modifiers.potionRank;
-        let expBonus = mathHelper.createDecimal(originalBonus);
-        expBonus = mathHelper.divideDecimal(expBonus, 1 + originalLevel * 0.1);
-        expBonus = mathHelper.divideDecimal(expBonus, originalPotion > 0 ? 1.5 : 1);
+        // let originalBonus = modifiers.originalRankLevelBonus;
+        // let originalLevel = modifiers.originalShopRankLevel;
+        // let currentShopLevel = modifiers.shopRankLevel;
+        // let originalPotion = modifiers.originalPotionRank;
+        // let currentPotion = modifiers.potionRank;
 
-        expBonus = mathHelper.multiplyDecimal(expBonus, 1 + currentShopLevel * 0.1);
-        expBonus = mathHelper.multiplyDecimal(expBonus, currentPotion);
+        let expBonus = mathHelper.createDecimal(modifiers.originalRankLevelBonus);
+        expBonus = mathHelper.divideDecimal(expBonus, 1 + modifiers.originalShopRankLevel * 0.1);
+        expBonus = mathHelper.divideDecimal(expBonus, modifiers.originalPotionRank > 0 ? 1.5 : 1);
+
+        expBonus = mathHelper.multiplyDecimal(expBonus, 1 + modifiers.shopRankLevel * 0.1);
+        expBonus = mathHelper.multiplyDecimal(expBonus, modifiers.potionRank);
         expBonus = expBonus.toNumber();
 
         return expBonus;
@@ -191,26 +192,23 @@ var farmingHelper = {
 
         let plant = modifiers_input.string === false ? plant_input : JSON.parse(JSON.stringify(plant_input));
         let modifiers = modifiers_input.string === false ? modifiers_input : JSON.parse(JSON.stringify(modifiers_input));
-        let remainingTime = modifiers.time;
+        
         let numAutos = modifiers.numAuto || modifiers?.numAuto === 0 ? modifiers.numAuto : 1;
-
-        let newExpBonus = this.calcEXPBonus(modifiers);
-        let expTick = plant.prestigeBonus * newExpBonus;
-
         plant.growthTime = this.calcGrowthTime(plant, modifiers);
 
         if (numAutos === 0) {
-            let newOutPut = this.calcProdOutput(plant, modifiers);
-
-            plant.production = newOutPut;
+            plant.production = this.calcProdOutput(plant, modifiers);
             return plant;
         }
 
+        let remainingTime = modifiers.time;
+        let newExpBonus = this.calcEXPBonus(modifiers);
+        let expTick = plant.prestigeBonus * newExpBonus;
+        let elapsedTime = 0;
         while (remainingTime > 0) {
 
             plant.timeToLevel = this.calcTimeTillLevel(plant, modifiers);
-
-            let elapsedTime = 0;
+            elapsedTime = 0;
 
             let rankIncrease = false;
             if (plant.timeToLevel > remainingTime) {
@@ -246,17 +244,13 @@ var farmingHelper = {
                     plant.reqExp = leftOver.reqExp;
                 }
                 else {
-                    let gainedEXP = numHarvests * expTick * numAutos;
-                    let totalExp = plant.curExp + gainedEXP;
-                    plant.curExp = totalExp;
+                    plant.curExp = plant.curExp + numHarvests * expTick * numAutos;
                 }
                 plant.elapsedTime = plant.elapsedTime % plant.growthTime;
             }
         }
 
-        let newOutPut = this.calcProdOutput(plant, modifiers);
-
-        plant.production = newOutPut;
+        plant.production =  this.calcProdOutput(plant, modifiers);
         return plant;
     },
     calcTimeTillLevel: function (plant_input, modifiers_input) {
