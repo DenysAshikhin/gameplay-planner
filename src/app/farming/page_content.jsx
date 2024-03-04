@@ -1794,6 +1794,7 @@ const FarmingLanding = () => {
                                                         let worker = workers[i];
                                                         worker.current.postMessage({
                                                             data: {
+                                                                updateCounter: numThreads * 50,
                                                                 combinations: combinations,
                                                                 start: splitArraysIndicies[i][0],
                                                                 end: splitArraysIndicies[i][1],
@@ -1890,6 +1891,7 @@ const FarmingLanding = () => {
                                                         let worker = workers[i];
                                                         worker.current.postMessage({
                                                             data: {
+                                                                updateCounter: numThreads * 50,
                                                                 baseTimers: nums,
                                                                 combinations: combinations,
                                                                 start: splitArraysIndicies[i][0],
