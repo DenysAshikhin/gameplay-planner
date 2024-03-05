@@ -600,19 +600,19 @@ export default function Expeditions() {
         })
 
 
-        let unlockedPetsMap = {};
+    let unlockedPetsMap = {};
 
-        const positiveRankedPets = data.PetsCollection.filter(
-            (pet) => {
-                const isValidLocked = !!pet.Locked;
-                return isValidLocked;
-            }
-        )
-    
-        for (let i = 0; i < positiveRankedPets.length; i++) {
-            let cur = positiveRankedPets[i];
-            unlockedPetsMap[cur.ID] = cur;
+    const positiveRankedPets = data.PetsCollection.filter(
+        (pet) => {
+            const isValidLocked = !!pet.Locked;
+            return isValidLocked;
         }
+    )
+
+    for (let i = 0; i < positiveRankedPets.length; i++) {
+        let cur = positiveRankedPets[i];
+        unlockedPetsMap[cur.ID] = cur;
+    }
 
     return (
         <div
@@ -1047,9 +1047,9 @@ export default function Expeditions() {
                             />
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center', marginTop: '3px' }}>
-                            <div style={{ marginRight: '12px' }}>
+                            {/* <div style={{ marginRight: '12px' }}>
                                 {`Golden Clover Level: ${data.SoulGoldenClover}`}
-                            </div>
+                            </div> */}
                             <div>
 
                                 {`Token Bonuses: ${helper.roundThreeDecimal(finalTokenBonus)}`}
@@ -2846,7 +2846,7 @@ export default function Expeditions() {
                             justifyContent: 'center'
                         }}>
                             <div style={{ fontWeight: 'bold', fontSize: '30px' }}>
-                                Pets
+                                {`Available Pets`}
                             </div>
                             <div style={{ fontWeight: 'bold', alignSelf: 'end', marginLeft: '6px', marginBottom: '5px', fontSize: '16px' }}>
                                 (click to enable/disable)
