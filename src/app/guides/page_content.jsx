@@ -106,7 +106,7 @@ export default function Guides() {
                     // minWidth: '512px',
                     border: '1px solid white',
                     marginBottom: '12px',
-                    marginTop: '24px',
+                    marginTop: '72px',
                     borderRadius: '12px'
                 }}
             >
