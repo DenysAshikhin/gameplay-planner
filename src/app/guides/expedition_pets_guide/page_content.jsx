@@ -1,14 +1,14 @@
 "use client"
 
 import { isMobile } from 'mobile-device-detect';
-import { useState, useEffect, useRef, Suspense} from 'react';
+import { useState, useEffect, useRef, Suspense } from 'react';
 import ReactGA from "react-ga4";
 ReactGA.initialize([{
     trackingId: "G-GGLPK02VH8",
 }]);
 import ScrollComponent from '../../util/ScrollComponent.jsx';
-import exp_teams_overview from '../../../../public/images/guides/pets/exp_teams_overview.png';
-import pet_team_list_image from '../../../../public/images/guides/pets/pet_team_list.png';
+import exp_team_loadout_image from '../../../../public/images/guides/pets/exp_team_loadout.png';
+import expedition_overview_image from '../../../../public/images/guides/pets/expeditions_overview.png';
 import FrenchFryCornerImage from '../../../../public/images/guides/farm/french_Fry_corner.png';
 import UniqueFrenchFryCornerImage from '../../../../public/images/guides/farm/unique_french_fries_corner.png';
 import contagionImage from '../../../../public/images/guides/farm/contagion.png';
@@ -52,10 +52,10 @@ export default function Guides() {
             return;
         }
         switch (searchParams) {
-            case 'general':
+            case 'exp_team_loadout':
                 prodRef.current.scrollIntoView();
                 break;
-            case 'pet_list':
+            case 'expeditions_overview':
                 picRef.current.scrollIntoView();
                 break;
             case 'frenchfry':
@@ -115,7 +115,7 @@ export default function Guides() {
                         borderBottom: '1px solid white'
                     }}
                 >
-                    Active Pets Guide
+                    Expedition Pets Guide
                 </div>
 
                 {/* General Guide */}
@@ -128,7 +128,7 @@ export default function Guides() {
                         margin: '0 12px 24px 12px',
                     }}
                     onClick={() => {
-                        navigator.clipboard.writeText(baseLink + 'general')
+                        navigator.clipboard.writeText(baseLink + 'exp_team_loadout')
                     }}
                 >
                     <div
@@ -136,7 +136,7 @@ export default function Guides() {
                     >
                         <Image
                             alt={`farming production tab`}
-                            src={pets_general_image}
+                            src={exp_team_loadout_image}
                             fill
                             priority
                             unoptimized
@@ -152,7 +152,7 @@ export default function Guides() {
                             }}
                         >
                             <div>
-                                General Pets Guide + Tips
+                                General Guide + Tips
                             </div>
                             <div style={{ position: 'relative', width: '32px', height: '32px' }}>
                                 <Image
@@ -167,22 +167,21 @@ export default function Guides() {
                         </div>
                         <div style={{ padding: '12px' }}>
                             <div style={{ marginTop: '6px' }}>
-                                {`1) Pet levels reset on each Ascension but pet ranks (from expeditions) are preserved.`}
+                                {`1) Always try to have a 1.50x Synery Bonus. This is achieved by having 2 Ground and 2 Air pets. This ensure maximum token gain.`}
                             </div>
                             <div style={{ marginTop: '6px' }}>
                                 {`2) Each rank level increases the bonuses and exp earned (towards pet levels, not ranks) by 2%. This adds up fast! So you should have any core pets in your
                                 active teams inside your expeditions as well!`}
                             </div>
                             <div style={{ marginTop: '6px' }}>
-                                {`3) When creating pet teams you want to re-use the same pets as much as possible. This lets you avoid wasting time re-leveling pets if not absolutely necessary.`}
+                                {`3) Try to utilise every single Token Gain pet.`}
                             </div>
                         </div>
 
                     </div>
                 </div>
 
-
-                {/* Pet Lists */}
+                {/* Expeditions To Run */}
                 <div
                     ref={picRef}
                     style={{
@@ -191,13 +190,16 @@ export default function Guides() {
                         border: '1px solid white',
                         margin: '0 12px 24px 12px',
                     }}
+                    onClick={() => {
+                        navigator.clipboard.writeText(baseLink + 'expeditions_overview')
+                    }}
                 >
                     <div
-                        style={{ position: 'relative', minWidth: '256px', height: '460px' }}
+                        style={{ position: 'relative', minWidth: '720px', minHeight: '500px' }}
                     >
                         <Image
                             alt={`farming production tab`}
-                            src={pet_team_list_image}
+                            src={expedition_overview_image}
                             fill
                             priority
                             unoptimized
@@ -208,15 +210,12 @@ export default function Guides() {
                         <div
                             className='hover'
                             style={{
-                                fontSize: "26px", display: 'flex', justifyContent: 'center', marginLeft: '-256px', marginTop: '6px',
+                                fontSize: "26px", display: 'flex', justifyContent: 'center', marginLeft: '-720px', marginTop: '6px',
                                 textDecoration: 'underline'
-                            }}
-                            onClick={() => {
-                                navigator.clipboard.writeText(baseLink + 'pet_list')
                             }}
                         >
                             <div>
-                                Recommended Teams and When/How To Run Them
+                                Expeditions Guide + Tips
                             </div>
                             <div style={{ position: 'relative', width: '32px', height: '32px' }}>
                                 <Image
@@ -230,36 +229,39 @@ export default function Guides() {
 
                         </div>
                         <div style={{ padding: '12px' }}>
-                            <div>
-                                {`It is recommended to split your pets into 4 core teams, make sure the pets in these teams are IN YOUR EXPEDITIONS!
-                                 Create them in the following order as you unlock preset slots (Before A5 you only need the first three):`}
+                            <div style={{ marginTop: '6px' }}>
+                                {`1) Always try to be running the expeditions based on the cards they drop. Priority are Pet Damage, Item Rating, Reincarnation, Pet Level, Pet Rank, Milk, Residue.`}
                             </div>
-                            <div style={{ padding: '12px' }}>
-                                <div style={{ marginTop: '6px' }}>
-                                    {`1) Main Team: This is the team you will be running 24/7. It will prioritise Reincarnation, Item Rating, Residue, Milk. As you ascend,
-                                    the relative priority of each stat will shift and other will be added (like Card Power after A13). Recommend to check the related page for suggestions.`}
-                                </div>
-                                <div style={{ marginTop: '6px' }}>
-                                    {`2) Gear Team: Any time you want to acquire/upgrade gear make sure to have this team on. Boosting item rating is more powerful than it might seem early on.`}
-                                </div>
-                                <div style={{ marginTop: '6px' }}>
-                                    {`3) Reinc Team: It is important to run this 5-15 minutes before reincarnating to squeeze out as many Reincarnation levels as possible. This is the main
-                                    metric by which progress is measured.`}
-                                </div>
-                                <div style={{ marginTop: '6px' }}>
-                                    {`4) Stat Team: This team is run to capture any stats your other 3 teams might be missing, recommended to run to 5-15 minutes at the start and end of each 
-                                    reincarnation.`}
-                                </div>
+                            <div style={{ marginTop: '6px' }}>
+                                {`2) Any expedition that has Pet Damage card should be run 24/7.`}
+                            </div>
+                            <div style={{ marginTop: '6px' }}>
+                                {`3) If you can't run all Item Rating card expeditions and 1 reincarnation reinc card, rotate 1 team between the two.`}
+                            </div>
+                            <div style={{ marginTop: '6px' }}>
+                                {`4) The amount of card power gained is determined at every second by your Card Power bonus, so make sure to have Card Power pets equipped as much as possible.`}
+                            </div>
+                            <div style={{ marginTop: '6px' }}>
+                                {`5) You can almost fully ignore all other cards not listed in 1) except for an hour here and there once per Ascencion.`}
+                            </div>
+                            <div style={{ marginTop: '6px' }}>
+                                {`6) Pet Rank card expedition can be run towards the end of an Ascencion.`}
+                            </div>
+                            <div style={{ marginTop: '6px' }}>
+                                {`7) Until you get splash damage and are above A12, it is recommended to constantly run Butternut Forest, it will be a major driver of progress.`}
+                            </div>
+                            <div style={{ marginTop: '6px' }}>
+                                {`8) Zucchini Field expedition should be run almost all the time, or as frequently as possible despite not having Pet Damage or Item Rating cards solely due to it
+                                directly boosting Item Rating itself.`}
                             </div>
                         </div>
+
                     </div>
                 </div>
-                {/* Empty spacer */}
-                <div
-                    style={{ minHeight: '100%' }}
-                >
 
-                </div>
+
+                {/* Empty spacer */}
+                <div style={{ minHeight: '100%' }} />
             </div>
         </div >
     );

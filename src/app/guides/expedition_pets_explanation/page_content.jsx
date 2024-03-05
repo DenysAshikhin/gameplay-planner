@@ -13,8 +13,8 @@ ReactGA.initialize([{
 import exp_teams_overview_image from '../../../../public/images/guides/pets/exp_teams_overview.png';
 import top_configuration_image from '../../../../public/images/guides/pets/top_configuration.png';
 import pet_whitelist_image from '../../../../public/images/guides/pets/pet_whitelist.png';
-import manual_pet_selection from '../../../../public/images/guides/pets/manual_pet_selection.png';
-import custom_presets_image from '../../../../public/images/guides/pets/custom_presets.png';
+import pet_bonus_finder_image from '../../../../public/images/guides/pets/pet_bonus_finder.png';
+import pets_selection_image from '../../../../public/images/guides/pets/pets_selection.png';
 import miscellaneous_settings_image from '../../../../public/images/guides/pets/miscellaneous_settings.png';
 import missing_expedition_pet_image from '../../../../public/images/guides/pets/missing_expedition_pet.png';
 import copyLinkSvg from '../../../../public/images/icons/copy_link.svg';
@@ -62,10 +62,10 @@ export default function Guides({ noSearchParams }) {
             case 'pet_whitelist':
                 stat_list.current.scrollIntoView();
                 break;
-            case 'manual_pet_selection':
+            case 'pet_bonus_finder':
                 uniqueFryRef.current.scrollIntoView();
                 break;
-            case 'custom_presets':
+            case 'pets_selection':
                 contagionRef.current.scrollIntoView();
                 break;
             case 'miscellaneous_settings':
@@ -269,7 +269,7 @@ export default function Guides({ noSearchParams }) {
                             </div>
                             <div style={{ display: 'flex', flexDirection: 'column', padding: '6px' }}>
                                 <div style={{ display: 'flex', alignItems: 'center', minWidth: '80px' }}>
-                                    <div style={{ minWidth: '124px', marginTop: '6px' }}>
+                                    <div style={{ minWidth: '160px', marginTop: '6px' }}>
                                         {`Ignore Pets Rank)`}
                                     </div>
                                     <div>
@@ -279,7 +279,7 @@ export default function Guides({ noSearchParams }) {
                                     </div>
                                 </div>
                                 <div style={{ display: 'flex', alignItems: 'center', marginTop: '6px' }}>
-                                    <div style={{ minWidth: '124px' }}>
+                                    <div style={{ minWidth: '160px' }}>
                                         {`Token bonuses)`}
                                     </div>
                                     <div>
@@ -287,7 +287,7 @@ export default function Guides({ noSearchParams }) {
                                     </div>
                                 </div>
                                 <div style={{ display: 'flex', alignItems: 'center', marginTop: '6px' }}>
-                                    <div style={{ minWidth: '124px' }}>
+                                    <div style={{ minWidth: '160px', maxWidth: '160px' }}>
                                         {`Expedition Reward Combo)`}
                                     </div>
                                     <div>
@@ -296,7 +296,7 @@ export default function Guides({ noSearchParams }) {
                                     </div>
                                 </div>
                                 <div style={{ display: 'flex', alignItems: 'center', marginTop: '6px' }}>
-                                    <div style={{ minWidth: '124px' }}>
+                                    <div style={{ minWidth: '160px' }}>
                                         {`Number of teams)`}
                                     </div>
                                     <div>
@@ -304,7 +304,7 @@ export default function Guides({ noSearchParams }) {
                                     </div>
                                 </div>
                                 <div style={{ display: 'flex', alignItems: 'center', marginTop: '6px' }}>
-                                    <div style={{ minWidth: '124px' }}>
+                                    <div style={{ minWidth: '160px' }}>
                                         {`Show all bonus total)`}
                                     </div>
                                     <div>
@@ -328,7 +328,7 @@ export default function Guides({ noSearchParams }) {
                     }}
                 >
                     <div
-                        style={{ position: 'relative', minWidth: '220px', height: '368px' }}
+                        style={{ position: 'relative', minWidth: '368px', height: '256px' }}
                     >
                         <Image
                             alt={`French Fry Corner Tab Marked Up`}
@@ -341,7 +341,7 @@ export default function Guides({ noSearchParams }) {
 
                     <div className='importantText' style={{ display: 'flex', flexDirection: 'column', flex: "1" }}>
                         <div className='hover' style={{
-                            fontSize: "26px", display: 'flex', justifyContent: 'center', marginLeft: '-220px', marginTop: '6px',
+                            fontSize: "26px", display: 'flex', justifyContent: 'center', marginLeft: '-368px', marginTop: '6px',
                             textDecoration: 'underline'
                         }}
                             onClick={() => {
@@ -349,7 +349,7 @@ export default function Guides({ noSearchParams }) {
                             }}
                         >
                             <div>
-                                Stat List Explained
+                                Pet Whitelist
                             </div>
                             <div style={{ position: 'relative', width: '32px', height: '32px' }}>
                                 <Image
@@ -362,59 +362,57 @@ export default function Guides({ noSearchParams }) {
                             </div>
                         </div>
                         <div style={{ padding: '12px' }}>
+
                             <div>
-                                {`This summarises the stats the suggested team posses, as well as how many pets contribute to a sta, and any missing stats.`}
+                                {`This section can be intimidating at first glance, but is the most powerful part of this page:`}
+                            </div>
+                            <div style={{ marginTop: '6px', fontWeight: 'bold', fontSize: '24px' }}>
+                                {`It is highly recommended to add all COMMONLY USED pets into your whitelist 100% of the time.`}
                             </div>
                             <div style={{ padding: '6px' }}>
-                                <div style={{ display: 'flex', alignItems: 'center', }}>
-                                    <div style={{ color: 'gray', fontSize: '24px', fontWeight: 'bold', marginRight: '6px', marginTop: '-2px', minWidth: '76px' }}>
-                                        {`Gray: `}
+
+                                <div style={{ display: 'flex', alignItems: 'center', marginTop: '6px' }}>
+                                    <div style={{ fontWeight: 'bold', marginRight: '6px', minWidth: '128px' }}>
+                                        {`Team Presets: `}
                                     </div>
                                     <div>
-                                        This stat is gained by accident, it was not specified in the priority list, but is a happy bonus.
+                                        {`This will show you a list of all your in-game active pet teams. Selecting one will load in all the pets from that team to be 
+                                        included in expeditions teams to the right.`}
                                     </div>
                                 </div>
-                                <div style={{ display: 'flex', alignItems: 'center', }}>
-                                    <div style={{ color: 'white', fontSize: '24px', fontWeight: 'bold', marginRight: '6px', marginTop: '-2px', minWidth: '76px' }}>
-                                        {`White: `}
+                                <div style={{ display: 'flex', alignItems: 'center', marginTop: '6px' }}>
+                                    <div style={{ fontWeight: 'bold', marginRight: '6px', minWidth: '128px', maxWidth: '128px', }}>
+                                        {`Recommended Presets: `}
                                     </div>
                                     <div>
-                                        {`This stat is specified in the list as -1.`}
+                                        {`This will show you the recommended teams from the /pets page. Selecting one will load in all the pets from that team to be 
+                                        included in expeditions teams to the right.`}
                                     </div>
                                 </div>
-                                <div style={{ display: 'flex', alignItems: 'center', }}>
-                                    <div style={{ color: 'red', fontSize: '24px', fontWeight: 'bold', marginRight: '6px', marginTop: '-2px', minWidth: '76px' }}>
-                                        {`Red: `}
+                                <div style={{ display: 'flex', alignItems: 'center', marginTop: '6px' }}>
+                                    <div style={{ fontWeight: 'bold', marginRight: '6px', minWidth: '128px' }}>
+                                        {`Placement: `}
                                     </div>
                                     <div>
-                                        {`This stat is as a number above 0, but the it was impossible to reach that criteria. Either there aren't enough pets, or other stats took precedence.`}
+                                        {`This determines how a pet is slotted into your expeditions. "Auto" will find the best spot automatically and is the recommended approach. "Group" 
+                                        will force a pet to go into the specified group. "Blacklist" will remove the pet from going in any team.`}
                                     </div>
                                 </div>
-                                <div style={{ display: 'flex', alignItems: 'center', }}>
-                                    <div style={{ color: 'green', fontSize: '24px', fontWeight: 'bold', marginRight: '6px', marginTop: '-2px', minWidth: '76px' }}>
-                                        {`Green: `}
+                                <div style={{ display: 'flex', alignItems: 'center', marginTop: '6px' }}>
+                                    <div style={{ fontWeight: 'bold', marginRight: '6px', minWidth: '128px' }}>
+                                        {`Parameters: `}
                                     </div>
                                     <div>
-                                        {`This stat is as a number above 0, and the exact number of pets was selected.`}
-                                    </div>
-                                </div>
-                                <div style={{ display: 'flex', alignItems: 'center', }}>
-                                    <div style={{ color: 'yellow', fontSize: '24px', fontWeight: 'bold', marginRight: '6px', marginTop: '-2px', minWidth: '76px' }}>
-                                        {`Yellow: `}
-                                    </div>
-                                    <div>
-                                        {`This stat is as a number above 0, but there are more pets contributing to this stat than requested. Most likely another pet was selected later that posses this
-                                        stat but it was not chosen due to this stat, merely a coincidence.`}
+                                        {`Currently only used for "Group" placement. Specifies which team the pet should be placed into.`}
                                     </div>
                                 </div>
                             </div>
 
                         </div>
-
                     </div>
                 </div>
 
-                {/* Manual Pet Selection*/}
+                {/* Pet Bonus Finder */}
                 <div
                     ref={uniqueFryRef}
                     style={{
@@ -425,11 +423,11 @@ export default function Guides({ noSearchParams }) {
                     }}
                 >
                     <div
-                        style={{ position: 'relative', minWidth: '450px', height: '256px' }}
+                        style={{ position: 'relative', minWidth: '450px', height: '450px' }}
                     >
                         <Image
                             alt={`Unique French Fry Corner Tab Marked Up`}
-                            src={manual_pet_selection}
+                            src={pet_bonus_finder_image}
                             fill
                             priority
                             unoptimized
@@ -439,15 +437,15 @@ export default function Guides({ noSearchParams }) {
                     <div className='importantText' style={{ display: 'flex', flexDirection: 'column', flex: "1" }}>
                         <div
                             className='hover' style={{
-                                fontSize: "26px", display: 'flex', justifyContent: 'center', marginLeft: '-456px', marginTop: '6px',
+                                fontSize: "26px", display: 'flex', justifyContent: 'center', marginLeft: '-450px', marginTop: '6px',
                                 textDecoration: 'underline'
                             }}
                             onClick={() => {
-                                navigator.clipboard.writeText(baseLink + 'manual_pet_selection')
+                                navigator.clipboard.writeText(baseLink + 'pet_bonus_finder')
                             }}
                         >
                             <div>
-                                Manual Pet Selection
+                                Pet Bonus Finder
                             </div>
 
                             <div style={{ position: 'relative', width: '32px', height: '32px' }}>
@@ -462,15 +460,39 @@ export default function Guides({ noSearchParams }) {
 
                         </div>
                         <div style={{ padding: '12px' }}>
-                            <div style={{ display: 'flex', flexDirection: 'column', }}>
-                                {`This allows you to either forcefully include a pet, or exclude from the selection process.`}
+                            <div >
+                                <div>
+                                    {`This section allows you to quickly find which pets you have with specific bonuses sorted by damage. Any bonus that is expedition only will have the word
+                                "expedition" on the end.`}
+                                </div>
+                                <div style={{ marginTop: '6px', fontWeight: 'bold', fontSize: '24px' }}>
+                                    {`It is highly recommended to add all EXPEDITION TOKEN GAIN pets into your whitelist 100% of the time.`}
+                                </div>
+                            </div>
+                            <div style={{ padding: '6px' }}>
+
+                                <div style={{ display: 'flex', alignItems: 'center', marginTop: '6px' }}>
+                                    <div style={{ fontWeight: 'bold', marginRight: '6px', minWidth: '128px', maxWidth: '128px', textDecoration: "line-through" }}>
+                                        {`Strike-through: `}
+                                    </div>
+                                    <div>
+                                        {`If a pets' name is struck-through, it means this pet is already in one of the expedition teams to the right.`}
+                                    </div>
+                                </div>
+                                <div style={{ display: 'flex', alignItems: 'center', marginTop: '6px' }}>
+                                    <div style={{ fontWeight: 'bold', marginRight: '6px', minWidth: '128px', maxWidth: '128px', }}>
+                                        {`Pin Icon: `}
+                                    </div>
+                                    <div>
+                                        {`This will quickly add the pet to the whitelist above. If the pin is missing, that means it's already whitelisted.`}
+                                    </div>
+                                </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
 
-                {/* Custom Presets */}
+                {/* Available Pets */}
                 <div
                     ref={contagionRef}
                     style={{
@@ -481,11 +503,11 @@ export default function Guides({ noSearchParams }) {
                     }}
                 >
                     <div
-                        style={{ position: 'relative', minWidth: '368px', height: '256px' }}
+                        style={{ position: 'relative', minWidth: '400px', height: '160px' }}
                     >
                         <Image
                             alt={`Contagion Sample Image from in game`}
-                            src={custom_presets_image}
+                            src={pets_selection_image}
                             fill
                             priority
                             unoptimized
@@ -495,15 +517,15 @@ export default function Guides({ noSearchParams }) {
                     <div className='importantText' style={{ display: 'flex', flexDirection: 'column', flex: "1" }}>
                         <div
                             className='hover' style={{
-                                fontSize: "26px", display: 'flex', justifyContent: 'center', marginLeft: '-368px', marginTop: '6px',
+                                fontSize: "26px", display: 'flex', justifyContent: 'center', marginLeft: '-400px', marginTop: '6px',
                                 textDecoration: 'underline'
                             }}
                             onClick={() => {
-                                navigator.clipboard.writeText(baseLink + 'custom_presets')
+                                navigator.clipboard.writeText(baseLink + 'pets_selection')
                             }}
                         >
                             <div>
-                                Custom Presets
+                                Available Pets
                             </div>
 
                             <div style={{ position: 'relative', width: '32px', height: '32px' }}>
@@ -518,149 +540,43 @@ export default function Guides({ noSearchParams }) {
                         </div>
                         <div style={{ padding: '12px' }}>
                             <div>
-                                {`Custom presets can be made to save your preferred configurations and quickly load or share them with others.`}
+                                {`You can use this to quickly view/hide/preview all pets. This will also let you control which pets are used for the expeditions and optionally 
+                                active pet teams on /pets page.`}
                             </div>
                             <div style={{ padding: '6px' }}>
-                                <div style={{ marginTop: '6px' }}>
-                                    {`1) To your current preset, enter a name for it in the box next to "Save Current". Be careful, this will overrite any other preset named this way!`}
-                                </div>
-                                <div style={{ marginTop: '6px' }}>
-                                    {`2) To load a previously saved preset, select it from the dropdown next to "Select saved preset".`}
-                                </div>
-                                <div style={{ marginTop: '6px' }}>
-                                    {`3) To delete a previously saved preset, select it from the dropdown next to "Delete preset".`}
-                                </div>
-                                <div style={{ marginTop: '6px' }}>
-                                    {`4) To load someone elses prest, paste it into the box next to "Import Preset" and press "Import Preset"`}
-                                </div>
-                                <div style={{ marginTop: '6px' }}>
-                                    {`6) To be able to share your preset, press "Copy Current Preset to Clipboard", this will copy a string into your clipboard that you can freely share.`}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-                {/* Miscellaneous Settings */}
-                <div
-                    ref={proteinRef}
-                    style={{
-                        display: 'flex',
-                        backgroundColor: 'rgba(255,255,255, 0.06)',
-                        border: '1px solid white',
-                        margin: '0 12px 24px 12px',
-                    }}
-                >
-                    <div
-                        style={{ position: 'relative', minWidth: '256px', height: '128px' }}
-                    >
-                        <Image
-                            alt={`Contagion Sample Image from in game`}
-                            src={miscellaneous_settings_image}
-                            fill
-                            priority
-                            unoptimized
-                        />
-                    </div>
-
-                    <div className='importantText' style={{ display: 'flex', flexDirection: 'column', flex: "1" }}>
-                        <div
-                            className='hover' style={{
-                                fontSize: "26px", display: 'flex', justifyContent: 'center', marginLeft: '-256px', marginTop: '6px',
-                                textDecoration: 'underline'
-                            }}
-                            onClick={() => {
-                                navigator.clipboard.writeText(baseLink + 'miscellaneous_settings')
-                            }}
-                        >
-                            <div>
-                                Miscellaneous Settings
-                            </div>
-
-                            <div style={{ position: 'relative', width: '32px', height: '32px' }}>
-                                <Image
-                                    alt={`clipboard with a dash to copy link reference`}
-                                    src={copyLinkSvg}
-                                    fill
-                                    priority
-                                    unoptimized
-                                />
-                            </div>
-                        </div>
-                        <div style={{ padding: '12px' }}>
-                            <div>
-                                {`Extra options to configure how this tool behaves.`}
-                            </div>
-                            <div style={{ padding: '6px' }}>
-                                <div style={{ marginTop: '6px' }}>
-                                    {`Use expedition pets) This will only use the pets you have enabled (green or green+yellow) border cirles on the expeditions tool page.`}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-                {/* Missing Expedition Pet */}
-                <div
-                    ref={generalRef}
-                    style={{
-                        display: 'flex',
-                        backgroundColor: 'rgba(255,255,255, 0.06)',
-                        border: '1px solid white',
-                        margin: '0 12px 24px 12px',
-                    }}
-                >
-                    <div
-                        style={{ position: 'relative', minWidth: '256px', height: '168px' }}
-                    >
-                        <Image
-                            alt={`Contagion Sample Image from in game`}
-                            src={missing_expedition_pet_image}
-                            fill
-                            priority
-                            unoptimized
-                        />
-                    </div>
-
-                    <div className='importantText' style={{ display: 'flex', flexDirection: 'column', flex: "1" }}>
-                        <div
-                            className='hover' style={{
-                                fontSize: "26px", display: 'flex', justifyContent: 'center', marginLeft: '-256px', marginTop: '6px',
-                                textDecoration: 'underline'
-                            }}
-                            onClick={() => {
-                                navigator.clipboard.writeText(baseLink + 'missing_expedition_pet')
-                            }}
-                        >
-                            <div>
-                                Missing Expedition Pet
-                            </div>
-
-                            <div style={{ position: 'relative', width: '32px', height: '32px' }}>
-                                <Image
-                                    alt={`clipboard with a dash to copy link reference`}
-                                    src={copyLinkSvg}
-                                    fill
-                                    priority
-                                    unoptimized
-                                />
-                            </div>
-                        </div>
-                        <div style={{ padding: '12px' }}>
-
-                            <div style={{ padding: '12px' }}>
-                                <div>
-                                    {`If any of your pets has an amber flashing icon as seen to the left, it means this pet is not in any of your expedition teams, (those on from the 
-                                    Expedition page of this tool). This can be remdied in one of two ways:`}
-                                </div>
-                                <div style={{ padding: '6px' }}>
-                                    <div style={{ marginTop: '6px' }}>
-                                        {`1) Go to the expedition page and make sure this pet is included (recommended if not on Stat team).`}
+                                <div style={{ display: 'flex', alignItems: 'center', marginTop: '6px' }}>
+                                    <div style={{ fontWeight: 'bold', marginRight: '6px', minWidth: '128px' }}>
+                                        {`Enable All: `}
                                     </div>
-                                    <div style={{ marginTop: '6px' }}>
-                                        {`2) If you do not want this pet, or think it is a poor choice, exclude this pet using the whitelist. Usually a good approach for "Stat Team", and
-                                    see if doing so a few times find a better team combination.`}
+                                    <div>
+                                        {`Will force enable all pets. Any enabled pets have a green border. A green-yellow border indicates that in your save the pet is not captured
+                                        but is being treated as captured for expeditions (and /pets page if enabled there).`}
+                                    </div>
+                                </div>
+                                <div style={{ display: 'flex', alignItems: 'center', marginTop: '6px' }}>
+                                    <div style={{ fontWeight: 'bold', marginRight: '6px', minWidth: '128px', maxWidth: '128px', }}>
+                                        {`Disable All: `}
+                                    </div>
+                                    <div>
+                                        {`Will force disable all pets. Any disabled pets have a red border. A red-yellow border indicates that in your save the pet is captured
+                                        but is being treated as not-captured for expeditions (and /pets page if enabled there).`}
+                                    </div>
+                                </div>
+                                <div style={{ display: 'flex', alignItems: 'center', marginTop: '6px' }}>
+                                    <div style={{ fontWeight: 'bold', marginRight: '6px', minWidth: '128px' }}>
+                                        {`Reset: `}
+                                    </div>
+                                    <div>
+                                        {`Will reset enable/disable states of each pet to match your save.`}
+                                    </div>
+                                </div>
+                                <div style={{ display: 'flex', alignItems: 'center', marginTop: '6px' }}>
+                                    <div style={{ fontWeight: 'bold', marginRight: '6px', minWidth: '128px' }}>
+                                        {`Hide locked: `}
+                                    </div>
+                                    <div>
+                                        {`Will only show pets that are considered "Enabled".`}
                                     </div>
                                 </div>
                             </div>
