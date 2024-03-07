@@ -179,8 +179,6 @@ var helper = {
         if (target.expRewardCount != compare.expRewardCount) {
             return target.expRewardCount - compare.expRewardCount;
         }
-        console.log(target)
-        console.log(compare)
         return 0;
     },
 
