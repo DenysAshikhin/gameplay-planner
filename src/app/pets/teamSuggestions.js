@@ -236,929 +236,983 @@ export const gearTeamSuggestions = {
 }
 // exports.gearTeamSuggestions = gearTeamSuggestions;
 
-export const statTeamSuggestions = {
-    0: {
-        priorityList: [21, 13, 5, 6, 9, 23, 29, 28],
-        priorityMap: { "5": { "mode": "max", "label": "Reincarnation Exp", "id": 5, "count": 0, "current": 0 }, "6": { "mode": "max", "label": "Item Rating", "id": 6, "count": 0, "current": 0 }, "9": { "mode": "max", "label": "Whack Score", "id": 9, "count": 0, "current": 0 }, "13": { "mode": "max", "label": "Residue Bonus", "id": 13, "count": 1, "current": 0 }, "21": { "mode": "max", "label": "Card Power", "id": 21, "count": 1, "current": 0 }, "23": { "mode": "max", "label": "Healthy Potatoe", "id": 23, "count": 0, "current": 0 }, "28": { "mode": "max", "label": "Protein Bonus", "id": 28, "count": 0, "current": 0 }, "29": { "mode": "max", "label": "Grasshopper Dmg", "id": 29, "count": 0, "current": 0 } }
-    },
-    1: {
-        priorityList: [21, 13, 5, 6, 9, 23, 29, 28],
-        priorityMap: { "5": { "mode": "max", "label": "Reincarnation Exp", "id": 5, "count": 0, "current": 0 }, "6": { "mode": "max", "label": "Item Rating", "id": 6, "count": 0, "current": 0 }, "9": { "mode": "max", "label": "Whack Score", "id": 9, "count": 0, "current": 0 }, "13": { "mode": "max", "label": "Residue Bonus", "id": 13, "count": 1, "current": 0 }, "21": { "mode": "max", "label": "Card Power", "id": 21, "count": 1, "current": 0 }, "23": { "mode": "max", "label": "Healthy Potatoe", "id": 23, "count": 0, "current": 0 }, "28": { "mode": "max", "label": "Protein Bonus", "id": 28, "count": 0, "current": 0 }, "29": { "mode": "max", "label": "Grasshopper Dmg", "id": 29, "count": 0, "current": 0 } }
-    },
-    2: {
-        priorityList: [21, 13, 5, 6, 9, 23, 29, 28],
-        priorityMap: { "5": { "mode": "max", "label": "Reincarnation Exp", "id": 5, "count": 0, "current": 0 }, "6": { "mode": "max", "label": "Item Rating", "id": 6, "count": 0, "current": 0 }, "9": { "mode": "max", "label": "Whack Score", "id": 9, "count": 0, "current": 0 }, "13": { "mode": "max", "label": "Residue Bonus", "id": 13, "count": 1, "current": 0 }, "21": { "mode": "max", "label": "Card Power", "id": 21, "count": 1, "current": 0 }, "23": { "mode": "max", "label": "Healthy Potatoe", "id": 23, "count": 0, "current": 0 }, "28": { "mode": "max", "label": "Protein Bonus", "id": 28, "count": 0, "current": 0 }, "29": { "mode": "max", "label": "Grasshopper Dmg", "id": 29, "count": 0, "current": 0 } }
-    },
-    3: {
-        priorityList: [21, 13, 5, 6, 9, 23, 29, 28],
-        priorityMap: { "5": { "mode": "max", "label": "Reincarnation Exp", "id": 5, "count": 0, "current": 0 }, "6": { "mode": "max", "label": "Item Rating", "id": 6, "count": 0, "current": 0 }, "9": { "mode": "max", "label": "Whack Score", "id": 9, "count": 0, "current": 0 }, "13": { "mode": "max", "label": "Residue Bonus", "id": 13, "count": 1, "current": 0 }, "21": { "mode": "max", "label": "Card Power", "id": 21, "count": 1, "current": 0 }, "23": { "mode": "max", "label": "Healthy Potatoe", "id": 23, "count": 0, "current": 0 }, "28": { "mode": "max", "label": "Protein Bonus", "id": 28, "count": 0, "current": 0 }, "29": { "mode": "max", "label": "Grasshopper Dmg", "id": 29, "count": 0, "current": 0 } }
-    },
-    4: {
-        priorityList: [21, 13, 5, 6, 9, 23, 29, 28],
-        priorityMap: { "5": { "mode": "max", "label": "Reincarnation Exp", "id": 5, "count": 0, "current": 0 }, "6": { "mode": "max", "label": "Item Rating", "id": 6, "count": 0, "current": 0 }, "9": { "mode": "max", "label": "Whack Score", "id": 9, "count": 0, "current": 0 }, "13": { "mode": "max", "label": "Residue Bonus", "id": 13, "count": 1, "current": 0 }, "21": { "mode": "max", "label": "Card Power", "id": 21, "count": 1, "current": 0 }, "23": { "mode": "max", "label": "Healthy Potatoe", "id": 23, "count": 0, "current": 0 }, "28": { "mode": "max", "label": "Protein Bonus", "id": 28, "count": 0, "current": 0 }, "29": { "mode": "max", "label": "Grasshopper Dmg", "id": 29, "count": 0, "current": 0 } }
-    },
-    5: {
-        priorityList: [21, 13, 5, 6, 9, 23, 29, 28],
-        priorityMap: { "5": { "mode": "max", "label": "Reincarnation Exp", "id": 5, "count": 0, "current": 0 }, "6": { "mode": "max", "label": "Item Rating", "id": 6, "count": 0, "current": 0 }, "9": { "mode": "max", "label": "Whack Score", "id": 9, "count": 0, "current": 0 }, "13": { "mode": "max", "label": "Residue Bonus", "id": 13, "count": 1, "current": 0 }, "21": { "mode": "max", "label": "Card Power", "id": 21, "count": 1, "current": 0 }, "23": { "mode": "max", "label": "Healthy Potatoe", "id": 23, "count": 0, "current": 0 }, "28": { "mode": "max", "label": "Protein Bonus", "id": 28, "count": 0, "current": 0 }, "29": { "mode": "max", "label": "Grasshopper Dmg", "id": 29, "count": 0, "current": 0 } }
-    },
-    6: {
-        priorityList: [21, 13, 5, 6, 9, 23, 29, 28],
-        priorityMap: { "5": { "mode": "max", "label": "Reincarnation Exp", "id": 5, "count": 0, "current": 0 }, "6": { "mode": "max", "label": "Item Rating", "id": 6, "count": 0, "current": 0 }, "9": { "mode": "max", "label": "Whack Score", "id": 9, "count": 0, "current": 0 }, "13": { "mode": "max", "label": "Residue Bonus", "id": 13, "count": 1, "current": 0 }, "21": { "mode": "max", "label": "Card Power", "id": 21, "count": 1, "current": 0 }, "23": { "mode": "max", "label": "Healthy Potatoe", "id": 23, "count": 0, "current": 0 }, "28": { "mode": "max", "label": "Protein Bonus", "id": 28, "count": 0, "current": 0 }, "29": { "mode": "max", "label": "Grasshopper Dmg", "id": 29, "count": 0, "current": 0 } }
-    },
-    7: {
-        priorityList: [21, 13, 5, 6, 9, 23, 29, 28],
-        priorityMap: { "5": { "mode": "max", "label": "Reincarnation Exp", "id": 5, "count": 0, "current": 0 }, "6": { "mode": "max", "label": "Item Rating", "id": 6, "count": 0, "current": 0 }, "9": { "mode": "max", "label": "Whack Score", "id": 9, "count": 0, "current": 0 }, "13": { "mode": "max", "label": "Residue Bonus", "id": 13, "count": 1, "current": 0 }, "21": { "mode": "max", "label": "Card Power", "id": 21, "count": 1, "current": 0 }, "23": { "mode": "max", "label": "Healthy Potatoe", "id": 23, "count": 0, "current": 0 }, "28": { "mode": "max", "label": "Protein Bonus", "id": 28, "count": 0, "current": 0 }, "29": { "mode": "max", "label": "Grasshopper Dmg", "id": 29, "count": 0, "current": 0 } }
-    },
-    8: {
-        priorityList: [21, 13, 5, 6, 9, 23, 29, 28],
-        priorityMap: { "5": { "mode": "max", "label": "Reincarnation Exp", "id": 5, "count": 0, "current": 0 }, "6": { "mode": "max", "label": "Item Rating", "id": 6, "count": 0, "current": 0 }, "9": { "mode": "max", "label": "Whack Score", "id": 9, "count": 0, "current": 0 }, "13": { "mode": "max", "label": "Residue Bonus", "id": 13, "count": 1, "current": 0 }, "21": { "mode": "max", "label": "Card Power", "id": 21, "count": 1, "current": 0 }, "23": { "mode": "max", "label": "Healthy Potatoe", "id": 23, "count": 0, "current": 0 }, "28": { "mode": "max", "label": "Protein Bonus", "id": 28, "count": 0, "current": 0 }, "29": { "mode": "max", "label": "Grasshopper Dmg", "id": 29, "count": 0, "current": 0 } }
-    },
-    9: {
-        priorityList: [21, 13, 5, 6, 9, 23, 29, 28],
-        priorityMap: { "5": { "mode": "max", "label": "Reincarnation Exp", "id": 5, "count": 0, "current": 0 }, "6": { "mode": "max", "label": "Item Rating", "id": 6, "count": 0, "current": 0 }, "9": { "mode": "max", "label": "Whack Score", "id": 9, "count": 0, "current": 0 }, "13": { "mode": "max", "label": "Residue Bonus", "id": 13, "count": 1, "current": 0 }, "21": { "mode": "max", "label": "Card Power", "id": 21, "count": 1, "current": 0 }, "23": { "mode": "max", "label": "Healthy Potatoe", "id": 23, "count": 0, "current": 0 }, "28": { "mode": "max", "label": "Protein Bonus", "id": 28, "count": 0, "current": 0 }, "29": { "mode": "max", "label": "Grasshopper Dmg", "id": 29, "count": 0, "current": 0 } }
-    },
-    10: {
-        priorityList: [21, 13, 5, 6, 9, 23, 29, 28],
-        priorityMap: { "5": { "mode": "max", "label": "Reincarnation Exp", "id": 5, "count": 0, "current": 0 }, "6": { "mode": "max", "label": "Item Rating", "id": 6, "count": 0, "current": 0 }, "9": { "mode": "max", "label": "Whack Score", "id": 9, "count": 0, "current": 0 }, "13": { "mode": "max", "label": "Residue Bonus", "id": 13, "count": 1, "current": 0 }, "21": { "mode": "max", "label": "Card Power", "id": 21, "count": 1, "current": 0 }, "23": { "mode": "max", "label": "Healthy Potatoe", "id": 23, "count": 0, "current": 0 }, "28": { "mode": "max", "label": "Protein Bonus", "id": 28, "count": 0, "current": 0 }, "29": { "mode": "max", "label": "Grasshopper Dmg", "id": 29, "count": 0, "current": 0 } }
-    },
-    11: {
-        priorityList: [21, 13, 5, 6, 9, 23, 29, 28],
-        priorityMap: { "5": { "mode": "max", "label": "Reincarnation Exp", "id": 5, "count": 0, "current": 0 }, "6": { "mode": "max", "label": "Item Rating", "id": 6, "count": 0, "current": 0 }, "9": { "mode": "max", "label": "Whack Score", "id": 9, "count": 0, "current": 0 }, "13": { "mode": "max", "label": "Residue Bonus", "id": 13, "count": 1, "current": 0 }, "21": { "mode": "max", "label": "Card Power", "id": 21, "count": 1, "current": 0 }, "23": { "mode": "max", "label": "Healthy Potatoe", "id": 23, "count": 0, "current": 0 }, "28": { "mode": "max", "label": "Protein Bonus", "id": 28, "count": 0, "current": 0 }, "29": { "mode": "max", "label": "Grasshopper Dmg", "id": 29, "count": 0, "current": 0 } }
-    },
-    12: {
-        priorityList: [21, 13, 5, 6, 9, 23, 29, 28],
-        priorityMap: { "5": { "mode": "max", "label": "Reincarnation Exp", "id": 5, "count": 0, "current": 0 }, "6": { "mode": "max", "label": "Item Rating", "id": 6, "count": 0, "current": 0 }, "9": { "mode": "max", "label": "Whack Score", "id": 9, "count": 0, "current": 0 }, "13": { "mode": "max", "label": "Residue Bonus", "id": 13, "count": 1, "current": 0 }, "21": { "mode": "max", "label": "Card Power", "id": 21, "count": 1, "current": 0 }, "23": { "mode": "max", "label": "Healthy Potatoe", "id": 23, "count": 0, "current": 0 }, "28": { "mode": "max", "label": "Protein Bonus", "id": 28, "count": 0, "current": 0 }, "29": { "mode": "max", "label": "Grasshopper Dmg", "id": 29, "count": 0, "current": 0 } }
-    },
-    13: {
-        priorityList: [21, 13, 5, 6, 9, 23, 29, 28],
-        priorityMap: { "5": { "mode": "max", "label": "Reincarnation Exp", "id": 5, "count": 0, "current": 0 }, "6": { "mode": "max", "label": "Item Rating", "id": 6, "count": 0, "current": 0 }, "9": { "mode": "max", "label": "Whack Score", "id": 9, "count": 0, "current": 0 }, "13": { "mode": "max", "label": "Residue Bonus", "id": 13, "count": 1, "current": 0 }, "21": { "mode": "max", "label": "Card Power", "id": 21, "count": 1, "current": 0 }, "23": { "mode": "max", "label": "Healthy Potatoe", "id": 23, "count": 0, "current": 0 }, "28": { "mode": "max", "label": "Protein Bonus", "id": 28, "count": 0, "current": 0 }, "29": { "mode": "max", "label": "Grasshopper Dmg", "id": 29, "count": 0, "current": 0 } }
-    },
-    14: {
-        priorityList: [
-            6,
-            5,
-            21,
-            22,
-            13,
-            8
-        ],
-        priorityMap: {
-            "5": {
-                "mode": "max",
-                "label": "Reincarnation Exp",
-                "id": 5,
-                "count": 0,
-                "current": 0
-            },
-            "6": {
-                "mode": "max",
-                "label": "Item Rating",
-                "id": 6,
-                "count": 0,
-                "current": 0
-            },
-            "8": {
-                "mode": "max",
-                "label": "Milk Bonus",
-                "id": 8,
-                "count": 0,
-                "current": 0
-            },
-            "13": {
-                "mode": "max",
-                "label": "Residue Bonus",
-                "id": 13,
-                "count": 0,
-                "current": 0
-            },
-            "21": {
-                "mode": "max",
-                "label": "Card Power",
-                "id": 21,
-                "count": 3,
-                "current": 0
-            },
-            "22": {
-                "mode": "max",
-                "label": "Card Exp",
-                "id": 22,
-                "count": 0,
-                "current": 0
-            }
-        }
-    },
-    15: {
-        priorityList: [
-            6,
-            5,
-            21,
-            22,
-            13,
-            8
-        ],
-        priorityMap: {
-            "5": {
-                "mode": "max",
-                "label": "Reincarnation Exp",
-                "id": 5,
-                "count": 0,
-                "current": 0
-            },
-            "6": {
-                "mode": "max",
-                "label": "Item Rating",
-                "id": 6,
-                "count": 0,
-                "current": 0
-            },
-            "8": {
-                "mode": "max",
-                "label": "Milk Bonus",
-                "id": 8,
-                "count": 0,
-                "current": 0
-            },
-            "13": {
-                "mode": "max",
-                "label": "Residue Bonus",
-                "id": 13,
-                "count": 0,
-                "current": 0
-            },
-            "21": {
-                "mode": "max",
-                "label": "Card Power",
-                "id": 21,
-                "count": 3,
-                "current": 0
-            },
-            "22": {
-                "mode": "max",
-                "label": "Card Exp",
-                "id": 22,
-                "count": 0,
-                "current": 0
-            }
-        }
-    },
-    16: {
-        priorityList: [
-            6,
-            5,
-            21,
-            22,
-            13,
-            8
-        ],
-        priorityMap: {
-            "5": {
-                "mode": "max",
-                "label": "Reincarnation Exp",
-                "id": 5,
-                "count": 0,
-                "current": 0
-            },
-            "6": {
-                "mode": "max",
-                "label": "Item Rating",
-                "id": 6,
-                "count": 0,
-                "current": 0
-            },
-            "8": {
-                "mode": "max",
-                "label": "Milk Bonus",
-                "id": 8,
-                "count": 0,
-                "current": 0
-            },
-            "13": {
-                "mode": "max",
-                "label": "Residue Bonus",
-                "id": 13,
-                "count": 0,
-                "current": 0
-            },
-            "21": {
-                "mode": "max",
-                "label": "Card Power",
-                "id": 21,
-                "count": 3,
-                "current": 0
-            },
-            "22": {
-                "mode": "max",
-                "label": "Card Exp",
-                "id": 22,
-                "count": 0,
-                "current": 0
-            }
-        }
-    },
-    17: {
-        priorityList: [
-            6,
-            5,
-            21,
-            22,
-            13,
-            8
-        ],
-        priorityMap: {
-            "5": {
-                "mode": "max",
-                "label": "Reincarnation Exp",
-                "id": 5,
-                "count": 0,
-                "current": 0
-            },
-            "6": {
-                "mode": "max",
-                "label": "Item Rating",
-                "id": 6,
-                "count": 0,
-                "current": 0
-            },
-            "8": {
-                "mode": "max",
-                "label": "Milk Bonus",
-                "id": 8,
-                "count": 0,
-                "current": 0
-            },
-            "13": {
-                "mode": "max",
-                "label": "Residue Bonus",
-                "id": 13,
-                "count": 0,
-                "current": 0
-            },
-            "21": {
-                "mode": "max",
-                "label": "Card Power",
-                "id": 21,
-                "count": 3,
-                "current": 0
-            },
-            "22": {
-                "mode": "max",
-                "label": "Card Exp",
-                "id": 22,
-                "count": 0,
-                "current": 0
-            }
-        }
-    },
-    18: {
-        priorityList: [
-            6,
-            5,
-            21,
-            22,
-            13,
-            8
-        ],
-        priorityMap: {
-            "5": {
-                "mode": "max",
-                "label": "Reincarnation Exp",
-                "id": 5,
-                "count": 0,
-                "current": 0
-            },
-            "6": {
-                "mode": "max",
-                "label": "Item Rating",
-                "id": 6,
-                "count": 0,
-                "current": 0
-            },
-            "8": {
-                "mode": "max",
-                "label": "Milk Bonus",
-                "id": 8,
-                "count": 0,
-                "current": 0
-            },
-            "13": {
-                "mode": "max",
-                "label": "Residue Bonus",
-                "id": 13,
-                "count": 0,
-                "current": 0
-            },
-            "21": {
-                "mode": "max",
-                "label": "Card Power",
-                "id": 21,
-                "count": 3,
-                "current": 0
-            },
-            "22": {
-                "mode": "max",
-                "label": "Card Exp",
-                "id": 22,
-                "count": 0,
-                "current": 0
-            }
-        }
-    },
-    19: {
-        priorityList: [
-            6,
-            5,
-            21,
-            22,
-            13,
-            8
-        ],
-        priorityMap: {
-            "5": {
-                "mode": "max",
-                "label": "Reincarnation Exp",
-                "id": 5,
-                "count": 0,
-                "current": 0
-            },
-            "6": {
-                "mode": "max",
-                "label": "Item Rating",
-                "id": 6,
-                "count": 0,
-                "current": 0
-            },
-            "8": {
-                "mode": "max",
-                "label": "Milk Bonus",
-                "id": 8,
-                "count": 0,
-                "current": 0
-            },
-            "13": {
-                "mode": "max",
-                "label": "Residue Bonus",
-                "id": 13,
-                "count": 0,
-                "current": 0
-            },
-            "21": {
-                "mode": "max",
-                "label": "Card Power",
-                "id": 21,
-                "count": 3,
-                "current": 0
-            },
-            "22": {
-                "mode": "max",
-                "label": "Card Exp",
-                "id": 22,
-                "count": 0,
-                "current": 0
-            }
-        }
-    },
-    20: {
-        priorityList: [
-            6,
-            5,
-            21,
-            22,
-            13,
-            8
-        ],
-        priorityMap: {
-            "5": {
-                "mode": "max",
-                "label": "Reincarnation Exp",
-                "id": 5,
-                "count": 0,
-                "current": 0
-            },
-            "6": {
-                "mode": "max",
-                "label": "Item Rating",
-                "id": 6,
-                "count": 0,
-                "current": 0
-            },
-            "8": {
-                "mode": "max",
-                "label": "Milk Bonus",
-                "id": 8,
-                "count": 0,
-                "current": 0
-            },
-            "13": {
-                "mode": "max",
-                "label": "Residue Bonus",
-                "id": 13,
-                "count": 0,
-                "current": 0
-            },
-            "21": {
-                "mode": "max",
-                "label": "Card Power",
-                "id": 21,
-                "count": 3,
-                "current": 0
-            },
-            "22": {
-                "mode": "max",
-                "label": "Card Exp",
-                "id": 22,
-                "count": 0,
-                "current": 0
-            }
-        }
-    },
-    21: {
-        priorityList: [
-            6,
-            5,
-            21,
-            22,
-            13,
-            8
-        ],
-        priorityMap: {
-            "5": {
-                "mode": "max",
-                "label": "Reincarnation Exp",
-                "id": 5,
-                "count": 0,
-                "current": 0
-            },
-            "6": {
-                "mode": "max",
-                "label": "Item Rating",
-                "id": 6,
-                "count": 0,
-                "current": 0
-            },
-            "8": {
-                "mode": "max",
-                "label": "Milk Bonus",
-                "id": 8,
-                "count": 0,
-                "current": 0
-            },
-            "13": {
-                "mode": "max",
-                "label": "Residue Bonus",
-                "id": 13,
-                "count": 0,
-                "current": 0
-            },
-            "21": {
-                "mode": "max",
-                "label": "Card Power",
-                "id": 21,
-                "count": 3,
-                "current": 0
-            },
-            "22": {
-                "mode": "max",
-                "label": "Card Exp",
-                "id": 22,
-                "count": 0,
-                "current": 0
-            }
-        }
-    },
-    22: {
-        priorityList: [
-            6,
-            5,
-            21,
-            22,
-            13,
-            8
-        ],
-        priorityMap: {
-            "5": {
-                "mode": "max",
-                "label": "Reincarnation Exp",
-                "id": 5,
-                "count": 0,
-                "current": 0
-            },
-            "6": {
-                "mode": "max",
-                "label": "Item Rating",
-                "id": 6,
-                "count": 0,
-                "current": 0
-            },
-            "8": {
-                "mode": "max",
-                "label": "Milk Bonus",
-                "id": 8,
-                "count": 0,
-                "current": 0
-            },
-            "13": {
-                "mode": "max",
-                "label": "Residue Bonus",
-                "id": 13,
-                "count": 0,
-                "current": 0
-            },
-            "21": {
-                "mode": "max",
-                "label": "Card Power",
-                "id": 21,
-                "count": 3,
-                "current": 0
-            },
-            "22": {
-                "mode": "max",
-                "label": "Card Exp",
-                "id": 22,
-                "count": 0,
-                "current": 0
-            }
-        }
-    },
-    23: {
-        priorityList: [
-            6,
-            5,
-            21,
-            22,
-            13,
-            8
-        ],
-        priorityMap: {
-            "5": {
-                "mode": "max",
-                "label": "Reincarnation Exp",
-                "id": 5,
-                "count": 0,
-                "current": 0
-            },
-            "6": {
-                "mode": "max",
-                "label": "Item Rating",
-                "id": 6,
-                "count": 0,
-                "current": 0
-            },
-            "8": {
-                "mode": "max",
-                "label": "Milk Bonus",
-                "id": 8,
-                "count": 0,
-                "current": 0
-            },
-            "13": {
-                "mode": "max",
-                "label": "Residue Bonus",
-                "id": 13,
-                "count": 0,
-                "current": 0
-            },
-            "21": {
-                "mode": "max",
-                "label": "Card Power",
-                "id": 21,
-                "count": 3,
-                "current": 0
-            },
-            "22": {
-                "mode": "max",
-                "label": "Card Exp",
-                "id": 22,
-                "count": 0,
-                "current": 0
-            }
-        }
-    },
-    24: {
-        priorityList: [
-            6,
-            5,
-            21,
-            22,
-            13,
-            8
-        ],
-        priorityMap: {
-            "5": {
-                "mode": "max",
-                "label": "Reincarnation Exp",
-                "id": 5,
-                "count": 0,
-                "current": 0
-            },
-            "6": {
-                "mode": "max",
-                "label": "Item Rating",
-                "id": 6,
-                "count": 0,
-                "current": 0
-            },
-            "8": {
-                "mode": "max",
-                "label": "Milk Bonus",
-                "id": 8,
-                "count": 0,
-                "current": 0
-            },
-            "13": {
-                "mode": "max",
-                "label": "Residue Bonus",
-                "id": 13,
-                "count": 0,
-                "current": 0
-            },
-            "21": {
-                "mode": "max",
-                "label": "Card Power",
-                "id": 21,
-                "count": 3,
-                "current": 0
-            },
-            "22": {
-                "mode": "max",
-                "label": "Card Exp",
-                "id": 22,
-                "count": 0,
-                "current": 0
-            }
-        }
-    },
-    25: {
-        priorityList: [
-            6,
-            5,
-            21,
-            22,
-            13,
-            8
-        ],
-        priorityMap: {
-            "5": {
-                "mode": "max",
-                "label": "Reincarnation Exp",
-                "id": 5,
-                "count": 0,
-                "current": 0
-            },
-            "6": {
-                "mode": "max",
-                "label": "Item Rating",
-                "id": 6,
-                "count": 0,
-                "current": 0
-            },
-            "8": {
-                "mode": "max",
-                "label": "Milk Bonus",
-                "id": 8,
-                "count": 0,
-                "current": 0
-            },
-            "13": {
-                "mode": "max",
-                "label": "Residue Bonus",
-                "id": 13,
-                "count": 0,
-                "current": 0
-            },
-            "21": {
-                "mode": "max",
-                "label": "Card Power",
-                "id": 21,
-                "count": 3,
-                "current": 0
-            },
-            "22": {
-                "mode": "max",
-                "label": "Card Exp",
-                "id": 22,
-                "count": 0,
-                "current": 0
-            }
-        }
-    },
-    26: {
-        priorityList: [
-            6,
-            5,
-            21,
-            22,
-            13,
-            8
-        ],
-        priorityMap: {
-            "5": {
-                "mode": "max",
-                "label": "Reincarnation Exp",
-                "id": 5,
-                "count": 0,
-                "current": 0
-            },
-            "6": {
-                "mode": "max",
-                "label": "Item Rating",
-                "id": 6,
-                "count": 0,
-                "current": 0
-            },
-            "8": {
-                "mode": "max",
-                "label": "Milk Bonus",
-                "id": 8,
-                "count": 0,
-                "current": 0
-            },
-            "13": {
-                "mode": "max",
-                "label": "Residue Bonus",
-                "id": 13,
-                "count": 0,
-                "current": 0
-            },
-            "21": {
-                "mode": "max",
-                "label": "Card Power",
-                "id": 21,
-                "count": 3,
-                "current": 0
-            },
-            "22": {
-                "mode": "max",
-                "label": "Card Exp",
-                "id": 22,
-                "count": 0,
-                "current": 0
-            }
-        }
-    },
-    27: {
-        priorityList: [
-            6,
-            5,
-            21,
-            22,
-            13,
-            8
-        ],
-        priorityMap: {
-            "5": {
-                "mode": "max",
-                "label": "Reincarnation Exp",
-                "id": 5,
-                "count": 0,
-                "current": 0
-            },
-            "6": {
-                "mode": "max",
-                "label": "Item Rating",
-                "id": 6,
-                "count": 0,
-                "current": 0
-            },
-            "8": {
-                "mode": "max",
-                "label": "Milk Bonus",
-                "id": 8,
-                "count": 0,
-                "current": 0
-            },
-            "13": {
-                "mode": "max",
-                "label": "Residue Bonus",
-                "id": 13,
-                "count": 0,
-                "current": 0
-            },
-            "21": {
-                "mode": "max",
-                "label": "Card Power",
-                "id": 21,
-                "count": 3,
-                "current": 0
-            },
-            "22": {
-                "mode": "max",
-                "label": "Card Exp",
-                "id": 22,
-                "count": 0,
-                "current": 0
-            }
-        }
-    },
-    28: {
-        priorityList: [
-            6,
-            5,
-            21,
-            22,
-            13,
-            8
-        ],
-        priorityMap: {
-            "5": {
-                "mode": "max",
-                "label": "Reincarnation Exp",
-                "id": 5,
-                "count": 0,
-                "current": 0
-            },
-            "6": {
-                "mode": "max",
-                "label": "Item Rating",
-                "id": 6,
-                "count": 0,
-                "current": 0
-            },
-            "8": {
-                "mode": "max",
-                "label": "Milk Bonus",
-                "id": 8,
-                "count": 0,
-                "current": 0
-            },
-            "13": {
-                "mode": "max",
-                "label": "Residue Bonus",
-                "id": 13,
-                "count": 0,
-                "current": 0
-            },
-            "21": {
-                "mode": "max",
-                "label": "Card Power",
-                "id": 21,
-                "count": 3,
-                "current": 0
-            },
-            "22": {
-                "mode": "max",
-                "label": "Card Exp",
-                "id": 22,
-                "count": 0,
-                "current": 0
-            }
-        }
-    },
-    29: {
-        priorityList: [
-            6,
-            5,
-            21,
-            22,
-            13,
-            8
-        ],
-        priorityMap: {
-            "5": {
-                "mode": "max",
-                "label": "Reincarnation Exp",
-                "id": 5,
-                "count": 0,
-                "current": 0
-            },
-            "6": {
-                "mode": "max",
-                "label": "Item Rating",
-                "id": 6,
-                "count": 0,
-                "current": 0
-            },
-            "8": {
-                "mode": "max",
-                "label": "Milk Bonus",
-                "id": 8,
-                "count": 0,
-                "current": 0
-            },
-            "13": {
-                "mode": "max",
-                "label": "Residue Bonus",
-                "id": 13,
-                "count": 0,
-                "current": 0
-            },
-            "21": {
-                "mode": "max",
-                "label": "Card Power",
-                "id": 21,
-                "count": 3,
-                "current": 0
-            },
-            "22": {
-                "mode": "max",
-                "label": "Card Exp",
-                "id": 22,
-                "count": 0,
-                "current": 0
-            }
-        }
-    },
+// export const statTeamSuggestions = {
+//     0: {
+//         priorityList: [21, 13, 5, 6, 9, 23, 29, 28],
+//         priorityMap: { "5": { "mode": "max", "label": "Reincarnation Exp", "id": 5, "count": 0, "current": 0 }, "6": { "mode": "max", "label": "Item Rating", "id": 6, "count": 0, "current": 0 }, "9": { "mode": "max", "label": "Whack Score", "id": 9, "count": 0, "current": 0 }, "13": { "mode": "max", "label": "Residue Bonus", "id": 13, "count": 1, "current": 0 }, "21": { "mode": "max", "label": "Card Power", "id": 21, "count": 1, "current": 0 }, "23": { "mode": "max", "label": "Healthy Potatoe", "id": 23, "count": 0, "current": 0 }, "28": { "mode": "max", "label": "Protein Bonus", "id": 28, "count": 0, "current": 0 }, "29": { "mode": "max", "label": "Grasshopper Dmg", "id": 29, "count": 0, "current": 0 } }
+//     },
+//     1: {
+//         priorityList: [21, 13, 5, 6, 9, 23, 29, 28],
+//         priorityMap: { "5": { "mode": "max", "label": "Reincarnation Exp", "id": 5, "count": 0, "current": 0 }, "6": { "mode": "max", "label": "Item Rating", "id": 6, "count": 0, "current": 0 }, "9": { "mode": "max", "label": "Whack Score", "id": 9, "count": 0, "current": 0 }, "13": { "mode": "max", "label": "Residue Bonus", "id": 13, "count": 1, "current": 0 }, "21": { "mode": "max", "label": "Card Power", "id": 21, "count": 1, "current": 0 }, "23": { "mode": "max", "label": "Healthy Potatoe", "id": 23, "count": 0, "current": 0 }, "28": { "mode": "max", "label": "Protein Bonus", "id": 28, "count": 0, "current": 0 }, "29": { "mode": "max", "label": "Grasshopper Dmg", "id": 29, "count": 0, "current": 0 } }
+//     },
+//     2: {
+//         priorityList: [21, 13, 5, 6, 9, 23, 29, 28],
+//         priorityMap: { "5": { "mode": "max", "label": "Reincarnation Exp", "id": 5, "count": 0, "current": 0 }, "6": { "mode": "max", "label": "Item Rating", "id": 6, "count": 0, "current": 0 }, "9": { "mode": "max", "label": "Whack Score", "id": 9, "count": 0, "current": 0 }, "13": { "mode": "max", "label": "Residue Bonus", "id": 13, "count": 1, "current": 0 }, "21": { "mode": "max", "label": "Card Power", "id": 21, "count": 1, "current": 0 }, "23": { "mode": "max", "label": "Healthy Potatoe", "id": 23, "count": 0, "current": 0 }, "28": { "mode": "max", "label": "Protein Bonus", "id": 28, "count": 0, "current": 0 }, "29": { "mode": "max", "label": "Grasshopper Dmg", "id": 29, "count": 0, "current": 0 } }
+//     },
+//     3: {
+//         priorityList: [21, 13, 5, 6, 9, 23, 29, 28],
+//         priorityMap: { "5": { "mode": "max", "label": "Reincarnation Exp", "id": 5, "count": 0, "current": 0 }, "6": { "mode": "max", "label": "Item Rating", "id": 6, "count": 0, "current": 0 }, "9": { "mode": "max", "label": "Whack Score", "id": 9, "count": 0, "current": 0 }, "13": { "mode": "max", "label": "Residue Bonus", "id": 13, "count": 1, "current": 0 }, "21": { "mode": "max", "label": "Card Power", "id": 21, "count": 1, "current": 0 }, "23": { "mode": "max", "label": "Healthy Potatoe", "id": 23, "count": 0, "current": 0 }, "28": { "mode": "max", "label": "Protein Bonus", "id": 28, "count": 0, "current": 0 }, "29": { "mode": "max", "label": "Grasshopper Dmg", "id": 29, "count": 0, "current": 0 } }
+//     },
+//     4: {
+//         priorityList: [21, 13, 5, 6, 9, 23, 29, 28],
+//         priorityMap: { "5": { "mode": "max", "label": "Reincarnation Exp", "id": 5, "count": 0, "current": 0 }, "6": { "mode": "max", "label": "Item Rating", "id": 6, "count": 0, "current": 0 }, "9": { "mode": "max", "label": "Whack Score", "id": 9, "count": 0, "current": 0 }, "13": { "mode": "max", "label": "Residue Bonus", "id": 13, "count": 1, "current": 0 }, "21": { "mode": "max", "label": "Card Power", "id": 21, "count": 1, "current": 0 }, "23": { "mode": "max", "label": "Healthy Potatoe", "id": 23, "count": 0, "current": 0 }, "28": { "mode": "max", "label": "Protein Bonus", "id": 28, "count": 0, "current": 0 }, "29": { "mode": "max", "label": "Grasshopper Dmg", "id": 29, "count": 0, "current": 0 } }
+//     },
+//     5: {
+//         priorityList: [21, 13, 5, 6, 9, 23, 29, 28],
+//         priorityMap: { "5": { "mode": "max", "label": "Reincarnation Exp", "id": 5, "count": 0, "current": 0 }, "6": { "mode": "max", "label": "Item Rating", "id": 6, "count": 0, "current": 0 }, "9": { "mode": "max", "label": "Whack Score", "id": 9, "count": 0, "current": 0 }, "13": { "mode": "max", "label": "Residue Bonus", "id": 13, "count": 1, "current": 0 }, "21": { "mode": "max", "label": "Card Power", "id": 21, "count": 1, "current": 0 }, "23": { "mode": "max", "label": "Healthy Potatoe", "id": 23, "count": 0, "current": 0 }, "28": { "mode": "max", "label": "Protein Bonus", "id": 28, "count": 0, "current": 0 }, "29": { "mode": "max", "label": "Grasshopper Dmg", "id": 29, "count": 0, "current": 0 } }
+//     },
+//     6: {
+//         priorityList: [21, 13, 5, 6, 9, 23, 29, 28],
+//         priorityMap: { "5": { "mode": "max", "label": "Reincarnation Exp", "id": 5, "count": 0, "current": 0 }, "6": { "mode": "max", "label": "Item Rating", "id": 6, "count": 0, "current": 0 }, "9": { "mode": "max", "label": "Whack Score", "id": 9, "count": 0, "current": 0 }, "13": { "mode": "max", "label": "Residue Bonus", "id": 13, "count": 1, "current": 0 }, "21": { "mode": "max", "label": "Card Power", "id": 21, "count": 1, "current": 0 }, "23": { "mode": "max", "label": "Healthy Potatoe", "id": 23, "count": 0, "current": 0 }, "28": { "mode": "max", "label": "Protein Bonus", "id": 28, "count": 0, "current": 0 }, "29": { "mode": "max", "label": "Grasshopper Dmg", "id": 29, "count": 0, "current": 0 } }
+//     },
+//     7: {
+//         priorityList: [21, 13, 5, 6, 9, 23, 29, 28],
+//         priorityMap: { "5": { "mode": "max", "label": "Reincarnation Exp", "id": 5, "count": 0, "current": 0 }, "6": { "mode": "max", "label": "Item Rating", "id": 6, "count": 0, "current": 0 }, "9": { "mode": "max", "label": "Whack Score", "id": 9, "count": 0, "current": 0 }, "13": { "mode": "max", "label": "Residue Bonus", "id": 13, "count": 1, "current": 0 }, "21": { "mode": "max", "label": "Card Power", "id": 21, "count": 1, "current": 0 }, "23": { "mode": "max", "label": "Healthy Potatoe", "id": 23, "count": 0, "current": 0 }, "28": { "mode": "max", "label": "Protein Bonus", "id": 28, "count": 0, "current": 0 }, "29": { "mode": "max", "label": "Grasshopper Dmg", "id": 29, "count": 0, "current": 0 } }
+//     },
+//     8: {
+//         priorityList: [21, 13, 5, 6, 9, 23, 29, 28],
+//         priorityMap: { "5": { "mode": "max", "label": "Reincarnation Exp", "id": 5, "count": 0, "current": 0 }, "6": { "mode": "max", "label": "Item Rating", "id": 6, "count": 0, "current": 0 }, "9": { "mode": "max", "label": "Whack Score", "id": 9, "count": 0, "current": 0 }, "13": { "mode": "max", "label": "Residue Bonus", "id": 13, "count": 1, "current": 0 }, "21": { "mode": "max", "label": "Card Power", "id": 21, "count": 1, "current": 0 }, "23": { "mode": "max", "label": "Healthy Potatoe", "id": 23, "count": 0, "current": 0 }, "28": { "mode": "max", "label": "Protein Bonus", "id": 28, "count": 0, "current": 0 }, "29": { "mode": "max", "label": "Grasshopper Dmg", "id": 29, "count": 0, "current": 0 } }
+//     },
+//     9: {
+//         priorityList: [21, 13, 5, 6, 9, 23, 29, 28],
+//         priorityMap: { "5": { "mode": "max", "label": "Reincarnation Exp", "id": 5, "count": 0, "current": 0 }, "6": { "mode": "max", "label": "Item Rating", "id": 6, "count": 0, "current": 0 }, "9": { "mode": "max", "label": "Whack Score", "id": 9, "count": 0, "current": 0 }, "13": { "mode": "max", "label": "Residue Bonus", "id": 13, "count": 1, "current": 0 }, "21": { "mode": "max", "label": "Card Power", "id": 21, "count": 1, "current": 0 }, "23": { "mode": "max", "label": "Healthy Potatoe", "id": 23, "count": 0, "current": 0 }, "28": { "mode": "max", "label": "Protein Bonus", "id": 28, "count": 0, "current": 0 }, "29": { "mode": "max", "label": "Grasshopper Dmg", "id": 29, "count": 0, "current": 0 } }
+//     },
+//     10: {
+//         priorityList: [21, 13, 5, 6, 9, 23, 29, 28],
+//         priorityMap: { "5": { "mode": "max", "label": "Reincarnation Exp", "id": 5, "count": 0, "current": 0 }, "6": { "mode": "max", "label": "Item Rating", "id": 6, "count": 0, "current": 0 }, "9": { "mode": "max", "label": "Whack Score", "id": 9, "count": 0, "current": 0 }, "13": { "mode": "max", "label": "Residue Bonus", "id": 13, "count": 1, "current": 0 }, "21": { "mode": "max", "label": "Card Power", "id": 21, "count": 1, "current": 0 }, "23": { "mode": "max", "label": "Healthy Potatoe", "id": 23, "count": 0, "current": 0 }, "28": { "mode": "max", "label": "Protein Bonus", "id": 28, "count": 0, "current": 0 }, "29": { "mode": "max", "label": "Grasshopper Dmg", "id": 29, "count": 0, "current": 0 } }
+//     },
+//     11: {
+//         priorityList: [21, 13, 5, 6, 9, 23, 29, 28],
+//         priorityMap: { "5": { "mode": "max", "label": "Reincarnation Exp", "id": 5, "count": 0, "current": 0 }, "6": { "mode": "max", "label": "Item Rating", "id": 6, "count": 0, "current": 0 }, "9": { "mode": "max", "label": "Whack Score", "id": 9, "count": 0, "current": 0 }, "13": { "mode": "max", "label": "Residue Bonus", "id": 13, "count": 1, "current": 0 }, "21": { "mode": "max", "label": "Card Power", "id": 21, "count": 1, "current": 0 }, "23": { "mode": "max", "label": "Healthy Potatoe", "id": 23, "count": 0, "current": 0 }, "28": { "mode": "max", "label": "Protein Bonus", "id": 28, "count": 0, "current": 0 }, "29": { "mode": "max", "label": "Grasshopper Dmg", "id": 29, "count": 0, "current": 0 } }
+//     },
+//     12: {
+//         priorityList: [21, 13, 5, 6, 9, 23, 29, 28],
+//         priorityMap: { "5": { "mode": "max", "label": "Reincarnation Exp", "id": 5, "count": 0, "current": 0 }, "6": { "mode": "max", "label": "Item Rating", "id": 6, "count": 0, "current": 0 }, "9": { "mode": "max", "label": "Whack Score", "id": 9, "count": 0, "current": 0 }, "13": { "mode": "max", "label": "Residue Bonus", "id": 13, "count": 1, "current": 0 }, "21": { "mode": "max", "label": "Card Power", "id": 21, "count": 1, "current": 0 }, "23": { "mode": "max", "label": "Healthy Potatoe", "id": 23, "count": 0, "current": 0 }, "28": { "mode": "max", "label": "Protein Bonus", "id": 28, "count": 0, "current": 0 }, "29": { "mode": "max", "label": "Grasshopper Dmg", "id": 29, "count": 0, "current": 0 } }
+//     },
+//     13: {
+//         priorityList: [21, 13, 5, 6, 9, 23, 29, 28],
+//         priorityMap: { "5": { "mode": "max", "label": "Reincarnation Exp", "id": 5, "count": 0, "current": 0 }, "6": { "mode": "max", "label": "Item Rating", "id": 6, "count": 0, "current": 0 }, "9": { "mode": "max", "label": "Whack Score", "id": 9, "count": 0, "current": 0 }, "13": { "mode": "max", "label": "Residue Bonus", "id": 13, "count": 1, "current": 0 }, "21": { "mode": "max", "label": "Card Power", "id": 21, "count": 1, "current": 0 }, "23": { "mode": "max", "label": "Healthy Potatoe", "id": 23, "count": 0, "current": 0 }, "28": { "mode": "max", "label": "Protein Bonus", "id": 28, "count": 0, "current": 0 }, "29": { "mode": "max", "label": "Grasshopper Dmg", "id": 29, "count": 0, "current": 0 } }
+//     },
+//     14: {
+//         priorityList: [
+//             6,
+//             5,
+//             21,
+//             22,
+//             13,
+//             8
+//         ],
+//         priorityMap: {
+//             "5": {
+//                 "mode": "max",
+//                 "label": "Reincarnation Exp",
+//                 "id": 5,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "6": {
+//                 "mode": "max",
+//                 "label": "Item Rating",
+//                 "id": 6,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "8": {
+//                 "mode": "max",
+//                 "label": "Milk Bonus",
+//                 "id": 8,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "13": {
+//                 "mode": "max",
+//                 "label": "Residue Bonus",
+//                 "id": 13,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "21": {
+//                 "mode": "max",
+//                 "label": "Card Power",
+//                 "id": 21,
+//                 "count": 3,
+//                 "current": 0
+//             },
+//             "22": {
+//                 "mode": "max",
+//                 "label": "Card Exp",
+//                 "id": 22,
+//                 "count": 0,
+//                 "current": 0
+//             }
+//         }
+//     },
+//     15: {
+//         priorityList: [
+//             6,
+//             5,
+//             21,
+//             22,
+//             13,
+//             8
+//         ],
+//         priorityMap: {
+//             "5": {
+//                 "mode": "max",
+//                 "label": "Reincarnation Exp",
+//                 "id": 5,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "6": {
+//                 "mode": "max",
+//                 "label": "Item Rating",
+//                 "id": 6,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "8": {
+//                 "mode": "max",
+//                 "label": "Milk Bonus",
+//                 "id": 8,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "13": {
+//                 "mode": "max",
+//                 "label": "Residue Bonus",
+//                 "id": 13,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "21": {
+//                 "mode": "max",
+//                 "label": "Card Power",
+//                 "id": 21,
+//                 "count": 3,
+//                 "current": 0
+//             },
+//             "22": {
+//                 "mode": "max",
+//                 "label": "Card Exp",
+//                 "id": 22,
+//                 "count": 0,
+//                 "current": 0
+//             }
+//         }
+//     },
+//     16: {
+//         priorityList: [
+//             6,
+//             5,
+//             21,
+//             22,
+//             13,
+//             8
+//         ],
+//         priorityMap: {
+//             "5": {
+//                 "mode": "max",
+//                 "label": "Reincarnation Exp",
+//                 "id": 5,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "6": {
+//                 "mode": "max",
+//                 "label": "Item Rating",
+//                 "id": 6,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "8": {
+//                 "mode": "max",
+//                 "label": "Milk Bonus",
+//                 "id": 8,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "13": {
+//                 "mode": "max",
+//                 "label": "Residue Bonus",
+//                 "id": 13,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "21": {
+//                 "mode": "max",
+//                 "label": "Card Power",
+//                 "id": 21,
+//                 "count": 3,
+//                 "current": 0
+//             },
+//             "22": {
+//                 "mode": "max",
+//                 "label": "Card Exp",
+//                 "id": 22,
+//                 "count": 0,
+//                 "current": 0
+//             }
+//         }
+//     },
+//     17: {
+//         priorityList: [
+//             6,
+//             5,
+//             21,
+//             22,
+//             13,
+//             8
+//         ],
+//         priorityMap: {
+//             "5": {
+//                 "mode": "max",
+//                 "label": "Reincarnation Exp",
+//                 "id": 5,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "6": {
+//                 "mode": "max",
+//                 "label": "Item Rating",
+//                 "id": 6,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "8": {
+//                 "mode": "max",
+//                 "label": "Milk Bonus",
+//                 "id": 8,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "13": {
+//                 "mode": "max",
+//                 "label": "Residue Bonus",
+//                 "id": 13,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "21": {
+//                 "mode": "max",
+//                 "label": "Card Power",
+//                 "id": 21,
+//                 "count": 3,
+//                 "current": 0
+//             },
+//             "22": {
+//                 "mode": "max",
+//                 "label": "Card Exp",
+//                 "id": 22,
+//                 "count": 0,
+//                 "current": 0
+//             }
+//         }
+//     },
+//     18: {
+//         priorityList: [
+//             6,
+//             5,
+//             21,
+//             22,
+//             13,
+//             8
+//         ],
+//         priorityMap: {
+//             "5": {
+//                 "mode": "max",
+//                 "label": "Reincarnation Exp",
+//                 "id": 5,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "6": {
+//                 "mode": "max",
+//                 "label": "Item Rating",
+//                 "id": 6,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "8": {
+//                 "mode": "max",
+//                 "label": "Milk Bonus",
+//                 "id": 8,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "13": {
+//                 "mode": "max",
+//                 "label": "Residue Bonus",
+//                 "id": 13,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "21": {
+//                 "mode": "max",
+//                 "label": "Card Power",
+//                 "id": 21,
+//                 "count": 3,
+//                 "current": 0
+//             },
+//             "22": {
+//                 "mode": "max",
+//                 "label": "Card Exp",
+//                 "id": 22,
+//                 "count": 0,
+//                 "current": 0
+//             }
+//         }
+//     },
+//     19: {
+//         priorityList: [
+//             6,
+//             5,
+//             21,
+//             22,
+//             13,
+//             8
+//         ],
+//         priorityMap: {
+//             "5": {
+//                 "mode": "max",
+//                 "label": "Reincarnation Exp",
+//                 "id": 5,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "6": {
+//                 "mode": "max",
+//                 "label": "Item Rating",
+//                 "id": 6,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "8": {
+//                 "mode": "max",
+//                 "label": "Milk Bonus",
+//                 "id": 8,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "13": {
+//                 "mode": "max",
+//                 "label": "Residue Bonus",
+//                 "id": 13,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "21": {
+//                 "mode": "max",
+//                 "label": "Card Power",
+//                 "id": 21,
+//                 "count": 3,
+//                 "current": 0
+//             },
+//             "22": {
+//                 "mode": "max",
+//                 "label": "Card Exp",
+//                 "id": 22,
+//                 "count": 0,
+//                 "current": 0
+//             }
+//         }
+//     },
+//     20: {
+//         priorityList: [
+//             6,
+//             5,
+//             21,
+//             22,
+//             13,
+//             8
+//         ],
+//         priorityMap: {
+//             "5": {
+//                 "mode": "max",
+//                 "label": "Reincarnation Exp",
+//                 "id": 5,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "6": {
+//                 "mode": "max",
+//                 "label": "Item Rating",
+//                 "id": 6,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "8": {
+//                 "mode": "max",
+//                 "label": "Milk Bonus",
+//                 "id": 8,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "13": {
+//                 "mode": "max",
+//                 "label": "Residue Bonus",
+//                 "id": 13,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "21": {
+//                 "mode": "max",
+//                 "label": "Card Power",
+//                 "id": 21,
+//                 "count": 3,
+//                 "current": 0
+//             },
+//             "22": {
+//                 "mode": "max",
+//                 "label": "Card Exp",
+//                 "id": 22,
+//                 "count": 0,
+//                 "current": 0
+//             }
+//         }
+//     },
+//     21: {
+//         priorityList: [
+//             6,
+//             5,
+//             21,
+//             22,
+//             13,
+//             8
+//         ],
+//         priorityMap: {
+//             "5": {
+//                 "mode": "max",
+//                 "label": "Reincarnation Exp",
+//                 "id": 5,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "6": {
+//                 "mode": "max",
+//                 "label": "Item Rating",
+//                 "id": 6,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "8": {
+//                 "mode": "max",
+//                 "label": "Milk Bonus",
+//                 "id": 8,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "13": {
+//                 "mode": "max",
+//                 "label": "Residue Bonus",
+//                 "id": 13,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "21": {
+//                 "mode": "max",
+//                 "label": "Card Power",
+//                 "id": 21,
+//                 "count": 3,
+//                 "current": 0
+//             },
+//             "22": {
+//                 "mode": "max",
+//                 "label": "Card Exp",
+//                 "id": 22,
+//                 "count": 0,
+//                 "current": 0
+//             }
+//         }
+//     },
+//     22: {
+//         priorityList: [
+//             6,
+//             5,
+//             21,
+//             22,
+//             13,
+//             8
+//         ],
+//         priorityMap: {
+//             "5": {
+//                 "mode": "max",
+//                 "label": "Reincarnation Exp",
+//                 "id": 5,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "6": {
+//                 "mode": "max",
+//                 "label": "Item Rating",
+//                 "id": 6,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "8": {
+//                 "mode": "max",
+//                 "label": "Milk Bonus",
+//                 "id": 8,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "13": {
+//                 "mode": "max",
+//                 "label": "Residue Bonus",
+//                 "id": 13,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "21": {
+//                 "mode": "max",
+//                 "label": "Card Power",
+//                 "id": 21,
+//                 "count": 3,
+//                 "current": 0
+//             },
+//             "22": {
+//                 "mode": "max",
+//                 "label": "Card Exp",
+//                 "id": 22,
+//                 "count": 0,
+//                 "current": 0
+//             }
+//         }
+//     },
+//     23: {
+//         priorityList: [
+//             6,
+//             5,
+//             21,
+//             22,
+//             13,
+//             8
+//         ],
+//         priorityMap: {
+//             "5": {
+//                 "mode": "max",
+//                 "label": "Reincarnation Exp",
+//                 "id": 5,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "6": {
+//                 "mode": "max",
+//                 "label": "Item Rating",
+//                 "id": 6,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "8": {
+//                 "mode": "max",
+//                 "label": "Milk Bonus",
+//                 "id": 8,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "13": {
+//                 "mode": "max",
+//                 "label": "Residue Bonus",
+//                 "id": 13,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "21": {
+//                 "mode": "max",
+//                 "label": "Card Power",
+//                 "id": 21,
+//                 "count": 3,
+//                 "current": 0
+//             },
+//             "22": {
+//                 "mode": "max",
+//                 "label": "Card Exp",
+//                 "id": 22,
+//                 "count": 0,
+//                 "current": 0
+//             }
+//         }
+//     },
+//     24: {
+//         priorityList: [
+//             6,
+//             5,
+//             21,
+//             22,
+//             13,
+//             8
+//         ],
+//         priorityMap: {
+//             "5": {
+//                 "mode": "max",
+//                 "label": "Reincarnation Exp",
+//                 "id": 5,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "6": {
+//                 "mode": "max",
+//                 "label": "Item Rating",
+//                 "id": 6,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "8": {
+//                 "mode": "max",
+//                 "label": "Milk Bonus",
+//                 "id": 8,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "13": {
+//                 "mode": "max",
+//                 "label": "Residue Bonus",
+//                 "id": 13,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "21": {
+//                 "mode": "max",
+//                 "label": "Card Power",
+//                 "id": 21,
+//                 "count": 3,
+//                 "current": 0
+//             },
+//             "22": {
+//                 "mode": "max",
+//                 "label": "Card Exp",
+//                 "id": 22,
+//                 "count": 0,
+//                 "current": 0
+//             }
+//         }
+//     },
+//     25: {
+//         priorityList: [
+//             6,
+//             5,
+//             21,
+//             22,
+//             13,
+//             8
+//         ],
+//         priorityMap: {
+//             "5": {
+//                 "mode": "max",
+//                 "label": "Reincarnation Exp",
+//                 "id": 5,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "6": {
+//                 "mode": "max",
+//                 "label": "Item Rating",
+//                 "id": 6,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "8": {
+//                 "mode": "max",
+//                 "label": "Milk Bonus",
+//                 "id": 8,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "13": {
+//                 "mode": "max",
+//                 "label": "Residue Bonus",
+//                 "id": 13,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "21": {
+//                 "mode": "max",
+//                 "label": "Card Power",
+//                 "id": 21,
+//                 "count": 3,
+//                 "current": 0
+//             },
+//             "22": {
+//                 "mode": "max",
+//                 "label": "Card Exp",
+//                 "id": 22,
+//                 "count": 0,
+//                 "current": 0
+//             }
+//         }
+//     },
+//     26: {
+//         priorityList: [
+//             6,
+//             5,
+//             21,
+//             22,
+//             13,
+//             8
+//         ],
+//         priorityMap: {
+//             "5": {
+//                 "mode": "max",
+//                 "label": "Reincarnation Exp",
+//                 "id": 5,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "6": {
+//                 "mode": "max",
+//                 "label": "Item Rating",
+//                 "id": 6,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "8": {
+//                 "mode": "max",
+//                 "label": "Milk Bonus",
+//                 "id": 8,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "13": {
+//                 "mode": "max",
+//                 "label": "Residue Bonus",
+//                 "id": 13,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "21": {
+//                 "mode": "max",
+//                 "label": "Card Power",
+//                 "id": 21,
+//                 "count": 3,
+//                 "current": 0
+//             },
+//             "22": {
+//                 "mode": "max",
+//                 "label": "Card Exp",
+//                 "id": 22,
+//                 "count": 0,
+//                 "current": 0
+//             }
+//         }
+//     },
+//     27: {
+//         priorityList: [
+//             6,
+//             5,
+//             21,
+//             22,
+//             13,
+//             8
+//         ],
+//         priorityMap: {
+//             "5": {
+//                 "mode": "max",
+//                 "label": "Reincarnation Exp",
+//                 "id": 5,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "6": {
+//                 "mode": "max",
+//                 "label": "Item Rating",
+//                 "id": 6,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "8": {
+//                 "mode": "max",
+//                 "label": "Milk Bonus",
+//                 "id": 8,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "13": {
+//                 "mode": "max",
+//                 "label": "Residue Bonus",
+//                 "id": 13,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "21": {
+//                 "mode": "max",
+//                 "label": "Card Power",
+//                 "id": 21,
+//                 "count": 3,
+//                 "current": 0
+//             },
+//             "22": {
+//                 "mode": "max",
+//                 "label": "Card Exp",
+//                 "id": 22,
+//                 "count": 0,
+//                 "current": 0
+//             }
+//         }
+//     },
+//     28: {
+//         priorityList: [
+//             6,
+//             5,
+//             21,
+//             22,
+//             13,
+//             8
+//         ],
+//         priorityMap: {
+//             "5": {
+//                 "mode": "max",
+//                 "label": "Reincarnation Exp",
+//                 "id": 5,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "6": {
+//                 "mode": "max",
+//                 "label": "Item Rating",
+//                 "id": 6,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "8": {
+//                 "mode": "max",
+//                 "label": "Milk Bonus",
+//                 "id": 8,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "13": {
+//                 "mode": "max",
+//                 "label": "Residue Bonus",
+//                 "id": 13,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "21": {
+//                 "mode": "max",
+//                 "label": "Card Power",
+//                 "id": 21,
+//                 "count": 3,
+//                 "current": 0
+//             },
+//             "22": {
+//                 "mode": "max",
+//                 "label": "Card Exp",
+//                 "id": 22,
+//                 "count": 0,
+//                 "current": 0
+//             }
+//         }
+//     },
+//     29: {
+//         priorityList: [
+//             6,
+//             5,
+//             21,
+//             22,
+//             13,
+//             8
+//         ],
+//         priorityMap: {
+//             "5": {
+//                 "mode": "max",
+//                 "label": "Reincarnation Exp",
+//                 "id": 5,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "6": {
+//                 "mode": "max",
+//                 "label": "Item Rating",
+//                 "id": 6,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "8": {
+//                 "mode": "max",
+//                 "label": "Milk Bonus",
+//                 "id": 8,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "13": {
+//                 "mode": "max",
+//                 "label": "Residue Bonus",
+//                 "id": 13,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "21": {
+//                 "mode": "max",
+//                 "label": "Card Power",
+//                 "id": 21,
+//                 "count": 3,
+//                 "current": 0
+//             },
+//             "22": {
+//                 "mode": "max",
+//                 "label": "Card Exp",
+//                 "id": 22,
+//                 "count": 0,
+//                 "current": 0
+//             }
+//         }
+//     },
+//     30: {
+//         priorityList: [
+//             6,
+//             5,
+//             21,
+//             22,
+//             13,
+//             8
+//         ],
+//         priorityMap: {
+//             "5": {
+//                 "mode": "max",
+//                 "label": "Reincarnation Exp",
+//                 "id": 5,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "6": {
+//                 "mode": "max",
+//                 "label": "Item Rating",
+//                 "id": 6,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "8": {
+//                 "mode": "max",
+//                 "label": "Milk Bonus",
+//                 "id": 8,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "13": {
+//                 "mode": "max",
+//                 "label": "Residue Bonus",
+//                 "id": 13,
+//                 "count": 0,
+//                 "current": 0
+//             },
+//             "21": {
+//                 "mode": "max",
+//                 "label": "Card Power",
+//                 "id": 21,
+//                 "count": 3,
+//                 "current": 0
+//             },
+//             "22": {
+//                 "mode": "max",
+//                 "label": "Card Exp",
+//                 "id": 22,
+//                 "count": 0,
+//                 "current": 0
+//             }
+//         }
+//     },
 
-}
+// }
 // exports.statTeamSuggestions = statTeamSuggestions;
 
 export const statTeamMasterList = {
