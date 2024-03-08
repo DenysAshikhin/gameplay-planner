@@ -7,6 +7,7 @@ import generalHelper from '../util/helper.js';
 self.onmessage = ({ data: { data, id, data1 } }) => {
 
     try {
+        const updateCounter = data.updateCounter ? data.updateCounter : 250;
         let finalPlants = data.finalPlants;
 
         //for some reason the break-infinity values get changed into {mantissa: x, exponent: y} objects, revert
@@ -50,12 +51,25 @@ self.onmessage = ({ data: { data, id, data1 } }) => {
         let counter = 0;
         let counterMax = data.end - data.start;
 
+
+
+
+
+
+        let combo;
+        let result;
+
+        let picGained = 0;
+        let picPercent = 0;
+        let temp;
+
         for (let i = data.start; i <= data.end; i++) {
             counterMax--;
             counter++;
-            let combo = combinations[i];
+            combo = combinations[i];
             dataObj.numAutos = combo;
-            let result;
+            // let result;
+            result = null;
 
             switch (mode) {
                 case 'afk':
@@ -66,7 +80,7 @@ self.onmessage = ({ data: { data, id, data1 } }) => {
                     result = helper.calcStepHPProd(finalPlants, { ...dataObj, steps: combo });
                     break;
                 case 'step':
-                  
+
                     let steps = [];
 
                     let curStep = 0;
@@ -126,9 +140,9 @@ self.onmessage = ({ data: { data, id, data1 } }) => {
                     break;
             }
 
-            let picGained = 0;
-            let picPercent = 0;
-            let temp;
+            picGained = 0;
+            picPercent = 0;
+            temp = null;
 
             for (let j = 0; j < result.plants.length; j++) {
                 let picIncrease = helper.calcMaxPrestige(result.plants[j]);
@@ -184,12 +198,12 @@ self.onmessage = ({ data: { data, id, data1 } }) => {
                 }
             }
 
-            if (counter % 100 === 0) {
+            if (counter % updateCounter === 0) {
                 // eslint-disable-next-line no-restricted-globals
                 self.postMessage({
                     update: true,
                     temp: temp,
-                    updateAmount: 100
+                    updateAmount: updateCounter
                 })
             }
         }
