@@ -4,6 +4,7 @@ import helper from "../util/helper.js";
 
 import MouseOverPopover from "../util/Tooltip.jsx";
 import ReactGA from "react-ga4";
+import { GoogleAdSense } from "next-google-adsense";
 import { memo, useState, useEffect, useMemo } from "react";
 import Image from "next/image";
 
@@ -165,6 +166,8 @@ const FarmingPlant = ({ data }) => {
         // maxHeight:'128px'
       }}
     >
+      
+      <GoogleAdSense publisherId="pub-1393057374484862" />
       <div style={{ height: "185px", width: "185px", position: "relative" }}>
 
         {/* <img style={{

@@ -1,15 +1,15 @@
 "use client"
 
 import { isMobile } from 'mobile-device-detect';
-import { useState, useEffect, useRef, Suspense} from 'react';
+import { useState, useEffect, useRef, Suspense } from 'react';
 import ReactGA from "react-ga4";
 import { GoogleAdSense } from "next-google-adsense";
 ReactGA.initialize([{
     trackingId: "G-GGLPK02VH8",
 }]);
 import ScrollComponent from '../../util/ScrollComponent.jsx';
-import pets_general_image from '../../../../public/images/guides/pets/pets_general.png';
-import pet_team_list_image from '../../../../public/images/guides/pets/pet_team_list.png';
+import cards_charge_image from '../../../../public/images/guides/cards/cards_charge.png';
+import expedition_overview_image from '../../../../public/images/guides/pets/expeditions_overview.png';
 import FrenchFryCornerImage from '../../../../public/images/guides/farm/french_Fry_corner.png';
 import UniqueFrenchFryCornerImage from '../../../../public/images/guides/farm/unique_french_fries_corner.png';
 import contagionImage from '../../../../public/images/guides/farm/contagion.png';
@@ -18,7 +18,7 @@ import copyLinkSvg from '../../../../public/images/icons/copy_link.svg';
 
 import Image from 'next/image';
 
-const baseLink = 'https://www.gameplayplanner.com/guides/pets_guide?section=';
+const baseLink = 'https://www.gameplayplanner.com/guides/expedition_pets_guide?section=';
 
 export default function Guides() {
 
@@ -53,10 +53,10 @@ export default function Guides() {
             return;
         }
         switch (searchParams) {
-            case 'general':
+            case 'cards_charge':
                 prodRef.current.scrollIntoView();
                 break;
-            case 'pet_list':
+            case 'expeditions_overview':
                 picRef.current.scrollIntoView();
                 break;
             case 'frenchfry':
@@ -117,7 +117,7 @@ export default function Guides() {
                         borderBottom: '1px solid white'
                     }}
                 >
-                    Active Pets Guide
+                    Cards Guide
                 </div>
 
                 {/* General Guide */}
@@ -130,15 +130,15 @@ export default function Guides() {
                         margin: '0 12px 24px 12px',
                     }}
                     onClick={() => {
-                        navigator.clipboard.writeText(baseLink + 'general')
+                        navigator.clipboard.writeText(baseLink + 'cards_charge')
                     }}
                 >
                     <div
-                        style={{ position: 'relative', minWidth: '368px', minHeight: '368px' }}
+                        style={{ position: 'relative', minWidth: '368px', minHeight: '256px' }}
                     >
                         <Image
                             alt={`farming production tab`}
-                            src={pets_general_image}
+                            src={cards_charge_image}
                             fill
                             priority
                             unoptimized
@@ -154,71 +154,7 @@ export default function Guides() {
                             }}
                         >
                             <div>
-                                General Pets Guide + Tips
-                            </div>
-                            <div style={{ position: 'relative', width: '32px', height: '32px' }}>
-                                <Image
-                                    alt={`clipboard with a dash to copy link reference`}
-                                    src={copyLinkSvg}
-                                    fill
-                                    priority
-                                    unoptimized
-                                />
-                            </div>
-
-                        </div>
-                        <div style={{ padding: '12px' }}>
-                            <div style={{ marginTop: '6px' }}>
-                                {`1) Pet levels reset on each Ascension but pet ranks (from expeditions) are preserved.`}
-                            </div>
-                            <div style={{ marginTop: '6px' }}>
-                                {`2) Each rank level increases the bonuses and exp earned (towards pet levels, not ranks) by 2%. This adds up fast! So you should have any core pets in your
-                                active teams inside your expeditions as well!`}
-                            </div>
-                            <div style={{ marginTop: '6px' }}>
-                                {`3) When creating pet teams you want to re-use the same pets as much as possible. This lets you avoid wasting time re-leveling pets if not absolutely necessary.`}
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-
-                {/* Pet Lists */}
-                <div
-                    ref={picRef}
-                    style={{
-                        display: 'flex',
-                        backgroundColor: 'rgba(255,255,255, 0.06)',
-                        border: '1px solid white',
-                        margin: '0 12px 24px 12px',
-                    }}
-                >
-                    <div
-                        style={{ position: 'relative', minWidth: '256px', height: '460px' }}
-                    >
-                        <Image
-                            alt={`farming production tab`}
-                            src={pet_team_list_image}
-                            fill
-                            priority
-                            unoptimized
-                        />
-                    </div>
-
-                    <div className='importantText' style={{ display: 'flex', flexDirection: 'column', flex: '1' }}>
-                        <div
-                            className='hover'
-                            style={{
-                                fontSize: "26px", display: 'flex', justifyContent: 'center', marginLeft: '-256px', marginTop: '6px',
-                                textDecoration: 'underline'
-                            }}
-                            onClick={() => {
-                                navigator.clipboard.writeText(baseLink + 'pet_list')
-                            }}
-                        >
-                            <div>
-                                Recommended Teams and When/How To Run Them
+                                General Guide + Tips
                             </div>
                             <div style={{ position: 'relative', width: '32px', height: '32px' }}>
                                 <Image
@@ -233,35 +169,53 @@ export default function Guides() {
                         </div>
                         <div style={{ padding: '12px' }}>
                             <div>
-                                {`It is recommended to split your pets into 4 core teams, make sure the pets in these teams are IN YOUR EXPEDITIONS!
-                                 Create them in the following order as you unlock preset slots (Before A5 you only need the first three):`}
+                                {`In general, the priority for which card to charge is: Pet Damage, Item Rating, Pet Rank, Residue, Milk. The notable exception being Reincarnation which you
+                                want to charge once at the end of your ascencion to get over the reincarnation requirements. You can easily tell this by visiting the /cards page.`}
                             </div>
-                            <div style={{ padding: '12px' }}>
-                                <div style={{ marginTop: '6px' }}>
-                                    {`1) Main Team: This is the team you will be running 24/7. It will prioritise Reincarnation, Item Rating, Residue, Milk. As you ascend,
-                                    the relative priority of each stat will shift and other will be added (like Card Power after A13). Recommend to check the related page for suggestions.`}
+                            <div style={{ display: 'flex', flexDirection: 'column', }}>
+                                {/* A */}
+                                <div style={{ display: 'flex', alignItems: 'center', width: '100%', marginTop: '12px' }}>
+                                    <div style={{ fontWeight: 'bold', fontSize: '24px', color: 'blue' }}>
+                                        A
+                                    </div>
+                                    <div style={{ marginLeft: '6px' }}>
+                                        {`This is the current bonus given by the card. It is calculated based on your card level, the card's temporary power and the card's permanent power.`}
+                                    </div>
                                 </div>
-                                <div style={{ marginTop: '6px' }}>
-                                    {`2) Gear Team: Any time you want to acquire/upgrade gear make sure to have this team on. Boosting item rating is more powerful than it might seem early on.`}
+                                {/* B */}
+                                <div style={{ display: 'flex', alignItems: 'center', width: '100%', marginTop: '12px' }}>
+                                    <div style={{ fontWeight: 'bold', fontSize: '24px', color: 'blue', }}>
+                                        B
+                                    </div>
+                                    <div style={{ marginLeft: '6px', display: 'flex', alignItems: 'center', flexWrap: 'wrap' }}>
+                                        <div>
+                                            {`This is the card's temporary power and upon ascending it is reset to 0. It is gained whenever an expedition finishes and this card is selected from the pool of possible 3
+                                            for the card reward. This can be increased from 1 to 2 and 2 to 3 with later upgrades. Meaning later on, you can get all 3 cards from an 
+                                            expedition upon completion.`}
+                                        </div>
+                                    </div>
                                 </div>
-                                <div style={{ marginTop: '6px' }}>
-                                    {`3) Reinc Team: It is important to run this 5-15 minutes before reincarnating to squeeze out as many Reincarnation levels as possible. This is the main
-                                    metric by which progress is measured.`}
-                                </div>
-                                <div style={{ marginTop: '6px' }}>
-                                    {`4) Stat Team: This team is run to capture any stats your other 3 teams might be missing, recommended to run to 5-15 minutes at the start and end of each 
-                                    reincarnation.`}
+                                {/* C */}
+                                <div style={{ display: 'flex', alignItems: 'center', width: '100%', marginTop: '12px' }}>
+                                    <div style={{ fontWeight: 'bold', fontSize: '24px', color: 'blue' }}>
+                                        C
+                                    </div>
+                                    <div style={{ marginLeft: '6px', display: 'flex', alignItems: 'center', flexWrap: 'wrap' }}>
+                                        <div>
+                                            {`This is the card's permanent power and it is kept across ascensions. You gain this by using up a charge to convert some of the card's temporary
+                                            power into the permanent power. When you have low amount of temporary power this can lead to having a decrease in overall benefit until temporary
+                                            power recovers from the charge - it is recommended you avoid charging if it is negative.`}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
+
                 {/* Empty spacer */}
-                <div
-                    style={{ minHeight: '100%' }}
-                >
-
-                </div>
+                <div style={{ minHeight: '100%' }} />
             </div>
         </div >
     );

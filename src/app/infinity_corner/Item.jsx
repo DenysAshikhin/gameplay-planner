@@ -1,9 +1,5 @@
 "use client"
 import React, { useEffect, useState, useRef, useMemo } from 'react';
-import ReactGA from "react-ga4";
-ReactGA.initialize([{
-    trackingId: "G-GGLPK02VH8",
-}]);
 
 import Image from 'next/image';
 import useLocalStorage from "use-local-storage";

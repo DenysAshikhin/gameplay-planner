@@ -3,6 +3,7 @@
 import { isMobile } from 'mobile-device-detect';
 import { useState, useEffect, useRef, Suspense } from 'react';
 import ReactGA from "react-ga4";
+import { GoogleAdSense } from "next-google-adsense";
 ReactGA.initialize([{
     trackingId: "G-GGLPK02VH8",
 }]);
@@ -93,6 +94,8 @@ export default function Guides() {
                 position: 'relative',
             }}
         >
+            
+            <GoogleAdSense publisherId="pub-1393057374484862" />
             <Suspense fallback={<div></div>}>
                 <ScrollComponent setSearchParam={setSearchParam} />
             </Suspense>

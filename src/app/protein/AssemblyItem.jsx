@@ -26,6 +26,7 @@ const AssemblyItem = ({ e, currentWeights, setCurrentWeights }) => {
 
     return (
         <>
+        
             <div style={{ width: '352px', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
 
                 {!!e.img && (

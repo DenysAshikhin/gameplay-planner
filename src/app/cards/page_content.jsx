@@ -5,6 +5,7 @@ import { isMobile } from 'mobile-device-detect';
 import './card.css';
 import { useState, useEffect, useRef } from 'react';
 import ReactGA from "react-ga4";
+import { GoogleAdSense } from "next-google-adsense";
 import MouseOverPopover from "../util/Tooltip.jsx";
 import { DefaultWeightMap } from '../util/itemMapping.js';
 import { cardMapImg, cardLabelImg } from './cardMapping.js';
@@ -2307,7 +2308,7 @@ export default function Cards() {
                     </MouseOverPopover >
                 </div>
             )}
-
+            <GoogleAdSense publisherId="pub-1393057374484862" />
             <div className='importantText' style={{ display: 'flex', alignItems: 'end' }}>
                 <h1 style={{ margin: '6px 6px', fontSize: '32px' }}>
                     Cards Guide
@@ -2318,7 +2319,7 @@ export default function Cards() {
 
                         <div>
                             <div>
-                                {`Remaining charges are calculated based on your remaining reincarnation levels left to ascend multiplied by your current reincarnation levels / hr. \nThis is calculated based on how many reincarnation levels you would gain if you reincarnate now divded by the current reincarnation duration.`}
+                                {`Remaining charges are calculated based on your remaining reincarnation levels left to ascend multiplied by your current reincarnation levels / hr. \nThis is calculated based on how many reincarnation levels you would gain if you reincarnate now divided by the current reincarnation duration.`}
                             </div>
                             <div>
                                 {`${requiredReincLevel - currentReincLevel} remaining levels at ${helper.roundTwoDecimal(reincHr)} levels/hr =  ${helper.roundTwoDecimal(remTime)} hours remaining`}
