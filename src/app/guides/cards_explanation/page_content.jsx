@@ -61,7 +61,7 @@ export default function Guides({ noSearchParams }) {
                 picRef.current.scrollIntoView();
                 break;
             case 'card_suggestions':
-                stat_list.current.scrollIntoView();
+                frenchFryRef.current.scrollIntoView();
                 break;
             case 'future_reinc':
                 uniqueFryRef.current.scrollIntoView();

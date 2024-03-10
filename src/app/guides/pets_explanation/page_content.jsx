@@ -61,7 +61,7 @@ export default function Guides({ noSearchParams }) {
                 picRef.current.scrollIntoView();
                 break;
             case 'stat_list':
-                stat_list.current.scrollIntoView();
+                frenchFryRef.current.scrollIntoView();
                 break;
             case 'manual_pet_selection':
                 uniqueFryRef.current.scrollIntoView();
