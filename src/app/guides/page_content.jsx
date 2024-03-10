@@ -3,6 +3,7 @@
 import { isMobile } from 'mobile-device-detect';
 import { useState, useEffect } from 'react';
 import ReactGA from "react-ga4";
+import { GoogleAdSense } from "next-google-adsense";
 ReactGA.initialize([{
     trackingId: "G-GGLPK02VH8",
 }]);
@@ -39,6 +40,7 @@ export default function Guides() {
             }}
         >
 
+<GoogleAdSense publisherId="pub-1393057374484862" />
 
             {/* Guides */}
             <div
@@ -79,17 +81,17 @@ export default function Guides() {
                         style={{
                             display: 'flex',
                             justifyContent: 'space-evenly',
-                            flex:'wrap'
+                            flex: 'wrap'
                         }}
                     >
                         <PageCard page='expedition' url_force={'guides/expedition_pets_guide'} />
                         <PageCard page='pets' url_force={'guides/pets_guide'} />
                         <PageCard page='farm' url_force={'guides/farming_guide'} />
+                        <PageCard page='cards' url_force={'guides/cards_guide'} />
                     </div>
                     {/*<div
                         style={{ display: 'flex', marginTop: '36px' }}
                     >
-                        <PageCard page='cards' />
                     <PageCard page='protein' />
                     <PageCard page='residue' />
                     <PageCard page='infinity_corner' /> 
@@ -145,11 +147,11 @@ export default function Guides() {
                         <PageCard page='expedition' url_force={'guides/expedition_pets_explanation'} />
                         <PageCard page='pets' url_force={'guides/pets_explanation'} />
                         <PageCard page='farm' url_force={'guides/farming_explanation'} />
+                        <PageCard page='cards' url_force={'guides/cards_explanation'} />
                     </div>
                     {/*<div
                         style={{ display: 'flex', marginTop: '36px' }}
                     >
-                        <PageCard page='cards' />
                     <PageCard page='protein' />
                     <PageCard page='residue' />
                     <PageCard page='infinity_corner' /> 

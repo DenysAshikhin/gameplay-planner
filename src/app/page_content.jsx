@@ -18,7 +18,8 @@ import backgroundImage from '../../public/images/coming_soon.png'
 
 // import { GoogleAdSense } from "nextjs-google-adsense";
 import ReactGA from "react-ga4";
-ReactGA.initialize([{ trackingId: "G-GGLPK02VH8", }]);
+import { GoogleAdSense } from "next-google-adsense";
+ReactGA.initialize([{ trackingId: "G-GGLPK02VH8" }]);
 
 export default function Home() {
 
@@ -213,6 +214,8 @@ export default function Home() {
         justifyContent: 'center'
       }}
     >
+      
+      <GoogleAdSense publisherId="pub-1393057374484862" />
       <Image
         style={{
           position: 'absolute', top: '0', left: '0', width: '100%', height: '100%', zIndex: '1',
