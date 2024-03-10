@@ -141,6 +141,66 @@ export default function Home() {
     setMobileMode(isMobile);
   }, []);
 
+
+
+
+
+
+  // const calc_future_state = function (plants, time) {
+
+  //   //looping
+  //   let timeIncrease = 1; //how many seconds at a time we will skip forward
+  //   let currentTime = 0; // how much time we have skipped forward in total
+
+  //   let futurePlants = JSON.parse(JSON.stringify(plants)); // make a deep copy of plants to keep seperate from the passed copy and not edit it by accident
+  //   let HP_produced = 0;
+
+  //   // keep looping until we run out of given time
+  //   while (currentTime < time) {
+
+  //     /** here I would have my logic to determine how far to skip in time, let's assume a constant 10seconds for now */
+  //     timeIncrease = 10;
+
+  //     //we can either loop from first plant to last, or opposite order, you can change this of course
+  //     for (let i = 0; i < futurePlants.length; i++) {
+  //       // when i=0, produce hp, when i>0 produce plant i
+  //       let currentMultiplier = 1;
+  //       // you probably are using somehting like Decimal.js to make numbers not cause issues
+  //       // in which case replace 1 with whatever initates the object
+  //       for (let j = 1; i + j <= futurePlants.length; j++) {
+  //         currentMultiplier *= futurePlants[i - 1 + j].multiplier / j;
+
+  //         let timeIncreaseMultiplier = 1;
+
+  //         for (let z = 0; z < j; z++) {
+  //           timeIncreaseMultiplier *= (timeIncrease + 1);
+  //         }
+
+  //         let temp_prod = futurePlants[i - 1 + j].amount * currentMultiplier * timeIncreaseMultiplier;
+  //         if (i === 0) {
+  //           HP_produced += temp_prod;
+  //         } else { // 
+  //           futurePlants[i - 1].amount += temp_prod;
+  //         }
+  //       }
+  //     }
+
+  //     // Update production values to reflect the new amounts
+  //     for (let i = 0; i < futurePlants.length; i++) {
+  //       futurePlants[i].production = futurePlants[i].amount * futurePlants[i].multiplier
+  //     }
+  //     currentTime += timeIncrease;
+  //   }
+  //   return { plants: futurePlants, HP_produced: HP_produced }
+  // }
+
+
+  // let plants_original = [{ amount: 1, production: 1, multiplier: 1 }, { amount: 1, production: 1, multiplier: 1 },];
+  // let result = calc_future_state(plants_original, 10);
+  // console.log(result);
+
+
+
   return (
     <div
       style={{
@@ -187,18 +247,18 @@ export default function Home() {
 
               <div style={{ display: 'flex', marginTop: '12px', marginBottom: '24px' }}>
                 <div
-                  style={{ fontWeight: 'bold', marginRight: '6px', color:"darkred"}}>
+                  style={{ fontWeight: 'bold', marginRight: '6px', color: "darkred" }}>
                   All Platforms:
                 </div>
                 <div>
-                  enter: 
+                  enter:
                 </div>
-                <div style={{fontWeight: 'bold', color:"darkred", margin:"0 6px"}}>
-                {`"copysave"`}
+                <div style={{ fontWeight: 'bold', color: "darkred", margin: "0 6px" }}>
+                  {`"copysave"`}
                 </div>
                 <div>
-                in the reward code box (found in settings, gift box icon)
-              </div>
+                  in the reward code box (found in settings, gift box icon)
+                </div>
               </div>
 
               <div style={{ display: 'flex' }}>
