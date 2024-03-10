@@ -40,7 +40,7 @@ export default function Expeditions() {
                 position: 'relative',
             }}
         >
-            
+
             <GoogleAdSense publisherId="pub-1393057374484862" />
             <div style={{
                 display: 'flex',
@@ -359,10 +359,13 @@ export default function Expeditions() {
                             </div>
                         </Link>
                     </div>
-
-
-
                 </div>
+                <Link href={`https://www.gameplayplaynner.com/privacy_policy.html`} >
+
+                    <div className='importantText' style={{ fontSize: '24px' }}>
+                        Privacy Policy
+                    </div>
+                </Link>
             </div>
         </div >
     );
