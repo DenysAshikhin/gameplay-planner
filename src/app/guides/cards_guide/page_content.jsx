@@ -18,7 +18,7 @@ import copyLinkSvg from '../../../../public/images/icons/copy_link.svg';
 
 import Image from 'next/image';
 
-const baseLink = 'https://www.gameplayplanner.com/guides/expedition_pets_guide?section=';
+const baseLink = 'https://www.gameplayplanner.com/guides/cards_guide?section=';
 
 export default function Guides() {
 
