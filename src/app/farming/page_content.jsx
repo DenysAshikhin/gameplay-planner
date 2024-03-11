@@ -190,6 +190,8 @@ const FarmingLanding = () => {
     const [timeCompleted, setTimeCompleted] = useState(null);
     const [showInstructions, setShowInstructions] = useState(false);
 
+    const [duration, setDuration] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+
     let petPlantCombo = 1;
     let contagionPlantEXP = 1;
     let contagionPlantGrowth = 1;
@@ -2272,7 +2274,7 @@ const FarmingLanding = () => {
                                     Timer
                                 </h3>
                                 <div>
-                                    <Timer timeCompleted={timeCompleted} />
+                                    <Timer duration={duration} setDuration={setDuration} />
                                 </div>
                             </div>
 
@@ -2643,7 +2645,7 @@ const FarmingLanding = () => {
                                             </div>
 
 
-                                            <div style={{ display: 'flex', borderBottom: '2px solid rgba(0, 119, 255, 0.563)' }}>
+                                            <div style={{ display: 'flex' }}>
                                                 <div style={{
                                                     width: '200px',
                                                     display: 'flex',
@@ -2664,67 +2666,71 @@ const FarmingLanding = () => {
 
                                                 {bestPlantCombo.bestPot.result.result.steps.map((val, index) => {
                                                     return (
+
+
                                                         <div className='suggestionHolder' key={index} style={{ borderRight: index !== (bestPlantCombo.bestPot.result.result.steps.length - 1) ? '1px solid rgba(0, 119, 255, 0.563)' : '' }}>
-                                                            <MouseOverPopover extraClasses={'suggestionHolder'} key={'popover' + index} tooltip={
-                                                                <div>
-                                                                    <div>
-                                                                        <div>
-                                                                            Show how many PIC levels are gained (if any) and the time to hit the NEXT pic with your MAX num autos used
-                                                                        </div>
-                                                                    </div>
+
+
+                                                            <div className='autoPicSuggestion'>
+                                                                <div
+                                                                    style={{
+                                                                        display: 'flex',
+                                                                        justifyContent: 'center'
+                                                                    }}
+                                                                >
+                                                                    {`${val.time > secondsHour ? helper.secondsToString(val.time) : helper.secondsToString(val.time)}`}
+
                                                                 </div>
-                                                            }>
+                                                                <div
 
-                                                                <div className='autoPicSuggestion'>
-                                                                    <div
-                                                                        style={{
-                                                                            display: 'flex',
-                                                                            justifyContent: 'center'
-                                                                        }}
-                                                                    >
-                                                                        {`${val.time > secondsHour ? helper.secondsToString(val.time) : helper.secondsToString(val.time)}`}
-                                                                    </div>
-                                                                    {bestPlantCombo.bestPot.result.plants[bestPlantCombo.bestPot.result.result.steps.length - index - 1].picIncrease > 0 && (
-                                                                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', }}>
+                                                                >
+                                                                    {val.time > -1 && (<button onClick={() => { setDuration(helper.secondsToDuration(val.time)) }}>Add to Timer</button>)}
 
-                                                                            <div
-                                                                                style={{
-                                                                                    margin: '-6px 0 -2px -3px',
-                                                                                    fontSize: '22px'
-                                                                                }}
-                                                                            >
-                                                                                +
-                                                                            </div>
-                                                                            <div
-                                                                                style={{
-                                                                                    margin: '-6px 2px -2px 0',
-                                                                                    fontSize: '22px',
-                                                                                    display: 'flex',
-                                                                                    alignContent: 'center'
-                                                                                }}
-                                                                            >
-                                                                                {
-                                                                                    (bestPlantCombo.bestPot.result.plants[bestPlantCombo.bestPot.result.result.steps.length - index - 1].prestige + bestPlantCombo.bestPot.result.plants[bestPlantCombo.bestPot.result.result.steps.length - index - 1].picIncrease)
-                                                                                    - bestPlantCombo.bestPot.result.plants[bestPlantCombo.bestPot.result.result.steps.length - index - 1].prestige
-                                                                                }
-                                                                            </div>
-                                                                            {/* <img 
+                                                                </div>
+                                                                {bestPlantCombo.bestPot.result.plants[bestPlantCombo.bestPot.result.result.steps.length - index - 1].picIncrease > 0 && (
+                                                                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', }}>
+
+                                                                        <div
+                                                                            style={{
+                                                                                margin: '-6px 0 -2px -3px',
+                                                                                fontSize: '22px'
+                                                                            }}
+                                                                        >
+                                                                            +
+                                                                        </div>
+                                                                        <div
+                                                                            style={{
+                                                                                margin: '-6px 2px -2px 0',
+                                                                                fontSize: '22px',
+                                                                                display: 'flex',
+                                                                                alignContent: 'center'
+                                                                            }}
+                                                                        >
+                                                                            {
+                                                                                (bestPlantCombo.bestPot.result.plants[bestPlantCombo.bestPot.result.result.steps.length - index - 1].prestige + bestPlantCombo.bestPot.result.plants[bestPlantCombo.bestPot.result.result.steps.length - index - 1].picIncrease)
+                                                                                - bestPlantCombo.bestPot.result.plants[bestPlantCombo.bestPot.result.result.steps.length - index - 1].prestige
+                                                                            }
+                                                                        </div>
+                                                                        {/* <img 
                                                                             alt='prestige star, yellow star in a red/orange circle'
                                                                             src={PrestigeStar}
                                                                             style={{ height: '24px', width: '24px', marginTop: '-4px', position: 'relative' }}
                                                                             /> */}
-                                                                            <div style={{ height: '24px', width: '24px', marginTop: '-4px', position: 'relative' }}>
-                                                                                <Image
-                                                                                    alt='prestige star, yellow star in a red/orange circle'
-                                                                                    fill
-                                                                                    src={PrestigeStar}
-                                                                                    unoptimized={true}
-                                                                                />
-                                                                            </div>
+                                                                        <div style={{ height: '24px', width: '24px', marginTop: '0', marginBottom: '6px', position: 'relative' }}>
+                                                                            <Image
+                                                                                alt='prestige star, yellow star in a red/orange circle'
+                                                                                fill
+                                                                                src={PrestigeStar}
+                                                                                unoptimized={true}
+                                                                            />
                                                                         </div>
-                                                                    )}
-                                                                </div>
+                                                                    </div>
+                                                                )}
+                                                            </div>
+                                                            <MouseOverPopover style={{ 'margin-top': 'auto' }} key={'popover' + index} tooltip={
+                                                                "Show how many PIC levels are gained (if any) and the time to hit the NEXT pic with your MAX num autos used"
 
+                                                            }>
                                                                 <div className='futurePicHolder'>
                                                                     {`${helper.secondsToString(farmingHelper.calcTimeTillPrestige(
                                                                         bestPlantCombo.bestPot.result.plants[bestPlantCombo.bestPot.result.result.steps.length - index - 1],
@@ -2782,55 +2788,48 @@ const FarmingLanding = () => {
 
                                                         return (
                                                             <div className='suggestionHolder' key={index} style={{ borderRight: index !== (bestPlantCombo.bestPot.result.result.steps.length - 1) ? '1px solid rgba(0, 119, 255, 0.563)' : '' }}>
-                                                                <MouseOverPopover key={'popover' + index} tooltip={
-                                                                    <div>
-                                                                        <div>
-                                                                            <div>
-                                                                                Show how many PIC levels are gained (if any) and the time to hit the NEXT pic with your MAX num autos used
+
+                                                                <div className='autoPicSuggestion'>
+                                                                    {
+                                                                        `${val.time > secondsHour ? helper.secondsToString(val.time) : helper.secondsToString(val.time)}`
+                                                                    }
+                                                                    {bestPlantCombo.bestPic.result.plants[bestPlantCombo.bestPic.result.plants.length - 1 - index].picIncrease > 0 && (
+                                                                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', }}>
+                                                                            <div
+                                                                                style={{
+                                                                                    margin: '-6px 0 -2px -3px',
+                                                                                    fontSize: '22px'
+                                                                                }}
+                                                                            >
+                                                                                +
+                                                                            </div>
+                                                                            <div
+                                                                                style={{
+                                                                                    margin: '-6px 2px -2px 0',
+                                                                                    fontSize: '22px',
+                                                                                    display: 'flex',
+                                                                                    alignContent: 'center'
+                                                                                }}
+                                                                            >
+                                                                                {
+                                                                                    (bestPlantCombo.bestPic.result.plants[bestPlantCombo.bestPic.result.plants.length - 1 - index].prestige + bestPlantCombo.bestPic.result.plants[bestPlantCombo.bestPic.result.plants.length - 1 - index].picIncrease)
+                                                                                    - bestPlantCombo.bestPic.result.plants[bestPlantCombo.bestPic.result.plants.length - 1 - index].prestige
+                                                                                }
+                                                                            </div>
+                                                                            <div style={{ height: '24px', width: '24px', marginTop: '-4px', position: 'relative' }}>
+                                                                                <Image
+                                                                                    alt='prestige star, yellow star in a red/orange circle'
+                                                                                    fill
+                                                                                    src={PrestigeStar}
+                                                                                    unoptimized={true}
+                                                                                />
                                                                             </div>
                                                                         </div>
-                                                                    </div>
-                                                                } >
-                                                                    <div className='autoPicSuggestion'>
-                                                                        {
-                                                                            `${val.time > secondsHour ? helper.secondsToString(val.time) : helper.secondsToString(val.time)}`
-                                                                        }
-                                                                        {bestPlantCombo.bestPic.result.plants[bestPlantCombo.bestPic.result.plants.length - 1 - index].picIncrease > 0 && (
-                                                                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', }}>
-                                                                                <div
-                                                                                    style={{
-                                                                                        margin: '-6px 0 -2px -3px',
-                                                                                        fontSize: '22px'
-                                                                                    }}
-                                                                                >
-                                                                                    +
-                                                                                </div>
-                                                                                <div
-                                                                                    style={{
-                                                                                        margin: '-6px 2px -2px 0',
-                                                                                        fontSize: '22px',
-                                                                                        display: 'flex',
-                                                                                        alignContent: 'center'
-                                                                                    }}
-                                                                                >
-                                                                                    {
-                                                                                        (bestPlantCombo.bestPic.result.plants[bestPlantCombo.bestPic.result.plants.length - 1 - index].prestige + bestPlantCombo.bestPic.result.plants[bestPlantCombo.bestPic.result.plants.length - 1 - index].picIncrease)
-                                                                                        - bestPlantCombo.bestPic.result.plants[bestPlantCombo.bestPic.result.plants.length - 1 - index].prestige
-                                                                                    }
-                                                                                </div>
-                                                                                <div style={{ height: '24px', width: '24px', marginTop: '-4px', position: 'relative' }}>
-                                                                                    <Image
-                                                                                        alt='prestige star, yellow star in a red/orange circle'
-                                                                                        fill
-                                                                                        src={PrestigeStar}
-                                                                                        unoptimized={true}
-                                                                                    />
-                                                                                </div>
-                                                                            </div>
-                                                                        )}
-                                                                    </div>
+                                                                    )}
+                                                                </div>
 
-
+                                                                <MouseOverPopover style={{ 'margin-top': 'auto' }} key={'popover' + index} tooltip={'Show how many PIC levels are gained (if any) and the time to hit the NEXT pic with your MAX num autos used'
+                                                                }>
                                                                     <div className='futurePicHolder'>
                                                                         {`${helper.secondsToString(farmingHelper.calcTimeTillPrestige(
                                                                             bestPlantCombo.bestPic.result.plants[bestPlantCombo.bestPic.result.plants.length - 1 - index],
