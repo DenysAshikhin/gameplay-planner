@@ -9,6 +9,13 @@ var helper = {
     EXP_TOKEN_MOD: 0.05,
     SOUL_CLOVER_STEP: 0.25,
 
+    getPetIdsInExpeditionFromSaveFile: function (data) {
+        console.log(data)
+        const teams = data.ExpeditionTeam;
+        const inUse = teams.filter((team) => team.InExpedition || team.AutoRestart);
+        return inUse.flatMap((team) => team.ExpeditionTeamID.filter((id) => id != 0));
+    },
+
     calculatePetBaseDamage: function (pet, defaultRank) {
         const rankCount = defaultRank ? defaultRank : pet?.Rank;
         const result = pet?.BaseDungeonDamage * (1.0 + rankCount * 0.05);
@@ -2317,6 +2324,7 @@ var helper = {
         return [airPets, groundPets, currentBonuses, selectedPetMap];
     }
 }
+
 
 
 export default helper;

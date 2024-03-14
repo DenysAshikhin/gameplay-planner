@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
 import './PetItem.css';
 import helper from '../util/helper.js'
 
@@ -448,9 +448,8 @@ export function PetItemExpeditions({ petData, isSelected, onClick, data, weightM
 };
 
 
-export function StaticPetItem({ petData, highlight, showNameOnly, statMode, groupsCacheRunTime, suggestedPet }) {
+export function StaticPetItem({ petData, highlight, showNameOnly, statMode, groupsCacheRunTime = {}, suggestedPet, groupsSaveFile = [] }) {
     const { petId, location, img, name, pet } = petData;
-    //ss
 
     const section1Bonuses = (
         <ul
@@ -484,6 +483,47 @@ export function StaticPetItem({ petData, highlight, showNameOnly, statMode, grou
                 })}
         </ul>
     );
+
+    const getWarnIcon = () => {
+        if (showNameOnly || !suggestedPet) return <></>;
+        const showNotInSaveWarning = groupsSaveFile.find(i => i == petId)
+        const showNotInCacheWarning = groupsCacheRunTime.length != 0 && (!groupsCacheRunTime[pet.ID])
+        let warning = "";
+        if (showNotInCacheWarning && showNotInSaveWarning) {
+            warning = "This pet is neither in an suggested expedition team nor in one active team in your save file,you should probably put it in";
+        } else if (showNotInCacheWarning) {
+            warning = "This pet is not in an suggested expedition team,you should probably put it in";
+        } else {
+            warning = "This pet is not in an active expedition team from your save file,you should probably put it in";
+        }
+        return (
+            <div
+                className='elementToFadeInAndOut'
+                style={{
+                    position: 'absolute',
+                    top: '0',
+                    right: '0',
+                    width: '32px',
+                    height: '32px',
+                    zIndex: '4'
+                }}>
+
+                <MouseOverPopover
+                    tooltip={<span className='toltip-custom'>{warning}</span>}
+
+                    forceYPlacement={'top'}
+                    forceXPlacement={'left'}>
+
+                    <Image
+                        alt='Letter "I" inside a circle, shows more information on hover'
+                        src={infoIconAmber}
+                        fill
+                    />
+                </MouseOverPopover >
+            </div >
+        )
+    }
+
 
     let baseDmg = petHelper.calculatePetBaseDamage(pet, pet.Rank);
     if (baseDmg < 100) {
@@ -557,58 +597,7 @@ export function StaticPetItem({ petData, highlight, showNameOnly, statMode, grou
                 )}
 
             </MouseOverPopover>
-            {!showNameOnly && suggestedPet && (!groupsCacheRunTime[pet.ID]) && (
-                <div
-                    className='elementToFadeInAndOut'
-                    style={{
-                        position: 'absolute',
-                        top: '0',
-                        right: '0',
-                        width: '32px',
-                        height: '32px',
-                        zIndex: '4'
-                    }}>
-
-                    <MouseOverPopover
-                        tooltip={
-                            <div
-                                className="tooltip-custom"
-                            >
-                                <div>
-                                    This pet is not in an expedition team,
-                                </div>
-                                <div style={{  }}>
-                                    you should probably put it in
-                                </div>
-                                {statMode && (
-                                    <div style={{ marginTop: '6px' }}>
-                                        <div>
-                                            or if preferred, blacklist it
-                                        </div>
-                                        <div style={{  }}>
-                                            on this page to get a different suggestion
-                                        </div>
-
-                                    </div>
-                                )}
-                            </div>
-                        }
-
-                        forceXPlacement={'right'}
-
-                    >
-                        <Image
-                            alt='Letter "I" inside a circle, shows more information on hover'
-                            src={infoIconAmber}
-                            fill
-                        />
-                    </MouseOverPopover>
-                </div>
-            )}
-
-
+            {getWarnIcon()}
 
         </>);
 };
-
-
