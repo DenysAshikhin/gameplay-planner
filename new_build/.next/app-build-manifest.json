@@ -17,6 +17,18 @@
       "static/css/43460cc3a1926c29.css",
       "static/chunks/app/layout-2d88d838d426a379.js"
     ],
+    "/page_selection/page": [
+      "static/chunks/webpack-da90a0355c44507c.js",
+      "static/chunks/fd9d1056-381fd1433816272c.js",
+      "static/chunks/2472-30f2670f8754dc75.js",
+      "static/chunks/main-app-ae139429e32048c5.js",
+      "static/chunks/7396-c65f2ccf6ec9904f.js",
+      "static/chunks/3086-efc991dc77523cce.js",
+      "static/chunks/7280-3d901b92ccfebd72.js",
+      "static/chunks/8326-d67c605437ac9301.js",
+      "static/chunks/2074-64e7b07efc2b7789.js",
+      "static/chunks/app/page_selection/page-10ff74347aa6769a.js"
+    ],
     "/page": [
       "static/chunks/webpack-da90a0355c44507c.js",
       "static/chunks/fd9d1056-381fd1433816272c.js",
@@ -30,18 +42,6 @@
       "static/chunks/2074-64e7b07efc2b7789.js",
       "static/css/61712368a3e378a9.css",
       "static/chunks/app/page-94ba0c8b40a371bf.js"
-    ],
-    "/page_selection/page": [
-      "static/chunks/webpack-da90a0355c44507c.js",
-      "static/chunks/fd9d1056-381fd1433816272c.js",
-      "static/chunks/2472-30f2670f8754dc75.js",
-      "static/chunks/main-app-ae139429e32048c5.js",
-      "static/chunks/7396-c65f2ccf6ec9904f.js",
-      "static/chunks/3086-efc991dc77523cce.js",
-      "static/chunks/7280-3d901b92ccfebd72.js",
-      "static/chunks/8326-d67c605437ac9301.js",
-      "static/chunks/2074-64e7b07efc2b7789.js",
-      "static/chunks/app/page_selection/page-10ff74347aa6769a.js"
     ],
     "/expeditions/page": [
       "static/chunks/webpack-da90a0355c44507c.js",
@@ -59,6 +59,27 @@
       "static/css/6e4ba7c08522b020.css",
       "static/chunks/app/expeditions/page-e417f6ab14a93595.js"
     ],
+    "/guides/cards_explanation/page": [
+      "static/chunks/webpack-da90a0355c44507c.js",
+      "static/chunks/fd9d1056-381fd1433816272c.js",
+      "static/chunks/2472-30f2670f8754dc75.js",
+      "static/chunks/main-app-ae139429e32048c5.js",
+      "static/chunks/7396-c65f2ccf6ec9904f.js",
+      "static/chunks/3086-efc991dc77523cce.js",
+      "static/chunks/7280-3d901b92ccfebd72.js",
+      "static/chunks/app/guides/cards_explanation/page-e644dae30a4060a8.js"
+    ],
+    "/gratitude/page": [
+      "static/chunks/webpack-da90a0355c44507c.js",
+      "static/chunks/fd9d1056-381fd1433816272c.js",
+      "static/chunks/2472-30f2670f8754dc75.js",
+      "static/chunks/main-app-ae139429e32048c5.js",
+      "static/chunks/7396-c65f2ccf6ec9904f.js",
+      "static/chunks/3086-efc991dc77523cce.js",
+      "static/chunks/7280-3d901b92ccfebd72.js",
+      "static/chunks/8326-d67c605437ac9301.js",
+      "static/chunks/app/gratitude/page-fa07086ebdfb2947.js"
+    ],
     "/cards/page": [
       "static/chunks/webpack-da90a0355c44507c.js",
       "static/chunks/fd9d1056-381fd1433816272c.js",
@@ -72,52 +93,6 @@
       "static/chunks/6928-deb371212c5837a9.js",
       "static/css/449f9edc3634576f.css",
       "static/chunks/app/cards/page-dc9af74be1159d90.js"
-    ],
-    "/gratitude/page": [
-      "static/chunks/webpack-da90a0355c44507c.js",
-      "static/chunks/fd9d1056-381fd1433816272c.js",
-      "static/chunks/2472-30f2670f8754dc75.js",
-      "static/chunks/main-app-ae139429e32048c5.js",
-      "static/chunks/7396-c65f2ccf6ec9904f.js",
-      "static/chunks/3086-efc991dc77523cce.js",
-      "static/chunks/7280-3d901b92ccfebd72.js",
-      "static/chunks/8326-d67c605437ac9301.js",
-      "static/chunks/app/gratitude/page-fa07086ebdfb2947.js"
-    ],
-    "/farming/page": [
-      "static/chunks/webpack-da90a0355c44507c.js",
-      "static/chunks/fd9d1056-381fd1433816272c.js",
-      "static/chunks/2472-30f2670f8754dc75.js",
-      "static/chunks/main-app-ae139429e32048c5.js",
-      "static/chunks/7396-c65f2ccf6ec9904f.js",
-      "static/chunks/3086-efc991dc77523cce.js",
-      "static/chunks/7280-3d901b92ccfebd72.js",
-      "static/chunks/7385-81aab9115b8b23da.js",
-      "static/chunks/6492-31e572fdb57a22fb.js",
-      "static/chunks/2074-64e7b07efc2b7789.js",
-      "static/chunks/1209-52689bbc7e3fab2a.js",
-      "static/css/2611fbd9c0ae2f42.css",
-      "static/chunks/app/farming/page-2d9e0afbeed324ee.js"
-    ],
-    "/guides/cards_guide/page": [
-      "static/chunks/webpack-da90a0355c44507c.js",
-      "static/chunks/fd9d1056-381fd1433816272c.js",
-      "static/chunks/2472-30f2670f8754dc75.js",
-      "static/chunks/main-app-ae139429e32048c5.js",
-      "static/chunks/7396-c65f2ccf6ec9904f.js",
-      "static/chunks/3086-efc991dc77523cce.js",
-      "static/chunks/7280-3d901b92ccfebd72.js",
-      "static/chunks/app/guides/cards_guide/page-ede81e5c62be01cc.js"
-    ],
-    "/guides/cards_explanation/page": [
-      "static/chunks/webpack-da90a0355c44507c.js",
-      "static/chunks/fd9d1056-381fd1433816272c.js",
-      "static/chunks/2472-30f2670f8754dc75.js",
-      "static/chunks/main-app-ae139429e32048c5.js",
-      "static/chunks/7396-c65f2ccf6ec9904f.js",
-      "static/chunks/3086-efc991dc77523cce.js",
-      "static/chunks/7280-3d901b92ccfebd72.js",
-      "static/chunks/app/guides/cards_explanation/page-e644dae30a4060a8.js"
     ],
     "/guides/expedition_pets_explanation/page": [
       "static/chunks/webpack-da90a0355c44507c.js",
@@ -139,6 +114,31 @@
       "static/chunks/7280-3d901b92ccfebd72.js",
       "static/chunks/app/guides/expedition_pets_guide/page-c44504c6ed4effad.js"
     ],
+    "/guides/cards_guide/page": [
+      "static/chunks/webpack-da90a0355c44507c.js",
+      "static/chunks/fd9d1056-381fd1433816272c.js",
+      "static/chunks/2472-30f2670f8754dc75.js",
+      "static/chunks/main-app-ae139429e32048c5.js",
+      "static/chunks/7396-c65f2ccf6ec9904f.js",
+      "static/chunks/3086-efc991dc77523cce.js",
+      "static/chunks/7280-3d901b92ccfebd72.js",
+      "static/chunks/app/guides/cards_guide/page-ede81e5c62be01cc.js"
+    ],
+    "/farming/page": [
+      "static/chunks/webpack-da90a0355c44507c.js",
+      "static/chunks/fd9d1056-381fd1433816272c.js",
+      "static/chunks/2472-30f2670f8754dc75.js",
+      "static/chunks/main-app-ae139429e32048c5.js",
+      "static/chunks/7396-c65f2ccf6ec9904f.js",
+      "static/chunks/3086-efc991dc77523cce.js",
+      "static/chunks/7280-3d901b92ccfebd72.js",
+      "static/chunks/7385-81aab9115b8b23da.js",
+      "static/chunks/6492-31e572fdb57a22fb.js",
+      "static/chunks/2074-64e7b07efc2b7789.js",
+      "static/chunks/1209-52689bbc7e3fab2a.js",
+      "static/css/2611fbd9c0ae2f42.css",
+      "static/chunks/app/farming/page-2d9e0afbeed324ee.js"
+    ],
     "/guides/farming_explanation/page": [
       "static/chunks/webpack-da90a0355c44507c.js",
       "static/chunks/fd9d1056-381fd1433816272c.js",
@@ -159,7 +159,7 @@
       "static/chunks/7280-3d901b92ccfebd72.js",
       "static/chunks/app/guides/farming_guide/page-6ab618bc03cfc946.js"
     ],
-    "/guides/page": [
+    "/guides/pets_explanation/page": [
       "static/chunks/webpack-da90a0355c44507c.js",
       "static/chunks/fd9d1056-381fd1433816272c.js",
       "static/chunks/2472-30f2670f8754dc75.js",
@@ -167,8 +167,7 @@
       "static/chunks/7396-c65f2ccf6ec9904f.js",
       "static/chunks/3086-efc991dc77523cce.js",
       "static/chunks/7280-3d901b92ccfebd72.js",
-      "static/chunks/8326-d67c605437ac9301.js",
-      "static/chunks/app/guides/page-b9fcca74505c99d7.js"
+      "static/chunks/app/guides/pets_explanation/page-170de01ec82d51b9.js"
     ],
     "/guides/pets_guide/page": [
       "static/chunks/webpack-da90a0355c44507c.js",
@@ -180,7 +179,7 @@
       "static/chunks/7280-3d901b92ccfebd72.js",
       "static/chunks/app/guides/pets_guide/page-038debef2a6244bc.js"
     ],
-    "/guides/pets_explanation/page": [
+    "/guides/page": [
       "static/chunks/webpack-da90a0355c44507c.js",
       "static/chunks/fd9d1056-381fd1433816272c.js",
       "static/chunks/2472-30f2670f8754dc75.js",
@@ -188,7 +187,8 @@
       "static/chunks/7396-c65f2ccf6ec9904f.js",
       "static/chunks/3086-efc991dc77523cce.js",
       "static/chunks/7280-3d901b92ccfebd72.js",
-      "static/chunks/app/guides/pets_explanation/page-170de01ec82d51b9.js"
+      "static/chunks/8326-d67c605437ac9301.js",
+      "static/chunks/app/guides/page-b9fcca74505c99d7.js"
     ],
     "/infinity_corner/page": [
       "static/chunks/webpack-da90a0355c44507c.js",
@@ -200,23 +200,6 @@
       "static/chunks/7385-81aab9115b8b23da.js",
       "static/chunks/2074-64e7b07efc2b7789.js",
       "static/chunks/app/infinity_corner/page-f7c9886d26e8141b.js"
-    ],
-    "/pets/page": [
-      "static/chunks/webpack-da90a0355c44507c.js",
-      "static/chunks/fd9d1056-381fd1433816272c.js",
-      "static/chunks/2472-30f2670f8754dc75.js",
-      "static/chunks/main-app-ae139429e32048c5.js",
-      "static/chunks/7396-c65f2ccf6ec9904f.js",
-      "static/chunks/3086-efc991dc77523cce.js",
-      "static/chunks/7280-3d901b92ccfebd72.js",
-      "static/chunks/7385-81aab9115b8b23da.js",
-      "static/chunks/6689-2e003ce6b63bedf9.js",
-      "static/chunks/8755-23a3140b12e5be5c.js",
-      "static/chunks/2074-64e7b07efc2b7789.js",
-      "static/chunks/6928-deb371212c5837a9.js",
-      "static/chunks/6121-473ba82cbeb77a13.js",
-      "static/css/0433ab05b9932ea6.css",
-      "static/chunks/app/pets/page-9c4ea850a5373475.js"
     ],
     "/protein/page": [
       "static/chunks/webpack-da90a0355c44507c.js",
@@ -246,6 +229,23 @@
       "static/chunks/1209-52689bbc7e3fab2a.js",
       "static/css/bbe6fcbfd5c3bddd.css",
       "static/chunks/app/residue/page-7fd9e0578979ddd8.js"
+    ],
+    "/pets/page": [
+      "static/chunks/webpack-da90a0355c44507c.js",
+      "static/chunks/fd9d1056-381fd1433816272c.js",
+      "static/chunks/2472-30f2670f8754dc75.js",
+      "static/chunks/main-app-ae139429e32048c5.js",
+      "static/chunks/7396-c65f2ccf6ec9904f.js",
+      "static/chunks/3086-efc991dc77523cce.js",
+      "static/chunks/7280-3d901b92ccfebd72.js",
+      "static/chunks/7385-81aab9115b8b23da.js",
+      "static/chunks/6689-2e003ce6b63bedf9.js",
+      "static/chunks/8755-23a3140b12e5be5c.js",
+      "static/chunks/2074-64e7b07efc2b7789.js",
+      "static/chunks/6928-deb371212c5837a9.js",
+      "static/chunks/6121-473ba82cbeb77a13.js",
+      "static/css/0433ab05b9932ea6.css",
+      "static/chunks/app/pets/page-9c4ea850a5373475.js"
     ]
   }
 }
