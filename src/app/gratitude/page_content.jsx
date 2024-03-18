@@ -360,8 +360,7 @@ export default function Expeditions() {
                         </Link>
                     </div>
                 </div>
-                <Link href={`https://www.gameplayplaynner.com/privacy_policy.html`} >
-
+                <Link href={`https://www.gameplayplanner.com/privacy_policy.html`} >
                     <div className='importantText' style={{ fontSize: '24px' }}>
                         Privacy Policy
                     </div>
