@@ -54,7 +54,11 @@ var helper = {
     round: function(number1){
         number1 = number1.mantissa || number1.mantissa === 0 ? number1 : this.createDecimal(number1);
         return Decimal.round(number1);
-    }
+    },
+    oniTimeToEpoch: function (val) {
+        // Approximately number of seconds between 01-01-0001 and 01-01-1970
+        return val - 62135596763;
+    },
 }
 
 
