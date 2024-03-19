@@ -12,6 +12,7 @@ import farmingHelper from "../util/farmingHelper.js";
 import mathHelper from '../util/math.js';
 import './page.css';
 import ReactGA from "react-ga4";
+import { GoogleAdSense } from "next-google-adsense";
 import Graph from './graph.jsx';
 import Timer from './Timer.jsx';
 import DefaultSave from '../util/tempSave.json';
@@ -1504,7 +1505,10 @@ const FarmingLanding = () => {
     return (
         <div
             // className='importantText'
-            style={{ height: '100%', display: 'flex', flex: 1, flexDirection: 'column', paddingLeft: '6px', maxWidth: 'calc(100% - 10px)', minHeight: '0', backgroundColor: 'black', }}>
+            style={{ height: '100%', display: 'flex', flex: 1, flexDirection: 'column', paddingLeft: '6px', maxWidth: 'calc(100% - 10px)', minHeight: '0', backgroundColor: 'black', }}
+            >
+                
+            <GoogleAdSense publisherId="pub-1393057374484862" />
             <div style={{
                 display: 'flex', flex: 1,
                 flexDirection: 'column',
@@ -1794,6 +1798,7 @@ const FarmingLanding = () => {
                                                         let worker = workers[i];
                                                         worker.current.postMessage({
                                                             data: {
+                                                                updateCounter: numThreads * 50,
                                                                 combinations: combinations,
                                                                 start: splitArraysIndicies[i][0],
                                                                 end: splitArraysIndicies[i][1],
@@ -1890,6 +1895,7 @@ const FarmingLanding = () => {
                                                         let worker = workers[i];
                                                         worker.current.postMessage({
                                                             data: {
+                                                                updateCounter: numThreads * 50,
                                                                 baseTimers: nums,
                                                                 combinations: combinations,
                                                                 start: splitArraysIndicies[i][0],

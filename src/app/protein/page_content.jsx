@@ -4,6 +4,7 @@
 import { isMobile } from 'mobile-device-detect';
 import React, { useState, useEffect } from 'react';
 import ReactGA from "react-ga4";
+import { GoogleAdSense } from "next-google-adsense";
 import { BonusMap } from '../util/itemMapping.js';
 import farmingHelper from '../util/farmingHelper.js';
 import mathHelper from '../util/math.js';
@@ -276,6 +277,8 @@ export default function Protein() {
                 position: 'relative',
             }}
         >
+            
+            <GoogleAdSense publisherId="pub-1393057374484862" />
             <div style={{
                 display: 'flex',
                 flex: '1',

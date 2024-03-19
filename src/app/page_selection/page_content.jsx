@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import ReactGA from "react-ga4";
+import { GoogleAdSense } from "next-google-adsense";
 import PageCard from './page_card.jsx';
 import BlinkingDot from '../util/BlinkingDot.jsx';
 import { isMobile } from 'mobile-device-detect';
@@ -49,6 +50,8 @@ export default function PageSelection() {
                 position: 'relative',
             }}
         >
+            
+            <GoogleAdSense publisherId="pub-1393057374484862" />
             {/* <BlinkingDot data={data} /> */}
             <div style={{
                 paddingLeft: '6px',

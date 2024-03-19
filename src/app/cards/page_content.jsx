@@ -5,6 +5,7 @@ import { isMobile } from 'mobile-device-detect';
 import './card.css';
 import { useState, useEffect, useRef } from 'react';
 import ReactGA from "react-ga4";
+import { GoogleAdSense } from "next-google-adsense";
 import MouseOverPopover from "../util/Tooltip.jsx";
 import { DefaultWeightMap } from '../util/itemMapping.js';
 import { cardMapImg, cardLabelImg } from './cardMapping.js';
@@ -1177,9 +1178,9 @@ const CardCard = ({
     cardWeight, setCardWeightNew }) => {
 
     const {
-        CurrentExp,
-        ExpNeeded,
-        Found,
+        // CurrentExp,
+        // ExpNeeded,
+        // Found,
         ID,
         Level,
         PowerPermaBD,
@@ -1965,6 +1966,7 @@ export default function Cards() {
     let weightedCardInfo = [];
 
     for (let i = 0; i < CARD_DISPLAY_IDS.length; i++) {
+        if (!cardsById[CARD_DISPLAY_IDS[i]]) continue;
         weightedCardInfo.push(
             <CardCard
                 cardWeight={newCardWeights[CARD_DISPLAY_IDS[i]]}
@@ -1983,6 +1985,7 @@ export default function Cards() {
 
     let baseCardArr = [];
     Object.values(cardMap).forEach((inner_card) => {
+        if (!cardsById[inner_card.ID]) return;
         baseCardArr.push(inner_card);
     })
     let topPercIncrease = baseCardArr.sort((a, b) => {
@@ -2305,7 +2308,7 @@ export default function Cards() {
                     </MouseOverPopover >
                 </div>
             )}
-
+            <GoogleAdSense publisherId="pub-1393057374484862" />
             <div className='importantText' style={{ display: 'flex', alignItems: 'end' }}>
                 <h1 style={{ margin: '6px 6px', fontSize: '32px' }}>
                     Cards Guide
@@ -2316,7 +2319,7 @@ export default function Cards() {
 
                         <div>
                             <div>
-                                {`Remaining charges are calculated based on your remaining reincarnation levels left to ascend multiplied by your current reincarnation levels / hr. \nThis is calculated based on how many reincarnation levels you would gain if you reincarnate now divded by the current reincarnation duration.`}
+                                {`Remaining charges are calculated based on your remaining reincarnation levels left to ascend multiplied by your current reincarnation levels / hr. \nThis is calculated based on how many reincarnation levels you would gain if you reincarnate now divided by the current reincarnation duration.`}
                             </div>
                             <div>
                                 {`${requiredReincLevel - currentReincLevel} remaining levels at ${helper.roundTwoDecimal(reincHr)} levels/hr =  ${helper.roundTwoDecimal(remTime)} hours remaining`}
@@ -2382,35 +2385,14 @@ export default function Cards() {
                             <button
                                 onClick={() => {
                                     let num = Math.random() * 1000 + 20;
-                                    setNewCardWeights({
-                                        1: -1,
-                                        2: -1,
-                                        3: -1,
-                                        4: -1,
-                                        5: -1,
-                                        6: -1,
-                                        7: -1,
-                                        8: -1,
-                                        9: -1,
-                                        10: -1,
-                                        11: -1,
-                                        12: -1,
-                                        13: -1,
-                                        14: -1,
-                                        15: -1,
-                                        16: -1,
-                                        17: -1,
-                                        18: -1,
-                                        19: -1,
-                                        20: -1,
-                                        21: -1,
-                                        22: -1,
-                                        23: -1,
-                                        24: -1,
-                                        25: -1,
-                                        26: -1,
-                                        27: -1,
-                                    })
+                                    setNewCardWeights((curr_weights) => {
+                                        let tempNewWeights = {};
+
+                                        for (const [key, value] of Object.entries(curr_weights)) {
+                                            tempNewWeights[key] = -1;
+                                        }
+                                        return tempNewWeights;
+                                    });
 
                                 }}
                             >Reset Weights</button>

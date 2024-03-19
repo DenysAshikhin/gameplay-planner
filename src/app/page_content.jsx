@@ -18,7 +18,8 @@ import backgroundImage from '../../public/images/coming_soon.png'
 
 // import { GoogleAdSense } from "nextjs-google-adsense";
 import ReactGA from "react-ga4";
-ReactGA.initialize([{ trackingId: "G-GGLPK02VH8", }]);
+import { GoogleAdSense } from "next-google-adsense";
+ReactGA.initialize([{ trackingId: "G-GGLPK02VH8" }]);
 
 export default function Home() {
 
@@ -141,6 +142,65 @@ export default function Home() {
     setMobileMode(isMobile);
   }, []);
 
+
+
+
+
+
+  const calc_future_state = function (plants, time) {
+
+    let timeIncrease = 1; //how many seconds at a time we will skip forward
+    let currentTime = 0; // how much time we have skipped forward in total
+
+    let futurePlants = JSON.parse(JSON.stringify(plants)); // make a deep copy of plants to keep seperate from the passed copy and not edit it by accident
+    let HP_produced = 0;
+
+    function coolTimeThing(time, j) {
+      let a = 1
+      for (let i = 0; i < j; i++) {
+        a *= time + i
+      }
+      return a
+    }
+
+    // keep looping until we run out of given time
+    while (currentTime < time) {
+
+      /** here I would have my logic to determine how far to skip in time, let's assume a constant 10seconds for now */
+      timeIncrease = 10;
+
+      //we can either loop from first plant to last, or opposite order, you can change this of course
+      for (let i = 0; i < futurePlants.length; i++) {
+        // when i=0, produce hp, when i>0 produce plant i
+        let currentMultiplier = 1;
+        // you probably are using somehting like Decimal.js to make numbers not cause issues
+        // in which case replace 1 with whatever initates the object
+        for (let j = 1; i + j <= futurePlants.length; j++) {
+          currentMultiplier *= futurePlants[i - 1 + j].multiplier / j;
+          if (i === 0) {
+            HP_produced += futurePlants[i - 1 + j].amount * currentMultiplier * coolTimeThing(timeIncrease, j);
+          } else { // 
+            futurePlants[i - 1].amount += futurePlants[i - 1 + j].amount * currentMultiplier * coolTimeThing(timeIncrease, j);
+          }
+        }
+      }
+
+      // Update production values to reflect the new amounts
+      for (let i = 0; i < futurePlants.length; i++) {
+        futurePlants[i].production = futurePlants[i].amount * futurePlants[i].multiplier
+      }
+      currentTime += timeIncrease;
+    }
+    return { plants: futurePlants, HP_produced: HP_produced }
+  }
+
+
+  let plants_original = [{ amount: 1, production: 1, multiplier: 1 }, { amount: 1, production: 1, multiplier: 2 },];
+  let result = calc_future_state(plants_original, 10);
+  console.log(result);
+
+
+
   return (
     <div
       style={{
@@ -153,6 +213,8 @@ export default function Home() {
         justifyContent: 'center'
       }}
     >
+
+      <GoogleAdSense publisherId="pub-1393057374484862" />
       <Image
         style={{
           position: 'absolute', top: '0', left: '0', width: '100%', height: '100%', zIndex: '1',
@@ -187,18 +249,18 @@ export default function Home() {
 
               <div style={{ display: 'flex', marginTop: '12px', marginBottom: '24px' }}>
                 <div
-                  style={{ fontWeight: 'bold', marginRight: '6px', color:"darkred"}}>
+                  style={{ fontWeight: 'bold', marginRight: '6px', color: "darkred" }}>
                   All Platforms:
                 </div>
                 <div>
-                  enter: 
+                  enter:
                 </div>
-                <div style={{fontWeight: 'bold', color:"darkred", margin:"0 6px"}}>
-                {`"copysave"`}
+                <div style={{ fontWeight: 'bold', color: "darkred", margin: "0 6px" }}>
+                  {`"copysave"`}
                 </div>
                 <div>
-                in the reward code box (found in settings, gift box icon)
-              </div>
+                  in the reward code box (found in settings, gift box icon)
+                </div>
               </div>
 
               <div style={{ display: 'flex' }}>

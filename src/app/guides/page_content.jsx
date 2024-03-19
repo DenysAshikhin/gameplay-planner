@@ -3,6 +3,7 @@
 import { isMobile } from 'mobile-device-detect';
 import { useState, useEffect } from 'react';
 import ReactGA from "react-ga4";
+import { GoogleAdSense } from "next-google-adsense";
 ReactGA.initialize([{
     trackingId: "G-GGLPK02VH8",
 }]);
@@ -39,6 +40,7 @@ export default function Guides() {
             }}
         >
 
+<GoogleAdSense publisherId="pub-1393057374484862" />
 
             {/* Guides */}
             <div
@@ -79,16 +81,17 @@ export default function Guides() {
                         style={{
                             display: 'flex',
                             justifyContent: 'space-evenly',
+                            flex: 'wrap'
                         }}
                     >
-                        {/* <PageCard page='expedition' />*/}
+                        <PageCard page='expedition' url_force={'guides/expedition_pets_guide'} />
                         <PageCard page='pets' url_force={'guides/pets_guide'} />
                         <PageCard page='farm' url_force={'guides/farming_guide'} />
+                        <PageCard page='cards' url_force={'guides/cards_guide'} />
                     </div>
                     {/*<div
                         style={{ display: 'flex', marginTop: '36px' }}
                     >
-                        <PageCard page='cards' />
                     <PageCard page='protein' />
                     <PageCard page='residue' />
                     <PageCard page='infinity_corner' /> 
@@ -105,7 +108,7 @@ export default function Guides() {
                     // minWidth: '512px',
                     border: '1px solid white',
                     marginBottom: '12px',
-                    marginTop: '24px',
+                    marginTop: '72px',
                     borderRadius: '12px'
                 }}
             >
@@ -124,14 +127,16 @@ export default function Guides() {
                 </div>
 
 
-                <div style={{
-                    paddingLeft: '6px',
-                    display: 'flex',
-                    flexWrap: 'wrap',
-                    flexDirection: 'column',
-                    backgroundColor: 'rgba(255,255,255, 0.05)',
-                    padding: '6px'
-                }}>
+                <div
+                    style={{
+                        paddingLeft: '6px',
+                        display: 'flex',
+                        flexWrap: 'wrap',
+                        flexDirection: 'column',
+                        backgroundColor: 'rgba(255,255,255, 0.05)',
+                        padding: '6px'
+                    }}
+                >
                     <div
                         style={{
                             display: 'flex',
@@ -139,14 +144,14 @@ export default function Guides() {
                             flexWrap: 'wrap'
                         }}
                     >
-                        {/* <PageCard page='expedition' />/ */}
+                        <PageCard page='expedition' url_force={'guides/expedition_pets_explanation'} />
                         <PageCard page='pets' url_force={'guides/pets_explanation'} />
                         <PageCard page='farm' url_force={'guides/farming_explanation'} />
+                        <PageCard page='cards' url_force={'guides/cards_explanation'} />
                     </div>
                     {/*<div
                         style={{ display: 'flex', marginTop: '36px' }}
                     >
-                        <PageCard page='cards' />
                     <PageCard page='protein' />
                     <PageCard page='residue' />
                     <PageCard page='infinity_corner' /> 

@@ -1,3 +1,5 @@
+
+
 import general_helper from './helper.js';
 import { mainTeamSuggestions, reincTeamSuggestions, gearTeamSuggestions, statTeamSuggestions } from '../pets/teamSuggestions.js';
 import { getPet, BonusMap } from "./itemMapping.js";
@@ -164,6 +166,32 @@ var helper = {
             tokenMult
         };
     },
+
+    compareGroupScore: function (target, compare) {
+        if (target.groupScore != compare.groupScore) {
+            return target.groupScore - compare.groupScore;
+        }
+        if (target.tokenRewardCount != compare.tokenRewardCount) {
+            return target.tokenRewardCount - compare.tokenRewardCount;
+        }
+        if (target.dmgCount != compare.dmgCount) {
+            return target.dmgCount - compare.dmgCount;
+        }
+        if (target.timeCount != compare.timeCount) {
+            return target.timeCount - compare.timeCount;
+        }
+        if (target.cardPowerCount != compare.cardPowerCount) {
+            return target.cardPowerCount - compare.cardPowerCount;
+        }
+        if (target.cardPowerCount != compare.cardPowerCount) {
+            return target.cardPowerCount - compare.cardPowerCount;
+        }
+        if (target.expRewardCount != compare.expRewardCount) {
+            return target.expRewardCount - compare.expRewardCount;
+        }
+        return 0;
+    },
+
     getBestDamagePets: function (petsCollection, defaultRank, other) {
         let finalCollection = {};
         let bestDamagePets = JSON.parse(JSON.stringify(petsCollection));
@@ -940,13 +968,7 @@ var helper = {
                             }
                             else {
                                 let cur = memoizedGroupScore(x);
-
-                                if (cur.damage === best.score.damage) {
-                                    if (cur.token > best.score.token) {
-                                        best = { ID: id, team: prevCombination, score: cur };
-                                    }
-                                }
-                                else if (cur.damage > best.score.damage) {
+                                if (this.compareGroupScore(cur.other, best.score.other) > 0) {
                                     best = { ID: id, team: prevCombination, score: cur };
                                 }
                             }
@@ -1564,7 +1586,7 @@ var helper = {
 
                         let subsequentGroup = copyGroups[group_index + 1];
                         let triedPets = {};
-                        let currentGroupScore = this.calculateGroupScore(group, defaultRank).groupScore;
+                        let currentGroupScore = this.calculateGroupScore(group, defaultRank);
 
                         for (let i = 0; i < maxSwaps; i++) {
                             for (let j = 0; j < subsequentGroup.length; j++) {
@@ -1575,10 +1597,10 @@ var helper = {
                                     let newGroup = JSON.parse(JSON.stringify(team));
                                     newGroup[pet_index] = newPet;
 
-                                    let newScore = this.calculateGroupScore(newGroup, defaultRank).groupScore;
+                                    let newScore = this.calculateGroupScore(newGroup, defaultRank);
 
                                     // There is a better pet from lower team to grab!
-                                    if (newScore > currentGroupScore) {
+                                    if (this.compareGroupScore(newScore, currentGroupScore) > 0) {
                                         tooHigh = true;
                                         // swapHappened = true;
                                     }
@@ -1599,7 +1621,7 @@ var helper = {
                         while (currentCounter >= 0) {
                             let previousGroup = copyGroups[currentCounter];
                             let triedPets = {};
-                            let currentGroupScore = this.calculateGroupScore(previousGroup, defaultRank).groupScore;
+                            let currentGroupScore = this.calculateGroupScore(previousGroup, defaultRank);
 
                             for (let i = 0; i < maxSwaps; i++) {
 
@@ -1615,10 +1637,10 @@ var helper = {
                                         let newGroup = JSON.parse(JSON.stringify(previousGroup));
                                         newGroup[j] = pet;
 
-                                        let newScore = this.calculateGroupScore(newGroup, defaultRank).groupScore;
+                                        let newScore = this.calculateGroupScore(newGroup, defaultRank);
 
                                         // There is a better pet from lower team to grab!
-                                        if (newScore > currentGroupScore) {
+                                        if (this.compareGroupScore(newScore, currentGroupScore) > 0) {
                                             tooLow = true;
                                             swapHappened = true;
                                             bestGroups[group_index][pet_index] = JSON.parse(JSON.stringify(newPet));
