@@ -6,25 +6,22 @@ import { useGlobalAudioPlayer } from "react-use-audio-player";
 import useLocalStorage from "use-local-storage";
 import addNotification from "react-push-notification";
 
-const Timer = () => {
+const Timer = ({ duration, setDuration }) => {
   const [loopAlarm, setLoopAlarm] = useLocalStorage("loopAlarm", false);
   const [loopAlarmClient, setLoopAlarmClient] = useState(false);
   useEffect(() => {
     setLoopAlarmClient(loopAlarmClient);
   }, [loopAlarm, loopAlarmClient]);
 
-  const [innerDays, setInnerDays] = useState(0);
-  const [innerHours, setInnerHours] = useState(0);
-  const [innerMinutes, setInnerMinutes] = useState(0);
-  const [innerSeconds, setInnerSeconds] = useState(0);
+
   const [initialStart, setInitialStart] = useState(true);
   const [finished, setFinished] = useState(false);
 
   let timeIncrease =
-    (innerDays * 3600 * 24 +
-      innerHours * 3600 +
-      innerMinutes * 60 +
-      innerSeconds) *
+    (duration.days * 3600 * 24 +
+      duration.hours * 3600 +
+      duration.minutes * 60 +
+      duration.seconds) *
     1000;
   let time = new Date();
   time = new Date(time.getTime() + timeIncrease);
@@ -73,13 +70,13 @@ const Timer = () => {
         {/* days */}
         <div style={{ display: "flex" }}>
           <input
-           aria-label='Specify how many days to run for'
+            aria-label='Specify how many days to run for'
             type="number"
             className="prepNumber importantText"
-            value={innerDays}
+            value={duration.days}
             style={{
               width: "33px", backgroundColor: '#1b1b1b',
-              borderRadius: '4px', 
+              borderRadius: '4px',
             }}
             onChange={(e) => {
               try {
@@ -88,12 +85,12 @@ const Timer = () => {
                 if (x < 0 || x > 99) {
                   return;
                 }
-                setInnerDays(x);
+                setDuration((prev) => { return { ...prev, days: x } });
               } catch (err) {
                 console.log(err);
               }
             }}
-            placeholder={innerDays + ""}
+            placeholder={duration.days + ""}
             min="0"
             max="99"
           />
@@ -102,13 +99,13 @@ const Timer = () => {
         {/* hours */}
         <div style={{ display: "flex", margin: "0 3px 0 6px" }}>
           <input
-             aria-label='Specify how many hours to run for'
+            aria-label='Specify how many hours to run for'
             type="number"
             className="prepNumber importantText"
-            value={innerHours}
+            value={duration.hours}
             style={{
               width: "33px", backgroundColor: '#1b1b1b',
-              borderRadius: '4px', 
+              borderRadius: '4px',
             }}
             onChange={(e) => {
               try {
@@ -117,12 +114,12 @@ const Timer = () => {
                 if (x < 0 || x > 99) {
                   return;
                 }
-                setInnerHours(x);
+                setDuration((prev) => { return { ...prev, hours: x } });
               } catch (err) {
                 console.log(err);
               }
             }}
-            placeholder={innerHours + ""}
+            placeholder={duration.hours + ""}
             min="0"
             max="99"
           />
@@ -131,13 +128,13 @@ const Timer = () => {
         {/* minutes */}
         <div style={{ display: "flex", marginLeft: "3px" }}>
           <input
-             aria-label='Specify how many minutes to run for'
+            aria-label='Specify how many minutes to run for'
             type="number"
             className="prepNumber importantText"
-            value={innerMinutes}
+            value={duration.minutes}
             style={{
               width: "33px", backgroundColor: '#1b1b1b',
-              borderRadius: '4px', 
+              borderRadius: '4px',
             }}
             onChange={(e) => {
               try {
@@ -146,12 +143,12 @@ const Timer = () => {
                 if (x < 0 || x > 99) {
                   return;
                 }
-                setInnerMinutes(x);
+                setDuration((prev) => { return { ...prev, minutes: x } });
               } catch (err) {
                 console.log(err);
               }
             }}
-            placeholder={innerMinutes + ""}
+            placeholder={duration.minutes + ""}
             min="0"
             max="99"
           />
@@ -160,13 +157,13 @@ const Timer = () => {
         {/* seconds */}
         <div style={{ display: "flex", margin: "0 0 0 6px" }}>
           <input
-             aria-label='Specify how many seconds to run for'
+            aria-label='Specify how many seconds to run for'
             type="number"
             className="prepNumber importantText"
-            value={innerSeconds}
+            value={duration.seconds}
             style={{
               width: "33px", backgroundColor: '#1b1b1b',
-              borderRadius: '4px', 
+              borderRadius: '4px',
             }}
             onChange={(e) => {
               try {
@@ -175,12 +172,12 @@ const Timer = () => {
                 if (x < 0 || x > 99) {
                   return;
                 }
-                setInnerSeconds(x);
+                setDuration((prev) => { return { ...prev, seconds: x } });
               } catch (err) {
                 console.log(err);
               }
             }}
-            placeholder={innerSeconds + ""}
+            placeholder={duration.seconds + ""}
             min="0"
             max="99"
           />
@@ -206,7 +203,7 @@ const Timer = () => {
         >
           <div>Loop Alarm</div>
           <input
-             aria-label='Specify if the alarm should loop'
+            aria-label='Specify if the alarm should loop'
             type="checkbox"
             checked={loopAlarmClient}
             onChange={(e) => {
@@ -291,5 +288,5 @@ const Timer = () => {
 };
 
 export default memo(Timer, function (old, curr) {
-  return true; //nothing changed
+  return old.duration == curr.duration; //rerender on new Duration
 });

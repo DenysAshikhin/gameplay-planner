@@ -11,6 +11,21 @@ var helper = {
     EXP_TOKEN_MOD: 0.05,
     SOUL_CLOVER_STEP: 0.25,
 
+    getPetIdsInExpeditionFromSaveFile: function (data) {
+        const teams = data.ExpeditionTeam;
+        const inUse = teams.filter((team) => team.InExpedition || team.AutoRestart);
+        const ids = {};
+        inUse.forEach((inner_val) => {
+            inner_val.ExpeditionTeamID.forEach((inner_id) => {
+                if (inner_id > 0) {
+                    ids[inner_id] = inner_id;
+                }
+            })
+        })
+        // return inUse.flatMap((team) => team.ExpeditionTeamID.filter((id) => id != 0));
+        return ids;
+    },
+
     calculatePetBaseDamage: function (pet, defaultRank) {
         const rankCount = defaultRank ? defaultRank : pet?.Rank;
         const result = pet?.BaseDungeonDamage * (1.0 + rankCount * 0.05);
@@ -2339,6 +2354,7 @@ var helper = {
         return [airPets, groundPets, currentBonuses, selectedPetMap];
     }
 }
+
 
 
 export default helper;

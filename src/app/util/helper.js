@@ -2,7 +2,7 @@ var helper = {
     roundTwoDecimal: function (number) {
         return Math.round((number + Number.EPSILON) * 100) / 100;
     },
-     numberWithCommas: function(x) {
+    numberWithCommas: function (x) {
         return x.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     },
     roundThreeDecimal: function (number) {
@@ -117,6 +117,15 @@ var helper = {
 
         return string;
     },
+
+    secondsToDuration(seconds) {
+        const numDays = Math.floor(seconds / (3600 * 24));
+        const numHours = Math.floor((seconds % (3600 * 24)) / 3600);
+        const numMinutes = Math.floor((seconds % 3600) / 60);
+        const numSeconds = this.roundInt((seconds % (3600 * 24)) % 60);
+        return { days: numDays, hours: numHours, minutes: numMinutes, seconds: numSeconds }
+    },
+
     bonusColorMap: {
         // 1001: { color: 'maroon' },
         // 1002: { color: 'orange' },

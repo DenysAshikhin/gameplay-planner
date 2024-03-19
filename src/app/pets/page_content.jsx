@@ -1,7 +1,7 @@
 "use client"
 
 import { isMobile } from 'mobile-device-detect';
-import React, { useEffect, useState, useRef, useMemo } from 'react';
+import React, { useEffect, useState, useRef, useMemo, useCallback } from 'react';
 import Accordion from '@mui/material/Accordion';
 import ComboListCSS from './comboList.css';
 import AccordionSummary from '@mui/material/AccordionSummary';
@@ -184,7 +184,8 @@ function PetComboDisplay({ petCombos, unlockedPets, petMap }) {
                                             className={petId in unlockedPets || petId === -99 ? `lightGrayBackground` : ``}
                                         >
                                             {petId !== -99 && (
-                                                <StaticPetItem petData={{ ...staticPetData, pet: petMap[petId] }} highlight={petId in unlockedPets} />
+                                                <StaticPetItem petData={{ ...staticPetData, pet: petMap[petId] }} highlight={petId in unlockedPets}
+                                                />
                                             )}
                                         </div>
                                     );
@@ -234,6 +235,9 @@ export default function Pets() {
     useEffect(() => {
         setRunTimeData(clientData);
     }, [clientData]);
+
+
+    const petIdsInUseInSave = useMemo(() => petHelper.getPetIdsInExpeditionFromSaveFile(data), [data])
 
     const [statMode, setStatMode] = useState(false);
     const [statModePets, setStatModePets] = useState({});
@@ -1187,6 +1191,7 @@ export default function Pets() {
                                                                 suggestedPet={true}
                                                                 statMode={statMode}
                                                                 groupsCacheRunTime={groupsCacheRunTime}
+                                                                groupsSaveFile={petIdsInUseInSave}
                                                                 petData={{ ...staticPetData, pet: petMap[e.ID] }} />
                                                         </div>
                                                     );
@@ -1215,6 +1220,7 @@ export default function Pets() {
                                                                 suggestedPet={true}
                                                                 statMode={statMode}
                                                                 groupsCacheRunTime={groupsCacheRunTime}
+                                                                groupsSaveFile={petIdsInUseInSave}
                                                                 petData={{ ...staticPetData, pet: petMap[e.ID] }} />
 
                                                         </div>
