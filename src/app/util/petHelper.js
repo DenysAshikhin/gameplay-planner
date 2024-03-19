@@ -12,10 +12,18 @@ var helper = {
     SOUL_CLOVER_STEP: 0.25,
 
     getPetIdsInExpeditionFromSaveFile: function (data) {
-        console.log(data)
         const teams = data.ExpeditionTeam;
         const inUse = teams.filter((team) => team.InExpedition || team.AutoRestart);
-        return inUse.flatMap((team) => team.ExpeditionTeamID.filter((id) => id != 0));
+        const ids = {};
+        inUse.forEach((inner_val) => {
+            inner_val.ExpeditionTeamID.forEach((inner_id) => {
+                if (inner_id > 0) {
+                    ids[inner_id] = inner_id;
+                }
+            })
+        })
+        // return inUse.flatMap((team) => team.ExpeditionTeamID.filter((id) => id != 0));
+        return ids;
     },
 
     calculatePetBaseDamage: function (pet, defaultRank) {

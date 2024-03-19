@@ -8,6 +8,7 @@ import petHelper from '../util/petHelper.js';
 
 import Image from 'next/image';
 import infoIconAmber from '../../../public/images/icons/info_amber.svg';
+import infoIconBlue from '../../../public/images/icons/info_blue.svg';
 
 const filterBonuses = (bonuses, filterFn) => {
     return bonuses
@@ -486,16 +487,23 @@ export function StaticPetItem({ petData, highlight, showNameOnly, statMode, grou
 
     const getWarnIcon = () => {
         if (showNameOnly || !suggestedPet) return <></>;
-        const showNotInSaveWarning = groupsSaveFile.find(i => i == petId)
+        const showNotInSaveWarning = !groupsSaveFile[petId];
         const showNotInCacheWarning = groupsCacheRunTime.length != 0 && (!groupsCacheRunTime[pet.ID])
         let warning = "";
+        let showBlue = false;
         if (showNotInCacheWarning && showNotInSaveWarning) {
-            warning = "This pet is neither in an suggested expedition team nor in one active team in your save file,you should probably put it in";
+            warning = "This pet is neither in an suggested expedition team nor in one active team in your save file, you should probably put it in";
         } else if (showNotInCacheWarning) {
-            warning = "This pet is not in an suggested expedition team,you should probably put it in";
+            warning = "This pet is not in an suggested expedition team, you should probably put it in";
         } else {
-            warning = "This pet is not in an active expedition team from your save file,you should probably put it in";
+            showBlue = true;
+            warning = "This pet is not in an active expedition team from your save file, you should probably put it in";
         }
+
+        if (!showNotInCacheWarning && !showNotInSaveWarning) {
+            return <></>;
+        }
+
         return (
             <div
                 className='elementToFadeInAndOut'
@@ -516,7 +524,7 @@ export function StaticPetItem({ petData, highlight, showNameOnly, statMode, grou
 
                     <Image
                         alt='Letter "I" inside a circle, shows more information on hover'
-                        src={infoIconAmber}
+                        src={showBlue ? infoIconBlue : infoIconAmber}
                         fill
                     />
                 </MouseOverPopover >
