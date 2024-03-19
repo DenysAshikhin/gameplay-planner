@@ -170,6 +170,9 @@ var helper = {
         if (target.dmgCount != compare.dmgCount) {
             return target.dmgCount - compare.dmgCount;
         }
+        if (target.timeCount != compare.timeCount) {
+            return target.timeCount - compare.timeCount;
+        }
         if (target.cardPowerCount != compare.cardPowerCount) {
             return target.cardPowerCount - compare.cardPowerCount;
         }
