@@ -5,8 +5,8 @@ var helper = {
 
         return deci;
     },
-    createDecimalString: function(number_string){
-        let deci =  new Decimal(number_string);
+    createDecimalString: function (number_string) {
+        let deci = new Decimal(number_string);
         return deci;
     },
     multiplyDecimal: function (a, b) {
@@ -51,7 +51,7 @@ var helper = {
         }
         return number2;
     },
-    round: function(number1){
+    round: function (number1) {
         number1 = number1.mantissa || number1.mantissa === 0 ? number1 : this.createDecimal(number1);
         return Decimal.round(number1);
     },
@@ -59,6 +59,9 @@ var helper = {
         // Approximately number of seconds between 01-01-0001 and 01-01-1970
         return val - 62135596763;
     },
+    oniTimeToDate: function (oni_time) {
+        return new Date(this.oniTimeToEpoch(oni_time));
+    }
 }
 
 
