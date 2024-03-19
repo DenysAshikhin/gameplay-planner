@@ -93,9 +93,8 @@
 
 .autoPicSuggestion {
     width: 115px;
-    height: 54px;
     text-align: center;
-    border-bottom: 1px solid white;
+
 }
 
 .futurePicHolder {
@@ -104,6 +103,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    border-top: 1px solid white;
 }
 
 .calcResult {
