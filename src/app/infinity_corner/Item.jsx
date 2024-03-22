@@ -7,6 +7,9 @@ import MouseOverPopover from "../util/Tooltip.jsx";
 import { ic_mapping, calc_bonus } from './ic_mapping.js';
 import infoIcon from '../../../public/images/icons/info_thick.svg';
 import RefreshIcon from '../../../public/images/icons/refresh_lightgray.svg';
+import greenWreathIcon from '../../../public/images/infinity_corner/QoLSelected.png';
+import greenWreathIconNoHaze from '../../../public/images/infinity_corner/QoLSelected_nohaze.png';
+import yellowWreathIconNoHaze from '../../../public/images/infinity_corner/Era6Selected.png';
 
 
 export default function Item({
@@ -93,7 +96,7 @@ export default function Item({
             }}
         >
 
-            {!isStar && (desiredLevel > 0) && (
+            {!isStar && (desiredLevel > 0) && false && (
                 <div
                     // className='elementToFadeInAndOut'
                     style={{
@@ -109,6 +112,7 @@ export default function Item({
                 >
                 </div>
             )}
+
 
 
             {isStar && (
@@ -160,7 +164,7 @@ export default function Item({
 
                         </MouseOverPopover>
                     </div>
-                    {(desiredLevel > 0) && (
+                    {(desiredLevel > 0) && false && (
                         <div
                             // className='elementToFadeInAndOut'
                             style={{
@@ -182,6 +186,7 @@ export default function Item({
 
                 </>
             )}
+
             {!isStar && (
                 <MouseOverPopover
                     tooltip={tooltip}
@@ -225,7 +230,63 @@ export default function Item({
                 </MouseOverPopover>
             )}
 
+            {(!isStar && desiredLevel > 0 && !futureBuyMode) && (
+                <MouseOverPopover
+                    tooltip={tooltip}
+                    forceYPlacement={'top'}
+                    forceClose={!forceShow}
+                >
+                    <div
+                        style={{
+                            width: '110%',
+                            height: '103%',
+                            position: 'absolute',
+                            left: '-7px',
+                            top: '-2px'
+                        }}
+                    >
+                        <Image
+                            alt={`green fire effect to signify this upgrade needs to be purchased`}
+                            // src={greenWreathIcon}
+                            src={futureBuy ? greenWreathIconNoHaze : yellowWreathIconNoHaze}
+                            fill
+                            priority
+                            unoptimized
+                        />
+                    </div>
+                </MouseOverPopover>
+            )}
 
+            {(isStar && desiredLevel > 0 && !futureBuyMode) && (
+                <MouseOverPopover
+                    tooltip={tooltip}
+                    forceYPlacement={'top'}
+                    forceClose={!forceShow}
+                >
+                    <div
+                        style={{
+                            position: 'absolute',
+                            top: '78%',
+                            left: 'calc(50% - 77px)',
+                            width: '175px',
+                            height: '165px',
+                            borderRadius: '6px',
+                            zIndex: '4',
+                            marginLeft: '-9px',
+                            marginTop: '0px'
+                        }}
+                    >
+                        <Image
+                            alt={`green fire effect to signify this upgrade needs to be purchased`}
+                            // src={greenWreathIcon}
+                            src={futureBuy ? greenWreathIconNoHaze : yellowWreathIconNoHaze}
+                            fill
+                            priority
+                            unoptimized
+                        />
+                    </div>
+                </MouseOverPopover>
+            )}
             {/* Weights/levels */}
             {(!isLocked || forceShow) && (
                 <div
@@ -270,7 +331,7 @@ export default function Item({
                             style={{
                                 display: 'flex',
                                 alignItems: 'center',
-                                justifyContent: 'center'
+                                justifyContent: desiredLevel > 0 ? 'flex-start' : 'center'
                             }}
                         >
                             <input
@@ -282,7 +343,7 @@ export default function Item({
                                     borderRadius: '6px',
                                     fontSize: '12px',
                                     padding: '0 0 0 0',
-                                    margin: '0',
+                                    margin: '0 0 0 6px',
                                     textAlign: 'center'
                                 }}
                                 type='number'
@@ -337,6 +398,17 @@ export default function Item({
                                     <Image src={RefreshIcon} fill unoptimized alt='reset, 2 arrows in a circle' />
                                 </div>
                             )}
+
+                            {desiredLevel > 0 && (
+                                <div style={{
+                                    marginLeft: 'auto', marginRight: '14px',
+                                    fontWeight: 'bold',
+                                    color: !futureBuyMode ? 'green' : 'yellow',
+                                }}>
+                                    {`+${desiredLevel - level}`}
+                                </div>
+                            )}
+
 
                         </div>
                     )}

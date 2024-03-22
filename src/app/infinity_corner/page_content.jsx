@@ -236,7 +236,7 @@ export default function Infinity_Corner() {
             }}
         >
 
-<GoogleAdSense publisherId="pub-1393057374484862" />
+            <GoogleAdSense publisherId="pub-1393057374484862" />
             {/* Title */}
             <div className='importantText'
                 style={{
@@ -247,7 +247,7 @@ export default function Infinity_Corner() {
                     margin: '6px 12px 0',
                     border: '1px solid white',
                     borderRadius: '12px',
-                    width: '1221px',
+                    width: '1230px',
                     fontSize: '24px',
                     fontWeight: 'bold',
                     backgroundColor: 'rgba(255,255,255, 0.07)',
@@ -277,10 +277,10 @@ export default function Infinity_Corner() {
                 {/* Upgrade Master List */}
                 <div
                     style={{
-                        minWidth: '1221px',
-                        minHeight: '734px',
-                        width: '1221px',
-                        height: '734px',
+                        minWidth: '1230px',
+                        minHeight: '750px',
+                        width: '1230px',
+                        height: '750px',
                         position: 'relative',
                         border: '1px solid white',
                         borderRadius: '12px',
