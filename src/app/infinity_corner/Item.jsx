@@ -230,7 +230,7 @@ export default function Item({
                 </MouseOverPopover>
             )}
 
-            {(!isStar && desiredLevel > 0 && !futureBuyMode) && (
+            {(!isStar && desiredLevel > 0) && (
                 <MouseOverPopover
                     tooltip={tooltip}
                     forceYPlacement={'top'}
@@ -248,7 +248,7 @@ export default function Item({
                         <Image
                             alt={`green fire effect to signify this upgrade needs to be purchased`}
                             // src={greenWreathIcon}
-                            src={futureBuy ? greenWreathIconNoHaze : yellowWreathIconNoHaze}
+                            src={!futureBuyMode ? greenWreathIconNoHaze : yellowWreathIconNoHaze}
                             fill
                             priority
                             unoptimized
@@ -257,7 +257,7 @@ export default function Item({
                 </MouseOverPopover>
             )}
 
-            {(isStar && desiredLevel > 0 && !futureBuyMode) && (
+            {(isStar && desiredLevel > 0) && (
                 <MouseOverPopover
                     tooltip={tooltip}
                     forceYPlacement={'top'}
@@ -279,7 +279,7 @@ export default function Item({
                         <Image
                             alt={`green fire effect to signify this upgrade needs to be purchased`}
                             // src={greenWreathIcon}
-                            src={futureBuy ? greenWreathIconNoHaze : yellowWreathIconNoHaze}
+                            src={!futureBuyMode ? greenWreathIconNoHaze : yellowWreathIconNoHaze}
                             fill
                             priority
                             unoptimized
@@ -287,6 +287,7 @@ export default function Item({
                     </div>
                 </MouseOverPopover>
             )}
+
             {/* Weights/levels */}
             {(!isLocked || forceShow) && (
                 <div
