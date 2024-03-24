@@ -564,7 +564,8 @@ export default function Pets() {
         (pet) => {
             // const isValidRank = !!pet.Rank;//Instead of relying on defaultRank always = 0, select valid ranks if they exist (not 0)
             petMap[pet.ID] = pet;
-            const isValidLocked = !!pet.Locked;
+            let isValidLocked = !!pet.Locked || (useExpedition && manualEnabledPetsClient[pet.ID]);
+
             return isValidLocked;
         }
     )
@@ -603,7 +604,7 @@ export default function Pets() {
                 position: 'relative',
             }}
         >
-            
+
             <GoogleAdSense publisherId="pub-1393057374484862" />
             <div
                 style={{
