@@ -2202,8 +2202,6 @@ var helper = {
 
         while ((groundPets.length < groundLimit || airPets.length < airLimit) && Object.values(petList).length > 0) {
 
-            // let currentPriority = priorities.shift();sssssssss
-
             let pets = [];
             let scoreTick = 1 / priorities.length;
 
@@ -2212,8 +2210,6 @@ var helper = {
             let searchingForStat = false;
 
             for (let j = 0; j < priorities.length; j++) {
-
-
 
                 if (priorities[j].count === 0 || (priorities[j].count === priorities[j].current)) {
                     ignoreStat[priorities[j].id] = priorities[j];
@@ -2231,10 +2227,9 @@ var helper = {
                 if (bannedPets[ID]) {
                     continue;
                 }
-                // if (pet.name.toLowerCase() === 'fujin' || pet.name.toLowerCase() === 'abby') {
-                if (pet.name.toLowerCase() === 'zack' || pet.name.toLowerCase() === 'garuda') {
-                    let bigsad = -1;
-                }
+                // if (pet.name.toLowerCase() === 'zack' || pet.name.toLowerCase() === 'garuda') {
+                //     let bigsad = -1;
+                // }
                 pet.BonusList.forEach((e) => {
 
                     if ((ignoreStat[e.ID] && !statMode) || (e.ID >= 1000)) {
