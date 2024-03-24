@@ -409,8 +409,25 @@ export default function Item({
                                     {`+${desiredLevel - level}`}
                                 </div>
                             )}
-
-
+                        </div>
+                    )}
+                    {isStar && (
+                        <div
+                            style={{
+                                // display: 'flex',
+                                // justifyContent: 'center',
+                                // alignItems: 'center'
+                                margin: '0 auto'
+                            }}
+                        >
+                            {desiredLevel > 0 && (
+                                <div style={{
+                                    fontWeight: 'bold',
+                                    color: !futureBuyMode ? 'green' : 'yellow',
+                                }}>
+                                    {`+${desiredLevel - level}`}
+                                </div>
+                            )}
                         </div>
                     )}
 
