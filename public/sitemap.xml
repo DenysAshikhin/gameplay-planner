@@ -237,5 +237,49 @@
       <priority>0.1</priority>
 
    </url>
+       <url>
+
+      <loc>https://www.gameplayplanner.com/terms_of_use.html</loc>
+
+      <lastmod>2024-03-27</lastmod>
+
+      <changefreq>yearly</changefreq>
+
+      <priority>0.1</priority>
+
+   </url>
+       <url>
+
+      <loc>https://www.gameplayplanner.com/cookie_policy.html</loc>
+
+      <lastmod>2024-03-27</lastmod>
+
+      <changefreq>yearly</changefreq>
+
+      <priority>0.1</priority>
+
+   </url>
+       <url>
+
+      <loc>https://www.gameplayplanner.com/disclaimer.html</loc>
+
+      <lastmod>2024-03-27</lastmod>
+
+      <changefreq>yearly</changefreq>
+
+      <priority>0.1</priority>
+
+   </url>
+       <url>
+
+      <loc>https://www.gameplayplanner.com/about</loc>
+
+      <lastmod>2024-03-27</lastmod>
+
+      <changefreq>yearly</changefreq>
+
+      <priority>0.1</priority>
+
+   </url>
 
 </urlset>

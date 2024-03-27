@@ -14,6 +14,7 @@ import Link from 'next/link';
 
 import discord_image from '../../../public/images/icons/discord_gray.svg';
 import paypal_image from "../../../public/images/icons/paypal.svg";
+import scroll_image from '../../../public/images/icons/paper_scroll.svg';
 
 export default function Expeditions() {
 
@@ -45,11 +46,13 @@ export default function Expeditions() {
             <div style={{
                 display: 'flex',
                 flex: '1',
+                flexWrap: 'wrap',
                 // alignItems: 'center',
                 // justifyContent: 'center',
                 backgroundColor: 'rgba(255,255,255, 0.05)',
                 paddingLeft: '12px'
             }}>
+                {/* donations */}
                 <div
                     style={{
                         backgroundColor: 'rgba(255,255,255, 0.05)',
@@ -61,6 +64,9 @@ export default function Expeditions() {
                         margin: '12px 36px 12px 0px', padding: '12px', borderRadius: '12px'
                     }}
                 >
+                    <h1 className='importantText' style={{ margin: '0 auto' }}>
+                        Donation
+                    </h1>
                     <div
                         className='importantText'
                         style={{ fontSize: '28px', marginTop: '0px', marginBottom: '6px' }}
@@ -152,7 +158,7 @@ export default function Expeditions() {
                                                 fontSize: "20px",
                                             }}
                                         >
-                                            {`Donations`}
+                                            {`Stripe/Card`}
                                         </div>
                                     </div>
                                 </div>
@@ -242,18 +248,15 @@ export default function Expeditions() {
                                                 fontSize: "20px",
                                             }}
                                         >
-                                            {`Donations`}
+                                            {`Paypal`}
                                         </div>
                                     </div>
                                 </div>
                             </Link>
                         </div>
                     </div>
-
-
-
                 </div>
-
+                {/* contact */}
                 <div style={{
                     backgroundColor: 'rgba(255,255,255, 0.05)',
                     display: 'flex',
@@ -263,6 +266,9 @@ export default function Expeditions() {
                     // maxHeight: 'calc(100% - 49px)',
                     margin: '12px 36px 12px 0px', padding: '12px', borderRadius: '12px'
                 }}>
+                    <h1 className='importantText' style={{ margin: '0 auto' }}>
+                        Contact
+                    </h1>
                     <div
                         className='importantText'
                         style={{ fontSize: '28px', marginTop: '0px', marginBottom: '6px' }}
@@ -360,11 +366,405 @@ export default function Expeditions() {
                         </Link>
                     </div>
                 </div>
-                <Link href={`https://www.gameplayplanner.com/privacy_policy.html`} >
-                    <div className='importantText' style={{ fontSize: '24px' }}>
-                        Privacy Policy
+                {/* legal */}
+                <div
+                    style={{
+                        backgroundColor: 'rgba(255,255,255, 0.05)',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignSelf: 'start',
+                        width: '1040px',
+                        // maxHeight: 'calc(100% - 49px)',
+                        margin: '12px 36px 12px 0px',
+                         padding: '12px', 
+                         borderRadius: '12px'
+                    }}
+                >
+                    <h1 className='importantText' style={{ margin: '0 auto' }}>
+                        Legal
+                    </h1>
+                    <div
+                        className='importantText'
+                        style={{ fontSize: '28px', marginTop: '0px', marginBottom: '6px' }}
+                    >
+                        Feel free to read below to get the legal side of things
+                    </div >
+
+                    <div style={{ display: 'flex' }}>
+                        {/* Privacy Policy */}
+                        <div style={{ margin: '24px auto' }}>
+                            <Link href={`https://www.gameplayplanner.com/privacy_policy.html`} style={{ textDecoration: 'none' }} >
+                                <div
+                                    className={`hover`}
+                                    style={{
+                                        height: "148px",
+                                        width: "170px",
+                                        marginRight: "48px",
+                                        borderRadius: "6px",
+                                    }}
+                                >
+                                    <div className={``}
+                                        style={{
+                                            height: "80%",
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                            backgroundColor: "rgba(255,255,255, 0.05)",
+                                            borderTopRightRadius: "12px",
+                                            borderTopLeftRadius: "12px",
+                                            padding: "6px 6px 6px 6px",
+                                            borderTop: "2px solid rgba(255,255,255,0.8)",
+                                            borderLeft: "2px solid rgba(255,255,255,0.8)",
+                                            borderRight: "2px solid rgba(255,255,255,0.8)",
+                                        }}
+                                    >
+                                        <div
+                                            style={{
+                                                position: "relative",
+                                                height: "calc(100% - 12px)",
+                                                width: "calc(100% - 12px)",
+                                            }}
+                                        >
+                                            <Image
+                                                alt={`navigation item, picture of a donation jar`}
+                                                src={scroll_image}
+                                                fill
+                                                priority
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div className={``}
+                                        style={{
+                                            height: "20%",
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                            backgroundColor: "rgba(255,255,255, 0.12)",
+                                            borderBottomRightRadius: "12px",
+                                            borderBottomLeftRadius: "12px",
+                                            borderBottom: "2px solid rgba(255,255,255,0.8)",
+                                            borderLeft: "2px solid rgba(255,255,255,0.8)",
+                                            borderRight: "2px solid rgba(255,255,255,0.8)",
+                                        }}
+                                    >
+                                        <h2
+                                            className="importantText"
+                                            style={{
+                                                // marginTop: '6px',
+                                                fontSize: "20px",
+                                            }}
+                                        >
+                                            {`Privacy Policy`}
+                                        </h2>
+                                    </div>
+                                </div>
+                            </Link>
+                        </div>
+                        {/* Terms of Use */}
+                        <div style={{ margin: '24px auto' }}>
+                            <Link href={`https://www.gameplayplanner.com/terms_of_use.html`} style={{ textDecoration: 'none' }} >
+                                <div
+                                    className={`hover`}
+                                    style={{
+                                        height: "148px",
+                                        width: "170px",
+                                        marginRight: "48px",
+                                        borderRadius: "6px",
+                                    }}
+                                >
+                                    <div className={``}
+                                        style={{
+                                            height: "80%",
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                            backgroundColor: "rgba(255,255,255, 0.05)",
+                                            borderTopRightRadius: "12px",
+                                            borderTopLeftRadius: "12px",
+                                            padding: "6px 6px 6px 6px",
+                                            borderTop: "2px solid rgba(255,255,255,0.8)",
+                                            borderLeft: "2px solid rgba(255,255,255,0.8)",
+                                            borderRight: "2px solid rgba(255,255,255,0.8)",
+                                        }}
+                                    >
+                                        <div
+                                            style={{
+                                                position: "relative",
+                                                height: "calc(100% - 12px)",
+                                                width: "calc(100% - 12px)",
+                                            }}
+                                        >
+                                            <Image
+                                                alt={`navigation item, picture of a donation jar`}
+                                                src={scroll_image}
+                                                fill
+                                                priority
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div className={``}
+                                        style={{
+                                            height: "20%",
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                            backgroundColor: "rgba(255,255,255, 0.12)",
+                                            borderBottomRightRadius: "12px",
+                                            borderBottomLeftRadius: "12px",
+                                            borderBottom: "2px solid rgba(255,255,255,0.8)",
+                                            borderLeft: "2px solid rgba(255,255,255,0.8)",
+                                            borderRight: "2px solid rgba(255,255,255,0.8)",
+                                        }}
+                                    >
+                                        <h2
+                                            className="importantText"
+                                            style={{
+                                                // marginTop: '6px',
+                                                fontSize: "20px",
+                                            }}
+                                        >
+                                            {`Terms of Use`}
+                                        </h2>
+                                    </div>
+                                </div>
+                            </Link>
+                        </div>
+
+                        {/* Cookie Policy */}
+                        <div style={{ margin: '24px auto' }}>
+                            <Link href={`https://www.gameplayplanner.com/cookie_policy.html`} style={{ textDecoration: 'none' }} >
+                                <div
+                                    className={`hover`}
+                                    style={{
+                                        height: "148px",
+                                        width: "170px",
+                                        marginRight: "48px",
+                                        borderRadius: "6px",
+                                    }}
+                                >
+                                    <div className={``}
+                                        style={{
+                                            height: "80%",
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                            backgroundColor: "rgba(255,255,255, 0.05)",
+                                            borderTopRightRadius: "12px",
+                                            borderTopLeftRadius: "12px",
+                                            padding: "6px 6px 6px 6px",
+                                            borderTop: "2px solid rgba(255,255,255,0.8)",
+                                            borderLeft: "2px solid rgba(255,255,255,0.8)",
+                                            borderRight: "2px solid rgba(255,255,255,0.8)",
+                                        }}
+                                    >
+                                        <div
+                                            style={{
+                                                position: "relative",
+                                                height: "calc(100% - 12px)",
+                                                width: "calc(100% - 12px)",
+                                            }}
+                                        >
+                                            <Image
+                                                alt={`navigation item, picture of a donation jar`}
+                                                src={scroll_image}
+                                                fill
+                                                priority
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div className={``}
+                                        style={{
+                                            height: "20%",
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                            backgroundColor: "rgba(255,255,255, 0.12)",
+                                            borderBottomRightRadius: "12px",
+                                            borderBottomLeftRadius: "12px",
+                                            borderBottom: "2px solid rgba(255,255,255,0.8)",
+                                            borderLeft: "2px solid rgba(255,255,255,0.8)",
+                                            borderRight: "2px solid rgba(255,255,255,0.8)",
+                                        }}
+                                    >
+                                        <h2
+                                            className="importantText"
+                                            style={{
+                                                // marginTop: '6px',
+                                                fontSize: "20px",
+                                            }}
+                                        >
+                                            {`Cookie Policy`}
+                                        </h2>
+                                    </div>
+                                </div>
+                            </Link>
+                        </div>
+                        {/* Disclaimer */}
+                        <div style={{ margin: '24px auto' }}>
+                            <Link href={`https://www.gameplayplanner.com/disclaimer.html`} style={{ textDecoration: 'none' }} >
+                                <div
+                                    className={`hover`}
+                                    style={{
+                                        height: "148px",
+                                        width: "170px",
+                                        marginRight: "48px",
+                                        borderRadius: "6px",
+                                    }}
+                                >
+                                    <div className={``}
+                                        style={{
+                                            height: "80%",
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                            backgroundColor: "rgba(255,255,255, 0.05)",
+                                            borderTopRightRadius: "12px",
+                                            borderTopLeftRadius: "12px",
+                                            padding: "6px 6px 6px 6px",
+                                            borderTop: "2px solid rgba(255,255,255,0.8)",
+                                            borderLeft: "2px solid rgba(255,255,255,0.8)",
+                                            borderRight: "2px solid rgba(255,255,255,0.8)",
+                                        }}
+                                    >
+                                        <div
+                                            style={{
+                                                position: "relative",
+                                                height: "calc(100% - 12px)",
+                                                width: "calc(100% - 12px)",
+                                            }}
+                                        >
+                                            <Image
+                                                alt={`navigation item, picture of a donation jar`}
+                                                src={scroll_image}
+                                                fill
+                                                priority
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div className={``}
+                                        style={{
+                                            height: "20%",
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                            backgroundColor: "rgba(255,255,255, 0.12)",
+                                            borderBottomRightRadius: "12px",
+                                            borderBottomLeftRadius: "12px",
+                                            borderBottom: "2px solid rgba(255,255,255,0.8)",
+                                            borderLeft: "2px solid rgba(255,255,255,0.8)",
+                                            borderRight: "2px solid rgba(255,255,255,0.8)",
+                                        }}
+                                    >
+                                        <h2
+                                            className="importantText"
+                                            style={{
+                                                // marginTop: '6px',
+                                                fontSize: "20px",
+                                            }}
+                                        >
+                                            {`Disclaimer`}
+                                        </h2>
+                                    </div>
+                                </div>
+                            </Link>
+                        </div>
+
+                        {/* About */}
+                        <div style={{ margin: '24px auto' }}>
+                            <Link href={`https://www.gameplayplanner.com/about`} style={{ textDecoration: 'none' }}
+                                onClick={() => {
+                                    ReactGA.event({
+                                        category: "donation_interaction",
+                                        action: `click_paypal`,
+                                        label: `redirect_donation`
+                                    })
+                                }}
+                                onMouseDown={(event) => {
+                                    if (event.button === 1) {
+                                        // do something on middle mouse button click
+                                        ReactGA.event({
+                                            category: "donation_interaction",
+                                            action: `click_paypal`,
+                                            label: `redirect_donation`
+                                        })
+                                    }
+                                }}
+                            >
+                                <div
+                                    className={`hover`}
+                                    style={{
+                                        height: "148px",
+                                        width: "170px",
+                                        marginRight: "48px",
+                                        borderRadius: "6px",
+                                    }}
+                                >
+                                    <div className={``}
+                                        style={{
+                                            height: "80%",
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                            backgroundColor: "rgba(255,255,255, 0.05)",
+                                            borderTopRightRadius: "12px",
+                                            borderTopLeftRadius: "12px",
+                                            padding: "6px 6px 6px 6px",
+                                            borderTop: "2px solid rgba(255,255,255,0.8)",
+                                            borderLeft: "2px solid rgba(255,255,255,0.8)",
+                                            borderRight: "2px solid rgba(255,255,255,0.8)",
+                                        }}
+                                    >
+                                        <div
+                                            style={{
+                                                position: "relative",
+                                                height: "calc(100% - 12px)",
+                                                width: "calc(100% - 12px)",
+                                            }}
+                                        >
+                                            <Image
+                                                alt={`navigation item, picture of a donation jar`}
+                                                src={scroll_image}
+                                                fill
+                                                priority
+                                                unoptimized
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div className={``}
+                                        style={{
+                                            height: "20%",
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                            backgroundColor: "rgba(255,255,255, 0.12)",
+                                            borderBottomRightRadius: "12px",
+                                            borderBottomLeftRadius: "12px",
+                                            borderBottom: "2px solid rgba(255,255,255,0.8)",
+                                            borderLeft: "2px solid rgba(255,255,255,0.8)",
+                                            borderRight: "2px solid rgba(255,255,255,0.8)",
+                                        }}
+                                    >
+                                        <h2
+                                            className="importantText"
+                                            style={{
+                                                // marginTop: '6px',
+                                                fontSize: "20px",
+                                            }}
+                                        >
+                                            {`About`}
+                                        </h2>
+                                    </div>
+                                </div>
+                            </Link>
+                        </div>
                     </div>
-                </Link>
+                </div>
+               
             </div>
         </div >
     );
