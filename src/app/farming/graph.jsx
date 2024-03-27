@@ -140,7 +140,7 @@ function Graph({
             formatter={(value, name, props) => {
               return [
                 props.payload.originalProduction
-                  ? props.payload.originalFry.toPrecision(3).toString()
+                  ? props.payload.originalProduction.toPrecision(3).toString()
                   : props.payload.originalFry.toPrecision(3).toString(),
                 name,
               ];
