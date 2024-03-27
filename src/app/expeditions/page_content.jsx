@@ -12,7 +12,9 @@ import PetItemCoin from './PetItemCoin.jsx';
 import ItemSelection from "../util/ItemSelection copy";
 import MouseOverPopover from "../util/Tooltip";
 
+
 import helper from '../util/helper.js';
+import mathHelper from '../util/math.js';
 import xIcon from "../../../public/images/icons/x_icon.svg"
 import pinIcon from "../../../public/images/icons/pin-line-icon.svg"
 import trashIcon from "../../../public/images/icons/trash-can-icon.svg"
@@ -29,7 +31,11 @@ import { GoogleAdSense } from "next-google-adsense";
 import SearchBox from '../util/search.jsx';
 import petHelper from '../util/petHelper.js';
 import DefaultSave from '../util/tempSave.json';
-import { mainTeamSuggestions, reincTeamSuggestions, gearTeamSuggestions, statTeamSuggestions, maxKey } from '../pets/teamSuggestions.js';
+import {
+    mainTeamSuggestions, reincTeamSuggestions, gearTeamSuggestions,
+    // statTeamSuggestions,
+    maxKey
+} from '../pets/teamSuggestions.js';
 
 ReactGA.initialize([{
     trackingId: "G-GGLPK02VH8",
@@ -46,9 +52,10 @@ function setGroupCache(newCache) {
 const defaultPetSelection = petNameArray.map(petData => petData.petId);
 
 function ScoreSection({ data, group, totalScore, defaultRank }) {
-    const { baseGroupScore, groupScoreMax, dmgCount, timeCount, synergyBonus, groupScore } = petHelper.calculateGroupScore(group, defaultRank);
-    const score = groupScore;
-    const displayedDamage = (score * 5 * data.PetDamageBonuses).toExponential(2);
+    const { baseGroupScore, groupScoreMax, dmgCount, timeCount, synergyBonus, groupScore, groupRankScore } = petHelper.calculateGroupScore(group, defaultRank);
+    const score = groupRankScore;
+    // const displayedDamage = (score * 5 * data.PetDamageBonuses).toExponential(2);
+    const displayedDamage = mathHelper.multiplyDecimal(data.petDamageBD, score * 5).toExponential(2);;
     return (
         <>
             <ul>
@@ -56,7 +63,7 @@ function ScoreSection({ data, group, totalScore, defaultRank }) {
                     {`True Damage: ${(5 * groupScoreMax * Number(data?.PetDamageBonuses)).toExponential(2)}`}
                 </li> */}
                 <li key="totalScore">
-                    {`Rank 1 Damage: ${displayedDamage}`}
+                    {`Per Rank Damage: ${displayedDamage}`}
                 </li>
                 <li key="baseGroupScore">
                     Group Base: {Number(baseGroupScore).toExponential(2)}
@@ -71,7 +78,8 @@ function ScoreSection({ data, group, totalScore, defaultRank }) {
                     Synergy: {Number(synergyBonus).toFixed(2)}x
                 </li>
                 <li key="petDamageBonus">
-                    PetDmgMod: {Number(data?.PetDamageBonuses).toExponential(2)}
+                    {/* PetDmgMod: {Number(data?.PetDamageBonuses).toExponential(2)} */}
+                    PetDmgMod: {data?.petDamageBD.toExponential(2)}
                 </li>
             </ul>
         </>
@@ -105,6 +113,8 @@ export default function Expeditions() {
     const [clientData, setData] = useLocalStorage('userData', DefaultSave);
     const [data, setRunTimeData] = useState(DefaultSave);
 
+    const [petDamageBD, setpetDamageBD] = useState(mathHelper.createDecimal(1));
+    data.petDamageBD = petDamageBD;
 
     const [petWhiteList, setPetWhiteListRunTime] = useState([]);
     const [petWhiteListClient, setPetWhiteList] = useLocalStorage("petWhiteList", []);
@@ -267,7 +277,9 @@ export default function Expeditions() {
 
             dataLoaded.current = true;
             let uploadedData = clientData;
-            uploadedData.PetDamageBonuses = helper.calcPOW(uploadedData.PetDamageBonusesBD);
+            uploadedData.PetDamageBonuses = mathHelper.createDecimal(uploadedData.PetDamageBonusesBD);
+            clientData.petDamageBD = uploadedData.PetDamageBonuses;
+            setpetDamageBD(uploadedData.PetDamageBonuses);
 
             let specialPetCombo = 1;
             for (let i = 0; i < uploadedData.PetsSpecial.length; i++) {
@@ -324,7 +336,7 @@ export default function Expeditions() {
     let whiteListAlertText = '';
 
     let totalTokensHR = 0;
-    let damageTotal = 0;
+    let damageTotal = mathHelper.createDecimal(0);
 
     let bonusTotals = {
         // 1001: 0, //potatoe gain
@@ -420,7 +432,7 @@ export default function Expeditions() {
     if (groups.length > 0)
         groups.map((group, index) => {
             // damageTotal += (petHelper.calculateGroupScore(group, defaultRank).groupScore) * 5 * data.PetDamageBonuses;
-            damageTotal += (petHelper.calculateGroupScore(group, 0).groupScore) * 5 * data.PetDamageBonuses;
+            damageTotal = mathHelper.addDecimal(damageTotal, mathHelper.multiplyDecimal(petDamageBD, petHelper.calculateGroupScore(group, 0).groupScore * 5));
             group.forEach((pet) => {
 
                 if (!equippedPets[pet.ID]) {
@@ -627,7 +639,7 @@ export default function Expeditions() {
                 overflow: 'auto'
             }}
         >
-            
+
             <GoogleAdSense publisherId="pub-1393057374484862" />
             {/* Grid Left */}
             <div
@@ -696,8 +708,10 @@ export default function Expeditions() {
                             }, comboSelector)[tokenSelections[index]]
                             let tokenScore = (tempTokenScore.tokenHR / tempTokenScore.hours).toExponential(3);
                             const score = groupTotal.groupScore;
-                            const displayedDamage = (score * 5 * data.PetDamageBonuses).toExponential(2);
-                            const trueDamage = (5 * groupTotal.groupScoreMax * Number(data?.PetDamageBonuses)).toExponential(2);
+                            // const displayedDamage = (score * 5 * data.PetDamageBonuses).toExponential(2);
+                            const displayedDamage = mathHelper.multiplyDecimal(petDamageBD, groupTotal.groupRankScore * 5).toExponential(2);
+                            // const trueDamage = (5 * groupTotal.groupScoreMax * Number(data?.PetDamageBonuses)).toExponential(2);
+                            const trueDamage = mathHelper.multiplyDecimal(petDamageBD, 5 * groupTotal.groupScoreMax).toExponential(2);
 
                             let tokenInfo = ``;
 
@@ -743,7 +757,8 @@ export default function Expeditions() {
 
                             }
 
-                            const totalScore = Number(Number(data?.PetDamageBonuses) * score * 5).toExponential(3);
+                            // const totalScore = Number(Number(data?.PetDamageBonuses) * score * 5).toExponential(3);
+                            const totalScore = mathHelper.multiplyDecimal(petDamageBD, score * 5).toExponential(3);
                             const groupTooltip = (
                                 <div className="groups-tooltip">
                                     <span className="groups-tooltip-content">

@@ -110,9 +110,11 @@ var helper = {
         const typeCounts = {};
 
         let groupScoreMax = 0;
+        let groupRankScore = 0;
 
         group.forEach((pet) => {
             groupScore += this.calculatePetBaseDamage(pet, defaultRank);
+            groupRankScore += this.calculatePetBaseDamage(pet, 1); //used to later get /rank damage
             groupScoreMax += this.calculatePetBaseDamage(pet, 0);
             if (pet.BonusList.some((bonus) => bonus.ID === 1013)) {
                 dmgCount++;
@@ -144,6 +146,7 @@ var helper = {
             }
             if (pet.ID) synergyBonus += this.SYNERGY_MOD_STEP;
         });
+
         baseGroupScore = groupScore;
         const [earthType, airType] = Object.values(typeCounts);
         if (earthType > 0 && airType > 0) synergyBonus += this.SYNERGY_MOD_STEP;
@@ -151,10 +154,14 @@ var helper = {
 
         groupScore *= (1 + dmgCount * this.EXP_DMG_MOD);
         groupScoreMax *= (1 + dmgCount * this.EXP_DMG_MOD);
+        groupRankScore *= (1 + dmgCount * this.EXP_DMG_MOD);
         groupScore *= (1 + timeCount * this.EXP_TIME_MOD);
         groupScoreMax *= (1 + timeCount * this.EXP_TIME_MOD);
+        groupRankScore *= (1 + timeCount * this.EXP_TIME_MOD);
         groupScore *= synergyBonus;
         groupScoreMax *= synergyBonus;
+        groupRankScore *= synergyBonus;
+        groupRankScore /= 21;//This gives me the 0.05 (per rank damage back)
 
         tokenModif = tokenRewardCount * this.EXP_TOKEN_MOD;
         tokenMult = synergyBonus + synergyBonus * tokenModif;
@@ -162,6 +169,7 @@ var helper = {
             groupScore,
             baseGroupScore,
             groupScoreMax,
+            groupRankScore,
             dmgCount,
             timeCount,
             synergyBonus,
