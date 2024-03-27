@@ -576,7 +576,7 @@ const FarmingLanding = () => {
             setExpDiff(diff_exp);
         }
         if (expDiffFry !== diff_expFry) {
-            setExpDiffFry(expDiffFry);
+            setExpDiffFry(diff_expFry);
         }
 
         return {
