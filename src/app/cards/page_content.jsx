@@ -2194,6 +2194,7 @@ export default function Cards() {
     let cardChargedReincInfo = CalcReinc(data, numReincCharges);
     let futureReincLevel = cardChargedReincInfo.futureReincLevel;
     let futureReincLevelDiff = cardChargedReincInfo.levelDiff;
+    let futureReincHr = cardChargedReincInfo.reincHr;
 
 
 
@@ -2313,34 +2314,6 @@ export default function Cards() {
                 <h1 style={{ margin: '6px 6px', fontSize: '32px' }}>
                     Cards Guide
                 </h1>
-                {/* Charges till Ascension */}
-                <MouseOverPopover
-                    tooltip={
-
-                        <div>
-                            <div>
-                                {`Remaining charges are calculated based on your remaining reincarnation levels left to ascend multiplied by your current reincarnation levels / hr. \nThis is calculated based on how many reincarnation levels you would gain if you reincarnate now divided by the current reincarnation duration.`}
-                            </div>
-                            <div>
-                                {`${requiredReincLevel - currentReincLevel} remaining levels at ${helper.roundTwoDecimal(reincHr)} levels/hr =  ${helper.roundTwoDecimal(remTime)} hours remaining`}
-                            </div>
-                            <div>
-                                {`Current charge timer reduction: ${helper.roundTwoDecimal(chargeTimerReduction * 100)}%`}
-                            </div>
-                        </div>
-                    }
-                    opacity={1}
-                >
-                    <div style={{ position: 'relative', height: '24px', width: '24px', marginLeft: '6px', marginBottom: '16px' }}>
-                        <Image
-                            alt='on hover I in a cirlce icon, shows more information on hover'
-                            fill
-                            src={infoIcon}
-                            unoptimized={true}
-                        />
-                        {/* </div> */}
-                    </div>
-                </MouseOverPopover >
             </div>
             <div
                 style={{
@@ -2545,7 +2518,7 @@ export default function Cards() {
                         }}>
                             <h3
                                 className='importantText'
-                                style={{ marginTop: '0px', marginBottom: '0px', fontSize: '26px', display: 'flex', alignItems: 'center ' }}
+                                style={{ marginTop: '0px', marginBottom: '0px', fontSize: '26px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                             >
                                 <div>
                                     {`Reincarnation levels to ascend:`}
@@ -2553,6 +2526,34 @@ export default function Cards() {
                                 <div style={{ fontWeight: 'normal', marginLeft: '6px' }}>
                                     {`${data.AscensionReincLevelRequired}`}
                                 </div>
+                                {/* Charges till Ascension */}
+                                <MouseOverPopover
+                                    tooltip={
+
+                                        <div>
+                                            <div>
+                                                {`Remaining charges are calculated based on your remaining reincarnation levels left to ascend multiplied by your current reincarnation levels / hr. \nThis is calculated based on how many reincarnation levels you would gain if you reincarnate now divided by the current reincarnation duration.`}
+                                            </div>
+                                            <div>
+                                                {`${requiredReincLevel - currentReincLevel} remaining levels at ${helper.roundTwoDecimal(reincHr)} levels/hr = ${helper.roundTwoDecimal(remTime)} hours remaining`}
+                                            </div>
+                                            <div>
+                                                {`Current charge timer reduction: ${helper.roundTwoDecimal(chargeTimerReduction * 100)}%`}
+                                            </div>
+                                        </div>
+                                    }
+                                    opacity={1}
+                                >
+                                    <div style={{ position: 'relative', height: '24px', width: '24px', marginLeft: '12px' }}>
+                                        <Image
+                                            alt='on hover I in a cirlce icon, shows more information on hover'
+                                            fill
+                                            src={infoIcon}
+                                            unoptimized={true}
+                                        />
+                                        {/* </div> */}
+                                    </div>
+                                </MouseOverPopover >
                             </h3>
                         </div>
 
@@ -2581,7 +2582,7 @@ export default function Cards() {
                                             {`Current Reinc. Level:`}
                                         </div>
                                         <div style={{ fontWeight: 'normal' }}>
-                                            {`${currentReincLevel} (+${currentReincLevelDiff})`}
+                                            {`${currentReincLevel} (+${currentReincLevelDiff}, ${helper.roundTwoDecimal(reincHr)}/hr)`}
                                         </div>
                                     </div>
                                 </h3>
@@ -2662,7 +2663,7 @@ export default function Cards() {
                                         />
                                     </div>
                                     <div style={{ color: 'green', marginTop: '-10px' }}>
-                                        {`+${futureReincLevel - currentReincLevel}`}
+                                        {`+${futureReincLevel - currentReincLevel}, ${helper.roundTwoDecimal(futureReincHr - reincHr)}/hr`}
                                     </div>
                                 </div>
                             )}
@@ -2685,7 +2686,7 @@ export default function Cards() {
                                             {`Future Reinc. Level:`}
                                         </div>
                                         <div style={{ fontWeight: 'normal' }}>
-                                            {`${futureReincLevel} (+${futureReincLevelDiff})`}
+                                            {`${futureReincLevel} (+${futureReincLevelDiff}, ${helper.roundTwoDecimal(futureReincHr)}/hr)`}
                                         </div>
                                     </div>
                                 </h3>
