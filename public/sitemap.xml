@@ -112,7 +112,7 @@
    </url>
     <url>
 
-      <loc>https://www.gameplayplanner.com/expedition_pets_explanation</loc>
+      <loc>https://www.gameplayplanner.com/guides/expedition_pets_explanation</loc>
 
       <lastmod>2024-03-09</lastmod>
 
@@ -123,7 +123,7 @@
    </url>
     <url>
 
-      <loc>https://www.gameplayplanner.com/expedition_pets_guide</loc>
+      <loc>https://www.gameplayplanner.com/guides/expedition_pets_guide</loc>
 
       <lastmod>2024-03-09</lastmod>
 
@@ -140,7 +140,7 @@
 
     <url>
 
-      <loc>https://www.gameplayplanner.com/pets_explanation</loc>
+      <loc>https://www.gameplayplanner.com/guides/pets_explanation</loc>
 
       <lastmod>2024-03-09</lastmod>
 
@@ -151,31 +151,7 @@
    </url>
     <url>
 
-      <loc>https://www.gameplayplanner.com/pets_guide</loc>
-
-      <lastmod>2024-03-09</lastmod>
-
-      <changefreq>monthly</changefreq>
-
-      <priority>0.6</priority>
-
-   </url>
-
-
-    <url>
-
-      <loc>https://www.gameplayplanner.com/farming_explanation</loc>
-
-      <lastmod>2024-03-09</lastmod>
-
-      <changefreq>monthly</changefreq>
-
-      <priority>0.6</priority>
-
-   </url>
-    <url>
-
-      <loc>https://www.gameplayplanner.com/farming_guide</loc>
+      <loc>https://www.gameplayplanner.com/guides/pets_guide</loc>
 
       <lastmod>2024-03-09</lastmod>
 
@@ -188,7 +164,7 @@
 
     <url>
 
-      <loc>https://www.gameplayplanner.com/cards_explanation</loc>
+      <loc>https://www.gameplayplanner.com/guides/farming_explanation</loc>
 
       <lastmod>2024-03-09</lastmod>
 
@@ -199,7 +175,31 @@
    </url>
     <url>
 
-      <loc>https://www.gameplayplanner.com/cards_guide</loc>
+      <loc>https://www.gameplayplanner.com/guides/farming_guide</loc>
+
+      <lastmod>2024-03-09</lastmod>
+
+      <changefreq>monthly</changefreq>
+
+      <priority>0.6</priority>
+
+   </url>
+
+
+    <url>
+
+      <loc>https://www.gameplayplanner.com/guides/cards_explanation</loc>
+
+      <lastmod>2024-03-09</lastmod>
+
+      <changefreq>monthly</changefreq>
+
+      <priority>0.6</priority>
+
+   </url>
+    <url>
+
+      <loc>https://www.gameplayplanner.com/guides/cards_guide</loc>
 
       <lastmod>2024-03-09</lastmod>
 
