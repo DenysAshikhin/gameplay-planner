@@ -114,10 +114,10 @@ function Graph({
           )}
           {showFries && (
             <YAxis
-              yAxisId="fries"
+              yAxisId="originalFry"
               orientation={showHP ? "right" : "left"}
-              // scale={yScale}
-              scale={"auto"}
+              scale={yScale}
+              // scale={"auto"}
               domain={["auto", "auto"]}
               // domain={[dataMin => (dataMin * 0.5), dataMax => (dataMax * 3)]}
               tickFormatter={(e, index, payload) => {
@@ -140,8 +140,8 @@ function Graph({
             formatter={(value, name, props) => {
               return [
                 props.payload.originalProduction
-                  ? props.payload.originalProduction.toPrecision(3).toString()
-                  : props.payload.fries.toPrecision(3).toString(),
+                  ? props.payload.originalFry.toPrecision(3).toString()
+                  : props.payload.originalFry.toPrecision(3).toString(),
                 name,
               ];
             }}
@@ -202,7 +202,7 @@ function Graph({
                 )}
               </>
 
-              {showHP &&  (
+              {showHP && (
                 <>
                   {graphObjects.top10Potatoes.map((val, index) => {
                     if (index > 0) return <></>;
@@ -263,9 +263,9 @@ function Graph({
                       key={`line_top_fry_${index}`}
                       type="monotone"
                       xAxisId={"fryXAxis1" + index}
-                      yAxisId="fries"
+                      yAxisId="originalFry"
                       data={val.data}
-                      dataKey="fries"
+                      dataKey="originalFry"
                       // dataKey="value2"
                       name={`Best Production Fries`}
                       stroke="#524f82"
@@ -336,9 +336,9 @@ function Graph({
               <Line
                 type="monotone"
                 xAxisId="fry_axis_current"
-                yAxisId="fries"
+                yAxisId="originalFry"
                 data={graphObjects.customProduction.dataPointsFries}
-                dataKey="fries"
+                dataKey={graphObjects.customProduction.dataPointsFries.originalFry ? "originalFry" : 'fries'}
                 // dataKey="custom"
                 name="Currently selected production Fries"
                 stroke="#4e795e"

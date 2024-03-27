@@ -115,8 +115,19 @@ var farmingHelper = {
         let step4 = mathHelper.multiplyDecimal(inter2, frenchBonus);
         let step5 = mathHelper.multiplyDecimal(step4, timerBonus);
         let step6 = mathHelper.pow(step5, modifiers.fryBonusExponent);
-        return step6;
 
+        const softWall = mathHelper.createDecimal(`1e600`);
+        if (softWall.lessThan(step6)) {
+            let divided = mathHelper.divideDecimal(step6, softWall);
+            let step7 = mathHelper.multiplyDecimal(softWall,
+                mathHelper.pow(divided, 0.35)
+            )
+            if (timerBonus < 1) {
+                return mathHelper.pow(step7, timerBonus);
+            }
+            return step7;
+        }
+        return step6;
     },
     calcCarryOverEXP_OLD: function ({ plant, numAutos, expTick }) {
 
