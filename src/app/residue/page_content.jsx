@@ -29,20 +29,21 @@ ReactGA.initialize([{
 }]);
 
 
-const ResidueCard = ({ data, params, setParentWeights, desiredLevels, futurePurchase }) => {
+const ResidueCard = ({ data, params, defaultWeight, setParentWeights, desiredLevels, futurePurchase }) => {
     // const weight = params.weight(asc_level);
     const [clientWeight, setClientWeight] = useLocalStorage(`${params.label}_residue_weight`, -1);
     const [runTimeWeight, setRunTimeWeight] = useState(params.weight(data.AscensionCount));
 
 
     useEffect(() => {
+        console.log(`useefect1`)
         if (clientWeight === -1) {
-            setRunTimeWeight(params.weight(data.AscensionCount));
+            setRunTimeWeight(defaultWeight);
         }
         else {
             setRunTimeWeight(clientWeight);
         }
-    }, [params.weight, data.AscensionCount, clientWeight, params.weight]);
+    }, [data.AscensionCount, clientWeight, defaultWeight]);
 
     //Whenever the runtime weight is updated, update the weight map in parent component so it can recalculate to purchase
     useEffect(() => {
@@ -393,6 +394,7 @@ export default function Residue() {
 
                                 return <ResidueCard
                                     data={data}
+                                    defaultWeight={residueMap[key].weight(data.AscensionCount)}
                                     desiredLevels={!!finalObject[key]?.levels ? finalObject[key]?.levels : 0}
                                     futurePurchase={!!finalObject[key]?.futurePurchase ? finalObject[key]?.futurePurchase : false}
                                     params={{ ...params, key_inner: key, }}
