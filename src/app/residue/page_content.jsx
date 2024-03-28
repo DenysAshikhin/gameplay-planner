@@ -42,7 +42,7 @@ const ResidueCard = ({ data, params, setParentWeights, desiredLevels, futurePurc
         else {
             setRunTimeWeight(clientWeight);
         }
-    }, [data.AscensionCount, clientWeight, params.weight]);
+    }, [params.weight, data.AscensionCount, clientWeight, params.weight]);
 
     //Whenever the runtime weight is updated, update the weight map in parent component so it can recalculate to purchase
     useEffect(() => {
