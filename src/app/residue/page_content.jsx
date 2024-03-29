@@ -298,7 +298,7 @@ export default function Residue() {
                 // let weightedCost = mathHelper.multiplyDecimal(baseCost, ratio);
                 let weightedCost = mathHelper.divideDecimal(baseCost, value);
 
-                if (value === 0 || temp_obj.unlock <= data.AscensionCount) {
+                if (value === 0 || temp_obj.unlock >= data.AscensionCount) {
                     continue;
                 }
 
