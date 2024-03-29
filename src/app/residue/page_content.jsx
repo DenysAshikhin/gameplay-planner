@@ -285,7 +285,7 @@ export default function Residue() {
         for (const [key, value] of Object.entries(parentWeights)) {
             totalWeight += value;
             purchases[key] = { levels: 0, runningCost: mathHelper.createDecimal(0) };
-            if (value > 0 && residueMap[key].unlock >= data.AscensionCount) {
+            if (value > 0 && residueMap[key].unlock <= data.AscensionCount) {
                 available = true;
             }
         }
@@ -298,7 +298,7 @@ export default function Residue() {
                 // let weightedCost = mathHelper.multiplyDecimal(baseCost, ratio);
                 let weightedCost = mathHelper.divideDecimal(baseCost, value);
 
-                if (value === 0 || temp_obj.unlock >= data.AscensionCount) {
+                if (value === 0 || temp_obj.unlock <= data.AscensionCount) {
                     continue;
                 }
 
