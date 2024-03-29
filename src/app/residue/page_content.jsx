@@ -279,11 +279,15 @@ export default function Residue() {
         let bestValue;
         let purchases = {};
         let firstPurchase = true;
+        let available = false; //At least one upgrade should be available
 
         let totalWeight = 0;
         for (const [key, value] of Object.entries(parentWeights)) {
             totalWeight += value;
-            purchases[key] = { levels: 0, runningCost: mathHelper.createDecimal(0) }
+            purchases[key] = { levels: 0, runningCost: mathHelper.createDecimal(0) };
+            if (value > 0 && residueMap[key].unlock >= data.AscensionCount) {
+                available = true;
+            }
         }
 
         while (keepLooping) {
@@ -293,6 +297,11 @@ export default function Residue() {
                 let baseCost = temp_obj.cost(data[temp_obj.key] + purchases[key].levels);
                 // let weightedCost = mathHelper.multiplyDecimal(baseCost, ratio);
                 let weightedCost = mathHelper.divideDecimal(baseCost, value);
+
+                if (value === 0 || temp_obj.unlock >= data.AscensionCount) {
+                    continue;
+                }
+
                 if (!bestValue) {
                     bestValue = { key: key, baseCost: baseCost, weightedCost: weightedCost };
                 }
@@ -301,7 +310,7 @@ export default function Residue() {
                 }
 
             }
-            if (bestValue) {
+            if (bestValue && available) {
                 if (currentResidue.lessThan(bestValue.baseCost)) {
                     keepLooping = false;
                     if (firstPurchase && bestValue) {
@@ -321,8 +330,6 @@ export default function Residue() {
             }
         }
 
-        console.log('final purchases');
-        console.log(purchases)
         return purchases;
     }, [data, parentWeights])
 
