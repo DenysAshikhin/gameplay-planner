@@ -38,7 +38,7 @@ export default function RootLayout({ children }) {
       >
         <meta name="yandex-verification" content="347889c423938e18" />
         <meta name="robots" content="all" />
-        <Clarity />
+        {/* <Clarity /> */}
 
         {/* <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1393057374484862" crossOrigin="anonymous"></script> */}
       </head>
