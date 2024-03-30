@@ -277,7 +277,7 @@ export default function Protein() {
                 position: 'relative',
             }}
         >
-            
+
             <GoogleAdSense publisherId="pub-1393057374484862" />
             <div style={{
                 display: 'flex',
@@ -303,7 +303,9 @@ export default function Protein() {
                     <div
                         style={{
                             // display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', flex: '1'
-                            maxHeight: 'calc(100vh - 50px)'
+                            maxHeight: 'calc(100vh - 84px)',
+                            display: 'flex',
+                            flexDirection: 'column'
                         }}
                     >
                         <div
@@ -335,7 +337,7 @@ export default function Protein() {
                                     />
 
                                 </div>
-                              
+
                                 {/* Minified View */}
                                 <div
                                     className='importantText'
@@ -437,7 +439,8 @@ export default function Protein() {
                         </div>
                         <div
                             style={{
-                                height: '100%',
+                                display: 'flex',
+                                flex: '1',
                                 overflow: 'hidden',
                                 borderBottomLeftRadius: '6px',
                                 borderBottomRightRadius: '6px',

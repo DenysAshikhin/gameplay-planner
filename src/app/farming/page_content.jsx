@@ -1507,7 +1507,7 @@ const FarmingLanding = () => {
     return (
         <div
             // className='importantText'
-            style={{ height: '100%', display: 'flex', flex: 1, flexDirection: 'column', paddingLeft: '6px', maxWidth: 'calc(100% - 10px)', minHeight: '0', backgroundColor: 'black', }}
+            style={{ height: '100%', display: 'flex', flex: 1, flexDirection: 'column', paddingLeft: '6px', maxWidth: 'calc(100% - 6px)', minHeight: '0', backgroundColor: 'black', }}
             >
                 
             <GoogleAdSense publisherId="pub-1393057374484862" />
