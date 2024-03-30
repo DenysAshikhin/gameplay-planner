@@ -640,7 +640,7 @@ export default function Expeditions() {
             }}
         >
 
-            <GoogleAdSense publisherId="pub-1393057374484862" />
+            {/* <GoogleAdSense publisherId="pub-1393057374484862" /> */}
             {/* Grid Left */}
             <div
                 className='importantText'

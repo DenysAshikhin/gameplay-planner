@@ -1547,11 +1547,6 @@ const FarmingLanding = () => {
                     </div>
                 </div>
 
-
-
-
-
-
                 <div
                     className='importantText'
                     style={{
@@ -1571,7 +1566,6 @@ const FarmingLanding = () => {
                             overflowY: 'auto'
                         }}
                     >
-
 
                         {/* timer + buttons */}
                         <div
