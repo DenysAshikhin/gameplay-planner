@@ -37,15 +37,13 @@ import {
     maxKey
 } from '../pets/teamSuggestions.js';
 
-// ReactGA.initialize([{
-//     trackingId: "G-GGLPK02VH8",
-//     // gaOptions: {...}, // optional
-//     // gtagOptions: {
-//     //     send_page_view: false
-//     // },
-// }]);
-
-
+ReactGA.initialize([{
+    trackingId: "G-GGLPK02VH8",
+    // gaOptions: {...}, // optional
+    // gtagOptions: {
+    //     send_page_view: false
+    // },
+}]);
 let groupCache = {};
 function setGroupCache(newCache) {
     groupCache = newCache;
@@ -642,7 +640,7 @@ export default function Expeditions() {
             }}
         >
 
-            {/* <GoogleAdSense publisherId="pub-1393057374484862" /> */}
+            <GoogleAdSense publisherId="pub-1393057374484862" />
             {/* Grid Left */}
             <div
                 className='importantText'
