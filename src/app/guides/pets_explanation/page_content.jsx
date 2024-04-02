@@ -541,7 +541,7 @@ export default function Guides({ noSearchParams }) {
                             </div>
                             <div style={{ padding: '6px' }}>
                                 <div style={{ marginTop: '6px' }}>
-                                    {`Use expedition pets) This will only use the pets you have enabled (green or green+yellow) border cirles on the expeditions tool page.`}
+                                    {`Expedition Pet List) This will only use the pets you have enabled (green or green+yellow) border cirles on the expeditions tool page.`}
                                 </div>
                             </div>
                         </div>

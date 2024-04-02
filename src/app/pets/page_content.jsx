@@ -1466,7 +1466,7 @@ export default function Pets() {
 
 
                                     <div style={{}}>
-                                        Use expedition pets
+                                        Expedition Pet List
                                     </div>
                                     <div>
                                         <input

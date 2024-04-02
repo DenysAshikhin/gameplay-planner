@@ -343,7 +343,7 @@ export default function Protein() {
                                     className='importantText'
                                     style={{ fontSize: '18px', }}
                                 >
-                                    Use minifed view:
+                                    Use minified view:
 
                                     <input
                                         aria-label='Specify if each assembly line should be collapsed to hide the bonuses and only show costs, levels and times'
@@ -450,6 +450,7 @@ export default function Protein() {
                             <div style={{
                                 overflow: 'auto',
                                 maxHeight: 'calc(100vh - 150px)',
+                                flex: '1'
                             }}>
                                 {bestAssemblies.length > 0 && (
                                     <>
