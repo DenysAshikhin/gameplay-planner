@@ -1126,7 +1126,7 @@ export default function Expeditions() {
                                         try {
                                             let x = Number(e.target.value);
                                             x = Math.floor(x);
-                                            if (x < 1 || x > data.ExpeditionLimit) {
+                                            if (x < 1 || (x > data.ExpeditionLimit + 1)) {
                                                 return;
                                             }
                                             setNumTeams(e.target.value);
@@ -1139,7 +1139,7 @@ export default function Expeditions() {
                                     }}
                                 placeholder={numTeams + ''}
                                 min="1"
-                                max={`${data.ExpeditionLimit}`}
+                                max={`${data.ExpeditionLimit + 1}`}
                             />
                         </div>
 
