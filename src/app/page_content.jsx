@@ -4,7 +4,8 @@ import { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { isMobile } from 'mobile-device-detect';
-
+import buffer from './util/buffer.js';
+import zlib from './util/index.js';
 import './App.css';
 
 import DefaultSave from './util/tempSave.json';
@@ -316,6 +317,19 @@ export default function Home() {
 
               let incomingString = stringInputRef.current.value;
               try {
+            
+
+
+                zlib.gzip(incomingString, function (error, result) {
+                  if (error) throw error;
+                  console.log(result.toString());
+                  let data = result;
+
+                  zlib.unzip(new buffer(data), function (error, result) {
+                    if (error) throw error;
+                    console.log(result.toString());
+                  })
+                });
                 incomingString = atob(incomingString);
                 const startPosition = incomingString.indexOf('{');
                 const endPosition = incomingString.lastIndexOf('}') + 1;

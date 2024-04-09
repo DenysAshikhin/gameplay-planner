@@ -291,6 +291,7 @@ export default function Residue() {
         }
 
         while (keepLooping) {
+            let temp_values = [];
             for (const [key, value] of Object.entries(parentWeights)) {
                 let ratio = value / totalWeight;
                 let temp_obj = residueMap[key];
@@ -298,9 +299,10 @@ export default function Residue() {
                 // let weightedCost = mathHelper.multiplyDecimal(baseCost, ratio);
                 let weightedCost = mathHelper.divideDecimal(baseCost, value);
 
-                if (value === 0 || temp_obj.unlock >= data.AscensionCount) {
+                if (value === 0 || temp_obj.unlock > data.AscensionCount) {
                     continue;
                 }
+                temp_values.push({ key: key, baseCost: baseCost, level: data[temp_obj.key] + purchases[key].levels });
 
                 if (!bestValue) {
                     bestValue = { key: key, baseCost: baseCost, weightedCost: weightedCost };
