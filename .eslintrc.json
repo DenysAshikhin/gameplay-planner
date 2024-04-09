@@ -1,7 +1,9 @@
 {
   "extends": "next/core-web-vitals",
-  "rules":{
-    "@next/next/no-img-element": "off",
-    "node/no-deprecated-api": "off"
-  }
+  "rules": {
+    "@next/next/no-img-element": "off"
+  },
+  "plugins": [
+    "node"
+  ]
 }
