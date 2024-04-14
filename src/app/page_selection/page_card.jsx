@@ -70,6 +70,11 @@ const PageCard = ({ page, setTab, redBorder }) => {
         nameString = "Guides";
         url = '/guides';
         break;
+      case 'outposts':
+        imgString = 'pickaxe';
+        nameString = "Outposts";
+        url = '/outposts';
+        break;
     default:
       imgString = `file_upload`;
       nameString = `Upload`;

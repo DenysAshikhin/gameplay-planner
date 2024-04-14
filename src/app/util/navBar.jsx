@@ -230,6 +230,33 @@ const NavBar = ({ }) => {
         </div>
       </Link>
 
+      {/* Outposts Page */}
+      <Link href="/outposts" alt="navigation to outposts page">
+        <div
+          className="navItem"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            // margin: "16px 0",
+          }}
+        >
+          <div
+            style={{
+              width: "42px",
+              height: "42px",
+              position: "relative",
+            }}
+          >
+            <Image
+              alt="star shape navigation to outposts page"
+              fill
+              src={`/images/icons/pickaxe.svg`}
+            />
+          </div>
+        </div>
+      </Link>
+
       {/* Guides Page */}
       <Link href="/guides" alt="navigation to guides page">
         <div

@@ -1,13 +1,14 @@
 import Image from "next/image";
 
-
+import HeaderRedirect from './header_redirect.jsx';
 import potatoesImg from '../../../public/images/potatoes.png'
 import farmerImg from '../../../public/images/farmer2.png'
+
 
 const Header = ({ }) => {
   return (
     <div
-      className="header"
+      className="header hover"
       style={{
         height: "36px",
         display: "flex",
@@ -16,7 +17,10 @@ const Header = ({ }) => {
         padding: "0 0 0 3px",
         margin: "0 0 0 0",
       }}
+
     >
+
+      <HeaderRedirect />
       {/* <img
         style={{ height: "31px", width: "156px", position: "relative" }}
         alt='in game font spelling "Farmer"'
@@ -57,9 +61,9 @@ const Header = ({ }) => {
         className="dobra importantText"
         style={{
           marginLeft: "6px",
-          whiteSpace:'nowrap',
-          overflow:'hidden',
-          textOverflow:'ellipsis'
+          whiteSpace: 'nowrap',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis'
         }}
       >
         Idle gameplay planner

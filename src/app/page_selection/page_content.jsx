@@ -81,6 +81,7 @@ export default function PageSelection() {
                 <div
                     style={{ display: 'flex', marginTop: '36px' }}
                 >
+                    <PageCard page='outposts' />
                     <PageCard page='guides' />
                     <PageCard page='gratitude' />
                 </div>
