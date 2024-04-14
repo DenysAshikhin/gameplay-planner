@@ -86,11 +86,11 @@ const MiningDecay = function (data, outpost) {
 
 const HardnessScale = function (data, outpost) {
     // return Hardness * (1.0 - CowShopHardnessScaling * 0.01) * (1.0 - ExpeShopHardnessScalingLevel * 0.01) * (1.0 - WAPHardnessScaling * 0.01);
-    let cow_scale = data.CowShopHardnessScaling;
+    let cow_scale = data.CowShopHardnessScaling ? data.CowShopHardnessScaling : 0;
     let cow_part = (1 - cow_scale * 0.01);
-    let exp_scale = data.ExpeShopHardnessScalingLevel;
+    let exp_scale = data.ExpeShopHardnessScalingLevel ? data.ExpeShopHardnessScalingLevel : 0;
     let exp_part = 1 - exp_scale * 0.01;
-    let whack_scale = data.WAPHardnessScaling;
+    let whack_scale = data.WAPHardnessScaling ? data.WAPHardnessScaling : 0;
     let whack_part = 1 - whack_scale * 0.01;
 
     return outpost.Hardness * cow_part * exp_part * whack_part;
@@ -100,6 +100,7 @@ const HardnessScale = function (data, outpost) {
 const getMiningTick = function (data, outpost, miner) {
 
     let minerpower = mathHelper.pow(mathHelper.createDecimal(1.65), mathHelper.logDecimal(mathHelper.createDecimal(miner.FinalPower), 3.25));
+
     let other_half = Math.pow(0.95, outpost.Level) *
         (
             outpost.Level > 50 ?
@@ -226,7 +227,6 @@ export default function OutpostLine({ data, outpost, borderBottom }) {
     outpost.LeftToMine = mathHelper.createDecimal(outpost.LeftToMine).toNumber();
     let miners = data.MinersCollection[0];//.Locked -> 1 unlocked, 0 lockeds
 
-
     let miner_list = [];
     data.MinersCollection.forEach((inner_miner, index) => {
         if (inner_miner.Locked === 0) return;
@@ -252,7 +252,7 @@ export default function OutpostLine({ data, outpost, borderBottom }) {
                 miner_img = miner1;
         }
 
-        let current_tick = getMiningTick(data, outpost, data.MinersCollection[0]).toNumber();
+        let current_tick = getMiningTick(data, outpost, inner_miner).toNumber();
         let minute_tick = current_tick * 60;
         let hour_tick = current_tick * 3600;
 
@@ -260,11 +260,10 @@ export default function OutpostLine({ data, outpost, borderBottom }) {
         let ticks_to_finish = 0;
         const speed_up_mult = 1000;
         for (let i = 0; i < 1; i++) {
-
             let outpost_inner = JSON.parse(JSON.stringify(outpost));
             outpost_inner.LeftToMine = mathHelper.createDecimal(outpost_inner.LeftToMine).toNumber();
             while (outpost_inner.LeftToMine > 0) {
-                let tick_to_subtract = getMiningTick(data, outpost_inner, data.MinersCollection[0]);
+                let tick_to_subtract = getMiningTick(data, outpost_inner, inner_miner);
                 let inner_speedup = Math.max(1, Math.floor(speed_up_mult * outpost_inner.LeftToMine / 100));
                 outpost_inner.LeftToMine -= tick_to_subtract.toNumber() * 100 * inner_speedup;
                 ticks_to_finish += inner_speedup;
