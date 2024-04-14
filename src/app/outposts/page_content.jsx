@@ -213,7 +213,24 @@ export default function Outposts() {
                             <div style={{ display: 'flex', justifyContent: 'center', fontSize: '20px' }}>
                                 {`Average Trade Cost`}
                             </div>
-                            {average_cost_map.sort((a, b) => a.id - b.id).map((curr_deal, index) => {
+                            {average_cost_map.sort((a, b) => {
+
+                                let a_item = resource_type[a.id].custom_order;
+                                let a_item2 = resource_type[a.id].custom_order;
+                                let b_item = resource_type[b.id].custom_order;
+                                let b_item2 = resource_type[b.id].custom_order;
+
+                                if (a_item === b_item) {
+                                    if (a.subtype === b.subtype) {
+                                        if (a_item2 === b_item2) {
+                                            return a.subtype - b.subtype;
+                                        }
+                                    }
+                                    return a_item2 - b_item2;
+                                }
+                                return a_item - b_item;
+                                // a.id - b.id
+                            }).map((curr_deal, index) => {
                                 return (
                                     <TradeSingle key={index} deal={curr_deal} borderBottom={index === average_cost_map.length - 1} />
                                 )
