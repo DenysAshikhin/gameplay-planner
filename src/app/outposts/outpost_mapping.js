@@ -31,6 +31,7 @@ export const resource_type = {
     0: {
         label: "Stone",
         img: stone_img,
+        custom_order: 0,
         subtypes: {
             0: {
                 label: "SubType",
@@ -41,6 +42,7 @@ export const resource_type = {
     1: {
         label: "Brass",
         img: brass_img,
+        custom_order: 1,
         subtypes: {
             0: {
                 label: "SubType",
@@ -51,6 +53,7 @@ export const resource_type = {
     2: {
         label: "Protein",
         img: protein_img,
+        custom_order: 5,
         subtypes: {
             0: {
                 label: "SubType",
@@ -61,6 +64,7 @@ export const resource_type = {
     3: {
         label: "Iron",
         img: iron_img,
+        custom_order: 2,
         subtypes: {
             0: {
                 label: "SubType",
@@ -71,6 +75,7 @@ export const resource_type = {
     4: {
         label: "Souls",
         img: soul_img,
+        custom_order: 6,
         subtypes: {
             0: {
                 label: "SubType",
@@ -81,6 +86,7 @@ export const resource_type = {
     5: {
         label: "Gold",
         img: gold_img,
+        custom_order: 3,
         subtypes: {
             0: {
                 label: "SubType",
@@ -90,119 +96,120 @@ export const resource_type = {
     },
     6: {
         label: "Item Mat.",
+        custom_order: 7,
         img: null,
         subtypes: {
             0: {
                 label: "Tier 0",
-                img  : null
+                img: null
             },
             1: {
                 label: "Tier 1",
-                img  : null
+                img: null
             },
             2: {
                 label: "Tier 2",
-                img  : null
+                img: null
             },
             3: {
                 label: "Tier 3",
-                img  : null
+                img: null
             },
             4: {
                 label: "Tier 4",
-                img  : null
+                img: null
             },
             5: {
                 label: "Tier 5",
-                img  : null
+                img: null
             },
             6: {
                 label: "Tier 6",
-                img  : null
+                img: null
             },
             7: {
                 label: "Tier 7",
-                img  : null
+                img: null
             },
             8: {
                 label: "Tier 8",
-                img  : null
+                img: null
             },
             9: {
                 label: "Tier 9",
-                img  : null
+                img: null
             },
             10: {
                 label: "Tier 10",
-                img  : null
+                img: null
             },
             11: {
                 label: "Tier 11",
-                img  : null
+                img: null
             },
             12: {
                 label: "Tier 12",
-                img  : null
+                img: null
             },
             13: {
                 label: "Tier 13",
-                img  : null
+                img: null
             },
             14: {
                 label: "Tier 14",
-                img  : mat_14_img
+                img: mat_14_img
             },
             15: {
                 label: "Tier 15",
-                img  : mat_15_img
+                img: mat_15_img
             },
             16: {
                 label: "Tier 16",
-                img  : mat_16_img
+                img: mat_16_img
             },
             17: {
                 label: "Tier 17",
-                img  : mat_17_img
+                img: mat_17_img
             },
             18: {
                 label: "Tier 18",
-                img  : mat_18_img
+                img: mat_18_img
             },
             19: {
                 label: "Tier 19",
-                img  : mat_19_img
+                img: mat_19_img
             },
             20: {
                 label: "Tier 20",
-                img  : mat_20_img
+                img: mat_20_img
             },
             21: {
                 label: "Tier 21",
-                img  : mat_21_img
+                img: mat_21_img
             },
             22: {
                 label: "Tier 22",
-                img  : mat_22_img
+                img: mat_22_img
             },
             23: {
                 label: "Tier 23",
-                img  : mat_23_img
+                img: mat_23_img
             },
             24: {
                 label: "Tier 24",
-                img  : mat_24_img
+                img: mat_24_img
             },
             25: {
                 label: "Tier 25",
-                img  : mat_25_img
+                img: mat_25_img
             },
             26: {
                 label: "Tier 26",
-                img  : mat_26_img
+                img: mat_26_img
             },
             27: {
                 label: "Tier 27",
-                img  : null
+                img: null
             },
             28: {
                 label: "Tier 28",
@@ -229,6 +236,7 @@ export const resource_type = {
     7: {
         label: "Platinum",
         img: platinum_img,
+        custom_order: 4,
         subtypes: {
             0: {
                 label: "SubType",
@@ -239,6 +247,7 @@ export const resource_type = {
     8: {
         label: "R.P.",
         img: reinc_img,
+        custom_order: 8,
         subtypes: {
             0: {
                 label: "SubType",
@@ -249,6 +258,7 @@ export const resource_type = {
     9: {
         label: "Tokens",
         img: expedition_img,
+        custom_order: 9,
         subtypes: {
             0: {
                 label: "SubType",

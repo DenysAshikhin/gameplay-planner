@@ -175,9 +175,35 @@ export default function Outposts() {
                                     </div>
                                 </MouseOverPopover>
                             </div>
-                            {data.DealQueue.sort((a, b) => a.CostResourceID - b.CostResourceID).map((curr_deal, index) => {
+                            {data.DealQueue.sort((a, b) => {
+                                let a_item = resource_type[a.CostResourceID].custom_order;
+                                let a_item2 = resource_type[a.BoughtResourceID].custom_order;
+                                let b_item = resource_type[b.CostResourceID].custom_order;
+                                let b_item2 = resource_type[b.BoughtResourceID].custom_order;
+
+                                if (a_item === b_item) {
+                                    if (a.CostResourceIDSub === b.CostResourceIDSub) {
+                                        if (a_item2 === b_item2) {
+                                            return a.BoughtResourceIDSub - b.BoughtResourceIDSub;
+                                        }
+                                    }
+                                    return a_item2 - b_item2;
+                                }
+                                return a_item - b_item;
+
+                                // if (a.CostResourceID === b.CostResourceID) {
+                                //     if (a.CostResourceIDSub === b.CostResourceIDSub) {
+                                //         if (a.BoughtResourceID === b.BoughtResourceID) {
+                                //             return a.BoughtResourceIDSub - b.BoughtResourceIDSub;
+                                //         }
+                                //     }
+                                //     return a.BoughtResourceID - b.BoughtResourceID;
+                                // }
+                                // return a.CostResourceID - b.CostResourceID;
+
+                            }).map((curr_deal, index) => {
                                 return (
-                                    <TradeLine key={index}  deal={curr_deal} borderBottom={index === data.DealQueue.length - 1} />
+                                    <TradeLine key={index} deal={curr_deal} borderBottom={index === data.DealQueue.length - 1} />
                                 )
                             })}
                         </div>
@@ -189,7 +215,7 @@ export default function Outposts() {
                             </div>
                             {average_cost_map.sort((a, b) => a.id - b.id).map((curr_deal, index) => {
                                 return (
-                                    <TradeSingle key={index}  deal={curr_deal} borderBottom={index === average_cost_map.length - 1} />
+                                    <TradeSingle key={index} deal={curr_deal} borderBottom={index === average_cost_map.length - 1} />
                                 )
                             })}
                         </div>
@@ -200,10 +226,10 @@ export default function Outposts() {
 
 
 
-      {/* outposts */}
+            {/* outposts */}
             <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', maxHeight: 'calc(100vh - 102px)' }}>
 
-          
+
                 <div className='importantText'
                     style={{
                         display: 'flex',
