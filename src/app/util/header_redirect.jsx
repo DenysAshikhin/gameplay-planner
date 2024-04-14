@@ -1,6 +1,6 @@
 "use client"
 
-export default function () {
+export default function HeaderRedirect () {
 
     return <div
         className="hover"
