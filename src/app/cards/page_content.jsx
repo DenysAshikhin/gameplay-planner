@@ -5,7 +5,7 @@ import { isMobile } from 'mobile-device-detect';
 import './card.css';
 import { useState, useEffect, useRef } from 'react';
 import ReactGA from "react-ga4";
-import { GoogleAdSense } from "next-google-adsense";
+//import { GoogleAdSense } from "next-google-adsense";
 import MouseOverPopover from "../util/Tooltip.jsx";
 import { DefaultWeightMap } from '../util/itemMapping.js';
 import { cardMapImg, cardLabelImg } from './cardMapping.js';
@@ -2309,7 +2309,7 @@ export default function Cards() {
                     </MouseOverPopover >
                 </div>
             )}
-            <GoogleAdSense publisherId="pub-1393057374484862" />
+             {/* <GoogleAdSense publisherId="pub-1393057374484862" /> */}
             <div className='importantText' style={{ display: 'flex', alignItems: 'end' }}>
                 <h1 style={{ margin: '6px 6px', fontSize: '32px' }}>
                     Cards Guide

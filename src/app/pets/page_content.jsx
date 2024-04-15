@@ -10,7 +10,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { petNameArray, BonusMap, petNames, getPet } from "../util/itemMapping.js";
 import { StaticPetItem } from './PetItem.js';
 import ReactGA from "react-ga4";
-import { GoogleAdSense } from "next-google-adsense";
+//import { GoogleAdSense } from "next-google-adsense";
 import helper from '../util/helper.js';
 import petHelper from '../util/petHelper.js';
 import SearchBox from '../util/search.jsx';
@@ -605,7 +605,7 @@ export default function Pets() {
             }}
         >
 
-            <GoogleAdSense publisherId="pub-1393057374484862" />
+             {/* <GoogleAdSense publisherId="pub-1393057374484862" /> */}
             <div
                 style={{
                     display: 'flex',

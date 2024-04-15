@@ -27,7 +27,7 @@ import infoIconAmber from '../../../public/images/icons/info_amber.svg';
 // import rankExplain from "../../../public/images/rank_explain.png"
 
 import ReactGA from "react-ga4";
-import { GoogleAdSense } from "next-google-adsense";
+//import { GoogleAdSense } from "next-google-adsense";
 import SearchBox from '../util/search.jsx';
 import petHelper from '../util/petHelper.js';
 import DefaultSave from '../util/tempSave.json';
@@ -640,7 +640,7 @@ export default function Expeditions() {
             }}
         >
 
-            <GoogleAdSense publisherId="pub-1393057374484862" />
+             {/* <GoogleAdSense publisherId="pub-1393057374484862" /> */}
             {/* Grid Left */}
             <div
                 className='importantText'

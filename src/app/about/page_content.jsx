@@ -3,7 +3,7 @@
 import { isMobile } from 'mobile-device-detect';
 import { useState, useEffect } from 'react';
 import ReactGA from "react-ga4";
-import { GoogleAdSense } from "next-google-adsense";
+//import { GoogleAdSense } from "next-google-adsense";
 ReactGA.initialize([{
     trackingId: "G-GGLPK02VH8",
 }]);
@@ -41,7 +41,7 @@ export default function Expeditions() {
                 position: 'relative',
             }}
         >
-            <GoogleAdSense publisherId="pub-1393057374484862" />
+             {/* <GoogleAdSense publisherId="pub-1393057374484862" /> */}
             <div style={{
                 display: 'flex',
                 flex: '1',
