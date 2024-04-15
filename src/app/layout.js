@@ -92,9 +92,20 @@ export default function RootLayout({ children }) {
             </div>
           </div>
         </div>
-        <div id='top_leaderboard' style={{ position: 'absolute', top: '0', left: '0', width: '100vw', height: '90px', display: 'flex', justifyContent: 'center', alignItems: 'center', }} />
+        <div id='top_leaderboard' style={{
+          position: 'absolute',
+          top: '0',
+          left: '35%',
+          // width: '100vw',
+          height: '90px', display: 'flex', justifyContent: 'center', alignItems: 'center',
+        }} />
         <div id='right_pillar' style={{ position: 'absolute', top: '0', right: '0', display: 'flex', height: '100vh', justifyContent: 'center', alignItems: 'center', }} />
-        <div id='footer_in_screen' style={{ position: 'absolute', bottom: '0', left: '0', width: '100vw', height: '90px', display: 'flex', justifyContent: 'center', alignItems: 'center', }} />
+        <div id='footer_in_screen' style={{
+          position: 'absolute', bottom: '0',
+          left: '35%',
+          // width: '100vw',
+          height: '90px', display: 'flex', justifyContent: 'center', alignItems: 'center',
+        }} />
       </body>
     </html>
   )
