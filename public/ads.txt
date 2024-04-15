@@ -1,4 +1,4 @@
-# Ads.txt last updated on: 2024/04/12 10:47:21.167829 by MONUMETRIC
+# Ads.txt last updated on: 2024/04/15 09:36:05.554402 by MONUMETRIC
 OWNERDOMAIN=gameplayplanner.com
 MANAGERDOMAIN=monumetric.com
 CONTACT=support@monumetric.com
