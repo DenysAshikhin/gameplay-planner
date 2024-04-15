@@ -1,7 +1,7 @@
 
 
 import Pets_Guide from './page_content.jsx';
-
+import Ad_Comp from '../../util/ads_component.jsx';
 
 export async function generateMetadata({ params, searchParams }, parent) {
 
@@ -16,5 +16,12 @@ export const viewport = {
 }
 export default function Page() {
 
-  return <Pets_Guide />
+  return(
+    <>
+    
+    <Pets_Guide />
+    <Ad_Comp />
+    </>
+  )
+  
 }
