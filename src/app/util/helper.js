@@ -2,6 +2,9 @@ var helper = {
     roundTwoDecimal: function (number) {
         return Math.round((number + Number.EPSILON) * 100) / 100;
     },
+    sleep: async function (seconds) {
+        return new Promise(r => setTimeout(r, seconds * 1000));
+    },
     numberWithCommas: function (x) {
         return x.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     },

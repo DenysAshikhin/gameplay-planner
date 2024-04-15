@@ -1,0 +1,5 @@
+<!-- Monumetric Footer In-screen D: 728x90 T: 728x90 M: 320x50  START -->
+
+<div id="mmt-75d48844-8682-49a7-88e1-4b0c2f910d85"></div><script type="text/javascript" data-cfasync="false">$MMT = window.$MMT || {}; $MMT.cmd = $MMT.cmd || [];$MMT.cmd.push(function(){ $MMT.display.slots.push(["75d48844-8682-49a7-88e1-4b0c2f910d85"]); })</script>
+
+<!-- Monumetric Footer In-screen D: 728x90 T: 728x90 M: 320x50  ENDS -->
