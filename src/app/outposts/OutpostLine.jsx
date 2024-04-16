@@ -3,6 +3,7 @@
 import mathHelper from '../util/math.js';
 import helper from '../util/helper.js';
 import { resource_type } from './outpost_mapping.js';
+import { useState, useEffect } from 'react';
 
 import Image from 'next/image'
 import rightArrow from '../../../public/images/icons/right_arrow_white.svg';
@@ -123,6 +124,8 @@ const getMiningTick = function (data, outpost, miner) {
 }
 
 export default function OutpostLine({ data, outpost, borderBottom }) {
+
+    const [miningTarget, setMiningTarget] = useState(0);
 
     if (!data.CowShopHardnessScaling && data.CowShopHardnessScaling !== 0) return;
     // let res = HardnessScale(data, data.OutpostsCollection[0]);
@@ -256,18 +259,38 @@ export default function OutpostLine({ data, outpost, borderBottom }) {
         let minute_tick = current_tick * 60;
         let hour_tick = current_tick * 3600;
 
+        const inner_left_to_mine = mathHelper.createDecimal(outpost.LeftToMine).toNumber();
 
         let ticks_to_finish = 0;
+        let ticks_to_25 = inner_left_to_mine < 25 ? -1 : 0;
+        let ticks_to_50 = inner_left_to_mine < 50 ? -1 : 0;
+        let ticks_to_75 = inner_left_to_mine < 75 ? -1 : 0;
+
         const speed_up_mult = 1000;
         for (let i = 0; i < 1; i++) {
             let outpost_inner = JSON.parse(JSON.stringify(outpost));
-            outpost_inner.LeftToMine = mathHelper.createDecimal(outpost_inner.LeftToMine).toNumber();
+            outpost_inner.LeftToMine = inner_left_to_mine;
             while (outpost_inner.LeftToMine > 0) {
                 let tick_to_subtract = getMiningTick(data, outpost_inner, inner_miner);
                 let inner_speedup = Math.max(1, Math.floor(speed_up_mult * outpost_inner.LeftToMine / 100));
                 outpost_inner.LeftToMine -= tick_to_subtract.toNumber() * 100 * inner_speedup;
                 ticks_to_finish += inner_speedup;
+
+                if (ticks_to_25 === 0 && outpost_inner.LeftToMine < 25) {
+                    ticks_to_25 = ticks_to_finish;
+                }
+                if (ticks_to_50 === 0 && outpost_inner.LeftToMine < 50) {
+                    ticks_to_50 = ticks_to_finish;
+                }
+                if (ticks_to_75 === 0 && outpost_inner.LeftToMine < 75) {
+                    ticks_to_75 = ticks_to_finish;
+                }
+
             }
+        }
+
+        if (ticks_to_25 === -1 && ticks_to_50 === -1 && ticks_to_75 === -1) {
+            let bigsad = -1;
         }
 
         let return_obj = {
@@ -276,6 +299,10 @@ export default function OutpostLine({ data, outpost, borderBottom }) {
             hour_tick: hour_tick,
             miner_img: miner_img,
             ticks_to_finish: ticks_to_finish,
+            ticks_to_25: ticks_to_25,
+            ticks_to_50: ticks_to_50,
+            ticks_to_75: ticks_to_75,
+            left_to_mine: mathHelper.createDecimal(outpost.LeftToMine).toNumber()
         };
         miner_list.push(return_obj);
     });
@@ -350,13 +377,61 @@ export default function OutpostLine({ data, outpost, borderBottom }) {
                         </div>
                     )
                 })}
+
+                {/* mining target */}
+                <div style={{ position: 'absolute', top: '0', left: '311px', width: '100px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-around', flexDirection: 'column' }}>
+                    <div>
+                        Mining Target
+                    </div>
+                    <select
+                        className='importantText'
+                        aria-label='Select mining target'
+                        style={{ maxWidth: '144px', marginLeft: '12px', backgroundColor: '#171717', borderRadius: '4px' }}
+                        onChange={
+                            (selected_mode) => {
+                                setMiningTarget(selected_mode.target.value);
+                            }
+                        }
+                        defaultValue={'0%'}
+                    >
+                        <option value="0">0%</option>
+                        {outpost.LeftToMine > 25 && (
+                            <option value="25">25%</option>
+                        )}
+                        {outpost.LeftToMine > 50 && (
+                            <option value="50">50%</option>
+                        )}
+                        {outpost.LeftToMine > 75 && (
+                            <option value="75">75%</option>
+                        )}
+                    </select>
+                </div>
+
                 {/* miners */}
                 {miner_list.map((inner_miner, index) => {
+                    let ticks_left = 0;
+                    switch (miningTarget) {
+                        case '0':
+                            ticks_left = helper.secondsToString(inner_miner.ticks_to_finish);
+                            break;
+                        case '25':
+                            ticks_left = helper.secondsToString(inner_miner.ticks_to_25);
+                            break;
+                        case '50':
+                            ticks_left = helper.secondsToString(inner_miner.ticks_to_50);
+                            break;
+                        case '75':
+                            ticks_left = helper.secondsToString(inner_miner.ticks_to_75);
+                            break;
+                        default:
+                            ticks_left = helper.secondsToString(inner_miner.ticks_to_finish);
+                            break;
+                    }
                     return (
                         <div key={index}
                             style={{
-                                position: 'absolute', bottom: '0', left: `${311 + 87 * index}px`, width: '85px', height: '72px',
-                                border: (outpost.MinerAssignedID - 1) === index ? '2px solid blue' : '',
+                                position: 'absolute', bottom: '0', left: `${411 + 87 * index}px`, width: '85px', height: '72px',
+                                border: (outpost.MinerAssignedID - 1) === index ? index === 1 && inner_miner.left_to_mine < 50 ? '2px solid red' : '2px solid blue' : '',
                                 boxSizing: 'border-box'
                             }}>
                             <Image
@@ -375,7 +450,7 @@ export default function OutpostLine({ data, outpost, borderBottom }) {
                                     backgroundColor: 'rgba(0,0,0,0.7)'
                                 }}
                             >
-                                {`${helper.secondsToString(inner_miner.ticks_to_finish)}`}
+                                {`${ticks_left}`}
                             </div>
                         </div>
                     )

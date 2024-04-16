@@ -1508,15 +1508,15 @@ const FarmingLanding = () => {
         <div
             // className='importantText'
             style={{ height: '100%', display: 'flex', flex: 1, flexDirection: 'column', paddingLeft: '6px', maxWidth: 'calc(100% - 6px)', minHeight: '0', backgroundColor: 'black', }}
-            >
-                
-             {/* <GoogleAdSense publisherId="pub-1393057374484862" /> */}
+        >
             <div style={{
                 display: 'flex', flex: 1,
                 flexDirection: 'column',
                 width: '100%',
                 minHeight: '0'
             }}>
+                {/* Ad spot */}
+                {/* <div style={{ width: '100%', height: '90px', backgroundColor: 'red' }}/> */}
                 <div
                     style={{ display: 'flex', marginLeft: '-6px' }}
                 >

@@ -640,7 +640,7 @@ export default function Expeditions() {
             }}
         >
 
-             {/* <GoogleAdSense publisherId="pub-1393057374484862" /> */}
+            {/* <GoogleAdSense publisherId="pub-1393057374484862" /> */}
             {/* Grid Left */}
             <div
                 className='importantText'
@@ -2945,6 +2945,8 @@ export default function Expeditions() {
                         </div>
                     </div>
 
+                    {/* Ad placement */}
+                    {/* <div style={{ width: '100%', height: '90px', backgroundColor: 'red' }}/> */}
 
                     <ItemSelection
                         weightMap={weightMap}

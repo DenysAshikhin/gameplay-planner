@@ -46,6 +46,7 @@ export default function Outposts() {
         setRunTimeData(clientData);
     }, [clientData]);
 
+
     //OutpostsCollection -> array
     //Deal -> current deals
     //DealQueue -> future deals
@@ -241,7 +242,8 @@ export default function Outposts() {
                 </div>
             </div>
 
-
+            {/* Ad placement */}
+            {/* <div style={{ height: '100%', width: '100px', backgroundColor: 'red', marginLeft: '12px' }}/> */}
 
             {/* outposts */}
             <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', maxHeight: 'calc(100vh - 102px)' }}>
@@ -256,7 +258,7 @@ export default function Outposts() {
                         // margin: '6px 12px 0',
                         border: '1px solid white',
                         borderRadius: '12px',
-                        width: '780px',
+                        width: '855px',
                         fontSize: '24px',
                         fontWeight: 'bold',
                         backgroundColor: 'rgba(255,255,255, 0.07)',
@@ -290,7 +292,7 @@ export default function Outposts() {
                         margin: '6px 12px 0',
                         border: '1px solid white',
                         borderRadius: '12px',
-                        width: '768px',
+                        width: '845px',
                         // fontSize: '24px',
                         // fontWeight: 'bold',
                         backgroundColor: 'rgba(255,255,255, 0.07)',
