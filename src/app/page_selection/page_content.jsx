@@ -30,7 +30,7 @@ export default function PageSelection() {
             }, 500);
         }
     }, []);
-    
+
     const [clientData, setData] = useLocalStorage('userData', DefaultSave);
     const [data, setRunTimeData] = useState(DefaultSave);
 
@@ -50,8 +50,8 @@ export default function PageSelection() {
                 position: 'relative',
             }}
         >
-            
-             {/* <GoogleAdSense publisherId="pub-1393057374484862" /> */}
+
+            {/* <GoogleAdSense publisherId="pub-1393057374484862" /> */}
             {/* <BlinkingDot data={data} /> */}
             <div style={{
                 paddingLeft: '6px',
@@ -68,19 +68,21 @@ export default function PageSelection() {
                     <PageCard page='upload' />
                     <PageCard page='expedition' />
                     <PageCard page='pets' />
-                    <PageCard page='farm' />
+                    <PageCard page='cards' redBorder={chargesMax} />
                 </div>
                 <div
                     style={{ display: 'flex', marginTop: '36px' }}
                 >
-                    <PageCard page='cards' redBorder={chargesMax} />
+                    <PageCard page='farm' />
+                    <PageCard page='contagion' />
                     <PageCard page='protein' />
                     <PageCard page='residue' />
-                    <PageCard page='infinity_corner' />
                 </div>
                 <div
                     style={{ display: 'flex', marginTop: '36px' }}
                 >
+
+                    <PageCard page='infinity_corner' />
                     <PageCard page='outposts' />
                     <PageCard page='guides' />
                     <PageCard page='gratitude' />

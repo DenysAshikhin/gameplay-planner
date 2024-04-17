@@ -120,7 +120,6 @@ var helper = {
 
         return string;
     },
-
     secondsToDuration(seconds) {
         const numDays = Math.floor(seconds / (3600 * 24));
         const numHours = Math.floor((seconds % (3600 * 24)) / 3600);
@@ -128,7 +127,6 @@ var helper = {
         const numSeconds = this.roundInt((seconds % (3600 * 24)) % 60);
         return { days: numDays, hours: numHours, minutes: numMinutes, seconds: numSeconds }
     },
-
     bonusColorMap: {
         // 1001: { color: 'maroon' },
         // 1002: { color: 'orange' },
@@ -141,6 +139,9 @@ var helper = {
         1014: { color: 'blue' },
         1015: { color: 'gray' },
         1016: { color: 'green' }
+    },
+    numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
 }
 

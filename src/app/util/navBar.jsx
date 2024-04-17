@@ -7,7 +7,7 @@ const NavBar = ({ }) => {
     <div
       style={{
         width: "53px",
-        height:'100%',
+        height: '100%',
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-evenly",
@@ -93,6 +93,36 @@ const NavBar = ({ }) => {
         </div>
       </Link>
 
+
+      {/* Cards Page */}
+      <Link href="/cards" alt="navigation to cards page">
+        <div
+          className="navItem"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            // margin: "16px 0",
+          }}
+        >
+          <div
+            style={{
+              width: "42px",
+              height: "42px",
+              position: "relative",
+            }}
+          >
+            <Image
+              alt="personal badge icon page navigation to cards page"
+              fill
+              src={`/images/icons/badge.svg`}
+            />
+
+          </div>
+        </div>
+      </Link>
+
+
       {/* Farming Page */}
       <Link href="/farming" alt="navigation to farming page">
         <div
@@ -120,8 +150,8 @@ const NavBar = ({ }) => {
         </div>
       </Link>
 
-      {/* Cards Page */}
-      <Link href="/cards" alt="navigation to cards page">
+      {/* Contagion Page */}
+      <Link href="/contagion" alt="navigation to contagion (grasshopper) page">
         <div
           className="navItem"
           style={{
@@ -139,11 +169,10 @@ const NavBar = ({ }) => {
             }}
           >
             <Image
-              alt="personal badge icon page navigation to cards page"
+              alt="navigation to contagion (grasshopper) page"
               fill
-              src={`/images/icons/badge.svg`}
+              src={`/images/icons/contagion.svg`}
             />
-
           </div>
         </div>
       </Link>

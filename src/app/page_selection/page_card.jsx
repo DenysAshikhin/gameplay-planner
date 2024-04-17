@@ -75,6 +75,11 @@ const PageCard = ({ page, setTab, redBorder }) => {
         nameString = "Outposts";
         url = '/outposts';
         break;
+      case 'contagion':
+        imgString = 'contagion';
+        nameString = "Contagion";
+        url = '/contagion';
+        break;
     default:
       imgString = `file_upload`;
       nameString = `Upload`;
