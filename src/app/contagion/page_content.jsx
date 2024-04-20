@@ -156,6 +156,7 @@ export default function Contagion() {
 
                                 return (
                                     <div
+                                        key={index}
                                         style={{
                                             display: 'flex',
                                             // flexDirection: 'column',
