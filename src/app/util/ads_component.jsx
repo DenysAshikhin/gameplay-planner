@@ -60,16 +60,16 @@ export default function Ad_Comp() {
     const setup_started = useRef(false) // gets assigned to a root node
     const script = `<script async type="text/javascript" src="//monu.delivery/site/a/5/892ed4-6227-41b8-95d2-9c7cb4ffe471.js" data-cfasync="false"></script>`;
 
-    useEffect(() => {
-        return;
-        // creates a document range (grouping of nodes in the document is my understanding)
-        // in this case we instantiate it as empty, on purpose
-        const range = document.createRange()
-        // creates a mini-document (light weight version), in our range with our script in it
-        const documentFragment = range.createContextualFragment(script)
-        // appends it to our script root - so it renders in the correct location
-        scriptRoot.current.append(documentFragment)
-    }, [])
+    // useEffect(() => {
+    //     return;
+    //     // creates a document range (grouping of nodes in the document is my understanding)
+    //     // in this case we instantiate it as empty, on purpose
+    //     const range = document.createRange()
+    //     // creates a mini-document (light weight version), in our range with our script in it
+    //     const documentFragment = range.createContextualFragment(script)
+    //     // appends it to our script root - so it renders in the correct location
+    //     scriptRoot.current.append(documentFragment)
+    // }, [])
 
     useEffect(() => {
         if (setup_started.current) return;
