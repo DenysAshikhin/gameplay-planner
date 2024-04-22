@@ -81,30 +81,30 @@ export default function PageSelection() {
                     maxHeight: 'calc(100% - 20px)'
                 }}>
                 <div style={{ maxHeight: '100%' }}>
-                    {current_pets.map((curr_pet) => {
+                    {current_pets.map((curr_pet, index) => {
                         if (curr_pet.ID === 0) return <></>
                         return (
-                            <div className='importantText' style={{ display: 'flex', marginTop: '12px' }}>
+                            <div key={index} className='importantText' style={{ display: 'flex', marginTop: '12px' }}>
                                 <div style={{ marginRight: '24px' }}>
                                     {curr_pet.CaptureDungeon ? `dungeon: ${curr_pet.CaptureDungeon}` : `area: ${convertAreaToText(curr_pet.areaToCapture)}`}
                                 </div>
-                                <div style={{ marginRight: '24px', minWidth:'140px' }}>
-                                    {curr_pet.BonusList.map((temp_bonus) => {
+                                <div style={{ marginRight: '24px', minWidth: '140px' }}>
+                                    {curr_pet.BonusList.map((temp_bonus, index_bonus) => {
                                         if (temp_bonus.ID >= 1000) return <></>;
                                         let tempy = BonusMap[temp_bonus.ID];
                                         return (
-                                            <div>
+                                            <div key={index_bonus}>
                                                 {tempy.label}
                                             </div>
                                         )
                                     })}
                                 </div>
                                 <div>
-                                    {curr_pet.BonusList.map((temp_bonus) => {
+                                    {curr_pet.BonusList.map((temp_bonus, index_bonus) => {
                                         if (temp_bonus.ID < 1000) return <></>;
                                         let tempy = BonusMap[temp_bonus.ID];
                                         return (
-                                            <div>
+                                            <div key={index_bonus}>
                                                 {tempy.label}
                                             </div>
                                         )
