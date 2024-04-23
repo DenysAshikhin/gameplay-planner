@@ -49,6 +49,14 @@ export default function Home() {
         infIndex = jsonString.indexOf('Infinity');
       }
 
+      let NAN_INDEX = jsonString.indexOf('NaN');
+
+      while (NAN_INDEX > 0) {
+        jsonString = jsonString.replaceAll('NaN', '-999');
+        NAN_INDEX = jsonString.indexOf('NaN');
+      }
+
+
       try {
         const parsedJson = JSON.parse(jsonString);
         setUserData(parsedJson);
@@ -215,7 +223,7 @@ export default function Home() {
       }}
     >
 
-       {/* <GoogleAdSense publisherId="pub-1393057374484862" /> */}
+      {/* <GoogleAdSense publisherId="pub-1393057374484862" /> */}
       <Image
         style={{
           position: 'absolute', top: '0', left: '0', width: '100%', height: '100%', zIndex: '1',
@@ -317,7 +325,7 @@ export default function Home() {
 
               let incomingString = stringInputRef.current.value;
               try {
-            
+
 
 
                 zlib.gzip(incomingString, function (error, result) {
@@ -340,6 +348,13 @@ export default function Home() {
                 while (infIndex > 0) {
                   jsonString = jsonString.replaceAll('Infinity', '-999');
                   infIndex = jsonString.indexOf('Infinity');
+                }
+
+                let NAN_INDEX = jsonString.indexOf('NaN');
+
+                while (NAN_INDEX > 0) {
+                  jsonString = jsonString.replaceAll('NaN', '-999');
+                  NAN_INDEX = jsonString.indexOf('NaN');
                 }
 
                 try {
