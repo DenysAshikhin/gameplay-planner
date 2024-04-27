@@ -17,9 +17,9 @@ ReactGA.initialize([{
 }]);
 
 const convertAreaToText = function (area_num) {
-    area_num -= 20;
+    area_num -= 19;
     const world = Math.floor(area_num / 9) + 2;
-    const zone = (area_num % 9) + 2;
+    const zone = (area_num % 9) + 1;
     return `${world}-${zone}`;
 }
 
