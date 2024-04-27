@@ -258,9 +258,11 @@ export default function Expeditions() {
             let groupCacheMap = {};
             groups.forEach((inner_group) => {
                 inner_group.forEach((group_pet) => {
-                    let finalPet = group_pet = JSON.parse(JSON.stringify(group_pet));
-                    finalPet.name = petNames[finalPet.ID].name;
+
+                    let finalPet = JSON.parse(JSON.stringify(group_pet));
+                    finalPet.name = petNames[finalPet.ID] ? petNames[finalPet.ID].name : petNames[9999].name;
                     groupCacheMap[group_pet.ID] = finalPet;
+
                 });
             });
             setGroupsCache(groupCacheMap);

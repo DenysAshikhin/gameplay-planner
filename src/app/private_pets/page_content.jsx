@@ -85,8 +85,9 @@ export default function PageSelection() {
                         if (curr_pet.ID === 0) return <></>
                         return (
                             <div key={index} className='importantText' style={{ display: 'flex', marginTop: '12px' }}>
-                                <div style={{ marginRight: '24px' }}>
-                                    {curr_pet.CaptureDungeon ? `dungeon: ${curr_pet.CaptureDungeon}` : `area: ${convertAreaToText(curr_pet.areaToCapture)}`}
+                                <div style={{ marginRight: '24px', minWidth:'150px' }}>
+                                    {(curr_pet.CaptureDungeon ? `dungeon: ${curr_pet.CaptureDungeon}` : `area: ${convertAreaToText(curr_pet.areaToCapture)}`)
+                                        + `  (${curr_pet.Type === 1 ? 'Ground' : 'Air'})`}
                                 </div>
                                 <div style={{ marginRight: '24px', minWidth: '140px' }}>
                                     {curr_pet.BonusList.map((temp_bonus, index_bonus) => {
