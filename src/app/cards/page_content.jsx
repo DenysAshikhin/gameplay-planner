@@ -2195,7 +2195,7 @@ export default function Cards() {
     let futureReincLevel = cardChargedReincInfo.futureReincLevel;
     let futureReincLevelDiff = cardChargedReincInfo.levelDiff;
     let futureReincHr = cardChargedReincInfo.reincHr;
-
+    let futureRemTime = cardChargedReincInfo.remTime;
 
 
     return (
@@ -2270,10 +2270,13 @@ export default function Cards() {
 
                     {/* Charges till Ascension */}
                     <MouseOverPopover tooltip={
+                        <>
+                            <div>
+                                {`${requiredReincLevel - currentReincLevel} remaining levels at ${helper.roundTwoDecimal(reincHr)} levels/hr =  ${helper.roundTwoDecimal(remTime)} hours remaining`}
+                            </div>
 
-                        <div>
-                            {`${requiredReincLevel - currentReincLevel} remaining levels at ${helper.roundTwoDecimal(reincHr)} levels/hr =  ${helper.roundTwoDecimal(remTime)} hours remaining`}
-                        </div>
+                        </>
+
                     }
                         opacity={1}
                     >
@@ -2309,7 +2312,7 @@ export default function Cards() {
                     </MouseOverPopover >
                 </div>
             )}
-             {/* <GoogleAdSense publisherId="pub-1393057374484862" /> */}
+            {/* <GoogleAdSense publisherId="pub-1393057374484862" /> */}
             <div className='importantText' style={{ display: 'flex', alignItems: 'end' }}>
                 <h1 style={{ margin: '6px 6px', fontSize: '32px' }}>
                     Cards Guide
@@ -2536,6 +2539,12 @@ export default function Cards() {
                                             </div>
                                             <div>
                                                 {`${requiredReincLevel - currentReincLevel} remaining levels at ${helper.roundTwoDecimal(reincHr)} levels/hr = ${helper.roundTwoDecimal(remTime)} hours remaining`}
+                                            </div>
+                                            <div>
+                                                {`Time remaining WITH CARD CHARGE:`}
+                                            </div>
+                                            <div>
+                                                {`${requiredReincLevel - futureReincLevel} remaining levels at ${helper.roundTwoDecimal(futureReincHr)} levels/hr =  ${helper.roundTwoDecimal(futureRemTime)} hours remaining`}
                                             </div>
                                             <div>
                                                 {`Current charge timer reduction: ${helper.roundTwoDecimal(chargeTimerReduction * 100)}%`}

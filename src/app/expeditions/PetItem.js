@@ -330,7 +330,7 @@ const StaticPetItem = ({ petData, highlight, showNameOnly }) => {
                         <div>
                             {`Rank: ${pet.Rank}`}
                         </div>
-                        <div>
+                        <div style={{margin: '0 6px'}}>
                             {`Level: ${pet.Level}`}
                         </div>
                         <div>

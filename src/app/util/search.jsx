@@ -80,7 +80,7 @@ const SearchBox = ({ data, onSelect, placeholder, updateBox, margin }) => {
                     />
 
                 }}
-                ListboxProps={{ style: { maxHeight: 150 } }}
+                ListboxProps={{ style: { maxHeight: 550 } }}
                 value={value}
                 clearOnBlur={true}
                 isOptionEqualToValue={(option, value) => {

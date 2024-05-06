@@ -1,6 +1,7 @@
 
 
 import general_helper from './helper.js';
+import math_helper from "./math.js";
 import { mainTeamSuggestions, reincTeamSuggestions, gearTeamSuggestions, statTeamSuggestions } from '../pets/teamSuggestions.js';
 import { getPet, BonusMap } from "./itemMapping.js";
 
@@ -2072,12 +2073,21 @@ var helper = {
             bonus = tot3;
         }
         else {//s
-            let x1 = Math.pow(1.0 + bonusInner.Gain, curr.Level) - 1.0;
-            let x2 = 1 + curr.Rank * 0.02;
-            bonus = x1 * x2;
-        }
+            if(curr.Level > 0){
+                let bigsad = -1;
+            }
+            let x1 = math_helper.subtractDecimal(
+                math_helper.pow(1.0 + bonusInner.Gain, curr.Level),
+                1.0
+            )  
 
-        return bonus * 100;
+            let x2 = 1 + curr.Rank * 0.02;
+            bonus = math_helper.multiplyDecimal(x1, x2);
+            
+        }
+        
+        return math_helper.multiplyDecimal(bonus, 100);
+        // return bonus * 100;
     },
     populatePets: function (data, parameters) {
         let petList = {};
@@ -2123,10 +2133,11 @@ var helper = {
             let pet = groundPets[i];
             pet.BonusList.forEach((e) => {
                 if (!currentBonuses[e.ID]) {
-                    currentBonuses[e.ID] = { ...e, count: 0, sum: 0 };
+                    currentBonuses[e.ID] = { ...e, count: 0, sum: math_helper.createDecimal(0) };
                 }
+                
                 currentBonuses[e.ID].count++;
-                currentBonuses[e.ID].sum += this.calcEquipBonus(pet, e);
+                currentBonuses[e.ID].sum = math_helper.addDecimal(currentBonuses[e.ID].sum , this.calcEquipBonus(pet, e));
 
             })
         }
@@ -2134,10 +2145,10 @@ var helper = {
             let pet = airPets[i];
             pet.BonusList.forEach((e) => {
                 if (!currentBonuses[e.ID]) {
-                    currentBonuses[e.ID] = { ...e, count: 0, sum: 0 };
+                    currentBonuses[e.ID] = { ...e, count: 0, sum: math_helper.createDecimal(0) };
                 }
                 currentBonuses[e.ID].count++;
-                currentBonuses[e.ID].sum += this.calcEquipBonus(pet, e);
+                currentBonuses[e.ID].sum = math_helper.addDecimal(currentBonuses[e.ID].sum , this.calcEquipBonus(pet, e));
             })
         }
         return currentBonuses;
