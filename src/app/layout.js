@@ -94,7 +94,7 @@ export default function RootLayout({ children }) {
             </div>
           </div>
         </div>
-        <div id='top_leaderboard' style={{
+        {/* <div id='top_leaderboard' style={{
           position: 'absolute',
           top: '0',
           left: '35%',
@@ -107,7 +107,7 @@ export default function RootLayout({ children }) {
           left: '35%',
           // width: '100vw',
           height: '90px', display: 'flex', justifyContent: 'center', alignItems: 'center',
-        }} />
+        }} /> */}
       </body>
     </html>
   )
