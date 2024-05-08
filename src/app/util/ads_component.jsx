@@ -72,6 +72,7 @@ export default function Ad_Comp() {
     // }, [])
 
     useEffect(() => {
+        return;
         if (setup_started.current) return;
 
         const setup_function_leaderboard = async () => {
