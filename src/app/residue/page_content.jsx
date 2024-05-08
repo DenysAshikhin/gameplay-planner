@@ -163,16 +163,16 @@ const ResidueCard = ({ data, params, defaultWeight, setParentWeights, desiredLev
                 )}
 
                 {!!locked && (
-                    <Image src={residueMap['locked'].img} fill unoptimized alt={`locked bonus image from in game`} />
+                    <Image className='noPointerEvent' src={residueMap['locked'].img} fill unoptimized alt={`locked bonus image from in game`} />
                 )}
                 {!locked && (
-                    <Image src={params.img} fill unoptimized alt={`${params.key} bonus from in game`} />
+                    <Image className='noPointerEvent' src={params.img} fill unoptimized alt={`${params.key} bonus from in game`} />
                 )}
                 {(!!needPurchase && finishedBuying) && !locked && (
-                    <Image src={greenBorder} fill unoptimized alt={`Green border to indicate an upgrade should be purchased`} />
+                    <Image className='noPointerEvent' src={greenBorder} fill unoptimized alt={`Green border to indicate an upgrade should be purchased`} />
                 )}
                 {(!finishedBuying || futurePurchase) && (
-                    <Image src={StillBuying} fill unoptimized alt={`Yellow border to indicate an upgrade is still autobuying`} />
+                    <Image className='noPointerEvent' src={StillBuying} fill unoptimized alt={`Yellow border to indicate an upgrade is still autobuying`} />
                 )}
             </div>
             <div className='residueCardFooter'></div>

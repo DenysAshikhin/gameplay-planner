@@ -142,15 +142,14 @@ export default function Item({
                             <div
                                 style={{
                                     width: '164px',
-                                    height: '121px',
-                                    // backgroundColor: 'blue'
-
-                                }}
+                                    height: '121px',}}
                                 onMouseEnter={() => { setForceShow(true) }}
                                 onMouseLeave={() => { setForceShow(false) }}
                             >
                                 {!(!isLocked || forceShow) && (
-                                    <div>
+                                    <div 
+                                    className='noPointerEvent'
+                                    >
                                         <Image
                                             alt={`locked symbol`}
                                             src={ic_mapping['locked'].img}
@@ -192,13 +191,12 @@ export default function Item({
                     tooltip={tooltip}
                     forceYPlacement={'top'}
                     forceClose={!forceShow}
-
                 >
-                    <div
-                        onMouseEnter={() => { setForceShow(true); }}
-                        onMouseLeave={() => { setForceShow(false); }}
-                    >
+                    <div>
                         <Image
+                            onMouseEnter={() => { setForceShow(true); }}
+                            onMouseLeave={() => { setForceShow(false); }}
+                            // className='noPointerEvent'
                             alt={`${label} upgrade image`}
                             // src={!isLocked || forceShow ? itemObj.img : ic_mapping['locked'].img}
                             src={itemObj.img}
@@ -208,6 +206,7 @@ export default function Item({
                         />
                         {!(!isLocked || forceShow) && (
                             <div
+                                className='noPointerEvent'
                                 style={{
                                     position: 'relative',
                                     width: '154px',
@@ -225,8 +224,6 @@ export default function Item({
                             </div>
                         )}
                     </div>
-
-
                 </MouseOverPopover>
             )}
 

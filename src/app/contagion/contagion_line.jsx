@@ -124,7 +124,7 @@ export default function Outposts({ contagion, setContagionWeights, gh_amount, ex
         default:
             img = hp_contagion;
     }
-
+    // className='noPointerEvent'
     return (
         <div
             style={{
@@ -132,6 +132,9 @@ export default function Outposts({ contagion, setContagionWeights, gh_amount, ex
                 backgroundColor: 'rgba(255,255,255, 0.17)',
                 minHeight: '120px',
             }}
+            
+            onMouseEnter={() => { setForceShow(true); }}
+            onMouseLeave={() => { setForceShow(false); }}
         >
             {(unlocked || forceShow) && (
                 <>
@@ -247,6 +250,7 @@ export default function Outposts({ contagion, setContagionWeights, gh_amount, ex
             {(!unlocked && !forceShow) && (
                 <div style={{ position: 'absolute', top: '0', left: '0', height: '120px', width: '100%', zIndex: '5' }}>
                     <Image
+                     className='noPointerEvent'
                         alt='in game representation of a locked contagion'
                         fill
                         src={locked_img}

@@ -50,6 +50,10 @@ body {
   font-size: 16px;
 }
 
+.noPointerEvent {
+  pointer-events: none;
+}
+
 .mediumImportantText {
   color: #FFFFFF;
   opacity: 85%;
