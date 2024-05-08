@@ -93,6 +93,7 @@ export default function Guides({ noSearchParams }) {
             }}
         >
             
+            <div style={{display:'flex', flex:'1'}}>
              {/* <GoogleAdSense publisherId="pub-1393057374484862" /> */}
             <Suspense fallback={<div></div>}>
                 <ScrollComponent setSearchParam={setSearchParam} />
@@ -619,6 +620,12 @@ export default function Guides({ noSearchParams }) {
                 {/* Empty spacer */}
                 <div style={{ minHeight: '100%' }}></div>
             </div>
+            </div>
+
+
+            <div id='right_pillar' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft:'12px' }} />
+
+
         </div >
     );
 }
