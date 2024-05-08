@@ -40,7 +40,7 @@ export default function RootLayout({ children }) {
         <meta name="google-adsense-account" content="ca-pub-1393057374484862" />
         <meta name="yandex-verification" content="347889c423938e18" />
         <meta name="robots" content="all" />
-        <Clarity />
+        {/* <Clarity /> */}
         <script async type="text/javascript" src="//monu.delivery/site/a/5/892ed4-6227-41b8-95d2-9c7cb4ffe471.js" data-cfasync="false"></script>
 
         {/* <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1393057374484862" crossOrigin="anonymous"></script> */}
