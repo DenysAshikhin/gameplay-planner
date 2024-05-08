@@ -2318,6 +2318,7 @@ export default function Cards() {
                     Cards Guide
                 </h1>
             </div>
+
             <div
                 style={{
                     display: 'flex',
@@ -2407,6 +2408,9 @@ export default function Cards() {
                         {weightedCardInfo}
                     </div>
                 </div>
+
+
+
 
                 {/* next charges + suggestions */}
                 <div
@@ -2703,262 +2707,148 @@ export default function Cards() {
                         </div>
                     </div>
 
+                    {/* suggested orders + ads */}
                     <div
                         style={{
-                            display: 'flex',
-                            // flexDirection: 'column',
-                            flexWrap: 'wrap',
-                            gap: '6px',
-                            justifyContent: 'space-around',
-                            width: '100%'
+                            display: 'flex'
                         }}
                     >
-
-                        {/* Top 5 Weighted increase */}
                         <div
                             style={{
                                 display: 'flex',
-                                flexDirection: 'column',
-                                // flexWrap: 'wrap',
-                                alignContent: 'flex-start',
-                                border: '1.5px solid rgba(255,255,255,0.8)',
-                                borderRadius: '6px',
-                                overflow: 'auto',
-                                // height: '250px',
-                                width: '100%',
-                                maxWidth: '360px',
-                                minWidth: '273px',
-                                // marginRight:'auto'
+                                // flexDirection: 'column',
+                                flexWrap: 'wrap',
+                                gap: '6px',
+                                justifyContent: 'space-around',
+                                flex: '1',
+                                alignContent: 'flex-start'
+                                // width: '100%'
                             }}
                         >
-                            <div style={{
-                                display: 'flex',
-                                justifyContent: 'center',
-                                // width: '100%',
-                                backgroundColor: 'rgba(255,255,255, 0.06)',
-                            }}>
-                                <h3
-                                    className='importantText'
-                                    style={{ marginTop: '6px', marginBottom: '6px', fontSize: '28px' }}
-                                >
-                                    Best Weight
-                                </h3>
-                            </div>
-                            <div
-                                style={{
-                                    display: 'flex',
-                                    fontSize: '24px',
-                                    padding: '0 12px 0 12px'
-                                }}
-                            >
-                                <div className='importantText'>
-                                    Card
-                                </div>
-                                <div className='importantText' style={{ marginLeft: 'auto' }}>
-                                    Weighted Gain
-                                </div>
-                            </div>
+                            {/* Top 5  logged% increase */}
                             <div
                                 style={{
                                     display: 'flex',
                                     flexDirection: 'column',
-                                    // width: '100%',
-                                    justifyContent: 'space-around',
-                                    alignItems: 'center',
-                                    backgroundColor: 'rgba(255,255,255, 0.1)',
-                                    padding: '6px'
+                                    // flexWrap: 'wrap',
+                                    alignContent: 'flex-start',
+                                    border: '1.5px solid rgba(255,255,255,0.8)',
+                                    borderRadius: '6px',
+                                    overflow: 'auto',
+                                    // height: '250px',
+                                    maxWidth: '360px',
+                                    minWidth: '273px',
+                                    width: '100%',
+                                    // marginRight: 'auto'
+                                    // marginBottom: '12px',
+                                    // marginLeft: '12px'
                                 }}
                             >
-                                {finalWeightIncrease}
-                            </div>
-
-                        </div>
-
-                        {/* Top 5 % increase */}
-                        <div
-                            style={{
-                                display: 'flex',
-                                flexDirection: 'column',
-                                // flexWrap: 'wrap',
-                                alignContent: 'flex-start',
-                                border: '1.5px solid rgba(255,255,255,0.8)',
-                                borderRadius: '6px',
-                                overflow: 'auto',
-                                // height: '250px',
-                                maxWidth: '360px',
-                                minWidth: '273px',
-                                width: '100%',
-                                // marginRight: 'auto'
-                                // marginBottom: '12px',
-                                // marginLeft: '12px'
-                            }}
-                        >
-                            <div style={{
-                                display: 'flex',
-                                justifyContent: 'center',
-                                // width: '100%',
-                                backgroundColor: 'rgba(255,255,255, 0.06)',
-                            }}>
-                                <h3
-                                    className='importantText'
-                                    style={{ marginTop: '6px', marginBottom: '6px', fontSize: '28px' }}
-                                >
-                                    Best Percentage
-                                </h3>
-                            </div>
-                            <div
-                                style={{
+                                <div style={{
                                     display: 'flex',
-                                    fontSize: '24px',
-                                    padding: '0 12px 0 12px'
-                                }}
-                            >
-                                <div className='importantText'>
-                                    Card
+                                    justifyContent: 'center',
+                                    // width: '100%',
+                                    backgroundColor: 'rgba(255,255,255, 0.06)',
+                                }}>
+                                    <h3
+                                        className='importantText'
+                                        style={{ marginTop: '6px', marginBottom: '6px', fontSize: '28px' }}
+                                    >
+                                        Suggested
+                                    </h3>
                                 </div>
-                                <div className='importantText' style={{ marginLeft: 'auto' }}>
-                                    % Gain
+                                <div
+                                    style={{
+                                        display: 'flex',
+                                        fontSize: '24px',
+                                        padding: '0 12px 0 12px'
+                                    }}
+                                >
+                                    <div className='importantText'>
+                                        Card
+                                    </div>
+                                    <div className='importantText' style={{ marginLeft: 'auto' }}>
+                                        Score
+                                    </div>
+                                </div>
+                                <div
+                                    style={{
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        // width: '100%',
+                                        justifyContent: 'space-around',
+                                        alignItems: 'center',
+                                        backgroundColor: 'rgba(255,255,255, 0.1)',
+                                        padding: '6px'
+                                    }}
+                                >
+                                    {finalLoggedWeightIncrease}
                                 </div>
                             </div>
+                            {/* Top 5 % increase */}
                             <div
                                 style={{
                                     display: 'flex',
                                     flexDirection: 'column',
-                                    // width: '100%',
-                                    justifyContent: 'space-around',
-                                    alignItems: 'center',
-                                    backgroundColor: 'rgba(255,255,255, 0.1)',
-                                    padding: '6px'
+                                    // flexWrap: 'wrap',
+                                    alignContent: 'flex-start',
+                                    border: '1.5px solid rgba(255,255,255,0.8)',
+                                    borderRadius: '6px',
+                                    overflow: 'auto',
+                                    // height: '250px',
+                                    maxWidth: '360px',
+                                    minWidth: '273px',
+                                    width: '100%',
+                                    // marginRight: 'auto'
+                                    // marginBottom: '12px',
+                                    // marginLeft: '12px'
                                 }}
                             >
-                                {finalPercIncrease}
-                            </div>
-                        </div>
-
-                        {/* Top 5  logged% increase */}
-                        <div
-                            style={{
-                                display: 'flex',
-                                flexDirection: 'column',
-                                // flexWrap: 'wrap',
-                                alignContent: 'flex-start',
-                                border: '1.5px solid rgba(255,255,255,0.8)',
-                                borderRadius: '6px',
-                                overflow: 'auto',
-                                // height: '250px',
-                                maxWidth: '360px',
-                                minWidth: '273px',
-                                width: '100%',
-                                // marginRight: 'auto'
-                                // marginBottom: '12px',
-                                // marginLeft: '12px'
-                            }}
-                        >
-                            <div style={{
-                                display: 'flex',
-                                justifyContent: 'center',
-                                // width: '100%',
-                                backgroundColor: 'rgba(255,255,255, 0.06)',
-                            }}>
-                                <h3
-                                    className='importantText'
-                                    style={{ marginTop: '6px', marginBottom: '6px', fontSize: '28px' }}
+                                <div style={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    // width: '100%',
+                                    backgroundColor: 'rgba(255,255,255, 0.06)',
+                                }}>
+                                    <h3
+                                        className='importantText'
+                                        style={{ marginTop: '6px', marginBottom: '6px', fontSize: '28px' }}
+                                    >
+                                        Best Percentage
+                                    </h3>
+                                </div>
+                                <div
+                                    style={{
+                                        display: 'flex',
+                                        fontSize: '24px',
+                                        padding: '0 12px 0 12px'
+                                    }}
                                 >
-                                    EXPERIMENTAL!
-                                </h3>
-                            </div>
-                            <div
-                                style={{
-                                    display: 'flex',
-                                    fontSize: '24px',
-                                    padding: '0 12px 0 12px'
-                                }}
-                            >
-                                <div className='importantText'>
-                                    Card
+                                    <div className='importantText'>
+                                        Card
+                                    </div>
+                                    <div className='importantText' style={{ marginLeft: 'auto' }}>
+                                        % Gain
+                                    </div>
                                 </div>
-                                <div className='importantText' style={{ marginLeft: 'auto' }}>
-                                    Score
+                                <div
+                                    style={{
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        // width: '100%',
+                                        justifyContent: 'space-around',
+                                        alignItems: 'center',
+                                        backgroundColor: 'rgba(255,255,255, 0.1)',
+                                        padding: '6px'
+                                    }}
+                                >
+                                    {finalPercIncrease}
                                 </div>
-                            </div>
-                            <div
-                                style={{
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    // width: '100%',
-                                    justifyContent: 'space-around',
-                                    alignItems: 'center',
-                                    backgroundColor: 'rgba(255,255,255, 0.1)',
-                                    padding: '6px'
-                                }}
-                            >
-                                {finalLoggedWeightIncrease}
                             </div>
                         </div>
-
-
-                        {/* Top 5  logged% increase 2 */}
-                        {/* <div
-                            style={{
-                                display: 'flex',
-                                flexDirection: 'column',
-                                // flexWrap: 'wrap',
-                                alignContent: 'flex-start',
-                                border: '1.5px solid rgba(255,255,255,0.8)',
-                                borderRadius: '6px',
-                                overflow: 'auto',
-                                // height: '250px',
-                                maxWidth: '360px',
-                                minWidth: '273px',
-                                width: '100%',
-                                // marginRight: 'auto'
-                                // marginBottom: '12px',
-                                // marginLeft: '12px'
-                            }}
-                        >
-                            <div style={{
-                                display: 'flex',
-                                justifyContent: 'center',
-                                // width: '100%',
-                                backgroundColor: 'rgba(255,255,255, 0.06)',
-                            }}>
-                                <h3
-                                    className='importantText'
-                                    style={{ marginTop: '6px', marginBottom: '6px', fontSize: '28px' }}
-                                >
-                                    EXPERIMENTAL! V2
-                                </h3>
-                            </div>
-                            <div
-                                style={{
-                                    display: 'flex',
-                                    fontSize: '24px',
-                                    padding: '0 12px 0 12px'
-                                }}
-                            >
-                                <div className='importantText'>
-                                    Card
-                                </div>
-                                <div className='importantText' style={{ marginLeft: 'auto' }}>
-                                    Score
-                                </div>
-                            </div>
-                            <div
-                                style={{
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    // width: '100%',
-                                    justifyContent: 'space-around',
-                                    alignItems: 'center',
-                                    backgroundColor: 'rgba(255,255,255, 0.1)',
-                                    padding: '6px'
-                                }}
-                            >
-                                {finalLoggedWeightIncrease2}
-                            </div>
-
-                        </div> */}
+                        <div id='right_pillar' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginRight: '6px' }} />
                     </div>
+
                 </div>
             </div>
         </div >

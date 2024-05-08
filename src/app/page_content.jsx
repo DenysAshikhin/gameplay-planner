@@ -152,10 +152,6 @@ export default function Home() {
   }, []);
 
 
-
-
-
-
   const calc_future_state = function (plants, time) {
 
     let timeIncrease = 1; //how many seconds at a time we will skip forward
@@ -203,11 +199,9 @@ export default function Home() {
     return { plants: futurePlants, HP_produced: HP_produced }
   }
 
-
   let plants_original = [{ amount: 1, production: 1, multiplier: 1 }, { amount: 1, production: 1, multiplier: 2 },];
   let result = calc_future_state(plants_original, 10);
   console.log(result);
-
 
 
   return (
@@ -376,6 +370,7 @@ export default function Home() {
           </button>
         </div>
       </div>
+      <div id='right_pillar' style={{ position: 'absolute', top: '0', right: '0', display: 'flex', height: '100vh', justifyContent: 'center', alignItems: 'center', }} />
     </div>
   )
 }

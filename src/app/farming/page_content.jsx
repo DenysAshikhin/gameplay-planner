@@ -1507,12 +1507,21 @@ const FarmingLanding = () => {
     return (
         <div
             // className='importantText'
-            style={{ height: '100%', display: 'flex', flex: 1, flexDirection: 'column', paddingLeft: '6px', maxWidth: 'calc(100% - 6px)', minHeight: '0', backgroundColor: 'black', }}
+            style={{
+                height: '100%',
+                display: 'flex',
+                flex: 1,
+                flexDirection: 'column',
+                paddingLeft: '6px',
+                maxWidth: 'calc(100% - 6px)',
+                minHeight: '0',
+                backgroundColor: 'black',
+            }}
         >
             <div style={{
                 display: 'flex', flex: 1,
                 flexDirection: 'column',
-                width: '100%',
+                // width: '100%',
                 minHeight: '0'
             }}>
                 {/* Ad spot */}
@@ -2867,37 +2876,48 @@ const FarmingLanding = () => {
                                 width: 'calc(100% - 12px)'
 
                             }}>
-                            {/* Graph stuff */}
-                            <div style={{
-                                display: 'flex',
-                                flex: 1,
-                                position: 'absolute',
-                                height: '99%',
-                                width: '100%',
-                                minWidth: '400px',
-                                overflow: 'hidden'
-                            }}>
-                                <Graph
-                                    graphObjects={graphObjects}
-                                    runningGraphObjects={runningGraphObjects}
-                                    showCalc={(farmCalcProgress.current === farmCalcProgress.max && farmCalcProgress.current !== 0 && bestPlantCombo.prod && calcDone)}
-                                    yScale={yScale}
-                                    bestPic={!!bestPlantCombo?.bestPic?.pic}
-                                    expDiff={expDiff}
-                                    expDiffFry={expDiffFry}
-                                    displayPicPerc={displayPicPerc}
-                                    calcDone={calcDone}
-                                    calcAFK={calcAFK}
-                                    showFries={showFries}
-                                    showHP={showHP}
-                                    tooManyAuto={tooManyAuto}
-                                />
+
+                            <div
+                                style={{ display: 'flex', flex: '1' }}
+                            >
+                                {/* Graph stuff */}
+                                <div style={{
+                                    display: 'flex',
+                                    flex: 1,
+                                    position: 'relative',
+                                    height: '99%',
+                                    // width: '100%',
+                                    minWidth: '400px',
+                                    overflow: 'hidden'
+                                }}>
+                                    <Graph
+                                        graphObjects={graphObjects}
+                                        runningGraphObjects={runningGraphObjects}
+                                        showCalc={(farmCalcProgress.current === farmCalcProgress.max && farmCalcProgress.current !== 0 && bestPlantCombo.prod && calcDone)}
+                                        yScale={yScale}
+                                        bestPic={!!bestPlantCombo?.bestPic?.pic}
+                                        expDiff={expDiff}
+                                        expDiffFry={expDiffFry}
+                                        displayPicPerc={displayPicPerc}
+                                        calcDone={calcDone}
+                                        calcAFK={calcAFK}
+                                        showFries={showFries}
+                                        showHP={showHP}
+                                        tooManyAuto={tooManyAuto}
+                                    />
+                                </div>
+
+                                {/* right pillar */}
+                                <div id='right_pillar' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', }} />
+
                             </div>
+
                         </div>
 
                     </div>
                 </div>
             </div >
+
         </div >
     );
 };

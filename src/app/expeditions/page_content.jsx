@@ -2963,6 +2963,10 @@ export default function Expeditions() {
                 </div>
             </div>
 
+{/* pillar right  */}
+<div id='right_pillar' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', }} />
+
+
         </div >
     );
 }
