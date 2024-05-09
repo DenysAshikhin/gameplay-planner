@@ -24,16 +24,16 @@ const create_rightPillar_flex = function () {
     holder_div.style.zIndex = '99';
 
     let div_id = document.createElement("div");
-    // div_id.id = "mmt-38d6c2a4-7902-44c3-8089-3891fecb881c";
+    div_id.id = "mmt-34313a9b-cd87-458f-a4c0-86ffb8000bcb";
 
-    div_id.style.width = '200px';
-    div_id.style.height = '600px';
-    div_id.style.backgroundColor = 'red';
+    // div_id.style.width = '200px';
+    // div_id.style.height = '600px';
+    // div_id.style.backgroundColor = 'red';
     holder_div.appendChild(div_id);
 
-    // const script_holder = '<script type="text/javascript" data-cfasync="false">$MMT = window.$MMT || {}; $MMT.cmd = $MMT.cmd || [];$MMT.cmd.push(function(){ $MMT.display.slots.push(["38d6c2a4-7902-44c3-8089-3891fecb881c"]); })</script>';
-    // const fragment = document.createRange().createContextualFragment(script_holder);
-    // holder_div.appendChild(fragment);
+    const script_holder = '<script type="text/javascript" data-cfasync="false">$MMT = window.$MMT || {}; $MMT.cmd = $MMT.cmd || [];$MMT.cmd.push(function(){ $MMT.display.slots.push(["34313a9b-cd87-458f-a4c0-86ffb8000bcb"]); });</script>';
+    const fragment = document.createRange().createContextualFragment(script_holder);
+    holder_div.appendChild(fragment);
     return holder_div;
 }
 const create_footer_in_screen = function () {
