@@ -101,7 +101,7 @@ export default function RootLayout({ children }) {
           // width: '100vw',
           height: '90px', display: 'flex', justifyContent: 'center', alignItems: 'center',
         }} />
-        <div id='right_pillar' style={{ position: 'absolute', top: '0', right: '0', display: 'flex', height: '100vh', justifyContent: 'center', alignItems: 'center', }} />
+        <div id='right_pillar' style={{ position: 'absolute', top: '0', right: '0', display: 'flex', height: 'calc(100vh - 36px)', justifyContent: 'center', alignItems: 'center', }} />
         <div id='footer_in_screen' style={{
           position: 'absolute', bottom: '0',
           left: '35%',
