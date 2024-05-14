@@ -695,6 +695,33 @@ export const getPet = (id) => {
     return { ...petNames[9999], petId: id };
 }
 
+
+export const ir_id = 6;
+export const reinc_id = 5;
+export const att_hp_id = 17;
+export const class_id = 2;
+export const milk_id = 8;
+export const whack_id = 9;
+export const hp_id = 23;
+export const worm_qty_id = 14;
+export const skull_id = 3;
+export const ferment_id = 12;
+export const pet_level_id = 19;
+export const gh_id = 29;
+export const conf_id = 4;
+export const calcium_id = 11;
+export const res_id = 13;
+export const card_exp_id = 22;
+export const card_pow_id = 21;
+export const prot_id = 28;
+export const mine_exp_id = 34;
+export const mine_pow_id = 35;
+export const pet_rank_id = 20;
+export const reinc_pts_id = 31;
+export const fry_id = 27;
+export const op_level_id = 38;
+
+
 export const BonusMap = {
     _: { disabled: false, defaultWeight: 1, id: -1, label: "Unknown", img: null },
     1: { disabled: false, defaultWeight: 25, id: 1, label: "Potato", img: potatoesAL },
@@ -734,6 +761,7 @@ export const BonusMap = {
     35: { disabled: false, defaultWeight: 1, id: 35, label: 'Mining Power', img: mining_pow_al },
     36: { disabled: false, defaultWeight: 1500, id: 36, label: 'Building Speed', img: buildTime_AL },
     37: { disabled: false, defaultWeight: 1500, id: 37, label: 'Renown Bonus', img: renownAL },
+    38: { disabled: false, defaultWeight: 1, id: 38, label: 'Outpost Level', img: null },
     1001: { id: 1001, label: "Potato Gain" },
     1002: { id: 1002, label: "Class Exp gain" },
     1003: { id: 1003, label: "Skull Gain" },

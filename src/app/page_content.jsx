@@ -262,7 +262,16 @@ export default function Home() {
                   {`"copysave"`}
                 </div>
                 <div>
-                  in the reward code box (found in settings, gift box icon)
+                  {`in the reward code box (found in settings, gift box icon). If that doesn't work, try doing it in 2 steps->`}
+                </div>
+                <div style={{ fontWeight: 'bold', color: "darkred", margin: "0 6px" }}>
+                  {`"copysave1"`}
+                </div>
+                <div>
+                  {`then after that`}
+                </div>
+                <div style={{ fontWeight: 'bold', color: "darkred", margin: "0 6px" }}>
+                  {`"copysave2"`}
                 </div>
               </div>
 

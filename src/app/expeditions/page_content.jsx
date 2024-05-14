@@ -55,7 +55,7 @@ function ScoreSection({ data, group, totalScore, defaultRank }) {
     const { baseGroupScore, groupScoreMax, dmgCount, timeCount, synergyBonus, groupScore, groupRankScore } = petHelper.calculateGroupScore(group, defaultRank);
     const score = groupRankScore;
     // const displayedDamage = (score * 5 * data.PetDamageBonuses).toExponential(2);
-    const displayedDamage = mathHelper.multiplyDecimal(data.petDamageBD, score * 5).toExponential(2);;
+    const displayedDamage = mathHelper.multiplyDecimal(data.petDamageBD, score * 5).toExponential(2);
     return (
         <>
             <ul>

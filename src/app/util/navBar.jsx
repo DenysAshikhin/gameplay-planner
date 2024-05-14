@@ -63,6 +63,33 @@ const NavBar = ({ }) => {
         </div>
       </Link>
 
+      {/* Expedition 2 Page */}
+      <Link href="/zones" alt="navigation to expeditions page">
+        <div
+          className="navItem"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            // margin: "16px 0",
+          }}
+        >
+          <div
+            style={{
+              width: "42px",
+              height: "42px",
+              position: "relative",
+            }}
+          >
+            <Image
+              alt="shield through a sword icon page navigation to expeditions 2 page"
+              fill
+              src={`/images/icons/sword_shield.svg`}
+            />
+          </div>
+        </div>
+      </Link>
+
       {/* Pets Page */}
       <Link
         href="/pets"
