@@ -186,7 +186,7 @@ var helper = {
     calculateGroupDamage: function (group, data) {
         return (
             math_helper.multiplyDecimal(
-                math_helper.createDecimal(data.PetDamageBonusesBD),
+                math_helper.createDecimal(data.PetDamageBonusesBD ? data.PetDamageBonusesBD : 1),
                 this.calculateGroupScore(group).groupScore * 5)
         );
     },

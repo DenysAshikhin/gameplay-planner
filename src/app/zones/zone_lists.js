@@ -29,172 +29,198 @@ import {
 
 import mathHelper from '../util/math.js';
 
+import apple_domain_img from '../../../public/images/zones/Apple Domain.png';
+import avacodo_river_img from '../../../public/images/zones/Avocado River.png';
+import banana_volcano_img from '../../../public/images/zones/Banana Volcano.png';
+import basil_counter_img from '../../../public/images/zones/Basil Country.png';
+import butternut_forest_img from '../../../public/images/zones/Butternut Forest.png';
+import cheddar_plain_img from '../../../public/images/zones/Cheddar Plain.png';
+import chocolate_world_img from '../../../public/images/zones/Chocolate World.png';
+import cinnamon_station_img from '../../../public/images/zones/Cinnamon Station.png';
+import croissant_castle_img from '../../../public/images/zones/Croissant Castle.png';
+import cucumber_region_img from '../../../public/images/zones/Cucumber Region.png';
+import donut_cavern_img from '../../../public/images/zones/Donut Cavern.png';
+import emmental_canyon_img from '../../../public/images/zones/Emmental Canyon.png';
+import garlic_iceland_img from '../../../public/images/zones/Garlic Iceland.png';
+import guacamole_grotto_img from '../../../public/images/zones/Guacamole Grotto.png';
+import kiwi_land_img from '../../../public/images/zones/Kiwi Land.png';
+import lettuce_sea_img from '../../../public/images/zones/Lettuce Sea.png';
+import mozzarella_meadow_img from '../../../public/images/zones/Mozzarella Meadow.png';
+import munster_desert_img from '../../../public/images/zones/Munster Desert.png';
+import onion_img from '../../../public/images/zones/Onion.png';
+import orange_mountain_img from '../../../public/images/zones/Orange Mountain.png';
+import pancake_road_img from '../../../public/images/zones/Pancake Road.png';
+import salmon_lake_img from '../../../public/images/zones/Salmon Lake.png';
+import tune_waterfall_img from '../../../public/images/zones/Tuna Waterfall.png';
+import zucchini_field_img from '../../../public/images/zones/Zucchini Field.png';
+
+
 export const zone_data = {}
 zone_data[1] = {
     label: 'Butternut Forest',
     id: 1,
-    img: null,
+    img: butternut_forest_img,
     bonus_id: att_hp_id,
     order: 1,
 }
 zone_data[2] = {
     label: 'Cheddar Plain',
     id: 2,
-    img: null,
+    img: cheddar_plain_img,
     bonus_id: class_id,
     order: 2,
 }
 zone_data[3] = {
     label: 'Guacamole Grotto',
     id: 3,
-    img: null,
+    img: guacamole_grotto_img,
     bonus_id: milk_id,
     order: 3,
 }
 zone_data[4] = {
     label: 'Orange Mountain',
     id: 4,
-    img: null,
+    img: orange_mountain_img,
     bonus_id: whack_id,
     order: 4,
 }
 zone_data[16] = {
     label: 'Avaocado River',
     id: 16,
-    img: null,
+    img: avacodo_river_img,
     bonus_id: hp_id,
     order: 5,
 }
 zone_data[5] = {
     label: 'Zucchini Field',
     id: 5,
-    img: null,
+    img: zucchini_field_img,
     bonus_id: ir_id,
     order: 6,
 }
 zone_data[6] = {
     label: 'Munster Desert',
     id: 6,
-    img: null,
+    img: munster_desert_img,
     bonus_id: worm_qty_id,
     order: 7,
 }
 zone_data[7] = {
     label: 'Pancake Road',
     id: 7,
-    img: null,
+    img: pancake_road_img,
     bonus_id: skull_id,
     order: 8,
 }
 zone_data[8] = {
     label: 'Salmon Lake',
     id: 8,
-    img: null,
+    img: salmon_lake_img,
     bonus_id: ferment_id,
     order: 9,
 }
 zone_data[9] = {
     label: 'Garlic Iceland',
     id: 9,
-    img: null,
+    img: garlic_iceland_img,
     bonus_id: pet_level_id,
     order: 10,
 }
 zone_data[17] = {
     label: 'Banana Volcano',
     id: 17,
-    img: null,
+    img: banana_volcano_img,
     bonus_id: gh_id,
     order: 11,
 }
 zone_data[10] = {
     label: 'Cinnamon Station',
     id: 10,
-    img: null,
+    img: cinnamon_station_img,
     bonus_id: reinc_id,
     order: 12,
 }
 zone_data[11] = {
     label: 'Apple Domain',
     id: 12,
-    img: null,
+    img: apple_domain_img,
     bonus_id: conf_id,
     order: 13,
 }
 zone_data[12] = {
     label: 'Donut Cavern',
     id: 13,
-    img: null,
+    img: donut_cavern_img,
     bonus_id: calcium_id,
     order: 14,
 }
 zone_data[13] = {
     label: 'Emmental Canyon',
     id: 14,
-    img: null,
+    img: emmental_canyon_img,
     bonus_id: res_id,
     order: 15,
 }
 zone_data[14] = {
     label: 'Lettuce Sea',
     id: 15,
-    img: null,
+    img: lettuce_sea_img,
     bonus_id: card_exp_id,
     order: 16,
 }
 zone_data[18] = {
     label: 'Onion Hilltop',
     id: 18,
-    img: null,
+    img: onion_img,
     bonus_id: prot_id,
     order: 17,
 }
 zone_data[15] = {
     label: 'Tuna Waterfall',
     id: 16,
-    img: null,
+    img: tune_waterfall_img,
     bonus_id: card_pow_id,
     order: 18,
 }
 zone_data[19] = {
     label: 'Kiwi Land',
     id: 19,
-    img: null,
+    img: kiwi_land_img,
     bonus_id: mine_exp_id,
     order: 19,
 }
 zone_data[20] = {
     label: 'Croissant Castle',
     id: 20,
-    img: null,
+    img: croissant_castle_img,
     bonus_id: pet_rank_id,
     order: 20,
 }
 zone_data[21] = {
     label: 'Mozzarella Meadow',
     id: 21,
-    img: null,
+    img: mozzarella_meadow_img,
     bonus_id: mine_pow_id,
     order: 21,
 }
 zone_data[22] = {
     label: 'Cucumber Region',
     id: 22,
-    img: null,
+    img: cucumber_region_img,
     bonus_id: reinc_pts_id,
     order: 22,
 }
 zone_data[23] = {
     label: 'Basil Country',
     id: 23,
-    img: null,
+    img: basil_counter_img,
     bonus_id: fry_id,
     order: 23,
 }
 zone_data[24] = {
     label: 'Chocolate World',
     id: 24,
-    img: null,
+    img: chocolate_world_img,
     bonus_id: op_level_id,
     order: 24,
 }
@@ -236,13 +262,16 @@ zone_ratios[prot_id] = 0.01;
 zone_ratios[worm_qty_id] = 0.01; //Chris hates me 
 zone_ratios[conf_id] = 0.01; //Chris hates me
 
+ 
+export const calc_max_hp = function (zone, data, params) {
 
-export const calc_max_hp = function (zone, data) {
+    const levelOffset = params?.levelOffset ? params.levelOffset : 0;
 
     const ID = zone.ID;
-    const Room = zone.Room;
+    const Room = zone.Room + levelOffset;
     const HPIncrease = zone.HPIncrease;
-    const BaseHPBD = mathHelper.createDecimal(zone.BaseHPBD);
+    const BaseHPBD = mathHelper.createDecimal(zone.BaseHPBD ? zone.BaseHPBD : zone.BaseHP);
+
 
     const WAPExpeditionScalingReduced = data.WAPExpeditionScalingReduced ? data.WAPExpeditionScalingReduced : 0;
     const ExpeShopExpeditionScalingReductionLevel = data.ExpeShopExpeditionScalingReductionLevel ? data.ExpeShopExpeditionScalingReductionLevel : 0;
@@ -291,4 +320,17 @@ export const calc_max_hp = function (zone, data) {
         )
     );
 
+}
+
+export const calc_total_hp = function (zone, data, params) {
+
+    let running_hp = mathHelper.subtractDecimal(zone.max_hp, zone.curr_hp);
+
+    let offset = 1;
+    while (offset < zone.Room) {
+        running_hp = mathHelper.addDecimal(running_hp, calc_max_hp(zone, data, { levelOffset: -offset }));
+        offset++;
+    }
+
+    return running_hp;
 }

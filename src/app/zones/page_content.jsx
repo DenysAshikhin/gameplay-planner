@@ -7,6 +7,7 @@ ReactGA.initialize([{
     trackingId: "G-GGLPK02VH8",
 }]);
 
+import Zone_CSS from './zone.css';
 import infoIcon from '../../../public/images/icons/info_thick.svg';
 import MouseOverPopover from "../util/Tooltip.jsx";
 import DefaultSave from '../util/tempSave.json';
@@ -15,9 +16,11 @@ import mathHelper from '../util/math.js';
 import helper from '../util/helper.js';
 import petHelper from '../util/petHelper.js';
 import Image from 'next/image';
+import Priority_list from './priority_list.jsx';
 
-import { zone_priority, zone_ratios, zone_data, calc_max_hp } from './zone_lists.js';
-import { petNames } from '../util/itemMapping.js';
+import RefreshIcon from '../../../public/images/icons/refresh_lightgray.svg';
+import { zone_priority, zone_ratios, zone_data, calc_max_hp, calc_total_hp } from './zone_lists.js';
+import { petNames, BonusMap } from '../util/itemMapping.js';
 
 export default function Zones() {
 
@@ -37,10 +40,23 @@ export default function Zones() {
 
     const [clientData, setData] = useLocalStorage('userData', DefaultSave);
     const [data, setRunTimeData] = useState(DefaultSave);
-
     useEffect(() => {
         setRunTimeData(clientData);
     }, [clientData]);
+
+    const [ZONE_PRIORITY, setZonePriority] = useLocalStorage('zone_priority', zone_priority);
+    const [zone_priority_client, setZonePriorityClient] = useState(zone_priority);
+
+    useEffect(() => {
+        setZonePriorityClient(ZONE_PRIORITY);
+    }, [ZONE_PRIORITY]);
+
+    const [ZONE_RATIOS, setZoneRatios] = useLocalStorage('zone_ratios', zone_ratios);
+    const [zone_ratios_client, setZoneRatiosClient] = useState(zone_ratios);
+
+    useEffect(() => {
+        setZoneRatiosClient(ZONE_RATIOS);
+    }, [ZONE_RATIOS]);
 
     const pets_global = useMemo(() => {
         let map = {};
@@ -83,6 +99,7 @@ export default function Zones() {
     let current_zones = [];
     let zones_in_priority = [];
     let zone_suggestions = [];
+    let unlocked_ids = {};
 
     let zone_leader = {
         current: -1,
@@ -119,16 +136,21 @@ export default function Zones() {
         if (curr_zone.ID === 0) return;
         if (curr_zone.Locked === 0) return;
         let zone = JSON.parse(JSON.stringify(curr_zone));
-        let curr_hp = mathHelper.createDecimal(zone.CurrentHPBD);
+
+        let curr_hp = mathHelper.createDecimal(zone.CurrentHPBD ? zone.CurrentHPBD : zone.CurrentHP);//s
         let max_hp = calc_max_hp(curr_zone, data);
 
         zone.curr_hp = curr_hp;
         zone.max_hp = max_hp;
+        zone.total_hp = calc_total_hp(zone, data, {});
         zone.label = zone_data[curr_zone.ID].label;
         zone.order = zone_data[curr_zone.ID].order;
         zone.bonus_id = zone_data[curr_zone.ID].bonus_id;
-        zone.ratio = zone_ratios[zone.bonus_id];
-        let leader_index = zone_priority.findIndex((element) => element.id === zone.bonus_id);
+        unlocked_ids[zone_data[curr_zone.ID].bonus_id] = zone;
+        // zone.ratio = zone_ratios[zone.bonus_id];
+        zone.ratio = zone_ratios_client[zone.bonus_id];
+        // let leader_index = zone_priority.findIndex((element) => element.id === zone.bonus_id);
+        let leader_index = zone_priority_client.findIndex((element) => element.id === zone.bonus_id);
         zone.priority_index = leader_index === -1 ? 99 : leader_index;
 
         current_zones.push(zone);
@@ -146,15 +168,13 @@ export default function Zones() {
     current_zones.sort((a, b) => a.order - b.order);
     zones_in_priority.sort((a, b) => a.priority_index - b.priority_index);
     zone_leader = zone_leader.current;
-    console.log(`leader`)
-    console.log(zone_leader);
 
     //this target hp will be used against all other thing
-    zone_leader.target_hp = mathHelper.multiplyDecimal(zone_leader.max_hp, zone_leader.ratio);
+    zone_leader.target_hp = zone_leader.total_hp;
     //Go through and update target hp's based on zone_leader
     zones_in_priority.forEach((inner_zone) => {
         if (inner_zone.target_hp) return;//meaning it's the leader
-        inner_zone.target_hp = mathHelper.multiplyDecimal(zone_leader.max_hp, inner_zone.ratio);
+        inner_zone.target_hp = mathHelper.multiplyDecimal(zone_leader.target_hp, inner_zone.ratio);
     });
 
     //go through and fill up the suggestion based on num of teamss
@@ -166,7 +186,8 @@ export default function Zones() {
 
         zones_in_priority.forEach((inner_zone, index) => {
             if (zone_found) return;//found a zone to satisfy by priority
-            if (inner_zone.target_hp.greaterThan(inner_zone.max_hp)) {
+            //If the amount of damage i dealt to this zone is less than the ratio compared to leader, then I need to hit this more
+            if (inner_zone.target_hp.greaterThan(inner_zone.total_hp)) {
                 zone_to_satisfy = inner_zone;
                 zone_index = index;
                 zone_found = true;
@@ -178,7 +199,8 @@ export default function Zones() {
 
         let team_to_use = teams[team_index];
         team_index++;
-        let hp_diff = mathHelper.subtractDecimal(zone_to_satisfy.target_hp, zone_to_satisfy.max_hp);
+
+        let hp_diff = mathHelper.subtractDecimal(zone_to_satisfy.target_hp, zone_to_satisfy.total_hp);
         let hours = mathHelper.divideDecimal(hp_diff, team_to_use.damage).toNumber();
         zone_to_satisfy.hours = zone_found === false ? -1 : Math.ceil(hours);
         zone_to_satisfy.team = team_to_use;
@@ -186,11 +208,6 @@ export default function Zones() {
         zone_suggestions.push(zone_to_satisfy);
         zones_in_priority.splice(zone_index, 1)
     }
-
-
-    console.log(`zone suggestions:`);
-    console.log(zone_suggestions);
-
 
     return (
         <div
@@ -205,7 +222,112 @@ export default function Zones() {
             }}
         >
 
-            {/* Zone Suggestion */}
+            {/* Zone Priority */}
+            <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', maxHeight: 'calc(100vh - 102px)' }}>
+                {/* Title Section */}
+                <div className='importantText'
+                    style={{
+                        display: 'flex',
+                        // alignSelf: 'flex-start',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        // margin: '6px 12px 0',
+                        border: '1px solid white',
+                        borderRadius: '12px',
+                        width: '271px',
+                        fontSize: '24px',
+                        fontWeight: 'bold',
+                        backgroundColor: 'rgba(255,255,255, 0.07)',
+                    }}
+                >
+                    {`Bonus Priority`}
+                    <MouseOverPopover tooltip={
+                        <div style={{ padding: '6px' }}>
+                            <div>
+                                {`The top priority bonus (expedition) that you have unlocked becomes your leader. All zones below it have their progress measured as a ratio of the leaders 
+    max hp`}
+                            </div>
+                            <div>
+                                {`For example, if Item Rating (Zucchini) is your leader, and Att/Hp (Butternut) is the next in the list at 20. It means it will only recommend to run butternut when it's max hp is
+                                less 20% of zucchini's max hp`}
+                            </div>
+                        </div>
+                    }>
+                        <div style={{ position: 'relative', marginLeft: '12px', width: '24px', height: '24px' }}>
+
+                            <Image
+                                alt='on hover I in a cirlce icon, shows more information on hover'
+                                fill
+                                src={infoIcon}
+                                unoptimized={true}
+                            />
+                        </div>
+
+                    </MouseOverPopover>
+
+                    <MouseOverPopover tooltip={
+                        <div style={{ padding: '6px' }}>
+                            <div>
+                                {`Sets the priority list order to default`}
+                            </div>
+                        </div>
+                    }>
+                        <div className='hover'
+                            style={{ position: 'relative', width: '18px', height: '18px', marginLeft: '12px', marginTop: '0px' }}
+                            onClick={() => {
+                                setZonePriority(JSON.parse(JSON.stringify(zone_priority)));
+                            }}
+                        >
+                            <Image src={RefreshIcon} fill unoptimized alt='reset, 2 arrows in a circle' />
+                        </div>
+
+                    </MouseOverPopover>
+                </div>
+                <div className='importantText'
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignSelf: 'flex-start',
+                        justifyContent: 'center',
+                        margin: '6px 12px 0',
+                        border: '1px solid white',
+                        borderRadius: '12px',
+                        width: '260px',
+                        backgroundColor: 'rgba(255,255,255, 0.07)',
+                        padding: '6px 6px 6px 6px',
+                        maxHeight: '100%'
+                    }}
+                >
+
+                    <Priority_list
+                        priorityList={zone_priority_client}
+                        setPriorityList={setZonePriority}
+                        zoneRatios={zone_ratios_client}
+                        setZoneRatios={setZoneRatios}
+                        zone_data={zone_data}
+                        default_list={zone_priority}
+                        default_ratios={zone_ratios}
+                        unlocked_bonuses={unlocked_ids}
+                        leader={zone_leader}
+                    />
+                    {/* <div style={{ width: '100%', height: '100%', overflowY: 'auto', overflowX: 'hidden', maxHeight: '100%' }}>
+
+                        {zone_priority.map((curr_val, index) => {
+                            return (
+                                <div key={`${index}`} style={{ margin: '6px 0' }}>
+                                    {`${index + 1}) ${curr_val.label} - ${zone_ratios_client[curr_val.id] * 100}%`}
+                                </div>
+                            )
+                        })}
+                    </div> */}
+                </div>
+            </div>
+
+
+
+
+
+            {/* zones to run! */}
             <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', maxHeight: 'calc(100vh - 102px)' }}>
                 <div className='importantText'
                     style={{
@@ -216,13 +338,13 @@ export default function Zones() {
                         // margin: '6px 12px 0',
                         border: '1px solid white',
                         borderRadius: '12px',
-                        width: '300px',
+                        width: '630px',
                         fontSize: '24px',
                         fontWeight: 'bold',
                         backgroundColor: 'rgba(255,255,255, 0.07)',
                     }}
                 >
-                    {`Suggested Expedition Zones To Run`}
+                    {`Zones To Run`}
                     <MouseOverPopover tooltip={
                         <div style={{ padding: '6px' }}>
                             {`BLAH BLAH BLAH BLAH`}
@@ -242,6 +364,7 @@ export default function Zones() {
                 <div className='importantText'
                     style={{
                         display: 'flex',
+                        flex: '1',
                         flexDirection: 'column',
                         // gap: '12px',
                         alignSelf: 'flex-start',
@@ -250,7 +373,7 @@ export default function Zones() {
                         margin: '6px 12px 0',
                         border: '1px solid white',
                         borderRadius: '12px',
-                        width: '300px',
+                        width: '620px',
                         // fontSize: '24px',
                         // fontWeight: 'bold',
                         backgroundColor: 'rgba(255,255,255, 0.07)',
@@ -258,12 +381,73 @@ export default function Zones() {
                         maxHeight: '100%'
                     }}
                 >
-                    <div style={{ width: '100%', height: '100%', overflowY: 'auto', overflowX: 'hidden', maxHeight: '100%' }}>
 
-                        {zone_priority.map((curr_val, index) => {
+                    <div style={{ width: '100%', height: '100%', overflowY: 'auto', overflowX: 'hidden', maxHeight: '100%' }}>
+                        {zone_suggestions.sort((a,b)=>{
+                            if(a.hours === -1 && b.hours === -1){
+                                return 0;
+                            }
+                            else if(a.hours === -1){
+                                return -1;
+                            }
+                            return 1
+                        }).map((cur_exp, index) => {
                             return (
-                                <div key={`${index}`} style={{ margin: '6px 0' }}>
-                                    {`${index + 1}) ${curr_val.label} - ${zone_ratios[curr_val.id] * 100}%`}
+                                <div key={`${index}`}
+                                    style={{
+                                        margin: '6px 0', display: 'flex', position: 'relative',
+                                        width: '600px', height: '150px',
+                                    }}
+                                >
+                                    <div style={{ position: 'absolute', width: '600px', height: '150px', top: '0', left: '0' }}>
+                                        <Image
+                                            alt='on hover I in a cirlce icon, shows more information on hover'
+                                            fill
+                                            src={zone_data[cur_exp.ID].img}
+                                            unoptimized={true}
+                                        />
+                                    </div>
+
+                                    {/* Center title */}
+                                    <div style={{
+                                        position: 'absolute', top: '3%', left: '0', fontWeight: 'bold', fontSize: '20px',
+
+                                        display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%'
+                                    }}>
+                                        {`${cur_exp.label} (${BonusMap[cur_exp.bonus_id].label})`}
+                                    </div>
+
+                                    {/* Hours to Run */}
+                                    <div style={{
+                                        position: 'absolute', top: '5%', display: 'flex', justifyContent: 'flex-end', alignItems: 'center', width: '100%', marginLeft: '-6px',
+                                        // color: cur_exp.hours === -1 ? '' : 'green'
+                                    }}
+                                    >
+                                        {`Hours: ${cur_exp.hours === -1 ? 'infinite' : cur_exp.hours}`}
+                                    </div>
+
+                                    {/*Current HP */}
+                                    <div style={{
+                                        position: 'absolute', top: '5%', display: 'flex', justifyContent: 'flex-start', alignItems: 'center', width: '100%', marginLeft: '6px',
+                                    }}
+                                    >
+                                        {`Total HP: ${cur_exp.total_hp.toExponential(2)}`}
+                                    </div>
+                                    {/*Target HP */}
+                                    <div style={{
+                                        position: 'absolute', bottom: '5%', display: 'flex', justifyContent: 'flex-start', alignItems: 'center', width: '100%', marginLeft: '6px',
+                                    }}
+                                    >
+                                        {`Target HP: ${cur_exp.target_hp.toExponential(2)}`}
+                                    </div>
+
+                                    {/* Which Team to run */}
+                                    <div style={{
+                                        position: 'absolute', bottom: '5%', display: 'flex', justifyContent: 'flex-end', alignItems: 'center', width: '100%', marginLeft: '-6px'
+                                    }}
+                                    >
+                                        {`Team to run: ${cur_exp.team.name}`}
+                                    </div>
                                 </div>
                             )
                         })}
@@ -271,8 +455,9 @@ export default function Zones() {
                 </div>
             </div>
 
-
-            {/* current zones */}
+            {/* Miscelleneous settings */}
+            {/* 
+            
             <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', maxHeight: 'calc(100vh - 102px)' }}>
                 <div className='importantText'
                     style={{
@@ -310,16 +495,11 @@ export default function Zones() {
                     style={{
                         display: 'flex',
                         flexDirection: 'column',
-                        // gap: '12px',
                         alignSelf: 'flex-start',
-                        // alignItems: 'center',
                         justifyContent: 'center',
                         margin: '6px 12px 0',
                         border: '1px solid white',
                         borderRadius: '12px',
-                        width: '400px',
-                        // fontSize: '24px',
-                        // fontWeight: 'bold',
                         backgroundColor: 'rgba(255,255,255, 0.07)',
                         padding: '6px 6px 6px 6px',
                         maxHeight: '100%'
@@ -333,11 +513,8 @@ export default function Zones() {
                                     <div style={{ color: cur_exp.ID === zone_leader?.ID ? 'blue' : '' }}>
                                         {`${cur_exp.label}: ${cur_exp.Room}`}
                                     </div>
-                                    {/* <div style={{ marginLeft: '12px' }}>
-                                        {`Curr HP: ${cur_exp.curr_hp.toExponential(2)}`}
-                                    </div> */}
                                     <div style={{ marginLeft: '12px' }}>
-                                        {`Max HP: ${cur_exp.max_hp.toExponential(2)}`}
+                                        {`Total HP: ${cur_exp.total_hp.toExponential(2)}`}
                                     </div>
                                 </div>
                             )
@@ -345,84 +522,10 @@ export default function Zones() {
                     </div>
                 </div>
             </div>
-
-
-            {/* zones to run! */}
+            
+            
+            
             <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', maxHeight: 'calc(100vh - 102px)' }}>
-                <div className='importantText'
-                    style={{
-                        display: 'flex',
-                        // alignSelf: 'flex-start',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        // margin: '6px 12px 0',
-                        border: '1px solid white',
-                        borderRadius: '12px',
-                        width: '400px',
-                        fontSize: '24px',
-                        fontWeight: 'bold',
-                        backgroundColor: 'rgba(255,255,255, 0.07)',
-                    }}
-                >
-                    {`Zones To Run`}
-                    <MouseOverPopover tooltip={
-                        <div style={{ padding: '6px' }}>
-                            {`BLAH BLAH BLAH BLAH`}
-                        </div>
-                    }>
-                        <div style={{ position: 'relative', marginLeft: '12px', width: '24px', height: '24px' }}>
-
-                            <Image
-                                alt='on hover I in a cirlce icon, shows more information on hover'
-                                fill
-                                src={infoIcon}
-                                unoptimized={true}
-                            />
-                        </div>
-                    </MouseOverPopover>
-                </div>
-                <div className='importantText'
-                    style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        // gap: '12px',
-                        alignSelf: 'flex-start',
-                        // alignItems: 'center',
-                        justifyContent: 'center',
-                        margin: '6px 12px 0',
-                        border: '1px solid white',
-                        borderRadius: '12px',
-                        width: '400px',
-                        // fontSize: '24px',
-                        // fontWeight: 'bold',
-                        backgroundColor: 'rgba(255,255,255, 0.07)',
-                        padding: '6px 6px 6px 6px',
-                        maxHeight: '100%'
-                    }}
-                >
-
-                    <div style={{ width: '100%', height: '100%', overflowY: 'auto', overflowX: 'hidden', maxHeight: '100%' }}>
-                        {zone_suggestions.map((cur_exp, index) => {
-                            return (
-                                <div key={`${index}`} style={{ margin: '6px 0', display: 'flex' }}>
-                                    <div style={{}}>
-                                        {`${cur_exp.label} -> ${cur_exp.team.name}`}
-                                    </div>
-                                    {/* <div style={{ marginLeft: '12px' }}>
-                                        {`Curr HP: ${cur_exp.curr_hp.toExponential(2)}`}
-                                    </div> */}
-                                    <div style={{ marginLeft: '12px' }}>
-                                        {`Hours: ${cur_exp.hours}`}
-                                    </div>
-                                </div>
-                            )
-                        })}
-                    </div>
-                </div>
-            </div>
-
-            {/* Miscelleneous settings */}
-            {/* <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', maxHeight: 'calc(100vh - 102px)' }}>
 
 
                 <div className='importantText'

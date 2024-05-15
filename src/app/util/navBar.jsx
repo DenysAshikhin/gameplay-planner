@@ -63,8 +63,8 @@ const NavBar = ({ }) => {
         </div>
       </Link>
 
-      {/* Expedition 2 Page */}
-      <Link href="/zones" alt="navigation to expeditions page">
+      {/* Zones */}
+      {/* <Link href="/zones" alt="navigation to zones (expedition) page">
         <div
           className="navItem"
           style={{
@@ -88,7 +88,7 @@ const NavBar = ({ }) => {
             />
           </div>
         </div>
-      </Link>
+      </Link> */}
 
       {/* Pets Page */}
       <Link
