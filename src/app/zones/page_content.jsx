@@ -85,7 +85,7 @@ export default function Zones() {
         inner_team.name = cur_team.Name;
         teams.push(inner_team);
     });
-    if (teams.length === 0) return;
+
     teams.sort((a, b) => {
         return a.damage.greaterThan(b.damage) ? -1 : 1;
     });
@@ -158,73 +158,74 @@ export default function Zones() {
          */
         //sss
 
+        if (teams.length > 0) {
+            current_zones.forEach((zone) => {
+                zone.ratio = zone_ratios_client[zone.bonus_id];
+                // let leader_index = zone_priority.findIndex((element) => element.id === zone.bonus_id);
+                let leader_index = zone_priority_client.findIndex((element) => element.id === zone.bonus_id);
+                zone.priority_index = leader_index === -1 ? 99 : leader_index;
 
-        current_zones.forEach((zone) => {
-            zone.ratio = zone_ratios_client[zone.bonus_id];
-            // let leader_index = zone_priority.findIndex((element) => element.id === zone.bonus_id);
-            let leader_index = zone_priority_client.findIndex((element) => element.id === zone.bonus_id);
-            zone.priority_index = leader_index === -1 ? 99 : leader_index;
-
-            if (leader_index === -1) {
-                return;
-            }
-
-            zones_in_priority.push(zone);
-            if (zone_leader.current === -1 || leader_index < zone_leader.index) {
-                zone_leader.current = zone;
-                zone_leader.index = leader_index;
-            }
-        })
-
-
-
-
-        zones_in_priority.sort((a, b) => a.priority_index - b.priority_index);
-        zone_leader = zone_leader.current;
-
-        //this target hp will be used against all other thing
-        zone_leader.target_hp = zone_leader.total_hp;
-        //Go through and update target hp's based on zone_leader
-        zones_in_priority.forEach((inner_zone) => {
-            if (inner_zone.target_hp) return;//meaning it's the leader
-            inner_zone.target_hp = mathHelper.multiplyDecimal(zone_leader.target_hp, inner_zone.ratio);
-        });
-
-        //go through and fill up the suggestion based on num of teamss
-        while (zone_suggestions.length < num_teams) {
-
-            let zone_to_satisfy = null;
-            let zone_index = 0;
-            let zone_found = false;
-
-            zones_in_priority.forEach((inner_zone, index) => {
-                if (zone_found) return;//found a zone to satisfy by priority
-                //If the amount of damage i dealt to this zone is less than the ratio compared to leader, then I need to hit this more
-                if (inner_zone.target_hp.greaterThan(inner_zone.total_hp)) {
-                    zone_to_satisfy = inner_zone;
-                    zone_index = index;
-                    zone_found = true;
+                if (leader_index === -1) {
+                    return;
                 }
+
+                zones_in_priority.push(zone);
+                if (zone_leader.current === -1 || leader_index < zone_leader.index) {
+                    zone_leader.current = zone;
+                    zone_leader.index = leader_index;
+                }
+            })
+            zones_in_priority.sort((a, b) => a.priority_index - b.priority_index);
+            zone_leader = zone_leader.current;
+
+            //this target hp will be used against all other thing
+            zone_leader.target_hp = zone_leader.total_hp;
+            //Go through and update target hp's based on zone_leader
+            zones_in_priority.forEach((inner_zone) => {
+                if (inner_zone.target_hp) return;//meaning it's the leader
+                inner_zone.target_hp = mathHelper.multiplyDecimal(zone_leader.target_hp, inner_zone.ratio);
             });
-            if (!zone_to_satisfy) {
-                zone_to_satisfy = zones_in_priority[0];
+
+            //go through and fill up the suggestion based on num of teamss
+            while (zone_suggestions.length < num_teams) {
+
+                let zone_to_satisfy = null;
+                let zone_index = 0;
+                let zone_found = false;
+
+                zones_in_priority.forEach((inner_zone, index) => {
+                    if (zone_found) return;//found a zone to satisfy by priority
+                    //If the amount of damage i dealt to this zone is less than the ratio compared to leader, then I need to hit this more
+                    if (inner_zone.target_hp.greaterThan(inner_zone.total_hp)) {
+                        zone_to_satisfy = inner_zone;
+                        zone_index = index;
+                        zone_found = true;
+                    }
+                });
+                if (!zone_to_satisfy) {
+                    zone_to_satisfy = zones_in_priority[0];
+                }
+
+                let team_to_use = teams[team_index];
+                team_index++;
+
+                if (!team_to_use) {
+                    let bigsad = -1;
+                }
+
+                let hp_diff = mathHelper.subtractDecimal(zone_to_satisfy.target_hp, zone_to_satisfy.total_hp);
+                let hours = mathHelper.divideDecimal(hp_diff, team_to_use.damage).toNumber();
+                zone_to_satisfy.hours = zone_found === false ? -1 : Math.ceil(hours);
+                zone_to_satisfy.team = team_to_use;
+                //Either use the found zone/index or the first one by prioritys
+                zone_suggestions.push(zone_to_satisfy);
+                zones_in_priority.splice(zone_index, 1)
             }
-
-            let team_to_use = teams[team_index];
-            team_index++;
-
-            if (!team_to_use) {
-                let bigsad = -1;
-            }
-
-            let hp_diff = mathHelper.subtractDecimal(zone_to_satisfy.target_hp, zone_to_satisfy.total_hp);
-            let hours = mathHelper.divideDecimal(hp_diff, team_to_use.damage).toNumber();
-            zone_to_satisfy.hours = zone_found === false ? -1 : Math.ceil(hours);
-            zone_to_satisfy.team = team_to_use;
-            //Either use the found zone/index or the first one by prioritys
-            zone_suggestions.push(zone_to_satisfy);
-            zones_in_priority.splice(zone_index, 1)
         }
+        else {
+            zone_leader.current = current_zones[0]
+        }
+
         return {
             zones_in_priority,
             zone_suggestions,
@@ -232,11 +233,13 @@ export default function Zones() {
             zone_ratios_client,
             zone_priority_client,
         }
-    }, [num_teams, teams, zone_ratios_client, zone_priority_client, current_zones, data])
+    }, [num_teams, teams, zone_ratios_client, zone_priority_client, current_zones])
 
     let zones_in_priority = zone_stuff.zones_in_priority;
     let zone_suggestions = zone_stuff.zone_suggestions;
     let zone_leader = zone_stuff.zone_leader;
+
+
 
     return (
         <div
