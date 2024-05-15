@@ -36,6 +36,23 @@ const create_rightPillar_flex = function () {
     holder_div.appendChild(fragment);
     return holder_div;
 }
+const create_rightPillar_160 = function () {
+    let holder_div = document.createElement('div');
+    holder_div.style.zIndex = '99';
+
+    let div_id = document.createElement("div");
+    div_id.id = "mmt-2fd46f54-877d-4253-b8e9-3d94a7703d59";
+
+    // div_id.style.width = '200px';
+    // div_id.style.height = '600px';
+    // div_id.style.backgroundColor = 'red';
+    holder_div.appendChild(div_id);
+
+    const script_holder = '<script type="text/javascript" data-cfasync="false">$MMT = window.$MMT || {}; $MMT.cmd = $MMT.cmd || [];$MMT.cmd.push(function(){ $MMT.display.slots.push(["2fd46f54-877d-4253-b8e9-3d94a7703d59"]); });</script>';
+    const fragment = document.createRange().createContextualFragment(script_holder);
+    holder_div.appendChild(fragment);
+    return holder_div;
+}
 const create_footer_in_screen = function () {
     let holder_div = document.createElement('div');
     holder_div.style.zIndex = '99';
@@ -80,6 +97,9 @@ export default function Ad_Comp() {
         const setup_function_right_pillar = async () => {
             setup_started.current = true;
             const right_pillar = document.getElementById('right_pillar');
+            if(!right_pillar){
+                return;
+            }
             const children = right_pillar.children;
             if (children.length > 0) {
                 for (let i = 0; i < children.length; i++) {
@@ -94,6 +114,26 @@ export default function Ad_Comp() {
             right_pillar.appendChild(new_element);
         }
         setup_function_right_pillar();
+
+
+        const setup_function_right_pillar160 = async () => {
+            setup_started.current = true;
+            const right_pillar = document.getElementById('right_pillar_160');
+            if(!right_pillar){
+                return;
+            }
+            const children = right_pillar.children;
+            if (children.length > 0) {
+                for (let i = 0; i < children.length; i++) {
+                    right_pillar.removeChild(children[i]);
+                }
+                await helper.sleep(0.1);
+            }
+
+            const new_element = create_rightPillar_160();
+            right_pillar.appendChild(new_element);
+        }
+        setup_function_right_pillar160();
 
         return;
 
