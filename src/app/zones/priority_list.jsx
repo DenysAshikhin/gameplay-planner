@@ -7,7 +7,7 @@ import CrossIcon from '../../../public/images/icons/x_icon.svg';
 import DragIcon from '../../../public/images/icons/drag_icon.svg';
 import RefreshIcon from '../../../public/images/icons/refresh_lightgray.svg';
 
-export default function ({
+export default function Priority_List({
     priorityList,
     setPriorityList,
     zoneRatios,
