@@ -62,6 +62,7 @@ zone_data[1] = {
     img: butternut_forest_img,
     bonus_id: att_hp_id,
     order: 1,
+    unlock: -1
 }
 zone_data[2] = {
     label: 'Cheddar Plain',
@@ -69,6 +70,7 @@ zone_data[2] = {
     img: cheddar_plain_img,
     bonus_id: class_id,
     order: 2,
+    unlock: 5
 }
 zone_data[3] = {
     label: 'Guacamole Grotto',
@@ -76,6 +78,7 @@ zone_data[3] = {
     img: guacamole_grotto_img,
     bonus_id: milk_id,
     order: 3,
+    unlock: 10
 }
 zone_data[4] = {
     label: 'Orange Mountain',
@@ -83,6 +86,7 @@ zone_data[4] = {
     img: orange_mountain_img,
     bonus_id: whack_id,
     order: 4,
+    unlock: 15
 }
 zone_data[16] = {
     label: 'Avaocado River',
@@ -90,6 +94,7 @@ zone_data[16] = {
     img: avacodo_river_img,
     bonus_id: hp_id,
     order: 5,
+    unlock: 6
 }
 zone_data[5] = {
     label: 'Zucchini Field',
@@ -97,6 +102,7 @@ zone_data[5] = {
     img: zucchini_field_img,
     bonus_id: ir_id,
     order: 6,
+    unlock: 5
 }
 zone_data[6] = {
     label: 'Munster Desert',
@@ -104,6 +110,7 @@ zone_data[6] = {
     img: munster_desert_img,
     bonus_id: worm_qty_id,
     order: 7,
+    unlock: 30
 }
 zone_data[7] = {
     label: 'Pancake Road',
@@ -111,6 +118,7 @@ zone_data[7] = {
     img: pancake_road_img,
     bonus_id: skull_id,
     order: 8,
+    unlock: 40
 }
 zone_data[8] = {
     label: 'Salmon Lake',
@@ -118,6 +126,7 @@ zone_data[8] = {
     img: salmon_lake_img,
     bonus_id: ferment_id,
     order: 9,
+    unlock: 50
 }
 zone_data[9] = {
     label: 'Garlic Iceland',
@@ -125,6 +134,7 @@ zone_data[9] = {
     img: garlic_iceland_img,
     bonus_id: pet_level_id,
     order: 10,
+    unlock: 60
 }
 zone_data[17] = {
     label: 'Banana Volcano',
@@ -132,6 +142,7 @@ zone_data[17] = {
     img: banana_volcano_img,
     bonus_id: gh_id,
     order: 11,
+    unlock: 8
 }
 zone_data[10] = {
     label: 'Cinnamon Station',
@@ -139,6 +150,7 @@ zone_data[10] = {
     img: cinnamon_station_img,
     bonus_id: reinc_id,
     order: 12,
+    unlock: 25
 }
 zone_data[11] = {
     label: 'Apple Domain',
@@ -146,6 +158,7 @@ zone_data[11] = {
     img: apple_domain_img,
     bonus_id: conf_id,
     order: 13,
+    unlock: 75
 }
 zone_data[12] = {
     label: 'Donut Cavern',
@@ -153,6 +166,7 @@ zone_data[12] = {
     img: donut_cavern_img,
     bonus_id: calcium_id,
     order: 14,
+    unlock: 90
 }
 zone_data[13] = {
     label: 'Emmental Canyon',
@@ -160,6 +174,7 @@ zone_data[13] = {
     img: emmental_canyon_img,
     bonus_id: res_id,
     order: 15,
+    unlock: 105
 }
 zone_data[14] = {
     label: 'Lettuce Sea',
@@ -167,6 +182,7 @@ zone_data[14] = {
     img: lettuce_sea_img,
     bonus_id: card_exp_id,
     order: 16,
+    unlock: 120
 }
 zone_data[18] = {
     label: 'Onion Hilltop',
@@ -174,6 +190,7 @@ zone_data[18] = {
     img: onion_img,
     bonus_id: prot_id,
     order: 17,
+    unlock: 10
 }
 zone_data[15] = {
     label: 'Tuna Waterfall',
@@ -181,6 +198,7 @@ zone_data[15] = {
     img: tune_waterfall_img,
     bonus_id: card_pow_id,
     order: 18,
+    unlock: 50
 }
 zone_data[19] = {
     label: 'Kiwi Land',
@@ -188,6 +206,7 @@ zone_data[19] = {
     img: kiwi_land_img,
     bonus_id: mine_exp_id,
     order: 19,
+    unlock: 50
 }
 zone_data[20] = {
     label: 'Croissant Castle',
@@ -195,6 +214,7 @@ zone_data[20] = {
     img: croissant_castle_img,
     bonus_id: pet_rank_id,
     order: 20,
+    unlock: 50
 }
 zone_data[21] = {
     label: 'Mozzarella Meadow',
@@ -202,6 +222,7 @@ zone_data[21] = {
     img: mozzarella_meadow_img,
     bonus_id: mine_pow_id,
     order: 21,
+    unlock: 50
 }
 zone_data[22] = {
     label: 'Cucumber Region',
@@ -209,6 +230,7 @@ zone_data[22] = {
     img: cucumber_region_img,
     bonus_id: reinc_pts_id,
     order: 22,
+    unlock: 50
 }
 zone_data[23] = {
     label: 'Basil Country',
@@ -216,6 +238,7 @@ zone_data[23] = {
     img: basil_counter_img,
     bonus_id: fry_id,
     order: 23,
+    unlock: 50
 }
 zone_data[24] = {
     label: 'Chocolate World',
@@ -223,6 +246,7 @@ zone_data[24] = {
     img: chocolate_world_img,
     bonus_id: op_level_id,
     order: 24,
+    unlock: 50
 }
 
 export const zone_priority = [
@@ -242,6 +266,7 @@ export const zone_priority = [
     BonusMap[hp_id],
     BonusMap[conf_id],
     BonusMap[worm_qty_id],
+    BonusMap[card_exp_id]
 ]
 
 export const zone_ratios = {};
@@ -261,6 +286,7 @@ zone_ratios[hp_id] = 0.01;
 zone_ratios[prot_id] = 0.01;
 zone_ratios[worm_qty_id] = 0.01; //Chris hates me 
 zone_ratios[conf_id] = 0.01; //Chris hates me
+zone_ratios[card_exp_id] = 0.01; //Chris hates me
 
  
 export const calc_max_hp = function (zone, data, params) {

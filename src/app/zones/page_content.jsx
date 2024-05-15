@@ -70,7 +70,6 @@ export default function Zones() {
     }, [data])
 
     const num_teams = data.ExpeditionLimit;
-    let team_index = 0;//counter to determine which team to release
     let teams = [];
     data.PetsExpeditionLoadout.forEach((cur_team, index) => {
         if (index === 0 || cur_team.Locaked === 0) return;
@@ -91,123 +90,153 @@ export default function Zones() {
         return a.damage.greaterThan(b.damage) ? -1 : 1;
     });
 
+    let current_zones_stuff = useMemo(() => {
+        console.log(`udating current zone stuff`)
+        let current_zones = [];
+        let unlocked_ids = {};
+        data.ExpeditionsCollection.forEach((curr_zone, index) => {
+            if (curr_zone.ID === 0) return;
+            if (curr_zone.Locked === 0) return;
+            let zone = JSON.parse(JSON.stringify(curr_zone));
 
+            let curr_hp = mathHelper.createDecimal(zone.CurrentHPBD ? zone.CurrentHPBD : zone.CurrentHP);//s
+            let max_hp = calc_max_hp(curr_zone, data);
 
-
-
-
-    let current_zones = [];
-    let zones_in_priority = [];
-    let zone_suggestions = [];
-    let unlocked_ids = {};
-
-    let zone_leader = {
-        current: -1,
-        index: -1
-    };
-    /**
-     * {
-      ID: 0,
-      Room: 1,
-      BaseHP: 0,
-      BaseHPBD: {
-        mantissa: 0,
-        exponent: 0,
-      },
-      HPIncrease: 0,
-      CurrentHP: 0,
-      CurrentHPBD: {
-        mantissa: 0,
-        exponent: 0,
-      },
-      BonusPower: 0,
-      ResourceFound: [
-        0,
-      ],
-      CardFound: [
-        0,
-      ],
-      Locked: 0,
-    }
-     * 
-     */
-    //sss
-    data.ExpeditionsCollection.forEach((curr_zone, index) => {
-        if (curr_zone.ID === 0) return;
-        if (curr_zone.Locked === 0) return;
-        let zone = JSON.parse(JSON.stringify(curr_zone));
-
-        let curr_hp = mathHelper.createDecimal(zone.CurrentHPBD ? zone.CurrentHPBD : zone.CurrentHP);//s
-        let max_hp = calc_max_hp(curr_zone, data);
-
-        zone.curr_hp = curr_hp;
-        zone.max_hp = max_hp;
-        zone.total_hp = calc_total_hp(zone, data, {});
-        zone.label = zone_data[curr_zone.ID].label;
-        zone.order = zone_data[curr_zone.ID].order;
-        zone.bonus_id = zone_data[curr_zone.ID].bonus_id;
-        unlocked_ids[zone_data[curr_zone.ID].bonus_id] = zone;
-        // zone.ratio = zone_ratios[zone.bonus_id];
-        zone.ratio = zone_ratios_client[zone.bonus_id];
-        // let leader_index = zone_priority.findIndex((element) => element.id === zone.bonus_id);
-        let leader_index = zone_priority_client.findIndex((element) => element.id === zone.bonus_id);
-        zone.priority_index = leader_index === -1 ? 99 : leader_index;
-
-        current_zones.push(zone);
-
-        if (leader_index === -1) {
-            return;
-        }
-
-        zones_in_priority.push(zone);
-        if (zone_leader.current === -1 || leader_index < zone_leader.index) {
-            zone_leader.current = zone;
-            zone_leader.index = leader_index;
-        }
-    });
-    current_zones.sort((a, b) => a.order - b.order);
-    zones_in_priority.sort((a, b) => a.priority_index - b.priority_index);
-    zone_leader = zone_leader.current;
-
-    //this target hp will be used against all other thing
-    zone_leader.target_hp = zone_leader.total_hp;
-    //Go through and update target hp's based on zone_leader
-    zones_in_priority.forEach((inner_zone) => {
-        if (inner_zone.target_hp) return;//meaning it's the leader
-        inner_zone.target_hp = mathHelper.multiplyDecimal(zone_leader.target_hp, inner_zone.ratio);
-    });
-
-    //go through and fill up the suggestion based on num of teamss
-    while (zone_suggestions.length < num_teams) {
-
-        let zone_to_satisfy = null;
-        let zone_index = 0;
-        let zone_found = false;
-
-        zones_in_priority.forEach((inner_zone, index) => {
-            if (zone_found) return;//found a zone to satisfy by priority
-            //If the amount of damage i dealt to this zone is less than the ratio compared to leader, then I need to hit this more
-            if (inner_zone.target_hp.greaterThan(inner_zone.total_hp)) {
-                zone_to_satisfy = inner_zone;
-                zone_index = index;
-                zone_found = true;
-            }
+            zone.curr_hp = curr_hp;
+            zone.max_hp = max_hp;
+            zone.total_hp = calc_total_hp(zone, data, {});
+            zone.label = zone_data[curr_zone.ID].label;
+            zone.order = zone_data[curr_zone.ID].order;
+            zone.bonus_id = zone_data[curr_zone.ID].bonus_id;
+            unlocked_ids[zone_data[curr_zone.ID].bonus_id] = zone;
+            current_zones.push(zone);
         });
-        if (!zone_to_satisfy) {
-            zone_to_satisfy = zones_in_priority[0];
+        current_zones.sort((a, b) => a.order - b.order);
+
+        return { current_zones, unlocked_ids };
+    }, [data]);
+
+
+    let unlocked_ids = current_zones_stuff.unlocked_ids;
+    let current_zones = current_zones_stuff.current_zones;
+
+    let zone_stuff = useMemo(() => {
+        console.log(`updating zone_stuff`)
+        let zones_in_priority = [];
+        let zone_suggestions = [];
+        let team_index = 0;//counter to determine which team to release
+
+        let zone_leader = {
+            current: -1,
+            index: -1
+        };
+        /**
+         * {
+          ID: 0,
+          Room: 1,
+          BaseHP: 0,
+          BaseHPBD: {
+            mantissa: 0,
+            exponent: 0,
+          },
+          HPIncrease: 0,
+          CurrentHP: 0,
+          CurrentHPBD: {
+            mantissa: 0,
+            exponent: 0,
+          },
+          BonusPower: 0,
+          ResourceFound: [
+            0,
+          ],
+          CardFound: [
+            0,
+          ],
+          Locked: 0,
         }
+         * 
+         */
+        //sss
 
-        let team_to_use = teams[team_index];
-        team_index++;
 
-        let hp_diff = mathHelper.subtractDecimal(zone_to_satisfy.target_hp, zone_to_satisfy.total_hp);
-        let hours = mathHelper.divideDecimal(hp_diff, team_to_use.damage).toNumber();
-        zone_to_satisfy.hours = zone_found === false ? -1 : Math.ceil(hours);
-        zone_to_satisfy.team = team_to_use;
-        //Either use the found zone/index or the first one by prioritys
-        zone_suggestions.push(zone_to_satisfy);
-        zones_in_priority.splice(zone_index, 1)
-    }
+        current_zones.forEach((zone) => {
+            zone.ratio = zone_ratios_client[zone.bonus_id];
+            // let leader_index = zone_priority.findIndex((element) => element.id === zone.bonus_id);
+            let leader_index = zone_priority_client.findIndex((element) => element.id === zone.bonus_id);
+            zone.priority_index = leader_index === -1 ? 99 : leader_index;
+
+            if (leader_index === -1) {
+                return;
+            }
+
+            zones_in_priority.push(zone);
+            if (zone_leader.current === -1 || leader_index < zone_leader.index) {
+                zone_leader.current = zone;
+                zone_leader.index = leader_index;
+            }
+        })
+
+
+
+
+        zones_in_priority.sort((a, b) => a.priority_index - b.priority_index);
+        zone_leader = zone_leader.current;
+
+        //this target hp will be used against all other thing
+        zone_leader.target_hp = zone_leader.total_hp;
+        //Go through and update target hp's based on zone_leader
+        zones_in_priority.forEach((inner_zone) => {
+            if (inner_zone.target_hp) return;//meaning it's the leader
+            inner_zone.target_hp = mathHelper.multiplyDecimal(zone_leader.target_hp, inner_zone.ratio);
+        });
+
+        //go through and fill up the suggestion based on num of teamss
+        while (zone_suggestions.length < num_teams) {
+
+            let zone_to_satisfy = null;
+            let zone_index = 0;
+            let zone_found = false;
+
+            zones_in_priority.forEach((inner_zone, index) => {
+                if (zone_found) return;//found a zone to satisfy by priority
+                //If the amount of damage i dealt to this zone is less than the ratio compared to leader, then I need to hit this more
+                if (inner_zone.target_hp.greaterThan(inner_zone.total_hp)) {
+                    zone_to_satisfy = inner_zone;
+                    zone_index = index;
+                    zone_found = true;
+                }
+            });
+            if (!zone_to_satisfy) {
+                zone_to_satisfy = zones_in_priority[0];
+            }
+
+            let team_to_use = teams[team_index];
+            team_index++;
+
+            if (!team_to_use) {
+                let bigsad = -1;
+            }
+
+            let hp_diff = mathHelper.subtractDecimal(zone_to_satisfy.target_hp, zone_to_satisfy.total_hp);
+            let hours = mathHelper.divideDecimal(hp_diff, team_to_use.damage).toNumber();
+            zone_to_satisfy.hours = zone_found === false ? -1 : Math.ceil(hours);
+            zone_to_satisfy.team = team_to_use;
+            //Either use the found zone/index or the first one by prioritys
+            zone_suggestions.push(zone_to_satisfy);
+            zones_in_priority.splice(zone_index, 1)
+        }
+        return {
+            zones_in_priority,
+            zone_suggestions,
+            zone_leader,
+            zone_ratios_client,
+            zone_priority_client,
+        }
+    }, [num_teams, teams, zone_ratios_client, zone_priority_client, current_zones, data])
+
+    let zones_in_priority = zone_stuff.zones_in_priority;
+    let zone_suggestions = zone_stuff.zone_suggestions;
+    let zone_leader = zone_stuff.zone_leader;
 
     return (
         <div
@@ -383,15 +412,20 @@ export default function Zones() {
                 >
 
                     <div style={{ width: '100%', height: '100%', overflowY: 'auto', overflowX: 'hidden', maxHeight: '100%' }}>
-                        {zone_suggestions.sort((a,b)=>{
-                            if(a.hours === -1 && b.hours === -1){
+                        {zone_suggestions.sort((a, b) => {
+                            if (a.hours === -1 && b.hours === -1) {
                                 return 0;
                             }
-                            else if(a.hours === -1){
+                            else if (a.hours === -1) {
                                 return -1;
                             }
                             return 1
                         }).map((cur_exp, index) => {
+
+                            if (!cur_exp?.team?.name) {
+                                let bigsad = -1;
+                            }
+
                             return (
                                 <div key={`${index}`}
                                     style={{
