@@ -26,9 +26,7 @@ export default function PetItem({ petData, isSelected, onClick, data, weightMap,
 
     const rank = defaultRank ? defaultRank : pet.Rank;
     const level = pet.Level;
-    const totalScore = Number(
-        Number(data?.PetDamageBonuses) * pet.BaseDungeonDamage * (1.0 + rank * 0.05) * 5
-    ).toExponential(2);
+    const totalScore = petHelper.getPetDamage(pet, data, rank).toExponential(2);
 
     // const weightedBonuses = filterBonuses(pet.BonusList, (bonus) => {
     //     return bonus.ID < 1000;

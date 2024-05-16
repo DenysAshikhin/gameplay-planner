@@ -136,6 +136,7 @@ import CyberDog from '../../../public/images/pets/Cyber Dog.png';
 import Marty from '../../../public/images/pets/Marty.png';
 import BrainBot from '../../../public/images/pets/Brain Bot.png';
 import Hyperion from '../../../public/images/pets/Hyperion.png';
+import BlueBloon from '../../../public/images/pets/BlueBloon.png'
 import unknown from '../../../public/images/pets/missing.png';
 
 
@@ -656,6 +657,11 @@ const PetNames = {
         "name": "Hyperion",
         "location": "8-9",
         img: Hyperion
+    },
+    104: {
+        "name": "Blue Bloon",
+        "location": "League 1",
+        img: BlueBloon
     },
     9999: {
         "name": "Unknown",

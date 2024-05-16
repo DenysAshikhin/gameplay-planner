@@ -163,8 +163,16 @@ export default function Zones() {
         //sss
 
         if (teams.length > 0) {
-            current_zones.forEach((zone) => {
+            current_zones.forEach((zone_temp) => {
+                let zone = JSON.parse(JSON.stringify(zone_temp));
+                zone.curr_hp = mathHelper.createDecimal(zone.curr_hp);
+                zone.total_hp = mathHelper.createDecimal(zone.total_hp);
+                zone.max_hp = mathHelper.createDecimal(zone.max_hp);
+                let ttt = zone_ratios_client;
                 zone.ratio = zone_ratios_client[zone.bonus_id];
+                if (!zone.ratio) {
+                    return;
+                }
                 // let leader_index = zone_priority.findIndex((element) => element.id === zone.bonus_id);
                 let leader_index = zone_priority_client.findIndex((element) => element.id === zone.bonus_id);
                 zone.priority_index = leader_index === -1 ? 99 : leader_index;
@@ -187,6 +195,7 @@ export default function Zones() {
             //Go through and update target hp's based on zone_leader
             zones_in_priority.forEach((inner_zone) => {
                 if (inner_zone.target_hp) return;//meaning it's the leader
+
                 inner_zone.target_hp = mathHelper.multiplyDecimal(zone_leader.target_hp, inner_zone.ratio);
             });
 
@@ -212,10 +221,6 @@ export default function Zones() {
 
                 let team_to_use = teams[team_index];
                 team_index++;
-
-                if (!team_to_use) {
-                    let bigsad = -1;
-                }
 
                 let hp_diff = mathHelper.subtractDecimal(zone_to_satisfy.target_hp, zone_to_satisfy.total_hp);
                 let hours = mathHelper.divideDecimal(hp_diff, team_to_use.damage).toNumber();
@@ -244,6 +249,66 @@ export default function Zones() {
     let zone_leader = zone_stuff.zone_leader;
 
 
+    let next_unlock = useMemo(() => {
+
+        let next_unlock = { data: null, index: 999 };
+
+        data.ExpeditionsCollection.forEach((curr_zone, index) => {
+
+            if (curr_zone.ID === 0) return;
+            //We only want locked zones
+            if (curr_zone.Locked === 1) return;
+
+            let temp_data = zone_data[curr_zone.ID];
+            if (temp_data.index < next_unlock.index) {
+                next_unlock = { data: curr_zone, index: temp_data.index }
+            }
+        });
+
+        return next_unlock.data;
+    }, [data])
+
+    const [selectedZone, setSelectedZone] = useState(-1);
+    const [zoneToClear, setZoneToClear] = useState(null);
+    useEffect(() => {
+
+        if (selectedZone === -1 && next_unlock?.ID) {
+            return setSelectedZone(next_unlock);
+        }
+
+        let hp_goal = 1;
+        let zone_to_work = { data: null, index: -1 };
+        //most likely all are unlocked
+        if (selectedZone === -1) {
+            data.ExpeditionsCollection.forEach((curr_zone) => {
+                if (curr_zone.ID === 0) return;
+
+                let temp_data = zone_data[curr_zone.ID];
+                if (temp_data.order > zone_to_work.index) {
+                    zone_to_work = { data: curr_zone, index: temp_data.order }
+                }
+            })
+            zone_to_work = zone_to_work.data;
+            hp_goal = mathHelper.subtractDecimal(
+                calc_max_hp(zone_to_work, data),
+                mathHelper.createDecimal(zone_to_work.CurrentHPBD ? zone_to_work.CurrentHPBD : zone_to_work.CurrentHP)
+            )
+        }
+        else {
+            data.ExpeditionsCollection.forEach((cur_exp) => {
+                if (cur_exp.ID === selectedZone) {
+                    zone_to_work = cur_exp;
+                }
+            })
+        }
+
+        zone_to_work = JSON.parse(JSON.stringify(zone_to_work));
+        zone_to_work = { ...zone_to_work, ...zone_data[zone_to_work.ID] };
+        zone_to_work.hp_goal = hp_goal;
+        console.log(zone_to_work);
+        setZoneToClear(zone_to_work);
+
+    }, [selectedZone, next_unlock, data])
 
     return (
         <div
@@ -359,10 +424,6 @@ export default function Zones() {
                 </div>
             </div>
 
-
-
-
-
             {/* zones to run! */}
             <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', maxHeight: 'calc(100vh - 102px)' }}>
                 <div className='importantText'
@@ -429,10 +490,6 @@ export default function Zones() {
                             return 1
                         }).map((cur_exp, index) => {
 
-                            if (!cur_exp?.team?.name) {
-                                let bigsad = -1;
-                            }
-
                             return (
                                 <div key={`${index}`}
                                     style={{
@@ -451,7 +508,7 @@ export default function Zones() {
 
                                     {/* Center title */}
                                     <div style={{
-                                        position: 'absolute', top: '3%', left: '0', fontWeight: 'bold', fontSize: '20px',
+                                        position: 'absolute', top: '4%', left: '0', fontWeight: 'bold', fontSize: '18px',
 
                                         display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%'
                                     }}>
@@ -472,14 +529,144 @@ export default function Zones() {
                                         position: 'absolute', top: '5%', display: 'flex', justifyContent: 'flex-start', alignItems: 'center', width: '100%', marginLeft: '6px',
                                     }}
                                     >
-                                        {`Total HP: ${cur_exp.total_hp.toExponential(2)}`}
+                                        {`Total HP: ${cur_exp.total_hp.exponent > 100 ? cur_exp.total_hp.toExponential(1) : cur_exp.total_hp.toExponential(2)}`}
                                     </div>
                                     {/*Target HP */}
                                     <div style={{
                                         position: 'absolute', bottom: '5%', display: 'flex', justifyContent: 'flex-start', alignItems: 'center', width: '100%', marginLeft: '6px',
                                     }}
                                     >
-                                        {`Target HP: ${cur_exp.target_hp.toExponential(2)}`}
+                                        {`Goal HP: ${cur_exp.target_hp.exponent > 100 ? cur_exp.target_hp.toExponential(1) : cur_exp.target_hp.toExponential(2)}`}
+                                    </div>
+
+                                    {/* Which Team to run */}
+                                    <div style={{
+                                        position: 'absolute', bottom: '5%', display: 'flex', justifyContent: 'flex-end', alignItems: 'center', width: '100%', marginLeft: '-6px'
+                                    }}
+                                    >
+                                        {`Team to run: ${cur_exp.team.name}`}
+                                    </div>
+                                </div>
+                            )
+                        })}
+                    </div>
+                </div>
+            </div>
+
+
+      {/* Zone To Clear */}
+      <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', maxHeight: 'calc(100vh - 102px)' }}>
+                <div className='importantText'
+                    style={{
+                        display: 'flex',
+                        // alignSelf: 'flex-start',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        // margin: '6px 12px 0',
+                        border: '1px solid white',
+                        borderRadius: '12px',
+                        width: '630px',
+                        fontSize: '24px',
+                        fontWeight: 'bold',
+                        backgroundColor: 'rgba(255,255,255, 0.07)',
+                    }}
+                >
+                    {`Zones To Run`}
+                    <MouseOverPopover tooltip={
+                        <div style={{ padding: '6px' }}>
+                            {`BLAH BLAH BLAH BLAH`}
+                        </div>
+                    }>
+                        <div style={{ position: 'relative', marginLeft: '12px', width: '24px', height: '24px' }}>
+
+                            <Image
+                                alt='on hover I in a cirlce icon, shows more information on hover'
+                                fill
+                                src={infoIcon}
+                                unoptimized={true}
+                            />
+                        </div>
+                    </MouseOverPopover>
+                </div>
+                <div className='importantText'
+                    style={{
+                        display: 'flex',
+                        flex: '1',
+                        flexDirection: 'column',
+                        // gap: '12px',
+                        alignSelf: 'flex-start',
+                        // alignItems: 'center',
+                        justifyContent: 'center',
+                        margin: '6px 12px 0',
+                        border: '1px solid white',
+                        borderRadius: '12px',
+                        width: '620px',
+                        // fontSize: '24px',
+                        // fontWeight: 'bold',
+                        backgroundColor: 'rgba(255,255,255, 0.07)',
+                        padding: '6px 6px 6px 6px',
+                        maxHeight: '100%'
+                    }}
+                >
+
+                    <div style={{ width: '100%', height: '100%', overflowY: 'auto', overflowX: 'hidden', maxHeight: '100%' }}>
+                        {zone_suggestions.sort((a, b) => {
+                            if (a.hours === -1 && b.hours === -1) {
+                                return 0;
+                            }
+                            else if (a.hours === -1) {
+                                return -1;
+                            }
+                            return 1
+                        }).map((cur_exp, index) => {
+
+                            return (
+                                <div key={`${index}`}
+                                    style={{
+                                        margin: '6px 0', display: 'flex', position: 'relative',
+                                        width: '600px', height: '150px',
+                                    }}
+                                >
+                                    <div style={{ position: 'absolute', width: '600px', height: '150px', top: '0', left: '0' }}>
+                                        <Image
+                                            alt='on hover I in a cirlce icon, shows more information on hover'
+                                            fill
+                                            src={zone_data[cur_exp.ID].img}
+                                            unoptimized={true}
+                                        />
+                                    </div>
+
+                                    {/* Center title */}
+                                    <div style={{
+                                        position: 'absolute', top: '4%', left: '0', fontWeight: 'bold', fontSize: '18px',
+
+                                        display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%'
+                                    }}>
+                                        {`${cur_exp.label} (${BonusMap[cur_exp.bonus_id].label})`}
+                                    </div>
+
+                                    {/* Hours to Run */}
+                                    <div style={{
+                                        position: 'absolute', top: '5%', display: 'flex', justifyContent: 'flex-end', alignItems: 'center', width: '100%', marginLeft: '-6px',
+                                        // color: cur_exp.hours === -1 ? '' : 'green'
+                                    }}
+                                    >
+                                        {`Hours: ${cur_exp.hours === -1 ? 'infinite' : cur_exp.hours}`}
+                                    </div>
+
+                                    {/*Current HP */}
+                                    <div style={{
+                                        position: 'absolute', top: '5%', display: 'flex', justifyContent: 'flex-start', alignItems: 'center', width: '100%', marginLeft: '6px',
+                                    }}
+                                    >
+                                        {`Total HP: ${cur_exp.total_hp.exponent > 100 ? cur_exp.total_hp.toExponential(1) : cur_exp.total_hp.toExponential(2)}`}
+                                    </div>
+                                    {/*Target HP */}
+                                    <div style={{
+                                        position: 'absolute', bottom: '5%', display: 'flex', justifyContent: 'flex-start', alignItems: 'center', width: '100%', marginLeft: '6px',
+                                    }}
+                                    >
+                                        {`Goal HP: ${cur_exp.target_hp.exponent > 100 ? cur_exp.target_hp.toExponential(1) : cur_exp.target_hp.toExponential(2)}`}
                                     </div>
 
                                     {/* Which Team to run */}

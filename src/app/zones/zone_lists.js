@@ -288,7 +288,7 @@ zone_ratios[worm_qty_id] = 0.01; //Chris hates me
 zone_ratios[conf_id] = 0.01; //Chris hates me
 zone_ratios[card_exp_id] = 0.01; //Chris hates me
 
- 
+
 export const calc_max_hp = function (zone, data, params) {
 
     const levelOffset = params?.levelOffset ? params.levelOffset : 0;
@@ -309,7 +309,8 @@ export const calc_max_hp = function (zone, data, params) {
                 BaseHPBD,
                 mathHelper.multiplyDecimal(BaseHPBD, 0.05 * (Room - 1))
             ),
-            mathHelper.pow(1.0 + HPIncrease * (1.0 - (WAPExpeditionScalingReduced + ExpeShopExpeditionScalingReductionLevel * 2) * 0.0025) * (Room * (Room + 1) / 2), Room - 1
+            mathHelper.pow(
+                1.0 + HPIncrease * (1.0 - (WAPExpeditionScalingReduced + ExpeShopExpeditionScalingReductionLevel * 2) * 0.0025) * (Room * (Room + 1) / 2), Room - 1
             )
         );
     }
@@ -320,18 +321,37 @@ export const calc_max_hp = function (zone, data, params) {
                     BaseHPBD,
                     mathHelper.multiplyDecimal(BaseHPBD, 0.05 * (Room - 1))
                 ),
-                mathHelper.pow(1.0 + HPIncrease, Room - 1) * mathHelper.pow(1.0 + HPIncrease * (1.0 - (WAPExpeditionScalingReduced + ExpeShopExpeditionScalingReductionLevel * 2) * 0.0025) * (ID - 17), Room)
+                mathHelper.multiplyDecimal(
+                    mathHelper.pow(1.0 + HPIncrease, Room - 1),
+                    mathHelper.pow(1.0 + HPIncrease * (1.0 - (WAPExpeditionScalingReduced + ExpeShopExpeditionScalingReductionLevel * 2) * 0.0025) * (ID - 17), Room)
+
+                )
             )
         );
     }
     if (Room > 250) {
+        let t = mathHelper.pow(1.0 + HPIncrease, Room - 1)
+        if (params?.force_logs) {
+
+            console.log(`t: ${t}`)
+        }
+        let y = (1.0 - (WAPExpeditionScalingReduced + ExpeShopExpeditionScalingReductionLevel * 2) * 0.0025)
+        let z = mathHelper.pow(1.0 + HPIncrease * (1.0 - (WAPExpeditionScalingReduced + ExpeShopExpeditionScalingReductionLevel * 2) * 0.0025), Room - 250)
+        let temp = mathHelper.multiplyDecimal(
+            mathHelper.pow(1.0 + HPIncrease, Room - 1),
+
+            mathHelper.pow(1.0 + HPIncrease * (1.0 - (WAPExpeditionScalingReduced + ExpeShopExpeditionScalingReductionLevel * 2) * 0.0025), Room - 250)
+        );
         return (
             mathHelper.multiplyDecimal(
                 mathHelper.addDecimal(
                     BaseHPBD,
                     mathHelper.multiplyDecimal(BaseHPBD, 0.05 * (Room - 1))
                 ),
-                mathHelper.pow(1.0 + HPIncrease, Room - 1) * mathHelper.pow(1.0 + HPIncrease * (1.0 - (WAPExpeditionScalingReduced + ExpeShopExpeditionScalingReductionLevel * 2) * 0.0025), Room - 250
+                mathHelper.multiplyDecimal(
+                    mathHelper.pow(1.0 + HPIncrease, Room - 1),
+
+                    mathHelper.pow(1.0 + HPIncrease * (1.0 - (WAPExpeditionScalingReduced + ExpeShopExpeditionScalingReductionLevel * 2) * 0.0025), Room - 250)
                 )
             )
         );

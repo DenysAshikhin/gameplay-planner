@@ -39,6 +39,27 @@ const ItemSelection = ({ selectedItems, onItemSelected, data, weightMap, default
         let a = a_inner.location;
         let b = b_inner.location;
 
+        if (a.includes('eag') && b.includes('eag')) {
+            return a.localeCompare(b);
+        }
+        else if (a.includes('eag') && b.includes('Any')) {
+            return -1;
+        }
+        else if (b.includes('eag') && a.includes('Any')) {
+            return 1;
+        }
+        else if (a.includes('eag') && b.includes('E')) {
+            return -1;
+        }
+        else if (b.includes('eag') && a.includes('E')) {
+            return 1;
+        }
+        else if (a.includes('eag') || b.includes('eag')) {
+            return 1;
+        }
+
+
+
         if (a.includes('E')) {
             if (b.includes('E')) {
 
@@ -71,6 +92,27 @@ const ItemSelection = ({ selectedItems, onItemSelected, data, weightMap, default
             else {
                 return -1;
             }
+        }
+        else if (a.includes('Any') || b.includes('Any')) {
+            if (a.includes('Any') && b.includes('Any')) {
+                return a.localeCompare(b);
+            }
+            else if (a.includes('eag') && b.includes('Any')) {
+                return -1;
+            }
+            else if (b.includes('eag') && a.includes('Any')) {
+                return 1;
+            }
+            else if (a.includes('Any') && b.includes('E')) {
+                return -1;
+            }
+            else if (b.includes('Any') && a.includes('E')) {
+                return 1;
+            }
+            else if (a.includes("Any")) {
+                return 1;
+            }
+            return -1;
         }
         else {
             let num_a = Number(a[0] * 10 + a[2]);

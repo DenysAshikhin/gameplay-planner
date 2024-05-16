@@ -26,7 +26,15 @@ var helper = {
         // return inUse.flatMap((team) => team.ExpeditionTeamID.filter((id) => id != 0));
         return ids;
     },
+    getPetDamage: function (pet, data, rank) {
 
+        return (
+            math_helper.multiplyDecimal(
+                math_helper.createDecimal(data?.PetDamageBonuses ? data.PetDamageBonuses : 1),
+                pet.BaseDungeonDamage * (1.0 + (rank ? rank : pet.Rank) * 0.05) * 5
+            )
+        )
+    },
     calculatePetBaseDamage: function (pet, defaultRank) {
         const rankCount = defaultRank ? defaultRank : pet?.Rank;
         const result = pet?.BaseDungeonDamage * (1.0 + rankCount * 0.05);
