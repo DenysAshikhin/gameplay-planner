@@ -70,25 +70,29 @@ export default function Zones() {
     }, [data])
 
     const num_teams = data.ExpeditionLimit;
-    let teams = [];
-    data.PetsExpeditionLoadout.forEach((cur_team, index) => {
-        if (index === 0 || cur_team.Locaked === 0) return;
-        let inner_team = [];
+    let teams = useMemo(() => {
+        let teams = [];
+        data.PetsExpeditionLoadout.forEach((cur_team, index) => {
+            if (index === 0 || cur_team.Locaked === 0) return;
+            let inner_team = [];
 
-        cur_team.IDs.forEach((inner_id) => {
-            if (inner_id === 0) return;
-            inner_team.push(pets_global[inner_id]);
+            cur_team.IDs.forEach((inner_id) => {
+                if (inner_id === 0) return;
+                inner_team.push(pets_global[inner_id]);
+            });
+
+            let score = petHelper.calculateGroupDamage(inner_team, data);
+            inner_team.damage = score;
+            inner_team.name = cur_team.Name;
+            teams.push(inner_team);
         });
 
-        let score = petHelper.calculateGroupDamage(inner_team, data);
-        inner_team.damage = score;
-        inner_team.name = cur_team.Name;
-        teams.push(inner_team);
-    });
+        teams.sort((a, b) => {
+            return a.damage.greaterThan(b.damage) ? -1 : 1;
+        });
+        return teams;
+    }, [data, pets_global]);
 
-    teams.sort((a, b) => {
-        return a.damage.greaterThan(b.damage) ? -1 : 1;
-    });
 
     let current_zones_stuff = useMemo(() => {
         console.log(`udating current zone stuff`)
