@@ -695,6 +695,11 @@ export default function Expeditions() {
                         </div>
                     </div>
 
+
+                    {/* <div id='in_content_flex' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', }} /> */}
+
+
+
                     <div style={{ overflow: 'auto' }}>
 
                         {groups.reduce((accum, group, index) => {
@@ -1046,117 +1051,115 @@ export default function Expeditions() {
                     style={{ padding: '6px 3px 1px 3px', overflow: 'auto', maxHeight: 'calc(100% - 45px)', overflowAnchor: 'none' }}
                 >
                     <div style={{
-                        display: 'flex', flexDirection: 'column',
+                        display: 'flex', 
+                        // flexDirection: 'column',
                         backgroundColor: 'rgba(255,255,255, 0.05)',
                         margin: '6px 6px',
                         padding: '6px',
                         border: '1px solid rgba(255,255,255,0.8)', overflowAnchor: 'none'
                     }}>
 
-                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <div style={{marginRight:'auto'}}>
+                            <div style={{ display: 'flex', alignItems: 'center' }}>
 
-                            <div>{`Ignore Pets Rank`}</div>
-                            <input
-                                aria-label='Force pets to rank 1'
-                                type="checkbox"
-                                onChange={(e) => {
-                                    setDefaultRank(e.target.checked ? 1 : 0)
-                                }}
-                                checked={!!defaultRank}
-                                value={!!defaultRank}
-                            />
-                        </div>
-                        <div style={{ display: 'flex', alignItems: 'center', marginTop: '3px' }}>
-                            {/* <div style={{ marginRight: '12px' }}>
-                                {`Golden Clover Level: ${data.SoulGoldenClover}`}
-                            </div> */}
-                            <div>
-
-                                {`Token Bonuses: ${helper.roundThreeDecimal(finalTokenBonus)}`}
-                            </div>
-                        </div>
-                        <div style={{ display: 'flex', alignItems: 'center' }}>
-
-                            <MouseOverPopover tooltip={
-                                <div>
-                                    Expedition reward from active pets special combo (0, 10%, 20%)
-                                </div>
-                            }>
-                                <div style={{ marginRight: '12px' }}>
-                                    Expedition Reward Combo
-                                </div>
-                            </MouseOverPopover>
-
-                            <select
-                                className='importantText'
-                                style={{ maxWidth: '144px', backgroundColor: '#171717', borderRadius: '4px' }}
-                                aria-label='Specify desired combo bonus'
-                                // disabled={refreshGroups}
-                                onChange={
-                                    (e) => {
-                                        setComboSelector(Number(e.target.value))
-                                    }
-                                }
-                                // defaultValue={comboSelector + ''}
-                                value={comboSelector + ''}
-                            >
-                                <option
-                                    value="1">1.0</option>
-                                <option
-                                    value="1.1">1.1</option>
-                                <option
-                                    value="1.2">1.2</option>
-                            </select>
-
-                        </div>
-                        <div style={{ display: 'flex', alignItems: 'center' }} >
-                            <div
-                                style={{
-                                    marginRight: '12px'
-                                }}>
-                                Number of teams:
-                            </div>
-                            <input
-                                id='prepFormInput'
-                                className='importantText'
-                                style={{ maxWidth: '144px', backgroundColor: '#171717', borderRadius: '4px', fontSize: '14px' }}
-                                aria-label='Number of teams to calculate'
-                                type='number'
-                                value={numTeams}
-                                onChange={
-                                    (e) => {
-                                        try {
-                                            let x = Number(e.target.value);
-                                            x = Math.floor(x);
-                                            if (x < 1 || (x > data.ExpeditionLimit + 1)) {
-                                                return;
-                                            }
-                                            setNumTeams(e.target.value);
-                                        }
-                                        catch (err) {
-                                            console.log(err);
-                                        }
-                                        // console.log(`pressed: ${e.target.value}`)
-
-                                    }}
-                                placeholder={numTeams + ''}
-                                min="1"
-                                max={`${data.ExpeditionLimit + 1}`}
-                            />
-                        </div>
-
-                        {groupRankCritera === 1 && (
-                            <div style={{ display: 'flex', alignItems: 'center', marginTop: '2px' }}>
-
-                                <div>{`Show all bonus totals`}</div>
+                                <div>{`Ignore Pets Rank`}</div>
                                 <input
-                                    aria-label='Displays bonuses whose backgrounds can be coloured in'
-                                    // disabled={refreshGroups}
-                                    type="checkbox" onChange={(e) => {
-                                        setShowAllBonusTally(e.target.checked ? true : false)
-                                    }} />
+                                    aria-label='Force pets to rank 1'
+                                    type="checkbox"
+                                    onChange={(e) => {
+                                        setDefaultRank(e.target.checked ? 1 : 0)
+                                    }}
+                                    checked={!!defaultRank}
+                                    value={!!defaultRank}
+                                />
                             </div>
-                        )}
+                            <div style={{ display: 'flex', alignItems: 'center', marginTop: '3px' }}>
+                                <div>
+                                    {`Token Bonuses: ${helper.roundThreeDecimal(finalTokenBonus)}`}
+                                </div>
+                            </div>
+                            <div style={{ display: 'flex', alignItems: 'center' }}>
+
+                                <MouseOverPopover tooltip={
+                                    <div>
+                                        Expedition reward from active pets special combo (0, 10%, 20%)
+                                    </div>
+                                }>
+                                    <div style={{ marginRight: '12px' }}>
+                                        Exp. Reward Combo
+                                    </div>
+                                </MouseOverPopover>
+                                <select
+                                    className='importantText'
+                                    style={{ maxWidth: '144px', backgroundColor: '#171717', borderRadius: '4px' }}
+                                    aria-label='Specify desired combo bonus'
+                                    // disabled={refreshGroups}
+                                    onChange={
+                                        (e) => {
+                                            setComboSelector(Number(e.target.value))
+                                        }
+                                    }
+                                    // defaultValue={comboSelector + ''}
+                                    value={comboSelector + ''}
+                                >
+                                    <option
+                                        value="1">1.0</option>
+                                    <option
+                                        value="1.1">1.1</option>
+                                    <option
+                                        value="1.2">1.2</option>
+                                </select>
+                            </div>
+                            <div style={{ display: 'flex', alignItems: 'center' }} >
+                                <div
+                                    style={{
+                                        marginRight: '12px'
+                                    }}>
+                                    Number of teams:
+                                </div>
+                                <input
+                                    id='prepFormInput'
+                                    className='importantText'
+                                    style={{ maxWidth: '144px', backgroundColor: '#171717', borderRadius: '4px', fontSize: '14px' }}
+                                    aria-label='Number of teams to calculate'
+                                    type='number'
+                                    value={numTeams}
+                                    onChange={
+                                        (e) => {
+                                            try {
+                                                let x = Number(e.target.value);
+                                                x = Math.floor(x);
+                                                if (x < 1 || (x > data.ExpeditionLimit + 1)) {
+                                                    return;
+                                                }
+                                                setNumTeams(e.target.value);
+                                            }
+                                            catch (err) {
+                                                console.log(err);
+                                            }
+                                            // console.log(`pressed: ${e.target.value}`)
+
+                                        }}
+                                    placeholder={numTeams + ''}
+                                    min="1"
+                                    max={`${data.ExpeditionLimit + 1}`}
+                                />
+                            </div>
+
+                            {groupRankCritera === 1 && (
+                                <div style={{ display: 'flex', alignItems: 'center', marginTop: '2px' }}>
+
+                                    <div>{`Show all bonus totals`}</div>
+                                    <input
+                                        aria-label='Displays bonuses whose backgrounds can be coloured in'
+                                        // disabled={refreshGroups}
+                                        type="checkbox" onChange={(e) => {
+                                            setShowAllBonusTally(e.target.checked ? true : false)
+                                        }} />
+                                </div>
+                            )}
+                        </div>
+                        <div id='in_content_flex' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', }} />
                     </div>
 
                     {/* Card to toggle bonuses */}
