@@ -819,7 +819,7 @@ export default function Zones() {
                                         {data.PetsExpeditionLoadout.map((cur_team, index) => {
                                             if (index === 0) return <></>;
                                             return (
-                                                <option value={index} key={cur_zone.ID}>
+                                                <option value={index} key={index}>
                                                     {`${cur_team.Name}`}
                                                 </option>
                                             )
