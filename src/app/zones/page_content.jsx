@@ -371,7 +371,7 @@ export default function Zones() {
         console.log(zone_to_work);
         setZoneToClear(zone_to_work);
 
-    }, [selectedZone, next_unlock, data, teamToRun, targetWave])
+    }, [selectedZone, next_unlock, data, teamToRun, targetWave, pets_global])
 
     console.log(`current zone:`)
     console.log(zoneToClear);
@@ -662,7 +662,7 @@ export default function Zones() {
                                 {current_zones.map((cur_zone, index) => {
                                     // if (index === 0) return <></>;
                                     return (
-                                        <option value={cur_zone.ID}>
+                                        <option value={cur_zone.ID} key={cur_zone.ID}>
                                             {`${cur_zone.label}`}
                                         </option>
                                     )
@@ -819,7 +819,7 @@ export default function Zones() {
                                         {data.PetsExpeditionLoadout.map((cur_team, index) => {
                                             if (index === 0) return <></>;
                                             return (
-                                                <option value={index}>
+                                                <option value={index} key={cur_zone.ID}>
                                                     {`${cur_team.Name}`}
                                                 </option>
                                             )
