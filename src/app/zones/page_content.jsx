@@ -270,6 +270,8 @@ export default function Zones() {
 
     const [selectedZone, setSelectedZone] = useState(-1);
     const [zoneToClear, setZoneToClear] = useState(null);
+    const [teamToRun, setTeamToRun] = useState(1);
+    const [targetWave, setTargetWave] = useState(-1);
     useEffect(() => {
 
         if (selectedZone === -1 && next_unlock?.ID) {
@@ -277,6 +279,7 @@ export default function Zones() {
         }
 
         let hp_goal = 1;
+        let hp_goal_difference = -1;
         let zone_to_work = { data: null, index: -1 };
         //most likely all are unlocked
         if (selectedZone === -1) {
@@ -289,26 +292,90 @@ export default function Zones() {
                 }
             })
             zone_to_work = zone_to_work.data;
-            hp_goal = mathHelper.subtractDecimal(
+            zone_to_work.max_hp = calc_max_hp(zone_to_work, data);
+            zone_to_work.total_hp = calc_total_hp(zone_to_work, data);
+
+            hp_goal = calc_total_hp(zone_to_work, data, { levelOffset: targetWave === -1 ? 0 : targetWave - zone_to_work.Room });
+            let cur_hp = mathHelper.createDecimal(zone_to_work.CurrentHPBD ? zone_to_work.CurrentHPBD : zone_to_work.CurrentHP);
+            let dmg_dealt = mathHelper.subtractDecimal(
                 calc_max_hp(zone_to_work, data),
-                mathHelper.createDecimal(zone_to_work.CurrentHPBD ? zone_to_work.CurrentHPBD : zone_to_work.CurrentHP)
+                cur_hp
             )
+            if (hp_goal.equals(zone_to_work.total_hp)) {
+
+                hp_goal_difference = mathHelper.subtractDecimal(
+                    hp_goal,
+                    mathHelper.subtractDecimal(hp_goal, cur_hp)
+                );
+            }
+            else {
+
+                hp_goal_difference = mathHelper.subtractDecimal(
+                    hp_goal,
+                    dmg_dealt
+                );
+            }
         }
         else {
-            data.ExpeditionsCollection.forEach((cur_exp) => {
-                if (cur_exp.ID === selectedZone) {
-                    zone_to_work = cur_exp;
-                }
+            data.ExpeditionsCollection.forEach((curr_zone) => {
+                if (curr_zone.ID === selectedZone) zone_to_work = curr_zone;
+
             })
+            zone_to_work.max_hp = calc_max_hp(zone_to_work, data);
+            zone_to_work.total_hp = calc_total_hp(zone_to_work, data);
+
+            hp_goal = calc_total_hp(zone_to_work, data, { levelOffset: targetWave === -1 ? 0 : targetWave - zone_to_work.Room });
+            let cur_hp = mathHelper.createDecimal(zone_to_work.CurrentHPBD ? zone_to_work.CurrentHPBD : zone_to_work.CurrentHP);
+            let dmg_dealt = mathHelper.subtractDecimal(
+                calc_max_hp(zone_to_work, data),
+                cur_hp
+            )
+            if (hp_goal.equals(zone_to_work.total_hp)) {
+
+                hp_goal_difference = mathHelper.subtractDecimal(
+                    hp_goal,
+                    mathHelper.subtractDecimal(hp_goal, cur_hp)
+                );
+            }
+            else {
+
+                hp_goal_difference = mathHelper.subtractDecimal(
+                    hp_goal,
+                    dmg_dealt
+                );
+            }
         }
 
         zone_to_work = JSON.parse(JSON.stringify(zone_to_work));
         zone_to_work = { ...zone_to_work, ...zone_data[zone_to_work.ID] };
+        zone_to_work.label = zone_data[zone_to_work.ID].label;
+        zone_to_work.order = zone_data[zone_to_work.ID].order;
+        zone_to_work.bonus_id = zone_data[zone_to_work.ID].bonus_id;
         zone_to_work.hp_goal = hp_goal;
+        zone_to_work.remaining_hp = hp_goal_difference;
+        zone_to_work.cur_hp = mathHelper.createDecimal(zone_to_work.CurrentHPBD ? zone_to_work.CurrentHPBD : zone_to_work.CurrentHP);
+        let inner_team = [];
+
+        data.PetsExpeditionLoadout[teamToRun].IDs.forEach((inner_id) => {
+            if (inner_id === 0) return;
+            inner_team.push(pets_global[inner_id]);
+        });
+        //sS
+        let score = petHelper.calculateGroupDamage(inner_team, data);
+        inner_team.damage = score;
+        inner_team.name = data.PetsExpeditionLoadout[teamToRun].Name;
+
+        zone_to_work.team = inner_team;
+        zone_to_work.hours = mathHelper.divideDecimal(hp_goal_difference, inner_team.damage).ceil();
+        console.log(`setting zone:s`)//s
         console.log(zone_to_work);
         setZoneToClear(zone_to_work);
 
-    }, [selectedZone, next_unlock, data])
+    }, [selectedZone, next_unlock, data, teamToRun, targetWave])
+
+    console.log(`current zone:`)
+    console.log(zoneToClear);
+
 
     return (
         <div
@@ -508,7 +575,7 @@ export default function Zones() {
 
                                     {/* Center title */}
                                     <div style={{
-                                        position: 'absolute', top: '4%', left: '0', fontWeight: 'bold', fontSize: '18px',
+                                        position: 'absolute', top: '5%', left: '0', fontWeight: 'bold', fontSize: '16px',
 
                                         display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%'
                                     }}>
@@ -518,7 +585,6 @@ export default function Zones() {
                                     {/* Hours to Run */}
                                     <div style={{
                                         position: 'absolute', top: '5%', display: 'flex', justifyContent: 'flex-end', alignItems: 'center', width: '100%', marginLeft: '-6px',
-                                        // color: cur_exp.hours === -1 ? '' : 'green'
                                     }}
                                     >
                                         {`Hours: ${cur_exp.hours === -1 ? 'infinite' : cur_exp.hours}`}
@@ -554,8 +620,8 @@ export default function Zones() {
             </div>
 
 
-      {/* Zone To Clear */}
-      <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', maxHeight: 'calc(100vh - 102px)' }}>
+            {/* Zone To Clear */}
+            <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', maxHeight: 'calc(100vh - 102px)' }}>
                 <div className='importantText'
                     style={{
                         display: 'flex',
@@ -569,16 +635,48 @@ export default function Zones() {
                         fontSize: '24px',
                         fontWeight: 'bold',
                         backgroundColor: 'rgba(255,255,255, 0.07)',
+                        position: 'relative'
                     }}
                 >
-                    {`Zones To Run`}
+                    <div>
+                        {`Time To Clear`}
+                    </div>
+                    {zoneToClear && (
+                        <div style={{
+                            position: 'absolute',
+                            right: '6px',
+                            bottom: '3.5px'
+                        }}>
+                            <select
+                                className='importantText'
+                                aria-label='Select which zone to run to use'
+                                style={{ maxWidth: '144px', marginLeft: '12px', backgroundColor: '#171717', borderRadius: '4px' }}
+                                onChange={
+                                    (selected_mode) => {
+                                        setSelectedZone(Number(selected_mode.target.value));
+                                        setTargetWave(-1);
+                                    }
+                                }
+                                value={zoneToClear.label}
+                            >
+                                {current_zones.map((cur_zone, index) => {
+                                    // if (index === 0) return <></>;
+                                    return (
+                                        <option value={cur_zone.ID}>
+                                            {`${cur_zone.label}`}
+                                        </option>
+                                    )
+                                })}
+                            </select>
+                        </div>
+                    )}
+
                     <MouseOverPopover tooltip={
                         <div style={{ padding: '6px' }}>
-                            {`BLAH BLAH BLAH BLAH`}
+                            {`Let's you see how long to clear certain expeditions`}
                         </div>
                     }>
                         <div style={{ position: 'relative', marginLeft: '12px', width: '24px', height: '24px' }}>
-
                             <Image
                                 alt='on hover I in a cirlce icon, shows more information on hover'
                                 fill
@@ -591,273 +689,151 @@ export default function Zones() {
                 <div className='importantText'
                     style={{
                         display: 'flex',
-                        flex: '1',
+                        // flex: '1',
                         flexDirection: 'column',
-                        // gap: '12px',
                         alignSelf: 'flex-start',
-                        // alignItems: 'center',
-                        justifyContent: 'center',
                         margin: '6px 12px 0',
                         border: '1px solid white',
                         borderRadius: '12px',
                         width: '620px',
-                        // fontSize: '24px',
-                        // fontWeight: 'bold',
                         backgroundColor: 'rgba(255,255,255, 0.07)',
                         padding: '6px 6px 6px 6px',
                         maxHeight: '100%'
                     }}
                 >
 
-                    <div style={{ width: '100%', height: '100%', overflowY: 'auto', overflowX: 'hidden', maxHeight: '100%' }}>
-                        {zone_suggestions.sort((a, b) => {
-                            if (a.hours === -1 && b.hours === -1) {
-                                return 0;
-                            }
-                            else if (a.hours === -1) {
-                                return -1;
-                            }
-                            return 1
-                        }).map((cur_exp, index) => {
+                    <div style={{ width: '100%', overflowY: 'auto', overflowX: 'hidden', maxHeight: '100%' }}>
+                        {zoneToClear && (
+                            <div
+                                style={{
+                                    position: 'relative', width: '600px', height: '150px'
+                                }}
+                            >
 
-                            return (
-                                <div key={`${index}`}
-                                    style={{
-                                        margin: '6px 0', display: 'flex', position: 'relative',
-                                        width: '600px', height: '150px',
-                                    }}
+                                <div style={{ position: 'absolute', width: '600px', height: '150px', top: '0', left: '0' }}>
+                                    <Image
+                                        alt='on hover I in a cirlce icon, shows more information on hover'
+                                        fill
+                                        src={zone_data[zoneToClear.ID].img}
+                                        unoptimized={true}
+                                    />
+                                </div>
+                                {/* Center title */}
+                                <div style={{
+                                    position: 'absolute', top: '5%', left: '0', fontWeight: 'bold', fontSize: '16px',
+
+                                    display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%'
+                                }}>
+                                    {`${zoneToClear.label} (${BonusMap[zoneToClear.bonus_id].label})`}
+                                </div>
+
+                                {/* Hours to Run */}
+                                <div style={{
+                                    position: 'absolute', top: '5%', display: 'flex', justifyContent: 'flex-end', alignItems: 'center', width: '100%', marginLeft: '-6px',
+                                }}
                                 >
-                                    <div style={{ position: 'absolute', width: '600px', height: '150px', top: '0', left: '0' }}>
-                                        <Image
-                                            alt='on hover I in a cirlce icon, shows more information on hover'
-                                            fill
-                                            src={zone_data[cur_exp.ID].img}
-                                            unoptimized={true}
+                                    {`Hours: ${zoneToClear.hours.exponent > 6 ? zoneToClear.hours.toExponential(1) : zoneToClear.hours.toNumber()}`}
+                                </div>
+
+
+                                {/*Team Damage */}
+                                <div style={{
+                                    position: 'absolute', bottom: '5%', display: 'flex', justifyContent: 'flex-start', alignItems: 'center', width: '100%', marginLeft: '6px',
+                                }}
+                                >
+                                    {`Team Damage: ${zoneToClear.team.damage.exponent > 100 ? zoneToClear.team.damage.toExponential(1) : zoneToClear.team.damage.toExponential(2)}`}
+                                </div>
+
+                                {/*Target HP */}
+                                <div style={{
+                                    position: 'absolute', top: '5%', display: 'flex', justifyContent: 'flex-start', alignItems: 'center', width: '100%', marginLeft: '6px',
+                                }}
+                                >
+                                    {`HP Left: ${zoneToClear.remaining_hp.exponent > 100 ? zoneToClear.remaining_hp.toExponential(1) : zoneToClear.remaining_hp.toExponential(2)}`}
+                                </div>
+
+
+                                {/*Target Wave */}
+                                <div style={{
+                                    position: 'absolute', bottom: '5%', left: '0',
+
+                                    display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%'
+                                }}
+                                >
+                                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                                        <div>
+                                            {`Wave: `}
+                                        </div>
+                                        <input
+                                            aria-label='What wave we want to get to'
+                                            style={{
+                                                //  borderRadius: '4px',
+                                                width: '60px',
+                                                //    height: '65%', 
+                                                //    backgroundColor: index % 2 === 0 ? '#2D2D2D' : '#353535'
+                                                backgroundColor: '#f3f0f5',
+                                                marginLeft: '6px'
+                                            }}
+                                            type='number'
+                                            value={targetWave === -1 ? zoneToClear.Room : targetWave}
+                                            onChange={
+                                                (inner_e) => {
+                                                    try {
+                                                        let x = Number(inner_e.target.value);
+                                                        if (x < 0) {
+                                                            return;
+                                                        }
+                                                        x = Math.floor(x);
+                                                        if (x < zoneToClear.Room) {
+                                                            return;
+                                                        }
+                                                        setTargetWave(x);
+                                                    }
+                                                    catch (err) {
+                                                        console.log(err);
+                                                    }
+                                                }}
+                                            min="0"
+                                            max="99999999"
                                         />
                                     </div>
-
-                                    {/* Center title */}
-                                    <div style={{
-                                        position: 'absolute', top: '4%', left: '0', fontWeight: 'bold', fontSize: '18px',
-
-                                        display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%'
-                                    }}>
-                                        {`${cur_exp.label} (${BonusMap[cur_exp.bonus_id].label})`}
-                                    </div>
-
-                                    {/* Hours to Run */}
-                                    <div style={{
-                                        position: 'absolute', top: '5%', display: 'flex', justifyContent: 'flex-end', alignItems: 'center', width: '100%', marginLeft: '-6px',
-                                        // color: cur_exp.hours === -1 ? '' : 'green'
-                                    }}
-                                    >
-                                        {`Hours: ${cur_exp.hours === -1 ? 'infinite' : cur_exp.hours}`}
-                                    </div>
-
-                                    {/*Current HP */}
-                                    <div style={{
-                                        position: 'absolute', top: '5%', display: 'flex', justifyContent: 'flex-start', alignItems: 'center', width: '100%', marginLeft: '6px',
-                                    }}
-                                    >
-                                        {`Total HP: ${cur_exp.total_hp.exponent > 100 ? cur_exp.total_hp.toExponential(1) : cur_exp.total_hp.toExponential(2)}`}
-                                    </div>
-                                    {/*Target HP */}
-                                    <div style={{
-                                        position: 'absolute', bottom: '5%', display: 'flex', justifyContent: 'flex-start', alignItems: 'center', width: '100%', marginLeft: '6px',
-                                    }}
-                                    >
-                                        {`Goal HP: ${cur_exp.target_hp.exponent > 100 ? cur_exp.target_hp.toExponential(1) : cur_exp.target_hp.toExponential(2)}`}
-                                    </div>
-
-                                    {/* Which Team to run */}
-                                    <div style={{
-                                        position: 'absolute', bottom: '5%', display: 'flex', justifyContent: 'flex-end', alignItems: 'center', width: '100%', marginLeft: '-6px'
-                                    }}
-                                    >
-                                        {`Team to run: ${cur_exp.team.name}`}
-                                    </div>
                                 </div>
-                            )
-                        })}
+
+                                {/* Which Team to run */}
+                                <div style={{
+                                    position: 'absolute', bottom: '5%', right: '6px', display: 'flex', justifyContent: 'flex-end', alignItems: 'center', width: '25%', marginLeft: '-6px'
+                                }}
+                                >
+                                    <select
+                                        className='importantText'
+                                        aria-label='Select which team to use'
+                                        style={{ maxWidth: '144px', marginLeft: '12px', backgroundColor: '#171717', borderRadius: '4px' }}
+                                        onChange={
+                                            (selected_mode) => {
+                                                // selected_mode.target.value
+                                                setTeamToRun(Number(selected_mode.target.value));
+                                            }
+                                        }
+                                        defaultValue={'None'}
+                                    >
+                                        {data.PetsExpeditionLoadout.map((cur_team, index) => {
+                                            if (index === 0) return <></>;
+                                            return (
+                                                <option value={index}>
+                                                    {`${cur_team.Name}`}
+                                                </option>
+                                            )
+                                        })}
+                                    </select>
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
 
-            {/* Miscelleneous settings */}
-            {/* 
-            
-            <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', maxHeight: 'calc(100vh - 102px)' }}>
-                <div className='importantText'
-                    style={{
-                        display: 'flex',
-                        // alignSelf: 'flex-start',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        // margin: '6px 12px 0',
-                        border: '1px solid white',
-                        borderRadius: '12px',
-                        width: '400px',
-                        fontSize: '24px',
-                        fontWeight: 'bold',
-                        backgroundColor: 'rgba(255,255,255, 0.07)',
-                    }}
-                >
-                    {`Current Expedition Zones`}
-                    <MouseOverPopover tooltip={
-                        <div style={{ padding: '6px' }}>
-                            {`BLAH BLAH BLAH BLAH`}
-                        </div>
-                    }>
-                        <div style={{ position: 'relative', marginLeft: '12px', width: '24px', height: '24px' }}>
-
-                            <Image
-                                alt='on hover I in a cirlce icon, shows more information on hover'
-                                fill
-                                src={infoIcon}
-                                unoptimized={true}
-                            />
-                        </div>
-                    </MouseOverPopover>
-                </div>
-                <div className='importantText'
-                    style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignSelf: 'flex-start',
-                        justifyContent: 'center',
-                        margin: '6px 12px 0',
-                        border: '1px solid white',
-                        borderRadius: '12px',
-                        backgroundColor: 'rgba(255,255,255, 0.07)',
-                        padding: '6px 6px 6px 6px',
-                        maxHeight: '100%'
-                    }}
-                >
-
-                    <div style={{ width: '100%', height: '100%', overflowY: 'auto', overflowX: 'hidden', maxHeight: '100%' }}>
-                        {current_zones.map((cur_exp, index) => {
-                            return (
-                                <div key={`${index}`} style={{ margin: '6px 0', display: 'flex' }}>
-                                    <div style={{ color: cur_exp.ID === zone_leader?.ID ? 'blue' : '' }}>
-                                        {`${cur_exp.label}: ${cur_exp.Room}`}
-                                    </div>
-                                    <div style={{ marginLeft: '12px' }}>
-                                        {`Total HP: ${cur_exp.total_hp.toExponential(2)}`}
-                                    </div>
-                                </div>
-                            )
-                        })}
-                    </div>
-                </div>
-            </div>
-            
-            
-            
-            <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', maxHeight: 'calc(100vh - 102px)' }}>
-
-
-                <div className='importantText'
-                    style={{
-                        display: 'flex',
-                        // alignSelf: 'flex-start',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        // margin: '6px 12px 0',
-                        border: '1px solid white',
-                        borderRadius: '12px',
-                        width: '500px',
-                        fontSize: '24px',
-                        fontWeight: 'bold',
-                        backgroundColor: 'rgba(255,255,255, 0.07)',
-                    }}
-                >
-                    {`Miscellaneous Settings`}
-                    <MouseOverPopover tooltip={
-                        <div style={{ padding: '6px' }}>
-                            Shows some stats and lets you select where extra grasshoppers are carried over
-                        </div>
-                    }>
-                        <div style={{ position: 'relative', marginLeft: '12px', width: '24px', height: '24px' }}>
-
-                            <Image
-                                alt='on hover I in a cirlce icon, shows more information on hover'
-                                fill
-                                src={infoIcon}
-                                unoptimized={true}
-                            />
-                        </div>
-                    </MouseOverPopover>
-                </div>
-                <div className='importantText'
-                    style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        // gap: '12px',
-                        alignSelf: 'flex-start',
-                        // alignItems: 'center',
-                        justifyContent: 'center',
-                        margin: '6px 12px 0',
-                        border: '1px solid white',
-                        borderRadius: '12px',
-                        width: '490px',
-                        // fontSize: '24px',
-                        // fontWeight: 'bold',
-                        backgroundColor: 'rgba(255,255,255, 0.07)',
-                        padding: '6px 6px 6px 6px',
-                        maxHeight: '100%'
-                    }}
-                >
-                    <div style={{ width: '100%', height: '100%', overflowY: 'auto', overflowX: 'hidden', maxHeight: '100%', display: 'flex', justifyContent: 'center', flexDirection: 'column' }}>
-
-                        <div style={{ display: 'flex', justifyContent: 'center' }}>
-                            <div style={{ marginRight: '6px' }}>
-                                {`Available GH: ${helper.numberWithCommas(mathHelper.createDecimal(data.GrasshopperTotal).toNumber())} (${helper.numberWithCommas(mathHelper.createDecimal(data.GrasshopperTotal).toNumber() - final_gh_amounts['excess_gh'])})`}
-                            </div>
-                        </div>
-                        <div style={{ display: 'flex', justifyContent: 'center' }}>
-                            <div style={{ marginRight: '6px' }}>
-                                {`Excess GH: ${final_gh_amounts['excess_gh']}`}
-                            </div>
-                        </div>
-                        <div style={{ display: 'flex', justifyContent: 'center' }}>
-                            <div style={{ marginRight: '6px' }}>
-                                {`Where to place excess grass hoppers`}
-                            </div>
-                            <select
-                                className='importantText'
-                                style={{ maxWidth: '144px', backgroundColor: '#171717', borderRadius: '4px' }}
-                                aria-label='Specify which contagion will receive extra gh'
-                                onChange={
-                                    (e) => {
-                                        setExtraGHID(Number(e.target.value))
-                                    }
-                                }
-                                // defaultValue={comboSelector + ''}
-                                value={extra_gh_id + ''}
-                            >
-                                <option value="1">Healthy Potatoes</option>
-                                <option value="2">Fry earned</option>
-                                <option value="3">Plant Exp</option>
-                                <option value="4">Plant Production</option>
-                                <option value="5">Plant Growth</option>
-                                <option value="6">Fry to HP Bonus</option>
-                                <option value="7">Harvest Formula</option>
-                                <option value="8">Protein</option>
-                                <option value="9">Potatoe + Class</option>
-                                <option value="10">Skull + Confection</option>
-                                <option value="11">Worm + Larva</option>
-                                <option value="12">Poop + Milk</option>
-                            </select>
-                        </div>
-
-
-                    </div>
-                </div>
-            </div> */}
 
             <div id='right_pillar' style={{ position: 'absolute', top: '0', right: '0', display: 'flex', height: 'calc(100vh - 36px)', justifyContent: 'center', alignItems: 'center', }} />
-
-
         </div>
     );
 }
