@@ -327,7 +327,7 @@ export default function Zones() {
             hp_goal = calc_total_hp(zone_to_work, data, { levelOffset: targetWave === -1 ? 0 : targetWave - zone_to_work.Room });
             let cur_hp = mathHelper.createDecimal(zone_to_work.CurrentHPBD ? zone_to_work.CurrentHPBD : zone_to_work.CurrentHP);
             let dmg_dealt = mathHelper.subtractDecimal(
-                calc_max_hp(zone_to_work, data),
+                zone_to_work.max_hp,
                 cur_hp
             )
             if (hp_goal.equals(zone_to_work.total_hp)) {
@@ -341,7 +341,8 @@ export default function Zones() {
 
                 hp_goal_difference = mathHelper.subtractDecimal(
                     hp_goal,
-                    dmg_dealt
+                    // dmg_dealt
+                    mathHelper.subtractDecimal(zone_to_work.total_hp, dmg_dealt)
                 );
             }
         }
@@ -657,10 +658,9 @@ export default function Zones() {
                                         setTargetWave(-1);
                                     }
                                 }
-                                value={zoneToClear.label}
+                                value={zoneToClear.ID}
                             >
                                 {current_zones.map((cur_zone, index) => {
-                                    // if (index === 0) return <></>;
                                     return (
                                         <option value={cur_zone.ID} key={cur_zone.ID}>
                                             {`${cur_zone.label}`}
