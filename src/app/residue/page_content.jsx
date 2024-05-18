@@ -243,6 +243,16 @@ const ResideOrderCard = ({ data }) => {
 
 
 export default function Residue() {
+    useEffect(() => {
+        let shift_ads = async () => {
+            await helper.sleep(2);
+
+            document.getElementById('in_content_flex').style.justifyContent = 'flex-end';
+        }
+        shift_ads();
+    }, [])
+
+
     const [mobileMode, setMobileMode] = useState(false);
     useEffect(() => {
         setMobileMode(isMobile);
@@ -492,8 +502,8 @@ export default function Residue() {
                 }}
             >
 
-                <div id='right_pillar' style={{  display: 'flex', justifyContent: 'flex-end', alignItems: 'center', }} />
-                <div id='in_content_flex' style={{  display: 'flex', justifyContent: 'flex-end', alignItems: 'center', }} />
+                <div id='right_pillar' style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', }} />
+                <div id='in_content_flex' style={{ display: 'flex', alignItems: 'center', }} />
             </div>
         </div>
     )
