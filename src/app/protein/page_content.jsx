@@ -18,6 +18,7 @@ import DefaultSave from '../util/tempSave.json';
 import useLocalStorage from "use-local-storage";
 
 import Image from 'next/image';
+import helper from '../util/helper.js';
 
 ReactGA.initialize([{
     trackingId: "G-GGLPK02VH8",
@@ -267,6 +268,15 @@ export default function Protein() {
     });
 
     bestAssemblies = bestAssemblyFinal;
+
+    useEffect(() => {
+        let shift_ads = async () => {
+            await helper.sleep(0.5);
+
+            document.getElementById('in_content_flex').style.justifyContent = 'flex-end';
+        }
+        shift_ads();
+    }, [])
 
     return (
         <div
@@ -585,9 +595,9 @@ export default function Protein() {
                     </div>
                 </div>
             </div >
-           
-           
-           
+
+
+
             <div
                 style={{
 
@@ -597,10 +607,12 @@ export default function Protein() {
                     backgroundColor: 'rgba(255,255,255, 0.05)',
                 }}
             >
-                    <div id='right_pillar' style={{ marginLeft: 'auto', display: 'flex', justifyContent: 'flex-end', alignItems: 'center', marginRight: '6px' }} />
-                    <div id='in_content_flex' style={{ marginTop: '1px', display: 'flex',
+                <div id='right_pillar' style={{ marginLeft: 'auto', display: 'flex', justifyContent: 'flex-end', alignItems: 'center', marginRight: '6px' }} />
+                <div id='in_content_flex' style={{
+                    marginTop: '1px', display: 'flex',
                     //  justifyContent: 'flex-end', 
-                     alignItems: 'center', }} />
+                    alignItems: 'center',
+                }} />
             </div>
         </div >
     );
