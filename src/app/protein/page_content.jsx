@@ -598,7 +598,9 @@ export default function Protein() {
                 }}
             >
                     <div id='right_pillar' style={{ marginLeft: 'auto', display: 'flex', justifyContent: 'flex-end', alignItems: 'center', marginRight: '6px' }} />
-                    <div id='in_content_flex' style={{ marginTop: '1px', display: 'flex', justifyContent: 'flex-end', alignItems: 'center', }} />
+                    <div id='in_content_flex' style={{ marginTop: '1px', display: 'flex',
+                    //  justifyContent: 'flex-end', 
+                     alignItems: 'center', }} />
             </div>
         </div >
     );
