@@ -101,7 +101,7 @@ export default function PetItem({ petData, isSelected, onClick, data, weightMap,
             maxDimension = '75px';
         }
     }
-
+    const promotion = pet.promotion ? pet.promotion : 0;
     return (
 
         <MouseOverPopover
@@ -114,7 +114,7 @@ export default function PetItem({ petData, isSelected, onClick, data, weightMap,
                     >
                         <div>
 
-                            {name}  ({totalScore})
+                            {`${name} (${promotion}*)  (${totalScore})`}
                         </div>
                         <div>
                             (Level: {level}) (Rank: {pet.Rank})  ({location})

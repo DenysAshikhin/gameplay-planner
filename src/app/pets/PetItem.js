@@ -104,7 +104,7 @@ export function PetItem({ petData, isSelected, onClick, data, weightMap, petScor
             maxDimension = '75px';
         }
     }
-
+    const promotion = pet.promotion ? pet.promotion : 0;
     return (
 
         <MouseOverPopover
@@ -117,7 +117,7 @@ export function PetItem({ petData, isSelected, onClick, data, weightMap, petScor
                     >
                         <div>
 
-                            {name}  ({totalScore})
+                        {`${name} (${promotion}*)  (${totalScore})`}
                         </div>
                         <div>
                             (Level: {level}) (Rank: {rank})  ({location})
@@ -320,7 +320,7 @@ export function PetItemExpeditions({ petData, isSelected, onClick, data, weightM
             maxDimension = '75px';
         }
     }
-
+    const promotion = pet.promotion ? pet.promotion : 0;
     return (
 
         <MouseOverPopover
@@ -333,7 +333,7 @@ export function PetItemExpeditions({ petData, isSelected, onClick, data, weightM
                     >
                         <div>
 
-                            {name}  ({totalScore})
+                        {`${name} (${promotion}*)  (${totalScore})`}
                         </div>
                         <div>
                             (Level: {level}) (Rank: {rank})  ({location})
@@ -541,6 +541,7 @@ export function StaticPetItem({ petData, highlight, showNameOnly, statMode, grou
         baseDmg = baseDmg.toExponential(2);
     }
 
+    let promotion = pet.promotion ? pet.promotion : 0;
 
     return (
         <>
@@ -553,7 +554,7 @@ export function StaticPetItem({ petData, highlight, showNameOnly, statMode, grou
                         <h3
                             style={{ marginTop: '0', marginBottom: '3px', textAlign: 'center' }}
                         >
-                            {`${name} -> ${location}`}
+                            {`${name} (${promotion}*) -> ${location}`}
                         </h3>
                         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                             <div>

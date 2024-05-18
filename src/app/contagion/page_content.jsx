@@ -199,7 +199,7 @@ export default function Contagion() {
             </div>
 
             {/* Miscelleneous settings */}
-            <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', maxHeight: 'calc(100vh - 102px)' }}>
+            <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', maxHeight: 'calc(100vh - 58px)' }}>
 
 
                 <div className='importantText'
@@ -299,6 +299,9 @@ export default function Contagion() {
 
                     </div>
                 </div>
+
+                <div id='in_content_flex' style={{ marginTop: 'auto', marginBottom: "3px", marginLeft: 'calc(50% - 160px)', display: 'flex', justifyContent: 'center', alignItems: 'center', }} />
+
             </div>
 
             <div id='right_pillar' style={{ position: 'absolute', top: '0', right: '0', display: 'flex', height: '100vh', justifyContent: 'center', alignItems: 'center', }} />

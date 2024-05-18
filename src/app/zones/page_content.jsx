@@ -272,6 +272,9 @@ export default function Zones() {
     const [zoneToClear, setZoneToClear] = useState(null);
     const [teamToRun, setTeamToRun] = useState(1);
     const [targetWave, setTargetWave] = useState(-1);
+    const [hasLocked, setHasLocked] = useState(false);
+    const [unlockWave, setUnlockWave] = useState(-1);
+
     useEffect(() => {
 
         if (selectedZone === -1 && next_unlock?.ID) {
@@ -281,21 +284,52 @@ export default function Zones() {
         let hp_goal = 1;
         let hp_goal_difference = -1;
         let zone_to_work = { data: null, index: -1 };
+
+        let earliest_locked_zone = { data: null, index: 99 };
+        let goal_wave = targetWave;
+
         //most likely all are unlocked
         if (selectedZone === -1) {
             data.ExpeditionsCollection.forEach((curr_zone) => {
                 if (curr_zone.ID === 0) return;
 
                 let temp_data = zone_data[curr_zone.ID];
+                if (curr_zone.Locked === 0 && temp_data.order < earliest_locked_zone.index) {
+                    earliest_locked_zone = { data: { ...curr_zone, ...temp_data }, index: temp_data.order }
+                }
                 if (temp_data.order > zone_to_work.index) {
                     zone_to_work = { data: curr_zone, index: temp_data.order }
                 }
-            })
+            });
+
+            if (earliest_locked_zone.data) {
+                earliest_locked_zone = earliest_locked_zone.data;
+                setHasLocked(true);
+                data.ExpeditionsCollection.forEach((curr_zone) => {
+                    let temp = zone_data[curr_zone.ID];
+                    if ((earliest_locked_zone.order - 1) === temp?.order) {
+                        zone_to_work = { data: { ...curr_zone, ...zone_data[curr_zone.ID] } };
+                    }
+                });
+
+                setUnlockWave((curr_amount) => {
+                    if (earliest_locked_zone.unlock === curr_amount) {
+                        return curr_amount;
+                    }
+                    return earliest_locked_zone.unlock;
+                })
+
+                goal_wave = targetWave === -1 ? earliest_locked_zone.unlock : targetWave;
+                if (targetWave === -1) {
+                    setTargetWave(earliest_locked_zone.unlock)
+                }
+            }
+
             zone_to_work = zone_to_work.data;
             zone_to_work.max_hp = calc_max_hp(zone_to_work, data);
             zone_to_work.total_hp = calc_total_hp(zone_to_work, data);
 
-            hp_goal = calc_total_hp(zone_to_work, data, { levelOffset: targetWave === -1 ? 0 : targetWave - zone_to_work.Room });
+            hp_goal = calc_total_hp(zone_to_work, data, { levelOffset: goal_wave === -1 ? 0 : goal_wave - zone_to_work.Room });
             let cur_hp = mathHelper.createDecimal(zone_to_work.CurrentHPBD ? zone_to_work.CurrentHPBD : zone_to_work.CurrentHP);
             let dmg_dealt = mathHelper.subtractDecimal(
                 calc_max_hp(zone_to_work, data),
@@ -658,8 +692,13 @@ export default function Zones() {
                                         setTargetWave(-1);
                                     }
                                 }
-                                value={zoneToClear.ID}
+                                defaultValue={-1}
                             >
+                                {hasLocked && (
+                                    <option value={-1} key={-1}>
+                                        {`Next Unlock`}
+                                    </option>
+                                )}
                                 {current_zones.map((cur_zone, index) => {
                                     return (
                                         <option value={cur_zone.ID} key={cur_zone.ID}>

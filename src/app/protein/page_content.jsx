@@ -278,7 +278,7 @@ export default function Protein() {
             }}
         >
 
-             {/* <GoogleAdSense publisherId="pub-1393057374484862" /> */}
+            {/* <GoogleAdSense publisherId="pub-1393057374484862" /> */}
             <div style={{
                 display: 'flex',
                 flex: '1',
@@ -583,7 +583,19 @@ export default function Protein() {
                     </div>
                 </div>
             </div >
-            <div id='right_pillar' style={{ position: 'absolute', top: '0', right: '0', display: 'flex', height: 'calc(100vh - 36px)', justifyContent: 'center', alignItems: 'center', }} />
+            <div
+                style={{
+
+                    display: 'flex',
+                    flexDirection: 'column',
+                    flex: '1',
+                    backgroundColor: 'rgba(255,255,255, 0.05)',
+                }}
+            >
+
+                <div id='right_pillar' style={{ margin: 'auto 0 auto auto', display: 'flex', justifyContent: 'flex-end', alignItems: 'center', }} />
+                <div id='in_content_flex' style={{ marginLeft: 'auto', marginBottom: "3px", display: 'flex', justifyContent: 'center', alignItems: 'center', }} />
+            </div>
         </div >
     );
 };

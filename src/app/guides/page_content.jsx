@@ -165,7 +165,8 @@ export default function Guides() {
 
 
 
-            <div id='right_pillar' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft:'12px' }} />
+            <div id='right_pillar' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginLeft: '12px' }} />
+            <div id='in_content_flex' style={{ position: 'absolute', bottom: '0', left: '0', marginLeft: 'calc(50% - 160px)', display: 'flex', justifyContent: 'center', alignItems: 'center', }} />
 
 
         </div>

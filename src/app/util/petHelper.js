@@ -2330,7 +2330,7 @@ var helper = {
                         }
                     }
                 });
-                pet.score = general_helper.roundFiveDecimal(pet.score);
+                pet.score = general_helper.roundFiveDecimal(pet.score * (1 + (pet.promotion ? pet.promotion * 0.1 : 0)));
                 pets.push(pet);
             }
 

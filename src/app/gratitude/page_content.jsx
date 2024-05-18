@@ -42,7 +42,7 @@ export default function Expeditions() {
             }}
         >
 
-             {/* <GoogleAdSense publisherId="pub-1393057374484862" /> */}
+            {/* <GoogleAdSense publisherId="pub-1393057374484862" /> */}
             <div style={{
                 display: 'flex',
                 flex: '1',
@@ -376,8 +376,8 @@ export default function Expeditions() {
                         width: '1040px',
                         // maxHeight: 'calc(100% - 49px)',
                         margin: '12px 36px 12px 0px',
-                         padding: '12px', 
-                         borderRadius: '12px'
+                        padding: '12px',
+                        borderRadius: '12px'
                     }}
                 >
                     <h1 className='importantText' style={{ margin: '0 auto' }}>
@@ -764,8 +764,10 @@ export default function Expeditions() {
                         </div>
                     </div>
                 </div>
-               
+
             </div>
+            <div id='in_content_flex' style={{ position: 'absolute', bottom: '0', left: '0', marginLeft: 'calc(50% - 160px)', display: 'flex', justifyContent: 'center', alignItems: 'center', }} />
+
             <div id='right_pillar' style={{ position: 'absolute', top: '0', right: '0', display: 'flex', height: 'calc(100vh - 36px)', justifyContent: 'center', alignItems: 'center', }} />
         </div >
     );

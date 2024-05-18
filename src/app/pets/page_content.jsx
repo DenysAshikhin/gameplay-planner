@@ -605,7 +605,7 @@ export default function Pets() {
             }}
         >
 
-             {/* <GoogleAdSense publisherId="pub-1393057374484862" /> */}
+            {/* <GoogleAdSense publisherId="pub-1393057374484862" /> */}
             <div
                 style={{
                     display: 'flex',
@@ -625,9 +625,17 @@ export default function Pets() {
                     padding: '6px',
                     borderRadius: '6px',
                     border: `2px solid rgba(255,255,255,0.7)`,
+                    display: 'flex',
+                    flexDirection: 'column'
                 }}>
                     <h2 className='importantText' style={{ textAlign: 'center', marginTop: '0', marginBottom: '12px' }}>Pet Combo List</h2>
-                    <div style={{ borderRadius: '6px', maxHeight: 'calc(100% - 42px)', height: 'calc(100% - 42px)', overflow: 'hidden' }}>
+
+                    <div style={{
+                        borderRadius: '6px',
+                        display: 'flex', flex: '1', flexDirection: 'column',
+                        //  maxHeight: 'calc(100% - 42px)', height: 'calc(100% - 42px)', 
+                        overflow: 'hidden'
+                    }}>
                         <div
                             className='importantText'
                             style={{
@@ -646,6 +654,7 @@ export default function Pets() {
                             })}
                         </div>
                     </div>
+                    <div id='in_content_flex' style={{ margin: '3px 0 0 0', display: 'flex', justifyContent: 'center', alignItems: 'center', }} />
                 </div>
 
 
@@ -1491,8 +1500,18 @@ export default function Pets() {
                         </div>
 
                     </div>)}
+                    <div style={{
+                        display: 'flex',
+                        flex: '1',
+                        flexDirection: 'column',
+                        alignItems: 'flex-end',
+                        justifyContent: 'space-between'
 
-                    <div id='right_pillar' style={{ marginLeft:'auto', display: 'flex',  justifyContent: 'center', alignItems: 'center', }} />
+                    }}>
+                        <div id='right_pillar' style={{ margin: 'auto 0 auto auto', display: 'flex', justifyContent: 'center', alignItems: 'center', }} />
+                        {/* <div id='in_content_flex' style={{margin:'0 3px 3px 0', display: 'flex', justifyContent: 'center', alignItems: 'center', }} /> */}
+                    </div>
+
                 </>
 
 

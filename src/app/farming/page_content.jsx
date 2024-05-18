@@ -1921,7 +1921,7 @@ const FarmingLanding = () => {
                                         </MouseOverPopover>
                                         {futureTime < 1 && (
                                             <div>
-                                                Minimum 1 future hour!
+                                                Minimum 1 hour!
                                             </div>
                                         )}
                                     </div>
@@ -2286,17 +2286,15 @@ const FarmingLanding = () => {
                                     <Timer duration={duration} setDuration={setDuration} />
                                 </div>
                             </div>
-
+                            <div id='in_content_flex' style={{margin:'3px 0 0 9px', display: 'flex', justifyContent: 'center', alignItems: 'center', }} />
                             <div
                                 className={openedInstructionsRunTime ? '' : 'borderToFadeInAndOutRed'}
-                                style={{ margin: '12px auto', borderRadius: '6px', padding: '6px' }}>
+                                style={{ margin: '3px auto', borderRadius: '6px', padding: '6px' }}>
                                 <button onClick={(e) => {
                                     setShowInstructions(!showInstructions);
                                     setOpenedInstructions(true);
                                 }}>{showInstructions ? `Hide Instructions` : `Show Instructions`}</button>
                             </div>
-
-
                             <div
                                 className={(showInstructions ? 'elementExpandHeight' : 'elementCollapseHeight') + ' importantText'}
                                 style={{
@@ -2309,9 +2307,8 @@ const FarmingLanding = () => {
                                 }}>
                                 <h1 style={{ fontSize: '18px', margin: '', textAlign: 'center' }}>Farm Page Explanation / Guide</h1>
                                 <div style={{ marginBottom: "6px" }}>{`1. Hover over any text your are unsure of to see a description`}</div>
-                                <div style={{ marginBottom: "6px" }}> {`2. Enter 'Hours to calculate' corresponding to how many more hours you want your current run to last`}</div>
-                                <div style={{ marginBottom: "6px" }}> {`3. Calculate AFK suggests number of plants to place in each auto`}</div>
-                                <div style={{ marginBottom: "6px" }}> {`4. Calculate Step suggests time to run each plant (starting from highest) with all autos in order`}</div>
+                                <div style={{ marginBottom: "6px" }}> {`2. Visit more information can be found at https://gameplayplanner.com/guides/farming_explanation`}</div>
+                               
                             </div>
 
                         </div>

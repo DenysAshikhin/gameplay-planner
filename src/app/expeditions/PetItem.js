@@ -37,7 +37,7 @@ const PetItem = ({ petData,
     if (!pet) return null; // In case the pet is not found in the collection
 
     // const rank = defaultRank ? defaultRank : pet.Rank;
-    const rank =  pet.Rank;
+    const rank = pet.Rank;
     const level = pet.Level;
     const totalScore = petHelper.getPetDamage(pet, data, rank).toExponential(2);
 
@@ -63,7 +63,7 @@ const PetItem = ({ petData,
                 // const bonusPower = Number(pet.Level === 0 ? 1 : pet.Level);
                 // const result = (Math.pow(bonusBase, bonusPower) - 1) * (1 + .02 * Number(pet.Rank));
                 const equipedBonus = petHelper.calcEquipBonus(pet, activePetBonus);
-              
+
                 return (
                     <li key={i}>
                         {BonusMap[activePetBonus.ID]?.label}: {equipedBonus.toExponential(2)}
@@ -118,6 +118,8 @@ const PetItem = ({ petData,
         }
     }
 
+    const promotion = pet.promotion ? pet.promotion : 0;
+
     return (
 
         <MouseOverPopover
@@ -129,12 +131,10 @@ const PetItem = ({ petData,
                         style={{ marginTop: '0' }}
                     >
                         <div>
-
-                            {name}  ({totalScore})
+                            {`${name} (${promotion}*) (${totalScore})`}
                         </div>
                         <div>
                             (Level: {level}) (Rank: {pet.Rank})  ({location})
-
                         </div>
                     </h3>
                     <div>
@@ -304,7 +304,7 @@ const StaticPetItem = ({ petData, highlight, showNameOnly }) => {
     else {
         baseDmg = baseDmg.toExponential(2);
     }
-
+    let promotion = pet.promotion ? pet.promotion : 0;
 
     return (
         // <div key={petId} className={`static-item-tile`}>
@@ -322,13 +322,13 @@ const StaticPetItem = ({ petData, highlight, showNameOnly }) => {
                     <h3
                         style={{ marginTop: '0', marginBottom: '3px', textAlign: 'center' }}
                     >
-                        {`${name} -> ${location}`}
+                        {`${name} (${promotion}) -> ${location}`}
                     </h3>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                         <div>
                             {`Rank: ${pet.Rank}`}
                         </div>
-                        <div style={{margin: '0 6px'}}>
+                        <div style={{ margin: '0 6px' }}>
                             {`Level: ${pet.Level}`}
                         </div>
                         <div>

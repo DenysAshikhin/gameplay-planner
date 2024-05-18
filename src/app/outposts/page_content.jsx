@@ -112,7 +112,7 @@ export default function Outposts() {
                         // margin: '6px 12px 0',
                         border: '1px solid white',
                         borderRadius: '12px',
-                        width: '665px',
+                        width: '683px',
                         fontSize: '24px',
                         fontWeight: 'bold',
                         backgroundColor: 'rgba(255,255,255, 0.07)',
@@ -146,7 +146,7 @@ export default function Outposts() {
                         margin: '6px 0 0 0',
                         border: '1px solid white',
                         borderRadius: '12px',
-                        width: '640px',
+                        width: '660px',
                         // fontSize: '24px',
                         // fontWeight: 'bold',
                         backgroundColor: 'rgba(255,255,255, 0.07)',
@@ -210,7 +210,7 @@ export default function Outposts() {
                         </div>
 
                         {/* Average Costs */}
-                        <div style={{ width: '276px' }}>
+                        <div style={{ width: '276px', }}>
                             <div style={{ display: 'flex', justifyContent: 'center', fontSize: '20px' }}>
                                 {`Average Trade Cost`}
                             </div>
@@ -236,6 +236,8 @@ export default function Outposts() {
                                     <TradeSingle key={index} deal={curr_deal} borderBottom={index === average_cost_map.length - 1} />
                                 )
                             })}
+
+                            <div id='in_content_flex' style={{ marginRight: '-44px', marginTop: '12px', display: 'flex', justifyContent: 'center', alignItems: 'center', }} />
                         </div>
                     </div>
 
