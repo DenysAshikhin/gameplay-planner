@@ -78,9 +78,9 @@ const create_in_content_flex = function () {
     let div_id = document.createElement("div");
     div_id.id = "mmt-cb211802-3e88-4915-a21b-2982de4b3e62";
 
-    // div_id.style.width = '320px';
-    // div_id.style.height = '100px';
-    // div_id.style.backgroundColor = 'red';
+    div_id.style.width = '320px';
+    div_id.style.height = '100px';
+    div_id.style.backgroundColor = 'red';
     holder_div.appendChild(div_id);
 
     const script_holder = '<div id="mmt-cb211802-3e88-4915-a21b-2982de4b3e62"></div><script type="text/javascript" data-cfasync="false">$MMT = window.$MMT || {}; $MMT.cmd = $MMT.cmd || [];$MMT.cmd.push(function(){ $MMT.display.slots.push(["cb211802-3e88-4915-a21b-2982de4b3e62"]); });</script>';
@@ -102,7 +102,7 @@ export default function Ad_Comp() {
         const setup_function_right_pillar = async () => {
             setup_started.current = true;
             const right_pillar = document.getElementById('right_pillar');
-            if(!right_pillar){
+            if (!right_pillar) {
                 return;
             }
             const children = right_pillar.children;
@@ -124,7 +124,7 @@ export default function Ad_Comp() {
         const setup_function_right_pillar160 = async () => {
             setup_started.current = true;
             const right_pillar = document.getElementById('right_pillar_160');
-            if(!right_pillar){
+            if (!right_pillar) {
                 return;
             }
             const children = right_pillar.children;
@@ -141,9 +141,12 @@ export default function Ad_Comp() {
         setup_function_right_pillar160();
 
         const setup_function_in_content_flex = async () => {
+
+            await helper.sleep(0.25);
+
             setup_started.current = true;
             const in_content_flex = document.getElementById('in_content_flex');
-            if(!in_content_flex){
+            if (!in_content_flex) {
                 return;
             }
             const children = in_content_flex.children;
@@ -179,7 +182,7 @@ export default function Ad_Comp() {
         }
         setup_function_leaderboard();
 
-   
+
         const setup_function_footer_in_screen = async () => {
             setup_started.current = true;
             const footer_in_screen = document.getElementById('footer_in_screen');
