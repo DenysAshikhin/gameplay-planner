@@ -34,7 +34,7 @@ export default function Protein() {
 
     useEffect(() => {
         let shift_ads = async () => {
-            await helper.sleep(0.5);
+            await helper.sleep(2);
 
             document.getElementById('in_content_flex').style.justifyContent = 'flex-end';
         }
