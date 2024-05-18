@@ -6,6 +6,7 @@ ReactGA.initialize([{
     trackingId: "G-GGLPK02VH8",
 }]);
 
+import helper from '../util/helper.js';
 import Image from 'next/image';
 import useLocalStorage from "use-local-storage";
 
