@@ -229,107 +229,113 @@ export default function Infinity_Corner() {
         <div
             style={{
                 display: 'flex',
-                flexDirection: 'column',
+                // flexDirection: 'column',
                 flex: '1',
                 backgroundColor: 'black',
                 position: 'relative',
             }}
         >
-
-             {/* <GoogleAdSense publisherId="pub-1393057374484862" /> */}
-            {/* Title */}
-            <div className='importantText'
-                style={{
-                    display: 'flex',
-                    alignSelf: 'flex-start',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    margin: '6px 12px 0',
-                    border: '1px solid white',
-                    borderRadius: '12px',
-                    width: '1230px',
-                    fontSize: '24px',
-                    fontWeight: 'bold',
-                    backgroundColor: 'rgba(255,255,255, 0.07)',
-                }}
-            >
-                Infinity Corner
-                <MouseOverPopover tooltip={
-                    <div style={{ padding: '6px' }}>
-                        Any affordable purchases are flashing in green, othewise the next best (unaffordable) purchase is in yellow
-                    </div>
-                }>
-                    <div style={{ position: 'relative', marginLeft: '12px', width: '24px', height: '24px' }}>
-
-                        <Image
-                            alt='on hover I in a cirlce icon, shows more information on hover'
-                            fill
-                            src={infoIcon}
-                            unoptimized={true}
-                        />
-                    </div>
-                </MouseOverPopover>
-            </div>
-            <div style={{
-                display: 'flex',
-                overflow: 'auto'
-            }}>
-                {/* Upgrade Master List */}
-                <div
+            <div>
+                {/* <GoogleAdSense publisherId="pub-1393057374484862" /> */}
+                {/* Title */}
+                <div className='importantText'
                     style={{
-                        minWidth: '1230px',
-                        minHeight: '750px',
-                        width: '1230px',
-                        height: '750px',
-                        position: 'relative',
+                        display: 'flex',
+                        alignSelf: 'flex-start',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        margin: '6px 12px 0',
                         border: '1px solid white',
                         borderRadius: '12px',
-                        overflow: 'auto',
-                        margin: '12px 12px 0 12px',
-
+                        width: '1230px',
+                        fontSize: '24px',
+                        fontWeight: 'bold',
+                        backgroundColor: 'rgba(255,255,255, 0.07)',
                     }}
                 >
-                    <Image
-                        alt={`panelbackground for the infinity corner`}
-                        src={panel_background}
-                        fill
-                        priority
-                        unoptimized
-                    />
+                    Infinity Corner
+                    <MouseOverPopover tooltip={
+                        <div style={{ padding: '6px' }}>
+                            Any affordable purchases are flashing in green, othewise the next best (unaffordable) purchase is in yellow
+                        </div>
+                    }>
+                        <div style={{ position: 'relative', marginLeft: '12px', width: '24px', height: '24px' }}>
 
-                    <div style={{
-                        position: 'absolute',
-                        left: '0',
-                        top: '0',
-                        width: '100%',
-                        height: '100%'
-                    }}>
+                            <Image
+                                alt='on hover I in a cirlce icon, shows more information on hover'
+                                fill
+                                src={infoIcon}
+                                unoptimized={true}
+                            />
+                        </div>
+                    </MouseOverPopover>
+                </div>
+                <div style={{
+                    display: 'flex',
+                    overflow: 'auto'
+                }}>
+                    {/* Upgrade Master List */}
+                    <div
+                        style={{
+                            minWidth: '1230px',
+                            minHeight: '750px',
+                            width: '1230px',
+                            height: '750px',
+                            position: 'relative',
+                            border: '1px solid white',
+                            borderRadius: '12px',
+                            overflow: 'auto',
+                            margin: '12px 12px 0 12px',
+
+                        }}
+                    >
                         <Image
                             alt={`panelbackground for the infinity corner`}
-                            src={star_normal}
+                            src={panel_background}
                             fill
                             priority
                             unoptimized
                         />
-                        {Object.keys(ic_mapping).map((inner_val) => {
 
-                            if (inner_val !== 'locked') {
-                                return <Item key={`${inner_val}-item`} map_key={inner_val} data={data} setUpgradeWeights={setUpgradeWeights}
-                                    buyMap={bigResults.buyMap}
-                                    futureBuyMode={bigResults.futureBuyMode}
-                                    futureBuy={bigResults.futureBuy}
-                                />
-                            }
-                            else {
-                                return <div key={`${inner_val}-item`} />
-                            }
-                        })}
+                        <div style={{
+                            position: 'absolute',
+                            left: '0',
+                            top: '0',
+                            width: '100%',
+                            height: '100%'
+                        }}>
+                            <Image
+                                alt={`panelbackground for the infinity corner`}
+                                src={star_normal}
+                                fill
+                                priority
+                                unoptimized
+                            />
+                            {Object.keys(ic_mapping).map((inner_val) => {
+
+                                if (inner_val !== 'locked') {
+                                    return <Item key={`${inner_val}-item`} map_key={inner_val} data={data} setUpgradeWeights={setUpgradeWeights}
+                                        buyMap={bigResults.buyMap}
+                                        futureBuyMode={bigResults.futureBuyMode}
+                                        futureBuy={bigResults.futureBuy}
+                                    />
+                                }
+                                else {
+                                    return <div key={`${inner_val}-item`} />
+                                }
+                            })}
+                        </div>
                     </div>
                 </div>
             </div>
-            <div id='right_pillar' style={{ position: 'absolute', top: '0', right: '0', display: 'flex', height: 'calc(100vh - 36px)', justifyContent: 'center', alignItems: 'center', }} />
-       
-            <div id='in_content_flex' style={{ position: 'absolute', bottom: '0', right: '0', marginBottom: "3px", display: 'flex', justifyContent: 'center', alignItems: 'center', }} />
+
+            <div style={{ display: 'flex', flex: '1', flexDirection: 'column' }}>
+                <div id='right_pillar' style={{ marginLeft: 'auto', display: 'flex', justifyContent: 'flex-end', alignItems: 'center', marginRight: '6px' }} />
+                <div id='in_content_flex' style={{ marginTop: '1px', display: 'flex', justifyContent: 'flex-end', alignItems: 'center', }} />
+            </div>
+
+            {/* <div id='right_pillar' style={{ position: 'absolute', top: '0', right: '0', display: 'flex', height: 'calc(100vh - 36px)', justifyContent: 'center', alignItems: 'center', }} />
+            <div id='in_content_flex' style={{ position: 'absolute', bottom: '0', right: '0', marginBottom: "3px", display: 'flex', justifyContent: 'center', alignItems: 'center', }} /> */}
         </div >
     );
 }

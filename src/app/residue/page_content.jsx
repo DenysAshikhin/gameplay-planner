@@ -492,8 +492,8 @@ export default function Residue() {
                 }}
             >
 
-                <div id='right_pillar' style={{ margin: 'auto 0 auto auto', display: 'flex', justifyContent: 'flex-end', alignItems: 'center', }} />
-                <div id='in_content_flex' style={{ marginBottom: "3px", display: 'flex', justifyContent: 'flex-end', alignItems: 'center', }} />
+                <div id='right_pillar' style={{  display: 'flex', justifyContent: 'flex-end', alignItems: 'center', }} />
+                <div id='in_content_flex' style={{  display: 'flex', justifyContent: 'flex-end', alignItems: 'center', }} />
             </div>
         </div>
     )

@@ -277,6 +277,8 @@ export default function Protein() {
                 position: 'relative',
             }}
         >
+            <div>
+            </div>
 
             {/* <GoogleAdSense publisherId="pub-1393057374484862" /> */}
             <div style={{
@@ -583,6 +585,9 @@ export default function Protein() {
                     </div>
                 </div>
             </div >
+           
+           
+           
             <div
                 style={{
 
@@ -592,9 +597,8 @@ export default function Protein() {
                     backgroundColor: 'rgba(255,255,255, 0.05)',
                 }}
             >
-
-                <div id='right_pillar' style={{ margin: 'auto 0 auto auto', display: 'flex', justifyContent: 'flex-end', alignItems: 'center', }} />
-                <div id='in_content_flex' style={{ marginBottom: "3px", display: 'flex', justifyContent: 'flex-end', alignItems: 'center', }} />
+                    <div id='right_pillar' style={{ marginLeft: 'auto', display: 'flex', justifyContent: 'flex-end', alignItems: 'center', marginRight: '6px' }} />
+                    <div id='in_content_flex' style={{ marginTop: '1px', display: 'flex', justifyContent: 'flex-end', alignItems: 'center', }} />
             </div>
         </div >
     );
