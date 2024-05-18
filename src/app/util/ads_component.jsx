@@ -78,9 +78,9 @@ const create_in_content_flex = function () {
     let div_id = document.createElement("div");
     div_id.id = "mmt-cb211802-3e88-4915-a21b-2982de4b3e62";
 
-    div_id.style.width = '320px';
-    div_id.style.height = '100px';
-    div_id.style.backgroundColor = 'red';
+    // div_id.style.width = '320px';
+    // div_id.style.height = '100px';
+    // div_id.style.backgroundColor = 'red';
     holder_div.appendChild(div_id);
 
     const script_holder = '<div id="mmt-cb211802-3e88-4915-a21b-2982de4b3e62"></div><script type="text/javascript" data-cfasync="false">$MMT = window.$MMT || {}; $MMT.cmd = $MMT.cmd || [];$MMT.cmd.push(function(){ $MMT.display.slots.push(["cb211802-3e88-4915-a21b-2982de4b3e62"]); });</script>';
