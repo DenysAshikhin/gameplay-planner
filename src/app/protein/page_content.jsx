@@ -31,6 +31,17 @@ ReactGA.initialize([{
 
 
 export default function Protein() {
+
+    useEffect(() => {
+        let shift_ads = async () => {
+            await helper.sleep(0.5);
+
+            document.getElementById('in_content_flex').style.justifyContent = 'flex-end';
+        }
+        shift_ads();
+    }, [])
+
+
     const [mobileMode, setMobileMode] = useState(false);
     useEffect(() => {
         setMobileMode(isMobile);
@@ -269,14 +280,6 @@ export default function Protein() {
 
     bestAssemblies = bestAssemblyFinal;
 
-    useEffect(() => {
-        let shift_ads = async () => {
-            await helper.sleep(0.5);
-
-            document.getElementById('in_content_flex').style.justifyContent = 'flex-end';
-        }
-        shift_ads();
-    }, [])
 
     return (
         <div
