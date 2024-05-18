@@ -142,7 +142,7 @@ export default function Ad_Comp() {
 
         const setup_function_in_content_flex = async () => {
 
-            await helper.sleep(0.25);
+            await helper.sleep(1);
 
             setup_started.current = true;
             const in_content_flex = document.getElementById('in_content_flex');
