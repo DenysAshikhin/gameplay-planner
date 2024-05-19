@@ -1,6 +1,18 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import file_upload from "@images/icons/file_upload.svg";
+import signpost from "@images/icons/signpost.svg";
+import paw_plus from "@images/icons/paw_plus.svg";
+import badge from "@images/icons/badge.svg";
+import farming from "@images/icons/farming.svg";
+import contagion from "@images/icons/contagion.svg";
+import gear_lightgray from "@images/icons/gear_lightgray.svg";
+import star from "@images/icons/star.svg";
+import pickaxe from "@images/icons/pickaxe.svg";
+import paper_scroll from "@images/icons/paper_scroll.svg";
+import heart from "@images/icons/heart.svg";
+import milk from "@images/icons/milk.svg";
 
 const NavBar = ({ }) => {
   return (
@@ -30,7 +42,7 @@ const NavBar = ({ }) => {
             <Image
               alt="file uploade icon page navigation to cards page"
               fill
-              src={`/images/icons/file_upload.svg`}
+              src={file_upload}
             />
           </div>
         </div>
@@ -57,7 +69,7 @@ const NavBar = ({ }) => {
             <Image
               alt="signpost icon page navigation to expeditions page"
               fill
-              src={`/images/icons/signpost.svg`}
+              src={signpost}
             />
           </div>
         </div>
@@ -114,7 +126,7 @@ const NavBar = ({ }) => {
             <Image
               alt="dog paw icon page navigation to pet page"
               fill
-              src={`/images/icons/paw_plus.svg`}
+              src={paw_plus}
             />
           </div>
         </div>
@@ -142,7 +154,7 @@ const NavBar = ({ }) => {
             <Image
               alt="personal badge icon page navigation to cards page"
               fill
-              src={`/images/icons/badge.svg`}
+              src={badge}
             />
 
           </div>
@@ -171,7 +183,7 @@ const NavBar = ({ }) => {
             <Image
               alt="farming icon page navigation to farming"
               fill
-              src={`/images/icons/farming.svg`}
+              src={farming}
             />
           </div>
         </div>
@@ -198,7 +210,7 @@ const NavBar = ({ }) => {
             <Image
               alt="navigation to contagion (grasshopper) page"
               fill
-              src={`/images/icons/contagion.svg`}
+              src={contagion}
             />
           </div>
         </div>
@@ -225,7 +237,7 @@ const NavBar = ({ }) => {
             <Image
               alt="mechanical gear icon page navigation to protein page"
               fill
-              src={`/images/icons/gear_lightgray.svg`}
+              src={gear_lightgray}
             />
           </div>
         </div>
@@ -253,7 +265,7 @@ const NavBar = ({ }) => {
             <Image
               alt="milk carton navigation to residue page"
               fill
-              src={`/images/icons/milk.svg`}
+              src={milk}
             />
           </div>
         </div>
@@ -280,7 +292,7 @@ const NavBar = ({ }) => {
             <Image
               alt="star shape navigation to infinity corner page"
               fill
-              src={`/images/icons/star.svg`}
+              src={star}
             />
           </div>
         </div>
@@ -307,7 +319,7 @@ const NavBar = ({ }) => {
             <Image
               alt="star shape navigation to outposts page"
               fill
-              src={`/images/icons/pickaxe.svg`}
+              src={pickaxe}
             />
           </div>
         </div>
@@ -334,7 +346,7 @@ const NavBar = ({ }) => {
             <Image
               alt="vertical paper scroll navigation to guides page"
               fill
-              src={`/images/icons/paper_scroll.svg`}
+              src={paper_scroll}
             />
           </div>
         </div>
@@ -361,8 +373,7 @@ const NavBar = ({ }) => {
             <Image
               alt="light gray heart icon navigation to gratiuity and discord link"
               fill
-              // src={`/images/icons/donation-cropped.svg`}
-              src={`/images/icons/heart.svg`}
+              src={heart}
             />
           </div>
         </div>

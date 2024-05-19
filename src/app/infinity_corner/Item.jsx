@@ -5,11 +5,11 @@ import Image from 'next/image';
 import useLocalStorage from "use-local-storage";
 import MouseOverPopover from "../util/Tooltip.jsx";
 import { ic_mapping, calc_bonus } from './ic_mapping.js';
-import infoIcon from '../../../public/images/icons/info_thick.svg';
-import RefreshIcon from '../../../public/images/icons/refresh_lightgray.svg';
-import greenWreathIcon from '../../../public/images/infinity_corner/QoLSelected.png';
-import greenWreathIconNoHaze from '../../../public/images/infinity_corner/QoLSelected_nohaze.png';
-import yellowWreathIconNoHaze from '../../../public/images/infinity_corner/Era6Selected.png';
+import infoIcon from '@images/icons/info_thick.svg';
+import RefreshIcon from '@images/icons/refresh_lightgray.svg';
+import greenWreathIcon from '@images/infinity_corner/QoLSelected.png';
+import greenWreathIconNoHaze from '@images/infinity_corner/QoLSelected_nohaze.png';
+import yellowWreathIconNoHaze from '@images/infinity_corner/Era6Selected.png';
 
 
 export default function Item({

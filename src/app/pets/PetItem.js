@@ -7,8 +7,8 @@ import { BonusMap } from "../util/itemMapping";
 import petHelper from '../util/petHelper.js';
 
 import Image from 'next/image';
-import infoIconAmber from '../../../public/images/icons/info_amber.svg';
-import infoIconBlue from '../../../public/images/icons/info_blue.svg';
+import infoIconAmber from '@images/icons/info_amber.svg';
+import infoIconBlue from '@images/icons/info_blue.svg';
 
 const filterBonuses = (bonuses, filterFn) => {
     return bonuses

@@ -7,9 +7,9 @@ ReactGA.initialize([{
     trackingId: "G-GGLPK02VH8",
 }]);
 
-import ContagionLine from './contagion_line.jsx';
-import infoIcon from '../../../public/images/icons/info_thick.svg';
-import MouseOverPopover from "../util/Tooltip.jsx";
+import ContagionLine from './contagion_line';
+import infoIcon from '@images/icons/info_thick.svg';
+import MouseOverPopover from "../util/Tooltip";
 import DefaultSave from '../util/tempSave.json';
 import useLocalStorage from "use-local-storage";
 import mathHelper from '../util/math.js';

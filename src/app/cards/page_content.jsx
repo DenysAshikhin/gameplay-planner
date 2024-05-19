@@ -13,14 +13,14 @@ import mathHelper from '../util/math.js';
 import reincHelper from '../util/reincHelper.js';
 import helper from '../util/helper.js';
 
-import rightArrow from '../../../public/images/icons/right_arrow_white.svg';
-import infoIcon from '../../../public/images/icons/info_thick.svg';
-import infoIconRed from '../../../public/images/icons/info_red.svg';
-// import chargeImg from '../../../public/images/cards/charge.png'
-import chargeImg from '../../../public/images/cards_v2/battery.png'
+import rightArrow from '@images/icons/right_arrow_white.svg';
+import infoIcon from '@images/icons/info_thick.svg';
+import infoIconRed from '@images/icons/info_red.svg';
+// import chargeImg from '@images/cards/charge.png'
+import chargeImg from '@images/cards_v2/battery.png'
 
-import greenBorder from '../../../public/images/cards_v2/CardSelectedGreen.png'
-import redBorder from '../../../public/images/cards_v2/CardSelectedRed.png'
+import greenBorder from '@images/cards_v2/CardSelectedGreen.png'
+import redBorder from '@images/cards_v2/CardSelectedRed.png'
 
 import useLocalStorage from "use-local-storage";
 

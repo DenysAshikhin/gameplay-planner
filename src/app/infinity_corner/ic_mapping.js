@@ -1,27 +1,27 @@
 import mathHelper from '../util/math.js';
 
-// import AttackImg from '../../../public/images/infinity_corner/1UpgradeAtk.png';
-import AttackImg from "../../../public/images/infinity_corner/1UpgradeAtk.png";
-import HPImg from '../../../public/images/infinity_corner/2UpgradeHP.png';
-import PotatoImg from '../../../public/images/infinity_corner/3UpgradePotato.png';
-import ClassImg from '../../../public/images/infinity_corner/4UpgradeClassExpBuy.png';
-import SkullImg from '../../../public/images/infinity_corner/4UpgradePerk.png';
-import ConfectionImg from '../../../public/images/infinity_corner/6UpgradeConfection.png';
-import CalciumImg from '../../../public/images/infinity_corner/12UpgradeCalcium.png';
-import FermentImg from '../../../public/images/infinity_corner/13UpgradeFermenting.png';
-import MilkImg from '../../../public/images/infinity_corner/1UpgradeMilkBuy.png';
-import BrewImg from '../../../public/images/infinity_corner/2UpgradeBrewExpBuy.png';
-import PoopImg from '../../../public/images/infinity_corner/7UpgradePoop.png';
-import PetDMGImg from '../../../public/images/infinity_corner/22UpgradePetDamage.png';
-import PetEXPImg from '../../../public/images/infinity_corner/23UpgradePetRank.png';
-import CardPOWImg from '../../../public/images/infinity_corner/24UpgradeCardPower.png';
-import WhackImg from '../../../public/images/infinity_corner/8UpgradeWhackScore.png';
-import LarvaEffImg from '../../../public/images/infinity_corner/20UpgradeLarvaEff.png';
-import IRImg from '../../../public/images/infinity_corner/9UpgradeItemRating.png';
-import ResidueImg from '../../../public/images/infinity_corner/24UpgradeResidue.png';
-import star_normal from '../../../public/images/infinity_corner/LastEraTopBackground.png';
-import LockedImg from '../../../public/images/infinity_corner/locked.png';
-import SweetPotatoe from '../../../public/images/infinity_corner/UpgradeLockSweet.png'
+// import AttackImg from '@images/infinity_corner/1UpgradeAtk.png';
+import AttackImg from "@images/infinity_corner/1UpgradeAtk.png";
+import HPImg from '@images/infinity_corner/2UpgradeHP.png';
+import PotatoImg from '@images/infinity_corner/3UpgradePotato.png';
+import ClassImg from '@images/infinity_corner/4UpgradeClassExpBuy.png';
+import SkullImg from '@images/infinity_corner/4UpgradePerk.png';
+import ConfectionImg from '@images/infinity_corner/6UpgradeConfection.png';
+import CalciumImg from '@images/infinity_corner/12UpgradeCalcium.png';
+import FermentImg from '@images/infinity_corner/13UpgradeFermenting.png';
+import MilkImg from '@images/infinity_corner/1UpgradeMilkBuy.png';
+import BrewImg from '@images/infinity_corner/2UpgradeBrewExpBuy.png';
+import PoopImg from '@images/infinity_corner/7UpgradePoop.png';
+import PetDMGImg from '@images/infinity_corner/22UpgradePetDamage.png';
+import PetEXPImg from '@images/infinity_corner/23UpgradePetRank.png';
+import CardPOWImg from '@images/infinity_corner/24UpgradeCardPower.png';
+import WhackImg from '@images/infinity_corner/8UpgradeWhackScore.png';
+import LarvaEffImg from '@images/infinity_corner/20UpgradeLarvaEff.png';
+import IRImg from '@images/infinity_corner/9UpgradeItemRating.png';
+import ResidueImg from '@images/infinity_corner/24UpgradeResidue.png';
+import star_normal from '@images/infinity_corner/LastEraTopBackground.png';
+import LockedImg from '@images/infinity_corner/locked.png';
+import SweetPotatoe from '@images/infinity_corner/UpgradeLockSweet.png'
 
 
 

@@ -6,8 +6,8 @@ import mathHelper from '../util/math.js';
 import helper from '../util/helper.js';
 import useLocalStorage from "use-local-storage";
 
-import rightArrow from '../../../public/images/icons/right_arrow_white.svg';
-import lockedAssembly from '../../../public/images/farming/assembly/Not_Unlocked.png';
+import rightArrow from '@images/icons/right_arrow_white.svg';
+import lockedAssembly from '@images/farming/assembly/Not_Unlocked.png';
 
 import Image from 'next/image';
 

@@ -8,21 +8,21 @@ import ReactGA from "react-ga4";
 import { memo, useState, useEffect, useMemo } from "react";
 import Image from "next/image";
 
-import P1 from '../../../public/images/farming/plants/P1.png'
-import P2 from '../../../public/images/farming/plants/P2.png'
-import P3 from '../../../public/images/farming/plants/P3.png'
-import P4 from '../../../public/images/farming/plants/P4.png'
-import P5 from '../../../public/images/farming/plants/P5.png'
-import P6 from '../../../public/images/farming/plants/P6.png'
-import P7 from '../../../public/images/farming/plants/P7.png'
-import P8 from '../../../public/images/farming/plants/P8.png'
-import P9 from '../../../public/images/farming/plants/P9.png'
-import PrestigeStar from '../../../public/images/icons/prestige_star.png'
-import UpArrow from '../../../public/images/icons/up_arrow.svg';
-import InfoIcon from '../../../public/images/icons/info_white.svg'
+import P1 from '@images/farming/plants/P1.png';
+import P2 from '@images/farming/plants/P2.png';
+import P3 from '@images/farming/plants/P3.png';
+import P4 from '@images/farming/plants/P4.png';
+import P5 from '@images/farming/plants/P5.png';
+import P6 from '@images/farming/plants/P6.png';
+import P7 from '@images/farming/plants/P7.png';
+import P8 from '@images/farming/plants/P8.png';
+import P9 from '@images/farming/plants/P9.png';
+import PrestigeStar from '@images/icons/prestige_star.png';
+import UpArrow from '@images/icons/up_arrow.svg';
+import InfoIcon from '@images/icons/info_white.svg';
+import UpArrowYellow from '@images/icons/up_arrow_yellow.svg';
 
-// import P1 from '../../../public/images/farming/plants/P1.png'
-
+// import P1 from '@images/farming/plants/P1.png'
 
 
 const FarmingPlant = ({ data }) => {
@@ -486,7 +486,7 @@ const FarmingPlant = ({ data }) => {
                 >
                   <Image
                     alt="yellow filled arrow point up with a red trim"
-                    src={`/images/icons/up_arrow_yellow.svg`}
+                    src={UpArrowYellow}
                     fill
                     unoptimized={true}
                   />
@@ -565,7 +565,7 @@ const FarmingPlant = ({ data }) => {
                   >
                     <Image
                       alt="yellow filled arrow point up with a red trim"
-                      src={`/images/icons/up_arrow_yellow.svg`}
+                      src={UpArrowYellow}
                       fill
                       unoptimized={true}
                     />

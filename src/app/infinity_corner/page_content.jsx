@@ -13,11 +13,11 @@ import useLocalStorage from "use-local-storage";
 import mathHelper from '../util/math.js';
 import { ic_mapping, maxKey, calc_bonus } from './ic_mapping.js';
 import Item from './Item.jsx';
-import infoIcon from '../../../public/images/icons/info_thick.svg';
+import infoIcon from '@images/icons/info_thick.svg';
 import DefaultSave from '../util/tempSave.json';
-import MouseOverPopover from "../util/Tooltip.jsx";
-import panel_background from '../../../public/images/infinity_corner/panel_background.png';
-import star_normal from '../../../public/images/infinity_corner/LastEraTopBackground.png';
+import MouseOverPopover from "../util/Tooltip";
+import panel_background from '@images/infinity_corner/panel_background.png';
+import star_normal from '@images/infinity_corner/LastEraTopBackground.png';
 
 export default function Infinity_Corner() {
 

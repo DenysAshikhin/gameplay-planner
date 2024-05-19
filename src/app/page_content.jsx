@@ -12,10 +12,9 @@ import DefaultSave from './util/tempSave.json';
 import useLocalStorage from "use-local-storage";
 
 import pako from 'pako';
-import MouseOverPopover from "./util/Tooltip.jsx";
-// import infoIcon from '/images/icons/info_lightgray.svg';
-import backgroundImage from '../../public/images/coming_soon.png'
-//  /public/images/coming_soon.png';
+import MouseOverPopover from "./util/Tooltip";
+import infoIcon from '@images/icons/info_lightgray.svg';
+import backgroundImage from '@images/coming_soon.png'
 
 // import { GoogleAdSense } from "nextjs-google-adsense";
 import ReactGA from "react-ga4";
@@ -310,7 +309,7 @@ export default function Home() {
             onMouseLeave={(e) => { if (forceOpen) setForceOpen(false) }}
             style={{ display: 'flex', alignItems: 'center' }}>
             <div className='elementToFadeInAndOut' style={{ position: 'relative', height: '36px', width: '36px', marginLeft: '6px', marginTop: '6px' }}>
-              <Image alt='on hover I in a cirlce icon, shows more information on hover' src={'/images/icons/info_lightgray.svg'}
+              <Image alt='on hover I in a cirlce icon, shows more information on hover' src={infoIcon}
                 fill />
             </div>
           </div>

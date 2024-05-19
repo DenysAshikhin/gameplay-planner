@@ -6,54 +6,54 @@ import { resource_type } from './outpost_mapping.js';
 import { useState, useEffect } from 'react';
 
 import Image from 'next/image'
-import rightArrow from '../../../public/images/icons/right_arrow_white.svg';
-import outpost_img from '../../../public/images/outposts/Outposticon1.png'
+import rightArrow from '@images/icons/right_arrow_white.svg';
+import outpost_img from '@images/outposts/Outposticon1.png'
 
-import dense1_img from '../../../public/images/outposts/Outpostdensity1.png'
-import dense2_img from '../../../public/images/outposts/Outpostdensity2.png';
-import dense3_img from '../../../public/images/outposts/Outpostdensity3.png';
-import dense4_img from '../../../public/images/outposts/Outpostdensity4.png';
-import dense5_img from '../../../public/images/outposts/Outpostdensity5.png';
-import dense6_img from '../../../public/images/outposts/Outpostdensity6.png';
-import dense7_img from '../../../public/images/outposts/Outpostdensity7.png';
-import dense8_img from '../../../public/images/outposts/Outpostdensity8.png';
-import dense9_img from '../../../public/images/outposts/Outpostdensity9.png';
+import dense1_img from '@images/outposts/Outpostdensity1.png'
+import dense2_img from '@images/outposts/Outpostdensity2.png';
+import dense3_img from '@images/outposts/Outpostdensity3.png';
+import dense4_img from '@images/outposts/Outpostdensity4.png';
+import dense5_img from '@images/outposts/Outpostdensity5.png';
+import dense6_img from '@images/outposts/Outpostdensity6.png';
+import dense7_img from '@images/outposts/Outpostdensity7.png';
+import dense8_img from '@images/outposts/Outpostdensity8.png';
+import dense9_img from '@images/outposts/Outpostdensity9.png';
 
-import hardness1_img from '../../../public/images/outposts/OutpostHardness1.png';
-import hardness2_img from '../../../public/images/outposts/OutpostHardness2.png';
-import hardness3_img from '../../../public/images/outposts/OutpostHardness3.png';
-import hardness4_img from '../../../public/images/outposts/OutpostHardness4.png';
-import hardness5_img from '../../../public/images/outposts/OutpostHardness5.png';
-import hardness6_img from '../../../public/images/outposts/OutpostHardness6.png';
-import hardness7_img from '../../../public/images/outposts/OutpostHardness7.png';
-import hardness8_img from '../../../public/images/outposts/OutpostHardness8.png';
-import hardness9_img from '../../../public/images/outposts/OutpostHardness9.png';
+import hardness1_img from '@images/outposts/OutpostHardness1.png';
+import hardness2_img from '@images/outposts/OutpostHardness2.png';
+import hardness3_img from '@images/outposts/OutpostHardness3.png';
+import hardness4_img from '@images/outposts/OutpostHardness4.png';
+import hardness5_img from '@images/outposts/OutpostHardness5.png';
+import hardness6_img from '@images/outposts/OutpostHardness6.png';
+import hardness7_img from '@images/outposts/OutpostHardness7.png';
+import hardness8_img from '@images/outposts/OutpostHardness8.png';
+import hardness9_img from '@images/outposts/OutpostHardness9.png';
 
-import stone_img from '../../../public/images/outposts/OutpostR1.png';
-import brass_img from '../../../public/images/outposts/OutpostR2.png';
-import iron_img from '../../../public/images/outposts/OutpostR3.png';
-import gold_img from '../../../public/images/outposts/OutpostR4.png';
-import platinum_img from '../../../public/images/outposts/OutpostR5.png';
+import stone_img from '@images/outposts/OutpostR1.png';
+import brass_img from '@images/outposts/OutpostR2.png';
+import iron_img from '@images/outposts/OutpostR3.png';
+import gold_img from '@images/outposts/OutpostR4.png';
+import platinum_img from '@images/outposts/OutpostR5.png';
 
-// import miner1 from '../../../public/images/outposts/MiniPortrait1.png';
-// import miner2 from '../../../public/images/outposts/MiniPortrait2.png';
-// import miner3 from '../../../public/images/outposts/MiniPortrait3.png';
-// import miner4 from '../../../public/images/outposts/MiniPortrait4.png';
-// import miner5 from '../../../public/images/outposts/MiniPortrait5.png';
+// import miner1 from '@images/outposts/MiniPortrait1.png';
+// import miner2 from '@images/outposts/MiniPortrait2.png';
+// import miner3 from '@images/outposts/MiniPortrait3.png';
+// import miner4 from '@images/outposts/MiniPortrait4.png';
+// import miner5 from '@images/outposts/MiniPortrait5.png';
 
 //good ones below
-// import miner1 from '../../../public/images/outposts/MinerPortrait1.png';
-// import miner2 from '../../../public/images/outposts/MinerPortrait2.png';
-// import miner3 from '../../../public/images/outposts/MinerPortrait3.png';
-// import miner4 from '../../../public/images/outposts/MinerPortrait4.png';
-// import miner5 from '../../../public/images/outposts/MinerPortrait5.png';
-// import miner1 from '../../../public/images/outposts/MinerPortrait1.png';
+// import miner1 from '@images/outposts/MinerPortrait1.png';
+// import miner2 from '@images/outposts/MinerPortrait2.png';
+// import miner3 from '@images/outposts/MinerPortrait3.png';
+// import miner4 from '@images/outposts/MinerPortrait4.png';
+// import miner5 from '@images/outposts/MinerPortrait5.png';
+// import miner1 from '@images/outposts/MinerPortrait1.png';
 
-import miner1 from '../../../public/images/outposts/MinerPortrait1 - Copy.png';
-import miner2 from '../../../public/images/outposts/MinerPortrait2 - Copy.png';
-import miner3 from '../../../public/images/outposts/MinerPortrait3 - Copy.png';
-import miner4 from '../../../public/images/outposts/MinerPortrait4 - Copy.png';
-import miner5 from '../../../public/images/outposts/MinerPortrait5 - Copy.png';
+import miner1 from '@images/outposts/MinerPortrait1 - Copy.png';
+import miner2 from '@images/outposts/MinerPortrait2 - Copy.png';
+import miner3 from '@images/outposts/MinerPortrait3 - Copy.png';
+import miner4 from '@images/outposts/MinerPortrait4 - Copy.png';
+import miner5 from '@images/outposts/MinerPortrait5 - Copy.png';
 
 
 

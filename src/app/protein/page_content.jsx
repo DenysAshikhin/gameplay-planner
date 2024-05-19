@@ -13,7 +13,7 @@ import AssemblyItem from './AssemblyItem.jsx';
 import AssemblyLine from './AssemblyLine.jsx';
 import MouseOverPopover from "../util/Tooltip.jsx";
 
-import infoIcon from '../../../public/images/icons/info_white.svg';
+import infoIcon from '@images/icons/info_white.svg';
 import DefaultSave from '../util/tempSave.json';
 import useLocalStorage from "use-local-storage";
 

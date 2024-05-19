@@ -10,11 +10,12 @@ ReactGA.initialize([{
 import CardFocus from './card_focus.jsx';
 import ExpeditionFocus from './expedition_focus.jsx';
 import Zone_CSS from './zone.css';
-import infoIcon from '../../../public/images/icons/info_thick.svg';
-import MouseOverPopover from "../util/Tooltip.jsx";
+import infoIcon from '@images/icons/info_thick.svg';
+import MouseOverPopover from "../util/Tooltip";
 import DefaultSave from '../util/tempSave.json';
 import useLocalStorage from "use-local-storage";
 import Image from 'next/image';
+
 import { zone_priority, zone_ratios, zone_data, calc_max_hp, calc_total_hp } from './zone_lists.js';
 import { petNames, BonusMap } from '../util/itemMapping.js';
 

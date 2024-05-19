@@ -4,7 +4,7 @@ import mathHelper from '../util/math.js';
 import { resource_type } from './outpost_mapping.js';
 
 import Image from 'next/image'
-import rightArrow from '../../../public/images/icons/right_arrow_white.svg';
+import rightArrow from '@images/icons/right_arrow_white.svg';
 
 
 export default function Outposts({ deal, borderBottom }) {

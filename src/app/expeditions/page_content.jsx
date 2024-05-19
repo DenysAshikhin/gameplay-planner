@@ -15,16 +15,17 @@ import MouseOverPopover from "../util/Tooltip";
 
 import helper from '../util/helper.js';
 import mathHelper from '../util/math.js';
-import xIcon from "../../../public/images/icons/x_icon.svg"
-import pinIcon from "../../../public/images/icons/pin-line-icon.svg"
-import trashIcon from "../../../public/images/icons/trash-can-icon.svg"
-import infoIcon from '../../../public/images/icons/info.svg';
-import infoIconRed from '../../../public/images/icons/info_red.svg';
-import infoIconRedThick from '../../../public/images/icons/info_red_thick.svg';
-import infoIconGreen from '../../../public/images/icons/info_green.svg';
-import infoIconGreenThick from '../../../public/images/icons/info_green_thick.svg';
-import infoIconAmber from '../../../public/images/icons/info_amber.svg';
-// import rankExplain from "../../../public/images/rank_explain.png"
+import xIcon from "@images/icons/x_icon.svg"
+import pinIcon from "@images/icons/pin-line-icon.svg"
+import trashIcon from "@images/icons/trash-can-icon.svg"
+import infoIcon from '@images/icons/info.svg';
+import infoIconRed from '@images/icons/info_red.svg';
+import infoIconRedThick from '@images/icons/info_red_thick.svg';
+import infoIconGreen from '@images/icons/info_green.svg';
+import infoIconGreenThick from '@images/icons/info_green_thick.svg';
+import infoIconAmber from '@images/icons/info_amber.svg';
+import rankExplain from "@images/rank_explain.png"
+import missing from "@images/pets/missing.png"
 
 import ReactGA from "react-ga4";
 //import { GoogleAdSense } from "next-google-adsense";
@@ -1037,7 +1038,7 @@ export default function Expeditions() {
                             tooltip={
                                 <div>
                                     {/* <img alt='screenshot of game text explaining how pet ranks work' src={rankExplain} style={{ height: '50px' }} /> */}
-                                    <img alt='screenshot of game text explaining how pet ranks work' src={'/images/rank_explain.png'} style={{ height: '50px' }} />
+                                    <img alt='screenshot of game text explaining how pet ranks work' src={rankExplain} style={{ height: '50px' }} />
                                     <div style={{ display: 'flex', alignItems: 'center' }}>
                                         <div style={{ fontWeight: 'bold', fontSize: '24px', minWidth: "90px" }}>Explanation/How To Use: </div>
                                         <div style={{ marginLeft: '12px', maxWidth: '724px' }}>
@@ -2714,7 +2715,7 @@ export default function Expeditions() {
 
                                             if (!staticPetData) {
                                                 staticPetData = {
-                                                    img: '/images/pets/missing.png',
+                                                    img: missing,
                                                     location: '??-??',
                                                     name: 'Unknown',
                                                     petId: pet.ID

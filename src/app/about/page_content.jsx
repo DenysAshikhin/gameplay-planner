@@ -12,9 +12,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 
-import discord_image from '../../../public/images/icons/discord_gray.svg';
-import paypal_image from "../../../public/images/icons/paypal.svg";
-import scroll_image from '../../../public/images/icons/paper_scroll.svg';
+import discord_image from '@images/icons/discord_gray.svg';
+import paypal_image from "@images/icons/paypal.svg";
+import scroll_image from '@images/icons/paper_scroll.svg';
 
 export default function Expeditions() {
 

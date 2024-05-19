@@ -11,14 +11,14 @@ ReactGA.initialize([{
     trackingId: "G-GGLPK02VH8",
 }]);
 
-import exp_teams_overview_image from '../../../../public/images/guides/pets/exp_teams_overview.png';
-import top_configuration_image from '../../../../public/images/guides/pets/top_configuration.png';
-import pet_whitelist_image from '../../../../public/images/guides/pets/pet_whitelist.png';
-import pet_bonus_finder_image from '../../../../public/images/guides/pets/pet_bonus_finder.png';
-import pets_selection_image from '../../../../public/images/guides/pets/pets_selection.png';
-import miscellaneous_settings_image from '../../../../public/images/guides/pets/miscellaneous_settings.png';
-import missing_expedition_pet_image from '../../../../public/images/guides/pets/missing_expedition_pet.png';
-import copyLinkSvg from '../../../../public/images/icons/copy_link.svg';
+import exp_teams_overview_image from '@images/guides/pets/exp_teams_overview.png';
+import top_configuration_image from '@images/guides/pets/top_configuration.png';
+import pet_whitelist_image from '@images/guides/pets/pet_whitelist.png';
+import pet_bonus_finder_image from '@images/guides/pets/pet_bonus_finder.png';
+import pets_selection_image from '@images/guides/pets/pets_selection.png';
+import miscellaneous_settings_image from '@images/guides/pets/miscellaneous_settings.png';
+import missing_expedition_pet_image from '@images/guides/pets/missing_expedition_pet.png';
+import copyLinkSvg from '@images/icons/copy_link.svg';
 
 import Image from 'next/image';
 

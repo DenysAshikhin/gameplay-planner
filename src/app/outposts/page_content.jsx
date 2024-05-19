@@ -11,8 +11,8 @@ ReactGA.initialize([{
 import OutpostLine from './OutpostLine.jsx';
 import TradeLine from './TradeLine.jsx';
 import TradeSingle from './TradeSingle.jsx';
-import infoIcon from '../../../public/images/icons/info_thick.svg';
-import MouseOverPopover from "../util/Tooltip.jsx";
+import infoIcon from '@images/icons/info_thick.svg';
+import MouseOverPopover from "../util/Tooltip";
 import DefaultSave from '../util/tempSave.json';
 import useLocalStorage from "use-local-storage";
 import { resource_type } from './outpost_mapping.js';

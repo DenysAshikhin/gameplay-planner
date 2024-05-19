@@ -17,7 +17,7 @@ import Graph from './graph.jsx';
 import Timer from './Timer.jsx';
 import DefaultSave from '../util/tempSave.json';
 
-import PrestigeStar from '../../../public/images/icons/prestige_star.png'
+import PrestigeStar from '@images/icons/prestige_star.png'
 ReactGA.initialize([{
     trackingId: "G-GGLPK02VH8",
     // gaOptions: {...}, // optional

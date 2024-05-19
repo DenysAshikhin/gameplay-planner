@@ -1,30 +1,30 @@
 
-import mat_14_img from '../../../public/images/outposts/14.png';
-import mat_15_img from '../../../public/images/outposts/15.png';
-import mat_16_img from '../../../public/images/outposts/16.png';
-import mat_17_img from '../../../public/images/outposts/17.png';
-import mat_18_img from '../../../public/images/outposts/18.png';
-import mat_19_img from '../../../public/images/outposts/19.png';
-import mat_20_img from '../../../public/images/outposts/20.png';
-import mat_21_img from '../../../public/images/outposts/21.png';
-import mat_22_img from '../../../public/images/outposts/22.png';
-import mat_23_img from '../../../public/images/outposts/23.png';
-import mat_24_img from '../../../public/images/outposts/24.png';
-import mat_25_img from '../../../public/images/outposts/25.png';
-import mat_26_img from '../../../public/images/outposts/26.png';
-// import mat_27_img from '../../../public/images/outposts/27.png';
+import mat_14_img from '@images/outposts/14.png';
+import mat_15_img from '@images/outposts/15.png';
+import mat_16_img from '@images/outposts/16.png';
+import mat_17_img from '@images/outposts/17.png';
+import mat_18_img from '@images/outposts/18.png';
+import mat_19_img from '@images/outposts/19.png';
+import mat_20_img from '@images/outposts/20.png';
+import mat_21_img from '@images/outposts/21.png';
+import mat_22_img from '@images/outposts/22.png';
+import mat_23_img from '@images/outposts/23.png';
+import mat_24_img from '@images/outposts/24.png';
+import mat_25_img from '@images/outposts/25.png';
+import mat_26_img from '@images/outposts/26.png';
+// import mat_27_img from '@images/outposts/27.png';
 
-import stone_img from '../../../public/images/outposts/OutpostR1.png';
-import brass_img from '../../../public/images/outposts/OutpostR2.png';
-import iron_img from '../../../public/images/outposts/OutpostR3.png';
-import gold_img from '../../../public/images/outposts/OutpostR4.png';
-import platinum_img from '../../../public/images/outposts/OutpostR5.png';
+import stone_img from '@images/outposts/OutpostR1.png';
+import brass_img from '@images/outposts/OutpostR2.png';
+import iron_img from '@images/outposts/OutpostR3.png';
+import gold_img from '@images/outposts/OutpostR4.png';
+import platinum_img from '@images/outposts/OutpostR5.png';
 
-import reinc_img from '../../../public/images/outposts/OutpostR12Réincpont.png';
-import renown_img from '../../../public/images/outposts/OutpostR13Renown.png';
-import protein_img from '../../../public/images/outposts/OutpostR14Protein.png';
-import soul_img from '../../../public/images/outposts/OutpostR15Soul.png';
-import expedition_img from '../../../public/images/outposts/OutpostR16ExpéditionToken.png';
+import reinc_img from '@images/outposts/OutpostR12Réincpont.png';
+import renown_img from '@images/outposts/OutpostR13Renown.png';
+import protein_img from '@images/outposts/OutpostR14Protein.png';
+import soul_img from '@images/outposts/OutpostR15Soul.png';
+import expedition_img from '@images/outposts/OutpostR16ExpéditionToken.png';
 
 
 export const resource_type = {

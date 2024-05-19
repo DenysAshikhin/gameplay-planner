@@ -18,8 +18,8 @@ import SearchBox from '../util/search.jsx';
 import { Reorder } from 'framer-motion'
 import useLocalStorage from "use-local-storage";
 
-import CrossIcon from '../../../public/images/icons/x_icon.svg';
-import DragIcon from '../../../public/images/icons/drag_icon.svg';
+import CrossIcon from '@images/icons/x_icon.svg';
+import DragIcon from '@images/icons/drag_icon.svg';
 
 import DefaultSave from '../util/tempSave.json';
 import { mainTeamSuggestions, reincTeamSuggestions, gearTeamSuggestions, statTeamSuggestions, statTeamMasterList, maxKey } from './teamSuggestions.js';

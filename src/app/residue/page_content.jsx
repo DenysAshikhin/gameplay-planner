@@ -14,11 +14,11 @@ import helper from "../util/helper.js";
 import { residueMap } from './residueMapping.js';
 import MouseOverPopover from "../util/Tooltip.jsx";
 
-import infoIcon from '../../../public/images/icons/info_white_thick.svg';
-import RefreshIcon from '../../../public/images/icons/refresh_lightgray.svg';
-import greenBorder from '../../../public/images/residue/ShopUpgradeSelected.png';
-import StillBuying from '../../../public/images/residue/StillBuying.png';
-import rightArrow from '../../../public/images/icons/right_arrow_white.svg';
+import infoIcon from '@images/icons/info_white_thick.svg';
+import RefreshIcon from '@images/icons/refresh_lightgray.svg';
+import greenBorder from '@images/residue/ShopUpgradeSelected.png';
+import StillBuying from '@images/residue/StillBuying.png';
+import rightArrow from '@images/icons/right_arrow_white.svg';
 import DefaultSave from '../util/tempSave.json';
 import useLocalStorage from "use-local-storage";
 

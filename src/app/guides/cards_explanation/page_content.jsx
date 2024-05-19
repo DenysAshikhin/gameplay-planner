@@ -11,14 +11,14 @@ ReactGA.initialize([{
     trackingId: "G-GGLPK02VH8",
 }]);
 
-import cards_list_image from '../../../../public/images/guides/cards/cards_list.png';
-import current_future_charges_image from '../../../../public/images/guides/cards/current_future_charges.png';
-import card_suggestions_image from '../../../../public/images/guides/cards/card_suggestions.png';
-import future_reinc_image from '../../../../public/images/guides/cards/future_reinc.png';
-import pets_selection_image from '../../../../public/images/guides/pets/pets_selection.png';
-import miscellaneous_settings_image from '../../../../public/images/guides/pets/miscellaneous_settings.png';
-import missing_expedition_pet_image from '../../../../public/images/guides/pets/missing_expedition_pet.png';
-import copyLinkSvg from '../../../../public/images/icons/copy_link.svg';
+import cards_list_image from '@images/guides/cards/cards_list.png';
+import current_future_charges_image from '@images/guides/cards/current_future_charges.png';
+import card_suggestions_image from '@images/guides/cards/card_suggestions.png';
+import future_reinc_image from '@images/guides/cards/future_reinc.png';
+import pets_selection_image from '@images/guides/pets/pets_selection.png';
+import miscellaneous_settings_image from '@images/guides/pets/miscellaneous_settings.png';
+import missing_expedition_pet_image from '@images/guides/pets/missing_expedition_pet.png';
+import copyLinkSvg from '@images/icons/copy_link.svg';
 
 import Image from 'next/image';
 

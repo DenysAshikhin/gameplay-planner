@@ -3,9 +3,9 @@ import { useState, useEffect } from 'react';
 import helper from '../util/helper.js';
 import { Reorder } from 'framer-motion'
 import Image from 'next/image';
-import CrossIcon from '../../../public/images/icons/x_icon.svg';
-import DragIcon from '../../../public/images/icons/drag_icon.svg';
-import RefreshIcon from '../../../public/images/icons/refresh_lightgray.svg';
+import CrossIcon from '@images/icons/x_icon.svg';
+import DragIcon from '@images/icons/drag_icon.svg';
+import RefreshIcon from '@images/icons/refresh_lightgray.svg';
 
 export default function Priority_List({
     priorityList,

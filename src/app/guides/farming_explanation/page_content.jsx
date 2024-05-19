@@ -11,13 +11,13 @@ ReactGA.initialize([{
     trackingId: "G-GGLPK02VH8",
 }]);
 
-import best_auto_placements_image from '../../../../public/images/guides/farm/best_auto_placements.png';
-import afk_marked_up_image from '../../../../public/images/guides/farm/afk_marked_up.png';
-import step_marked_up_image from '../../../../public/images/guides/farm/step_marked_up.png';
-import top_plant_settings_markedup_image from '../../../../public/images/guides/farm/top_plant_settings_markedup.png';
-import graph_base_image from '../../../../public/images/guides/farm/graph_base.png';
-import farm_landingImage from '../../../../public/images/guides/farm/farm_landing.png';
-import copyLinkSvg from '../../../../public/images/icons/copy_link.svg';
+import best_auto_placements_image from '@images/guides/farm/best_auto_placements.png';
+import afk_marked_up_image from '@images/guides/farm/afk_marked_up.png';
+import step_marked_up_image from '@images/guides/farm/step_marked_up.png';
+import top_plant_settings_markedup_image from '@images/guides/farm/top_plant_settings_markedup.png';
+import graph_base_image from '@images/guides/farm/graph_base.png';
+import farm_landingImage from '@images/guides/farm/farm_landing.png';
+import copyLinkSvg from '@images/icons/copy_link.svg';
 
 import Image from 'next/image';
 

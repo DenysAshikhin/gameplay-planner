@@ -5,9 +5,9 @@ import MouseOverPopover from "../util/Tooltip.jsx";
 import DefaultSave from '../util/tempSave.json';
 import useLocalStorage from "use-local-storage";
 
-
-import pinIcon from "../../../public/images/icons/pin-line-icon.svg"
-import trashIcon from "../../../public/images/icons/trash-can-icon.svg"
+import infoIcon from '@images/icons/info_thick.svg';
+import pinIcon from "@images/icons/pin-line-icon.svg"
+import trashIcon from "@images/icons/trash-can-icon.svg"
 
 import { zone_priority, zone_ratios, zone_data, calc_max_hp, calc_total_hp, card_priority } from './zone_lists.js';
 
@@ -523,7 +523,7 @@ export default function CardFocus({
                         opacity: hoveredCard === -1 || next_zone.CardFound.includes(hoveredCard) ? '1' : '0',
 
                         boxSizing: 'border-box',
-                        position: ``,
+                        position: undefined,
                         backgroundColor: 'rgba(255,255,255, 0.1)',
                         outline: `2px solid ${outerUnlockedIDs[next_zone.ID] ?
                             (pinnedZones[next_zone.ID] ? `green` : `white`)

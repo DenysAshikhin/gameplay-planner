@@ -8,13 +8,13 @@ ReactGA.initialize([{
     trackingId: "G-GGLPK02VH8",
 }]);
 import ScrollComponent from '../../util/ScrollComponent.jsx';
-import pets_general_image from '../../../../public/images/guides/pets/pets_general.png';
-import pet_team_list_image from '../../../../public/images/guides/pets/pet_team_list.png';
-import FrenchFryCornerImage from '../../../../public/images/guides/farm/french_Fry_corner.png';
-import UniqueFrenchFryCornerImage from '../../../../public/images/guides/farm/unique_french_fries_corner.png';
-import contagionImage from '../../../../public/images/guides/farm/contagion.png';
-import farm_landingImage from '../../../../public/images/guides/farm/farm_landing.png';
-import copyLinkSvg from '../../../../public/images/icons/copy_link.svg';
+import pets_general_image from '@images/guides/pets/pets_general.png';
+import pet_team_list_image from '@images/guides/pets/pet_team_list.png';
+import FrenchFryCornerImage from '@images/guides/farm/french_Fry_corner.png';
+import UniqueFrenchFryCornerImage from '@images/guides/farm/unique_french_fries_corner.png';
+import contagionImage from '@images/guides/farm/contagion.png';
+import farm_landingImage from '@images/guides/farm/farm_landing.png';
+import copyLinkSvg from '@images/icons/copy_link.svg';
 
 import Image from 'next/image';
 

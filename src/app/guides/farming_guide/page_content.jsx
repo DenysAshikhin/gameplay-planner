@@ -10,13 +10,13 @@ ReactGA.initialize([{
 import ScrollComponent from '../../util/ScrollComponent.jsx';
 
 
-import PIC_ExplanationImage from '../../../../public/images/guides/farm/pic_explanation.png';
-import ProductionTabLetteredImage from '../../../../public/images/guides/farm/production_tab_lettered.png';
-import FrenchFryCornerImage from '../../../../public/images/guides/farm/french_Fry_corner.png';
-import UniqueFrenchFryCornerImage from '../../../../public/images/guides/farm/unique_french_fries_corner.png';
-import contagionImage from '../../../../public/images/guides/farm/contagion.png';
-import farm_landingImage from '../../../../public/images/guides/farm/farm_landing.png';
-import copyLinkSvg from '../../../../public/images/icons/copy_link.svg';
+import PIC_ExplanationImage from '@images/guides/farm/pic_explanation.png';
+import ProductionTabLetteredImage from '@images/guides/farm/production_tab_lettered.png';
+import FrenchFryCornerImage from '@images/guides/farm/french_Fry_corner.png';
+import UniqueFrenchFryCornerImage from '@images/guides/farm/unique_french_fries_corner.png';
+import contagionImage from '@images/guides/farm/contagion.png';
+import farm_landingImage from '@images/guides/farm/farm_landing.png';
+import copyLinkSvg from '@images/icons/copy_link.svg';
 
 import Image from 'next/image';
 

@@ -29,30 +29,30 @@ import {
 
 import mathHelper from '../util/math.js';
 
-import apple_domain_img from '../../../public/images/zones/Apple Domain.png';
-import avacodo_river_img from '../../../public/images/zones/Avocado River.png';
-import banana_volcano_img from '../../../public/images/zones/Banana Volcano.png';
-import basil_counter_img from '../../../public/images/zones/Basil Country.png';
-import butternut_forest_img from '../../../public/images/zones/Butternut Forest.png';
-import cheddar_plain_img from '../../../public/images/zones/Cheddar Plain.png';
-import chocolate_world_img from '../../../public/images/zones/Chocolate World.png';
-import cinnamon_station_img from '../../../public/images/zones/Cinnamon Station.png';
-import croissant_castle_img from '../../../public/images/zones/Croissant Castle.png';
-import cucumber_region_img from '../../../public/images/zones/Cucumber Region.png';
-import donut_cavern_img from '../../../public/images/zones/Donut Cavern.png';
-import emmental_canyon_img from '../../../public/images/zones/Emmental Canyon.png';
-import garlic_iceland_img from '../../../public/images/zones/Garlic Iceland.png';
-import guacamole_grotto_img from '../../../public/images/zones/Guacamole Grotto.png';
-import kiwi_land_img from '../../../public/images/zones/Kiwi Land.png';
-import lettuce_sea_img from '../../../public/images/zones/Lettuce Sea.png';
-import mozzarella_meadow_img from '../../../public/images/zones/Mozzarella Meadow.png';
-import munster_desert_img from '../../../public/images/zones/Munster Desert.png';
-import onion_img from '../../../public/images/zones/Onion.png';
-import orange_mountain_img from '../../../public/images/zones/Orange Mountain.png';
-import pancake_road_img from '../../../public/images/zones/Pancake Road.png';
-import salmon_lake_img from '../../../public/images/zones/Salmon Lake.png';
-import tune_waterfall_img from '../../../public/images/zones/Tuna Waterfall.png';
-import zucchini_field_img from '../../../public/images/zones/Zucchini Field.png';
+import apple_domain_img from '@images/zones/Apple Domain.png';
+import avacodo_river_img from '@images/zones/Avocado River.png';
+import banana_volcano_img from '@images/zones/Banana Volcano.png';
+import basil_counter_img from '@images/zones/Basil Country.png';
+import butternut_forest_img from '@images/zones/Butternut Forest.png';
+import cheddar_plain_img from '@images/zones/Cheddar Plain.png';
+import chocolate_world_img from '@images/zones/Chocolate World.png';
+import cinnamon_station_img from '@images/zones/Cinnamon Station.png';
+import croissant_castle_img from '@images/zones/Croissant Castle.png';
+import cucumber_region_img from '@images/zones/Cucumber Region.png';
+import donut_cavern_img from '@images/zones/Donut Cavern.png';
+import emmental_canyon_img from '@images/zones/Emmental Canyon.png';
+import garlic_iceland_img from '@images/zones/Garlic Iceland.png';
+import guacamole_grotto_img from '@images/zones/Guacamole Grotto.png';
+import kiwi_land_img from '@images/zones/Kiwi Land.png';
+import lettuce_sea_img from '@images/zones/Lettuce Sea.png';
+import mozzarella_meadow_img from '@images/zones/Mozzarella Meadow.png';
+import munster_desert_img from '@images/zones/Munster Desert.png';
+import onion_img from '@images/zones/Onion.png';
+import orange_mountain_img from '@images/zones/Orange Mountain.png';
+import pancake_road_img from '@images/zones/Pancake Road.png';
+import salmon_lake_img from '@images/zones/Salmon Lake.png';
+import tune_waterfall_img from '@images/zones/Tuna Waterfall.png';
+import zucchini_field_img from '@images/zones/Zucchini Field.png';
 
 
 export const zone_data = {}

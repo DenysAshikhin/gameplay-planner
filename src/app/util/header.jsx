@@ -1,8 +1,8 @@
 import Image from "next/image";
 
 import HeaderRedirect from './header_redirect.jsx';
-import potatoesImg from '../../../public/images/potatoes.png'
-import farmerImg from '../../../public/images/farmer2.png'
+import potatoesImg from '@images/potatoes.png'
+import farmerImg from '@images/farmer2.png'
 
 
 const Header = ({ }) => {
@@ -24,7 +24,7 @@ const Header = ({ }) => {
       {/* <img
         style={{ height: "31px", width: "156px", position: "relative" }}
         alt='in game font spelling "Farmer"'
-        src={"/images/farmer2.png"}
+        src={farmerImg}
       /> */}
       <div style={{ height: "31px", width: "156px", position: "relative" }}>
         <Image
@@ -46,7 +46,7 @@ const Header = ({ }) => {
       {/* <img
         style={{ height: "31px", width: "192px", position: "relative" }}
         alt='in game font spelling "Potatoes"'
-        src={"/images/potatoes.png"}
+        src={potatoesImg}
       /> */}
 
       <div style={{ height: "31px", width: "192px", position: "relative" }}>

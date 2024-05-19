@@ -7,23 +7,23 @@ import mathHelper from '../util/math.js';
 import helper from '../util/helper.js';
 
 import Image from 'next/image';
-import infoIcon from '../../../public/images/icons/info_thick.svg';
-import RefreshIcon from '../../../public/images/icons/refresh_lightgray.svg';
+import infoIcon from '@images/icons/info_thick.svg';
+import RefreshIcon from '@images/icons/refresh_lightgray.svg';
 
-import hp_contagion from '../../../public/images/contagion/1FarmingBg_HealthyPotato.png';
-import fry_contagion from '../../../public/images/contagion/2FarmingBg_PhilipJ.png';
-import plant_rank_contagion from '../../../public/images/contagion/3FarmingBg_RankExp.png';
-import plant_production_contagion from '../../../public/images/contagion/4FarmingBg_Production.png';
-import plant_speed_contagion from '../../../public/images/contagion/5FarmingBg_GrowthSpeed.png';
-import fry_hp_contagion from '../../../public/images/contagion/6FarmingBg_PhilipJ_HealthyBonus.png';
-import shovel_contagion from '../../../public/images/contagion/7FarmingBg_Harvest.png';
-import protein_contagion from '../../../public/images/contagion/8FarmingBg_Protein.png';
-import pot_exp_contagion from '../../../public/images/contagion/2PotatoExpBg.png';
-import pot_exp_contagion_pre30 from '../../../public/images/contagion/6ClassExp.png';
-import skull_conf_contagion from '../../../public/images/contagion/3SkullConfectionBg.png';
-import worm_contagion from '../../../public/images/contagion/4Confectionx2Bg.png';
-import poop_milk_contagion from '../../../public/images/contagion/5PoopMilkBg.png';
-import locked_img from '../../../public/images/contagion/0LockBgV2.png';
+import hp_contagion from '@images/contagion/1FarmingBg_HealthyPotato.png';
+import fry_contagion from '@images/contagion/2FarmingBg_PhilipJ.png';
+import plant_rank_contagion from '@images/contagion/3FarmingBg_RankExp.png';
+import plant_production_contagion from '@images/contagion/4FarmingBg_Production.png';
+import plant_speed_contagion from '@images/contagion/5FarmingBg_GrowthSpeed.png';
+import fry_hp_contagion from '@images/contagion/6FarmingBg_PhilipJ_HealthyBonus.png';
+import shovel_contagion from '@images/contagion/7FarmingBg_Harvest.png';
+import protein_contagion from '@images/contagion/8FarmingBg_Protein.png';
+import pot_exp_contagion from '@images/contagion/2PotatoExpBg.png';
+import pot_exp_contagion_pre30 from '@images/contagion/6ClassExp.png';
+import skull_conf_contagion from '@images/contagion/3SkullConfectionBg.png';
+import worm_contagion from '@images/contagion/4Confectionx2Bg.png';
+import poop_milk_contagion from '@images/contagion/5PoopMilkBg.png';
+import locked_img from '@images/contagion/0LockBgV2.png';
 
 const default_weight_overwrite = {
     8: 0.95,

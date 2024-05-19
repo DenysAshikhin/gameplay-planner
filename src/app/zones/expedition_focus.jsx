@@ -1,8 +1,8 @@
 
 import { useState, useEffect, useMemo, } from 'react';
 import ExpeditionFocus from './expedition_focus.jsx';
-import infoIcon from '../../../public/images/icons/info_thick.svg';
-import MouseOverPopover from "../util/Tooltip.jsx";
+import infoIcon from '@images/icons/info_thick.svg';
+import MouseOverPopover from "../util/Tooltip";
 import DefaultSave from '../util/tempSave.json';
 import useLocalStorage from "use-local-storage";
 import mathHelper from '../util/math.js';
@@ -11,7 +11,7 @@ import petHelper from '../util/petHelper.js';
 import Image from 'next/image';
 import Priority_list from './priority_list.jsx';
 
-import RefreshIcon from '../../../public/images/icons/refresh_lightgray.svg';
+import RefreshIcon from '@images/icons/refresh_lightgray.svg';
 import { zone_priority, zone_ratios, zone_data, calc_max_hp, calc_total_hp } from './zone_lists.js';
 import { petNames, BonusMap } from '../util/itemMapping.js';
 

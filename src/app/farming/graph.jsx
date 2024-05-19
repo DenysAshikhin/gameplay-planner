@@ -4,8 +4,8 @@ import helper from "../util/helper.js";
 import mathHelper from "../util/math.js";
 import { memo } from "react";
 import Image from 'next/image';
-import redIcon from '../../../public/images/icons/info_red.svg'
-import MouseOverPopover from "../util/Tooltip.jsx";
+import redIcon from '@images/icons/info_red.svg'
+import MouseOverPopover from "../util/Tooltip";
 
 
 
