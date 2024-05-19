@@ -150,7 +150,7 @@ export default function Ad_Comp() {
 
         return;
 
-    }, [mobileSet, isMobile]);
+    }, [mobileSet]);
 
     return <></>
 }
