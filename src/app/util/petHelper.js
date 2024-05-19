@@ -2186,6 +2186,8 @@ var helper = {
         let petWhiteList = parameters.petWhiteList ? parameters.petWhiteList : {};
         const statMode = parameters.statMode ? parameters.statMode : false;
         const statModePets = parameters.statModePets ? parameters.statModePets : {};
+        const usePromos = !parameters.usePromos;
+        const maxTopStat = !!parameters.maxTopStat;
 
         let tempArr = [];//
         for (let i = 0; i < priorities.length; i++) {
@@ -2233,7 +2235,6 @@ var helper = {
             selectedPetMap[priorities[i].id] = [];
         }
 
-
         while ((groundPets.length < groundLimit || airPets.length < airLimit) && Object.values(petList).length > 0) {
 
             let pets = [];
@@ -2242,6 +2243,9 @@ var helper = {
             let scoreMode = 'unique';//unique || priorities
             let ignoreStat = {};
             let searchingForStat = false;
+
+            //This is used to determine if we want to just max the top priority and nothing else
+            let topStatActive = false;
 
             for (let j = 0; j < priorities.length; j++) {
 
@@ -2256,19 +2260,40 @@ var helper = {
                 }
             }
 
+            //Check if we have any pet satisfying the top priority (if it's still active)
+            if (maxTopStat && scoreMode === 'priorities' && ((priorities[0]?.count > priorities[0]?.current) || (priorities[0]?.count === -1))) {
+                for (const [ID, value] of Object.entries(petList)) {
+                    value.BonusList.forEach((e) => {
+                        if ((ignoreStat[e.ID] && !statMode) || (e.ID >= 1000)) {
+                            return;
+                        }
+                        if (e.ID === priorities[0].id) {
+                            topStatActive = true;
+                            petList[ID].desiredStat = this.calcEquipBonus(petList[ID], e)
+                        }
+                    });
+                }
+            }
+
             for (const [ID, value] of Object.entries(petList)) {
                 let pet = { ...value, score: 0, bonuses: [], sharedBonuses: [] };
+                let hasTopStat = false;
                 if (bannedPets[ID]) {
                     continue;
                 }
-                // if (pet.name.toLowerCase() === 'zack' || pet.name.toLowerCase() === 'garuda') {
-                //     let bigsad = -1;
-                // }
                 pet.BonusList.forEach((e) => {
 
                     if ((ignoreStat[e.ID] && !statMode) || (e.ID >= 1000)) {
                         return;
                     }
+
+
+                    if (topStatActive) {
+                        if (priorities[0].id === e.ID) {
+                            hasTopStat = true;
+                        }
+                    }
+
 
                     if (scoreMode === 'priorities') {
                         let found = false;
@@ -2330,22 +2355,49 @@ var helper = {
                         }
                     }
                 });
-                pet.score = general_helper.roundFiveDecimal(pet.score * (1 + (pet.promotion ? pet.promotion * 0.1 : 0)));
+                if (pet.promotion > 0) {
+                    console.log((1 + (
+                        (usePromos ? 1 : 0) * (pet.promotion ? pet.promotion * 0.1 : 0)
+                    )
+                    ))
+                }
+                console.log()
+                pet.score = general_helper.roundFiveDecimal(
+                    pet.score *
+                    (1 + (
+                        (usePromos ? 1 : 0) * (pet.promotion ? pet.promotion * 0.1 : 0)
+                    )
+                    )
+                );
+
+                //If we are prioritising the top stat, skip any pet that doesn't have it
+                if (topStatActive && !hasTopStat) {
+                    continue;
+                }
                 pets.push(pet);
             }
 
 
             pets.sort((a, b) => {
-                let diff = b.score - a.score;
-                if (diff === 0) {
-                    if (b.Rank !== a.Rank) {
-                        return b.Rank - a.Rank;
+
+                if (topStatActive) {
+                    if (a.desiredStat.greaterThan(b.desiredStat)) {
+                        return -1;
                     }
-                    if (diff === 0) {
-                        diff = b.Level - a.Level;
-                    }
+                    return 1;
                 }
-                return diff
+                else {
+                    let diff = b.score - a.score;
+                    if (diff === 0) {
+                        if (b.Rank !== a.Rank) {
+                            return b.Rank - a.Rank;
+                        }
+                        if (diff === 0) {
+                            diff = b.Level - a.Level;
+                        }
+                    }
+                    return diff
+                }
             });
             let bestPet = pets[0];
 

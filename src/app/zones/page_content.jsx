@@ -244,6 +244,16 @@ export default function Zones() {
         }
     }, [num_teams, teams, zone_ratios_client, zone_priority_client, current_zones])
 
+    const zone_dmg_dealt_map = useMemo(() => {
+        let dmg_map = {};
+        data.ExpeditionTeam.forEach((cur_team) => {
+            if (cur_team.InExpedition === 1) {
+                dmg_map[cur_team.WhichExpedition] = mathHelper.createDecimal(cur_team.DamageDoneBD ? cur_team.DamageDoneBD : cur_team.DamageDone);
+            }
+        });
+        return dmg_map;
+    }, [data]);
+
     let zones_in_priority = zone_stuff.zones_in_priority;
     let zone_suggestions = zone_stuff.zone_suggestions;
     let zone_leader = zone_stuff.zone_leader;
@@ -273,7 +283,6 @@ export default function Zones() {
     const [teamToRun, setTeamToRun] = useState(1);
     const [targetWave, setTargetWave] = useState(-1);
     const [hasLocked, setHasLocked] = useState(false);
-    const [unlockWave, setUnlockWave] = useState(-1);
 
     useEffect(() => {
 
@@ -312,12 +321,6 @@ export default function Zones() {
                     }
                 });
 
-                setUnlockWave((curr_amount) => {
-                    if (earliest_locked_zone.unlock === curr_amount) {
-                        return curr_amount;
-                    }
-                    return earliest_locked_zone.unlock;
-                })
 
                 goal_wave = targetWave === -1 ? earliest_locked_zone.unlock : targetWave;
                 if (targetWave === -1) {
@@ -387,6 +390,11 @@ export default function Zones() {
         zone_to_work.order = zone_data[zone_to_work.ID].order;
         zone_to_work.bonus_id = zone_data[zone_to_work.ID].bonus_id;
         zone_to_work.hp_goal = hp_goal;
+
+        if (zone_dmg_dealt_map[zone_to_work.ID]) {
+            hp_goal_difference = mathHelper.subtractDecimal(hp_goal_difference, zone_dmg_dealt_map[zone_to_work.ID]);//s
+        }
+
         zone_to_work.remaining_hp = hp_goal_difference;
         zone_to_work.cur_hp = mathHelper.createDecimal(zone_to_work.CurrentHPBD ? zone_to_work.CurrentHPBD : zone_to_work.CurrentHP);
         let inner_team = [];
@@ -402,15 +410,13 @@ export default function Zones() {
 
         zone_to_work.team = inner_team;
         zone_to_work.hours = mathHelper.divideDecimal(hp_goal_difference, inner_team.damage).ceil();
-        console.log(`setting zone:s`)//s
-        console.log(zone_to_work);
+        if (zone_to_work.hours.lessThan(mathHelper.createDecimal(0))) {
+            zone_to_work.hours = 0;
+            zone_to_work.remaining_hp = mathHelper.createDecimal(0);
+        }
         setZoneToClear(zone_to_work);
 
-    }, [selectedZone, next_unlock, data, teamToRun, targetWave, pets_global])
-
-    console.log(`current zone:`)
-    console.log(zoneToClear);
-
+    }, [selectedZone, next_unlock, data, teamToRun, targetWave, pets_global, zone_dmg_dealt_map])
 
     return (
         <div

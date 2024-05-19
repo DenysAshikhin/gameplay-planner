@@ -244,10 +244,23 @@ export default function Pets() {
 
     const [clientUseExpedition, setUseExpedition] = useLocalStorage('useExpedition', false);
     const [useExpedition, setRunTimeUseExpedition] = useState(false);
-
     useEffect(() => {
         setRunTimeUseExpedition(clientUseExpedition);
     }, [clientUseExpedition]);
+
+
+    const [clientUsePromos, setUsePromos] = useLocalStorage('usePromos', false);
+    const [usePromos, setRunTimeUsePromos] = useState(false);
+    useEffect(() => {
+        setRunTimeUsePromos(clientUsePromos);
+    }, [clientUsePromos]);
+
+    const [clientMaxTopStat, setMaxTopStat] = useLocalStorage('maxTopStat', false);
+    const [maxTopStat, setRunTimeMaxTopStat] = useState(false);
+    useEffect(() => {
+        setRunTimeMaxTopStat(clientMaxTopStat);
+    }, [clientMaxTopStat]);
+
 
 
     const [groupsCacheRunTime, setGroupsCacheRunTime] = useState({});
@@ -302,7 +315,9 @@ export default function Pets() {
                 manualEnabledPets: useExpedition ? manualEnabledPets : {},
                 priorityList: priorityList,
                 priorityMap: priorityMap,
-                petWhiteList: petWhiteList
+                petWhiteList: petWhiteList,
+                usePromos: usePromos,
+                maxTopStat: maxTopStat
             });
         let currentBonuses = result[2];
 
@@ -316,7 +331,7 @@ export default function Pets() {
         }
         return result;
     },
-        [data, priorityList, priorityMap, petWhiteList, useExpedition, manualEnabledPets, statMode, statModePets]
+        [data, priorityList, priorityMap, petWhiteList, useExpedition, manualEnabledPets, statMode, statModePets, usePromos, maxTopStat]
     );
 
 
@@ -366,6 +381,8 @@ export default function Pets() {
                     priorityMap: priorityMap,
                     petWhiteList: petWhiteList,
                     manualEnabledPets: useExpedition ? manualEnabledPets : {},
+                    usePromos: usePromos,
+                    maxTopStat: maxTopStat
                 }
             );
 
@@ -493,7 +510,7 @@ export default function Pets() {
             }
         }
     },
-        [data, manualEnabledPets, useExpedition])
+        [data, manualEnabledPets, useExpedition, usePromos, maxTopStat])
     // statTeamMasterList
 
     let specialCombos = {};
@@ -1240,7 +1257,79 @@ export default function Pets() {
                                         </div>
                                     </>
                                 )}
+                            </div>
 
+                            {/* Miscellaneous settings */}
+                            <div style={{
+                                backgroundColor: 'rgba(255,255,255, 0.07)',
+                                padding: '6px',
+                                marginTop: '12px',
+                                borderRadius: '6px'
+                            }}>
+                                {/* header */}
+                                <div
+                                    style={{ fontSize: '24px', fontWeight: 'bold', textAlign: 'center', marginBottom: "6px" }}
+                                >
+                                    Miscellaneous Settings
+                                </div>
+                                <div style={{ display: 'flex', justifyContent: 'center' }} >
+
+
+                                    <div style={{}}>
+                                        Use pets from /expeditions page
+                                    </div>
+                                    <div>
+                                        <input
+                                            aria-label='use selected pets from expedition page'
+                                            type="checkbox"
+                                            onChange={(e) => {
+                                                setUseExpedition(e.target.checked ? true : false);
+                                                if (statMode) {
+                                                    setTimeout(() => {
+                                                        setPriorityList(JSON.parse(JSON.stringify(statPriorityList)));
+                                                        setPriorityMap(JSON.parse(JSON.stringify(statPriorityMap)));
+                                                    }, 100);
+                                                }
+                                            }}
+                                            checked={!!useExpedition}
+                                            value={!!useExpedition}
+                                        />
+                                    </div>
+                                </div>
+                                <div style={{ display: 'flex', justifyContent: 'center' }} >
+                                    <div style={{}}>
+                                        Max Top Stat
+                                    </div>
+                                    <div>
+                                        <input
+                                            aria-label='use selected pets from expedition page'
+                                            type="checkbox"
+                                            onChange={(e) => {
+                                                // setUseExpedition(e.target.checked ? true : false);
+                                                setMaxTopStat(e.target.checked ? true : false);
+                                            }}
+                                            checked={!!maxTopStat}
+                                            value={!!maxTopStat}
+                                        />
+                                    </div>
+                                </div>
+                                <div style={{ display: 'flex', justifyContent: 'center' }} >
+                                    <div style={{}}>
+                                        Ignore Promotions
+                                    </div>
+                                    <div>
+                                        <input
+                                            aria-label='use selected pets from expedition page'
+                                            type="checkbox"
+                                            onChange={(e) => {
+                                                // setUseExpedition(e.target.checked ? true : false);
+                                                setUsePromos(e.target.checked ? true : false);
+                                            }}
+                                            checked={!!usePromos}
+                                            value={!!usePromos}
+                                        />
+                                    </div>
+                                </div>
                             </div>
 
                             {/* Custom Preset Area */}
@@ -1458,45 +1547,7 @@ export default function Pets() {
                                 </div>
                             </div>
 
-                            {/* Miscellaneous settings */}
-                            <div style={{
-                                backgroundColor: 'rgba(255,255,255, 0.07)',
-                                padding: '6px',
-                                marginTop: '12px',
-                                borderRadius: '6px'
-                            }}>
-                                {/* header */}
-                                <div
-                                    style={{ fontSize: '24px', fontWeight: 'bold', textAlign: 'center', marginBottom: "6px" }}
-                                >
-                                    Miscellaneous Settings
-                                </div>
-                                <div style={{ display: 'flex', justifyContent: 'center' }} >
 
-
-                                    <div style={{}}>
-                                        Expedition Pet List
-                                    </div>
-                                    <div>
-                                        <input
-                                            aria-label='use selected pets from expedition page'
-                                            type="checkbox"
-                                            onChange={(e) => {
-                                                setUseExpedition(e.target.checked ? true : false);
-                                                if (statMode) {
-                                                    setTimeout(() => {
-                                                        setPriorityList(JSON.parse(JSON.stringify(statPriorityList)));
-                                                        setPriorityMap(JSON.parse(JSON.stringify(statPriorityMap)));
-                                                    }, 100);
-                                                }
-                                            }}
-                                            checked={!!useExpedition}
-                                            value={!!useExpedition}
-                                        />
-                                    </div>
-                                </div>
-
-                            </div>
                         </div>
 
                     </div>)}
