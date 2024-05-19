@@ -144,6 +144,19 @@ export default function Expeditions() {
         setManualEnabledPetsRunTime(manualEnabledPetsClient);
     }, [manualEnabledPetsClient])
 
+
+    const [clientUsePromos, setUsePromos] = useLocalStorage('usePromos', false);
+    const [usePromos, setRunTimeUsePromos] = useState(false);
+    useEffect(() => {
+        setRunTimeUsePromos(clientUsePromos);
+    }, [clientUsePromos]);
+
+    const [clientMaxTopStat, setMaxTopStat] = useLocalStorage('maxTopStat', false);
+    const [maxTopStat, setRunTimeMaxTopStat] = useState(false);
+    useEffect(() => {
+        setRunTimeMaxTopStat(clientMaxTopStat);
+    }, [clientMaxTopStat]);
+
     const [enabledBonusHighlight, setEnabledBonusHighlightRunTime] = useState({});
     const [enabledBonusHighlightClient, setEnabledBonusHighlight] = useLocalStorage("enabledBonusHighlight", {});
     useEffect(() => {
@@ -250,7 +263,9 @@ export default function Expeditions() {
                     tokenDamageBias: tokenDamageBias,
                     activeBonuses: activeCustomBonuses,
                     setFailedFilters: setFailedFilters,
-                    petWhiteList: petWhiteList
+                    petWhiteList: petWhiteList,
+                    usePromos: usePromos,
+                    maxTopStat: maxTopStat
                 }
             );
             setGroupCache({ ...groupCache, [keyString]: groups })
@@ -267,7 +282,7 @@ export default function Expeditions() {
             });
             setGroupsCache(groupCacheMap);
         }
-    }, [setGroupsCache, activeCustomBonuses, defaultRank, groupRankCritera, numTeams, petWhiteList, tokenDamageBias, refreshGroups, data, selectedItems])
+    }, [setGroupsCache, activeCustomBonuses, defaultRank, groupRankCritera, numTeams, petWhiteList, tokenDamageBias, refreshGroups, data, selectedItems, usePromos, maxTopStat])
 
 
     const dataLoaded = useRef(false);
@@ -1051,7 +1066,7 @@ export default function Expeditions() {
                     style={{ padding: '6px 3px 1px 3px', overflow: 'auto', maxHeight: 'calc(100% - 45px)', overflowAnchor: 'none' }}
                 >
                     <div style={{
-                        display: 'flex', 
+                        display: 'flex',
                         // flexDirection: 'column',
                         backgroundColor: 'rgba(255,255,255, 0.05)',
                         margin: '6px 6px',
@@ -1059,7 +1074,7 @@ export default function Expeditions() {
                         border: '1px solid rgba(255,255,255,0.8)', overflowAnchor: 'none'
                     }}>
 
-                        <div style={{marginRight:'auto'}}>
+                        <div style={{ marginRight: 'auto' }}>
                             <div style={{ display: 'flex', alignItems: 'center' }}>
 
                                 <div>{`Ignore Pets Rank`}</div>
@@ -1578,7 +1593,14 @@ export default function Expeditions() {
                                                         let airPets, groundPets, currentBonuses, selectedPetMap;
                                                         [airPets, groundPets, currentBonuses, selectedPetMap] = petHelper.findBestTeam(
                                                             data,
-                                                            { manualEnabledPets: manualEnabledPets, priorityList: priorityList, priorityMap: priorityMap, petWhiteList: petWhiteList }
+                                                            {
+                                                                manualEnabledPets: manualEnabledPets,
+                                                                priorityList: priorityList,
+                                                                priorityMap: priorityMap,
+                                                                petWhiteList: petWhiteList,
+                                                                usePromos: usePromos,
+                                                                maxTopStat: maxTopStat
+                                                            }
                                                         );
 
                                                         let combinedList = airPets.concat(groundPets);
