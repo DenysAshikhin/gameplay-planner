@@ -2287,13 +2287,11 @@ var helper = {
                         return;
                     }
 
-
                     if (topStatActive) {
                         if (priorities[0].id === e.ID) {
                             hasTopStat = true;
                         }
                     }
-
 
                     if (scoreMode === 'priorities') {
                         let found = false;
@@ -2355,13 +2353,6 @@ var helper = {
                         }
                     }
                 });
-                if (pet.promotion > 0) {
-                    console.log((1 + (
-                        (usePromos ? 1 : 0) * (pet.promotion ? pet.promotion * 0.1 : 0)
-                    )
-                    ))
-                }
-                console.log()
                 pet.score = general_helper.roundFiveDecimal(
                     pet.score *
                     (1 + (
@@ -2384,6 +2375,23 @@ var helper = {
                     if (a.desiredStat.greaterThan(b.desiredStat)) {
                         return -1;
                     }
+                    else if (a.desiredStat.equals(b.desiredStat)) {
+
+                        if (usePromos) {//s
+                            if (a.promotion !== b.promotion) {
+                                return b.promotion - a.promotion;
+                            }
+                        }
+
+                        if (b.Rank !== a.Rank) {
+                            return b.Rank - a.Rank;
+                        }
+                        if (diff === 0) {
+                            diff = b.Level - a.Level;
+                        }
+
+                        return diff
+                    }
                     return 1;
                 }
                 else {
@@ -2402,7 +2410,7 @@ var helper = {
             let bestPet = pets[0];
 
 
-            //Add pet counters to each priority bonus:
+            //Add pet counters to each priority bonus:s
             for (let j = 0; j < bestPet.BonusList.length; j++) {
                 let found = priorities.find((cur_pri) => cur_pri.id === bestPet.BonusList[j].ID);
                 if (found) {
