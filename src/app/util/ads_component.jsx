@@ -84,6 +84,12 @@ export default function Ad_Comp() {
         if (!mobileSet) return;
         if (setup_started.current) return;
         if (isMobile) return;//don't want ads on mobile
+
+        let holder_div = document.getElementsByTagName('head')[0];
+        const script_holder = '<script async type="text/javascript" src="//monu.delivery/site/a/5/892ed4-6227-41b8-95d2-9c7cb4ffe471.js" data-cfasync="false"></script>';
+        const fragment = document.createRange().createContextualFragment(script_holder);
+        holder_div.appendChild(fragment);
+
         console.log(`applying ads, isMobile: ${isMobile}`);
         const setup_function_right_pillar = async () => {
             setup_started.current = true;
