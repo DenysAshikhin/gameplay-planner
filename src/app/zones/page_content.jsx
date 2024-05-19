@@ -45,7 +45,14 @@ export default function Zones() {
         setRunTimeData(clientData);
     }, [clientData]);
 
-    
+
+    const [zoneToClear, setZoneToClear] = useState(null);
+    const [hasLocked, setHasLocked] = useState(false);
+    const [outerCurrentZones, setOuterCurrentZones] = useState([]);
+    const [targetWave, setTargetWave] = useState(-1);
+    const [selectedZone, setSelectedZone] = useState(-1);
+    const [teamToRun, setTeamToRun] = useState(1);
+
 
     return (
         <div
@@ -62,7 +69,19 @@ export default function Zones() {
 
 
 
-<ExpeditionFocus />
+            <ExpeditionFocus
+                zoneToClear={zoneToClear}
+                setZoneToClear={setZoneToClear}
+                hasLocked={hasLocked}
+                setHasLocked={setHasLocked}
+                setOuterCurrentZones={setOuterCurrentZones}
+                targetWave={targetWave}
+                setTargetWave={setTargetWave}
+                selectedZone={selectedZone}
+                setSelectedZone={setSelectedZone}
+                teamToRun={teamToRun}
+                setTeamToRun={setTeamToRun}
+            />
 
             {/* Zone To Clear */}
             <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', maxHeight: 'calc(100vh - 102px)' }}>
@@ -108,7 +127,7 @@ export default function Zones() {
                                         {`Next Unlock`}
                                     </option>
                                 )}
-                                {current_zones.map((cur_zone, index) => {
+                                {outerCurrentZones.map((cur_zone, index) => {
                                     return (
                                         <option value={cur_zone.ID} key={cur_zone.ID}>
                                             {`${cur_zone.label}`}

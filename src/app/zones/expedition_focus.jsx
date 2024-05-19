@@ -1,4 +1,5 @@
 
+import { useState, useEffect, useMemo, } from 'react';
 import ExpeditionFocus from './expedition_focus.jsx';
 import infoIcon from '../../../public/images/icons/info_thick.svg';
 import MouseOverPopover from "../util/Tooltip.jsx";
@@ -14,7 +15,23 @@ import RefreshIcon from '../../../public/images/icons/refresh_lightgray.svg';
 import { zone_priority, zone_ratios, zone_data, calc_max_hp, calc_total_hp } from './zone_lists.js';
 import { petNames, BonusMap } from '../util/itemMapping.js';
 
-export default function Zones() {
+export default function Zones({
+    zoneToClear,
+    setZoneToClear,
+    hasLocked,
+    setHasLocked,
+    setOuterCurrentZones,
+    targetWave, setTargetWave,
+    setSelectedZone, selectedZone,
+    teamToRun, setTeamToRun
+}) {
+
+    const [clientData, setData] = useLocalStorage('userData', DefaultSave);
+    const [data, setRunTimeData] = useState(DefaultSave);
+    useEffect(() => {
+        setRunTimeData(clientData);
+    }, [clientData]);
+
     const [ZONE_PRIORITY, setZonePriority] = useLocalStorage('zone_priority', zone_priority);
     const [zone_priority_client, setZonePriorityClient] = useState(zone_priority);
 
@@ -88,6 +105,7 @@ export default function Zones() {
         });
         current_zones.sort((a, b) => a.order - b.order);
 
+        setOuterCurrentZones(current_zones);
         return { current_zones, unlocked_ids };
     }, [data]);
 
@@ -231,29 +249,28 @@ export default function Zones() {
 
 
     let next_unlock = useMemo(() => {
-
+return;
         let next_unlock = { data: null, index: 999 };
+
+        if(data.AscensionCount < 10){
+            let bigsad = -1;
+        }
 
         data.ExpeditionsCollection.forEach((curr_zone, index) => {
 
             if (curr_zone.ID === 0) return;
-            //We only want locked zones
+            //We only want locked zonesss
             if (curr_zone.Locked === 1) return;
 
             let temp_data = zone_data[curr_zone.ID];
-            if (temp_data.index < next_unlock.index) {
-                next_unlock = { data: curr_zone, index: temp_data.index }
+            if (temp_data.order < next_unlock.index) {
+                next_unlock = { data: curr_zone, index: temp_data.order }
             }
         });
 
         return next_unlock.data;
     }, [data])
 
-    const [selectedZone, setSelectedZone] = useState(-1);
-    const [zoneToClear, setZoneToClear] = useState(null);
-    const [teamToRun, setTeamToRun] = useState(1);
-    const [targetWave, setTargetWave] = useState(-1);
-    const [hasLocked, setHasLocked] = useState(false);
 
     useEffect(() => {
 
@@ -281,7 +298,6 @@ export default function Zones() {
                     zone_to_work = { data: curr_zone, index: temp_data.order }
                 }
             });
-
             if (earliest_locked_zone.data) {
                 earliest_locked_zone = earliest_locked_zone.data;
                 setHasLocked(true);
@@ -293,9 +309,9 @@ export default function Zones() {
                 });
 
 
-                goal_wave = targetWave === -1 ? earliest_locked_zone.unlock : targetWave;
+                goal_wave = targetWave === -1 ? zone_to_work.data.unlock : targetWave;
                 if (targetWave === -1) {
-                    setTargetWave(earliest_locked_zone.unlock)
+                    setTargetWave(goal_wave)
                 }
             }
 
@@ -329,6 +345,14 @@ export default function Zones() {
                 if (curr_zone.ID === selectedZone) zone_to_work = curr_zone;
 
             })
+            try{
+
+                zone_to_work.max_hp = calc_max_hp(zone_to_work, data);
+            }
+            catch(err){
+                console.log(err);
+                zone_to_work.max_hp = calc_max_hp(zone_to_work, data);
+            }
             zone_to_work.max_hp = calc_max_hp(zone_to_work, data);
             zone_to_work.total_hp = calc_total_hp(zone_to_work, data);
 
@@ -388,6 +412,7 @@ export default function Zones() {
         setZoneToClear(zone_to_work);
 
     }, [selectedZone, next_unlock, data, teamToRun, targetWave, pets_global, zone_dmg_dealt_map])
+
     return (<>
         {/* Zone Priority */}
         <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', maxHeight: 'calc(100vh - 102px)' }}>
