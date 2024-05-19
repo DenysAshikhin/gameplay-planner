@@ -107,7 +107,7 @@ export default function Zones({
 
         setOuterCurrentZones(current_zones);
         return { current_zones, unlocked_ids };
-    }, [data]);
+    }, [setOuterCurrentZones, data]);
 
 
     let unlocked_ids = current_zones_stuff.unlocked_ids;
@@ -411,7 +411,9 @@ return;
         }
         setZoneToClear(zone_to_work);
 
-    }, [selectedZone, next_unlock, data, teamToRun, targetWave, pets_global, zone_dmg_dealt_map])
+    }, [
+        setHasLocked, setSelectedZone, setTargetWave, setZoneToClear,
+        selectedZone, next_unlock, data, teamToRun, targetWave, pets_global, zone_dmg_dealt_map])
 
     return (<>
         {/* Zone Priority */}
