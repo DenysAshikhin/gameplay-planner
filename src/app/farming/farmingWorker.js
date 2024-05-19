@@ -1,6 +1,6 @@
-import helper from '../util/farmingHelper.js';
-import mathHelper from '../util/math.js';
-import generalHelper from '../util/helper.js';
+import helper from '../util/farmingHelper';
+import mathHelper from '../util/math';
+import generalHelper from '../util/helper';
 
 
 // eslint-disable-next-line no-restricted-globals

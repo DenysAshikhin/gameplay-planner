@@ -1,0 +1,1 @@
+export type SimpleDecimal = { mantissa: number, exponent: number };

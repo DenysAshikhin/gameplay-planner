@@ -3,6 +3,7 @@
   "rules": {
     "@next/next/no-img-element": "off"
   },
+  "parser": "@typescript-eslint/parser",
   "plugins": [
     "node"
   ]

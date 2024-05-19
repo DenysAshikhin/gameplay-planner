@@ -28,8 +28,9 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
-      "@images/*": ["public/images/*"]
+      "@app/*": ["./src/app/*"],
+      "@images/*": ["public/images/*"],
+      "@util/*": ["./src/app/util/*"]
     }
   },
   "exclude": [
