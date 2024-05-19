@@ -2370,6 +2370,7 @@ var helper = {
 
 
             pets.sort((a, b) => {
+                let diff = b.score - a.score;
 
                 if (topStatActive) {
                     if (a.desiredStat.greaterThan(b.desiredStat)) {
@@ -2395,7 +2396,6 @@ var helper = {
                     return 1;
                 }
                 else {
-                    let diff = b.score - a.score;
                     if (diff === 0) {
                         if (b.Rank !== a.Rank) {
                             return b.Rank - a.Rank;
