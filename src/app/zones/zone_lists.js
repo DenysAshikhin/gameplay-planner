@@ -62,7 +62,7 @@ zone_data[1] = {
     img: butternut_forest_img,
     bonus_id: att_hp_id,
     order: 1,
-    unlock: -1
+    unlock: 5
 }
 zone_data[2] = {
     label: 'Cheddar Plain',
@@ -70,7 +70,7 @@ zone_data[2] = {
     img: cheddar_plain_img,
     bonus_id: class_id,
     order: 2,
-    unlock: 5
+    unlock: 10
 }
 zone_data[3] = {
     label: 'Guacamole Grotto',
@@ -78,7 +78,7 @@ zone_data[3] = {
     img: guacamole_grotto_img,
     bonus_id: milk_id,
     order: 3,
-    unlock: 10
+    unlock: 15
 }
 zone_data[4] = {
     label: 'Orange Mountain',
@@ -86,7 +86,7 @@ zone_data[4] = {
     img: orange_mountain_img,
     bonus_id: whack_id,
     order: 4,
-    unlock: 15
+    unlock: 20
 }
 zone_data[16] = {
     label: 'Avaocado River',

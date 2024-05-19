@@ -246,37 +246,9 @@ export default function Zones({
     let zones_in_priority = zone_stuff.zones_in_priority;
     let zone_suggestions = zone_stuff.zone_suggestions;
     let zone_leader = zone_stuff.zone_leader;
-
-
-    let next_unlock = useMemo(() => {
-return;
-        let next_unlock = { data: null, index: 999 };
-
-        if(data.AscensionCount < 10){
-            let bigsad = -1;
-        }
-
-        data.ExpeditionsCollection.forEach((curr_zone, index) => {
-
-            if (curr_zone.ID === 0) return;
-            //We only want locked zonesss
-            if (curr_zone.Locked === 1) return;
-
-            let temp_data = zone_data[curr_zone.ID];
-            if (temp_data.order < next_unlock.index) {
-                next_unlock = { data: curr_zone, index: temp_data.order }
-            }
-        });
-
-        return next_unlock.data;
-    }, [data])
-
+//
 
     useEffect(() => {
-
-        if (selectedZone === -1 && next_unlock?.ID) {
-            return setSelectedZone(next_unlock);
-        }
 
         let hp_goal = 1;
         let hp_goal_difference = -1;
@@ -345,11 +317,11 @@ return;
                 if (curr_zone.ID === selectedZone) zone_to_work = curr_zone;
 
             })
-            try{
+            try {
 
                 zone_to_work.max_hp = calc_max_hp(zone_to_work, data);
             }
-            catch(err){
+            catch (err) {
                 console.log(err);
                 zone_to_work.max_hp = calc_max_hp(zone_to_work, data);
             }
@@ -413,7 +385,11 @@ return;
 
     }, [
         setHasLocked, setSelectedZone, setTargetWave, setZoneToClear,
-        selectedZone, next_unlock, data, teamToRun, targetWave, pets_global, zone_dmg_dealt_map])
+        selectedZone, data, teamToRun, targetWave, pets_global, zone_dmg_dealt_map])
+
+    if (data.AscensionCount >= 14) {
+        return <></>
+    }
 
     return (<>
         {/* Zone Priority */}

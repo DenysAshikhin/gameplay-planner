@@ -7,19 +7,14 @@ ReactGA.initialize([{
     trackingId: "G-GGLPK02VH8",
 }]);
 
+import CardFocus from './card_focus.jsx';
 import ExpeditionFocus from './expedition_focus.jsx';
 import Zone_CSS from './zone.css';
 import infoIcon from '../../../public/images/icons/info_thick.svg';
 import MouseOverPopover from "../util/Tooltip.jsx";
 import DefaultSave from '../util/tempSave.json';
 import useLocalStorage from "use-local-storage";
-import mathHelper from '../util/math.js';
-import helper from '../util/helper.js';
-import petHelper from '../util/petHelper.js';
 import Image from 'next/image';
-import Priority_list from './priority_list.jsx';
-
-import RefreshIcon from '../../../public/images/icons/refresh_lightgray.svg';
 import { zone_priority, zone_ratios, zone_data, calc_max_hp, calc_total_hp } from './zone_lists.js';
 import { petNames, BonusMap } from '../util/itemMapping.js';
 
@@ -67,8 +62,10 @@ export default function Zones() {
             }}
         >
 
+            <CardFocus />
 
 
+            {/* Only displayed if A < 14, but still used for come zone calculations */}
             <ExpeditionFocus
                 zoneToClear={zoneToClear}
                 setZoneToClear={setZoneToClear}
@@ -297,6 +294,8 @@ export default function Zones() {
                         )}
                     </div>
                 </div>
+
+                <div id='in_content_flex' style={{ display: 'flex', alignItems: 'center', }} />
             </div>
 
 
