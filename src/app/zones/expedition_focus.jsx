@@ -157,7 +157,6 @@ export default function Zones({
                 zone.curr_hp = mathHelper.createDecimal(zone.curr_hp);
                 zone.total_hp = mathHelper.createDecimal(zone.total_hp);
                 zone.max_hp = mathHelper.createDecimal(zone.max_hp);
-                let ttt = zone_ratios_client;
                 zone.ratio = zone_ratios_client[zone.bonus_id];
                 if (!zone.ratio) {
                     return;

@@ -8,7 +8,7 @@ const create_rightPillar_flex = function () {
     let div_id = document.createElement("div");
     div_id.id = "mmt-34313a9b-cd87-458f-a4c0-86ffb8000bcb";
 
-    // div_id.style.width = '200px';
+    // div_id.style.width = '320px';
     // div_id.style.height = '600px';
     // div_id.style.backgroundColor = 'red';
     holder_div.appendChild(div_id);
