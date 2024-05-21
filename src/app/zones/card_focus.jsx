@@ -96,6 +96,7 @@ const CardCard = ({
                                 let exp = zone_data[cur_exp.ID];
                                 return (
                                     <div
+                                    key={cur_exp.ID}
                                         style={{
                                             display: 'flex',
                                             alignItems: 'center',
@@ -128,9 +129,11 @@ const CardCard = ({
                                                 display: 'flex', position: 'relative', alignContent: 'center', justifyContent: 'space-evenly', width: '120px'
                                             }}
                                         >
-                                            {cur_exp.CardFound.map((found_card) => {
+                                            {cur_exp.CardFound.map((found_card, index) => {
                                                 return (
-                                                    <div style={{
+                                                    <div 
+                                                    key={index}
+                                                    style={{
                                                         position: 'relative', width: '33px', height: '33px'
                                                     }}>
                                                         <Image
