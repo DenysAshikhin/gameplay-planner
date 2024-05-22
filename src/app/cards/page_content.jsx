@@ -1260,7 +1260,7 @@ export default function Cards() {
                             overflow: 'auto',
                             height: '110px',
                             marginBottom: '6px',
-                            minHeight: '84px'
+                            minHeight: '90px'
                         }}
                     >
 
@@ -1279,7 +1279,7 @@ export default function Cards() {
                                     {`Reincarnation levels to ascend:`}
                                 </div>
                                 <div style={{ fontWeight: 'normal', marginLeft: '6px' }}>
-                                    {`${data.AscensionReincLevelRequired}`}
+                                    {`${helper.numberWithCommas(data.AscensionReincLevelRequired)}`}
                                 </div>
                                 {/* Charges till Ascension */}
                                 <MouseOverPopover
@@ -1290,13 +1290,13 @@ export default function Cards() {
                                                 {`Remaining charges are calculated based on your remaining reincarnation levels left to ascend multiplied by your current reincarnation levels / hr. \nThis is calculated based on how many reincarnation levels you would gain if you reincarnate now divided by the current reincarnation duration.`}
                                             </div>
                                             <div>
-                                                {`${requiredReincLevel - currentReincLevel} remaining levels at ${helper.roundTwoDecimal(reincHr)} levels/hr = ${helper.roundTwoDecimal(remTime)} hours remaining`}
+                                                {`${helper.numberWithCommas(requiredReincLevel - currentReincLevel)} remaining levels at ${helper.roundTwoDecimal(reincHr)} levels/hr = ${helper.roundTwoDecimal(remTime)} hours remaining`}
                                             </div>
                                             <div>
                                                 {`Time remaining WITH CARD CHARGE:`}
                                             </div>
                                             <div>
-                                                {`${requiredReincLevel - futureReincLevel} remaining levels at ${helper.roundTwoDecimal(futureReincHr)} levels/hr =  ${helper.roundTwoDecimal(futureRemTime)} hours remaining`}
+                                                {`${helper.numberWithCommas(requiredReincLevel - futureReincLevel)} remaining levels at ${helper.roundTwoDecimal(futureReincHr)} levels/hr =  ${helper.roundTwoDecimal(futureRemTime)} hours remaining`}
                                             </div>
                                             <div>
                                                 {`Current charge timer reduction: ${helper.roundTwoDecimal(chargeTimerReduction * 100)}%`}
@@ -1343,7 +1343,7 @@ export default function Cards() {
                                             {`Current Reinc. Level:`}
                                         </div>
                                         <div style={{ fontWeight: 'normal' }}>
-                                            {`${currentReincLevel} (+${currentReincLevelDiff}, ${helper.roundTwoDecimal(reincHr)}/hr)`}
+                                            {`${helper.numberWithCommas(currentReincLevel)} (+${helper.numberWithCommas(currentReincLevelDiff)}, ${reincHr > 1000 ? helper.numberWithCommas(reincHr) : helper.roundTwoDecimal(reincHr)}/hr)`}
                                         </div>
                                     </div>
                                 </h3>
@@ -1424,7 +1424,7 @@ export default function Cards() {
                                         />
                                     </div>
                                     <div style={{ color: 'green', marginTop: '-10px' }}>
-                                        {`+${futureReincLevel - currentReincLevel}, ${helper.roundTwoDecimal(futureReincHr - reincHr)}/hr`}
+                                        {`+${helper.numberWithCommas(futureReincLevel - currentReincLevel)}, ${(futureReincHr - reincHr) > 1000 ? helper.numberWithCommas(futureReincHr - reincHr) : helper.roundTwoDecimal(futureReincHr - reincHr)}/hr`}
                                     </div>
                                 </div>
                             )}
@@ -1447,7 +1447,7 @@ export default function Cards() {
                                             {`Future Reinc. Level:`}
                                         </div>
                                         <div style={{ fontWeight: 'normal' }}>
-                                            {`${futureReincLevel} (+${futureReincLevelDiff}, ${helper.roundTwoDecimal(futureReincHr)}/hr)`}
+                                            {`${helper.numberWithCommas(futureReincLevel)} (+${helper.numberWithCommas(futureReincLevelDiff)}, ${futureReincHr > 1000 ? helper.numberWithCommas(futureReincHr) : helper.roundTwoDecimal(futureReincHr)}/hr)`}
                                         </div>
                                     </div>
                                 </h3>

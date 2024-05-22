@@ -5,6 +5,7 @@ import MouseOverPopover from "../util/Tooltip.jsx";
 import DefaultSave from '../util/tempSave.json';
 import useLocalStorage from "use-local-storage";
 
+
 import pinIcon from "../../../public/images/icons/pin-line-icon.svg"
 import trashIcon from "../../../public/images/icons/trash-can-icon.svg"
 
@@ -45,7 +46,9 @@ import {
 } from '../util/cardMapping.js';
 
 const CardCard = ({
-    data, card, i, bonus_map }) => {
+    data, card, i, bonus_map,
+    pinnedZones, setPinnedZones, setHoveredCard
+}) => {
 
     const {
         ID,
@@ -56,7 +59,14 @@ const CardCard = ({
     const { ChargeTransfertPowerPerma, ChargeTransfertPowerTemp } = data;
 
     const [forceOpen, setForceOpen] = useState(false);
-
+    useEffect(() => {
+        if (forceOpen) {
+            setHoveredCard(ID)
+        }
+        else {
+            setHoveredCard(-1);
+        }
+    }, [forceOpen])
 
     return (
         <div
@@ -67,7 +77,7 @@ const CardCard = ({
                 flexDirection: 'column',
                 alignItems: '',
                 justifyContent: 'center',
-                width: '180px',
+                width: '175px',
                 height: '48px',
                 // margin: `${num === 1 ? '' : '6px'} 0 0 0`,
                 padding: '0 6px 0 6px',
@@ -96,31 +106,73 @@ const CardCard = ({
                                 let exp = zone_data[cur_exp.ID];
                                 return (
                                     <div
-                                    key={cur_exp.ID}
+                                        key={cur_exp.ID}
                                         style={{
                                             display: 'flex',
                                             alignItems: 'center',
                                             marginBottom: '6px'
                                         }}
                                     >
-                                        <div
-                                            className='hover'
-                                            style={{
-                                                position: 'relative',
-                                                width: '26px', height: '26px', borderRadius: '13px',
-                                                backgroundColor: 'rgba(0, 0, 0, 0.8)',
-                                                marginRight: '12px'
-                                            }}
-                                            onClick={(e) => {
-                                                let bigsad = -1;
-                                            }}
-                                        >
-                                            <Image
-                                                style={{ width: '20px', height: '20px', position: 'absolute', top: '2px', left: '2px' }}
-                                                src={pinIcon}
-                                                alt='push pin'
-                                            />
-                                        </div>
+
+
+
+
+
+
+                                        {!pinnedZones[cur_exp.ID] && (
+                                            <div
+                                                className='hover'
+                                                style={{
+                                                    position: 'relative',
+                                                    width: '26px', height: '26px', borderRadius: '13px',
+                                                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                                                    marginRight: '12px'
+                                                }}
+                                                onClick={(e) => {
+                                                    setPinnedZones((cur_pins) => {
+                                                        let temp = { ...cur_pins };
+                                                        temp[cur_exp.ID] = cur_exp;
+                                                        return temp;
+                                                    })
+                                                }}
+                                            >
+                                                <Image
+                                                    style={{ width: '20px', height: '20px', position: 'absolute', top: '2px', left: '2px' }}
+                                                    src={pinIcon}
+                                                    alt='push pin'
+                                                />
+                                            </div>
+                                        )}
+                                        {pinnedZones[cur_exp.ID] && (
+                                            <div
+                                                className='hover'
+                                                style={{
+                                                    position: 'relative',
+                                                    width: '26px', height: '26px', borderRadius: '13px',
+                                                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                                                    marginRight: '12px'
+                                                }}
+                                                onClick={(e) => {
+                                                    setPinnedZones((cur_pins) => {
+                                                        let temp = { ...cur_pins };
+                                                        delete temp[cur_exp.ID];
+                                                        return temp;
+                                                    })
+                                                }}
+                                            >
+                                                <Image
+                                                    style={{ width: '20px', height: '20px', position: 'absolute', top: '3px', left: '3px' }}
+                                                    src={trashIcon}
+                                                    alt='push pin'
+                                                />
+                                            </div>
+                                        )}
+
+
+
+
+
+
                                         <div style={{ width: '160px', display: 'flex', alignItems: 'center' }}>
                                             {`${exp.label}:`}
                                         </div>
@@ -131,11 +183,11 @@ const CardCard = ({
                                         >
                                             {cur_exp.CardFound.map((found_card, index) => {
                                                 return (
-                                                    <div 
-                                                    key={index}
-                                                    style={{
-                                                        position: 'relative', width: '33px', height: '33px'
-                                                    }}>
+                                                    <div
+                                                        key={index}
+                                                        style={{
+                                                            position: 'relative', width: '33px', height: '33px'
+                                                        }}>
                                                         <Image
                                                             alt={`picture of the in game ${cardIDMap[found_card].label} card`}
                                                             // fill
@@ -214,13 +266,33 @@ const CardCard = ({
 
 
 export default function CardFocus({
+    outerCurrentZones,
+    outerUnlockedIDs,
+    TimeToClear
 }) {
+
+
+    const [hoveredCard, setHoveredCard] = useState(-1);
+    const [showLockedZones, setShowLockedZones] = useState(true);
+    const [pinnedZones, setPinnedZones] = useState({});
+
+    const [current_zones, setCurrentZones] = useState({});
 
     const [clientData, setData] = useLocalStorage('userData', DefaultSave);
     const [data, setRunTimeData] = useState(DefaultSave);
     useEffect(() => {
         setRunTimeData(clientData);
+        let temp_zones = {};
+        clientData.ExpeditionTeam.forEach((cur_team) => {
+            if (cur_team.InExpedition === 1) {
+                temp_zones[cur_team.WhichExpedition] = clientData.ExpeditionsCollection.find((a) => a.ID === cur_team.WhichExpedition)
+            }
+            setCurrentZones(temp_zones);
+            setPinnedZones(temp_zones);
+        });
     }, [clientData]);
+
+
 
 
     const bonus_map = useMemo(() => {
@@ -242,12 +314,23 @@ export default function CardFocus({
         return map;
     }, [data]);
 
+
     const current_cards = useMemo(() => {
+
+        let num_drops = {};
+        for (const [key, value] of Object.entries(pinnedZones)) {
+            value.CardFound.forEach((found_id) => {
+                if (!num_drops[found_id]) {
+                    num_drops[found_id] = 0
+                }
+                num_drops[found_id]++;
+            })
+        }
 
         let cardMap = {};
 
         const cards = data.CardsCollection.reduce((accum, card) => {
-            card.num_drops = 1;
+            card.num_drops = num_drops[card.ID] ? num_drops[card.ID] : 0;
             cardMap[card.ID] = card;
             accum.push(card);
             return accum;
@@ -270,6 +353,9 @@ export default function CardFocus({
                     card={cardMap[CARD_DISPLAY_IDS[i]]}
                     data={data} key={cardMap[CARD_DISPLAY_IDS[i]]}
                     bonus_map={bonus_map}
+                    pinnedZones={pinnedZones}
+                    setPinnedZones={setPinnedZones}
+                    setHoveredCard={setHoveredCard}
                 />)
 
                 i++;
@@ -289,9 +375,213 @@ export default function CardFocus({
         }
 
         return { cards, cardMap, cardRows };
-    }, [data, bonus_map]);
+    }, [data, bonus_map, pinnedZones]);
 
 
+
+    const zone_list = [];
+    outerCurrentZones.forEach((cur_zone, index) => {
+        let temp = { ...outerUnlockedIDs };
+        if (!showLockedZones && cur_zone.Locked === 0) return;
+        if (index > 0 && index % 2 === 1) return;
+        if (!outerUnlockedIDs[cur_zone.ID]) {
+            let bigsad = -1;
+        }
+        let next_zone = outerCurrentZones[index + 1];
+        zone_list.push(
+            <div
+                style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    width: '400px',
+                    padding: '3px'
+                }}
+            >
+                <div style={{
+                    display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '170px',
+
+                    opacity: hoveredCard === -1 || cur_zone.CardFound.includes(hoveredCard) ? '1' : '0',
+
+                    boxSizing: 'border-box',
+                    position: ``,
+                    backgroundColor: 'rgba(255,255,255, 0.1)',
+                    outline: `2px solid ${outerUnlockedIDs[cur_zone.ID] ?
+                        (pinnedZones[cur_zone.ID] ? `green` : `white`)
+                        : (pinnedZones[cur_zone.ID] ? `orange` : `red`)
+                        }`,
+                    borderRadius: '6px',
+                    padding: '3px'
+                }}>
+                    <div style={{ fontWeight: 'bold', fontSize: '17px' }}>
+                        {`${cur_zone.label}`}
+                    </div>
+                    <div
+                        style={{
+                            display: 'flex', position: 'relative', alignItems: 'center', justifyContent: 'space-evenly', width: '146px'
+                        }}
+                    >
+                        {!pinnedZones[cur_zone.ID] && (
+                            <div
+                                className='hover'
+                                style={{
+                                    position: 'relative',
+                                    width: '26px', height: '26px', borderRadius: '13px',
+                                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                                }}
+                                onClick={(e) => {
+                                    setPinnedZones((cur_pins) => {
+                                        let temp = { ...cur_pins };
+                                        temp[cur_zone.ID] = cur_zone;
+                                        return temp;
+                                    })
+                                }}
+                            >
+                                <Image
+                                    style={{ width: '20px', height: '20px', position: 'absolute', top: '2px', left: '2px' }}
+                                    src={pinIcon}
+                                    alt='push pin'
+                                />
+                            </div>
+                        )}
+                        {pinnedZones[cur_zone.ID] && (
+                            <div
+                                className='hover'
+                                style={{
+                                    position: 'relative',
+                                    width: '26px', height: '26px', borderRadius: '13px',
+                                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                                }}
+                                onClick={(e) => {
+                                    setPinnedZones((cur_pins) => {
+                                        let temp = { ...cur_pins };
+                                        delete temp[cur_zone.ID];
+                                        return temp;
+                                    })
+                                }}
+                            >
+                                <Image
+                                    style={{ width: '20px', height: '20px', position: 'absolute', top: '3px', left: '3px' }}
+                                    src={trashIcon}
+                                    alt='push pin'
+                                />
+                            </div>
+                        )}
+                        {cur_zone.CardFound.map((found_card, index) => {
+                            return (
+                                <div
+                                    key={index}
+                                    style={{
+                                        position: 'relative', width: '33px', height: '33px'
+                                    }}>
+                                    <Image
+                                        alt={`picture of the in game ${cardIDMap[found_card].label} card`}
+                                        // fill
+                                        src={cardLabelImg[found_card].img}
+                                        unoptimized={true}
+                                        priority
+                                    />
+                                </div>
+                            )
+                        })}
+                    </div>
+                </div>
+                {next_zone && (
+                    <div style={{
+                        display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '170px',
+
+
+                        opacity: hoveredCard === -1 || next_zone.CardFound.includes(hoveredCard) ? '1' : '0',
+
+                        boxSizing: 'border-box',
+                        position: ``,
+                        backgroundColor: 'rgba(255,255,255, 0.1)',
+                        outline: `2px solid ${outerUnlockedIDs[next_zone.ID] ?
+                            (pinnedZones[next_zone.ID] ? `green` : `white`)
+                            : (pinnedZones[next_zone.ID] ? `orange` : `red`)
+                            }`,
+                        borderRadius: '6px',
+                        padding: '3px'
+                    }}>
+                        <div style={{ fontWeight: 'bold', fontSize: '17px' }}>
+                            {`${next_zone.label}`}
+                        </div>
+                        <div
+                            style={{
+                                display: 'flex', position: 'relative', alignItems: 'center', justifyContent: 'space-evenly', width: '146px'
+                            }}
+                        >
+                            {!pinnedZones[next_zone.ID] && (
+                                <div
+                                    className='hover'
+                                    style={{
+                                        position: 'relative',
+                                        width: '26px', height: '26px', borderRadius: '13px',
+                                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                                    }}
+                                    onClick={(e) => {
+                                        setPinnedZones((cur_pins) => {
+                                            let temp = { ...cur_pins };
+                                            temp[next_zone.ID] = next_zone;
+                                            return temp;
+                                        })
+                                    }}
+                                >
+                                    <Image
+                                        style={{ width: '20px', height: '20px', position: 'absolute', top: '2px', left: '2px' }}
+                                        src={pinIcon}
+                                        alt='push pin'
+                                    />
+                                </div>
+                            )}
+                            {pinnedZones[next_zone.ID] && (
+                                <div
+                                    className='hover'
+                                    style={{
+                                        position: 'relative',
+                                        width: '26px', height: '26px', borderRadius: '13px',
+                                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                                    }}
+                                    onClick={(e) => {
+                                        setPinnedZones((cur_pins) => {
+                                            let temp = { ...cur_pins };
+                                            delete temp[next_zone.ID];
+                                            return temp;
+                                        })
+                                    }}
+                                >
+                                    <Image
+                                        style={{ width: '20px', height: '20px', position: 'absolute', top: '3px', left: '3px' }}
+                                        src={trashIcon}
+                                        alt='push pin'
+                                    />
+                                </div>
+                            )}
+
+
+                            {next_zone.CardFound.map((found_card, index) => {
+                                return (
+                                    <div
+                                        key={index}
+                                        style={{
+                                            position: 'relative', width: '33px', height: '33px'
+                                        }}>
+                                        <Image
+                                            alt={`picture of the in game ${cardIDMap[found_card].label} card`}
+                                            // fill
+                                            src={cardLabelImg[found_card].img}
+                                            unoptimized={true}
+                                            priority
+                                        />
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    </div>
+                )}
+            </div>
+        )
+    })
 
 
     if (data.AscensionCount < 14) {
@@ -300,84 +590,168 @@ export default function CardFocus({
 
     return (
         <>
+            <div
+                style={{
+                    display: 'flex'
+                }}
+            >
+                {/* Current Card Drops */}
+                <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', maxHeight: 'calc(100vh - 102px)' }}>
+                    <div className='importantText'
+                        style={{
+                            display: 'flex',
+                            // alignSelf: 'flex-start',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            marginRight: '24px',
+                            // margin: '6px 12px 0',
+                            border: '1px solid white',
+                            borderRadius: '12px',
+                            width: '940px',
+                            fontSize: '24px',
+                            fontWeight: 'bold',
+                            backgroundColor: 'rgba(255,255,255, 0.07)',
+                            position: 'relative'
+                        }}
+                    >
+                        <div>
+                            {`Current Card Drops`}
+                        </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', maxHeight: 'calc(100vh - 102px)' }}>
-                <div className='importantText'
-                    style={{
-                        display: 'flex',
-                        // alignSelf: 'flex-start',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        // margin: '6px 12px 0',
-                        border: '1px solid white',
-                        borderRadius: '12px',
-                        width: '915px',
-                        fontSize: '24px',
-                        fontWeight: 'bold',
-                        backgroundColor: 'rgba(255,255,255, 0.07)',
-                        position: 'relative'
-                    }}
-                >
-                    <div>
-                        {`Current Card Drops`}
+                        <MouseOverPopover tooltip={
+                            <div style={{ padding: '6px' }}>
+                                {`Shows you which cards and how many you will get based on the current selection of expeditions`}
+                            </div>
+                        }>
+                            <div style={{ position: 'relative', marginLeft: '12px', width: '24px', height: '24px' }}>
+                                <Image
+                                    alt='on hover I in a cirlce icon, shows more information on hover'
+                                    fill
+                                    src={infoIcon}
+                                    unoptimized={true}
+                                />
+                            </div>
+                        </MouseOverPopover>
                     </div>
+                    <div className='importantText'
+                        style={{
+                            display: 'flex',
+                            // flex: '1',
+                            flexDirection: 'column',
+                            alignSelf: 'flex-start',
+                            margin: '6px 0 12px 0',
+                            border: '1px solid white',
+                            borderRadius: '12px',
+                            width: '925px',
+                            backgroundColor: 'rgba(255,255,255, 0.07)',
+                            padding: '6px 6px 6px 6px',
+                            maxHeight: '100%',
 
-                    <MouseOverPopover tooltip={
-                        <div style={{ padding: '6px' }}>
-                            {`Shows you which cards and how many you will get based on the current selection of expeditions`}
+                        }}
+                    >
+
+                        <div style={{ width: '100%', overflowY: 'auto', overflowX: 'hidden', maxHeight: '100%' }}>
+                            <div
+                                style={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    justifyContent: 'center',
+                                    gap: '12px',
+                                    width: '100%',
+                                    minHeight: '360px'
+                                }}
+                            >
+                                {current_cards.cardRows.map((cur_row) => {
+
+                                    return cur_row;
+                                })}
+                            </div>
                         </div>
-                    }>
-                        <div style={{ position: 'relative', marginLeft: '12px', width: '24px', height: '24px' }}>
-                            <Image
-                                alt='on hover I in a cirlce icon, shows more information on hover'
-                                fill
-                                src={infoIcon}
-                                unoptimized={true}
-                            />
-                        </div>
-                    </MouseOverPopover>
+                    </div>
+                    {TimeToClear}
                 </div>
-                <div className='importantText'
-                    style={{
-                        display: 'flex',
-                        // flex: '1',
-                        flexDirection: 'column',
-                        alignSelf: 'flex-start',
-                        margin: '6px 0 0',
-                        border: '1px solid white',
-                        borderRadius: '12px',
-                        width: '905px',
-                        backgroundColor: 'rgba(255,255,255, 0.07)',
-                        padding: '6px 6px 6px 6px',
-                        maxHeight: '100%'
-                    }}
-                >
 
-                    <div style={{ width: '100%', overflowY: 'auto', overflowX: 'hidden', maxHeight: '100%' }}>
-                        <div
-                            style={{
-                                display: 'flex',
-                                flexDirection: 'column',
-                                justifyContent: 'center',
-                                gap: '12px',
-                                width: '100%',
-                                minHeight: '360px'
-                            }}
-                        >
-                            {current_cards.cardRows.map((cur_row) => {
 
-                                return cur_row;
-                            })}
+                {/* List of expeditions */}
+                <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', maxHeight: 'calc(100vh - 90px)' }}>
+                    <div className='importantText'
+                        style={{
+                            display: 'flex',
+                            // alignSelf: 'flex-start',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            // margin: '6px 12px 0',
+                            border: '1px solid white',
+                            borderRadius: '12px',
+                            width: '420px',
+                            fontSize: '24px',
+                            fontWeight: 'bold',
+                            backgroundColor: 'rgba(255,255,255, 0.07)',
+                            position: 'relative'
+                        }}
+                    >
+                        <div>
+                            {`Expedition Selection`}
+                        </div>
+
+                        <MouseOverPopover tooltip={
+                            <div style={{ padding: '6px' }}>
+                                {`Shows you which expeditions are being currently run, available and what bonuses they have. Pin any to update the card rewards on the right`}
+                            </div>
+                        }>
+                            <div style={{ position: 'relative', marginLeft: '12px', width: '24px', height: '24px' }}>
+                                <Image
+                                    alt='on hover I in a cirlce icon, shows more information on hover'
+                                    fill
+                                    src={infoIcon}
+                                    unoptimized={true}
+                                />
+                            </div>
+                        </MouseOverPopover>
+                    </div>
+                    <div className='importantText'
+                        style={{
+                            display: 'flex',
+                            // flex: '1',
+                            flexDirection: 'column',
+                            alignSelf: 'flex-start',
+                            margin: '6px 0 0 0',
+                            border: '1px solid white',
+                            borderRadius: '12px',
+                            width: '410px',
+                            backgroundColor: 'rgba(255,255,255, 0.07)',
+                            padding: '0px 6px',
+                            maxHeight: '100%'
+                        }}
+                    >
+
+                        <div style={{ width: '100%', overflowY: 'auto', overflowX: 'hidden', maxHeight: '100%' }}>
+                            <div
+                                style={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    justifyContent: 'center',
+                                    gap: '3px',
+                                    width: '100%',
+                                    marginBottom: '4px',
+                                    marginTop: '4px'
+                                }}
+                            >
+                                <div style={{
+                                    display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', fontSize: '20px', width: '100%',
+                                    color: Object.entries(pinnedZones).length
+                                        <= data.ExpeditionLimit ? 'white' : 'red'
+                                }}>
+                                    {`Limit: ${Object.entries(pinnedZones).length}/${data.ExpeditionLimit}`}
+                                </div>
+                                {zone_list.map((cur_row) => {
+                                    return cur_row;
+                                })}
+                            </div>
                         </div>
                     </div>
                 </div>
-
-            </div>
-
-
-
-
-
+            </div >
 
         </>
     )

@@ -21,9 +21,11 @@ export default function Zones({
     hasLocked,
     setHasLocked,
     setOuterCurrentZones,
+    setOuterUnlockedIDs,
     targetWave, setTargetWave,
     setSelectedZone, selectedZone,
-    teamToRun, setTeamToRun
+    teamToRun, setTeamToRun,
+    TimeToClear, setCardZones
 }) {
 
     const [clientData, setData] = useLocalStorage('userData', DefaultSave);
@@ -85,10 +87,13 @@ export default function Zones({
     let current_zones_stuff = useMemo(() => {
         console.log(`udating current zone stuff`)
         let current_zones = [];
+        let all_zones = [];
         let unlocked_ids = {};
+        let unlocked_zones = {};
+
+
         data.ExpeditionsCollection.forEach((curr_zone, index) => {
             if (curr_zone.ID === 0) return;
-            if (curr_zone.Locked === 0) return;
             let zone = JSON.parse(JSON.stringify(curr_zone));
 
             let curr_hp = mathHelper.createDecimal(zone.CurrentHPBD ? zone.CurrentHPBD : zone.CurrentHP);//s
@@ -101,13 +106,20 @@ export default function Zones({
             zone.order = zone_data[curr_zone.ID].order;
             zone.bonus_id = zone_data[curr_zone.ID].bonus_id;
             unlocked_ids[zone_data[curr_zone.ID].bonus_id] = zone;
+
+            all_zones.push(zone);
+            if (curr_zone.Locked === 0) return;
+            unlocked_zones[curr_zone.ID] = true;
             current_zones.push(zone);
         });
         current_zones.sort((a, b) => a.order - b.order);
 
         setOuterCurrentZones(current_zones);
+        setOuterUnlockedIDs(unlocked_zones);
+        setCardZones(all_zones);
+
         return { current_zones, unlocked_ids };
-    }, [setOuterCurrentZones, data]);
+    }, [setOuterCurrentZones, data,]);
 
 
     let unlocked_ids = current_zones_stuff.unlocked_ids;
@@ -245,7 +257,7 @@ export default function Zones({
     let zones_in_priority = zone_stuff.zones_in_priority;
     let zone_suggestions = zone_stuff.zone_suggestions;
     let zone_leader = zone_stuff.zone_leader;
-//
+    //
 
     useEffect(() => {
 
@@ -314,16 +326,7 @@ export default function Zones({
         else {
             data.ExpeditionsCollection.forEach((curr_zone) => {
                 if (curr_zone.ID === selectedZone) zone_to_work = curr_zone;
-
             })
-            try {
-
-                zone_to_work.max_hp = calc_max_hp(zone_to_work, data);
-            }
-            catch (err) {
-                console.log(err);
-                zone_to_work.max_hp = calc_max_hp(zone_to_work, data);
-            }
             zone_to_work.max_hp = calc_max_hp(zone_to_work, data);
             zone_to_work.total_hp = calc_total_hp(zone_to_work, data);
 
@@ -606,6 +609,9 @@ export default function Zones({
                     })}
                 </div>
             </div>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', maxHeight: 'calc(100vh - 102px)' }}>
+            {TimeToClear}
         </div>
     </>
     )
