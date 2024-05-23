@@ -504,7 +504,8 @@ export default function Zones({
                 {`Zones To Run`}
                 <MouseOverPopover tooltip={
                     <div style={{ padding: '6px' }}>
-                        {`BLAH BLAH BLAH BLAH`}
+                        {`This shows which zones to run, as well as the suggested layout (from your save file) that should be used. In the top right corner it will specify
+                        for how long to run it. If it says "infinite" it means its the bost option atm based on your priority list. Come back later to see if this changes!`}
                     </div>
                 }>
                     <div style={{ position: 'relative', marginLeft: '12px', width: '24px', height: '24px' }}>
