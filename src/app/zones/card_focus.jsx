@@ -295,7 +295,7 @@ export default function CardFocus({
         let recom_temp = {};
         card_priority.forEach((exp_id) => {
             let found = clientData.ExpeditionsCollection.find((cur_exped) => cur_exped.ID === exp_id && cur_exped.Locked === 1);
-            if (found) {
+            if (found && (Object.values(recom_temp).length < clientData.ExpeditionLimit)) {
                 recom_temp[exp_id] = found;
             }
         })
