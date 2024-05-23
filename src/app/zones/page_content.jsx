@@ -323,6 +323,7 @@ export default function Zones() {
                         setTargetWave={setTargetWave}
                         hasLocked={hasLocked}
                         outerCurrentZones={outerCurrentZones}
+                        setTeamToRun={setTeamToRun}
                     />
                 }
             />
