@@ -244,7 +244,7 @@ const TimeToClear = function ({
                     )}
                 </div>
             </div>
-            <div id='in_content_flex' style={{ display: 'flex', alignItems: 'center', }} />
+            <div id='in_content_flex' style={{ display: 'flex', alignItems: 'center', marginTop:'6px'}} />
         </>
     )
 }
@@ -348,7 +348,7 @@ export default function Zones() {
 
 
 
-            <div id='right_pillar' style={{ position: 'absolute', top: '100px', right: '0', display: 'flex', height: 'calc(100vh - 36px)', justifyContent: 'center', alignItems: 'center', }} />
+            <div id='right_pillar' style={{ position: 'absolute', bottom: '0px', right: '0', display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-end', }} />
         </div>
     );
 }

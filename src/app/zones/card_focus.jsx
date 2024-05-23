@@ -9,7 +9,7 @@ import useLocalStorage from "use-local-storage";
 import pinIcon from "../../../public/images/icons/pin-line-icon.svg"
 import trashIcon from "../../../public/images/icons/trash-can-icon.svg"
 
-import { zone_priority, zone_ratios, zone_data, calc_max_hp, calc_total_hp } from './zone_lists.js';
+import { zone_priority, zone_ratios, zone_data, calc_max_hp, calc_total_hp, card_priority } from './zone_lists.js';
 
 import Image from 'next/image';
 
@@ -277,6 +277,7 @@ export default function CardFocus({
     const [pinnedZones, setPinnedZones] = useState({});
 
     const [current_zones, setCurrentZones] = useState({});
+    const [recommended_zones, setRecommendedZones] = useState({});
 
     const [clientData, setData] = useLocalStorage('userData', DefaultSave);
     const [data, setRunTimeData] = useState(DefaultSave);
@@ -287,13 +288,29 @@ export default function CardFocus({
             if (cur_team.InExpedition === 1) {
                 temp_zones[cur_team.WhichExpedition] = clientData.ExpeditionsCollection.find((a) => a.ID === cur_team.WhichExpedition)
             }
-            setCurrentZones(temp_zones);
+            setCurrentZones(JSON.parse(JSON.stringify(temp_zones)));
             setPinnedZones(temp_zones);
         });
+
+        let recom_temp = {};
+        card_priority.forEach((exp_id) => {
+            let found = clientData.ExpeditionsCollection.find((cur_exped) => cur_exped.ID === exp_id && cur_exped.Locked === 1);
+            if (found) {
+                recom_temp[exp_id] = found;
+            }
+        })
+        setRecommendedZones(recom_temp);
+
     }, [clientData]);
 
+    const [clientPresets, setPresets] = useLocalStorage('client_card_presets', {});
+    const [presets, setRunTimePresets] = useState({});
+    useEffect(() => {
+        setRunTimePresets(clientPresets);
+    }, [clientPresets]);
 
-
+    const [currentSaveName, setCurrentSaveName] = useState('');
+    const [importPreset, setImportPreset] = useState('');
 
     const bonus_map = useMemo(() => {
         let map = {};
@@ -318,14 +335,18 @@ export default function CardFocus({
     const current_cards = useMemo(() => {
 
         let num_drops = {};
-        for (const [key, value] of Object.entries(pinnedZones)) {
-            value.CardFound.forEach((found_id) => {
-                if (!num_drops[found_id]) {
-                    num_drops[found_id] = 0
-                }
-                num_drops[found_id]++;
-            })
+        if (pinnedZones) {
+            for (const [key, value] of Object.entries(pinnedZones)) {
+
+                value.CardFound.forEach((found_id) => {
+                    if (!num_drops[found_id]) {
+                        num_drops[found_id] = 0
+                    }
+                    num_drops[found_id]++;
+                })
+            }
         }
+
 
         let cardMap = {};
 
@@ -386,6 +407,13 @@ export default function CardFocus({
         if (index > 0 && index % 2 === 1) return;
         if (!outerUnlockedIDs[cur_zone.ID]) {
             let bigsad = -1;
+        }
+        try {
+            let t = pinnedZones[cur_zone.ID]
+        }
+        catch (err) {
+            console.log(err)
+            let t = pinnedZones[cur_zone.ID]
         }
         let next_zone = outerCurrentZones[index + 1];
         zone_list.push(
@@ -747,6 +775,218 @@ export default function CardFocus({
                                 {zone_list.map((cur_row) => {
                                     return cur_row;
                                 })}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Custom Presets */}
+                {/* List of expeditions */}
+                <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', maxHeight: 'calc(100vh - 90px)', marginLeft: '12px' }}>
+                    <div className='importantText'
+                        style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            border: '1px solid white',
+                            borderRadius: '12px',
+                            width: '420px',
+                            fontSize: '24px',
+                            fontWeight: 'bold',
+                            backgroundColor: 'rgba(255,255,255, 0.07)',
+                            position: 'relative'
+                        }}
+                    >
+                        <div>
+                            {`Preset Selection`}
+                        </div>
+
+                        <MouseOverPopover tooltip={
+                            <div style={{ padding: '6px' }}>
+                                {`You can choose to either load the current expedition preset (based on what you have active in your save), recommended, or a custom one you made`}
+                            </div>
+                        }>
+                            <div style={{ position: 'relative', marginLeft: '12px', width: '24px', height: '24px' }}>
+                                <Image
+                                    alt='on hover I in a cirlce icon, shows more information on hover'
+                                    fill
+                                    src={infoIcon}
+                                    unoptimized={true}
+                                />
+                            </div>
+                        </MouseOverPopover>
+                    </div>
+                    <div className='importantText'
+                        style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignSelf: 'flex-start',
+                            margin: '6px 0 0 0',
+                            border: '1px solid white',
+                            borderRadius: '12px',
+                            width: '410px',
+                            backgroundColor: 'rgba(255,255,255, 0.07)',
+                            padding: '0px 6px',
+                            maxHeight: '100%'
+                        }}
+                    >
+
+                        <div style={{ width: '100%', overflowY: 'auto', overflowX: 'hidden', maxHeight: '100%' }}>
+                            <div
+                                style={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    justifyContent: 'center',
+                                    gap: '3px',
+                                    width: '100%',
+                                    marginBottom: '4px',
+                                    marginTop: '4px'
+                                }}
+                            >
+                                {/* Custom Preset Area */}
+                                <div style={{
+                                    backgroundColor: 'rgba(255,255,255, 0.07)',
+                                    padding: '6px',
+                                    marginTop: '12px',
+                                    borderRadius: '6px'
+                                }}>
+
+                                    {/* Select a preset */}
+                                    <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '6px' }}>
+                                        <div style={{ marginRight: '12px', marginLeft: '5px', width: '141px' }}>
+                                            Select preset
+                                        </div>
+                                        <select
+                                            className='importantText'
+                                            aria-label='Specify which custom preset to load in'
+                                            style={{ width: '90px', marginLeft: '12px', backgroundColor: '#171717', borderRadius: '4px' }}
+                                            onChange={
+                                                (selected_mode) => {
+                                                    let val = selected_mode.target.value;
+                                                    console.log(`setting`)
+                                                    console.log(current_zones)
+                                                    switch (val) {
+                                                        case 'current':
+                                                            setPinnedZones(JSON.parse(JSON.stringify(current_zones)));
+                                                            return;
+                                                        case 'recommended':
+                                                            setPinnedZones(JSON.parse(JSON.stringify(recommended_zones)));
+                                                            return;
+                                                        default:
+                                                            setPinnedZones(JSON.parse(JSON.stringify(presets[val])));
+                                                            return;
+                                                    }
+                                                }
+                                            }
+                                            defaultValue={'current'}
+                                        >
+                                            <option value={'current'}>Current</option>
+                                            <option value={'recommended'}>Recommended</option>
+                                            {/* {!customeSelected && (<option value="None">None</option>)} */}
+                                            {Object.keys(presets).map((e) => <option key={e} value={e}>{e}</option>)}
+                                        </select>
+                                    </div>
+                                    {/* Save current preset */}
+                                    <div style={{ display: 'flex', justifyContent: 'center' }} >
+                                        <input type='text'
+                                            aria-label='Specify name of the current preset to save it under'
+                                            onChange={(e) => { setCurrentSaveName(e.target.value); }}
+                                            style={{
+                                                width: '141px', marginRight: '12px'
+                                            }}
+                                        />
+                                        <button disabled={currentSaveName.trim().length === 0
+                                            || currentSaveName.trim().toLowerCase().localeCompare("recommended") === 0
+                                            || currentSaveName.trim().toLowerCase().localeCompare("current") === 0
+                                        }
+                                            onClick={(e) => {
+                                                setPresets((curr_presets) => {
+                                                    let temp = { ...curr_presets };
+                                                    temp[currentSaveName.trim()] = pinnedZones;
+                                                    return temp;
+                                                });
+                                            }}
+                                        >Save Current</button>
+                                    </div>
+
+                                    {/* Delete saved preset */}
+                                    <div style={{ display: 'flex', justifyContent: 'center', marginTop: '6px' }}>
+                                        <div style={{ marginRight: '12px', marginLeft: '5px', width: '141px' }}>
+                                            Delete preset
+                                        </div>
+                                        <select
+                                            className='importantText'
+                                            style={{ width: '90px', marginLeft: '12px', backgroundColor: '#171717', borderRadius: '4px' }}
+                                            aria-label='Specify which custom preset to delete'
+                                            onChange={
+                                                (selected_mode) => {
+
+                                                    setPresets((cur_presets) => {
+                                                        let temp = { ...cur_presets };
+                                                        delete temp[selected_mode.target.value];
+                                                        return temp;
+                                                    })
+
+                                                }
+                                            }
+                                            value={'None'}
+                                        >
+                                            <option value="None">None</option>
+                                            {Object.keys(presets).map((e) => <option key={e} value={e}>{e}</option>)}
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                                {/* Share/Load presets */}
+                                <div style={{
+                                    backgroundColor: 'rgba(255,255,255, 0.07)',
+                                    padding: '6px',
+                                    marginTop: '12px',
+                                    borderRadius: '6px'
+                                }}>
+                                    {/* header */}
+                                    <div
+                                        style={{ fontSize: '24px', fontWeight: 'bold', textAlign: 'center', marginBottom: "6px" }}
+                                    >
+                                        Share Presets
+                                    </div>
+                                    {/* import preset */}
+                                    <div style={{ display: 'flex', justifyContent: 'center' }} >
+                                        <input type='text'
+                                            aria-label='Enter a preset code to import it'
+                                            onChange={(e) => {
+                                                setImportPreset(e.target.value);
+                                            }}
+                                            style={{
+                                                width: '141px', marginRight: '12px'
+                                            }}
+                                        />
+                                        <button disabled={
+                                            // loadPreset.trim().length === 0
+                                            false
+                                        }
+                                            onClick={(e) => {
+                                                try {
+                                                    setPinnedZones(importPreset);
+                                                }
+                                                catch (err) {
+                                                    console.log(err);
+                                                }
+
+                                            }}
+                                        >Import Preset</button>
+                                    </div>
+                                    {/* export preset */}
+                                    <div style={{ display: 'flex', justifyContent: 'center', marginTop: '12px' }} >
+
+                                        <button
+                                            onClick={(e) => {
+                                                navigator.clipboard.writeText(JSON.stringify(pinnedZones));
+                                            }}
+                                        >Copy Current Preset to Clipboard</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

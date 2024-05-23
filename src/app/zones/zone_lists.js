@@ -249,6 +249,24 @@ zone_data[24] = {
     unlock: 50
 }
 
+
+
+export const card_priority = [
+    15,//tuna waterfall
+    23,//basil
+    22,//cucumber
+    18,//onion hilltop
+    10,//cinnamon
+    3,//guacamole
+    7,//pancake
+    5,//zucchini
+    14,//lettuce sea
+    13,//emmental
+]
+
+
+
+
 export const zone_priority = [
     BonusMap[ir_id],
     BonusMap[reinc_id],

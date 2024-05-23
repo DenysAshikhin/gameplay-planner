@@ -67,6 +67,7 @@ export default function PageSelection() {
                 >
                     <PageCard page='upload' />
                     <PageCard page='expedition' />
+                    <PageCard page='zones' />
                     <PageCard page='pets' />
                     <PageCard page='cards' redBorder={chargesMax} />
                 </div>

@@ -369,7 +369,6 @@ const FarmingLanding = () => {
             plant.perHarvest = farmingHelper.calcPlantHarvest(plant, modifiers);
             plant.curExp = plant.CurrentExp.mantissa * (Math.pow(10, plant.CurrentExp.exponent));
             plant.reqExp = plant.ExpNeeded.mantissa * (Math.pow(10, plant.ExpNeeded.exponent));
-            //plant.timeToLevel = (plant.reqExp - plant.curExp) / plant.perHarvest * plant.growthTime;
 
             plant.futureMult = farmingHelper.futureMultBD(plant, modifiers);
             let prod = farmingHelper.calcProdOutput(plant, modifiers);

@@ -113,6 +113,7 @@ export default function Zones({
             current_zones.push(zone);
         });
         current_zones.sort((a, b) => a.order - b.order);
+        all_zones.sort((a, b) => a.order - b.order);
 
         setOuterCurrentZones(current_zones);
         setOuterUnlockedIDs(unlocked_zones);
