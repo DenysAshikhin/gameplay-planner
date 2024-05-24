@@ -355,7 +355,7 @@ export default function Zones({
         zone_to_work.team = inner_team;
         zone_to_work.hours = mathHelper.divideDecimal(hp_goal_difference, inner_team.damage).ceil();
         if (zone_to_work.hours.lessThan(mathHelper.createDecimal(0))) {
-            zone_to_work.hours = 0;
+            zone_to_work.hours = mathHelper.createDecimal(0);
             zone_to_work.remaining_hp = mathHelper.createDecimal(0);
         }
         setZoneToClear(zone_to_work);

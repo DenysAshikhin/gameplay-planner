@@ -268,12 +268,15 @@ export const card_priority = [
 
 
 export const zone_priority = [
+    BonusMap[card_pow_id],
     BonusMap[ir_id],
     BonusMap[reinc_id],
     BonusMap[att_hp_id],
     BonusMap[class_id],
     BonusMap[milk_id],
     BonusMap[pet_level_id],
+    BonusMap[pet_rank_id],
+    BonusMap[reinc_pts_id],
     BonusMap[res_id],
     BonusMap[skull_id],
     BonusMap[whack_id],
@@ -284,7 +287,9 @@ export const zone_priority = [
     BonusMap[hp_id],
     BonusMap[conf_id],
     BonusMap[worm_qty_id],
-    BonusMap[card_exp_id]
+    BonusMap[card_exp_id],
+    BonusMap[mine_pow_id],
+    BonusMap[mine_exp_id],
 ]
 
 export const zone_ratios = {};
