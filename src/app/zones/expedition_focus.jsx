@@ -304,25 +304,7 @@ export default function Zones({
             zone_to_work.total_hp = calc_total_hp(zone_to_work, data);
 
             hp_goal = calc_total_hp(zone_to_work, data, { levelOffset: goal_wave === -1 ? 0 : goal_wave - zone_to_work.Room });
-            let cur_hp = mathHelper.createDecimal(zone_to_work.CurrentHPBD ? zone_to_work.CurrentHPBD : zone_to_work.CurrentHP);
-            let dmg_dealt = mathHelper.subtractDecimal(
-                calc_max_hp(zone_to_work, data),
-                cur_hp
-            )
-            if (hp_goal.equals(zone_to_work.total_hp)) {
 
-                hp_goal_difference = mathHelper.subtractDecimal(
-                    hp_goal,
-                    mathHelper.subtractDecimal(hp_goal, cur_hp)
-                );
-            }
-            else {
-
-                hp_goal_difference = mathHelper.subtractDecimal(
-                    hp_goal,
-                    dmg_dealt
-                );
-            }
         }
         else {
             data.ExpeditionsCollection.forEach((curr_zone) => {
@@ -332,27 +314,19 @@ export default function Zones({
             zone_to_work.total_hp = calc_total_hp(zone_to_work, data);
 
             hp_goal = calc_total_hp(zone_to_work, data, { levelOffset: targetWave === -1 ? 0 : targetWave - zone_to_work.Room });
-            let cur_hp = mathHelper.createDecimal(zone_to_work.CurrentHPBD ? zone_to_work.CurrentHPBD : zone_to_work.CurrentHP);
-            let dmg_dealt = mathHelper.subtractDecimal(
-                zone_to_work.max_hp,
-                cur_hp
-            )
-            if (hp_goal.equals(zone_to_work.total_hp)) {
-
-                hp_goal_difference = mathHelper.subtractDecimal(
-                    hp_goal,
-                    mathHelper.subtractDecimal(hp_goal, cur_hp)
-                );
-            }
-            else {
-
-                hp_goal_difference = mathHelper.subtractDecimal(
-                    hp_goal,
-                    // dmg_dealt
-                    mathHelper.subtractDecimal(zone_to_work.total_hp, dmg_dealt)
-                );
-            }
         }
+
+
+        let cur_hp = mathHelper.createDecimal(zone_to_work.CurrentHPBD ? zone_to_work.CurrentHPBD : zone_to_work.CurrentHP);
+        let dmg_dealt = mathHelper.subtractDecimal(
+            calc_max_hp(zone_to_work, data),
+            cur_hp
+        )
+        hp_goal_difference = mathHelper.subtractDecimal(hp_goal, dmg_dealt);
+        let running_hp = calc_total_hp(zone_to_work, data, { levelOffset: -1 })
+        hp_goal_difference = mathHelper.subtractDecimal(hp_goal_difference, running_hp);
+
+
 
         zone_to_work = JSON.parse(JSON.stringify(zone_to_work));
         zone_to_work = { ...zone_to_work, ...zone_data[zone_to_work.ID] };
