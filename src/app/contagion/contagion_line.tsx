@@ -1,11 +1,11 @@
-import {useEffect, useState} from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
-import MouseOverPopover from "../util/Tooltip";
-import useLocalStorage from "use-local-storage";
+import MouseOverPopover from '../util/Tooltip';
+import useLocalStorage from 'use-local-storage';
 import mathHelper from '../util/math';
 import helper from '../util/helper';
 
-import Image from 'next/image';
+import Image, { StaticImageData } from 'next/image';
 import infoIcon from '@images/icons/info_thick.svg';
 import RefreshIcon from '@images/icons/refresh_lightgray.svg';
 
@@ -24,20 +24,24 @@ import worm_contagion from '@images/contagion/4Confectionx2Bg.png';
 import poop_milk_contagion from '@images/contagion/5PoopMilkBg.png';
 import locked_img from '@images/contagion/0LockBgV2.png';
 
-const default_weight_overwrite = {
+import SaveGameData, { ContagionData } from '@app/SaveGameData';
+
+const default_weight_overwrite: { [id: number]: number } = {
     8: 0.95,
-    12: 0.2
-}
+    12: 0.2,
+};
+
+export type ContagionWeights = { [id: number | string]: number };
 
 interface ContagionLineProps {
-    contagion,
-    setContagionWeights,
-    gh_amount,
-    extra_gh
-    data?,
+    data: SaveGameData,
+    contagion: ContagionData,
+    setContagionWeights: Dispatch<SetStateAction<ContagionWeights>>,
+    gh_amount: number,
+    extra_gh: number,
 }
 
-export default function Outposts({data, contagion, setContagionWeights, gh_amount, extra_gh}) {
+export default function ContagionLine({ data, contagion, setContagionWeights, gh_amount, extra_gh }: ContagionLineProps) {
     const [clientContagionWeight, setContagionWeight] = useLocalStorage(`contagion_${contagion.ID}_weight`, -1);
     const [ContagionWeight, setRunTimeContagionWeight] = useState(-1);
 
@@ -56,26 +60,23 @@ export default function Outposts({data, contagion, setContagionWeights, gh_amoun
 
     useEffect(() => {
         setRunTimeEnableContagion(clientEnableContagion);
-    }, [clientEnableContagion])
+    }, [clientEnableContagion]);
 
     useEffect(() => {
         setRunTimeContagionWeight(clientContagionWeight);
 
-        setContagionWeights((current_global_weights) => {
+        setContagionWeights((current_global_weights: ContagionWeights) => {
+            let temp: ContagionWeights = { ...current_global_weights };
 
             if (!EnableContagion || !unlocked) {
-
-                let temp = {...current_global_weights};
                 temp[map_key] = 0;
                 return temp;
             }
             if (-1 === clientContagionWeight) {
-                let temp = {...current_global_weights};
                 temp[map_key] = defaultWeight;
                 return temp;
             }
 
-            let temp = {...current_global_weights};
             temp[map_key] = clientContagionWeight;
             return temp;
         });
@@ -83,18 +84,17 @@ export default function Outposts({data, contagion, setContagionWeights, gh_amoun
 
     const contagion_obj_temp = {
         ID: 1,
-        Locked: 1,//0 is locked
-        Level: mathHelper.createDecimal(32),//current level of the contagion
-        BaseBonus: mathHelper.createDecimal(32),//base bonus gain of the contagion
-        BaseHP: mathHelper.createDecimal(32),//base health of the contagion
-        HPExpo: mathHelper.createDecimal(32),//exponent to use for the hp calc
-
+        Locked: 1, // 0 is locked
+        Level: mathHelper.createDecimal(32), // current level of the contagion
+        BaseBonus: mathHelper.createDecimal(32), // base bonus gain of the contagion
+        BaseHP: mathHelper.createDecimal(32), // base health of the contagion
+        HPExpo: mathHelper.createDecimal(32), // exponent to use for the hp calc
     };
 
     const level = mathHelper.createDecimal(contagion.Level).toNumber();
     const displayWeight = ContagionWeight === -1 ? defaultWeight : ContagionWeight;
 
-    let img = hp_contagion;
+    let img: StaticImageData = hp_contagion;
 
     switch (contagion.ID) {
         case 1:
@@ -154,11 +154,11 @@ export default function Outposts({data, contagion, setContagionWeights, gh_amoun
         >
             {(unlocked || forceShow) && (
                 <>
-                    <div style={{position: 'absolute', top: '0', left: '0', height: '120px', width: '100%'}}>
+                    <div style={{ position: 'absolute', top: '0', left: '0', height: '120px', width: '100%' }}>
                         <Image
-                            alt='in game representation of this contagion'
+                            alt="in game representation of this contagion"
                             fill
-                            src={img as any}
+                            src={img}
                             unoptimized={true}
                         />
                     </div>
@@ -168,12 +168,12 @@ export default function Outposts({data, contagion, setContagionWeights, gh_amoun
                         left: '63%',
                         width: '200px',
                         fontWeight: 'bold',
-                        fontSize: '21px'
+                        fontSize: '21px',
                     }}>
                         {`Lv ${helper.numberWithCommas(level)}`}
                     </div>
                     <div
-                        //  className='borderToFadeInAndOutRed' 
+                        //  className='borderToFadeInAndOutRed'
                         style={{
                             position: 'absolute',
                             bottom: '3px',
@@ -181,7 +181,7 @@ export default function Outposts({data, contagion, setContagionWeights, gh_amoun
                             width: '200px',
                             fontWeight: 'bold',
                             fontSize: '21px',
-                            color: 'orange'
+                            color: 'orange',
                         }}>
                         {`# ${helper.numberWithCommas(gh_amount + extra_gh)}`}
                     </div>
@@ -193,31 +193,29 @@ export default function Outposts({data, contagion, setContagionWeights, gh_amoun
                         height: '100%',
                         display: 'flex',
                         alignItems: 'center',
-                        justifyContent: 'center'
+                        justifyContent: 'center',
                     }}>
                         <div
                             style={{
                                 display: 'flex',
                                 alignItems: 'center',
-                                justifyContent: 'center'
+                                justifyContent: 'center',
                             }}
                         >
 
-                            <div>
-                                {`Enable`}
-                            </div>
+                            <div>{`Enable`}</div>
                             <input
-                                aria-label='Enable or disable this conatgion'
+                                aria-label="Enable or disable this conatgion"
                                 type="checkbox"
                                 onChange={(e) => {
-                                    setEnableContagion(e.target.checked ? true : false)
+                                    setEnableContagion(e.target.checked);
                                 }}
                                 checked={!!EnableContagion}
                                 value={!!EnableContagion as any}
                             />
 
                             <input
-                                aria-label='Specify the weight/importance for this stat'
+                                aria-label="Specify the weight/importance for this stat"
                                 style={{
                                     width: '55px',
                                     color: ContagionWeight !== defaultWeight && ContagionWeight !== -1 ? 'black' : 'gray',
@@ -226,9 +224,9 @@ export default function Outposts({data, contagion, setContagionWeights, gh_amoun
                                     fontSize: '12px',
                                     padding: '0 0 0 0',
                                     margin: '0 0 0 6px',
-                                    textAlign: 'center'
+                                    textAlign: 'center',
                                 }}
-                                type='number'
+                                type="number"
                                 value={displayWeight}
                                 onChange={
                                     (e) => {
@@ -240,7 +238,7 @@ export default function Outposts({data, contagion, setContagionWeights, gh_amoun
                                             }
                                             setContagionWeight(x);
                                             // setCardWeightNew(x);
-                                            // setRefreshMath(true);                        
+                                            // setRefreshMath(true);
                                         } catch (err) {
                                             console.log(err);
                                         }
@@ -258,28 +256,30 @@ export default function Outposts({data, contagion, setContagionWeights, gh_amoun
                             }
                                               opacity={1}
                             >
-                                <div style={{position: 'relative', height: '16px', width: '16px', marginLeft: '2px'}}>
+                                <div style={{ position: 'relative', height: '16px', width: '16px', marginLeft: '2px' }}>
                                     <Image
-                                        alt='on hover I in a cirlce icon, shows more information on hover'
+                                        alt="on hover I in a cirlce icon, shows more information on hover"
                                         fill
-                                        src={infoIcon as any}
+                                        src={infoIcon}
                                         unoptimized={true}
                                     />
                                 </div>
-                                {/* <img alt='on hover I in a cirlce icon, shows more information on hover' style={{ height: '16px', marginLeft: '6px' }} src={infoIcon} /> */}
+                                {/* <img alt='on hover I in a circle icon, shows more information on hover' style={{ height: '16px', marginLeft: '6px' }} src={infoIcon} /> */}
                             </MouseOverPopover>
 
-
-                            {(ContagionWeight !== defaultWeight && ContagionWeight !== -1) && (
-                                <div className='hover'
-                                     style={{position: 'relative', width: '18px', height: '18px', marginLeft: '6px'}}
-                                     onClick={() => {
-                                         setContagionWeight(-1);
-                                     }}
-                                >
-                                    <Image src={RefreshIcon as any} fill unoptimized alt='reset, 2 arrows in a circle'/>
-                                </div>
-                            )}
+                            <div className="hover"
+                                 style={{
+                                     position: 'relative',
+                                     width: '18px',
+                                     height: '18px',
+                                     marginLeft: '6px',
+                                     visibility: (ContagionWeight !== defaultWeight && ContagionWeight !== -1) ? 'visible' : 'hidden' }}
+                                 onClick={() => {
+                                     setContagionWeight(-1);
+                                 }}
+                            >
+                                <Image src={RefreshIcon} fill unoptimized alt="reset, 2 arrows in a circle"/>
+                            </div>
                         </div>
                     </div>
                 </>
@@ -287,18 +287,16 @@ export default function Outposts({data, contagion, setContagionWeights, gh_amoun
             )}
 
             {(!unlocked && !forceShow) && (
-                <div style={{position: 'absolute', top: '0', left: '0', height: '120px', width: '100%', zIndex: '5'}}>
+                <div style={{ position: 'absolute', top: '0', left: '0', height: '120px', width: '100%', zIndex: '5' }}>
                     <Image
-                        className='noPointerEvent'
-                        alt='in game representation of a locked contagion'
+                        className="noPointerEvent"
+                        alt="in game representation of a locked contagion"
                         fill
                         src={locked_img as any}
                         unoptimized={true}
                     />
                 </div>
             )}
-
-
         </div>
-    )
+    );
 }
