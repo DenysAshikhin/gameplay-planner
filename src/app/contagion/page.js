@@ -7,8 +7,8 @@ import Ad_Comp from '../util/ads_component.jsx';
 export async function generateMetadata({ params, searchParams }, parent) {
 
   return {
-    title: 'Zones Expeditions - Gameplay Planner',
-    description: "Expedition / Zone Planner - Help you plan and optimise expeditions zones to run based on your teams. Helps plan card rewards for most effecient guide."
+    title: 'Contagion - Gameplay Planner',
+    description: "Contagion - Helps you plan your contagion ( grasshopper) placements in contagion feature of farming!"
   }
 }
 export const viewport = {
