@@ -393,13 +393,10 @@ export const calc_max_hp = function (zone, data, params) {
 
 export const calc_total_hp = function (zone, data, params) {
 
-    // let running_hp = mathHelper.subtractDecimal(zone.max_hp, zone.curr_hp);
     let running_hp = mathHelper.createDecimal(0);
 
     const levelOffset = params?.levelOffset ? params.levelOffset : 0;
-    if(params?.levelOffset > 10){
-        let bigsad = -1;
-    }
+
     let offset = 1;
     while (offset < (zone.Room + levelOffset)) {
         let amount = calc_max_hp(zone, data, { levelOffset: levelOffset - offset })

@@ -306,7 +306,7 @@ export default function Zones({
             hp_goal = calc_total_hp(zone_to_work, data, { levelOffset: goal_wave === -1 ? 0 : goal_wave - zone_to_work.Room });
 
         }
-        else {
+        else {//s
             data.ExpeditionsCollection.forEach((curr_zone) => {
                 if (curr_zone.ID === selectedZone) zone_to_work = curr_zone;
             })
@@ -323,10 +323,10 @@ export default function Zones({
             cur_hp
         )
         hp_goal_difference = mathHelper.subtractDecimal(hp_goal, dmg_dealt);
-        let running_hp = calc_total_hp(zone_to_work, data, { levelOffset: -1 })
+        let running_hp = calc_total_hp(zone_to_work, data, { levelOffset: 0 })
         hp_goal_difference = mathHelper.subtractDecimal(hp_goal_difference, running_hp);
 
-
+///asd
 
         zone_to_work = JSON.parse(JSON.stringify(zone_to_work));
         zone_to_work = { ...zone_to_work, ...zone_data[zone_to_work.ID] };
