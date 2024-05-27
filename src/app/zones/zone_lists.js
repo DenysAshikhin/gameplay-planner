@@ -261,6 +261,7 @@ export const card_priority = [
     7,//pancake
     5,//zucchini
     12,//donut (reinc)
+    11, //apple (res card + pet rank card)
     14,//lettuce sea
     13,//emmental
 ]
