@@ -260,6 +260,7 @@ export const card_priority = [
     3,//guacamole
     7,//pancake
     5,//zucchini
+    12,//donut (reinc)
     14,//lettuce sea
     13,//emmental
 ]
