@@ -102,7 +102,7 @@ export default function Ad_Comp() {
                 for (let i = 0; i < children.length; i++) {
                     right_pillar.removeChild(children[i]);
                 }
-                await helper.sleep(0.1);
+                await helper.sleep(0.01);
             }
 
             // const new_element = document.createElement("div");
@@ -124,7 +124,7 @@ export default function Ad_Comp() {
                 for (let i = 0; i < children.length; i++) {
                     right_pillar.removeChild(children[i]);
                 }
-                await helper.sleep(0.1);
+                await helper.sleep(0.01);
             }
 
             const new_element = create_rightPillar_160();
@@ -146,7 +146,7 @@ export default function Ad_Comp() {
                 for (let i = 0; i < children.length; i++) {
                     in_content_flex.removeChild(children[i]);
                 }
-                await helper.sleep(0.1);
+                await helper.sleep(0.01);
             }
 
             const new_element = create_in_content_flex();
