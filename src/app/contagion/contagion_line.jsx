@@ -115,7 +115,7 @@ export default function Outposts({data, contagion, setContagionWeights, gh_amoun
             img = protein_contagion;
             break;
         case 9:
-            img = data.AscensionCount > 29 ? pot_exp_contagion : pot_exp_contagion_pre30;
+            img = data.AscensionCount < 30 ? pot_exp_contagion : pot_exp_contagion_pre30;
             break;
         case 10:
             img = skull_conf_contagion;
