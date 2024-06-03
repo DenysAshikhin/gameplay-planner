@@ -128,25 +128,25 @@ var helper = {
 
 
             pet.BonusList.forEach((inner_bonus)=>{
-                if (inner_bonus === 1010) {
+                if (inner_bonus.ID === 1010) {
                     cardPowerCount += inner_bonus.Power
                 }
-                if (inner_bonus === 1011) {
+                if (inner_bonus.ID === 1011) {
                     expRewardCount += inner_bonus.Power
                 }
-                if (inner_bonus === 1013) {
+                if (inner_bonus.ID === 1013) {
                     dmgCount += inner_bonus.Power
                 }
-                if (inner_bonus === 1012) {
+                if (inner_bonus.ID === 1012) {
                     timeCount += inner_bonus.Power
                 }
-                if (inner_bonus === 1014) {
+                if (inner_bonus.ID === 1014) {
                     cardXpCount += inner_bonus.Power
                 }
-                if (inner_bonus === 1015) {
+                if (inner_bonus.ID === 1015) {
                     rpRewardCount += inner_bonus.Power
                 }
-                if (inner_bonus === 1016) {
+                if (inner_bonus.ID === 1016) {
                     tokenRewardCount += inner_bonus.Power
                 }
             });
@@ -165,12 +165,12 @@ var helper = {
         if (earthType > 0 && airType > 0) synergyBonus += this.SYNERGY_MOD_STEP;
         if (earthType > 1 && airType > 1) synergyBonus += this.SYNERGY_MOD_STEP;
 
-        groupScore *= (1 + dmgCount * this.EXP_DMG_MOD);
-        groupScoreMax *= (1 + dmgCount * this.EXP_DMG_MOD);
-        groupRankScore *= (1 + dmgCount * this.EXP_DMG_MOD);
-        groupScore *= (1 + timeCount * this.EXP_TIME_MOD);
-        groupScoreMax *= (1 + timeCount * this.EXP_TIME_MOD);
-        groupRankScore *= (1 + timeCount * this.EXP_TIME_MOD);
+        groupScore *= (1 + dmgCount);
+        groupScoreMax *= (1 + dmgCount);
+        groupRankScore *= (1 + dmgCount);
+        groupScore *= (1 + timeCount);
+        groupScoreMax *= (1 + timeCount);
+        groupRankScore *= (1 + timeCount);
         groupScore *= synergyBonus;
         groupScoreMax *= synergyBonus;
         groupRankScore *= synergyBonus;
