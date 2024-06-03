@@ -82,8 +82,6 @@ var farmingHelper = {
                 timerBonus = timePassed / 86400;
             }
             else {
-                // 1.0 + (timePassed - 86400.0) / (172800.0 + (timePassed - 86400.0) * 0.5);
-                //1 + (step1) / (172800 + (step2) * 0.5)
                 let step1 = timePassed - 86400;
                 let step2 = timePassed - 86400;
                 let step3 = (172800 + step2 * 0.5);
@@ -91,14 +89,6 @@ var farmingHelper = {
                 timerBonus = 1 + step4;
             }
         }
-
-        // BigDouble.Round(
-        // (Log10(HealthyPotatoTotal) - 15.75)
-        //  * (36 - Min(Log10(HealthyPotatoTotal), 31))
-        //  * Pow(1.15, Log10(HealthyPotatoTotal) - 16.0)
-        //  * FrenchFriesBonus 
-        //  * TimerFriesPrestigeBonuses);
-        // BigDouble.Round(step1 * step2 * step3  * GM.PD.FrenchFriesBonus * GM.PD.TimerFriesPrestigeBonuses);
         let log10 = mathHelper.logDecimal(potatoes, 10);
         let step1 = mathHelper.subtractDecimal(log10, 15.75);
 
@@ -121,7 +111,8 @@ var farmingHelper = {
             let divided = mathHelper.divideDecimal(step6, softWall);
             let step7 = mathHelper.multiplyDecimal(softWall,
                 mathHelper.pow(divided, 0.35)
-            )
+            );
+            step7 = mathHelper.multiplyDecimal(step7, modifiers.FrenchFriesSCBonus)
             if (timerBonus < 1) {
                 return mathHelper.pow(step7, timerBonus);
             }
@@ -427,6 +418,7 @@ var farmingHelper = {
         modifiers.hpBonus = modifiers?.hpBonus?.mantissa || modifiers?.hpBonus?.mantissa === 0 ? modifiers.hpBonus : mathHelper.createDecimal(modifiers.hpBonus);
         modifiers.curPotatoes = modifiers?.curPotatoes?.mantissa || modifiers?.curPotatoes.mantissa === 0 ? modifiers.curPotatoes : mathHelper.createDecimal(modifiers.curPotatoes);
         modifiers.totalPotatoes = modifiers?.totalPotatoes?.mantissa || modifiers?.totalPotatoes?.mantissa === 0 ? modifiers.totalPotatoes : mathHelper.createDecimal(modifiers.totalPotatoes);
+        modifiers.FrenchFriesSCBonus = modifiers?.FrenchFriesSCBonus?.mantissa || modifiers?.FrenchFriesSCBonus?.mantissa === 0 ? modifiers.FrenchFriesSCBonus : mathHelper.createDecimal(modifiers.FrenchFriesSCBonus);
     },
     calcHPProd: function (plants_input, modifiers_input) {
         let plants = JSON.parse(JSON.stringify(plants_input));

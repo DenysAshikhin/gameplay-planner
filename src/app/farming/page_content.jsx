@@ -331,9 +331,10 @@ const FarmingLanding = () => {
                     + (data.FarmingShopUniqueFries[17] ? data.FarmingShopUniqueFries[17] : 0)
                     + (data.FarmingShopUniqueFries[18] ? data.FarmingShopUniqueFries[18] : 0)
                 ),
-            timePassed: data.TimePassedFarming
+            timePassed: data.TimePassedFarming,
+            FrenchFriesSCBonus: data.FrenchFriesSCBonus
         }
-        tempy.originalShopProdBonus = data.PlantTotalProductionBonus;
+        tempy.originalShopProdBonus = mathHelper.createDecimal(data.PlantTotalProductionBonus);
         return tempy
     },
         [
