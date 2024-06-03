@@ -393,7 +393,7 @@ const CardCard = ({
                                     style={{
                                         fontWeight: 'bold',
                                         position: 'absolute',
-                                        fontSize: vertical ? '10px' : '13px',
+                                        fontSize: vertical ? '10px' : '12px',
                                         top: vertical ? '24px' : '32px',
                                         right: '8px',
                                     }}
@@ -811,6 +811,11 @@ export default function Cards() {
 
     // const foundCards = CardsCollection.filter(card => card.Found === 1);
     const cardsById = CardsCollection.reduce((accum, card) => {
+
+        if (data.AscensionCount >= 31 && card.ID === 1) {
+            return accum;
+        }
+
         accum[card.ID] = card;
         return accum;
     }, {});
@@ -819,6 +824,7 @@ export default function Cards() {
 
     for (let i = 0; i < CARD_DISPLAY_IDS.length; i++) {
         if (!cardsById[CARD_DISPLAY_IDS[i]]) continue;
+
         weightedCardInfo.push(
             <CardCard
                 cardWeight={newCardWeights[CARD_DISPLAY_IDS[i]]}
@@ -846,6 +852,8 @@ export default function Cards() {
     });
 
     let finalPercIncrease = topPercIncrease.slice(0, 5).map((value, index, arr) => {
+
+
         return (
             <div style={{
                 position: 'relative',

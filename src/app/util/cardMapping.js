@@ -139,82 +139,85 @@ export const cardMapImg = {
 
 export const cardLabelImg = {
     1: {
-        img:  card_label_1
+        img: card_label_1
     },
     2: {
-        img:  card_label_2
+        img: card_label_2
     },
     3: {
-        img:  card_label_3
+        img: card_label_3
     },
     4: {
-        img:  card_label_4
+        img: card_label_4
     },
     5: {
-        img:  card_label_5
+        img: card_label_5
     },
     6: {
-        img:  card_label_6
+        img: card_label_6
     },
     7: {
-        img:  card_label_7
+        img: card_label_7
     },
     8: {
-        img:  card_label_8
+        img: card_label_8
     },
     9: {
-        img:  card_label_9
+        img: card_label_9
     },
     10: {
-        img:  card_label_10
+        img: card_label_10
     },
     11: {
-        img:  card_label_11
+        img: card_label_11
     },
     12: {
-        img:  card_label_12
+        img: card_label_12
     },
     13: {
-        img:  card_label_13
+        img: card_label_13
     },
     14: {
-        img:  card_label_14
+        img: card_label_14
     },
     15: {
-        img:  card_label_15
+        img: card_label_15
     },
     16: {
-        img:  card_label_16
+        img: card_label_16
     },
     17: {
-        img:  card_label_17
+        img: card_label_17
     },
     18: {
-        img:  card_label_18
+        img: card_label_18
     },
     19: {
-        img:  card_label_19
+        img: card_label_19
     },
     20: {
-        img:  card_label_20
+        img: card_label_20
     },
     23: {
-        img:  card_label_23
+        img: card_label_23
     },
     27: {
-        img:  card_label_27
+        img: card_label_27
     },
     28: {
-        img:  card_label_28
+        img: card_label_28
     },
     29: {
-        img:  card_label_29
+        img: card_label_29
     },
     34: {
-        img:  card_label_34
+        img: card_label_34
     },
     35: {
-        img:  card_label_35
+        img: card_label_35
+    },
+    38: {
+        img: card_label_35
     },
 }
 
@@ -249,6 +252,7 @@ export const PROTEINBONUS = 28;
 export const GHBONUS = 29;
 export const MININGEXP = 34;
 export const MININGPWR = 35;
+export const SWEETPOTATOE = 38;
 
 
 export const maxKey = 30;
@@ -1236,6 +1240,41 @@ export const cardIDMap = {
             30: 4,
         }
     },
+    [SWEETPOTATOE]: {
+        id: SWEETPOTATOE, label: "Sweet Pot.", icon: "", weights: {
+            0: -1,
+            1: -1,
+            2: -1,
+            3: -1,
+            4: -1,
+            5: -1,
+            6: -1,
+            7: -1,
+            8: -1,
+            9: -1,
+            10: -1,
+            11: -1,
+            12: -1,
+            13: -1,
+            14: -1,
+            15: -1,
+            16: -1,
+            17: -1,
+            18: -1,
+            19: -1,
+            20: -1,
+            21: -1,
+            22: -1,
+            23: -1,
+            24: -1,
+            25: -1,
+            26: -1,
+            27: -1,
+            28: -1,
+            29: -1,
+            30: 1000,
+        }
+    },
 }
 
 export function powerFormula(Pow, logBase, customConstant, params) {
@@ -1311,6 +1350,13 @@ export const tempPowerBonusFormula = {
     27: (Pow) => powerFormula(Pow, 7.0, 0.009, { ID: 27 }),
     34: (Pow) => powerFormula(Pow, 8.0, 0.018, { ID: 34 }),
     35: (Pow) => powerFormula(Pow, 9.0, 0.0045, { ID: 35 }),
+    35: (Pow) => powerFormula(Pow, 9.0, 0.0045, { ID: 35 }),
+    35: (Pow) =>  mathHelper.addDecimal(1.05,
+        mathHelper.multiplyDecimal(
+            mathHelper.logDecimal(Pow, 10),
+            0.0005
+        )
+    ),
     _: (Pow) => 1.0
 };
 
@@ -1341,11 +1387,17 @@ export const permPowerBonusFormula = {
     29: (Pow) => powerFormula(Pow, 7.0, 0.09, { isPerm: true, ID: 29 }),
     34: (Pow) => powerFormula(Pow, 7.0, 0.027, { isPerm: true, ID: 34 }),
     35: (Pow) => powerFormula(Pow, 7.0, 0.009, { isPerm: true, ID: 35 }),
+    38: (Pow) => mathHelper.addDecimal(1,
+                    mathHelper.multiplyDecimal(
+                        mathHelper.logDecimal(Pow, 10),
+                        0.0004
+                    )
+                )
     // _: (Pow) => new Decimal(1.0)
 };
 
 export const CARD_DISPLAY_IDS = [
-    17, 1, 2, 3, 9,
+    17, 1, 18, 2, 3, 9,
     7, 4, 14, 15, 16,
     8, FRIESBONUS, PROTEINBONUS, GHBONUS, HEALTHYBONUS,
     10, 11, 12, 13,

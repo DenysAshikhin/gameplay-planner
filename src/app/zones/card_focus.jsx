@@ -370,6 +370,12 @@ export default function CardFocus({
                     i++;
                     continue;
                 }
+
+                if (data.AscensionCount >= 31 && cardMap[CARD_DISPLAY_IDS[i]].ID === 1) {
+                    i++;
+                    continue;
+                }
+
                 row.push(<CardCard
                     card={cardMap[CARD_DISPLAY_IDS[i]]}
                     data={data} key={cardMap[CARD_DISPLAY_IDS[i]]}
