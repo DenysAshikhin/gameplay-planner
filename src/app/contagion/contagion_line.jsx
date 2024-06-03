@@ -18,7 +18,8 @@ import plant_speed_contagion from '../../../public/images/contagion/5FarmingBg_G
 import fry_hp_contagion from '../../../public/images/contagion/6FarmingBg_PhilipJ_HealthyBonus.png';
 import shovel_contagion from '../../../public/images/contagion/7FarmingBg_Harvest.png';
 import protein_contagion from '../../../public/images/contagion/8FarmingBg_Protein.png';
-import pot_exp_contagion from '../../../public/images/contagion/2PotatoExpBg.png';
+// import pot_exp_contagion from '../../../public/images/contagion/2PotatoExpBg.png';
+import pot_exp_contagion from '../../../public/images/contagion/6ClassExp.png';
 import skull_conf_contagion from '../../../public/images/contagion/3SkullConfectionBg.png';
 import worm_contagion from '../../../public/images/contagion/4Confectionx2Bg.png';
 import poop_milk_contagion from '../../../public/images/contagion/5PoopMilkBg.png';

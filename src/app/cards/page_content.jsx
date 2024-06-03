@@ -153,9 +153,6 @@ const CardCard = ({
                 mathHelper.subtractDecimal(mathHelper.multiplyDecimal(temp1, temp2), 1),
                 (1.0 + Level * level_mult) * 100);
 
-        if (finalWeight === 0) {
-            let bigsad = -1;
-        }
 
         let percIncrease = mathHelper.divideDecimal(finalAfter, finalBefore);
         let flatIncrease = mathHelper.subtractDecimal(finalAfter, finalBefore);

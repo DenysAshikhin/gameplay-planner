@@ -21,7 +21,7 @@ import IRImg from '../../../public/images/infinity_corner/9UpgradeItemRating.png
 import ResidueImg from '../../../public/images/infinity_corner/24UpgradeResidue.png';
 import star_normal from '../../../public/images/infinity_corner/LastEraTopBackground.png';
 import LockedImg from '../../../public/images/infinity_corner/locked.png';
-
+import SweetPotatoe from '../../../public/images/infinity_corner/UpgradeLockSweet.png'
 
 
 
@@ -1695,6 +1695,7 @@ export const ic_mapping = {
         }
     },
     'locked': {
-        img: LockedImg
+        img: LockedImg,
+        sweet_lock: SweetPotatoe
     }
 }

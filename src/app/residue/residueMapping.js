@@ -19,7 +19,7 @@ import PetRankImg from '../../../public/images/residue/ShopUpgrade18PetRankSelec
 import CardPOWImg from '../../../public/images/residue/ShopUpgrade19CardPowerSelected.png';
 import CardEXPImg from '../../../public/images/residue/ShopUpgrade20CardExpSelected.png';
 import LockedImg from '../../../public/images/residue/locked.png';
-
+import SweetPotatoe from '../../../public/images/residue/ShopUpgradeLockSweet.png'
 
 
 import Attack_Label from '../../../public/images/bonus_labels/Attack_Exp.png';
@@ -671,6 +671,7 @@ export const residueMap = {
         weight: (ascension) => { if (ascension >= 15) return 10; return 5; }
     },
     'locked': {
-        img: LockedImg
+        img: LockedImg,
+        sweetlocked: SweetPotatoe
     }
 }

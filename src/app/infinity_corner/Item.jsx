@@ -20,11 +20,8 @@ export default function Item({
     buyMap,
     futureBuy
 }) {
-
-
     const [clientUpgradeWeight, setUpgradeWeight] = useLocalStorage(`${map_key}_rep3`, -1);
     const [upgradeWeight, setRunTimeUpgradeWeight] = useState(-1);
-
 
     const [forceShow, setForceShow] = useState(false);
 
@@ -81,11 +78,12 @@ export default function Item({
         </div>
     </div>
 
+    const sweet_locked = data.AscensionCount > 29 && map_key === 'potato';
 
     return (
         <div
-            onMouseEnter={() => { if (map_key === 'star') return; setForceShow(true); }}
-            onMouseLeave={() => { if (map_key === 'star') return; setForceShow(false); }}
+            onMouseEnter={() => { if (map_key === 'potato' || map_key === 'star') return; setForceShow(true); }}
+            onMouseLeave={() => { if (map_key === 'potato' || map_key === 'star') return; setForceShow(false); }}
             style={{
                 position: 'absolute',
                 left: itemObj.left,
@@ -96,7 +94,19 @@ export default function Item({
             }}
         >
 
-            {!isStar && (desiredLevel > 0) && false && (
+            {sweet_locked && (
+                <div>
+                    <Image
+                        alt={`${label} upgrade image`}
+                        src={ic_mapping['locked'].sweet_lock}
+                        fill
+                        priority
+                        unoptimized
+                    />
+                </div>
+            )}
+
+            {!sweet_locked && !isStar && (desiredLevel > 0) && false && (
                 <div
                     // className='elementToFadeInAndOut'
                     style={{
@@ -113,9 +123,7 @@ export default function Item({
                 </div>
             )}
 
-
-
-            {isStar && (
+            {!sweet_locked && isStar && (
                 <>
                     <Image
                         alt={`upgrade all star image`}
@@ -142,13 +150,14 @@ export default function Item({
                             <div
                                 style={{
                                     width: '164px',
-                                    height: '121px',}}
+                                    height: '121px',
+                                }}
                                 onMouseEnter={() => { setForceShow(true) }}
                                 onMouseLeave={() => { setForceShow(false) }}
                             >
                                 {!(!isLocked || forceShow) && (
-                                    <div 
-                                    className='noPointerEvent'
+                                    <div
+                                        className='noPointerEvent'
                                     >
                                         <Image
                                             alt={`locked symbol`}
@@ -186,7 +195,7 @@ export default function Item({
                 </>
             )}
 
-            {!isStar && (
+            {!sweet_locked && !isStar && (
                 <MouseOverPopover
                     tooltip={tooltip}
                     forceYPlacement={'top'}
@@ -227,7 +236,7 @@ export default function Item({
                 </MouseOverPopover>
             )}
 
-            {(!isStar && desiredLevel > 0) && (
+            {!sweet_locked && (!isStar && desiredLevel > 0) && (
                 <MouseOverPopover
                     tooltip={tooltip}
                     forceYPlacement={'top'}
@@ -254,7 +263,7 @@ export default function Item({
                 </MouseOverPopover>
             )}
 
-            {(isStar && desiredLevel > 0) && (
+            {!sweet_locked && (isStar && desiredLevel > 0) && (
                 <MouseOverPopover
                     tooltip={tooltip}
                     forceYPlacement={'top'}
@@ -286,7 +295,7 @@ export default function Item({
             )}
 
             {/* Weights/levels */}
-            {(!isLocked || forceShow) && (
+            {!sweet_locked && (!isLocked || forceShow) && (
                 <div
                     className='importantText'
                     style={{

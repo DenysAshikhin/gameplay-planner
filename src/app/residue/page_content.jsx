@@ -67,115 +67,132 @@ const ResidueCard = ({ data, params, defaultWeight, setParentWeights, desiredLev
     const weight = runTimeWeight === -1 ? params.weight(asc_level) : runTimeWeight;
     const locked = (!hovering) && asc_level < params.unlock;
 
+    const sweet_locked = data.AscensionCount > 29 && params.key == 'CowShopPotatoBonus';
+
     return (
         <div className='importantText residueCard'
-            onMouseEnter={() => { setHovering(true); }}
-            onMouseLeave={() => { setHovering(false); }}
+            onMouseEnter={() => { if (sweet_locked) return; setHovering(true); }}
+            onMouseLeave={() => { if (sweet_locked) return; setHovering(false); }}
         >
-            <div className='residueCardHeader'>
-                <div>
-                    {locked ? `?????` : `${params.label}: ${level}`}
+
+            {sweet_locked && (
+                <div className='hover'
+                    style={{ position: 'relative', width: '90%', height: '94%', margin:'6px 8px'}}
+                >
+                    <Image src={residueMap['locked'].sweetlocked} fill unoptimized alt='sweet potatoe lock' />
                 </div>
-                {((finishedBuying && needPurchase) || futurePurchase) && !locked && (
-                    <div className='futurePurchase'
-                        style={futurePurchase ? { color: 'yellow' } : {}}
-                    >
+            )}
+
+            {!sweet_locked && (
+                <>
+                    <div className='residueCardHeader'>
                         <div>
-                            {futurePurchase ? `${level + 1}` : `${desiredLevels + level}`}
+                            {locked ? `?????` : `${params.label}: ${level}`}
                         </div>
-                        <div>
-                            {futurePurchase ? `+1` : `+${desiredLevels}`}
-                        </div>
-                    </div>
-                )}
-            </div>
-            <div className='residueCardBody'>
-
-                <div style={{ position: 'absolute', right: '9px', top: '9px', zIndex: '2' }}>
-
-                    <MouseOverPopover tooltip={
-                        <div>
-                            <div>
-                                {`Cost: ${params.cost(level).toExponential(2)}`}
-                            </div>
-                            <div>
-                                {`Bonus: ${helper.numberWithCommas(params.bonus(level).ceil().toExponential(2))}%`}
-                            </div>
-                        </div>
-                    }>
-                        <div style={{ position: 'relative', width: '30px', height: '30px' }}>
-                            <Image src={infoIcon} fill unoptimized alt="letter i in a circle" />
-                        </div>
-                    </MouseOverPopover>
-                </div>
-                {!locked && (
-                    <div style={{ position: 'absolute', left: '8px', bottom: '8px', zIndex: '2', display: 'flex', alignItems: 'center' }}>
-                        <div>
-                            Weight:
-                        </div>
-                        <div
-                            style={{ marginLeft: '6px' }}
-                        >
-                            <input
-                                aria-label='Specify how important this bonus is'
-                                className='importantText textMedium2'
-                                style={{ borderRadius: '4px', width: '48px', height: '12px', backgroundColor: '#1D1D1D' }}
-                                type='number'
-                                value={weight}
-                                onChange={
-                                    (inner_e) => {
-
-                                        try {
-                                            let x = Number(inner_e.target.value);
-                                            // x = Math.floor(x);
-                                            if (x < 0 || x > 9999) {
-                                                return;
-                                            }
-                                            setClientWeight(x);
-
-                                            ReactGA.event({
-                                                category: "residue_interaction",
-                                                action: `changed_residue_weight`,
-                                                label: `${params.label}`,
-                                                value: x
-                                            });
-
-                                        }
-                                        catch (err) {
-                                            console.log(err);
-                                        }
-                                    }}
-                                min="0"
-                                max="9999"
-                            />
-                        </div>
-                        {(weight !== params.weight(asc_level)) && (
-                            <div className='hover'
-                                style={{ position: 'relative', width: '18px', height: '18px', marginLeft: '6px' }}
-                                onClick={() => {
-                                    setClientWeight(-1);
-                                }}
+                        {((finishedBuying && needPurchase) || futurePurchase) && !locked && (
+                            <div className='futurePurchase'
+                                style={futurePurchase ? { color: 'yellow' } : {}}
                             >
-                                <Image src={RefreshIcon} fill unoptimized alt='reset, 2 arrows in a circle' />
+                                <div>
+                                    {futurePurchase ? `${level + 1}` : `${desiredLevels + level}`}
+                                </div>
+                                <div>
+                                    {futurePurchase ? `+1` : `+${desiredLevels}`}
+                                </div>
                             </div>
                         )}
                     </div>
-                )}
+                    <div className='residueCardBody'>
 
-                {!!locked && (
-                    <Image className='noPointerEvent' src={residueMap['locked'].img} fill unoptimized alt={`locked bonus image from in game`} />
-                )}
-                {!locked && (
-                    <Image className='noPointerEvent' src={params.img} fill unoptimized alt={`${params.key} bonus from in game`} />
-                )}
-                {(!!needPurchase && finishedBuying) && !locked && (
-                    <Image className='noPointerEvent' src={greenBorder} fill unoptimized alt={`Green border to indicate an upgrade should be purchased`} />
-                )}
-                {(!finishedBuying || futurePurchase) && (
-                    <Image className='noPointerEvent' src={StillBuying} fill unoptimized alt={`Yellow border to indicate an upgrade is still autobuying`} />
-                )}
-            </div>
-            <div className='residueCardFooter'></div>
+                        <div style={{ position: 'absolute', right: '9px', top: '9px', zIndex: '2' }}>
+
+                            <MouseOverPopover tooltip={
+                                <div>
+                                    <div>
+                                        {`Cost: ${params.cost(level).toExponential(2)}`}
+                                    </div>
+                                    <div>
+                                        {`Bonus: ${helper.numberWithCommas(params.bonus(level).ceil().toExponential(2))}%`}
+                                    </div>
+                                </div>
+                            }>
+                                <div style={{ position: 'relative', width: '30px', height: '30px' }}>
+                                    <Image src={infoIcon} fill unoptimized alt="letter i in a circle" />
+                                </div>
+                            </MouseOverPopover>
+                        </div>
+                        {!locked && (
+                            <div style={{ position: 'absolute', left: '8px', bottom: '8px', zIndex: '2', display: 'flex', alignItems: 'center' }}>
+                                <div>
+                                    Weight:
+                                </div>
+                                <div
+                                    style={{ marginLeft: '6px' }}
+                                >
+                                    <input
+                                        aria-label='Specify how important this bonus is'
+                                        className='importantText textMedium2'
+                                        style={{ borderRadius: '4px', width: '48px', height: '12px', backgroundColor: '#1D1D1D' }}
+                                        type='number'
+                                        value={weight}
+                                        onChange={
+                                            (inner_e) => {
+
+                                                try {
+                                                    let x = Number(inner_e.target.value);
+                                                    // x = Math.floor(x);
+                                                    if (x < 0 || x > 9999) {
+                                                        return;
+                                                    }
+                                                    setClientWeight(x);
+
+                                                    ReactGA.event({
+                                                        category: "residue_interaction",
+                                                        action: `changed_residue_weight`,
+                                                        label: `${params.label}`,
+                                                        value: x
+                                                    });
+
+                                                }
+                                                catch (err) {
+                                                    console.log(err);
+                                                }
+                                            }}
+                                        min="0"
+                                        max="9999"
+                                    />
+                                </div>
+                                {(weight !== params.weight(asc_level)) && (
+                                    <div className='hover'
+                                        style={{ position: 'relative', width: '18px', height: '18px', marginLeft: '6px' }}
+                                        onClick={() => {
+                                            setClientWeight(-1);
+                                        }}
+                                    >
+                                        <Image src={RefreshIcon} fill unoptimized alt='reset, 2 arrows in a circle' />
+                                    </div>
+                                )}
+                            </div>
+                        )}
+
+                        {!!locked && (
+                            <Image className='noPointerEvent' src={residueMap['locked'].img} fill unoptimized alt={`locked bonus image from in game`} />
+                        )}
+                        {!locked && (
+                            <Image className='noPointerEvent' src={params.img} fill unoptimized alt={`${params.key} bonus from in game`} />
+                        )}
+                        {(!!needPurchase && finishedBuying) && !locked && (
+                            <Image className='noPointerEvent' src={greenBorder} fill unoptimized alt={`Green border to indicate an upgrade should be purchased`} />
+                        )}
+                        {(!finishedBuying || futurePurchase) && (
+                            <Image className='noPointerEvent' src={StillBuying} fill unoptimized alt={`Yellow border to indicate an upgrade is still autobuying`} />
+                        )}
+                    </div>
+                    <div className='residueCardFooter'></div>
+                </>
+            )}
+
+
         </div>
     )
 }
