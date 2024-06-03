@@ -1330,14 +1330,14 @@ export default function Cards() {
     let remainingCharges = baseReincInfo.remainingCharges;
     let requiredReincLevel = baseReincInfo.requiredReincLevel;
     let currentReincLevel = helper.roundInt(baseReincInfo.futureReincLevel);
-    let currentReincLevelDiff = baseReincInfo.levelDiff;
+    let currentReincLevelDiff = helper.roundInt(baseReincInfo.levelDiff);
     let reincHr = helper.roundTwoDecimal(baseReincInfo.reincHr);
     let remTime = baseReincInfo.remTime;
     let chargeTimerReduction = baseReincInfo.chargeTimerReduction;
 
     let cardChargedReincInfo = CalcReinc(data, numReincCharges);
     let futureReincLevel = helper.roundInt(cardChargedReincInfo.futureReincLevel);
-    let futureReincLevelDiff = cardChargedReincInfo.levelDiff;
+    let futureReincLevelDiff = helper.roundInt(cardChargedReincInfo.levelDiff);
     let futureReincHr = helper.roundTwoDecimal(cardChargedReincInfo.reincHr);
     let futureRemTime = cardChargedReincInfo.remTime;
 
