@@ -125,27 +125,31 @@ var helper = {
             groupScore += this.calculatePetBaseDamage(pet, defaultRank);
             groupRankScore += this.calculatePetBaseDamage(pet, 1); //used to later get /rank damage
             groupScoreMax += this.calculatePetBaseDamage(pet, 0);
-            if (pet.BonusList.some((bonus) => bonus.ID === 1013)) {
-                dmgCount++;
-            }
-            if (pet.BonusList.some((bonus) => bonus.ID === 1010)) {
-                cardPowerCount++;
-            }
-            if (pet.BonusList.some((bonus) => bonus.ID === 1011)) {
-                expRewardCount++;
-            }
-            if (pet.BonusList.some((bonus) => bonus.ID === 1014)) {
-                cardXpCount++;
-            }
-            if (pet.BonusList.some((bonus) => bonus.ID === 1012)) {
-                timeCount++;
-            }
-            if (pet.BonusList.some((bonus) => bonus.ID === 1015)) {
-                rpRewardCount++;
-            }
-            if (pet.BonusList.some((bonus) => bonus.ID === 1016)) {
-                tokenRewardCount++;
-            }
+
+
+            pet.BonusList.forEach((inner_bonus)=>{
+                if (inner_bonus === 1010) {
+                    cardPowerCount += inner_bonus.Power
+                }
+                if (inner_bonus === 1011) {
+                    expRewardCount += inner_bonus.Power
+                }
+                if (inner_bonus === 1013) {
+                    dmgCount += inner_bonus.Power
+                }
+                if (inner_bonus === 1012) {
+                    timeCount += inner_bonus.Power
+                }
+                if (inner_bonus === 1014) {
+                    cardXpCount += inner_bonus.Power
+                }
+                if (inner_bonus === 1015) {
+                    rpRewardCount += inner_bonus.Power
+                }
+                if (inner_bonus === 1016) {
+                    tokenRewardCount += inner_bonus.Power
+                }
+            });
 
             // Count pet types
             if (typeCounts[pet.Type]) {
