@@ -30,14 +30,18 @@ const default_weight_overwrite = {
     12: 0.2
 }
 
-export default function Outposts({ contagion, setContagionWeights, gh_amount, extra_gh }) {
+export default function Outposts({data, contagion, setContagionWeights, gh_amount, extra_gh }) {
     const [clientContagionWeight, setContagionWeight] = useLocalStorage(`contagion_${contagion.ID}_weight`, -1);
     const [ContagionWeight, setRunTimeContagionWeight] = useState(-1);
 
     const [clientEnableContagion, setEnableContagion] = useLocalStorage(`contagion_${contagion.ID}_enable`, true);
     const [EnableContagion, setRunTimeEnableContagion] = useState(true);
     const hp_expo = mathHelper.createDecimal(contagion.HPExpo).toNumber();
-    const defaultWeight = default_weight_overwrite[contagion.ID] ? default_weight_overwrite[contagion.ID] : helper.roundFiveDecimal(hp_expo);
+    let defaultWeight = default_weight_overwrite[contagion.ID] ? default_weight_overwrite[contagion.ID] : helper.roundFiveDecimal(hp_expo);
+    //potatoe + class exp nerf
+    if(data.AscensionCount > 29 && contagion.ID === 9){
+        defaultWeight = 0.005
+    }
     const map_key = contagion.ID;
     const unlocked = !!contagion.Locked;
 
