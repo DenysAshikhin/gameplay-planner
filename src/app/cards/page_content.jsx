@@ -120,10 +120,20 @@ const CardCard = ({
         setRefreshMath(false);
 
         let permValueBefore = mathHelper.createDecimal(PowerPermaBD);
-        if(permValueBefore.equals(mathHelper.createDecimal(0))){
-            permValueBefore = mathHelper.createDecimal(1);
+        let perm_empty = false;
+        if (permValueBefore.equals(mathHelper.createDecimal(0))) {
+            perm_empty = true;
+            permValueBefore = mathHelper.createDecimal(0.000000001);
         }
-        const tempValueBefore = mathHelper.createDecimal(PowerTempBD);
+        let tempValueBefore = mathHelper.createDecimal(PowerTempBD);
+        let temp_empty = false;
+        if (tempValueBefore.equals(mathHelper.createDecimal(0))) {
+            temp_empty = true;
+            tempValueBefore = mathHelper.createDecimal(0.00000001);
+        }
+
+
+
 
         let permValueAfter = mathHelper.addDecimal(permValueBefore,
             mathHelper.multiplyDecimal(tempValueBefore, ChargeTransfertPowerPerma)
@@ -145,7 +155,8 @@ const CardCard = ({
                 1
             ),
             ((1.0 + Level * level_mult) * 100)
-        )
+        );
+
 
         let temp1 = tempPowerBonusFormula[ID](mathHelper.multiplyDecimal(tempValueBefore, (1.0 - ChargeTransfertPowerTemp)))
         let temp2 = permPowerBonusFormula[ID](
@@ -155,7 +166,10 @@ const CardCard = ({
             mathHelper.multiplyDecimal(
                 mathHelper.subtractDecimal(mathHelper.multiplyDecimal(temp1, temp2), 1),
                 (1.0 + Level * level_mult) * 100);
-
+        if (temp_empty && perm_empty) {
+            finalBefore = mathHelper.createDecimal(0);
+            finalAfter = mathHelper.createDecimal(0);
+        }
 
         let percIncrease = mathHelper.divideDecimal(finalAfter, finalBefore);
         let flatIncrease = mathHelper.subtractDecimal(finalAfter, finalBefore);
@@ -291,6 +305,316 @@ const CardCard = ({
         case 'xgain':
             finalBonusDisplay = finalAfter.eq(finalBefore) ? mathHelper.createDecimal(0) : percIncrease;
             break;
+    }
+
+
+    try {
+        return (
+            <div
+                key={i}
+                style={{
+                    // border: isPositiveChargeRatio ? '2px solid green' : '1px solid black',
+                    borderRadius: '5px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    // alignItems: 'center',
+                    alignItems: displayMode === 'original' ? 'center' : '',
+                    justifyContent: 'center',
+                    // justifyContent: displayMode === 'original' ? 'center' : '',
+                    width: displayMode === 'original' ? `${227 / 227 * multiplier}px` : '100%',
+                    height: displayMode === 'original' ? `${316 / 227 * multiplier}px` : '48px',
+                    margin: displayMode === 'original' ? margin : `${num === 1 ? '' : '6px'} 0 0 0`,
+                    padding: displayMode === 'original' ? '' : '0 6px 0 6px',
+                    boxSizing: 'border-box',
+                    position: displayMode === 'original' ? 'relative' : ``,
+                    backgroundColor: 'rgba(255,255,255, 0.1)'
+                }}>
+                {displayMode === 'original' && (
+                    <>
+                        <MouseOverPopover
+                            tooltip={
+                                <div style={{ padding: '6px' }}>
+                                    <h3 style={{ margin: 0, textAlign: 'center' }}>
+                                        {cardIDMap[ID].label}
+                                    </h3>
+                                    <div>
+                                        Current Bonus: {finalBefore.toExponential(2).toString()}%
+                                    </div>
+                                    <div>
+                                        Charged Bonus: {finalAfter.toExponential(2).toString()}%
+                                    </div>
+                                    <div>
+                                        Absolute Increase: {flatIncrease.toExponential(2).toString()}
+                                    </div>
+                                    <div>
+                                        Percentage Increase: {mathHelper.multiplyDecimal(percIncrease, 100).toExponential(2).toString()}
+                                    </div>
+                                    <div>
+                                        Weighted Increase: {weightIncrease.toExponential(2).toString()}
+                                    </div>
+                                    <div>
+                                        Current Weight:{finalWeight}
+                                    </div>
+                                </div>
+                            }
+                        >
+                            <div>
+                                <div style={{
+                                    width: `${227 / 227 * multiplier}px`,
+                                    height: `${316 / 227 * multiplier}px`,
+                                    margin: '0 auto', position: 'relative'
+                                }}>
+                                    <Image
+                                        alt={`picture of the in game ${cardIDMap[ID].label} card`}
+                                        fill
+                                        src={cardMapImg[ID].img}
+                                        unoptimized={true}
+                                        priority
+                                    />
+
+                                    {isPositiveChargeRatio && (
+                                        <Image
+                                            alt={`picture of the in game ${cardIDMap[ID].label} card`}
+                                            fill
+                                            src={greenBorder}
+                                            unoptimized={true}
+                                            priority
+                                        />
+                                    )}
+                                    {!isPositiveChargeRatio && (
+                                        <Image
+                                            alt={`picture of the in game ${cardIDMap[ID].label} card`}
+                                            fill
+                                            src={redBorder}
+                                            unoptimized={true}
+                                            priority
+                                        />
+                                    )}
+
+
+                                    {/* Final bonus */}
+                                    <div
+                                        style={{
+                                            fontWeight: 'bold',
+                                            position: 'absolute',
+                                            fontSize: vertical ? '13px' : '16px',
+                                            top: vertical ? '4px' : '6px',
+                                            right: '8px',
+                                        }}
+                                    >
+                                        {`${bonusMode === '%gain' || bonusMode === 'xgain' ?
+                                            finalBonusDisplay.exponent > 5 ?
+                                                finalBonusDisplay.toExponential(2)
+                                                :
+                                                helper.roundTwoDecimal(finalBonusDisplay.toNumber()).toLocaleString()
+                                            : finalBonusDisplay.toExponential(2)}${bonusMode === 'xgain' ? 'X' : '%'}`}
+                                    </div>
+
+                                    {/* Final temp */}
+                                    <div
+                                        style={{
+                                            fontWeight: 'bold',
+                                            position: 'absolute',
+                                            fontSize: vertical ? '10px' : '12px',
+                                            top: vertical ? '24px' : '32px',
+                                            right: '8px',
+                                        }}
+                                    >
+                                        {`${finalTemp.toExponential(2)}%`}
+                                    </div>
+
+
+                                    <div
+                                        className='importantText'
+                                        style={{
+                                            fontWeight: 'bold',
+                                            position: 'absolute',
+                                            fontSize: vertical ? '12px' : '14px',
+                                            bottom: vertical ? '2px' : '4px',
+                                            width: '100%',
+                                            textAlign: 'center'
+                                        }}
+                                    >
+                                        {cardIDMap[ID].label}
+                                    </div>
+                                </div>
+                            </div>
+                        </MouseOverPopover>
+
+
+                        <div
+                            style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                position: 'absolute',
+                                bottom: '23px',
+                                left: '30px',
+                                zIndex: '3',
+                            }}
+                        >
+                            <input
+                                aria-label='Specify the weight/importance for this card'
+                                style={{
+                                    width: '55px',
+                                    color: cardWeight !== defaultWeight && cardWeight !== -1 ? 'black' : 'gray',
+                                    fontWeight: cardWeight !== defaultWeight && cardWeight !== -1 ? 'bold' : '',
+                                    borderRadius: '6px',
+                                    fontSize: '12px',
+                                    padding: '0 0 0 0',
+                                    margin: '0',
+                                    textAlign: 'center'
+                                }}
+                                type='number'
+                                value={finalWeight}
+                                onChange={
+                                    (e) => {
+                                        try {
+                                            let x = Number(e.target.value);
+                                            // x = Math.floor(x);
+                                            if (x < 0 || x > 999999) {
+                                                return;
+                                            }
+                                            setCardWeightNew(x);
+                                            setRefreshMath(true);
+
+                                            ReactGA.event({
+                                                category: "card_interaction",
+                                                action: `changed_card_weight`,
+                                                label: `${cardIDMap[ID].label}`,
+                                                value: x
+                                            })
+                                        }
+                                        catch (err) {
+                                            console.log(err);
+                                        }
+                                    }}
+                                min="0"
+                                max="999999"
+                            />
+
+                            <MouseOverPopover tooltip={
+
+                                <div>
+                                    {`The weight (importance) of this card/stat. Feel free to change this`}
+                                </div>
+                            }
+                                opacity={1}
+                            >
+                                <div style={{ position: 'relative', height: '16px', width: '16px', marginLeft: '2px' }}>
+                                    <Image
+                                        alt='on hover I in a cirlce icon, shows more information on hover'
+                                        fill
+                                        src={infoIcon}
+                                        unoptimized={true}
+                                    />
+                                </div>
+                                {/* <img alt='on hover I in a cirlce icon, shows more information on hover' style={{ height: '16px', marginLeft: '6px' }} src={infoIcon} /> */}
+                            </MouseOverPopover>
+                        </div>
+                    </>
+                )}
+
+                {displayMode !== 'original' && (
+                    <>
+                        <MouseOverPopover
+                            tooltip={
+                                <div style={{ padding: '6px' }}>
+                                    <h3 style={{ margin: 0, textAlign: 'center' }}>
+                                        {cardIDMap[ID].label}
+                                    </h3>
+                                    <div>
+                                        Current Bonus: {finalBefore.toExponential(2).toString()}%
+                                    </div>
+                                    <div>
+                                        Charged Bonus: {finalAfter.toExponential(2).toString()}%
+                                    </div>
+                                    <div>
+                                        Absolute Increase: {flatIncrease.toExponential(2).toString()}
+                                    </div>
+                                    <div>
+                                        Percentage Increase: {percIncrease.toExponential(2).toString()}
+                                    </div>
+                                    <div>
+                                        Weighted Increase: {weightIncrease.toExponential(2).toString()}
+                                    </div>
+                                    <div>
+                                        Current Weight:{finalWeight}
+                                    </div>
+                                </div>
+                            }
+
+
+                        >
+                            <div style={{
+                                display: 'flex',
+                                flex: '1',
+                                alignItems: 'center'
+                            }}>
+                                <div style={{
+                                    // margin: '0 auto',
+                                    position: 'relative', width: '33px', height: '33px'
+                                }}>
+                                    <Image
+                                        alt={`picture of the in game ${cardIDMap[ID].label} card`}
+                                        // fill
+                                        src={cardLabelImg[ID].img}
+                                        unoptimized={true}
+                                        priority
+                                    />
+                                </div>
+                                <div
+                                    className='importantText'
+                                    style={{
+                                        fontWeight: 'bold',
+                                        fontSize: vertical ? '12px' : '14px',
+                                        bottom: vertical ? '2px' : '4px',
+                                        // width: '100%',
+                                        // textAlign: 'center',
+                                        marginLeft: '6px',
+                                        fontSize: '20px'
+                                    }}
+                                >
+                                    {cardIDMap[ID].label}
+                                </div>
+
+                                <div
+                                    className='importantText'
+                                    style={{
+                                        fontWeight: 'bold',
+                                        fontSize: vertical ? '12px' : '14px',
+                                        bottom: vertical ? '2px' : '4px',
+                                        // width: '100%',
+                                        marginLeft: 'auto',
+                                        fontSize: '20px'
+                                    }}
+                                >
+                                    {displayMode === 'logged' && (
+                                        <>
+                                            {loggedWeightIncrease.toExponential(2).toString()}
+                                        </>
+                                    )}
+                                    {displayMode === 'logged2' && (
+                                        <>
+                                            {loggedWeightIncrease2.toExponential(2).toString()}
+                                        </>
+                                    )}
+                                    {(displayMode !== 'logged' && displayMode !== 'logged2') && (
+                                        <>
+                                            {displayMode === 'weight' ? weightIncrease.toExponential(2).toString() : percIncrease.toExponential(2).toString() + '%'}
+                                        </>
+                                    )}
+
+                                </div>
+                            </div>
+                        </MouseOverPopover>
+                    </>
+                )}
+            </div >
+        );
+    }
+    catch (err) {
+        console.log(err);
+        let bigsad = -1;
     }
 
     return (
@@ -941,56 +1265,6 @@ export default function Cards() {
             </div>
         )
     }, []);
-
-    let loggedWeightIncrease2 = baseCardArr.sort((b, a) => {
-
-        if (a.loggedWeightIncrease2.eq(0) && !b.loggedWeightIncrease2.eq(0)) {
-            return 1;
-        }
-        if (!a.loggedWeightIncrease2.eq(0) && b.loggedWeightIncrease2.eq(0)) {
-            return -1;
-        }
-        else {
-            console.log(a);
-            console.log(b);
-            console.log('---------')
-            let res = a.loggedWeightIncrease2.greaterThan(b.loggedWeightIncrease2) ? 1 : -1;
-            return res;
-        }
-    });
-    let finalLoggedWeightIncrease2 = loggedWeightIncrease2.slice(0, 5).map((value, index, arr) => {
-        return (
-            <div style={{ display: 'flex', alignItems: 'center', width: '100%' }} key={index}>
-                <div
-                    className='importantText'
-                    style={{
-                        fontSize: '28px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        // alignSelf: 'start',
-                        marginRight: '6px',
-                        marginTop: '6px',
-                        // position: 'absolute',
-                        top: '0',
-                        left: '0',
-                        zIndex: '2',
-                        width: '30px',
-                        height: '30px',
-                        border: '1.5px solid rgba(255,255,255,0.8)',
-                        borderRadius: '15px',
-                        backgroundColor: 'rgba(49, 49, 49, 0.8)',
-                    }}>
-                    {index + 1}
-                </div>
-                <CardCard
-                    cardWeight={newCardWeights[value.ID]}
-                    resetWeights={-3} displayMode='logged2' vertical={true} cardMap={cardMap} setCardMap={null} data={data} i={index} card={cardsById[value.ID]} weightMap={weightMap} classes={classes} key={`${index}-perc`}></CardCard>
-            </div>
-        )
-    }, []);
-
-
 
 
     let weightIncrease = baseCardArr.sort((a, b) => {
