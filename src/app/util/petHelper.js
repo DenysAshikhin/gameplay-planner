@@ -127,7 +127,7 @@ var helper = {
             groupScoreMax += this.calculatePetBaseDamage(pet, 0);
 
 
-            pet.BonusList.forEach((inner_bonus)=>{
+            pet.BonusList.forEach((inner_bonus) => {
                 if (inner_bonus.ID === 1010) {
                     cardPowerCount += inner_bonus.Power
                 }
@@ -202,7 +202,6 @@ var helper = {
                 this.calculateGroupScore(group).groupScore * 5)
         );
     },
-
     compareGroupScore: function (target, compare) {
         if (target.groupScore != compare.groupScore) {
             return target.groupScore - compare.groupScore;
@@ -227,7 +226,6 @@ var helper = {
         }
         return 0;
     },
-
     getBestDamagePets: function (petsCollection, defaultRank, other) {
         let finalCollection = {};
         let bestDamagePets = JSON.parse(JSON.stringify(petsCollection));
@@ -2193,6 +2191,12 @@ var helper = {
         const usePromos = !parameters.usePromos;
         const maxTopStat = !!parameters.maxTopStat;
 
+        const IgnoredStats = {}
+        if (data.AscensionCount > 29) {
+            IgnoredStats['1'] = true;
+        }
+
+
         let tempArr = [];//
         for (let i = 0; i < priorities.length; i++) {
             let curr = priorities[i];
@@ -2287,7 +2291,7 @@ var helper = {
                 }
                 pet.BonusList.forEach((e) => {
 
-                    if ((ignoreStat[e.ID] && !statMode) || (e.ID >= 1000)) {
+                    if ((ignoreStat[e.ID] && !statMode) || IgnoredStats[e.ID]  || (e.ID >= 1000)) {
                         return;
                     }
 

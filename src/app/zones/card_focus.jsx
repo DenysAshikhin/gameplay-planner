@@ -102,106 +102,101 @@ const CardCard = ({
                             {cardIDMap[ID].label}
                         </h3>
                         <div>
-                            {bonus_map[ID].map((cur_exp) => {
-                                let exp = zone_data[cur_exp.ID];
-                                return (
-                                    <div
-                                        key={cur_exp.ID}
-                                        style={{
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            marginBottom: '6px'
-                                        }}
-                                    >
-
-
-
-
-
-
-                                        {!pinnedZones[cur_exp.ID] && (
+                            {bonus_map[ID] && (
+                                <>
+                                    {bonus_map[ID].map((cur_exp) => {
+                                        let exp = zone_data[cur_exp.ID];
+                                        return (
                                             <div
-                                                className='hover'
+                                                key={cur_exp.ID}
                                                 style={{
-                                                    position: 'relative',
-                                                    width: '26px', height: '26px', borderRadius: '13px',
-                                                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
-                                                    marginRight: '12px'
-                                                }}
-                                                onClick={(e) => {
-                                                    setPinnedZones((cur_pins) => {
-                                                        let temp = { ...cur_pins };
-                                                        temp[cur_exp.ID] = cur_exp;
-                                                        return temp;
-                                                    })
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    marginBottom: '6px'
                                                 }}
                                             >
-                                                <Image
-                                                    style={{ width: '20px', height: '20px', position: 'absolute', top: '2px', left: '2px' }}
-                                                    src={pinIcon}
-                                                    alt='push pin'
-                                                />
-                                            </div>
-                                        )}
-                                        {pinnedZones[cur_exp.ID] && (
-                                            <div
-                                                className='hover'
-                                                style={{
-                                                    position: 'relative',
-                                                    width: '26px', height: '26px', borderRadius: '13px',
-                                                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
-                                                    marginRight: '12px'
-                                                }}
-                                                onClick={(e) => {
-                                                    setPinnedZones((cur_pins) => {
-                                                        let temp = { ...cur_pins };
-                                                        delete temp[cur_exp.ID];
-                                                        return temp;
-                                                    })
-                                                }}
-                                            >
-                                                <Image
-                                                    style={{ width: '20px', height: '20px', position: 'absolute', top: '3px', left: '3px' }}
-                                                    src={trashIcon}
-                                                    alt='push pin'
-                                                />
-                                            </div>
-                                        )}
 
-
-
-
-
-
-                                        <div style={{ width: '160px', display: 'flex', alignItems: 'center' }}>
-                                            {`${exp.label}:`}
-                                        </div>
-                                        <div
-                                            style={{
-                                                display: 'flex', position: 'relative', alignContent: 'center', justifyContent: 'space-evenly', width: '120px'
-                                            }}
-                                        >
-                                            {cur_exp.CardFound.map((found_card, index) => {
-                                                return (
+                                                {!pinnedZones[cur_exp.ID] && (
                                                     <div
-                                                        key={index}
+                                                        className='hover'
                                                         style={{
-                                                            position: 'relative', width: '33px', height: '33px'
-                                                        }}>
+                                                            position: 'relative',
+                                                            width: '26px', height: '26px', borderRadius: '13px',
+                                                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                                                            marginRight: '12px'
+                                                        }}
+                                                        onClick={(e) => {
+                                                            setPinnedZones((cur_pins) => {
+                                                                let temp = { ...cur_pins };
+                                                                temp[cur_exp.ID] = cur_exp;
+                                                                return temp;
+                                                            })
+                                                        }}
+                                                    >
                                                         <Image
-                                                            alt={`picture of the in game ${cardIDMap[found_card].label} card`}
-                                                            // fill
-                                                            src={cardLabelImg[found_card].img}
-                                                            unoptimized={true}
-                                                            priority
+                                                            style={{ width: '20px', height: '20px', position: 'absolute', top: '2px', left: '2px' }}
+                                                            src={pinIcon}
+                                                            alt='push pin'
                                                         />
                                                     </div>
-                                                )
-                                            })}
-                                        </div>
-                                    </div>
-                                )
-                            })}
+                                                )}
+                                                {pinnedZones[cur_exp.ID] && (
+                                                    <div
+                                                        className='hover'
+                                                        style={{
+                                                            position: 'relative',
+                                                            width: '26px', height: '26px', borderRadius: '13px',
+                                                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                                                            marginRight: '12px'
+                                                        }}
+                                                        onClick={(e) => {
+                                                            setPinnedZones((cur_pins) => {
+                                                                let temp = { ...cur_pins };
+                                                                delete temp[cur_exp.ID];
+                                                                return temp;
+                                                            })
+                                                        }}
+                                                    >
+                                                        <Image
+                                                            style={{ width: '20px', height: '20px', position: 'absolute', top: '3px', left: '3px' }}
+                                                            src={trashIcon}
+                                                            alt='push pin'
+                                                        />
+                                                    </div>
+                                                )}
+
+                                                <div style={{ width: '160px', display: 'flex', alignItems: 'center' }}>
+                                                    {`${exp.label}:`}
+                                                </div>
+                                                <div
+                                                    style={{
+                                                        display: 'flex', position: 'relative', alignContent: 'center', justifyContent: 'space-evenly', width: '120px'
+                                                    }}
+                                                >
+                                                    {cur_exp.CardFound.map((found_card, index) => {
+                                                        return (
+                                                            <div
+                                                                key={index}
+                                                                style={{
+                                                                    position: 'relative', width: '33px', height: '33px'
+                                                                }}>
+                                                                <Image
+                                                                    alt={`picture of the in game ${cardIDMap[found_card].label} card`}
+                                                                    // fill
+                                                                    src={cardLabelImg[found_card].img}
+                                                                    unoptimized={true}
+                                                                    priority
+                                                                />
+                                                            </div>
+                                                        )
+                                                    })}
+                                                </div>
+                                            </div>
+                                        )
+                                    })}
+                                </>
+                            )}
+
                         </div>
                     </div>
                 }

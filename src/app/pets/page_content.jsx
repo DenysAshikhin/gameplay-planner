@@ -487,7 +487,17 @@ export default function Pets() {
         });
 
         let newPriorityList = JSON.parse(JSON.stringify(statTeamMasterList.priorityList));
+
+
+
         let newPriorityMap = JSON.parse(JSON.stringify(statTeamMasterList.priorityMap));
+
+
+        if (data.AscensionCount > 29) {
+            newPriorityMap['1'].count = 0;
+        }
+
+
         let newPetWhiteList = statTeamMasterList.petWhiteList ? JSON.parse(JSON.stringify(statTeamMasterList.petWhiteList)) : {};
 
         setStatPriorityList(newPriorityList);
@@ -504,7 +514,7 @@ export default function Pets() {
             }
             //Do not reset card power or exp, also reinc and ir for lower A fallback
             else if (key in existingStats && key !== '21' && key !== '22'
-                && key !== '5' && key !== '6'
+                && key !== '5' && key !== '6' && (data.AscensionCount > 29 && key !== '1')
             ) {
                 newPriorityMap[key].count = 0;
             }
@@ -606,7 +616,7 @@ export default function Pets() {
     let searchList = [];
     for (const [key, value] of Object.entries(BonusMap)) {
 
-        if (value.id >= bonusCutOff || priorityMap[key] || !bonusesWithPets[value.id]) {
+        if (value.id >= bonusCutOff || priorityMap[key] || !bonusesWithPets[value.id] || (data.AscensionCount > 29 && value.id === 1)) {
             continue;
         }
         searchList.push({ label: value.label, id: value.id });
@@ -836,6 +846,8 @@ export default function Pets() {
                                         values={priorityList}
                                         onReorder={setPriorityList}>
                                         {priorityList.map((item, index) => {
+                                            if (data.AscensionCount > 29 && item === 1) {
+                                            }
                                             let showSelectedPets = false;
                                             let color = 'gray';
                                             let priority = priorityMap[item];
@@ -867,11 +879,11 @@ export default function Pets() {
                                                         style={{
                                                             margin: '6px 3px',
                                                             border: `2px solid ${color}`,
-                                                            display: 'flex',
+                                                            display: data.AscensionCount > 29 && item === 1 ? 'none' : 'flex',
                                                             alignItems: 'center', flexDirection: 'column',
                                                             width: '220px',
                                                             backgroundColor: 'rgba(255,255,255, 0.07)',
-                                                            borderRadius: '6px'
+                                                            borderRadius: '6px',
                                                         }}>
                                                         <div style={{
                                                             display: 'flex', justifyContent: 'space-between', alignItems: 'center',
@@ -1119,6 +1131,11 @@ export default function Pets() {
                                                 if (e.ID >= bonusCutOff) {
                                                     return null
                                                 }
+
+                                                if (data.AscensionCount > 29 && e.ID === 1) {
+                                                    return null;
+                                                }
+
                                                 let color = 'lightgray';
                                                 let priority = priorityMap[e.ID];
                                                 if (priority) {
