@@ -26,6 +26,7 @@ import card28 from '../../../public/images/cards_v2/card28.png';
 import card29 from '../../../public/images/cards_v2/card29.png';
 import card34 from '../../../public/images/cards_v2/card34.png';
 import card35 from '../../../public/images/cards_v2/card35.png';
+import card38 from '../../../public/images/cards_v2/card38.png';
 
 import card_label_1 from '../../../public/images/cards_v2/labels/card1.png';
 import card_label_2 from '../../../public/images/cards_v2/labels/card2.png';
@@ -53,6 +54,7 @@ import card_label_28 from '../../../public/images/cards_v2/labels/card28.png';
 import card_label_29 from '../../../public/images/cards_v2/labels/card29.png';
 import card_label_34 from '../../../public/images/cards_v2/labels/card34.png';
 import card_label_35 from '../../../public/images/cards_v2/labels/card35.png';
+import card_label_38 from '../../../public/images/cards_v2/labels/card38.png';
 
 export const cardMapImg = {
     1: {
@@ -132,6 +134,9 @@ export const cardMapImg = {
     },
     35: {
         img: card35
+    },
+    38: {
+        img: card38
     },
 }
 
@@ -217,7 +222,7 @@ export const cardLabelImg = {
         img: card_label_35
     },
     38: {
-        img: card_label_35
+        img: card_label_38
     },
 }
 
@@ -1351,12 +1356,15 @@ export const tempPowerBonusFormula = {
     34: (Pow) => powerFormula(Pow, 8.0, 0.018, { ID: 34 }),
     35: (Pow) => powerFormula(Pow, 9.0, 0.0045, { ID: 35 }),
     35: (Pow) => powerFormula(Pow, 9.0, 0.0045, { ID: 35 }),
-    35: (Pow) =>  mathHelper.addDecimal(1.05,
-        mathHelper.multiplyDecimal(
-            mathHelper.logDecimal(Pow, 10),
-            0.0005
+    38: (Pow) => {
+        let temp = mathHelper.addDecimal(1.05,
+            mathHelper.multiplyDecimal(
+                mathHelper.logDecimal(Pow, 10),
+                0.0005
+            )
         )
-    ),
+        return temp;
+    },
     _: (Pow) => 1.0
 };
 
@@ -1387,17 +1395,21 @@ export const permPowerBonusFormula = {
     29: (Pow) => powerFormula(Pow, 7.0, 0.09, { isPerm: true, ID: 29 }),
     34: (Pow) => powerFormula(Pow, 7.0, 0.027, { isPerm: true, ID: 34 }),
     35: (Pow) => powerFormula(Pow, 7.0, 0.009, { isPerm: true, ID: 35 }),
-    38: (Pow) => mathHelper.addDecimal(1,
-                    mathHelper.multiplyDecimal(
-                        mathHelper.logDecimal(Pow, 10),
-                        0.0004
-                    )
-                )
+    38: (Pow) => {
+        let temp = mathHelper.addDecimal(
+            mathHelper.multiplyDecimal(
+                mathHelper.logDecimal(Pow, 10),
+                0.0004
+            ),
+            1
+        )
+        return temp;
+    }
     // _: (Pow) => new Decimal(1.0)
 };
 
 export const CARD_DISPLAY_IDS = [
-    17, 1, 18, 2, 3, 9,
+    17, 1, 38, 2, 3, 9,
     7, 4, 14, 15, 16,
     8, FRIESBONUS, PROTEINBONUS, GHBONUS, HEALTHYBONUS,
     10, 11, 12, 13,

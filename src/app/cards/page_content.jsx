@@ -130,12 +130,22 @@ const CardCard = ({
         let tempBonusBefore = tempPowerBonusFormula[ID](tempValueBefore);
         let permBonusBefore = permPowerBonusFormula[ID](permValueBefore);
 
+
+        let inner_level = Level;
+        if (ID == 26) {
+            inner_level = 0.0025;
+        }
+
+        if (ID === 38) {
+            let bigsad = -1;
+        }
+
         let finalBefore = mathHelper.multiplyDecimal(
             mathHelper.subtractDecimal(
                 mathHelper.multiplyDecimal(tempBonusBefore, permBonusBefore),
                 1
             ),
-            ((1.0 + Level * 0.02) * 100)
+            ((1.0 + inner_level * 0.02) * 100)
         )
 
         let temp1 = tempPowerBonusFormula[ID](mathHelper.multiplyDecimal(tempValueBefore, (1.0 - ChargeTransfertPowerTemp)))
@@ -145,7 +155,7 @@ const CardCard = ({
         let finalAfter =
             mathHelper.multiplyDecimal(
                 mathHelper.subtractDecimal(mathHelper.multiplyDecimal(temp1, temp2), 1),
-                (1.0 + Level * 0.02) * 100);
+                (1.0 + inner_level * 0.02) * 100);
 
         if (finalWeight === 0) {
             let bigsad = -1;
