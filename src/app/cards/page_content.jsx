@@ -119,7 +119,10 @@ const CardCard = ({
 
         setRefreshMath(false);
 
-        const permValueBefore = mathHelper.createDecimal(PowerPermaBD);
+        let permValueBefore = mathHelper.createDecimal(PowerPermaBD);
+        if(permValueBefore.equals(mathHelper.createDecimal(0))){
+            permValueBefore = mathHelper.createDecimal(1);
+        }
         const tempValueBefore = mathHelper.createDecimal(PowerTempBD);
 
         let permValueAfter = mathHelper.addDecimal(permValueBefore,
