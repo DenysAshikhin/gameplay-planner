@@ -131,13 +131,9 @@ const CardCard = ({
         let permBonusBefore = permPowerBonusFormula[ID](permValueBefore);
 
 
-        let inner_level = Level;
-        if (ID == 26) {
-            inner_level = 0.0025;
-        }
-
-        if (ID === 38) {
-            let bigsad = -1;
+        let level_mult = 0.02;
+        if (ID == 38) {//only sweet potatoe for now
+            level_mult = 0.0025;
         }
 
         let finalBefore = mathHelper.multiplyDecimal(
@@ -145,7 +141,7 @@ const CardCard = ({
                 mathHelper.multiplyDecimal(tempBonusBefore, permBonusBefore),
                 1
             ),
-            ((1.0 + inner_level * 0.02) * 100)
+            ((1.0 + Level * level_mult) * 100)
         )
 
         let temp1 = tempPowerBonusFormula[ID](mathHelper.multiplyDecimal(tempValueBefore, (1.0 - ChargeTransfertPowerTemp)))
@@ -155,7 +151,7 @@ const CardCard = ({
         let finalAfter =
             mathHelper.multiplyDecimal(
                 mathHelper.subtractDecimal(mathHelper.multiplyDecimal(temp1, temp2), 1),
-                (1.0 + inner_level * 0.02) * 100);
+                (1.0 + Level * level_mult) * 100);
 
         if (finalWeight === 0) {
             let bigsad = -1;
@@ -834,7 +830,10 @@ export default function Cards() {
 
     for (let i = 0; i < CARD_DISPLAY_IDS.length; i++) {
         if (!cardsById[CARD_DISPLAY_IDS[i]]) continue;
-
+        let index = i;
+        if (data.AscensionCount > 29) {
+            index -= 1;
+        }
         weightedCardInfo.push(
             <CardCard
                 cardWeight={newCardWeights[CARD_DISPLAY_IDS[i]]}
@@ -847,7 +846,8 @@ export default function Cards() {
                 }}
                 resetWeights={resetCardWeights}
                 bonusMode={displayMode}//what bonus to show, current, future, % gain etc
-                displayMode='original' cardMap={cardMap} setCardMap={setCardMap} data={data} i={i} card={cardsById[CARD_DISPLAY_IDS[i]]} weightMap={weightMap} classes={classes} applyWeights={true} key={`${i}-orig`}></CardCard>
+                displayMode='original' cardMap={cardMap} setCardMap={setCardMap} data={data}
+                i={index} card={cardsById[CARD_DISPLAY_IDS[i]]} weightMap={weightMap} classes={classes} applyWeights={true} key={`${i}-orig`}></CardCard>
         )
     }
 
