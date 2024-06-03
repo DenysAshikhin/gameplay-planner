@@ -120,7 +120,7 @@ export default function Zones({
         setCardZones(all_zones);
 
         return { current_zones, unlocked_ids };
-    }, [setOuterCurrentZones, data,]);
+    }, [setCardZones, setOuterUnlockedIDs, setOuterCurrentZones, data,]);
 
 
     let unlocked_ids = current_zones_stuff.unlocked_ids;

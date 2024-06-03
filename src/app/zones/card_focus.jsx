@@ -66,7 +66,7 @@ const CardCard = ({
         else {
             setHoveredCard(-1);
         }
-    }, [forceOpen])
+    }, [ID, setHoveredCard, forceOpen])
 
     return (
         <div
