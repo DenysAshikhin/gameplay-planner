@@ -415,6 +415,7 @@ var farmingHelper = {
     },
     resetModifiersBD: function (modifiers) {
         modifiers.shopProdBonus = modifiers?.shopProdBonus?.mantissa || modifiers?.shopProdBonus?.mantissa === 0 ? modifiers.shopProdBonus : mathHelper.createDecimal(modifiers.shopProdBonus);
+        modifiers.originalShopProdBonus = modifiers?.originalShopProdBonus?.mantissa || modifiers?.originalShopProdBonus?.mantissa === 0 ? modifiers.originalShopProdBonus : mathHelper.createDecimal(modifiers.originalShopProdBonus);
         modifiers.hpBonus = modifiers?.hpBonus?.mantissa || modifiers?.hpBonus?.mantissa === 0 ? modifiers.hpBonus : mathHelper.createDecimal(modifiers.hpBonus);
         modifiers.curPotatoes = modifiers?.curPotatoes?.mantissa || modifiers?.curPotatoes.mantissa === 0 ? modifiers.curPotatoes : mathHelper.createDecimal(modifiers.curPotatoes);
         modifiers.totalPotatoes = modifiers?.totalPotatoes?.mantissa || modifiers?.totalPotatoes?.mantissa === 0 ? modifiers.totalPotatoes : mathHelper.createDecimal(modifiers.totalPotatoes);

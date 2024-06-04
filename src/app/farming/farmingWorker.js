@@ -25,6 +25,8 @@ self.onmessage = ({ data: { data, id, data1 } }) => {
         modifiers.hpBonus = mathHelper.createDecimal(modifiers.hpBonus);
         modifiers.curPotatoes = mathHelper.createDecimal(modifiers.curPotatoes);
         modifiers.totalPotatoes = mathHelper.createDecimal(modifiers.totalPotatoes);
+        modifiers.fryBonus = mathHelper.createDecimal(modifiers.fryBonus);
+        modifiers.FrenchFriesSCBonus = mathHelper.createDecimal(modifiers.FrenchFriesSCBonus);
 
         const mode = data.mode;
         const secondsHour = 3600;

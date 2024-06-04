@@ -332,7 +332,7 @@ const FarmingLanding = () => {
                     + (data.FarmingShopUniqueFries[18] ? data.FarmingShopUniqueFries[18] : 0)
                 ),
             timePassed: data.TimePassedFarming,
-            FrenchFriesSCBonus: data.FrenchFriesSCBonus ? mathHelper.createDecimal(data.FrenchFriesSCBonus): mathHelper.createDecimal(1)
+            FrenchFriesSCBonus: data.FrenchFriesSCBonus ? mathHelper.createDecimal(data.FrenchFriesSCBonus) : mathHelper.createDecimal(1)
         }
         tempy.originalShopProdBonus = mathHelper.createDecimal(data.PlantTotalProductionBonus);
         return tempy
@@ -2286,7 +2286,7 @@ const FarmingLanding = () => {
                                     <Timer duration={duration} setDuration={setDuration} />
                                 </div>
                             </div>
-                            <div id='in_content_flex' style={{margin:'3px 0 0 9px', display: 'flex', justifyContent: 'center', alignItems: 'center', }} />
+                            <div id='in_content_flex' style={{ margin: '3px 0 0 9px', display: 'flex', justifyContent: 'center', alignItems: 'center', }} />
                             <div
                                 className={openedInstructionsRunTime ? '' : 'borderToFadeInAndOutRed'}
                                 style={{ margin: '3px auto', borderRadius: '6px', padding: '6px' }}>
@@ -2308,7 +2308,7 @@ const FarmingLanding = () => {
                                 <h1 style={{ fontSize: '18px', margin: '', textAlign: 'center' }}>Farm Page Explanation / Guide</h1>
                                 <div style={{ marginBottom: "6px" }}>{`1. Hover over any text your are unsure of to see a description`}</div>
                                 <div style={{ marginBottom: "6px" }}> {`2. Visit more information can be found at https://gameplayplanner.com/guides/farming_explanation`}</div>
-                               
+
                             </div>
 
                         </div>
@@ -2875,7 +2875,7 @@ const FarmingLanding = () => {
                             }}>
 
                             <div
-                                style={{ display: 'flex', flex: '1' }}
+                                style={{ display: 'flex', flex: '1', minHeight: '0' }}
                             >
                                 {/* Graph stuff */}
                                 <div style={{

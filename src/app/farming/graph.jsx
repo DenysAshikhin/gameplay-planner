@@ -117,9 +117,7 @@ function Graph({
               yAxisId="originalFry"
               orientation={showHP ? "right" : "left"}
               scale={yScale}
-              // scale={"auto"}
               domain={["auto", "auto"]}
-              // domain={[dataMin => (dataMin * 0.5), dataMax => (dataMax * 3)]}
               tickFormatter={(e, index, payload) => {
                 let temp = mathHelper.createDecimal(e);
                 temp.exponent += expDiffFry;
@@ -265,7 +263,10 @@ function Graph({
                       xAxisId={"fryXAxis1" + index}
                       yAxisId="originalFry"
                       data={val.data}
-                      dataKey="originalFry"
+                      // data={graphObjects.customProduction.dataPointsFries}
+                      // dataKey={graphObjects.customProduction.dataPointsFries.originalFry ? "originalFry" : 'fries'}
+                      dataKey={val.data[0]?.fries ? "fries" : 'originalFry'}
+                      // dataKey="originalFry"
                       // dataKey="value2"
                       name={`Best Production Fries`}
                       stroke="#524f82"
