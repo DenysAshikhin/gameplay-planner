@@ -82,13 +82,15 @@ const CardCard = ({
     const {
         // CurrentExp,
         // ExpNeeded,
-        // Found,
+        Found,
         ID,
         Level,
         PowerPermaBD,
         PowerTempBD,
     } = card;
     const { ChargeTransfertPowerPerma, ChargeTransfertPowerTemp } = data;
+
+    console.log(Found);
 
     // const [cardWeight, setCardWeight] = useLocalStorage(`cardWeight-${ID}`, -1);
     // const [internalWeight, setInternalWeight] = useState(-1);
@@ -118,6 +120,9 @@ const CardCard = ({
 
 
         setRefreshMath(false);
+        if (Found === 0) {
+            return;
+        }
 
         let permValueBefore = mathHelper.createDecimal(PowerPermaBD);
         let perm_empty = false;
@@ -245,7 +250,8 @@ const CardCard = ({
         Level,
         PowerPermaBD,
         PowerTempBD,
-        refreshMath
+        refreshMath,
+        Found
     ])
 
 
@@ -315,7 +321,7 @@ const CardCard = ({
                 style={{
                     // border: isPositiveChargeRatio ? '2px solid green' : '1px solid black',
                     borderRadius: '5px',
-                    display: 'flex',
+                    display: Found === 0 ? 'none' : 'flex',
                     flexDirection: 'column',
                     // alignItems: 'center',
                     alignItems: displayMode === 'original' ? 'center' : '',
