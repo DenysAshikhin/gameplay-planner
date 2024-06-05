@@ -90,8 +90,6 @@ const CardCard = ({
     } = card;
     const { ChargeTransfertPowerPerma, ChargeTransfertPowerTemp } = data;
 
-    console.log(Found);
-
     // const [cardWeight, setCardWeight] = useLocalStorage(`cardWeight-${ID}`, -1);
     // const [internalWeight, setInternalWeight] = useState(-1);
 
@@ -121,8 +119,20 @@ const CardCard = ({
 
         setRefreshMath(false);
         if (Found === 0) {
+            if (setCardMap)
+                setCardMap((e) => {
+                    let tempy = { ...e };
+                    delete tempy[ID]
+                    return tempy;
+                })
             return;
         }
+
+
+        if (ID === 27) {
+            let bigsad = -1;
+        }
+
 
         let permValueBefore = mathHelper.createDecimal(PowerPermaBD);
         let perm_empty = false;
