@@ -121,6 +121,9 @@ const CardCard = ({
         if (Found === 0) {
             if (setCardMap)
                 setCardMap((e) => {
+                    if (!e[ID]) {
+                        return e;
+                    }
                     let tempy = { ...e };
                     delete tempy[ID]
                     return tempy;
