@@ -2364,7 +2364,7 @@ var helper = {
                 pet.score = general_helper.roundFiveDecimal(
                     pet.score *
                     (1 + (
-                        (usePromos ? 1 : 0) * (pet.promotion ? pet.promotion * 0.1 : 0)
+                        (usePromos ? 1 : 0) * (pet.promotion ? pet.promotion * 0.05 : 0)
                     )
                     )
                 );
