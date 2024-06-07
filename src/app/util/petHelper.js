@@ -9,7 +9,7 @@ var helper = {
     EXP_DMG_MOD: .1,
     EXP_TIME_MOD: .05,
     SYNERGY_MOD_STEP: .25,
-    EXP_TOKEN_MOD: 0.05,
+    // EXP_TOKEN_MOD: 0.05,
     SOUL_CLOVER_STEP: 0.25,
 
     getPetIdsInExpeditionFromSaveFile: function (data) {
@@ -176,8 +176,9 @@ var helper = {
         groupRankScore *= synergyBonus;
         groupRankScore /= 21;//This gives me the 0.05 (per rank damage back)
 
-        tokenModif = tokenRewardCount * this.EXP_TOKEN_MOD;
-        tokenMult = synergyBonus + synergyBonus * tokenModif;
+        // tokenModif = tokenRewardCount * this.EXP_TOKEN_MOD;
+        tokenModif = 1 + tokenRewardCount;
+        tokenMult =  synergyBonus * tokenModif;
         return {
             groupScore,
             baseGroupScore,
