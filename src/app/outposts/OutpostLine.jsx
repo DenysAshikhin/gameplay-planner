@@ -443,7 +443,7 @@ export default function OutpostLine({ data, outpost, borderBottom }) {
                         <div key={index}
                             style={{
                                 position: 'absolute', bottom: '0', left: `${411 + 87 * index}px`, width: '85px', height: '72px',
-                                border: (outpost.MinerAssignedID - 1) === index ? index === 1 && inner_miner.left_to_mine < 50 ? '2px solid red' : '2px solid blue' : '',
+                                border: (outpost.MinerAssignedID - 1) === index ? index === 1 && inner_miner.left_to_mine < 50 ? '2px solid red' : '2px solid green' : '',
                                 boxSizing: 'border-box'
                             }}>
                             <Image
