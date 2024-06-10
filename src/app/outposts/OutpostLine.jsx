@@ -286,11 +286,22 @@ export default function OutpostLine({ data, outpost, borderBottom }) {
                     ticks_to_75 = ticks_to_finish;
                 }
 
-            }
-        }
 
-        if (ticks_to_25 === -1 && ticks_to_50 === -1 && ticks_to_75 === -1) {
-            let bigsad = -1;
+                if (ticks_to_finish > 8.554e+6) {
+                    outpost_inner.LeftToMine = 0;
+                    if (ticks_to_25 === 0 && outpost_inner.LeftToMine < 25) {
+                        ticks_to_25 = -1;
+                    }
+                    if (ticks_to_50 === 0 && outpost_inner.LeftToMine < 50) {
+                        ticks_to_50 = -1;
+                    }
+                    if (ticks_to_75 === 0 && outpost_inner.LeftToMine < 75) {
+                        ticks_to_75 = -1;
+                    }
+                    ticks_to_finish = -1;
+                }
+
+            }
         }
 
         let return_obj = {
@@ -412,21 +423,22 @@ export default function OutpostLine({ data, outpost, borderBottom }) {
                     let ticks_left = 0;
                     switch (miningTarget) {
                         case '0':
-                            ticks_left = helper.secondsToString(inner_miner.ticks_to_finish);
+                            ticks_left = inner_miner.ticks_to_finish === -1 ? `99+ days` : helper.secondsToString(inner_miner.ticks_to_finish);
                             break;
                         case '25':
-                            ticks_left = helper.secondsToString(inner_miner.ticks_to_25);
+                            ticks_left = inner_miner.ticks_to_25 === -1 ? `99+ days` : helper.secondsToString(inner_miner.ticks_to_25);
                             break;
                         case '50':
-                            ticks_left = helper.secondsToString(inner_miner.ticks_to_50);
+                            ticks_left = inner_miner.ticks_to_50 === -1 ? `99+ days` : helper.secondsToString(inner_miner.ticks_to_50);
                             break;
                         case '75':
-                            ticks_left = helper.secondsToString(inner_miner.ticks_to_75);
+                            ticks_left = inner_miner.ticks_to_75 === -1 ? `99+ days` : helper.secondsToString(inner_miner.ticks_to_75);
                             break;
                         default:
-                            ticks_left = helper.secondsToString(inner_miner.ticks_to_finish);
+                            ticks_left = inner_miner.ticks_to_finish === -1 ? `99+ days` : helper.secondsToString(inner_miner.ticks_to_finish);
                             break;
                     }
+
                     return (
                         <div key={index}
                             style={{
