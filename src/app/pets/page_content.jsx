@@ -255,7 +255,7 @@ export default function Pets() {
         setRunTimeUsePromos(clientUsePromos);
     }, [clientUsePromos]);
 
-    const [clientMaxTopStat, setMaxTopStat] = useLocalStorage('maxTopStat', false);
+    const [clientMaxTopStat, setMaxTopStat] = useLocalStorage('maxTopStat', true);
     const [maxTopStat, setRunTimeMaxTopStat] = useState(false);
     useEffect(() => {
         setRunTimeMaxTopStat(clientMaxTopStat);
