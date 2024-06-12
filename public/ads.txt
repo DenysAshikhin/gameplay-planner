@@ -350,6 +350,7 @@ contextweb.com, 561118, RESELLER, 89ff185a4c4e857c
 rubiconproject.com, 17070, RESELLER, 0bfd66d529a55807
 appnexus.com, 7911, RESELLER
 indexexchange.com, 198387, RESELLER, 50b1c356f2c5c8fc 
+sonobi.com, 2003301cc3, DIRECT, d1a215d9eb5aee9e 
 
 
 # ALL CUSTOM RECORDS MUST BE BELOW THIS LINE
