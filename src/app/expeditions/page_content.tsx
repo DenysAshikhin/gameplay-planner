@@ -2050,9 +2050,10 @@ export default function Expeditions() {
                                                             aria-label='Damage bias to control when the pet should go in'
                                                             style={{
                                                                 maxWidth: '36px',
-                                                                //backgroundColor: '#1b1b1b',
+                                                                backgroundColor: '#1b1b1b',
                                                                 borderRadius: '4px',
-                                                                backgroundColor: (index % 2) === 0 ? '#252525' : '#171717', // TODO duplicated property
+                                                                // @ts-ignore TODO: duplicated property
+                                                                backgroundColor: (index % 2) === 0 ? '#252525' : '#171717',
                                                             }}
                                                             type='number'
                                                             // className='prepNumber'

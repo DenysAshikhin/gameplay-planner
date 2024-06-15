@@ -54,12 +54,13 @@ export default function PageSelection() {
             {/* <GoogleAdSense publisherId="pub-1393057374484862" /> */}
             {/* <BlinkingDot data={data} /> */}
             <div style={{
-                //paddingLeft: '6px', TODO: duplicate property
+                paddingLeft: '6px',
                 display: 'flex',
                 flexDirection: 'column',
                 flex: '1',
                 justifyContent: 'center',
                 backgroundColor: 'rgba(255,255,255, 0.08)',
+                // @ts-ignore TODO: duplicate property
                 paddingLeft: '60px'
             }}>
                 <div

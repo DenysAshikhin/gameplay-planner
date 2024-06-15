@@ -152,13 +152,14 @@ const FarmingPlant = ({ data }) => {
     <div
       className='importantText'
       style={{
-        //border: "1px solid black", TODO: duplicated property
+        border: "1px solid black",
         margin: "6px 3px",
         padding: "0 0 0 0",
         display: "flex",
         height: "179px",
         width: 'auto',
         backgroundColor: 'rgba(255,255,255, 0.1)',
+        // @ts-ignore TODO: duplicated property
         border: "1px solid rgba(255,255,255,0.8)",
         borderRadius: '12px',
         overflow:'hidden',
@@ -241,13 +242,13 @@ const FarmingPlant = ({ data }) => {
           style={{
             zIndex: 2,
             background: "black",
-            //borderRadius: "6px", // TODO: duplicated property
             padding: "0 1px 0 1px",
             color: "white",
             top: "1%",
             right: "1%",
             display: "flex",
             position: "absolute",
+            // @ts-ignore TODO: duplicated property
             borderRadius:'12px'
           }}
         >
@@ -397,10 +398,11 @@ const FarmingPlant = ({ data }) => {
                 background: "black",
                 borderRadius: "6px",
                 fontSize: "12px",
-                //padding: "0 1px 0 1px", TODO: duplicated property
+                padding: "0 1px 0 1px",
                 color: "white",
                 display: "flex",
                 alignItems: "center",
+                // @ts-ignore TODO: duplicated property
                 padding: "0 3px 0 3px",
               }}
             >
@@ -575,9 +577,10 @@ const FarmingPlant = ({ data }) => {
                       background: "black",
                       borderRadius: "6px",
                       fontSize: "12px",
-                      //padding: "0 1px 0 1px", TODO: duplicated property
+                      padding: "0 1px 0 1px",
                       color: "white",
                       display: "flex",
+                      // @ts-ignore TODO: duplicated property
                       padding: "0 3px 0 3px",
                     }}
                   >
