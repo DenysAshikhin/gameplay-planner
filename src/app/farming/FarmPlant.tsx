@@ -179,7 +179,7 @@ const FarmingPlant = ({ data }) => {
           zIndex: "1",
         }}
           alt={`in game plant #${index + 1} image`}
-          src={`/assets/farming/plants/P${index + 1}.png`}
+          src={`/images/farming/plants/P${index + 1}.png`}
         /> */}
 
         <div
@@ -194,7 +194,7 @@ const FarmingPlant = ({ data }) => {
         />
         <Image
           alt={`in game plant #${index + 1} image`}
-          // src={`/assets/farming/plants/P${index + 1}.png`}
+          // src={`/images/farming/plants/P${index + 1}.png`}
           src={img}
           fill
           unoptimized={true}

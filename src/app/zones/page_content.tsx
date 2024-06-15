@@ -16,7 +16,7 @@ import DefaultSave from '../util/tempSave.json';
 import useLocalStorage from "use-local-storage";
 import Image from 'next/image';
 
-import RefreshIcon from '@assets/icons/refresh_lightgray.svg';
+import RefreshIcon from '@images/icons/refresh_lightgray.svg';
 import { zone_priority, zone_ratios, zone_data, calc_max_hp, calc_total_hp } from './zone_lists';
 import { petNames, BonusMap } from '../util/itemMapping';
 
