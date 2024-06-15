@@ -275,7 +275,7 @@ export default function Residue() {
         setMobileMode(isMobile);
         if (isMobile) {
             setTimeout(() => {
-                var viewport = document.querySelector('meta[name="viewport"]');
+                const viewport = document.querySelector('meta[name="viewport"]');
                 if (viewport instanceof HTMLMetaElement) {
                     viewport.content = "initial-scale=0.1";
                     viewport.content = "width=1200";

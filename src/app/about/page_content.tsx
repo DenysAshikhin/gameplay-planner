@@ -22,11 +22,9 @@ export default function Expeditions() {
         setMobileMode(isMobile);
         if (isMobile) {
             setTimeout(() => {
-                var viewport = document.querySelector('meta[name="viewport"]');
-                if (viewport) {
-                    // @ts-ignore
+                const viewport = document.querySelector('meta[name="viewport"]');
+                if (viewport instanceof HTMLMetaElement) {
                     viewport.content = "initial-scale=0.1";
-                    // @ts-ignore
                     viewport.content = "width=1200";
                 }
             }, 500);
