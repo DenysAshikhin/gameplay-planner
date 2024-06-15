@@ -242,6 +242,7 @@ const FarmingPlant = ({ data }) => {
           style={{
             zIndex: 2,
             background: "black",
+            borderRadius: "6px",
             padding: "0 1px 0 1px",
             color: "white",
             top: "1%",
