@@ -1990,10 +1990,11 @@ const helper = {
                 return this.calcBestDamageGroup(petsCollection, defaultRank, numGroups, other);
         }
     },
-    calcEquipBonus: function (pet, bonusInner) {
+    calcEquipBonus: function (pet, bonusInner, rank) {
 
         let bonus: DecimalSource = 1;
         let curr = pet;
+        let RANK = rank ? rank : curr.Rank;
         if (bonusInner.ID === 23) {
 
             if (curr.Level < 1) return 0;
@@ -2002,7 +2003,7 @@ const helper = {
             let x2 = Math.max(0, x1 - 45);
             let x3 = Math.pow(1.15, x2);
 
-            let x4 = general_helper.calculateLogarithm(1.1, curr.Rank);
+            let x4 = general_helper.calculateLogarithm(1.1, RANK);
             let x5 = Math.max(0, x4 - 45);
             let x6 = Math.pow(1.15, x5);
 
@@ -2017,7 +2018,7 @@ const helper = {
             let x2 = Math.max(0, x1 - 45);
             let x3 = Math.pow(1.15, x2);
 
-            let x4 = general_helper.calculateLogarithm(1.1, curr.Rank);
+            let x4 = general_helper.calculateLogarithm(1.1, RANK);
             let x5 = Math.max(0, x4 - 45);
             let x6 = Math.pow(1.15, x5);
 
@@ -2031,7 +2032,7 @@ const helper = {
             let x2 = Math.max(0, x1 - 45);
             let x3 = Math.pow(1.15, x2);
 
-            let x4 = general_helper.calculateLogarithm(1.1, curr.Rank);
+            let x4 = general_helper.calculateLogarithm(1.1, RANK);
             let x5 = Math.max(0, x4 - 45);
             let x6 = Math.pow(1.15, x5);
 
@@ -2045,7 +2046,7 @@ const helper = {
             let x2 = Math.max(0, x1 - 45);
             let x3 = Math.pow(1.125, x2);
 
-            let x4 = general_helper.calculateLogarithm(1.1, curr.Rank);
+            let x4 = general_helper.calculateLogarithm(1.1, RANK);
             let x5 = Math.max(0, x4 - 45);
             let x6 = Math.pow(1.15, x5);
 
@@ -2059,7 +2060,7 @@ const helper = {
             let x2 = Math.max(0, x1 - 45);
             let x3 = Math.pow(1.125, x2);
 
-            let x4 = general_helper.calculateLogarithm(1.1, curr.Rank);
+            let x4 = general_helper.calculateLogarithm(1.1, RANK);
             let x5 = Math.max(0, x4 - 45);
             let x6 = Math.pow(1.15, x5);
 
@@ -2074,7 +2075,7 @@ const helper = {
                 1.0
             )
 
-            let x2 = 1 + curr.Rank * 0.02;
+            let x2 = 1 + RANK * 0.02;
             bonus = math_helper.multiplyDecimal(x1, x2);
 
         }
@@ -2161,6 +2162,7 @@ const helper = {
         let petWhiteList = parameters.petWhiteList ? parameters.petWhiteList : {};
         const statMode = parameters.statMode ? parameters.statMode : false;
         const statModePets = parameters.statModePets ? parameters.statModePets : {};
+        const ignorePetRanks = parameters.ignorePetRanks ? parameters.ignorePetRanks : false;
         const usePromos = !parameters.usePromos;
         const maxTopStat = !!parameters.maxTopStat;
 
@@ -2256,7 +2258,7 @@ const helper = {
                         }
                         if (e.ID === priorities[0].id) {
                             topStatActive = true;
-                            petList[ID].desiredStat = this.calcEquipBonus(petList[ID], e)
+                            petList[ID].desiredStat = this.calcEquipBonus(petList[ID], e, ignorePetRanks ? 1 : null);
                         }
                     });
                 }

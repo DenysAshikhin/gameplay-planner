@@ -261,7 +261,11 @@ export default function Pets() {
         setRunTimeMaxTopStat(clientMaxTopStat);
     }, [clientMaxTopStat]);
 
-
+    const [clientIgnorePetRanks, setIgnorePetRanks] = useLocalStorage('ignorePetRanksPets', false);
+    const [ignorePetRanks, setRunTimeIgnorePetRanks] = useState(false);
+    useEffect(() => {
+        setRunTimeIgnorePetRanks(clientIgnorePetRanks);
+    }, [clientIgnorePetRanks]);
 
     const [groupsCacheRunTime, setGroupsCacheRunTime] = useState({});
     const [groupsCacheClient, setGroupsCache] = useLocalStorage("groupsCache", {});
@@ -317,7 +321,8 @@ export default function Pets() {
                 priorityMap: priorityMap,
                 petWhiteList: petWhiteList,
                 usePromos: usePromos,
-                maxTopStat: maxTopStat
+                maxTopStat: maxTopStat,
+                ignorePetRanks:ignorePetRanks
             });
         let currentBonuses = result[2];
 
@@ -333,7 +338,7 @@ export default function Pets() {
         }
         return result;
     },
-        [data, priorityList, priorityMap, petWhiteList, useExpedition, manualEnabledPets, statMode, statModePets, usePromos, maxTopStat]
+        [data, priorityList, priorityMap, petWhiteList, useExpedition, manualEnabledPets, statMode, statModePets, usePromos, maxTopStat, ignorePetRanks]
     );
 
 
@@ -384,7 +389,8 @@ export default function Pets() {
                     petWhiteList: petWhiteList,
                     manualEnabledPets: useExpedition ? manualEnabledPets : {},
                     usePromos: usePromos,
-                    maxTopStat: maxTopStat
+                    maxTopStat: maxTopStat,
+                    ignorePetRanks: ignorePetRanks
                 }
             );
 
@@ -490,15 +496,11 @@ export default function Pets() {
 
         let newPriorityList = JSON.parse(JSON.stringify(statTeamMasterList.priorityList));
 
-
-
         let newPriorityMap = JSON.parse(JSON.stringify(statTeamMasterList.priorityMap));
-
 
         if (data.AscensionCount > 29) {
             newPriorityMap['1'].count = 0;
         }
-
 
         let newPetWhiteList = statTeamMasterList.petWhiteList ? JSON.parse(JSON.stringify(statTeamMasterList.petWhiteList)) : {};
 
@@ -522,7 +524,7 @@ export default function Pets() {
             }
         }
     },
-        [data, manualEnabledPets, useExpedition, usePromos, maxTopStat])
+        [data, manualEnabledPets, useExpedition, usePromos, maxTopStat, ignorePetRanks])
     // statTeamMasterList
 
     let specialCombos = {};
@@ -1348,6 +1350,22 @@ export default function Pets() {
                                             }}
                                             checked={!!usePromos}
                                             value={!!usePromos as any}
+                                        />
+                                    </div>
+                                </div>
+                                <div style={{ display: 'flex', justifyContent: 'center' }} >
+                                    <div style={{}}>
+                                        {`Ignore Pet Ranks`}
+                                    </div>
+                                    <div>
+                                        <input
+                                            aria-label='use selected pets from expedition page'
+                                            type="checkbox"
+                                            onChange={(e) => {
+                                                setIgnorePetRanks(e.target.checked ? true : false);
+                                            }}
+                                            checked={!!ignorePetRanks}
+                                            value={!!ignorePetRanks as any}
                                         />
                                     </div>
                                 </div>
