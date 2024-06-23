@@ -202,7 +202,7 @@ export default function Zones({
             });
 
             //go through and fill up the suggestion based on num of teamss
-            while (zone_suggestions.length < num_teams) {
+            while (zone_suggestions.length < num_teams && zone_suggestions.length < teams.length) {
 
                 let zone_to_satisfy = null;
                 let zone_index = 0;
