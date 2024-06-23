@@ -1,38 +1,37 @@
 'use client';
 
+import SaveGameData from '@app/SaveGameData';
+
+import infoIcon from '@images/icons/info_thick.svg';
+import helper from '@util/helper';
+import mathHelper from '@util/math';
+import DefaultSave from '@util/tempSave.json';
+import MouseOverPopover from '@util/Tooltip';
+
+import useMobileViewport from '@util/useMobileViewport';
+import Image from 'next/image';
 import { useEffect, useMemo, useState } from 'react';
 import ReactGA from 'react-ga4';
 import useLocalStorage from 'use-local-storage';
-import Image from 'next/image';
-
-import infoIcon from '@images/icons/info_thick.svg';
-
-import useMobileViewport from '@util/useMobileViewport';
-import MouseOverPopover from '@util/Tooltip';
-import DefaultSave from '@util/tempSave.json';
-import mathHelper from '@util/math';
-import helper from '@util/helper';
-
-import SaveGameData from '@app/SaveGameData';
 
 import { ContagionWeights } from './contagion_line';
 import ContagionRow from './contagion_row';
 
-ReactGA.initialize([{
+ReactGA.initialize([ {
     trackingId: 'G-GGLPK02VH8',
-}]);
+} ]);
 
 export default function Contagion() {
     useMobileViewport();
 
-    const [clientData] = useLocalStorage('userData', DefaultSave as SaveGameData);
-    const [data, setRunTimeData] = useState(DefaultSave as SaveGameData);
+    const [ clientData ] = useLocalStorage('userData', DefaultSave as SaveGameData);
+    const [ data, setRunTimeData ] = useState(DefaultSave as SaveGameData);
 
     useEffect(() => {
         setRunTimeData(clientData);
-    }, [clientData]);
+    }, [ clientData ]);
 
-    const [contagionWeights, setContagionWeights] = useState({} as ContagionWeights);
+    const [ contagionWeights, setContagionWeights ] = useState({} as ContagionWeights);
 
     const { excess_gh, contagionAmounts } = useMemo(() => {
         let gh_available = mathHelper.createDecimal(data.GrasshopperTotal).toNumber();
@@ -40,11 +39,11 @@ export default function Contagion() {
         let contagionAmounts: { [id: number | string]: { weight?: number, gh_amount?: number } } = {};
         let totalWeights = 0;
 
-        for (const [key, value] of Object.entries(contagionWeights)) {
+        for (const [ key, value ] of Object.entries(contagionWeights)) {
             totalWeights += value;
             contagionAmounts[key] = { weight: value };
         }
-        for (const [key, value] of Object.entries(contagionWeights)) {
+        for (const [ key, value ] of Object.entries(contagionWeights)) {
             let gh_amount = Math.floor(value / totalWeights * gh_available);
             contagionAmounts[key].gh_amount = gh_amount;
             used_gh += gh_amount;
@@ -53,14 +52,14 @@ export default function Contagion() {
         const excess_gh = gh_available - used_gh;
 
         return { excess_gh, contagionAmounts };
-    }, [contagionWeights, data]);
+    }, [ contagionWeights, data ]);
 
-    const [client_extra_gh_id, setExtraGHID] = useLocalStorage('extra_gh_id', 1);
-    const [extra_gh_id, setRunTimeExtraGHID] = useState(1);
+    const [ client_extra_gh_id, setExtraGHID ] = useLocalStorage('extra_gh_id', 1);
+    const [ extra_gh_id, setRunTimeExtraGHID ] = useState(1);
 
     useEffect(() => {
         setRunTimeExtraGHID(client_extra_gh_id);
-    }, [client_extra_gh_id]);
+    }, [ client_extra_gh_id ]);
 
     //GrasshopperAssigned -> BD
     //GrasshopperTotal -> BD
