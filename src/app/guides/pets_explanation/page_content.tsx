@@ -15,7 +15,7 @@ import priority_list_image from '@images/guides/pets/priority_list.png';
 import stat_list_image from '@images/guides/pets/stat_list.png';
 import manual_pet_selection from '@images/guides/pets/manual_pet_selection.png';
 import custom_presets_image from '@images/guides/pets/custom_presets.png';
-import miscellaneous_settings_image from '@images/guides/pets/miscellaneous_settings.png';
+import miscellaneous_settings_image2 from '@images/guides/pets/miscellaneous_settings2.png';
 import missing_expedition_pet_image from '@images/guides/pets/missing_expedition_pet.png';
 import copyLinkSvg from '@images/icons/copy_link.svg';
 
@@ -504,7 +504,7 @@ export default function Guides({ noSearchParams }: { noSearchParams? }) {
                     >
                         <Image
                             alt={`Contagion Sample Image from in game`}
-                            src={miscellaneous_settings_image}
+                            src={miscellaneous_settings_image2}
                             fill
                             priority
                             unoptimized
@@ -542,6 +542,15 @@ export default function Guides({ noSearchParams }: { noSearchParams? }) {
                             <div style={{ padding: '6px' }}>
                                 <div style={{ marginTop: '6px' }}>
                                     {`Expedition Pet List) This will only use the pets you have enabled (green or green+yellow) border cirles on the expeditions tool page.`}
+                                </div>
+                                <div style={{ marginTop: '6px' }}>
+                                    {`Max Top Stat) Planner will focus on the first stat in the list and will try to fill the team with pets having that stat. Other stats will only be taken into account to fill the rest of the team (if you don't have enough Top Stat pets) or pick best pets if you have too many with Top Stat. Recommended to use this on team  like Gear/Reinc where the team is used for a specific stat.`}
+                                </div>
+                                <div style={{ marginTop: '6px' }}>
+                                    {`Ignore Promotions) - if selected, planner will not give pets bonus score for having promotion levels. It will still factor in promotions for the amount of stat it gives`}
+                                </div>
+                                <div style={{ marginTop: '6px' }}>
+                                    {`Equalise Pets) - if selected, planner will treat each pet as having 1 rank and 1 level. This is useful if you have unranked 10* promotion pets you want considered more `}
                                 </div>
                             </div>
                         </div>

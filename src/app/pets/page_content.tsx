@@ -267,6 +267,12 @@ export default function Pets() {
         setRunTimeIgnorePetRanks(clientIgnorePetRanks);
     }, [clientIgnorePetRanks]);
 
+    const [clientEqualisePets, setEqualisePets] = useLocalStorage('clientEqualisePets', false);
+    const [equalisePets, setRunTimeEqualisePets] = useState(false);
+    useEffect(() => {
+        setRunTimeEqualisePets(clientEqualisePets);
+    }, [clientEqualisePets]);
+
     const [groupsCacheRunTime, setGroupsCacheRunTime] = useState({});
     const [groupsCacheClient, setGroupsCache] = useLocalStorage("groupsCache", {});
     useEffect(() => {
@@ -322,7 +328,8 @@ export default function Pets() {
                 petWhiteList: petWhiteList,
                 usePromos: usePromos,
                 maxTopStat: maxTopStat,
-                ignorePetRanks:ignorePetRanks
+                ignorePetRanks:ignorePetRanks,
+                equalisePets:equalisePets,
             });
         let currentBonuses = result[2];
 
@@ -338,7 +345,7 @@ export default function Pets() {
         }
         return result;
     },
-        [data, priorityList, priorityMap, petWhiteList, useExpedition, manualEnabledPets, statMode, statModePets, usePromos, maxTopStat, ignorePetRanks]
+        [data, priorityList, priorityMap, petWhiteList, useExpedition, manualEnabledPets, statMode, statModePets, usePromos, maxTopStat,ignorePetRanks,equalisePets]
     );
 
 
@@ -390,7 +397,8 @@ export default function Pets() {
                     manualEnabledPets: useExpedition ? manualEnabledPets : {},
                     usePromos: usePromos,
                     maxTopStat: maxTopStat,
-                    ignorePetRanks: ignorePetRanks
+                    ignorePetRanks: ignorePetRanks,
+                    equalisePets: equalisePets,
                 }
             );
 
@@ -524,7 +532,7 @@ export default function Pets() {
             }
         }
     },
-        [data, manualEnabledPets, useExpedition, usePromos, maxTopStat, ignorePetRanks])
+        [data, manualEnabledPets, useExpedition, usePromos, maxTopStat, ignorePetRanks,equalisePets])
     // statTeamMasterList
 
     let specialCombos = {};
@@ -1353,7 +1361,7 @@ export default function Pets() {
                                         />
                                     </div>
                                 </div>
-                                <div style={{ display: 'flex', justifyContent: 'center' }} >
+                                {/* <div style={{ display: 'flex', justifyContent: 'center' }} >
                                     <div style={{}}>
                                         {`Ignore Pet Ranks`}
                                     </div>
@@ -1366,6 +1374,22 @@ export default function Pets() {
                                             }}
                                             checked={!!ignorePetRanks}
                                             value={!!ignorePetRanks as any}
+                                        />
+                                    </div>
+                                </div> */}
+                                <div style={{ display: 'flex', justifyContent: 'center' }} >
+                                    <div style={{}}>
+                                        {`Equalise Pets`}
+                                    </div>
+                                    <div>
+                                        <input
+                                            aria-label='use selected pets from expedition page'
+                                            type="checkbox"
+                                            onChange={(e) => {
+                                                setEqualisePets(e.target.checked ? true : false);
+                                            }}
+                                            checked={!!equalisePets}
+                                            value={!!equalisePets as any}
                                         />
                                     </div>
                                 </div>

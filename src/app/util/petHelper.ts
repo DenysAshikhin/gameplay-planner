@@ -1990,16 +1990,17 @@ const helper = {
                 return this.calcBestDamageGroup(petsCollection, defaultRank, numGroups, other);
         }
     },
-    calcEquipBonus: function (pet, bonusInner, rank) {
+    calcEquipBonus: function (pet, bonusInner, level=null, rank=null) {
 
         let bonus: DecimalSource = 1;
         let curr = pet;
         let RANK = rank ? rank : curr.Rank;
+        let LEVEL = level ? level : curr.Level;
         if (bonusInner.ID === 23) {
 
-            if (curr.Level < 1) return 0;
+            if (LEVEL < 1) return 0;
 
-            let x1 = general_helper.calculateLogarithm(1.1, curr.Level);
+            let x1 = general_helper.calculateLogarithm(1.1, LEVEL);
             let x2 = Math.max(0, x1 - 45);
             let x3 = Math.pow(1.15, x2);
 
@@ -2012,9 +2013,9 @@ const helper = {
         } else if (bonusInner.ID === 28) {
 
 
-            if (curr.Level < 1) return 0;
+            if (LEVEL < 1) return 0;
 
-            let x1 = general_helper.calculateLogarithm(1.1, curr.Level);
+            let x1 = general_helper.calculateLogarithm(1.1, LEVEL);
             let x2 = Math.max(0, x1 - 45);
             let x3 = Math.pow(1.15, x2);
 
@@ -2026,9 +2027,9 @@ const helper = {
             bonus = tot3;
         } else if (bonusInner.ID === 29) {
 
-            if (curr.Level < 1) return 0;
+            if (LEVEL < 1) return 0;
 
-            let x1 = general_helper.calculateLogarithm(1.1, curr.Level);
+            let x1 = general_helper.calculateLogarithm(1.1, LEVEL);
             let x2 = Math.max(0, x1 - 45);
             let x3 = Math.pow(1.15, x2);
 
@@ -2040,9 +2041,9 @@ const helper = {
             bonus = tot3;
         } else if (bonusInner.ID === 34) {
 
-            if (curr.Level < 1) return 0;
+            if (LEVEL < 1) return 0;
 
-            let x1 = general_helper.calculateLogarithm(1.1, curr.Level);
+            let x1 = general_helper.calculateLogarithm(1.1, LEVEL);
             let x2 = Math.max(0, x1 - 45);
             let x3 = Math.pow(1.125, x2);
 
@@ -2054,9 +2055,9 @@ const helper = {
             bonus = tot3;
         } else if (bonusInner.ID === 35) {
 
-            if (curr.Level < 1) return 0;
+            if (LEVEL < 1) return 0;
 
-            let x1 = general_helper.calculateLogarithm(1.1, curr.Level);
+            let x1 = general_helper.calculateLogarithm(1.1, LEVEL);
             let x2 = Math.max(0, x1 - 45);
             let x3 = Math.pow(1.125, x2);
 
@@ -2067,11 +2068,8 @@ const helper = {
             let tot3 = ((1 + (9 + x3) * 5E-05) * (1 + x6 * 0.001) - 1);
             bonus = tot3;
         } else {//s
-            if (curr.Level > 0) {
-                let bigsad = -1;
-            }
             let x1 = math_helper.subtractDecimal(
-                math_helper.pow(1.0 + bonusInner.Gain, curr.Level),
+                math_helper.pow(1.0 + bonusInner.Gain, LEVEL),
                 1.0
             )
 
@@ -2163,6 +2161,7 @@ const helper = {
         const statMode = parameters.statMode ? parameters.statMode : false;
         const statModePets = parameters.statModePets ? parameters.statModePets : {};
         const ignorePetRanks = parameters.ignorePetRanks ? parameters.ignorePetRanks : false;
+        const equalisePets = parameters.equalisePets ? parameters.equalisePets : false;
         const usePromos = !parameters.usePromos;
         const maxTopStat = !!parameters.maxTopStat;
 
@@ -2258,7 +2257,10 @@ const helper = {
                         }
                         if (e.ID === priorities[0].id) {
                             topStatActive = true;
-                            petList[ID].desiredStat = this.calcEquipBonus(petList[ID], e, ignorePetRanks ? 1 : null);
+                            petList[ID].desiredStat = this.calcEquipBonus(petList[ID], e,
+                                equalisePets ? 1 : null,
+                                 ignorePetRanks || equalisePets ? 1 : null,
+                                );
                         }
                     });
                 }

@@ -160,6 +160,12 @@ export default function Expeditions() {
         setRunTimeIgnorePetRanks(clientIgnorePetRanks);
     }, [clientIgnorePetRanks]);
 
+    const [clientEqualisePets, setEqualisePets] = useLocalStorage('clientEqualisePets', false);
+    const [equalisePets, setRunTimeEqualisePets] = useState(false);
+    useEffect(() => {
+        setRunTimeEqualisePets(clientEqualisePets);
+    }, [clientEqualisePets]);
+
     const [enabledBonusHighlight, setEnabledBonusHighlightRunTime] = useState({});
     const [enabledBonusHighlightClient, setEnabledBonusHighlight] = useLocalStorage("enabledBonusHighlight", {});
     useEffect(() => {
@@ -269,7 +275,8 @@ export default function Expeditions() {
                     petWhiteList: petWhiteList,
                     usePromos: usePromos,
                     maxTopStat: maxTopStat,
-                    ignorePetRanks: ignorePetRanks
+                    ignorePetRanks: ignorePetRanks,
+                    equalisePets: equalisePets,
                 }
             );
             setGroupCache({ ...groupCache, [keyString]: groups })
@@ -286,7 +293,7 @@ export default function Expeditions() {
             });
             setGroupsCache(groupCacheMap);
         }
-    }, [setGroupsCache, activeCustomBonuses, defaultRank, groupRankCritera, numTeams, petWhiteList, tokenDamageBias, refreshGroups, data, selectedItems, usePromos, maxTopStat, ignorePetRanks])
+    }, [setGroupsCache, activeCustomBonuses, defaultRank, groupRankCritera, numTeams, petWhiteList, tokenDamageBias, refreshGroups, data, selectedItems, usePromos, maxTopStat,equalisePets, ignorePetRanks])
 
 
     const dataLoaded = useRef(false);
