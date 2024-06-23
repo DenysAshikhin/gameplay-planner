@@ -13,6 +13,7 @@ import pickaxe from "@images/icons/pickaxe.svg";
 import paper_scroll from "@images/icons/paper_scroll.svg";
 import heart from "@images/icons/heart.svg";
 import milk from "@images/icons/milk.svg";
+import sword_shield from "@images/icons/sword_shield.svg";
 
 const NavBar = ({ }) => {
     return (
@@ -96,7 +97,7 @@ const NavBar = ({ }) => {
             <Image
               alt="shield through a sword icon page navigation to expeditions 2 page"
               fill
-              src={`/images/icons/sword_shield.svg`}
+              src={sword_shield}
             />
           </div>
         </div>

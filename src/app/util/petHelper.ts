@@ -1990,7 +1990,7 @@ const helper = {
                 return this.calcBestDamageGroup(petsCollection, defaultRank, numGroups, other);
         }
     },
-    calcEquipBonus: function (pet, bonusInner, rank) {
+    calcEquipBonus: function (pet, bonusInner, rank?) {
 
         let bonus: DecimalSource = 1;
         let curr = pet;
