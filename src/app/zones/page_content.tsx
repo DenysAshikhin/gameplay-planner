@@ -294,7 +294,8 @@ export default function Zones() {
                 backgroundColor: 'black',
                 position: 'relative',
                 padding: '12px 12px 3px 12px',
-                overflow: 'hidden'
+                // overflowY: 'hidden',
+                // overflowX:'hidden',
             }}
         >
 
