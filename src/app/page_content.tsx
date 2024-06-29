@@ -1,17 +1,14 @@
 "use client"
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { isMobile } from 'mobile-device-detect';
-import buffer from './util/buffer';
-import zlib from './util';
 import './App.css';
 
 import DefaultSave from './util/tempSave.json';
 import useLocalStorage from "use-local-storage";
 
-import pako from 'pako';
 import MouseOverPopover from "./util/Tooltip";
 import infoIcon from '@images/icons/info_lightgray.svg';
 import backgroundImage from '@images/coming_soon.png'
@@ -28,47 +25,60 @@ export default function Home() {
   const stringInputRef = useRef(null);
 
   const handleFileUpload = async (e) => {
-    const file = e.target.files[0];
-    const fileReader = new FileReader();
+    try {
+      const file = e.target.files[0] as File;
+      const data = file.stream().pipeThrough(new DecompressionStream('gzip'));
+      const decodedString = await new Response(data) // simple hack to get the text from the stream
+          .text();
 
-    fileReader.onload = (event) => {
-      const compressedData = new Uint8Array(event.target.result as any);
-      const decompressedData = pako.inflate(compressedData);
-      const textDecoder = new TextDecoder('utf-8');
-      const decodedString = textDecoder.decode(decompressedData);
-
-      const startPosition = decodedString.indexOf('{');
-      const endPosition = decodedString.lastIndexOf('}') + 1;
-      let jsonString = decodedString.slice(startPosition, endPosition);
-
-      let infIndex = jsonString.indexOf('Infinity');
-
-      while (infIndex > 0) {
-        jsonString = jsonString.replaceAll('Infinity', '-999');
-        infIndex = jsonString.indexOf('Infinity');
-      }
-
-      let NAN_INDEX = jsonString.indexOf('NaN');
-
-      while (NAN_INDEX > 0) {
-        jsonString = jsonString.replaceAll('NaN', '-999');
-        NAN_INDEX = jsonString.indexOf('NaN');
-      }
-
-
-      try {
-        const parsedJson = JSON.parse(jsonString);
-        setUserData(parsedJson);
-        console.log(parsedJson);
-        console.log(`trying to redirect`)
-        return router.push('/page_selection');
-      } catch (error) {
-        console.error('Invalid JSON:', error);
-      }
-    };
-
-    fileReader.readAsArrayBuffer(file);
+      importSaveString(decodedString);
+    } catch (err) {
+      console.log(err);
+      console.log(`caught error reading file`);
+    }
   };
+
+  const handlePastedString = () => {
+    try {
+      const incomingString = stringInputRef.current.value;
+      const decodedString = atob(incomingString);
+      importSaveString(decodedString);
+    } catch (err) {
+      console.log(err);
+      console.log(`caught error reading string save`);
+    }
+  };
+
+  const importSaveString = (decodedString: string) => {
+    const startPosition = decodedString.indexOf('{');
+    const endPosition = decodedString.lastIndexOf('}') + 1;
+    let jsonString = decodedString.slice(startPosition, endPosition);
+
+    let infIndex = jsonString.indexOf('Infinity');
+
+    while (infIndex > 0) {
+      jsonString = jsonString.replaceAll('Infinity', '-999');
+      infIndex = jsonString.indexOf('Infinity');
+    }
+
+    let NAN_INDEX = jsonString.indexOf('NaN');
+
+    while (NAN_INDEX > 0) {
+      jsonString = jsonString.replaceAll('NaN', '-999');
+      NAN_INDEX = jsonString.indexOf('NaN');
+    }
+
+
+    try {
+      const parsedJson = JSON.parse(jsonString);
+      setUserData(parsedJson);
+      console.log(parsedJson);
+      console.log(`trying to redirect`)
+      return router.push('/page_selection');
+    } catch (error) {
+      console.error('Invalid JSON:', error);
+    }
+  }
 
   const [forceOpen, setForceOpen] = useState(false);
 
@@ -149,59 +159,6 @@ export default function Home() {
   useEffect(() => {
     setMobileMode(isMobile);
   }, []);
-
-
-  // const calc_future_state = function (plants, time) {
-
-  //   let timeIncrease = 1; //how many seconds at a time we will skip forward
-  //   let currentTime = 0; // how much time we have skipped forward in total
-
-  //   let futurePlants = JSON.parse(JSON.stringify(plants)); // make a deep copy of plants to keep seperate from the passed copy and not edit it by accident
-  //   let HP_produced = 0;
-
-  //   function coolTimeThing(time, j) {
-  //     let a = 1
-  //     for (let i = 0; i < j; i++) {
-  //       a *= time + i
-  //     }
-  //     return a
-  //   }
-
-  //   // keep looping until we run out of given time
-  //   while (currentTime < time) {
-
-  //     /** here I would have my logic to determine how far to skip in time, let's assume a constant 10seconds for now */
-  //     timeIncrease = 10;
-
-  //     //we can either loop from first plant to last, or opposite order, you can change this of course
-  //     for (let i = 0; i < futurePlants.length; i++) {
-  //       // when i=0, produce hp, when i>0 produce plant i
-  //       let currentMultiplier = 1;
-  //       // you probably are using somehting like Decimal.js to make numbers not cause issues
-  //       // in which case replace 1 with whatever initates the object
-  //       for (let j = 1; i + j <= futurePlants.length; j++) {
-  //         currentMultiplier *= futurePlants[i - 1 + j].multiplier / j;
-  //         if (i === 0) {
-  //           HP_produced += futurePlants[i - 1 + j].amount * currentMultiplier * coolTimeThing(timeIncrease, j);
-  //         } else { // 
-  //           futurePlants[i - 1].amount += futurePlants[i - 1 + j].amount * currentMultiplier * coolTimeThing(timeIncrease, j);
-  //         }
-  //       }
-  //     }
-
-  //     // Update production values to reflect the new amounts
-  //     for (let i = 0; i < futurePlants.length; i++) {
-  //       futurePlants[i].production = futurePlants[i].amount * futurePlants[i].multiplier
-  //     }
-  //     currentTime += timeIncrease;
-  //   }
-  //   return { plants: futurePlants, HP_produced: HP_produced }
-  // }
-
-  // let plants_original = [{ amount: 1, production: 1, multiplier: 1 }, { amount: 1, production: 1, multiplier: 2 },];
-  // let result = calc_future_state(plants_original, 10);
-  // console.log(result);
-
 
   return (
     <div
@@ -324,59 +281,7 @@ export default function Home() {
         </div>
         <div style={{ marginTop: '16px' }}>
           <input type="string" id='stringSave' ref={stringInputRef} placeholder={'Paste save string here'} style={{ marginRight: '12px' }} />
-          <button style={{ fontSize: '1.3rem' }}
-            onClick={async (e) => {
-
-              let incomingString = stringInputRef.current.value;
-              try {
-
-                zlib.gzip(incomingString, function (error, result) {
-                  if (error) throw error;
-                  console.log(result.toString());
-                  let data = result;
-
-                  // @ts-ignore
-                  zlib.unzip(new buffer(data), function (error, result) {
-                    if (error) throw error;
-                    console.log(result.toString());
-                  })
-                });
-                incomingString = atob(incomingString);
-                const startPosition = incomingString.indexOf('{');
-                const endPosition = incomingString.lastIndexOf('}') + 1;
-                let jsonString = incomingString.slice(startPosition, endPosition);
-
-                let infIndex = jsonString.indexOf('Infinity');
-
-                while (infIndex > 0) {
-                  jsonString = jsonString.replaceAll('Infinity', '-999');
-                  infIndex = jsonString.indexOf('Infinity');
-                }
-
-                let NAN_INDEX = jsonString.indexOf('NaN');
-
-                while (NAN_INDEX > 0) {
-                  jsonString = jsonString.replaceAll('NaN', '-999');
-                  NAN_INDEX = jsonString.indexOf('NaN');
-                }
-
-                try {
-                  const parsedJson = JSON.parse(jsonString);
-                  setUserData(parsedJson);
-                  console.log(parsedJson);
-                  console.log(`trying to redirect`)
-                  return router.push('/page_selection');
-                } catch (error) {
-                  console.error('Invalid JSON:', error);
-                }
-              }
-              catch (err) {
-                console.log(err);
-                console.log(`caught error reading string save`)
-              }
-            }}>
-            Load
-          </button>
+          <button style={{ fontSize: '1.3rem' }} onClick={handlePastedString}>Load</button>
         </div>
       </div>
       <div id='in_content_flex' style={{ position: 'absolute', bottom: '0', left: '0', marginLeft: 'calc(50% - 160px)', display: 'flex', justifyContent: 'center', alignItems: 'center', }} />
