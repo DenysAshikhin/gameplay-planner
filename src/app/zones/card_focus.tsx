@@ -366,15 +366,21 @@ export default function CardFocus({
                     continue;
                 }
 
-                if (data.AscensionCount >= 31 && cardMap[CARD_DISPLAY_IDS[i]].ID === 1) {
+                //skipping normal potatoes for sweet potatoe
+                if (data.AscensionCount >= 30 && cardMap[CARD_DISPLAY_IDS[i]].ID === 1) {
                     i++;
                     continue;
                 }
-
+                //skipping skull for skull powder
+                if (data.AscensionCount >= 40 && cardMap[CARD_DISPLAY_IDS[i]].ID === 3) {
+                    i++;
+                    continue;
+                }
                 // @ts-ignore
                 row.push(<CardCard
                     card={cardMap[CARD_DISPLAY_IDS[i]]}
-                    data={data} key={cardMap[CARD_DISPLAY_IDS[i]]}
+                    data={data}
+                    key={CARD_DISPLAY_IDS[i]}
                     bonus_map={bonus_map}
                     pinnedZones={pinnedZones}
                     setPinnedZones={setPinnedZones}
@@ -420,7 +426,9 @@ export default function CardFocus({
         let next_zone = outerCurrentZones[index + 1];
         zone_list.push(
             <div
+                key={cur_zone.ID}
                 style={{
+
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',

@@ -27,6 +27,7 @@ import card29 from '@images/cards_v2/card29.png';
 import card34 from '@images/cards_v2/card34.png';
 import card35 from '@images/cards_v2/card35.png';
 import card38 from '@images/cards_v2/card38.png';
+import card39 from '@images/cards_v2/card39.png';
 
 import card_label_1 from '@images/cards_v2/labels/card1.png';
 import card_label_2 from '@images/cards_v2/labels/card2.png';
@@ -55,6 +56,7 @@ import card_label_29 from '@images/cards_v2/labels/card29.png';
 import card_label_34 from '@images/cards_v2/labels/card34.png';
 import card_label_35 from '@images/cards_v2/labels/card35.png';
 import card_label_38 from '@images/cards_v2/labels/card38.png';
+import card_label_39 from '@images/cards_v2/labels/card39.png';
 
 export const cardMapImg = {
     1: {
@@ -137,6 +139,9 @@ export const cardMapImg = {
     },
     38: {
         img: card38
+    },
+    39: {
+        img: card39
     },
 }
 
@@ -224,6 +229,9 @@ export const cardLabelImg = {
     38: {
         img: card_label_38
     },
+    39: {
+        img: card_label_39
+    },
 }
 
 
@@ -258,6 +266,7 @@ export const GHBONUS = 29;
 export const MININGEXP = 34;
 export const MININGPWR = 35;
 export const SWEETPOTATOE = 38;
+export const SKULLPOWDER = 39;
 
 
 export const maxKey = 30;
@@ -1280,6 +1289,41 @@ export const cardIDMap = {
             30: 1000,
         }
     },
+    [SKULLPOWDER]: {
+        id: SKULLPOWDER, label: "Skull Pow", icon: "", weights: {
+            0: -1,
+            1: -1,
+            2: -1,
+            3: -1,
+            4: -1,
+            5: -1,
+            6: -1,
+            7: -1,
+            8: -1,
+            9: -1,
+            10: -1,
+            11: -1,
+            12: -1,
+            13: -1,
+            14: -1,
+            15: -1,
+            16: -1,
+            17: -1,
+            18: -1,
+            19: -1,
+            20: -1,
+            21: -1,
+            22: -1,
+            23: -1,
+            24: -1,
+            25: -1,
+            26: -1,
+            27: -1,
+            28: -1,
+            29: -1,
+            30: 1000,
+        }
+    },
 }
 
 export function powerFormula(Pow, logBase, customConstant, params?) {
@@ -1364,6 +1408,15 @@ export const tempPowerBonusFormula = {
         )
         return temp;
     },
+    39: (Pow) => {
+        let temp = mathHelper.addDecimal(1.05,
+            mathHelper.multiplyDecimal(
+                mathHelper.logDecimal(Pow, 10),
+                0.0004
+            )
+        )
+        return temp;
+    },
     _: (Pow) => 1.0
 };
 
@@ -1403,12 +1456,22 @@ export const permPowerBonusFormula = {
             1
         )
         return temp;
+    },
+    39: (Pow) => {
+        let temp = mathHelper.addDecimal(
+            mathHelper.multiplyDecimal(
+                mathHelper.logDecimal(Pow, 10),
+                0.0003
+            ),
+            1
+        )
+        return temp;
     }
     // _: (Pow) => new Decimal(1.0)
 };
 
 export const CARD_DISPLAY_IDS = [
-    17, 1, 38, 2, 3, 9,
+    17, 1, 38, 2, 3, 39, 9,
     7, 4, 14, 15, 16,
     8, FRIESBONUS, PROTEINBONUS, GHBONUS, HEALTHYBONUS,
     10, 11, 12, 13,

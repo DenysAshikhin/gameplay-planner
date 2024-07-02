@@ -22,6 +22,7 @@ import ResidueImg from '@images/infinity_corner/24UpgradeResidue.png';
 import star_normal from '@images/infinity_corner/LastEraTopBackground.png';
 import LockedImg from '@images/infinity_corner/locked.png';
 import SweetPotatoe from '@images/infinity_corner/UpgradeLockSweet.png'
+import SKULLLOCK from '@images/infinity_corner/UpgradeLockPowder.png'
 
 const POTATO = 1;
 const CLASSEXP = 2;
@@ -1693,6 +1694,7 @@ export const ic_mapping = {
     },
     'locked': {
         img: LockedImg,
-        sweet_lock: SweetPotatoe
+        sweet_lock: SweetPotatoe,
+        skull_lock: SKULLLOCK,
     }
 }

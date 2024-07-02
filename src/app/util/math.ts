@@ -1,10 +1,12 @@
 import Decimal, {DecimalSource} from 'break_infinity.js';
 import {SimpleDecimal} from "@app/SimpleDecimal";
 
+
 const isDecimalType = (number: SimpleDecimal | number | string): number is SimpleDecimal | Decimal => {
     return (number as any).mantissa || (number as any).mantissa === 0;
 }
 
+let e308;
 const helper = {
     createDecimal: function (number: SimpleDecimal | DecimalSource): Decimal {
         let deci = isDecimalType(number) ? new Decimal(`${number.mantissa}e${number.exponent}`) : new Decimal(number);
@@ -70,6 +72,6 @@ const helper = {
         return new Date(this.oniTimeToEpoch(oni_time));
     }
 };
-
+e308 = helper.createDecimal('1e308');
 
 export default helper;

@@ -47,7 +47,7 @@ const create_in_content_flex = function () {
     // div_id.style.backgroundColor = 'red';
     holder_div.appendChild(div_id);
 
-    const script_holder = '<div id="mmt-cb211802-3e88-4915-a21b-2982de4b3e62"></div><script type="text/javascript" data-cfasync="false">$MMT = window.$MMT || {}; $MMT.cmd = $MMT.cmd || [];$MMT.cmd.push(function(){ $MMT.display.slots.push(["cb211802-3e88-4915-a21b-2982de4b3e62"]); });</script>';
+    const script_holder = '<script type="text/javascript" data-cfasync="false">$MMT = window.$MMT || {}; $MMT.cmd = $MMT.cmd || [];$MMT.cmd.push(function(){ $MMT.display.slots.push(["cb211802-3e88-4915-a21b-2982de4b3e62"]); });</script>';
     const fragment = document.createRange().createContextualFragment(script_holder);
     holder_div.appendChild(fragment);
     return holder_div;
