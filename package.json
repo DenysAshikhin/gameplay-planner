@@ -20,7 +20,6 @@
     "next": "14.0.1",
     "next-google-adsense": "^1.0.6",
     "nextjs-google-adsense": "^1.0.0",
-    "pako": "^2.1.0",
     "react": "^18",
     "react-dom": "^18",
     "react-ga4": "^2.1.0",
@@ -29,11 +28,8 @@
     "react-search-autocomplete": "^8.5.2",
     "react-timer-hook": "^3.0.7",
     "react-use-audio-player": "^2.2.0",
-    "react-zlib": "^1.0.1",
-    "react-zlib-js": "^1.0.5",
     "recharts": "^2.9.1",
-    "use-local-storage": "^3.0.0",
-    "zlib": "^1.0.5"
+    "use-local-storage": "^3.0.0"
   },
   "devDependencies": {
     "@types/node": "^20.12.12",
