@@ -39,6 +39,12 @@ export default function Infinity_Corner() {
         setRunTimeData(clientData);
     }, [clientData]);
 
+    const [clientReserveRP, setReserveRP] = useLocalStorage('reserveRP', false);
+    const [reserveRP, setRunTimeReserveRP] = useState(false);
+
+    useEffect(() => {
+        setRunTimeReserveRP(clientReserveRP);
+    }, [clientReserveRP]);
 
     const [upgradeWeightsClient, setUpgradeWeights] = useLocalStorage('ic_upgrade_weights', {});
     const [upgradeWeights, setRunTimeUpgradeWeights] = useState({});
@@ -75,6 +81,17 @@ export default function Infinity_Corner() {
         let currentPoints = mathHelper.createDecimal(runData['ReincarnationPointCurrentBD']);
         const a_key = runData.AscensionCount > maxKey ? maxKey : runData.AscensionCount;
         let totalWeight = 0;
+
+        let averageTradeCosts = [];
+        if(reserveRP){
+            let costs = helper.getAverageTradeCosts(data);
+            averageTradeCosts = costs.average_cost_map;
+            let rpCost = averageTradeCosts.find((val)=>val.id === 8);
+            if(rpCost){
+                rpCost = rpCost.cost;
+                currentPoints = mathHelper.subtractDecimal(currentPoints, rpCost);
+            }
+        }
 
         //Get sum of all weights
         Object.entries(runUpgradeWeights).forEach((inner_val) => {
@@ -234,7 +251,7 @@ export default function Infinity_Corner() {
 
 
         return { buyMap: buyMap, raw_increases: bestIncreases, futureBuy: futureBuy, grouped_buys: grouped_buys, futureBuyMode: grouped_buys.length === 0 };
-    }, [upgradeWeights, data])
+    }, [upgradeWeights, data, reserveRP])
 
 
     return (
@@ -265,7 +282,33 @@ export default function Infinity_Corner() {
                         backgroundColor: 'rgba(255,255,255, 0.07)',
                     }}
                 >
-                    Infinity Corner
+                    <div> {`Infinity Corner`} </div>
+                    {data.AscensionCount >= 12 && (
+                        <div
+                            style={{
+                                position: 'absolute', left: '24px',
+                                fontSize: '20px', fontWeight: 'normal',
+                                display: 'flex'
+                            }}
+                        >
+                            <div>
+                                {`Reserve Average RP Trade Cost`}
+                            </div>
+                            <div
+                                style={{ marginLeft: "6px" }}
+                            >
+                                <input
+                                    aria-label="Enable or disable reserving rp for average outpost trade costs"
+                                    type="checkbox"
+                                    onChange={(e) => {
+                                        setReserveRP(e.target.checked);
+                                    }}
+                                    checked={!!reserveRP}
+                                    value={!!reserveRP as any}
+                                />
+                            </div>
+                        </div>
+                    )}
                     <MouseOverPopover tooltip={
                         <div style={{ padding: '6px' }}>
                             Any affordable purchases are flashing in green, othewise the next best (unaffordable) purchase is in yellow
