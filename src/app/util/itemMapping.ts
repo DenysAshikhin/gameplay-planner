@@ -33,6 +33,7 @@ import buildTime_AL from '@images/farming/assembly/Build_Time_Reduction.png';
 import mining_exp_al from '@images/farming/assembly/Mining_Exp.png';
 import mining_pow_al from '@images/farming/assembly/Mining_Power.png';
 import sweet_pot_al from '@images/farming/assembly/41SweetPotato.png';
+import skull_pow_al from '@images/farming/assembly/Skull_Powder.png';
 
 import cocoricoImg from '@images/pets/Cocorico.png';
 import Rico from '@images/pets/Rico.png';
@@ -772,6 +773,7 @@ export const BonusMap = {
     37: { disabled: false, defaultWeight: 1500, id: 37, label: 'Renown Bonus', img: renownAL },
     38: { disabled: false, defaultWeight: 800, id: 38, label: 'Sweet Potatoe', img: sweet_pot_al },
     // 38: { disabled: false, defaultWeight: 1, id: 38, label: 'Outpost Level', img: null },
+    39: { disabled: false, defaultWeight: 800, id: 39, label: 'Skull Powder', img: skull_pow_al },
     1001: { id: 1001, label: "Potato Gain" },
     1002: { id: 1002, label: "Class Exp gain" },
     1003: { id: 1003, label: "Skull Gain" },

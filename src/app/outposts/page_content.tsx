@@ -3,6 +3,7 @@
 import { isMobile } from 'mobile-device-detect';
 import { useState, useEffect } from 'react';
 import ReactGA from "react-ga4";
+import helper from '../util/helper';
 ReactGA.initialize([{
     trackingId: "G-GGLPK02VH8",
 }]);
@@ -66,26 +67,10 @@ export default function Outposts() {
     }
 
     let purchase_cost_map = {};
-    data.DealQueue.forEach((inner_deal) => {
-        const big_id = inner_deal.CostResourceIDSub ? `tier-` + inner_deal.CostResourceIDSub : inner_deal.CostResourceID;
-
-        if (!purchase_cost_map[big_id]) {
-            purchase_cost_map[big_id] = { id: inner_deal.CostResourceID, cost: mathHelper.createDecimal(0), counter: 0 };
-            if (inner_deal.CostResourceIDSub) {
-                purchase_cost_map[big_id].subtype = inner_deal.CostResourceIDSub;
-            }
-        }
-        purchase_cost_map[big_id].counter++;
-        purchase_cost_map[big_id].cost = mathHelper.addDecimal(purchase_cost_map[big_id].cost, mathHelper.createDecimal(inner_deal.CostValue));
-    });
-
     let average_cost_map = [];
-    for (const [key, value] of Object.entries(purchase_cost_map)) {
-        let temp = { ...(value as any) };
-        temp.cost = mathHelper.divideDecimal(temp.cost, temp.counter);
-        average_cost_map.push(temp);
-    }
-
+    let costs = helper.getAverageTradeCosts(data);
+    purchase_cost_map = costs.purchase_cost_map;
+    average_cost_map = costs.average_cost_map;
 
     return (
         <div
@@ -96,7 +81,9 @@ export default function Outposts() {
                 backgroundColor: 'black',
                 position: 'relative',
                 padding: '12px 12px 3px 12px',
-                overflow: 'hidden'
+                // overflow: 'hidden'
+                overflowX: 'auto',
+                overflowY: 'hidden'
             }}
         >
             <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', maxHeight: 'calc(100vh - 110px)' }}>

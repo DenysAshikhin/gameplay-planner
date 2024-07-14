@@ -36,6 +36,7 @@ function Graph({
   tooManyAuto
 }) {
   let showRunning = false;
+
   if (!!runningGraphObjects?.runningProd?.prod && !calcDone && !calcAFK) {
     showRunning = true;
   }

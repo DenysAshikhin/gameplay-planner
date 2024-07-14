@@ -14,6 +14,7 @@ import pot_exp_contagion_pre30 from '@images/contagion/6ClassExp.png';
 import fry_hp_contagion from '@images/contagion/6FarmingBg_PhilipJ_HealthyBonus.png';
 import shovel_contagion from '@images/contagion/7FarmingBg_Harvest.png';
 import protein_contagion from '@images/contagion/8FarmingBg_Protein.png';
+import conf_contagion from '@images/contagion/9Confection.png';
 import infoIcon from '@images/icons/info_thick.svg';
 import RefreshIcon from '@images/icons/refresh_lightgray.svg';
 
@@ -41,25 +42,28 @@ interface ContagionLineProps {
 }
 
 export default function ContagionLine({ data, contagion, setContagionWeights, gh_amount, extra_gh }: ContagionLineProps) {
-    const [ clientContagionWeight, setContagionWeight ] = useLocalStorage(`contagion_${contagion.ID}_weight`, -1);
-    const [ ContagionWeight, setRunTimeContagionWeight ] = useState(-1);
+    const [clientContagionWeight, setContagionWeight] = useLocalStorage(`contagion_${contagion.ID}_weight`, -1);
+    const [ContagionWeight, setRunTimeContagionWeight] = useState(-1);
 
-    const [ clientEnableContagion, setEnableContagion ] = useLocalStorage(`contagion_${contagion.ID}_enable`, true);
-    const [ EnableContagion, setRunTimeEnableContagion ] = useState(true);
+    const [clientEnableContagion, setEnableContagion] = useLocalStorage(`contagion_${contagion.ID}_enable`, true);
+    const [EnableContagion, setRunTimeEnableContagion] = useState(true);
     const hp_expo = mathHelper.createDecimal(contagion.HPExpo).toNumber();
     let defaultWeight = default_weight_overwrite[contagion.ID] ? default_weight_overwrite[contagion.ID] : helper.roundFiveDecimal(hp_expo);
     //potatoe + class exp nerf
     if (data.AscensionCount > 29 && contagion.ID === 9) {
         defaultWeight = 0.005;
     }
+    if (data.AscensionCount > 39 && contagion.ID === 10) {
+        defaultWeight = 0.005;
+    }
     const map_key = contagion.ID;
     const unlocked = !!contagion.Locked;
 
-    const [ forceShow, setForceShow ] = useState(false);
+    const [forceShow, setForceShow] = useState(false);
 
     useEffect(() => {
         setRunTimeEnableContagion(clientEnableContagion);
-    }, [ clientEnableContagion ]);
+    }, [clientEnableContagion]);
 
     useEffect(() => {
         setRunTimeContagionWeight(clientContagionWeight);
@@ -79,7 +83,7 @@ export default function ContagionLine({ data, contagion, setContagionWeights, gh
             temp[map_key] = clientContagionWeight;
             return temp;
         });
-    }, [ setContagionWeights, clientContagionWeight, defaultWeight, map_key, EnableContagion, unlocked ]);
+    }, [setContagionWeights, clientContagionWeight, defaultWeight, map_key, EnableContagion, unlocked]);
 
     const contagion_obj_temp = {
         ID: 1,
@@ -124,7 +128,7 @@ export default function ContagionLine({ data, contagion, setContagionWeights, gh
             img = data.AscensionCount < 30 ? pot_exp_contagion : pot_exp_contagion_pre30;
             break;
         case 10:
-            img = skull_conf_contagion;
+            img = data.AscensionCount < 40 ? skull_conf_contagion : conf_contagion;
             break;
         case 11:
             img = worm_contagion;
@@ -253,7 +257,7 @@ export default function ContagionLine({ data, contagion, setContagionWeights, gh
                                     {`The weight (importance) of this stat. Feel free to change this`}
                                 </div>
                             }
-                                              opacity={1}
+                                opacity={1}
                             >
                                 <div style={{ position: 'relative', height: '16px', width: '16px', marginLeft: '2px' }}>
                                     <Image
@@ -267,18 +271,18 @@ export default function ContagionLine({ data, contagion, setContagionWeights, gh
                             </MouseOverPopover>
 
                             <div className="hover"
-                                 style={{
-                                     position: 'relative',
-                                     width: '18px',
-                                     height: '18px',
-                                     marginLeft: '6px',
-                                     visibility: (ContagionWeight !== defaultWeight && ContagionWeight !== -1) ? 'visible' : 'hidden',
-                                 }}
-                                 onClick={() => {
-                                     setContagionWeight(-1);
-                                 }}
+                                style={{
+                                    position: 'relative',
+                                    width: '18px',
+                                    height: '18px',
+                                    marginLeft: '6px',
+                                    visibility: (ContagionWeight !== defaultWeight && ContagionWeight !== -1) ? 'visible' : 'hidden',
+                                }}
+                                onClick={() => {
+                                    setContagionWeight(-1);
+                                }}
                             >
-                                <Image src={RefreshIcon} fill unoptimized alt="reset, 2 arrows in a circle"/>
+                                <Image src={RefreshIcon} fill unoptimized alt="reset, 2 arrows in a circle" />
                             </div>
                         </div>
                     </div>

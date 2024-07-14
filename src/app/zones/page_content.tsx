@@ -233,9 +233,13 @@ const TimeToClear = function ({
                                     defaultValue={'None'}
                                 >
                                     {data.PetsExpeditionLoadout.map((cur_team, index) => {
-                                        if (index === 0) return <></>;
+
+                                        if (index === 0) return null;
                                         return (
-                                            <option value={index} key={index}>
+                                            <option
+                                                value={index}
+                                                key={`${cur_team.Name}` + ` ${index}` + `${BonusMap[zoneToClear.bonus_id].label}`}
+                                            >
                                                 {`${cur_team.Name}`}
                                             </option>
                                         )

@@ -67,23 +67,39 @@ const ResidueCard = ({ data, params, defaultWeight, setParentWeights, desiredLev
     const weight = runTimeWeight === -1 ? params.weight(asc_level) : runTimeWeight;
     const locked = (!hovering) && asc_level < params.unlock;
 
-    const sweet_locked = data.AscensionCount > 29 && params.key == 'CowShopPotatoBonus';
+    if (data.AscensionCount > 39) {
+        let bigsad = -1;
+    }
+    if (params.key == 'CowShopPerkBonus') {
+        let bigsad = -1;
+    }
 
+    const sweet_locked = data.AscensionCount > 29 && params.key == 'CowShopPotatoBonus';
+    const skull_locked = data.AscensionCount > 39 && params.key == 'CowShopPerkBonus';
+    const key_locked = sweet_locked || skull_locked;
+    // 
     return (
         <div className='importantText residueCard'
-            onMouseEnter={() => { if (sweet_locked) return; setHovering(true); }}
-            onMouseLeave={() => { if (sweet_locked) return; setHovering(false); }}
+            onMouseEnter={() => { if (key_locked) return; setHovering(true); }}
+            onMouseLeave={() => { if (key_locked) return; setHovering(false); }}
         >
 
             {sweet_locked && (
                 <div className='hover'
-                    style={{ position: 'relative', width: '90%', height: '94%', margin:'6px 8px'}}
+                    style={{ position: 'relative', width: '90%', height: '94%', margin: '6px 8px' }}
                 >
                     <Image src={residueMap['locked'].sweetlocked} fill unoptimized alt='sweet potatoe lock' />
                 </div>
             )}
+            {skull_locked && (
+                <div className='hover'
+                    style={{ position: 'relative', width: '90%', height: '94%', margin: '6px 8px' }}
+                >
+                    <Image src={residueMap['locked'].skulllocked} fill unoptimized alt='sweet potatoe lock' />
+                </div>
+            )}
 
-            {!sweet_locked && (
+            {!key_locked && (
                 <>
                     <div className='residueCardHeader'>
                         <div>
@@ -480,28 +496,24 @@ export default function Residue() {
                                     overflowY: 'auto', alignItems: 'center'
                                 }}
                             >
-                                {/* <h2 style={{ marginBottom: '3px' }}>Affordable Purchase Order</h2> */}
                                 {Object.entries(residueMap).filter((value) => value[0] !== 'locked').sort((a, b) => a[1].order - b[1].order).map((value, index) => {
                                     let key = value[0];
                                     let params = value[1];
-                                    if (!finalObject[key]) return <></>
-                                    if (finalObject[key].levels === 0) return <></>
+                                    if (!finalObject[key]) return null;
+                                    if (finalObject[key].levels === 0) return null;
 
-                                    return <ResideOrderCard data={
-                                        {
-                                            params: params,
-                                            start: data[params.key],
-                                            desiredLevel: data[params.key] + finalObject[key].levels,
-                                            totalCost: finalObject[key].runningCost
+                                    return <ResideOrderCard
+                                        data={
+                                            {
+                                                params: params,
+                                                start: data[params.key],
+                                                desiredLevel: data[params.key] + finalObject[key].levels,
+                                                totalCost: finalObject[key].runningCost
+                                            }
                                         }
-                                    }
-                                        key={index}
+                                        key={index + key}
                                     />
                                 })}
-                                {/* {affordablePurchases.map((val, index) => {
-                                    // return <ResideOrderCard data={val} key={index} />
-                                    return <ResideOrderCard data={val} key={index} />
-                                })} */}
 
                             </div>
                         )}

@@ -1,13 +1,13 @@
 "use client"
 
 
-import {isMobile} from 'mobile-device-detect';
+import { isMobile } from 'mobile-device-detect';
 import './card.css';
-import {useState, useEffect, useRef} from 'react';
+import { useState, useEffect, useRef } from 'react';
 import ReactGA from "react-ga4";
 //import { GoogleAdSense } from "next-google-adsense";
 import MouseOverPopover from "../util/Tooltip";
-import {DefaultWeightMap} from '../util/itemMapping';
+import { DefaultWeightMap } from '../util/itemMapping';
 
 import mathHelper from '../util/math';
 import reincHelper from '../util/reincHelper';
@@ -92,22 +92,22 @@ interface CardCardProps {
 }
 
 const CardCard = ({
-                      vertical,
-                      displayMode,
-                      bonusMode,
-                      data,
-                      card,
-                      weightMap,
-                      i,
-                      applyWeights,
-                      cardMap,
-                      setCardMap,
-                      resetWeights,
-                      cardWeightInner,
-                      cardWeight,
-                      setCardWeightNew,
-                      classes,
-                  }: Partial<CardCardProps>) => {
+    vertical,
+    displayMode,
+    bonusMode,
+    data,
+    card,
+    weightMap,
+    i,
+    applyWeights,
+    cardMap,
+    setCardMap,
+    resetWeights,
+    cardWeightInner,
+    cardWeight,
+    setCardWeightNew,
+    classes,
+}: Partial<CardCardProps>) => {
 
     const {
         // CurrentExp,
@@ -118,7 +118,7 @@ const CardCard = ({
         PowerPermaBD,
         PowerTempBD,
     } = card;
-    const {ChargeTransfertPowerPerma, ChargeTransfertPowerTemp} = data;
+    const { ChargeTransfertPowerPerma, ChargeTransfertPowerTemp } = data;
 
     // const [cardWeight, setCardWeight] = useLocalStorage(`cardWeight-${ID}`, -1);
     // const [internalWeight, setInternalWeight] = useState(-1);
@@ -162,7 +162,7 @@ const CardCard = ({
         }
 
 
-        if (ID === 27) {
+        if (ID === 18) {
             let bigsad = -1;
         }
 
@@ -193,7 +193,7 @@ const CardCard = ({
 
 
         let level_mult = 0.02;
-        if (ID == 38) {//only sweet potatoe for now
+        if (ID == 38 || ID == 39) {//only sweet potatoe for now
             level_mult = 0.0025;
         }
 
@@ -223,13 +223,35 @@ const CardCard = ({
         let flatIncrease = mathHelper.subtractDecimal(finalAfter, finalBefore);
         let weightIncrease = mathHelper.multiplyDecimal(mathHelper.divideDecimal(mathHelper.subtractDecimal(finalAfter, finalBefore), finalBefore), finalWeight);
         // let loggedWeightIncrease = tempValueAfter.eq(mathHelper.createDecimal(0)) ? mathHelper.createDecimal(0) : mathHelper.logDecimal(percIncrease, finalWeight + 1);
-        let loggedWeightIncrease =
-            finalBefore.greaterThan(finalAfter) ? mathHelper.createDecimal(-1) :
-                mathHelper.multiplyDecimal(
-                    // @ts-ignore TODO: not sure about this, break_infinity.js log function only accepts numbers for the base according to typings
-                    mathHelper.logDecimal(mathHelper.addDecimal(finalAfter, 1), mathHelper.addDecimal(finalBefore, 0.0000001)),
-                    finalWeight
-                );
+
+
+        // let t1 = mathHelper.addDecimal(finalAfter, 1);
+        // let t2 = mathHelper.addDecimal(finalBefore, 0.0000001);
+        // let t3 = mathHelper.logDecimal(t1, t2);
+        let loggedWeightIncrease
+        if (
+            finalBefore.greaterThan(mathHelper.createDecimal('1e308'))
+            || finalBefore.greaterThan(mathHelper.createDecimal('1e308'))
+        ) {
+            let t1 = mathHelper.logDecimal(mathHelper.addDecimal(finalAfter, 1), 10);
+            let t2 = mathHelper.logDecimal(mathHelper.addDecimal(finalBefore, 0.0000001), 10);
+            loggedWeightIncrease = mathHelper.multiplyDecimal(mathHelper.divideDecimal(t1, t2), finalWeight);
+            let bigsad = -1;
+
+            // mathHelper.addDecimal(finalBefore, 0.0000001).toNumber()
+        }
+        else {
+            loggedWeightIncrease =
+                finalBefore.greaterThan(finalAfter) ? mathHelper.createDecimal(-1) :
+                    mathHelper.multiplyDecimal(
+                        // not sure about this, break_infinity.js log function only accepts numbers for the base according to typings  @ts-ignore TODO:
+                        //fair enough does seem borked 
+                        mathHelper.logDecimal(mathHelper.addDecimal(finalAfter, 1), mathHelper.addDecimal(finalBefore, 0.0000001).toNumber()),
+                        finalWeight
+                    );
+        }
+
+
         let loggedWeightIncrease2 =
             finalBefore.greaterThan(finalAfter) ? mathHelper.createDecimal(-1) :
 
@@ -244,6 +266,11 @@ const CardCard = ({
         // let loggedWeightIncrease2 =
         //     finalBefore.greaterThan(finalAfter) ? mathHelper.createDecimal(-1) : mathHelper.logDecimal(mathHelper.addDecimal(finalAfter, 1), finalBefore);
 
+        if (ID === 18) {
+            let bigsad = -1;
+        }
+
+
         setFinalTemp(tempValueAfter);
         setFinalAfter(finalAfter);
         setFinalBefore(finalBefore);
@@ -256,7 +283,7 @@ const CardCard = ({
         if (resetWeights !== -3) {
             if (!(ID in cardMap)) {
                 setCardMap((e) => {
-                    let tempy = {...e};
+                    let tempy = { ...e };
                     tempy[ID] = {
                         ID: ID, finalAfter: finalAfter,
                         percIncrease: percIncrease,
@@ -270,7 +297,7 @@ const CardCard = ({
                 })
             } else if (!cardMap[ID]?.finalAfter.equals(finalAfter) || !cardMap[ID]?.weightIncrease.equals(weightIncrease)) {
                 setCardMap((e) => {
-                    let tempy = {...e};
+                    let tempy = { ...e };
                     tempy[ID] = {
                         ID: ID, finalAfter: finalAfter, percIncrease: percIncrease,
                         flatIncrease: flatIncrease,
@@ -687,8 +714,8 @@ const CardCard = ({
                 <>
                     <MouseOverPopover
                         tooltip={
-                            <div style={{padding: '6px'}}>
-                                <h3 style={{margin: 0, textAlign: 'center'}}>
+                            <div style={{ padding: '6px' }}>
+                                <h3 style={{ margin: 0, textAlign: 'center' }}>
                                     {cardIDMap[ID].label}
                                 </h3>
                                 <div>
@@ -852,9 +879,9 @@ const CardCard = ({
                                 {`The weight (importance) of this card/stat. Feel free to change this`}
                             </div>
                         }
-                                          opacity={1}
+                            opacity={1}
                         >
-                            <div style={{position: 'relative', height: '16px', width: '16px', marginLeft: '2px'}}>
+                            <div style={{ position: 'relative', height: '16px', width: '16px', marginLeft: '2px' }}>
                                 <Image
                                     alt='on hover I in a cirlce icon, shows more information on hover'
                                     fill
@@ -872,8 +899,8 @@ const CardCard = ({
                 <>
                     <MouseOverPopover
                         tooltip={
-                            <div style={{padding: '6px'}}>
-                                <h3 style={{margin: 0, textAlign: 'center'}}>
+                            <div style={{ padding: '6px' }}>
+                                <h3 style={{ margin: 0, textAlign: 'center' }}>
                                     {cardIDMap[ID].label}
                                 </h3>
                                 <div>
@@ -980,7 +1007,7 @@ const CalcReinc = function (data, reincCardCharges?: any) {
 
 
     if (reincCardCharges) {
-        const {CardsCollection} = data;
+        const { CardsCollection } = data;
         const cardsById = CardsCollection.reduce((accum, card) => {
             accum[card.ID] = card;
             return accum;
@@ -997,7 +1024,7 @@ const CalcReinc = function (data, reincCardCharges?: any) {
             PowerPermaBD,
             PowerTempBD,
         } = card;
-        const {ChargeTransfertPowerPerma, ChargeTransfertPowerTemp} = data;
+        const { ChargeTransfertPowerPerma, ChargeTransfertPowerTemp } = data;
 
         let tempValueBefore = mathHelper.createDecimal(PowerTempBD);
         let permValueBefore = mathHelper.createDecimal(PowerPermaBD);
@@ -1160,7 +1187,7 @@ export default function Cards() {
         setNewCardWeightsRunTime(newCardWeightsClient);
     }, [newCardWeightsClient, setNewCardWeights])
 
-    const {CardsCollection} = data;
+    const { CardsCollection } = data;
 
     useEffect(() => {
         if (resetCardWeights > 10) {
@@ -1197,6 +1224,9 @@ export default function Cards() {
         if (data.AscensionCount >= 31 && card.ID === 1) {
             return accum;
         }
+        if (data.AscensionCount >= 40 && card.ID === 3) {
+            return accum;
+        }
 
         accum[card.ID] = card;
         return accum;
@@ -1210,12 +1240,15 @@ export default function Cards() {
         if (data.AscensionCount > 29) {
             index -= 1;
         }
+        if (data.AscensionCount > 39) {
+            index -= 1;
+        }
         weightedCardInfo.push(
             <CardCard
                 cardWeight={newCardWeights[CARD_DISPLAY_IDS[i]]}
                 setCardWeightNew={(value) => {
                     setNewCardWeights((e) => {
-                        let temp = {...e};
+                        let temp = { ...e };
                         temp[CARD_DISPLAY_IDS[i]] = value;
                         return temp;
                     })
@@ -1248,7 +1281,7 @@ export default function Cards() {
                 alignItems: 'center',
                 width: '100%'
             }}
-                 key={index}
+                key={index}
             >
                 <div
                     className='importantText'
@@ -1291,7 +1324,7 @@ export default function Cards() {
     });
     let finalLoggedWeightIncrease = loggedWeightIncrease.slice(0, 5).map((value, index, arr) => {
         return (
-            <div style={{display: 'flex', alignItems: 'center', width: '100%'}} key={index}>
+            <div style={{ display: 'flex', alignItems: 'center', width: '100%' }} key={index}>
                 <div
                     className='importantText'
                     style={{
@@ -1336,7 +1369,7 @@ export default function Cards() {
                 alignItems: 'center',
                 width: '100%'
             }}
-                 key={index}
+                key={index}
             >
                 <div
                     className='importantText'
@@ -1375,7 +1408,7 @@ export default function Cards() {
                     weightMap={weightMap}
                     classes={classes}
                     key={`${index}-perc`
-                    }/>
+                    } />
             </div>
         )
     }, []);
@@ -1432,10 +1465,10 @@ export default function Cards() {
                                 {`You have max card charges!`}
                             </div>
                         }
-                                          opacity={1}
+                            opacity={1}
                         >
                             <div className='elementToFadeInAndOut'
-                                 style={{position: 'relative', height: '32px', width: '32px', marginRight: '12px'}}>
+                                style={{ position: 'relative', height: '32px', width: '32px', marginRight: '12px' }}>
                                 <Image
                                     alt='on hover I in a cirlce icon, shows more information on hover'
                                     fill
@@ -1452,17 +1485,17 @@ export default function Cards() {
                         }}
                     >
                         <div
-                            style={{display: 'flex', alignItems: 'center', fontSize: '48px'}}
+                            style={{ display: 'flex', alignItems: 'center', fontSize: '48px' }}
                         >
                             {`Current Charges: `}
                         </div>
 
-                        <div style={{display: 'flex', alignItems: 'center', fontSize: '48px'}}>
-                            <div style={{marginRight: '6px'}}>{data?.CurrentCardCharge}</div>
+                        <div style={{ display: 'flex', alignItems: 'center', fontSize: '48px' }}>
+                            <div style={{ marginRight: '6px' }}>{data?.CurrentCardCharge}</div>
                             <Image
                                 alt='in game charge (battery) image'
                                 // fill
-                                style={{height: '60px', width: 'auto'}}
+                                style={{ height: '60px', width: 'auto' }}
                                 src={chargeImg as any}
                                 unoptimized={true}
                             />
@@ -1479,7 +1512,7 @@ export default function Cards() {
                         </>
 
                     }
-                                      opacity={1}
+                        opacity={1}
                     >
                         <div
                             style={{
@@ -1491,22 +1524,22 @@ export default function Cards() {
                             } as any}
                         >
                             <div
-                                style={{display: 'flex', alignItems: 'center', fontSize: '48px'}}
+                                style={{ display: 'flex', alignItems: 'center', fontSize: '48px' }}
                             >
                                 {`Remaining Charges in ascension: `}
                             </div>
-                            <div style={{display: 'flex', alignItems: 'center', fontSize: '48px'}}>
-                                <div style={{marginRight: '6px'}}>{` ${remainingCharges}`}</div>
+                            <div style={{ display: 'flex', alignItems: 'center', fontSize: '48px' }}>
+                                <div style={{ marginRight: '6px' }}>{` ${remainingCharges}`}</div>
                                 <Image
                                     alt='in game charge (battery) image'
                                     // fill
-                                    style={{height: '60px', width: 'auto', maxHeight: '65px'}}
+                                    style={{ height: '60px', width: 'auto', maxHeight: '65px' }}
                                     src={chargeImg as any}
                                     unoptimized={true}
                                 />
                             </div>
 
-                            <div style={{position: 'relative', height: '55px', width: '55px', marginLeft: '6px'}}>
+                            <div style={{ position: 'relative', height: '55px', width: '55px', marginLeft: '6px' }}>
                                 <Image
                                     alt='on hover I in a cirlce icon, shows more information on hover'
                                     fill
@@ -1520,8 +1553,8 @@ export default function Cards() {
                 </div>
             )}
             {/* <GoogleAdSense publisherId="pub-1393057374484862" /> */}
-            <div className='importantText' style={{display: 'flex', alignItems: 'end'}}>
-                <h1 style={{margin: '6px 6px', fontSize: '32px'}}>
+            <div className='importantText' style={{ display: 'flex', alignItems: 'end' }}>
+                <h1 style={{ margin: '6px 6px', fontSize: '32px' }}>
                     Cards Guide
                 </h1>
             </div>
@@ -1561,7 +1594,7 @@ export default function Cards() {
 
                         <h3
                             className='importantText'
-                            style={{marginTop: '0', marginBottom: '0', marginRight: '12px'}}
+                            style={{ marginTop: '0', marginBottom: '0', marginRight: '12px' }}
                         >
                             Current Cards
                         </h3>
@@ -1584,7 +1617,7 @@ export default function Cards() {
                         </div>
 
                         {/* display mode selector */}
-                        <div style={{marginRight: '12px', position: 'absolute', right: '12px'}}>
+                        <div style={{ marginRight: '12px', position: 'absolute', right: '12px' }}>
                             <select
                                 className='importantText'
                                 aria-label='Select a default team preset'
@@ -1670,7 +1703,7 @@ export default function Cards() {
                         }}>
                             <h3
                                 className='importantText'
-                                style={{marginTop: '6px', marginBottom: '6px', fontSize: '26px'}}
+                                style={{ marginTop: '6px', marginBottom: '6px', fontSize: '26px' }}
                             >
                                 <div style={{
                                     display: 'flex',
@@ -1681,7 +1714,7 @@ export default function Cards() {
 
                         {/* Seperater */}
                         {true && (
-                            <div style={{width: '54px', minWidth: '54px', overflow: 'hidden'}}>
+                            <div style={{ width: '54px', minWidth: '54px', overflow: 'hidden' }}>
                                 <svg
                                     style={{
                                         height: '100%',
@@ -1691,7 +1724,7 @@ export default function Cards() {
                                     {/* <polygon fill='rgba(255,255,255, 0.6)' points="66 0 100 0 33 10 0 10" /> */}
                                     <polygon
                                         // stroke="black" strokeWidth="0.5"
-                                        fill='rgba(255,255,255, 0.6)' points="75 0 100 0 25 10 0 10"/>
+                                        fill='rgba(255,255,255, 0.6)' points="75 0 100 0 25 10 0 10" />
                                 </svg>
                             </div>
                         )}
@@ -1709,9 +1742,9 @@ export default function Cards() {
                         }}>
                             <h3
                                 className='importantText'
-                                style={{marginTop: '6px', marginBottom: '6px', fontSize: '26px'}}
+                                style={{ marginTop: '6px', marginBottom: '6px', fontSize: '26px' }}
                             >
-                                <div style={{marginRight: '6px'}}>{`Remaining Charges: ${remainingCharges}`}</div>
+                                <div style={{ marginRight: '6px' }}>{`Remaining Charges: ${remainingCharges}`}</div>
                             </h3>
                         </div>
                     </div>
@@ -1815,7 +1848,7 @@ export default function Cards() {
                             }}>
                                 <h3
                                     className='importantText'
-                                    style={{marginTop: '6px', marginBottom: '6px', fontSize: '20px'}}
+                                    style={{ marginTop: '6px', marginBottom: '6px', fontSize: '20px' }}
                                 >
                                     <div style={{
                                         marginRight: '6px',
@@ -1836,7 +1869,7 @@ export default function Cards() {
 
                             {/* Seperater */}
                             {true && (
-                                <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                                     {/* Num Charges */}
                                     <div>
                                         <div
@@ -1886,7 +1919,7 @@ export default function Cards() {
                                                     {`How many reincarnation card charges to simulate being used`}
                                                 </div>
                                             }
-                                                              opacity={1}
+                                                opacity={1}
                                             >
                                                 <div style={{
                                                     position: 'relative',
@@ -1905,7 +1938,7 @@ export default function Cards() {
                                         </div>
                                     </div>
                                     <div
-                                        style={{height: '36px', width: '36px', position: 'relative', margin: '0 -3px'}}>
+                                        style={{ height: '36px', width: '36px', position: 'relative', margin: '0 -3px' }}>
                                         <Image
                                             alt='arrow point to the left'
                                             src={rightArrow as any}
@@ -1914,7 +1947,7 @@ export default function Cards() {
                                         />
                                     </div>
                                     <div style={{ color: 'green', marginTop: '-10px' }}>
-                                        {`+${helper.numberWithCommas(futureReincLevel - currentReincLevel)}, ${(futureReincHr - reincHr) > 1000 ? helper.numberWithCommas(futureReincHr - reincHr) : helper.roundTwoDecimal(futureReincHr - reincHr)}/hr`}
+                                        {`+${helper.numberWithCommas(futureReincLevel - currentReincLevel)}, ${(futureReincHr - reincHr) > 1000 ? helper.numberWithCommas(helper.roundTwoDecimal(futureReincHr - reincHr)) : helper.roundTwoDecimal(futureReincHr - reincHr)}/hr`}
                                     </div>
                                 </div>
                             )}
@@ -1930,7 +1963,7 @@ export default function Cards() {
                             }}>
                                 <h3
                                     className='importantText'
-                                    style={{marginTop: '6px', marginBottom: '6px', fontSize: '20px'}}
+                                    style={{ marginTop: '6px', marginBottom: '6px', fontSize: '20px' }}
                                 >
                                     <div style={{
                                         marginRight: '6px',
@@ -1996,7 +2029,7 @@ export default function Cards() {
                                 }}>
                                     <h3
                                         className='importantText'
-                                        style={{marginTop: '6px', marginBottom: '6px', fontSize: '28px'}}
+                                        style={{ marginTop: '6px', marginBottom: '6px', fontSize: '28px' }}
                                     >
                                         Suggested
                                     </h3>
@@ -2011,7 +2044,7 @@ export default function Cards() {
                                     <div className='importantText'>
                                         Card
                                     </div>
-                                    <div className='importantText' style={{marginLeft: 'auto'}}>
+                                    <div className='importantText' style={{ marginLeft: 'auto' }}>
                                         Score
                                     </div>
                                 </div>
@@ -2056,7 +2089,7 @@ export default function Cards() {
                                 }}>
                                     <h3
                                         className='importantText'
-                                        style={{marginTop: '6px', marginBottom: '6px', fontSize: '28px'}}
+                                        style={{ marginTop: '6px', marginBottom: '6px', fontSize: '28px' }}
                                     >
                                         Best Percentage
                                     </h3>
@@ -2071,7 +2104,7 @@ export default function Cards() {
                                     <div className='importantText'>
                                         Card
                                     </div>
-                                    <div className='importantText' style={{marginLeft: 'auto'}}>
+                                    <div className='importantText' style={{ marginLeft: 'auto' }}>
                                         % Gain
                                     </div>
                                 </div>

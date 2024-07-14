@@ -17,21 +17,21 @@ import useLocalStorage from 'use-local-storage';
 import { ContagionWeights } from './contagion_line';
 import ContagionRow from './contagion_row';
 
-ReactGA.initialize([ {
+ReactGA.initialize([{
     trackingId: 'G-GGLPK02VH8',
-} ]);
+}]);
 
 export default function Contagion() {
     useMobileViewport();
 
-    const [ clientData ] = useLocalStorage('userData', DefaultSave as SaveGameData);
-    const [ data, setRunTimeData ] = useState(DefaultSave as SaveGameData);
+    const [clientData] = useLocalStorage('userData', DefaultSave as SaveGameData);
+    const [data, setRunTimeData] = useState(DefaultSave as SaveGameData);
 
     useEffect(() => {
         setRunTimeData(clientData);
-    }, [ clientData ]);
+    }, [clientData]);
 
-    const [ contagionWeights, setContagionWeights ] = useState({} as ContagionWeights);
+    const [contagionWeights, setContagionWeights] = useState({} as ContagionWeights);
 
     const { excess_gh, contagionAmounts } = useMemo(() => {
         let gh_available = mathHelper.createDecimal(data.GrasshopperTotal).toNumber();
@@ -39,11 +39,11 @@ export default function Contagion() {
         let contagionAmounts: { [id: number | string]: { weight?: number, gh_amount?: number } } = {};
         let totalWeights = 0;
 
-        for (const [ key, value ] of Object.entries(contagionWeights)) {
+        for (const [key, value] of Object.entries(contagionWeights)) {
             totalWeights += value;
             contagionAmounts[key] = { weight: value };
         }
-        for (const [ key, value ] of Object.entries(contagionWeights)) {
+        for (const [key, value] of Object.entries(contagionWeights)) {
             let gh_amount = Math.floor(value / totalWeights * gh_available);
             contagionAmounts[key].gh_amount = gh_amount;
             used_gh += gh_amount;
@@ -52,14 +52,14 @@ export default function Contagion() {
         const excess_gh = gh_available - used_gh;
 
         return { excess_gh, contagionAmounts };
-    }, [ contagionWeights, data ]);
+    }, [contagionWeights, data]);
 
-    const [ client_extra_gh_id, setExtraGHID ] = useLocalStorage('extra_gh_id', 1);
-    const [ extra_gh_id, setRunTimeExtraGHID ] = useState(1);
+    const [client_extra_gh_id, setExtraGHID] = useLocalStorage('extra_gh_id', 1);
+    const [extra_gh_id, setRunTimeExtraGHID] = useState(1);
 
     useEffect(() => {
         setRunTimeExtraGHID(client_extra_gh_id);
-    }, [ client_extra_gh_id ]);
+    }, [client_extra_gh_id]);
 
     //GrasshopperAssigned -> BD
     //GrasshopperTotal -> BD
@@ -88,7 +88,9 @@ export default function Contagion() {
                 backgroundColor: 'black',
                 position: 'relative',
                 padding: '12px 12px 3px 12px',
-                overflow: 'hidden',
+                // overflow: 'hidden',
+                overflowX: 'auto',
+                overflowY: 'hidden'
             }}
         >
 
@@ -101,19 +103,19 @@ export default function Contagion() {
             }}>
 
                 <div className="importantText"
-                     style={{
-                         display: 'flex',
-                         // alignSelf: 'flex-start',
-                         alignItems: 'center',
-                         justifyContent: 'center',
-                         // margin: '6px 12px 0',
-                         border: '1px solid white',
-                         borderRadius: '12px',
-                         width: '855px',
-                         fontSize: '24px',
-                         fontWeight: 'bold',
-                         backgroundColor: 'rgba(255,255,255, 0.07)',
-                     }}
+                    style={{
+                        display: 'flex',
+                        // alignSelf: 'flex-start',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        // margin: '6px 12px 0',
+                        border: '1px solid white',
+                        borderRadius: '12px',
+                        width: '855px',
+                        fontSize: '24px',
+                        fontWeight: 'bold',
+                        backgroundColor: 'rgba(255,255,255, 0.07)',
+                    }}
                 >
                     {`Suggested Grasshopper Placement Per Contagion`}
                     <MouseOverPopover tooltip={
@@ -133,23 +135,23 @@ export default function Contagion() {
                     </MouseOverPopover>
                 </div>
                 <div className="importantText"
-                     style={{
-                         display: 'flex',
-                         flexDirection: 'column',
-                         // gap: '12px',
-                         alignSelf: 'flex-start',
-                         // alignItems: 'center',
-                         justifyContent: 'center',
-                         margin: '6px 12px 0',
-                         border: '1px solid white',
-                         borderRadius: '12px',
-                         width: '900px',
-                         // fontSize: '24px',
-                         // fontWeight: 'bold',
-                         backgroundColor: 'rgba(255,255,255, 0.07)',
-                         padding: '6px 6px 6px 6px',
-                         maxHeight: '100%',
-                     }}
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        // gap: '12px',
+                        alignSelf: 'flex-start',
+                        // alignItems: 'center',
+                        justifyContent: 'center',
+                        margin: '6px 12px 0',
+                        border: '1px solid white',
+                        borderRadius: '12px',
+                        width: '900px',
+                        // fontSize: '24px',
+                        // fontWeight: 'bold',
+                        backgroundColor: 'rgba(255,255,255, 0.07)',
+                        padding: '6px 6px 6px 6px',
+                        maxHeight: '100%',
+                    }}
                 >
                     <div style={{
                         width: '100%',
@@ -188,19 +190,19 @@ export default function Contagion() {
             }}>
 
                 <div className="importantText"
-                     style={{
-                         display: 'flex',
-                         // alignSelf: 'flex-start',
-                         alignItems: 'center',
-                         justifyContent: 'center',
-                         // margin: '6px 12px 0',
-                         border: '1px solid white',
-                         borderRadius: '12px',
-                         width: '500px',
-                         fontSize: '24px',
-                         fontWeight: 'bold',
-                         backgroundColor: 'rgba(255,255,255, 0.07)',
-                     }}
+                    style={{
+                        display: 'flex',
+                        // alignSelf: 'flex-start',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        // margin: '6px 12px 0',
+                        border: '1px solid white',
+                        borderRadius: '12px',
+                        width: '500px',
+                        fontSize: '24px',
+                        fontWeight: 'bold',
+                        backgroundColor: 'rgba(255,255,255, 0.07)',
+                    }}
                 >
                     {`Miscellaneous Settings`}
                     <MouseOverPopover tooltip={
@@ -220,23 +222,23 @@ export default function Contagion() {
                     </MouseOverPopover>
                 </div>
                 <div className="importantText"
-                     style={{
-                         display: 'flex',
-                         flexDirection: 'column',
-                         // gap: '12px',
-                         alignSelf: 'flex-start',
-                         // alignItems: 'center',
-                         justifyContent: 'center',
-                         margin: '6px 12px 0',
-                         border: '1px solid white',
-                         borderRadius: '12px',
-                         width: '490px',
-                         // fontSize: '24px',
-                         // fontWeight: 'bold',
-                         backgroundColor: 'rgba(255,255,255, 0.07)',
-                         padding: '6px 6px 6px 6px',
-                         maxHeight: '100%',
-                     }}
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        // gap: '12px',
+                        alignSelf: 'flex-start',
+                        // alignItems: 'center',
+                        justifyContent: 'center',
+                        margin: '6px 12px 0',
+                        border: '1px solid white',
+                        borderRadius: '12px',
+                        width: '490px',
+                        // fontSize: '24px',
+                        // fontWeight: 'bold',
+                        backgroundColor: 'rgba(255,255,255, 0.07)',
+                        padding: '6px 6px 6px 6px',
+                        maxHeight: '100%',
+                    }}
                 >
                     <div style={{
                         width: '100%',
@@ -299,7 +301,7 @@ export default function Contagion() {
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
-                }}/>
+                }} />
 
             </div>
 
@@ -311,7 +313,7 @@ export default function Contagion() {
                 height: '100vh',
                 justifyContent: 'center',
                 alignItems: 'center',
-            }}/>
+            }} />
         </div>
     );
 }

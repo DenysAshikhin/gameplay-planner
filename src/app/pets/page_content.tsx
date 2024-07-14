@@ -509,6 +509,9 @@ export default function Pets() {
         if (data.AscensionCount > 29) {
             newPriorityMap['1'].count = 0;
         }
+        if (data.AscensionCount > 39) {
+            newPriorityMap['3'].count = 0;
+        }
 
         let newPetWhiteList = statTeamMasterList.petWhiteList ? JSON.parse(JSON.stringify(statTeamMasterList.petWhiteList)) : {};
 
@@ -526,7 +529,7 @@ export default function Pets() {
             }
             //Do not reset card power or exp, also reinc and ir for lower A fallback
             else if (key in existingStats && key !== '21' && key !== '22'
-                && key !== '5' && key !== '6' && (data.AscensionCount > 29 && key !== '1')
+                && key !== '5' && key !== '6' && (data.AscensionCount > 29 && key !== '1') && (data.AscensionCount > 39 && key !== '3')
             ) {
                 newPriorityMap[key].count = 0;
             }
@@ -628,7 +631,7 @@ export default function Pets() {
     let searchList = [];
     for (const [key, value] of Object.entries(BonusMap)) {
 
-        if (value.id >= bonusCutOff || priorityMap[key] || !bonusesWithPets[value.id] || (data.AscensionCount > 29 && value.id === 1)) {
+        if (value.id >= bonusCutOff || priorityMap[key] || !bonusesWithPets[value.id] || (data.AscensionCount > 29 && value.id === 1) || (data.AscensionCount > 39 && value.id === 3)) {
             continue;
         }
         searchList.push({ label: value.label, id: value.id });
@@ -860,7 +863,7 @@ export default function Pets() {
                                         values={priorityList}
                                         onReorder={setPriorityList}>
                                         {priorityList.map((item, index) => {
-                                            if (data.AscensionCount > 29 && item === 1) {
+                                            if ((data.AscensionCount > 29 && item === 1 )|| (data.AscensionCount > 39 && item === 3 )) {
                                             }
                                             let showSelectedPets = false;
                                             let color = 'gray';
@@ -893,7 +896,7 @@ export default function Pets() {
                                                         style={{
                                                             margin: '6px 3px',
                                                             border: `2px solid ${color}`,
-                                                            display: data.AscensionCount > 29 && item === 1 ? 'none' : 'flex',
+                                                            display: (data.AscensionCount > 29 && item === 1) || (data.AscensionCount > 39 && item === 3)? 'none' : 'flex',
                                                             alignItems: 'center', flexDirection: 'column',
                                                             width: '220px',
                                                             backgroundColor: 'rgba(255,255,255, 0.07)',
@@ -1149,6 +1152,9 @@ export default function Pets() {
                                                 if (data.AscensionCount > 29 && e.ID === 1) {
                                                     return null;
                                                 }
+                                                if (data.AscensionCount > 39 && e.ID === 3) {
+                                                    return null;
+                                                }
 
                                                 let color = 'lightgray';
                                                 let priority = priorityMap[e.ID];
@@ -1377,7 +1383,10 @@ export default function Pets() {
                                         />
                                     </div>
                                 </div> */}
-                                <div style={{ display: 'flex', justifyContent: 'center' }} >
+
+
+                                {/* equalise pets disabled for now */}
+                                {/* <div style={{ display: 'flex', justifyContent: 'center' }} >
                                     <div style={{}}>
                                         {`Equalise Pets`}
                                     </div>
@@ -1392,7 +1401,7 @@ export default function Pets() {
                                             value={!!equalisePets as any}
                                         />
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
 
                             {/* Custom Preset Area */}

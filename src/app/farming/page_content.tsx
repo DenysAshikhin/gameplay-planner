@@ -109,6 +109,7 @@ const FarmingLanding = () => {
 
     }, [plantTimes]);
 
+    const needFlickerLog = useRef(false);
 
     const secondsHour = 3600;
     const farmCalcStarted = useRef({});
@@ -227,7 +228,7 @@ const FarmingLanding = () => {
 
         shopGrowingSpeed = data.FarmingShopPlantGrowingSpeed;
         manualHarvestFormula = data.FarmingShopPlantManualHarvestFormula;
-        // let shopProdBonus = Math.pow(1.25, data.FarmingShopPlantTotalProduction);
+        // let shopProdBonus = Math.pow(1.25, data.FarmingShopPlantTotalProduction);sss
         shopRankEXP = 1 + data.FarmingShopPlantRankExpEarned * 0.1;
         shopRankLevel = data.FarmingShopPlantRankExpEarned;
         picPlants = data.FarmingShopPlantImprovement;
@@ -448,7 +449,7 @@ const FarmingLanding = () => {
         [numSimulatedAutos, finalPlants, modifiers, futureTime, plantAutosClient, data.GrasshopperCollection, secondsHour, timeStepMode, plantTimes]);
 
     //Go through all datapoints, find highest exp, and reduce it for all equally if necessary so JS doesn't break
-    const graphObjects = useMemo(() => {
+    const graphObjects: any = useMemo(() => {
         // console.log(`updating EXPDIFF`);
         if (!data.GrasshopperCollection) {
             return [];
@@ -584,10 +585,39 @@ const FarmingLanding = () => {
             top10Potatoes: bestPlantCombo.top10DataPointsPotatoes,
             top10Fries: bestPlantCombo.top10DataPointsFries,
             bestPic: bestPlantCombo?.bestPic?.result?.result?.dataPointsPotatoes,
+            bestPicFries: bestPlantCombo?.bestPic?.result?.result?.dataPointsFries,
             bestPicPerc: bestPlantCombo?.bestPicPerc?.result?.result?.dataPointsPotatoes,
         }
 
     }, [tempFuture, expDiff, expDiffFry, data.GrasshopperCollection, bestPlantCombo])
+
+    useEffect(() => {
+        // if ((farmCalcProgress.current === farmCalcProgress.max && farmCalcProgress.current !== 0 && bestPlantCombo.prod && calcDone)) {
+        if (needFlickerLog.current == true) {
+
+            needFlickerLog.current = false;
+            const tempFunc = async () => {
+                let prev;
+                setYScale((cur_scale) => {
+                    if (!prev) {
+                        prev = cur_scale;
+                        return prev === 'auto' ? 'Log' : 'auto';
+                    }
+                    return cur_scale;
+                })
+                while (!prev) {
+                    await helper.sleep(0.02);
+                    setTimeout(() => {
+                        setYScale((cur_scale) => {
+                            return prev === 'auto' ? 'auto' : 'Log';
+                        })
+                    }, 1000,)
+                }
+            }
+            tempFunc();
+        }
+
+    }, [setYScale])
 
     const runningGraphObjects = useMemo(() => {
         // console.log(`updating running EXPDIFF`);
@@ -769,7 +799,7 @@ const FarmingLanding = () => {
                     })
                     console.log(`ready to find best`);
 
-                    let bestProd: any  = { prod: mathHelper.createDecimal(0) };
+                    let bestProd: any = { prod: mathHelper.createDecimal(0) };
                     let bestPot: any = { pot: mathHelper.createDecimal(0) };
                     let bestPic: any = { pic: 0, prod: mathHelper.createDecimal(0) }
                     let bestPicPerc: any = { pic: 0, prod: mathHelper.createDecimal(0) }
@@ -790,15 +820,25 @@ const FarmingLanding = () => {
                         cur.bestPicCombo.potatoeProduction = cur.bestPicCombo.potatoeProduction ? mathHelper.createDecimal(cur.bestPicCombo.potatoeProduction) : cur.bestPicCombo.potatoeProduction;
                         cur.bestPicCombo.result.potatoeProduction = cur.bestPicCombo.result.potatoeProduction ? mathHelper.createDecimal(cur.bestPicCombo.result.potatoeProduction) : cur.bestPicCombo.result.potatoeProduction;
                         cur.bestPicCombo.result.totalPotatoes = cur.bestPicCombo.result.totalPotatoes ? mathHelper.createDecimal(cur.bestPicCombo.result.totalPotatoes) : cur.bestPicCombo.result.totalPotatoes;
+                        cur.bestPicCombo.result.finalModifiers.FrenchFriesSCBonus = cur.bestPicCombo.result.finalModifiers.FrenchFriesSCBonus ? mathHelper.createDecimal(cur.bestPicCombo.result.finalModifiers.FrenchFriesSCBonus) : cur.bestPicCombo.result.finalModifiers.FrenchFriesSCBonus;
+
                         cur.bestPICPercCombo.potatoeProduction = cur.bestPICPercCombo.potatoeProduction ? mathHelper.createDecimal(cur.bestPICPercCombo.potatoeProduction) : cur.bestPICPercCombo.potatoeProduction;
                         cur.bestPICPercCombo.result.potatoeProduction = cur.bestPICPercCombo.result.potatoeProduction ? mathHelper.createDecimal(cur.bestPICPercCombo.result.potatoeProduction) : cur.bestPICPercCombo.result.potatoeProduction;
                         cur.bestPICPercCombo.result.totalPotatoes = cur.bestPICPercCombo.result.totalPotatoes ? mathHelper.createDecimal(cur.bestPICPercCombo.result.totalPotatoes) : cur.bestPICPercCombo.result.totalPotatoes;
+                        cur.bestPICPercCombo.result.finalModifiers.FrenchFriesSCBonus = cur.bestPICPercCombo.result.finalModifiers.FrenchFriesSCBonus ? mathHelper.createDecimal(cur.bestPICPercCombo.result.finalModifiers.FrenchFriesSCBonus) : cur.bestPICPercCombo.result.finalModifiers.FrenchFriesSCBonus;
+
                         cur.bestProdCombo.result.potatoeProduction = cur.bestProdCombo.result.potatoeProduction ? mathHelper.createDecimal(cur.bestProdCombo.result.potatoeProduction) : cur.bestProdCombo.result.potatoeProduction;
                         cur.bestProdCombo.result.totalPotatoes = cur.bestProdCombo.result.totalPotatoes ? mathHelper.createDecimal(cur.bestProdCombo.result.totalPotatoes) : cur.bestProdCombo.result.totalPotatoes;
+                        cur.bestProdCombo.result.finalModifiers.FrenchFriesSCBonus = cur.bestProdCombo.result.finalModifiers.FrenchFriesSCBonus ? mathHelper.createDecimal(cur.bestProdCombo.result.finalModifiers.FrenchFriesSCBonus) : cur.bestProdCombo.result.finalModifiers.FrenchFriesSCBonus;
+
                         cur.totalPotCombo.result.totalPotatoes = cur.totalPotCombo.result.totalPotatoes ? mathHelper.createDecimal(cur.totalPotCombo.result.totalPotatoes) : cur.totalPotCombo.result.totalPotatoes;
                         cur.totalPotCombo.result.potatoeProduction = cur.totalPotCombo.result.potatoeProduction ? mathHelper.createDecimal(cur.totalPotCombo.result.potatoeProduction) : cur.totalPotCombo.result.potatoeProduction;
+                        cur.totalPotCombo.result.finalModifiers.FrenchFriesSCBonus = cur.totalPotCombo.result.finalModifiers.FrenchFriesSCBonus ? mathHelper.createDecimal(cur.totalPotCombo.result.finalModifiers.FrenchFriesSCBonus) : cur.totalPotCombo.result.finalModifiers.FrenchFriesSCBonus;
 
+                        cur.totalPotCombo.result.potatoeProduction = cur.totalPotCombo.result.potatoeProduction ? mathHelper.createDecimal(cur.totalPotCombo.result.potatoeProduction) : cur.totalPotCombo.result.potatoeProduction;
 
+                        // bestPicPerc.result.result.finalModifiers)
+                        // modifiers.FrenchFriesSCBonus
 
                         for (let j = 0; j < cur.top10DataPointsPotatoes.length; j++) {
 
@@ -969,7 +1009,7 @@ const FarmingLanding = () => {
                         console.log(finalBests);
 
 
-
+                        needFlickerLog.current = true;
                         setCalcDone(true);
                         return finalBests;
                     }

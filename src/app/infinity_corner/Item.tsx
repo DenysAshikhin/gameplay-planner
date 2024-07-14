@@ -78,6 +78,12 @@ export default function Item({
     </div>
 
     const sweet_locked = data.AscensionCount > 29 && map_key === 'potato';
+    const skull_locked = data.AscensionCount > 39 && map_key === 'skull';
+
+    let key_locked = false;
+    if(sweet_locked || skull_locked){
+        key_locked = true;
+    }
 
     return (
         <div
@@ -104,8 +110,19 @@ export default function Item({
                     />
                 </div>
             )}
+            {skull_locked && (
+                <div>
+                    <Image
+                        alt={`${label} upgrade image`}
+                        src={ic_mapping['locked'].skull_lock}
+                        fill
+                        priority
+                        unoptimized
+                    />
+                </div>
+            )}
 
-            {!sweet_locked && !isStar && (desiredLevel > 0) && false && (
+            {!key_locked && !isStar && (desiredLevel > 0) && false && (
                 <div
                     // className='elementToFadeInAndOut'
                     style={{
@@ -122,7 +139,7 @@ export default function Item({
                 </div>
             )}
 
-            {!sweet_locked && isStar && (
+            {!key_locked && isStar && (
                 <>
                     <Image
                         alt={`upgrade all star image`}
@@ -194,7 +211,7 @@ export default function Item({
                 </>
             )}
 
-            {!sweet_locked && !isStar && (
+            {!key_locked && !isStar && (
                 <MouseOverPopover
                     tooltip={tooltip}
                     forceYPlacement={'top'}
@@ -235,7 +252,7 @@ export default function Item({
                 </MouseOverPopover>
             )}
 
-            {!sweet_locked && (!isStar && desiredLevel > 0) && (
+            {!key_locked && (!isStar && desiredLevel > 0) && (
                 <MouseOverPopover
                     tooltip={tooltip}
                     forceYPlacement={'top'}
@@ -262,7 +279,7 @@ export default function Item({
                 </MouseOverPopover>
             )}
 
-            {!sweet_locked && (isStar && desiredLevel > 0) && (
+            {!key_locked && (isStar && desiredLevel > 0) && (
                 <MouseOverPopover
                     tooltip={tooltip}
                     forceYPlacement={'top'}
@@ -294,7 +311,7 @@ export default function Item({
             )}
 
             {/* Weights/levels */}
-            {!sweet_locked && (!isLocked || forceShow) && (
+            {(!key_locked) && (!isLocked || forceShow) && (
                 <div
                     className='importantText'
                     style={{

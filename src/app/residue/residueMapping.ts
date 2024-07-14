@@ -20,6 +20,7 @@ import CardPOWImg from '@images/residue/ShopUpgrade19CardPowerSelected.png';
 import CardEXPImg from '@images/residue/ShopUpgrade20CardExpSelected.png';
 import LockedImg from '@images/residue/locked.png';
 import SweetPotatoe from '@images/residue/ShopUpgradeLockSweet.png';
+import SKULL_LOCK from '@images/residue/ShopUpgradeLockPowder.png';
 
 import Attack_Label from '@images/bonus_labels/Attack_Exp.png';
 import Hp_Label from '@images/bonus_labels/HP_Exp.png';
@@ -43,13 +44,14 @@ import CardPow_Label from '@images/bonus_labels/Card_Power.png';
 import CardExp_Label from '@images/bonus_labels/Card_Exp.png';
 
 import mathHelper from '../util/math';
-import {StaticImageData} from "next/image";
+import { StaticImageData } from "next/image";
 import Decimal from 'break_infinity.js';
 
 type residueUpgrade = {
     img: StaticImageData,
     label_img?: StaticImageData,
     sweetlocked?: StaticImageData,
+    skulllocked?: StaticImageData,
     order?: number,
     label?: string,
     unlock?: number,
@@ -60,7 +62,7 @@ type residueUpgrade = {
     weight?(ascension: number): number
 }
 
-export const residueMap: { [name: string]: residueUpgrade} = {
+export const residueMap: { [name: string]: residueUpgrade } = {
     'attack': {
         img: AttackImg,
         label_img: Attack_Label,
@@ -681,6 +683,7 @@ export const residueMap: { [name: string]: residueUpgrade} = {
     },
     'locked': {
         img: LockedImg,
-        sweetlocked: SweetPotatoe
+        sweetlocked: SweetPotatoe,
+        skulllocked: SKULL_LOCK,
     }
 }
