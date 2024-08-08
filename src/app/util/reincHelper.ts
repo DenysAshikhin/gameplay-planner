@@ -27,20 +27,7 @@ import mathHelper from './math';
 // );dsadsddasds
 
 const helper = {
-    calcRequiredReincExp: function (currLevel: number, data) {
-        let step1 = 5 + currLevel * 5;
-        let temp1 = mathHelper.max(0.0, currLevel / 500000.0);
-        let step2 = mathHelper.min(1.0025, mathHelper.addDecimal(1.00005, temp1));
-        let step3 = mathHelper.min(currLevel, 3000.0);
-
-        let finalStep1 = mathHelper.multiplyDecimal(step1, mathHelper.pow(step2, step3));
-
-        let step4Cont = mathHelper.pow(1.001, mathHelper.max(currLevel - 3000, 0.0));
-        let step5 = mathHelper.addDecimal(1, mathHelper.max(0.0, mathHelper.min(1.0, (currLevel - 1500) / 1000)));
-
-        let inner1 = mathHelper.multiplyDecimal(finalStep1, step4Cont);
-        let finalStep2 = mathHelper.multiplyDecimal(inner1, step5);
-
+    calcRequiredReincExp: function (data) {
         let residueAdd = mathHelper.addDecimal(mathHelper.createDecimal(data.TotalResidueBD), 1);
         let residueMax = mathHelper.max(
             mathHelper.subtractDecimal(mathHelper.logDecimal(residueAdd, 1.18), 27.82),
@@ -69,11 +56,25 @@ const helper = {
             ),
         );
 
+        return (currLevel) => {
+            let step1 = 5 + currLevel * 5;
+            let temp1 = mathHelper.max(0.0, currLevel / 500000.0);
+            let step2 = mathHelper.min(1.0025, mathHelper.addDecimal(1.00005, temp1));
+            let step3 = mathHelper.min(currLevel, 3000.0);
 
-        let finalStep3 = mathHelper.multiplyDecimal(finalStep2, cowStep);
-        let finalStep4 = mathHelper.multiplyDecimal(finalStep3, expTokenStep);
+            let finalStep1 = mathHelper.multiplyDecimal(step1, mathHelper.pow(step2, step3));
 
-        return finalStep4;
+            let step4Cont = mathHelper.pow(1.001, mathHelper.max(currLevel - 3000, 0.0));
+            let step5 = mathHelper.addDecimal(1, mathHelper.max(0.0, mathHelper.min(1.0, (currLevel - 1500) / 1000)));
+
+            let inner1 = mathHelper.multiplyDecimal(finalStep1, step4Cont);
+            let finalStep2 = mathHelper.multiplyDecimal(inner1, step5);
+
+            let finalStep3 = mathHelper.multiplyDecimal(finalStep2, cowStep);
+            let finalStep4 = mathHelper.multiplyDecimal(finalStep3, expTokenStep);
+
+            return finalStep4;
+        }
     },
 };
 
