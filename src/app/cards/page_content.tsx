@@ -72,6 +72,9 @@ import {
     cardMapImg, cardLabelImg, defaultWeights, CARD_DISPLAY_IDS, permPowerBonusFormula, tempPowerBonusFormula, powerFormula, cardIDMap, maxKey
 } from '../util/cardMapping';
 
+
+let reincLevelRequirements = {};
+
 interface CardCardProps {
     vertical,
     displayMode,
@@ -1115,6 +1118,13 @@ const CalcReinc = function (data, reincCardCharges?: any) {
     while (loopFlag) {
 
         let required = calculateRequiredReincarnationXP(futureReincLevel);
+        if (reincLevelRequirements[futureReincLevel]) {
+            required = reincLevelRequirements[futureReincLevel];
+        }
+        else {
+            required = calculateRequiredReincarnationXP(futureReincLevel);
+            reincLevelRequirements[futureReincLevel] = required;
+        }
         if (currentReincExp.greaterThan(required)) {
             futureReincLevel++;
             currentReincExp = mathHelper.subtractDecimal(currentReincExp, required);
