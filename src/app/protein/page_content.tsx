@@ -76,6 +76,9 @@ export default function Protein() {
     const [cumulativeTime, setCumulativeTime] = useLocalStorage(`cumulativeTime`, false);
     const [simplifiedView, setSimplifiedView] = useLocalStorage(`simplifiedView`, false);
     const [numAL, setNumAl] = useLocalStorage(`numAL`, 5);
+    const [numTradeCosts, setNumTradeCosts] = useLocalStorage('numTradeCosts', 0);
+
+
 
     // useEffect(() => {
     //     setTimeout(() => {
@@ -114,6 +117,19 @@ export default function Protein() {
     let bestAssemblies = [];
     let totalLevels = 0;
     let currentBonusTotals: { [id: number]: number } = {};
+
+
+    let averageTradeCosts = [];
+    if (numTradeCosts > 0) {
+        let costs = helper.getAverageTradeCosts(data);
+        averageTradeCosts = costs.average_cost_map;
+        let proteinCost = averageTradeCosts.find((val) => val.id === 2);
+        if (proteinCost) {
+            proteinCost = mathHelper.multiplyDecimal(proteinCost.cost, numTradeCosts);
+            currProtein = mathHelper.subtractDecimal(currProtein, proteinCost);
+        }
+    }
+
 
     tempData.AssemblerCollection.forEach((inner_val) => {
         totalLevels += inner_val.Level;
@@ -374,82 +390,105 @@ export default function Protein() {
                             </div>
 
 
-                            <MouseOverPopover tooltip={
-                                <div style={{ maxWidth: '814px' }}>
-                                    <div style={{ display: 'flex' }}>
-                                        <div style={{ fontWeight: 'bold', marginRight: '6px' }}>
-                                            Use cumulative purchase time:
-                                        </div>
-                                        <div>
-                                            when checked, will display each purchase time as the time necessary to buy all the upgrades before that purchase (inculding itself).
-                                            Otherwise, it will show the current time to purchase if it is the next assembly upgraded
-                                        </div>
-                                    </div>
-                                    <div style={{ display: 'flex', marginTop: '12px' }}>
-                                        <div style={{ fontWeight: 'bold', marginRight: '6px' }}>
-                                            Num purchases:
-                                        </div>
-                                        <div>
-                                            will calculate and display the selected number of the next suggested assembly purchases
-                                        </div>
 
+                            <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                {/* num purchases */}
+                                <div style={{ display: 'flex', alignItems: 'center', marginRight: '2px' }}>
+
+                                    <MouseOverPopover tooltip={
+                                        <div style={{ maxWidth: '814px' }}>
+                                            <div style={{ display: 'flex' }}>
+                                                <div style={{ fontWeight: 'bold', marginRight: '6px' }}>
+                                                    Use cumulative purchase time:
+                                                </div>
+                                                <div>
+                                                    when checked, will display each purchase time as the time necessary to buy all the upgrades before that purchase (inculding itself).
+                                                    Otherwise, it will show the current time to purchase if it is the next assembly upgraded
+                                                </div>
+                                            </div>
+                                            <div style={{ display: 'flex', marginTop: '12px' }}>
+                                                <div style={{ fontWeight: 'bold', marginRight: '6px' }}>
+                                                    Num purchases:
+                                                </div>
+                                                <div>
+                                                    will calculate and display the selected number of the next suggested assembly purchases
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    }>
+                                        <div style={{ height: '24px', width: '24px', position: 'relative' }}>
+                                            <Image
+                                                alt='info icon popup additional information'
+                                                src={infoIcon}
+                                                fill
+                                                unoptimized
+                                            />
+                                        </div>
+                                        {/* <img alt='info icon popup additional information' src={infoIcon} style={{ height: '24px' }} /> */}
+
+                                    </MouseOverPopover>
+                                    <div
+                                        className='importantText'
+                                        style={{ fontSize: '18px', marginRight: '6px', marginLeft:'auto' }}
+                                    >
+                                        Num purchases
                                     </div>
-                                </div>
-                            }>
-                                <div style={{ height: '24px', width: '24px', position: 'relative' }}>
-                                    <Image
-                                        alt='info icon popup additional information'
-                                        src={infoIcon}
-                                        fill
-                                        unoptimized
+                                    <input
+                                        aria-label='Specify how many average protein trade costs to reserver'
+                                        className='importantText textMedium2'
+                                        style={{ borderRadius: '4px', width: '36px', height: '65%', backgroundColor: '#2D2D2D' }}
+                                        type='number'
+                                        value={numAL}
+                                        onChange={
+                                            (inner_e) => {
+                                                try {
+                                                    let x = Number(inner_e.target.value);
+                                                    // x = Math.floor(x);
+                                                    if (x < 1 || x > 99) {
+                                                        return;
+                                                    }
+                                                    setNumAl(x);
+                                                }
+                                                catch (err) {
+                                                    console.log(err);
+                                                }
+                                            }}
+                                        min="1"
+                                        max="99"
                                     />
                                 </div>
-                                {/* <img alt='info icon popup additional information' src={infoIcon} style={{ height: '24px' }} /> */}
 
-                            </MouseOverPopover>
-
-
-                            {/* num purchases */}
-                            <div style={{ display: 'flex', alignItems: 'center', marginRight: '2px' }}>
-                                <div
-                                    className='importantText'
-                                    style={{ fontSize: '18px', marginRight: '6px' }}
-                                >
-                                    Num purchases
-                                </div>
-                                <input
-                                    aria-label='Specify how many purchases to calculate into the future'
-                                    className='importantText textMedium2'
-                                    style={{ borderRadius: '4px', width: '36px', height: '65%', backgroundColor: '#2D2D2D' }}
-                                    type='number'
-                                    value={numAL}
-                                    onChange={
-                                        (inner_e) => {
-                                            try {
-                                                let x = Number(inner_e.target.value);
-                                                // x = Math.floor(x);
-                                                if (x < 1 || x > 99) {
-                                                    return;
+                                {/* reserve trades */}
+                                <div  className='importantText' style={{display:'flex', alignItems:'center'}}>
+                                    <div style={{marginRight:'auto'}}>
+                                        {`Reserve Trade Costs`}
+                                    </div>
+                                    <input
+                                        aria-label='Specify how many purchases to calculate into the future'
+                                        className='importantText textMedium2'
+                                        style={{ borderRadius: '4px', width: '36px', height: '65%', backgroundColor: '#2D2D2D' }}
+                                        type='number'
+                                        value={numTradeCosts}
+                                        onChange={
+                                            (inner_e) => {
+                                                try {
+                                                    let x = Number(inner_e.target.value);
+                                                    // x = Math.floor(x);
+                                                    if (x < 0 || x > 99) {
+                                                        return;
+                                                    }
+                                                    setNumTradeCosts(x);
                                                 }
-                                                setNumAl(x);
-
-                                                ReactGA.event({
-                                                    category: "protein_interaction",
-                                                    action: `changed_num_AL`,
-                                                    label: `${x}`,
-                                                    value: x
-                                                })
-
-                                            }
-                                            catch (err) {
-                                                console.log(err);
-                                            }
-                                        }}
-                                    min="1"
-                                    max="99"
-                                />
+                                                catch (err) {
+                                                    console.log(err);
+                                                }
+                                            }}
+                                        min="0"
+                                        max="99"
+                                    />
+                                </div>
                             </div>
-
 
                         </div>
                         <div

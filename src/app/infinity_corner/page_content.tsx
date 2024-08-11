@@ -46,6 +46,14 @@ export default function Infinity_Corner() {
         setRunTimeReserveRP(clientReserveRP);
     }, [clientReserveRP]);
 
+    const [clientReserveRPNum, setReserveRPNum] = useLocalStorage('reserveRPNum', 1);
+    const [reserveRPNum, setRunTimeReserveRPNum] = useState(1);
+
+    useEffect(() => {
+        setRunTimeReserveRPNum(clientReserveRPNum);
+    }, [clientReserveRPNum]);
+
+
     const [upgradeWeightsClient, setUpgradeWeights] = useLocalStorage('ic_upgrade_weights', {});
     const [upgradeWeights, setRunTimeUpgradeWeights] = useState({});
 
@@ -83,12 +91,12 @@ export default function Infinity_Corner() {
         let totalWeight = 0;
 
         let averageTradeCosts = [];
-        if(reserveRP){
+        if (reserveRP) {
             let costs = helper.getAverageTradeCosts(data);
             averageTradeCosts = costs.average_cost_map;
-            let rpCost = averageTradeCosts.find((val)=>val.id === 8);
-            if(rpCost){
-                rpCost = rpCost.cost;
+            let rpCost = averageTradeCosts.find((val) => val.id === 8);
+            if (rpCost) {
+                rpCost = mathHelper.multiplyDecimal(rpCost.cost, reserveRPNum);
                 currentPoints = mathHelper.subtractDecimal(currentPoints, rpCost);
             }
         }
@@ -251,7 +259,7 @@ export default function Infinity_Corner() {
 
 
         return { buyMap: buyMap, raw_increases: bestIncreases, futureBuy: futureBuy, grouped_buys: grouped_buys, futureBuyMode: grouped_buys.length === 0 };
-    }, [upgradeWeights, data, reserveRP])
+    }, [upgradeWeights, data, reserveRP, reserveRPNum])
 
 
     return (
@@ -307,6 +315,41 @@ export default function Infinity_Corner() {
                                     value={!!reserveRP as any}
                                 />
                             </div>
+
+                            {reserveRP && (
+                                <>
+                                    <div>
+                                        {`Reserves:`}
+                                    </div>
+                                    <div style={{ display: 'flex', justifyContent: 'center', alignItems:'center', marginLeft:'6px' }}>
+                                        <input
+                                            style={{
+                                                height: "12px",
+                                                width: "36px",
+                                            }}
+                                            type="number"
+                                            className="prepNumber"
+                                            value={reserveRPNum}
+                                            onChange={(e) => {
+                                                try {
+                                                    let x = Number(e.target.value);
+                                                    x = Math.floor(x);
+                                                    if (x < 1 || x > 99) {
+                                                        return;
+                                                    }
+                                                    setReserveRPNum(x);
+                                                } catch (err) {
+                                                    console.log(err);
+                                                }
+                                            }}
+                                            min="1"
+                                            max="99"
+                                        />
+                                    </div>
+
+                                </>
+                            )}
+
                         </div>
                     )}
                     <MouseOverPopover tooltip={
