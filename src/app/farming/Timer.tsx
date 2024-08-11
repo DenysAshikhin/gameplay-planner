@@ -4,7 +4,6 @@ import { memo, useState, useEffect } from "react";
 import { useTimer } from "react-timer-hook";
 import { useGlobalAudioPlayer } from "react-use-audio-player";
 import useLocalStorage from "use-local-storage";
-import addNotification from "react-push-notification";
 
 const Timer = ({ duration, setDuration }) => {
   const [loopAlarm, setLoopAlarm] = useLocalStorage("loopAlarm", false);
@@ -53,13 +52,10 @@ const Timer = ({ duration, setDuration }) => {
       console.warn("Timer Finished");
       setFinished(true);
       play();
-      addNotification({
-        title: "FAPI Timer Finished",
-        // subtitle: 'This is a subtitle',
-        // message: 'This is a very long message',
-        // theme: 'darkblue',
-        native: true, // when using native, your OS will handle theming.
-      });
+
+      if (Notification.permission === 'granted') {
+        new Notification("FAPI Timer Finished");
+      }
     },
   });
 
@@ -215,6 +211,12 @@ const Timer = ({ duration, setDuration }) => {
         {/* start */}
         <button
           onClick={(e) => {
+            // We have to request Notification permission in response to a user gesture
+            if (Notification.permission === "default") {
+              // only requests if they haven't already granted/denied permission
+              void Notification.requestPermission(); // doesn't matter if the user grants or not
+            }
+
             if (finished) {
               let time = new Date();
               time = new Date(time.getTime() + timeIncrease);
@@ -247,6 +249,12 @@ const Timer = ({ duration, setDuration }) => {
         {/* <button onClick={resume}>Resume</button> */}
         <button
           onClick={() => {
+            // We have to request Notification permission in response to a user gesture
+            if (Notification.permission === "default") {
+              // only requests if they haven't already granted/denied permission
+              void Notification.requestPermission(); // doesn't matter if the user grants or not
+            }
+
             // Restarts to 5 minutes timer
             // const time = new Date();
             // time.setSeconds(time.getSeconds() + 300);

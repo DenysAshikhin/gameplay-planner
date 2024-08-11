@@ -24,7 +24,6 @@
     "react-dom": "^18",
     "react-ga4": "^2.1.0",
     "react-microsoft-clarity": "^1.2.0",
-    "react-push-notification": "^1.5.3",
     "react-search-autocomplete": "^8.5.2",
     "react-timer-hook": "^3.0.7",
     "react-use-audio-player": "^2.2.0",
