@@ -81,7 +81,7 @@ const helper = {
         //includes pet token gain
         // const tokenHR = overall.tokenMult * pd_token_bonus * combo;
         const tokenHR = overall.tokenMult * finalTokenBonus;
-        let best = {hours: -1, totalTokens: -1, floored: -1, effeciency: -1};
+        let best = { hours: -1, totalTokens: -1, floored: -1, effeciency: -1 };
         let bestArr: {
             wastedHR: number,
             tokenHR: number,
@@ -209,7 +209,7 @@ const helper = {
 
         // tokenModif = tokenRewardCount * this.EXP_TOKEN_MOD;
         tokenModif = 1 + tokenRewardCount;
-        tokenMult =  synergyBonus * tokenModif;
+        tokenMult = synergyBonus * tokenModif;
         return {
             groupScore,
             baseGroupScore,
@@ -596,7 +596,7 @@ const helper = {
             if (!memo[key] || memo[key]) {
                 let res = this.calculateGroupScore(group.team, defaultRank);
                 let sum = res.tokenMult;
-                memo[key] = {token: sum, damage: res.groupScore, other: res};
+                memo[key] = { token: sum, damage: res.groupScore, other: res };
             }
             return memo[key];
         };
@@ -998,14 +998,14 @@ const helper = {
                                     id = id + ','
                                 }
                             }
-                            let x = {ID: id, team: prevCombination};
+                            let x = { ID: id, team: prevCombination };
                             // temp.push(x);
                             if (best === -1) {
-                                best = {ID: id, team: prevCombination, score: memoizedGroupScore(x)};
+                                best = { ID: id, team: prevCombination, score: memoizedGroupScore(x) };
                             } else {
                                 let cur = memoizedGroupScore(x);
                                 if (this.compareGroupScore(cur.other, best.score.other) > 0) {
-                                    best = {ID: id, team: prevCombination, score: cur};
+                                    best = { ID: id, team: prevCombination, score: cur };
                                 }
                             }
                         }
@@ -1076,7 +1076,7 @@ const helper = {
                 //NOTE later need to add logic to determine if a bonus met its criteria or not before adding!! (in the case of early termination like theres only enough for 2 teams, and its fully used)
                 for (let j = 0; j < activeBonuses.length; j++) {
                     requiredBonuses[activeBonuses[j].id] = activeBonuses[j];
-                    requiredPetBonusMap[activeBonuses[j].id] = {bonus: activeBonuses[j], pets: [], active: true};
+                    requiredPetBonusMap[activeBonuses[j].id] = { bonus: activeBonuses[j], pets: [], active: true };
                 }
 
 
@@ -1237,7 +1237,7 @@ const helper = {
             }
 
             //Get a subset of pets: the required based on bonuses, any that have dmgBonus or timeBonus, up to 4 more for max raw dungeonDamage
-            let finalPetsCollection = this.getBestDamagePets(petsCollection, defaultRank, {requiredPets: requiredPetsOverall});
+            let finalPetsCollection = this.getBestDamagePets(petsCollection, defaultRank, { requiredPets: requiredPetsOverall });
 
             //Mark every requiredBonus as failed (to check what passed at least once)
             for (const [key, value] of Object.entries(requiredPetBonusMap)) {
@@ -1526,16 +1526,16 @@ const helper = {
 
                 petsCollection = petsCollection.filter((pet) => {
 
-                        let res = true;
-                        for (let i = 0; i < combinations.team.length; i++) {
-                            if (combinations.team[i].ID === pet.ID) {
-                                res = false;
-                                break;
-                            }
+                    let res = true;
+                    for (let i = 0; i < combinations.team.length; i++) {
+                        if (combinations.team[i].ID === pet.ID) {
+                            res = false;
+                            break;
                         }
-
-                        return res;
                     }
+
+                    return res;
+                }
                 );
             }
             //Just use the best combination above
@@ -1554,16 +1554,16 @@ const helper = {
                 //Remove the pets
                 petsCollection = petsCollection.filter((pet) => {
 
-                        let res = true;
-                        for (let i = 0; i < combinations.team.length; i++) {
-                            if (combinations.team[i].ID === pet.ID) {
-                                res = false;
-                                break;
-                            }
+                    let res = true;
+                    for (let i = 0; i < combinations.team.length; i++) {
+                        if (combinations.team[i].ID === pet.ID) {
+                            res = false;
+                            break;
                         }
-
-                        return res;
                     }
+
+                    return res;
+                }
                 );
             }
         }
@@ -1722,7 +1722,7 @@ const helper = {
             if (!memo[key] || memo[key]) {
                 let res = this.calculateGroupScore(innerGroup.team, defaultRank);
                 let sum = res.tokenMult;
-                memo[key] = {token: sum, damage: res.groupScore, other: res};
+                memo[key] = { token: sum, damage: res.groupScore, other: res };
             }
             return memo[key];
         };
@@ -1768,33 +1768,33 @@ const helper = {
                         }
                     }
                     if (requiredFound === required && ignored === 0) {
-                        let x = {ID: id, team: prevCombination};
+                        let x = { ID: id, team: prevCombination };
                         // temp.push(x);
                         if (best === -1) {
-                            best = {ID: id, team: prevCombination, score: memoizedGroupScore(x)};
+                            best = { ID: id, team: prevCombination, score: memoizedGroupScore(x) };
                         } else {
                             let cur = memoizedGroupScore(x);
 
                             //Max damage
                             if (damageMode === 1) {
                                 if (cur.damage > best.score.damage) {
-                                    best = {ID: id, team: prevCombination, score: cur};
+                                    best = { ID: id, team: prevCombination, score: cur };
                                 }
                             } else {
                                 if (cur.token === best.score.token) {
                                     // if (cur.other.tokenRewardCount === 4) {
                                     if (cur.other.tokenRewardCount > 0) {
                                         if (cur.damage < best.score.damage) {
-                                            best = {ID: id, team: prevCombination, score: cur};
+                                            best = { ID: id, team: prevCombination, score: cur };
                                         }
                                     } else {
                                         if (cur.damage > best.score.damage) {
-                                            best = {ID: id, team: prevCombination, score: cur};
+                                            best = { ID: id, team: prevCombination, score: cur };
                                         }
                                     }
 
                                 } else if (cur.token > best.score.token) {
-                                    best = {ID: id, team: prevCombination, score: cur};
+                                    best = { ID: id, team: prevCombination, score: cur };
                                 }
                             }
                         }
@@ -1835,7 +1835,7 @@ const helper = {
             let avgTokenPetDmg = 0;
             let tokenPets = [];
             let maxDmgPet;
-            let avgdMaxDmg : number | Partial<groupScore> = 0;
+            let avgdMaxDmg: number | Partial<groupScore> = 0;
             let tknAir = 0;
             let tknGnd = 0;
 
@@ -1856,7 +1856,7 @@ const helper = {
             });
             avgTokenPetDmg /= numTokens;
 
-            newPetsCollection = this.getBestDamagePets(newPetsCollection, defaultRank, {requiredPets: tokenPets});
+            newPetsCollection = this.getBestDamagePets(newPetsCollection, defaultRank, { requiredPets: tokenPets });
 
             newPetsCollection = newPetsCollection.sort((a, b) => this.calculatePetBaseDamage(b, defaultRank) - this.calculatePetBaseDamage(a, defaultRank));
             for (let i = 0; i < 2; i++) {
@@ -1886,7 +1886,7 @@ const helper = {
                 //If it's the last team, slot it in forcefully
                 if (g === numGroups - 1) {
                     combinations = getCombinationsInner(newPetsCollection, Math.min(k, newPetsCollection.length),
-                        {pets: tokenPets, min: tokenPets.length});
+                        { pets: tokenPets, min: tokenPets.length });
                 }
                 //
                 else {
@@ -1917,7 +1917,7 @@ const helper = {
                     combinations = getCombinationsInner(
                         newPetsCollection,
                         Math.min(k, newPetsCollection.length),
-                        {pets: tokenPets, min: minPets});
+                        { pets: tokenPets, min: minPets });
                     damageMode = 1;
                 } else if (avgTokenPetDmg > cutOff) {
 
@@ -1930,9 +1930,9 @@ const helper = {
 
                     //Maximise this team
                     combinations = getCombinationsInner(newPetsCollection, Math.min(
-                            k,
-                            newPetsCollection.length),
-                        {pets: tokenPets, min: minPets});
+                        k,
+                        newPetsCollection.length),
+                        { pets: tokenPets, min: minPets });
                     damageMode = 1;
                 }
                 //Minimise this team, at the end
@@ -1990,7 +1990,7 @@ const helper = {
                 return this.calcBestDamageGroup(petsCollection, defaultRank, numGroups, other);
         }
     },
-    calcEquipBonus: function (pet, bonusInner, level=null, rank=null) {
+    calcEquipBonus: function (pet, bonusInner, level = null, rank = null) {
 
         let bonus: DecimalSource = 1;
         let curr = pet;
@@ -2114,7 +2114,7 @@ const helper = {
                 petBonusMap[e.ID][pet.ID] = pet;
             })
         }
-        return {petList, petBonusMap};
+        return { petList, petBonusMap };
     },
     calcCurrentBonuses: function (groundPets, airPets) {
         let currentBonuses = {};
@@ -2122,7 +2122,7 @@ const helper = {
             let pet = groundPets[i];
             pet.BonusList.forEach((e) => {
                 if (!currentBonuses[e.ID]) {
-                    currentBonuses[e.ID] = {...e, count: 0, sum: math_helper.createDecimal(0)};
+                    currentBonuses[e.ID] = { ...e, count: 0, sum: math_helper.createDecimal(0) };
                 }
 
                 currentBonuses[e.ID].count++;
@@ -2134,7 +2134,7 @@ const helper = {
             let pet = airPets[i];
             pet.BonusList.forEach((e) => {
                 if (!currentBonuses[e.ID]) {
-                    currentBonuses[e.ID] = {...e, count: 0, sum: math_helper.createDecimal(0)};
+                    currentBonuses[e.ID] = { ...e, count: 0, sum: math_helper.createDecimal(0) };
                 }
                 currentBonuses[e.ID].count++;
                 currentBonuses[e.ID].sum = math_helper.addDecimal(currentBonuses[e.ID].sum, this.calcEquipBonus(pet, e));
@@ -2174,7 +2174,7 @@ const helper = {
         let tempArr = [];//
         for (let i = 0; i < priorities.length; i++) {
             let curr = priorities[i];
-            tempArr.push({...priorityMap[curr], selectedPets: []});
+            tempArr.push({ ...priorityMap[curr], selectedPets: [] });
         }
         priorities = tempArr;
 
@@ -2259,8 +2259,8 @@ const helper = {
                             topStatActive = true;
                             petList[ID].desiredStat = this.calcEquipBonus(petList[ID], e,
                                 equalisePets ? 1 : null,
-                                 ignorePetRanks || equalisePets ? 1 : null,
-                                );
+                                ignorePetRanks || equalisePets ? 1 : null,
+                            );
                         }
                     });
                 }
@@ -2269,14 +2269,14 @@ const helper = {
             for (const [ID, value2] of Object.entries(petList)) {
                 const value = value2 as any;
 
-                let pet = {...value, score: 0, bonuses: [], sharedBonuses: []};
+                let pet = { ...value, score: 0, bonuses: [], sharedBonuses: [] };
                 let hasTopStat = false;
                 if (bannedPets[ID]) {
                     continue;
                 }
                 pet.BonusList.forEach((e) => {
 
-                    if ((ignoreStat[e.ID] && !statMode) || IgnoredStats[e.ID]  || (e.ID >= 1000)) {
+                    if ((ignoreStat[e.ID] && !statMode) || IgnoredStats[e.ID] || (e.ID >= 1000)) {
                         return;
                     }
 
@@ -2344,8 +2344,8 @@ const helper = {
                 pet.score = general_helper.roundFiveDecimal(
                     pet.score *
                     (1 + (
-                            (usePromos ? 1 : 0) * (pet.promotion ? pet.promotion * 0.05 : 0)
-                        )
+                        (usePromos ? 1 : 0) * (pet.promotion ? pet.promotion * 0.05 : 0)
+                    )
                     )
                 );
 
@@ -2361,7 +2361,13 @@ const helper = {
                 let diff = b.score - a.score;
 
                 if (topStatActive) {
-                    if (a.desiredStat.greaterThan(b.desiredStat)) {
+                    if (a.desiredStat && !b.desiredStat) {
+                        return -1;
+                    }
+                    else if (!a.desiredStat && b.desiredStat) {
+                        return 1;
+                    }
+                    else if (a.desiredStat.greaterThan(b.desiredStat)) {
                         return -1;
                     } else if (a.desiredStat.equals(b.desiredStat)) {
 

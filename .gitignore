@@ -42,3 +42,4 @@ next-env.d.ts
 .git/objects/pack/
 
 .idea
+/backup_node_modules

@@ -353,6 +353,13 @@ indexexchange.com, 198387, RESELLER, 50b1c356f2c5c8fc
 sonobi.com, 2003301cc3, DIRECT, d1a215d9eb5aee9e 
 google.com, pub-3990748024667386, RESELLER, f08c47fec0942fa0
 xapads.com, 204666, RESELLER
+onetag.com, 79c98b8469ef0a0-ob, DIRECT
+appnexus.com, 13099, RESELLER
+freewheel.tv, 20393, RESELLER
+pubmatic.com, 161593, RESELLER, 5d62403b186f2ace
+freewheel.tv, 24377, RESELLER
+onetag.com, 79c98b8469ef0a0, DIRECT
+
 
 # ALL CUSTOM RECORDS MUST BE BELOW THIS LINE
 
