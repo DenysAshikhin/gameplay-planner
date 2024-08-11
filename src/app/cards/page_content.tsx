@@ -72,6 +72,9 @@ import {
     cardMapImg, cardLabelImg, defaultWeights, CARD_DISPLAY_IDS, permPowerBonusFormula, tempPowerBonusFormula, powerFormula, cardIDMap, maxKey
 } from '../util/cardMapping';
 
+
+let reincLevelRequirements = {};
+
 interface CardCardProps {
     vertical,
     displayMode,
@@ -1104,18 +1107,24 @@ const CalcReinc = function (data, reincCardCharges?: any) {
     let temp1 = mathHelper.multiplyDecimal(timerBonuses, otherBonuses)
 
     let currentReincExp = mathHelper.multiplyDecimal(mathHelper.multiplyDecimal(mathHelper.multiplyDecimal(classTotal, temp1), waves), confection);
-    let requiredReincExp = mathHelper.createDecimal(data.ReincarnationExpRequiredBD);
     let currentReincLevel = mathHelper.createDecimal(data.ReincarnationLevel).toNumber();
-    let calcedReincExp = reincHelper.calcRequiredReincExp(currentReincLevel, data)
     let requiredReincLevel = data.AscensionReincLevelRequired;
     let currReincTime = data.CurrentReincarnationTimer / (60 * 60);
 
+    let calculateRequiredReincarnationXP = reincHelper.calcRequiredReincExp(data);
 
     let futureReincLevel = currentReincLevel;
     let loopFlag = true;
     while (loopFlag) {
 
-        let required = reincHelper.calcRequiredReincExp(futureReincLevel, data);
+        let required = calculateRequiredReincarnationXP(futureReincLevel);
+        if (reincLevelRequirements[futureReincLevel]) {
+            required = reincLevelRequirements[futureReincLevel];
+        }
+        else {
+            required = calculateRequiredReincarnationXP(futureReincLevel);
+            reincLevelRequirements[futureReincLevel] = required;
+        }
         if (currentReincExp.greaterThan(required)) {
             futureReincLevel++;
             currentReincExp = mathHelper.subtractDecimal(currentReincExp, required);
