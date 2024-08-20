@@ -583,7 +583,6 @@ const helper = {
         let petsMap = {};
 
         other = JSON.parse(JSON.stringify(other));
-
         for (let i = 0; i < PETSCOLLECTION.length; i++) {
             petsMap[PETSCOLLECTION[i].ID] = JSON.parse(JSON.stringify(PETSCOLLECTION[i]))
         }

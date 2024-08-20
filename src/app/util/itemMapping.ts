@@ -117,6 +117,7 @@ import Apollo from '@images/pets/Apollo.png';
 import BigMouth from '@images/pets/BigMouth.png';
 import Neptune from '@images/pets/Neptune.png';
 import Strawberry from '@images/pets/Strawberry.png';
+import Blueberry from '@images/pets/Blueberry.png';
 import JackBallon from '@images/pets/Jack Ballon.png';
 import ZackCanon from '@images/pets/Zack Canon.png';
 import MissSpook from '@images/pets/Miss Spook.png';
@@ -667,6 +668,11 @@ const PetNames: petData = {
         "name": "Blue Bloon",
         "location": "League 1",
         img: BlueBloon
+    },
+    105: {
+        "name": "Blueberry",
+        "location": "Any",
+        img: Blueberry
     },
     9999: {
         "name": "Unknown",
