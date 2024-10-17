@@ -2426,7 +2426,7 @@ const FarmingLanding = () => {
 
                                                     <div className='calcInfo'>
                                                         <div>
-                                                            Best Potatoe Generation
+                                                            Best Potato Generation
                                                         </div>
                                                         <div>
                                                             {`${100}% Fries`}:

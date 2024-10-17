@@ -123,13 +123,6 @@ const CardCard = ({
     } = card;
     const { ChargeTransfertPowerPerma, ChargeTransfertPowerTemp } = data;
 
-    // const [cardWeight, setCardWeight] = useLocalStorage(`cardWeight-${ID}`, -1);
-    // const [internalWeight, setInternalWeight] = useState(-1);
-
-    // useEffect(() => {
-    //     setInternalWeight(cardWeight);
-    // }, [cardWeight])
-
     let defaultWeight = cardIDMap[ID].weights[data.AscensionCount > maxKey ? maxKey : data.AscensionCount];
     if (data.AscensionCount >= 15) {
         defaultWeight /= 2;
@@ -334,18 +327,18 @@ const CardCard = ({
     let middleCard = false;
     let num = i + 1;
 
-    if (Math.floor(num / 5) % 2 === 0) {
-        middleCard = (num > 1) && (num % 2 === 0) && (num % 5 !== 0)
-    } else {
-        middleCard = (num > 1) && (num % 2 === 1) && (num % 5 !== 0)
-    }
-
+    // if (Math.floor(num / 5) % 2 === 0) {
+    //     middleCard = (num > 1) && (num % 2 === 0) && (num % 5 !== 0)
+    // } else {
+    //     middleCard = (num > 1) && (num % 2 === 1) && (num % 5 !== 0)
+    // }
+    middleCard = num % 5 == 2 || num % 5 == 4;
 
     let margin = ``;
     if (vertical && false) {
         margin = num % 2 === 0 && num + 1 ? '6px 0' : ''
     } else {
-        margin = middleCard ? `0 6px ${num > 1 && num % 5 === 0 ? '12px' : ''} 6px` : '';
+        margin = middleCard ? `0 6px ${num > 1 && num % 5 === 0 ? '12px' : '0px'} 6px` : '';
     }
 
     let displayLabel = vertical;
@@ -382,317 +375,6 @@ const CardCard = ({
     }
 
 
-    try {
-        return (
-            <div
-                key={i}
-                style={{
-                    // border: isPositiveChargeRatio ? '2px solid green' : '1px solid black',
-                    borderRadius: '5px',
-                    display: Found === 0 ? 'none' : 'flex',
-                    flexDirection: 'column',
-                    // alignItems: 'center',
-                    alignItems: displayMode === 'original' ? 'center' : '',
-                    justifyContent: 'center',
-                    // justifyContent: displayMode === 'original' ? 'center' : '',
-                    width: displayMode === 'original' ? `${227 / 227 * multiplier}px` : '100%',
-                    height: displayMode === 'original' ? `${316 / 227 * multiplier}px` : '48px',
-                    margin: displayMode === 'original' ? margin : `${num === 1 ? '' : '6px'} 0 0 0`,
-                    padding: displayMode === 'original' ? '' : '0 6px 0 6px',
-                    boxSizing: 'border-box',
-                    position: displayMode === 'original' ? 'relative' : undefined,
-                    backgroundColor: 'rgba(255,255,255, 0.1)'
-                }}>
-                {displayMode === 'original' && (
-                    <>
-                        <MouseOverPopover
-                            tooltip={
-                                <div style={{ padding: '6px' }}>
-                                    <h3 style={{ margin: 0, textAlign: 'center' }}>
-                                        {cardIDMap[ID].label}
-                                    </h3>
-                                    <div>
-                                        Current Bonus: {finalBefore.toExponential(2).toString()}%
-                                    </div>
-                                    <div>
-                                        Charged Bonus: {finalAfter.toExponential(2).toString()}%
-                                    </div>
-                                    <div>
-                                        Absolute Increase: {flatIncrease.toExponential(2).toString()}
-                                    </div>
-                                    <div>
-                                        Percentage Increase: {mathHelper.multiplyDecimal(percIncrease, 100).toExponential(2).toString()}
-                                    </div>
-                                    <div>
-                                        Weighted Increase: {weightIncrease.toExponential(2).toString()}
-                                    </div>
-                                    <div>
-                                        Current Weight:{finalWeight}
-                                    </div>
-                                </div>
-                            }
-                        >
-                            <div>
-                                <div style={{
-                                    width: `${227 / 227 * multiplier}px`,
-                                    height: `${316 / 227 * multiplier}px`,
-                                    margin: '0 auto', position: 'relative'
-                                }}>
-                                    <Image
-                                        alt={`picture of the in game ${cardIDMap[ID].label} card`}
-                                        fill
-                                        src={cardMapImg[ID].img}
-                                        unoptimized={true}
-                                        priority
-                                    />
-
-                                    {isPositiveChargeRatio && (
-                                        <Image
-                                            alt={`picture of the in game ${cardIDMap[ID].label} card`}
-                                            fill
-                                            src={greenBorder}
-                                            unoptimized={true}
-                                            priority
-                                        />
-                                    )}
-                                    {!isPositiveChargeRatio && (
-                                        <Image
-                                            alt={`picture of the in game ${cardIDMap[ID].label} card`}
-                                            fill
-                                            src={redBorder}
-                                            unoptimized={true}
-                                            priority
-                                        />
-                                    )}
-
-
-                                    {/* Final bonus */}
-                                    <div
-                                        style={{
-                                            fontWeight: 'bold',
-                                            position: 'absolute',
-                                            fontSize: vertical ? '13px' : '16px',
-                                            top: vertical ? '4px' : '6px',
-                                            right: '8px',
-                                        }}
-                                    >
-                                        {`${bonusMode === '%gain' || bonusMode === 'xgain' ?
-                                            finalBonusDisplay.exponent > 5 ?
-                                                finalBonusDisplay.toExponential(2)
-                                                :
-                                                helper.roundTwoDecimal(finalBonusDisplay.toNumber()).toLocaleString()
-                                            : finalBonusDisplay.toExponential(2)}${bonusMode === 'xgain' ? 'X' : '%'}`}
-                                    </div>
-
-                                    {/* Final temp */}
-                                    <div
-                                        style={{
-                                            fontWeight: 'bold',
-                                            position: 'absolute',
-                                            fontSize: vertical ? '10px' : '12px',
-                                            top: vertical ? '24px' : '32px',
-                                            right: '8px',
-                                        }}
-                                    >
-                                        {`${finalTemp.toExponential(2)}%`}
-                                    </div>
-
-
-                                    <div
-                                        className='importantText'
-                                        style={{
-                                            fontWeight: 'bold',
-                                            position: 'absolute',
-                                            fontSize: vertical ? '12px' : '14px',
-                                            bottom: vertical ? '2px' : '4px',
-                                            width: '100%',
-                                            textAlign: 'center'
-                                        }}
-                                    >
-                                        {cardIDMap[ID].label}
-                                    </div>
-                                </div>
-                            </div>
-                        </MouseOverPopover>
-
-
-                        <div
-                            style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                position: 'absolute',
-                                bottom: '23px',
-                                left: '30px',
-                                zIndex: '3',
-                            }}
-                        >
-                            <input
-                                aria-label='Specify the weight/importance for this card'
-                                style={{
-                                    width: '55px',
-                                    color: cardWeight !== defaultWeight && cardWeight !== -1 ? 'black' : 'gray',
-                                    fontWeight: cardWeight !== defaultWeight && cardWeight !== -1 ? 'bold' : '',
-                                    borderRadius: '6px',
-                                    fontSize: '12px',
-                                    padding: '0 0 0 0',
-                                    margin: '0',
-                                    textAlign: 'center'
-                                }}
-                                type='number'
-                                value={finalWeight}
-                                onChange={
-                                    (e) => {
-                                        try {
-                                            let x = Number(e.target.value);
-                                            // x = Math.floor(x);
-                                            if (x < 0 || x > 999999) {
-                                                return;
-                                            }
-                                            setCardWeightNew(x);
-                                            setRefreshMath(true);
-
-                                            ReactGA.event({
-                                                category: "card_interaction",
-                                                action: `changed_card_weight`,
-                                                label: `${cardIDMap[ID].label}`,
-                                                value: x
-                                            })
-                                        }
-                                        catch (err) {
-                                            console.log(err);
-                                        }
-                                    }}
-                                min="0"
-                                max="999999"
-                            />
-
-                            <MouseOverPopover tooltip={
-
-                                <div>
-                                    {`The weight (importance) of this card/stat. Feel free to change this`}
-                                </div>
-                            }
-                                opacity={1}
-                            >
-                                <div style={{ position: 'relative', height: '16px', width: '16px', marginLeft: '2px' }}>
-                                    <Image
-                                        alt='on hover I in a cirlce icon, shows more information on hover'
-                                        fill
-                                        src={infoIcon}
-                                        unoptimized={true}
-                                    />
-                                </div>
-                                {/* <img alt='on hover I in a cirlce icon, shows more information on hover' style={{ height: '16px', marginLeft: '6px' }} src={infoIcon} /> */}
-                            </MouseOverPopover>
-                        </div>
-                    </>
-                )}
-
-                {displayMode !== 'original' && (
-                    <>
-                        <MouseOverPopover
-                            tooltip={
-                                <div style={{ padding: '6px' }}>
-                                    <h3 style={{ margin: 0, textAlign: 'center' }}>
-                                        {cardIDMap[ID].label}
-                                    </h3>
-                                    <div>
-                                        Current Bonus: {finalBefore.toExponential(2).toString()}%
-                                    </div>
-                                    <div>
-                                        Charged Bonus: {finalAfter.toExponential(2).toString()}%
-                                    </div>
-                                    <div>
-                                        Absolute Increase: {flatIncrease.toExponential(2).toString()}
-                                    </div>
-                                    <div>
-                                        Percentage Increase: {percIncrease.toExponential(2).toString()}
-                                    </div>
-                                    <div>
-                                        Weighted Increase: {weightIncrease.toExponential(2).toString()}
-                                    </div>
-                                    <div>
-                                        Current Weight:{finalWeight}
-                                    </div>
-                                </div>
-                            }
-
-
-                        >
-                            <div style={{
-                                display: 'flex',
-                                flex: '1',
-                                alignItems: 'center'
-                            }}>
-                                <div style={{
-                                    // margin: '0 auto',
-                                    position: 'relative', width: '33px', height: '33px'
-                                }}>
-                                    <Image
-                                        alt={`picture of the in game ${cardIDMap[ID].label} card`}
-                                        // fill
-                                        src={cardLabelImg[ID].img}
-                                        unoptimized={true}
-                                        priority
-                                    />
-                                </div>
-                                <div
-                                    className='importantText'
-                                    style={{
-                                        fontWeight: 'bold',
-                                        fontSize: vertical ? '12px' : '14px',
-                                        bottom: vertical ? '2px' : '4px',
-                                        // width: '100%',
-                                        // textAlign: 'center',
-                                        marginLeft: '6px',
-                                        // @ts-ignore TODO: duplicate fontSize
-                                        fontSize: '20px'
-                                    }}
-                                >
-                                    {cardIDMap[ID].label}
-                                </div>
-
-                                <div
-                                    className='importantText'
-                                    style={{
-                                        fontWeight: 'bold',
-                                        fontSize: vertical ? '12px' : '14px',
-                                        bottom: vertical ? '2px' : '4px',
-                                        // width: '100%',
-                                        marginLeft: 'auto',
-                                        // @ts-ignore TODO: duplicate fontSize
-                                        fontSize: '20px'
-                                    }}
-                                >
-                                    {displayMode === 'logged' && (
-                                        <>
-                                            {loggedWeightIncrease.toExponential(2).toString()}
-                                        </>
-                                    )}
-                                    {displayMode === 'logged2' && (
-                                        <>
-                                            {loggedWeightIncrease2.toExponential(2).toString()}
-                                        </>
-                                    )}
-                                    {(displayMode !== 'logged' && displayMode !== 'logged2') && (
-                                        <>
-                                            {displayMode === 'weight' ? weightIncrease.toExponential(2).toString() : percIncrease.toExponential(2).toString() + '%'}
-                                        </>
-                                    )}
-
-                                </div>
-                            </div>
-                        </MouseOverPopover>
-                    </>
-                )}
-            </div >
-        );
-    }
-    catch (err) {
-        console.log(err);
-        let bigsad = -1;
-    }
-
     return (
         <div
             key={i}
@@ -707,7 +389,7 @@ const CardCard = ({
                 // justifyContent: displayMode === 'original' ? 'center' : '',
                 width: displayMode === 'original' ? `${227 / 227 * multiplier}px` : '100%',
                 height: displayMode === 'original' ? `${316 / 227 * multiplier}px` : '48px',
-                margin: displayMode === 'original' ? margin : `${num === 1 ? '' : '6px'} 0 0 0`,
+                margin: displayMode === 'original' ? margin : `${num === 1 ? '0' : '6px'} 0 0 0`,
                 padding: displayMode === 'original' ? '' : '0 6px 0 6px',
                 boxSizing: 'border-box',
                 position: displayMode === 'original' ? 'relative' : `static`,
@@ -1233,7 +915,13 @@ export default function Cards() {
         if (data.AscensionCount >= 31 && card.ID === 1) {
             return accum;
         }
+        else if (data.AscensionCount < 31 && card.ID === 38) {
+            return accum;
+        }
         if (data.AscensionCount >= 40 && card.ID === 3) {
+            return accum;
+        }
+        else if (data.AscensionCount < 40 && card.ID === 39) {
             return accum;
         }
 
@@ -1246,12 +934,27 @@ export default function Cards() {
     for (let i = 0; i < CARD_DISPLAY_IDS.length; i++) {
         if (!cardsById[CARD_DISPLAY_IDS[i]]) continue;
         let index = i;
-        if (data.AscensionCount > 29) {
+        let index_overwrite = -1;
+        let bigsad = CARD_DISPLAY_IDS[i];
+        //adding an offset for position/margin but only to cards that come after
+
+        //taking away 1 because the order list technically has extra
+        if (i > 2) {
             index -= 1;
         }
-        if (data.AscensionCount > 39) {
+        if(index > 5) {
             index -= 1;
         }
+
+        // SWP
+        if (CARD_DISPLAY_IDS[i] === 38) {
+            index_overwrite = 1;
+        }
+        // SKP
+        if (CARD_DISPLAY_IDS[i] === 39) {
+            index_overwrite = 3;
+        }
+
         weightedCardInfo.push(
             <CardCard
                 cardWeight={newCardWeights[CARD_DISPLAY_IDS[i]]}
@@ -1264,7 +967,9 @@ export default function Cards() {
                 }}
                 resetWeights={resetCardWeights}
                 bonusMode={displayMode}//what bonus to show, current, future, % gain etc
-                displayMode='original' cardMap={cardMap} setCardMap={setCardMap} data={data} i={i}
+                displayMode='original' cardMap={cardMap} setCardMap={setCardMap} data={data}
+                i={index_overwrite === -1 ? index : index_overwrite}
+                // i={i}
                 card={cardsById[CARD_DISPLAY_IDS[i]]} weightMap={weightMap} classes={classes} applyWeights={true}
                 key={`${i}-orig`}></CardCard>
         )

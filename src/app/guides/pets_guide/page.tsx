@@ -6,7 +6,7 @@ export async function generateMetadata({ params, searchParams }, parent) {
 
   return {
     title: 'Pets Tutorial - Gameplay Planner',
-    description: "Farmer Against Potatoe Idle pets guide + explanation. Best pets to use, what teams to make, when to use them and more!"
+    description: "Farmer Against Potatoes Idle pets guide + explanation. Best pets to use, what teams to make, when to use them and more!"
   }
 }
 export const viewport = {

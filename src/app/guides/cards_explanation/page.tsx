@@ -6,7 +6,7 @@ export async function generateMetadata({ params, searchParams }, parent) {
 
   return {
     title: 'Cards Explanation - Gameplay Planner',
-    description: "Farmer Against Potatoe Idle expedition cards guide + explanation. Best cards to charge, which cards to prioritise, and more!"
+    description: "Farmer Against Potatoes Idle expedition cards guide + explanation. Best cards to charge, which cards to prioritise, and more!"
   }
 }
 export const viewport = {

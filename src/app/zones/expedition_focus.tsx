@@ -217,6 +217,9 @@ export default function Zones({
                         zone_found = true;
                     }
                 });
+                if(!zones_in_priority[0]){
+                    break
+                }
                 if (!zone_to_satisfy) {
                     zone_to_satisfy = zones_in_priority[0];
                 }

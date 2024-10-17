@@ -1997,7 +1997,7 @@ const helper = {
         let LEVEL = level ? level : curr.Level;
         if (bonusInner.ID === 23) {
 
-            if (LEVEL < 1) return 0;
+            if (LEVEL < 1) return math_helper.createDecimal(0);
 
             let x1 = general_helper.calculateLogarithm(1.1, LEVEL);
             let x2 = Math.max(0, x1 - 45);
@@ -2012,7 +2012,7 @@ const helper = {
         } else if (bonusInner.ID === 28) {
 
 
-            if (LEVEL < 1) return 0;
+            if (LEVEL < 1) return math_helper.createDecimal(0);
 
             let x1 = general_helper.calculateLogarithm(1.1, LEVEL);
             let x2 = Math.max(0, x1 - 45);
@@ -2026,7 +2026,7 @@ const helper = {
             bonus = tot3;
         } else if (bonusInner.ID === 29) {
 
-            if (LEVEL < 1) return 0;
+            if (LEVEL < 1) return math_helper.createDecimal(0);
 
             let x1 = general_helper.calculateLogarithm(1.1, LEVEL);
             let x2 = Math.max(0, x1 - 45);
@@ -2040,7 +2040,7 @@ const helper = {
             bonus = tot3;
         } else if (bonusInner.ID === 34) {
 
-            if (LEVEL < 1) return 0;
+            if (LEVEL < 1) return math_helper.createDecimal(0);
 
             let x1 = general_helper.calculateLogarithm(1.1, LEVEL);
             let x2 = Math.max(0, x1 - 45);
@@ -2054,7 +2054,7 @@ const helper = {
             bonus = tot3;
         } else if (bonusInner.ID === 35) {
 
-            if (LEVEL < 1) return 0;
+            if (LEVEL < 1) return math_helper.createDecimal(0);
 
             let x1 = general_helper.calculateLogarithm(1.1, LEVEL);
             let x2 = Math.max(0, x1 - 45);
@@ -2360,6 +2360,7 @@ const helper = {
                 let diff = b.score - a.score;
 
                 if (topStatActive) {
+             
                     if (a.desiredStat && !b.desiredStat) {
                         return -1;
                     }

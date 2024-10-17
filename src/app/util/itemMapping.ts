@@ -762,7 +762,7 @@ export const BonusMap = {
     20: { disabled: false, defaultWeight: 500, id: 20, label: "Pet Rank Exp", img: petRankAL },
     21: { disabled: false, defaultWeight: 1000, id: 21, label: "Card Power", img: cardPowerAL },
     22: { disabled: false, defaultWeight: 250, id: 22, label: "Card Exp", img: cardExpAL },
-    23: { disabled: false, defaultWeight: 78, id: 23, label: "Healthy Potatoe", img: healthyAL },
+    23: { disabled: false, defaultWeight: 78, id: 23, label: "Healthy Potato", img: healthyAL },
     24: { disabled: false, defaultWeight: 300, id: 24, label: "Plant Rank Exp", img: plantRankAL },
     25: { disabled: false, defaultWeight: 640, id: 25, label: "Plant Harvest", img: manualHarvestAL },
     26: { disabled: false, defaultWeight: 400, id: 26, label: "Plant Final Prod", img: finalProdAL },

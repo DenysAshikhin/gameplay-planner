@@ -6,7 +6,7 @@ export async function generateMetadata({ params, searchParams }, parent) {
 
   return {
     title: 'Farming Tutorial - Gameplay Planner',
-    description: "Farmer Against Potatoe Idle farming and plant guide + explanation. Best method for farming, what to buy, what to plant, best order, permanent improvment corner and more!"
+    description: "Farmer Against Potatoes Idle farming and plant guide + explanation. Best method for farming, what to buy, what to plant, best order, permanent improvment corner and more!"
   }
 }
 export const viewport = {
