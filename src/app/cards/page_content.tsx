@@ -189,9 +189,14 @@ const CardCard = ({
 
 
         let level_mult = 0.02;
+        
         if (ID == 38 || ID == 39) {//only sweet potatoe for now
             level_mult = 0.0025;
         }
+        if (ID == 40 || ID == 41) {//only sweet potatoe for now
+            level_mult = 0.001;
+        }
+        
 
         let finalBefore = mathHelper.multiplyDecimal(
             mathHelper.subtractDecimal(
@@ -200,7 +205,9 @@ const CardCard = ({
             ),
             ((1.0 + Level * level_mult) * 100)
         );
-
+        if(ID == 41){
+            let bigsad = -1;
+        }
 
         let temp1 = tempPowerBonusFormula[ID](mathHelper.multiplyDecimal(tempValueBefore, (1.0 - ChargeTransfertPowerTemp)))
         let temp2 = permPowerBonusFormula[ID](
@@ -1839,7 +1846,7 @@ export default function Cards() {
                         </div>
                         <div>
                             <div id='right_pillar' style={{ marginLeft: 'auto', display: 'flex', justifyContent: 'flex-end', alignItems: 'center', marginRight: '6px' }} />
-                            <div id='in_content_flex' style={{ marginTop: '1px', display: 'flex', justifyContent: 'center', alignItems: 'center', }} />
+                            {/* <div id='in_content_flex' style={{ marginTop: '1px', display: 'flex', justifyContent: 'center', alignItems: 'center', }} /> */}
                         </div>
                     </div>
 

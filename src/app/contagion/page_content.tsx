@@ -294,14 +294,14 @@ export default function Contagion() {
                     </div>
                 </div>
 
-                <div id="in_content_flex" style={{
+                {/* <div id="in_content_flex" style={{
                     marginTop: 'auto',
                     marginBottom: '3px',
                     marginLeft: 'calc(50% - 160px)',
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
-                }} />
+                }} /> */}
 
             </div>
 

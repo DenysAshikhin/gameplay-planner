@@ -223,7 +223,7 @@ export default function Outposts() {
                                 )
                             })}
 
-                            <div id='in_content_flex' style={{ marginRight: '-44px', marginTop: '12px', display: 'flex', justifyContent: 'center', alignItems: 'center', }} />
+                            {/* <div id='in_content_flex' style={{ marginRight: '-44px', marginTop: '12px', display: 'flex', justifyContent: 'center', alignItems: 'center', }} /> */}
                         </div>
                     </div>
 

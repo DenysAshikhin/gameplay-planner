@@ -26,7 +26,7 @@ export default function Infinity_Corner() {
         let shift_ads = async () => {
             await helper.sleep(2);
 
-            document.getElementById('in_content_flex').style.justifyContent = 'flex-end';
+            // document.getElementById('in_content_flex').style.justifyContent = 'flex-end';
         }
         shift_ads();
     }, [])
@@ -429,11 +429,8 @@ export default function Infinity_Corner() {
 
             <div style={{ display: 'flex', flex: '1', flexDirection: 'column' }}>
                 <div id='right_pillar' style={{ marginLeft: 'auto', display: 'flex', justifyContent: 'flex-end', alignItems: 'center', marginRight: '6px' }} />
-                <div id='in_content_flex' style={{ marginTop: '1px', display: 'flex', alignItems: 'center', }} />
+                {/* <div id='in_content_flex' style={{ marginTop: '1px', display: 'flex', alignItems: 'center', }} /> */}
             </div>
-
-            {/* <div id='right_pillar' style={{ position: 'absolute', top: '0', right: '0', display: 'flex', height: 'calc(100vh - 36px)', justifyContent: 'center', alignItems: 'center', }} />
-            <div id='in_content_flex' style={{ position: 'absolute', bottom: '0', right: '0', marginBottom: "3px", display: 'flex', justifyContent: 'center', alignItems: 'center', }} /> */}
         </div >
     );
 }

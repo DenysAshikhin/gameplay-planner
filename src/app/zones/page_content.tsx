@@ -250,7 +250,7 @@ const TimeToClear = function ({
                     )}
                 </div>
             </div>
-            <div id='in_content_flex' style={{ display: 'flex', alignItems: 'center', marginTop: '6px' }} />
+            {/* <div id='in_content_flex' style={{ display: 'flex', alignItems: 'center', marginTop: '6px' }} /> */}
         </>
     )
 }

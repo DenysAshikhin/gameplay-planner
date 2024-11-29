@@ -736,6 +736,13 @@ export const pet_rank_id = 20;
 export const reinc_pts_id = 31;
 export const fry_id = 27;
 export const op_level_id = 38;
+export const skp_id = 39;
+export const tree_seed_id = 40;
+export const subclass_id = 41;
+export const op_minerals_id = 81;
+export const renown_id = 37;
+
+
 
 
 export const BonusMap = {
@@ -780,6 +787,9 @@ export const BonusMap = {
     38: { disabled: false, defaultWeight: 800, id: 38, label: 'Sweet Potatoe', img: sweet_pot_al },
     // 38: { disabled: false, defaultWeight: 1, id: 38, label: 'Outpost Level', img: null },
     39: { disabled: false, defaultWeight: 800, id: 39, label: 'Skull Powder', img: skull_pow_al },
+    40: { disabled: false, defaultWeight: 800, id: 40, label: 'Subclass Exp', img: skull_pow_al },
+    41: { disabled: false, defaultWeight: 800, id: 41, label: 'Seed Chunks', img: skull_pow_al },
+    81: { disabled: false, defaultWeight: 800, id: 81, label: 'Outpost Mineral', img: skull_pow_al },
     1001: { id: 1001, label: "Potato Gain" },
     1002: { id: 1002, label: "Class Exp gain" },
     1003: { id: 1003, label: "Skull Gain" },

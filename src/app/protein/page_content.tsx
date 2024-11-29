@@ -36,7 +36,7 @@ export default function Protein() {
         let shift_ads = async () => {
             await helper.sleep(2);
 
-            document.getElementById('in_content_flex').style.justifyContent = 'flex-end';
+            // document.getElementById('in_content_flex').style.justifyContent = 'flex-end';
         }
         shift_ads();
     }, [])
@@ -650,11 +650,11 @@ export default function Protein() {
                 }}
             >
                 <div id='right_pillar' style={{ marginLeft: 'auto', display: 'flex', justifyContent: 'flex-end', alignItems: 'center', marginRight: '6px' }} />
-                <div id='in_content_flex' style={{
+                {/* <div id='in_content_flex' style={{
                     marginTop: '1px', display: 'flex',
                     //  justifyContent: 'flex-end', 
                     alignItems: 'center',
-                }} />
+                }} /> */}
             </div>
         </div >
     );

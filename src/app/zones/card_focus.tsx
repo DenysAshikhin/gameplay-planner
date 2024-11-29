@@ -66,6 +66,11 @@ const CardCard = ({
         }
     }, [ID, setHoveredCard, forceOpen])
 
+
+    if (!cardIDMap[ID]) {
+        let bigsad = -1;
+    }
+
     return (
         <div
             key={i}
@@ -164,7 +169,7 @@ const CardCard = ({
                                                 )}
 
                                                 <div style={{ width: '160px', display: 'flex', alignItems: 'center' }}>
-                                                    {`${exp.label}:`}
+                                                    {`${exp?.label ? exp.label : "unknown"}:`}
                                                 </div>
                                                 <div
                                                     style={{
@@ -172,14 +177,18 @@ const CardCard = ({
                                                     }}
                                                 >
                                                     {cur_exp.CardFound.map((found_card, index) => {
+                                                        if (!cardIDMap[found_card]) {
+                                                            return <></>
+                                                        }
                                                         return (
+
                                                             <div
                                                                 key={index}
                                                                 style={{
                                                                     position: 'relative', width: '33px', height: '33px'
                                                                 }}>
                                                                 <Image
-                                                                    alt={`picture of the in game ${cardIDMap[found_card].label} card`}
+                                                                    alt={`picture of the in game ${cardIDMap[found_card]?.label ? cardIDMap[found_card].label : "unknown"} card`}
                                                                     // fill
                                                                     src={cardLabelImg[found_card].img}
                                                                     unoptimized={true}

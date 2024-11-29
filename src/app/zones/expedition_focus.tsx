@@ -95,6 +95,8 @@ export default function Zones({
 
         data.ExpeditionsCollection.forEach((curr_zone, index) => {
             if (curr_zone.ID === 0) return;
+            if(!zone_data[curr_zone.ID]) return;
+
             let zone = JSON.parse(JSON.stringify(curr_zone));
 
             let curr_hp = mathHelper.createDecimal(zone.CurrentHPBD ? zone.CurrentHPBD : zone.CurrentHP);//s
@@ -103,7 +105,7 @@ export default function Zones({
             zone.curr_hp = curr_hp;
             zone.max_hp = max_hp;
             zone.total_hp = calc_total_hp(zone, data, {});
-            zone.label = zone_data[curr_zone.ID].label;
+            zone.label = zone_data[curr_zone.ID]?.label;
             zone.order = zone_data[curr_zone.ID].order;
             zone.bonus_id = zone_data[curr_zone.ID].bonus_id;
             unlocked_ids[zone_data[curr_zone.ID].bonus_id] = zone;

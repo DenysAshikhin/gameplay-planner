@@ -696,7 +696,7 @@ export default function Pets() {
                             })}
                         </div>
                     </div>
-                    <div id='in_content_flex' style={{ margin: '3px 0 0 0', display: 'flex', justifyContent: 'center', alignItems: 'center', }} />
+                    {/* <div id='in_content_flex' style={{ margin: '3px 0 0 0', display: 'flex', justifyContent: 'center', alignItems: 'center', }} /> */}
                 </div>
 
 
@@ -1634,7 +1634,6 @@ export default function Pets() {
 
                     }}>
                         <div id='right_pillar' style={{ margin: 'auto 0 auto auto', display: 'flex', justifyContent: 'center', alignItems: 'center', }} />
-                        {/* <div id='in_content_flex' style={{margin:'0 3px 3px 0', display: 'flex', justifyContent: 'center', alignItems: 'center', }} /> */}
                     </div>
 
                 </>

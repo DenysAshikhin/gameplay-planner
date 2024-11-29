@@ -293,7 +293,7 @@ export default function Expeditions() {
             });
             setGroupsCache(groupCacheMap);
         }
-    }, [setGroupsCache, activeCustomBonuses, defaultRank, groupRankCritera, numTeams, petWhiteList, tokenDamageBias, refreshGroups, data, selectedItems, usePromos, maxTopStat,equalisePets, ignorePetRanks])
+    }, [setGroupsCache, activeCustomBonuses, defaultRank, groupRankCritera, numTeams, petWhiteList, tokenDamageBias, refreshGroups, data, selectedItems, usePromos, maxTopStat, equalisePets, ignorePetRanks])
 
 
     const dataLoaded = useRef(false);
@@ -1186,7 +1186,7 @@ export default function Expeditions() {
                                 </div>
                             )}
                         </div>
-                        <div id='in_content_flex' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', }} />
+                        {/* <div id='in_content_flex' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', }} /> */}
                     </div>
 
                     {/* Card to toggle bonuses */}
@@ -2544,9 +2544,11 @@ export default function Expeditions() {
                                                         <input
                                                             className='importantText textMedium2'
                                                             aria-label='Damage bias to control when the pet should go in'
-                                                            style={{ maxWidth: '36px', backgroundColor: '#1b1b1b', borderRadius: '4px',
+                                                            style={{
+                                                                maxWidth: '36px', backgroundColor: '#1b1b1b', borderRadius: '4px',
                                                                 // @ts-ignore TODO: duplicate property
-                                                                backgroundColor: (index % 2) === 0 ? '#252525' : '#171717', }}
+                                                                backgroundColor: (index % 2) === 0 ? '#252525' : '#171717',
+                                                            }}
                                                             type='number'
                                                             // className='prepNumber'
                                                             value={pet.parameters.damageBias}
@@ -2820,7 +2822,14 @@ export default function Expeditions() {
 
                                                                             let pet_inner = temp.find((sample_pet) => sample_pet.id === pet.ID);
                                                                             if (!pet_inner) {
-                                                                                temp.push({ label: petNames[pet.ID].name, pet: pet, id: pet.ID, placement: 'auto', parameters: { team: 0, damageBias: 17 } });
+                                                                                temp.push({
+                                                                                    label: petNames[pet.ID]?.name ? petNames[pet.ID].name : "Unknown",
+                                                                                    pet: pet,
+                                                                                    id: pet.ID,
+                                                                                    placement: 'auto',
+                                                                                    parameters: { team: 0, damageBias: 17 }
+                                                                                }
+                                                                                );
                                                                             }
                                                                             else {
                                                                                 throw new Error(`should not have an existing pet in this list!`)

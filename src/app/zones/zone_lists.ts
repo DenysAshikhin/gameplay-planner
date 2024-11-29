@@ -1,3 +1,4 @@
+import { SWEETPOTATOE } from '@app/util/cardMapping';
 import {
     BonusMap,
     ir_id,
@@ -23,7 +24,12 @@ import {
     pet_rank_id,
     reinc_pts_id,
     fry_id,
-    op_level_id
+    op_level_id,
+    tree_seed_id,
+    subclass_id,
+    op_minerals_id,
+    skp_id,
+    renown_id
 } from '../util/itemMapping';
 
 import mathHelper from '../util/math';
@@ -102,7 +108,7 @@ zone_data[4] = {
     unlock: 20
 }
 zone_data[16] = {
-    label: 'Avaocado River',
+    label: 'Avocado River',
     id: 16,
     img: avacodo_river_img,
     bonus_id: hp_id,
@@ -261,6 +267,58 @@ zone_data[24] = {
     order: 24,
     unlock: 50
 }
+
+
+zone_data[25] = {
+    label: 'Corn Forest',
+    id: 25,
+    img: butternut_forest_img,
+    bonus_id: subclass_id,
+    order: 25,
+    unlock: 50
+}
+zone_data[26] = {
+    label: 'Strawberry Plain',
+    id: 26,
+    img: cheddar_plain_img,
+    bonus_id: SWEETPOTATOE,
+    order: 26,
+    unlock: 50
+}
+zone_data[27] = {
+    label: 'Raspberry Grotto',
+    id: 27,
+    img: croissant_castle_img,
+    bonus_id: op_level_id,
+    order: 27,
+    unlock: 50
+}
+zone_data[28] = {
+    label: 'Pear Mountain',
+    id: 28,
+    img: orange_mountain_img,
+    bonus_id: tree_seed_id,
+    order: 28,
+    unlock: 50
+}
+zone_data[29] = {
+    label: 'Radditz Field',
+    id: 29,
+    img: zucchini_field_img,
+    bonus_id: skp_id,
+    order: 29,
+    unlock: 50
+}
+zone_data[30] = {
+    label: 'Lemon Desert',
+    id: 30,
+    img: munster_desert_img,
+    bonus_id: renown_id,
+    order: 30,
+    unlock: 50
+}
+
+
 
 
 

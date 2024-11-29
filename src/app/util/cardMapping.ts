@@ -28,6 +28,8 @@ import card34 from '@images/cards_v2/card34.png';
 import card35 from '@images/cards_v2/card35.png';
 import card38 from '@images/cards_v2/card38.png';
 import card39 from '@images/cards_v2/card39.png';
+import card40 from '@images/cards_v2/card40.png';
+import card41 from '@images/cards_v2/card41.png';
 
 import card_label_1 from '@images/cards_v2/labels/card1.png';
 import card_label_2 from '@images/cards_v2/labels/card2.png';
@@ -57,6 +59,8 @@ import card_label_34 from '@images/cards_v2/labels/card34.png';
 import card_label_35 from '@images/cards_v2/labels/card35.png';
 import card_label_38 from '@images/cards_v2/labels/card38.png';
 import card_label_39 from '@images/cards_v2/labels/card39.png';
+import card_label_40 from '@images/cards_v2/labels/card40.png';
+import card_label_41 from '@images/cards_v2/labels/card41.png';
 
 export const cardMapImg = {
     1: {
@@ -142,6 +146,12 @@ export const cardMapImg = {
     },
     39: {
         img: card39
+    },
+    40: {
+        img: card40
+    },
+    41: {
+        img: card41
     },
 }
 
@@ -232,6 +242,12 @@ export const cardLabelImg = {
     39: {
         img: card_label_39
     },
+    40: {
+        img: card_label_40
+    },
+    41: {
+        img: card_label_41
+    },
 }
 
 
@@ -267,6 +283,10 @@ export const MININGEXP = 34;
 export const MININGPWR = 35;
 export const SWEETPOTATOE = 38;
 export const SKULLPOWDER = 39;
+
+export const SUBCLASS_EXP = 40;
+export const TREESEED = 41;
+
 
 
 export const maxKey = 30;
@@ -1290,7 +1310,7 @@ export const cardIDMap = {
         }
     },
     [SKULLPOWDER]: {
-        id: SKULLPOWDER, label: "Skull Pow", icon: "", weights: {
+        id: SKULLPOWDER, label: "Skull Powder", icon: "", weights: {
             0: -1,
             1: -1,
             2: -1,
@@ -1322,6 +1342,76 @@ export const cardIDMap = {
             28: -1,
             29: -1,
             30: 1000,
+        }
+    },
+    [SUBCLASS_EXP]: {
+        id: SUBCLASS_EXP, label: "Subclass EXP", icon: "", weights: {
+            0: -1,
+            1: -1,
+            2: -1,
+            3: -1,
+            4: -1,
+            5: -1,
+            6: -1,
+            7: -1,
+            8: -1,
+            9: -1,
+            10: -1,
+            11: -1,
+            12: -1,
+            13: -1,
+            14: -1,
+            15: -1,
+            16: -1,
+            17: -1,
+            18: -1,
+            19: -1,
+            20: -1,
+            21: -1,
+            22: -1,
+            23: -1,
+            24: -1,
+            25: -1,
+            26: -1,
+            27: -1,
+            28: -1,
+            29: -1,
+            30: 800,
+        }
+    },
+    [TREESEED]: {
+        id: TREESEED, label: "Seed Chunk", icon: "", weights: {
+            0: -1,
+            1: -1,
+            2: -1,
+            3: -1,
+            4: -1,
+            5: -1,
+            6: -1,
+            7: -1,
+            8: -1,
+            9: -1,
+            10: -1,
+            11: -1,
+            12: -1,
+            13: -1,
+            14: -1,
+            15: -1,
+            16: -1,
+            17: -1,
+            18: -1,
+            19: -1,
+            20: -1,
+            21: -1,
+            22: -1,
+            23: -1,
+            24: -1,
+            25: -1,
+            26: -1,
+            27: -1,
+            28: -1,
+            29: -1,
+            30: 800,
         }
     },
 }
@@ -1359,6 +1449,7 @@ export function powerFormula(Pow, logBase, customConstant, params?) {
             case 34:
             case 35:
                 base = 1.1;
+                break;
         }
     }
     let result = mathHelper.pow(
@@ -1417,6 +1508,25 @@ export const tempPowerBonusFormula = {
         )
         return temp;
     },
+    40: (Pow) => {
+        let temp = mathHelper.addDecimal(
+            1.05,
+            mathHelper.multiplyDecimal(
+                mathHelper.logDecimal(Pow, 15),
+                0.00035
+            )
+        )
+        return temp;
+    },
+    41: (Pow) => {
+        let temp = mathHelper.addDecimal(1.05,
+            mathHelper.multiplyDecimal(
+                mathHelper.logDecimal(Pow, 40),
+                0.0002
+            )
+        )
+        return temp;
+    },
     _: (Pow) => 1.0
 };
 
@@ -1466,6 +1576,26 @@ export const permPowerBonusFormula = {
             1
         )
         return temp;
+    },
+    40: (Pow) => {
+        let temp = mathHelper.addDecimal(
+            mathHelper.multiplyDecimal(
+                mathHelper.logDecimal(Pow, 15),
+                0.00035
+            ),
+            1
+        )
+        return temp;
+    },
+    41: (Pow) => {
+        let temp = mathHelper.addDecimal(
+            mathHelper.multiplyDecimal(
+                mathHelper.logDecimal(Pow, 40),
+                0.0002
+            ),
+            1
+        )
+        return temp;
     }
     // _: (Pow) => new Decimal(1.0)
 };
@@ -1475,7 +1605,7 @@ export const CARD_DISPLAY_IDS = [
     7, 4, 14, 15, 16,
     8, FRIESBONUS, PROTEINBONUS, GHBONUS, HEALTHYBONUS,
     10, 11, 12, 13,
-    6, 5, 19, 18, 20, MININGEXP, MININGPWR
+    6, 5, 19, 18, 20, MININGEXP, MININGPWR, SUBCLASS_EXP, TREESEED,
 ];
 
 export const defaultWeights = {
