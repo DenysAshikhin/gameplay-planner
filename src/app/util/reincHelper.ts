@@ -55,7 +55,19 @@ const helper = {
                     , data.ExpeShopReincExpReducLevel),
             ),
         );
-
+        // return Round(
+            // Pow(
+                    // (5.0 + level * 5.0) -> step1
+                    // * Pow(Min(1.0025, 1.00005 + Max(0.0, level / 500000.0)), Min(level, 3000)) -> step2
+                    //--- finalstep1
+                    // * Pow(1.001, Max(level - 3000, 0)) -> step4Cont
+                    // * (1 + Max(0, Min(1, (level - 1500) / 1000)))  -> step5
+                    // * Max(0.01, Pow(0.95, Max(Log(GM.PD.TotalResidueBD + 1, 1.18) - 27.82, 0) * GM.PD.CowShopReincExpReduc)) 
+                    // * Max(0.01, Pow(0.975, Max(Log(GM.PD.TotalExpeditionHours + 100.0, 1.41) - 13.5, 0.0) * GM.PD.ExpeShopReincExpReducLevel)), 
+                // GM.POSH.boniList[6]
+            // )
+        // );
+	
         return (currLevel) => {
             let step1 = 5 + currLevel * 5;
             let temp1 = mathHelper.max(0.0, currLevel / 500000.0);

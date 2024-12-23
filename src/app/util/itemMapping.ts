@@ -140,6 +140,34 @@ import Marty from '@images/pets/Marty.png';
 import BrainBot from '@images/pets/Brain Bot.png';
 import Hyperion from '@images/pets/Hyperion.png';
 import BlueBloon from '@images/pets/BlueBloon.png'
+
+
+import air_engelus from '@images/pets/Air Angelus.png'
+import baba from '@images/pets/Baba.png'
+import Bargnak from '@images/pets/Bargnak.png'
+import Bobo from '@images/pets/Bobo.png'
+import Chip from '@images/pets/Chip.png'
+import Cornicus from '@images/pets/Cornicus.png'
+import Dinoysus from '@images/pets/Dinoysus.png'
+import Exocet from '@images/pets/Exocet.png'
+import Grognak from '@images/pets/Grognak.png'
+import Knamul from '@images/pets/Knamul.png'
+import Licker from '@images/pets/Licker.png'
+import Palana from '@images/pets/Palana.png'
+import Pearus from '@images/pets/Pearus.png'
+import Persephone from '@images/pets/Persephone.png'
+import Radus from '@images/pets/Radus.png'
+import Rasperus from '@images/pets/Rasperus.png'
+import Runic_Air from '@images/pets/Runic Air.png'
+import Runic_Bramble from '@images/pets/Runic Bramble.png'
+import Runic_Fire from '@images/pets/Runic Fire.png'
+import Runic_Water from '@images/pets/Runic Water.png'
+import Stone_Worm from '@images/pets/Stone Worm.png'
+import Straw_Barrus from '@images/pets/Straw Barrus.png'
+import Samovar from '@images/pets/Samovar.png'
+import Water_Worm from '@images/pets/Water Worm.png'
+import Weapon_Angelus from '@images/pets/Weapon Angelus.png'
+
 import unknown from '@images/pets/missing.png';
 
 type petDatum = { name: string; location: string, img: string | {} };
@@ -673,6 +701,131 @@ const PetNames: petData = {
         "name": "Blueberry",
         "location": "Any",
         img: Blueberry
+    },
+    106: {
+        "name": "Cornicus",
+        "location": "Portal",
+        img: Cornicus
+    },
+    107: {
+        "name": "Runic Water",
+        "location": "Portal",
+        img: Runic_Water
+    },
+    108: {
+        "name": "Runic Air",
+        "location": "Portal",
+        img: Runic_Air
+    },
+    109: {
+        "name": "Straw Barrus",
+        "location": "Portal",
+        img: Straw_Barrus
+    },
+    110: {
+        "name": "Stone Worm",
+        "location": "Portal",
+        img: Stone_Worm
+    },
+    111: {
+        "name": "Weapon Angelus",
+        "location": "Portal",
+        img: Weapon_Angelus
+    },
+    112: {
+        "name": "Runic Fire",
+        "location": "Portal",
+        img: Runic_Fire
+    },
+    113: {
+        "name": "Rasperus",
+        "location": "Portal",
+        img: Rasperus
+    },
+    114: {
+        "name": "Pearus",
+        "location": "Portal",
+        img: Pearus
+    },
+    115: {
+        "name": "Air Angelus",
+        "location": "Portal",
+        img: air_engelus
+    },
+    116: {
+        "name": "Runic Bramble",
+        "location": "Portal",
+        img: Runic_Bramble
+    },
+    117: {
+        "name": "Water Worm",
+        "location": "Portal",
+        img: Water_Worm
+    },
+    118: {
+        "name": "Radus",
+        "location": "Portal",
+        img: Radus
+    },
+    119: {
+        "name": "Dionysus",
+        "location": "Portal",
+        img: Dinoysus
+    },
+    120: {
+        "name": "Persephone",
+        "location": "Portal",
+        img: Persephone
+    },
+    121: {
+        "name": "Palana",
+        "location": "Portal",
+        img: Palana
+    },
+    122: {
+        "name": "Exocet",
+        "location": "Portal",
+        img: Exocet
+    },
+    123: {
+        "name": "Licker",
+        "location": "Portal",
+        img: Licker
+    },
+    124: {
+        "name": "Knamul",
+        "location": "Portal",
+        img: Knamul
+    },
+    125: {
+        "name": "Grognak",
+        "location": "Portal",
+        img: Grognak
+    },
+    126: {
+        "name": "Bargnak",
+        "location": "Portal",
+        img: Bargnak
+    },
+    127: {
+        "name": "Samovar",
+        "location": "Portal",
+        img: Samovar
+    },
+    128: {
+        "name": "Chip",
+        "location": "Portal",
+        img: Chip
+    },
+    129: {
+        "name": "Baba",
+        "location": "Portal",
+        img: baba
+    },
+    130: {
+        "name": "Bobo",
+        "location": "Portal",
+        img: Bobo
     },
     9999: {
         "name": "Unknown",

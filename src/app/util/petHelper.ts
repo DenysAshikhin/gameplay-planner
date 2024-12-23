@@ -584,6 +584,14 @@ const helper = {
 
         other = JSON.parse(JSON.stringify(other));
         for (let i = 0; i < PETSCOLLECTION.length; i++) {
+            try{
+                
+                petsMap[PETSCOLLECTION[i].ID] = JSON.parse(JSON.stringify(PETSCOLLECTION[i]))
+            }
+            catch(err){
+                console.log(err);
+                petsMap[PETSCOLLECTION[i].ID] = JSON.parse(JSON.stringify(PETSCOLLECTION[i]))
+            }
             petsMap[PETSCOLLECTION[i].ID] = JSON.parse(JSON.stringify(PETSCOLLECTION[i]))
         }
 
@@ -2167,6 +2175,9 @@ const helper = {
         const IgnoredStats = {}
         if (data.AscensionCount > 29) {
             IgnoredStats['1'] = true;
+        }
+        if (data.AscensionCount > 39) {
+            IgnoredStats['3'] = true;
         }
 
 
