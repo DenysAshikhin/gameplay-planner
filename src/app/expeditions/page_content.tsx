@@ -1481,6 +1481,13 @@ export default function Expeditions() {
                                             setRefreshGroups(true);
                                         }}
                                     />
+                                    <div style={{}}>
+                                        <button 
+                                            onClick={(e) => {
+                                                setPetWhiteList([]);
+                                        }}
+                                        >Clear Whitelist</button>
+                                    </div>
                                     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
 
                                         <div
