@@ -24,6 +24,7 @@ import { petNames, BonusMap } from '../util/itemMapping';
 const TimeToClear = function ({
     zoneToClear,
     setSelectedZone,
+    setManualTargetWave,
     targetWave,
     setTargetWave,
     hasLocked,
@@ -204,6 +205,7 @@ const TimeToClear = function ({
                                                         return;
                                                     }
                                                     setTargetWave(x);
+                                                    setManualTargetWave(true);
                                                 }
                                                 catch (err) {
                                                     console.log(err);
@@ -285,6 +287,7 @@ export default function Zones() {
     const [cardZones, setCardZones] = useState([]);
     const [outerUnlockedIDs, setOuterUnlockedIDs] = useState({});
     const [targetWave, setTargetWave] = useState(-1);
+    const [manualTargetWave, setManualTargetWave] = useState(false);
     const [selectedZone, setSelectedZone] = useState(-1);
     const [teamToRun, setTeamToRun] = useState(1);
 
@@ -318,6 +321,8 @@ export default function Zones() {
                 setTargetWave={setTargetWave}
                 selectedZone={selectedZone}
                 setSelectedZone={setSelectedZone}
+                manualTargetWave={manualTargetWave}
+                setManualTargetWave={setManualTargetWave}
                 teamToRun={teamToRun}
                 setTeamToRun={setTeamToRun}
                 setCardZones={setCardZones}
@@ -326,6 +331,7 @@ export default function Zones() {
                         data={data}
                         zoneToClear={zoneToClear}
                         setSelectedZone={setSelectedZone}
+                        setManualTargetWave={setManualTargetWave}
                         targetWave={targetWave}
                         setTargetWave={setTargetWave}
                         hasLocked={hasLocked}
@@ -342,6 +348,8 @@ export default function Zones() {
                             data={data}
                             zoneToClear={zoneToClear}
                             setSelectedZone={setSelectedZone}
+                            
+                        setManualTargetWave={setManualTargetWave}
                             targetWave={targetWave}
                             setTargetWave={setTargetWave}
                             hasLocked={hasLocked}
