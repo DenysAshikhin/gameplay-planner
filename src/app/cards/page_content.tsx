@@ -344,8 +344,10 @@ const CardCard = ({
     let margin = ``;
     if (vertical && false) {
         margin = num % 2 === 0 && num + 1 ? '6px 0' : ''
-    } else {
+    } else if (false) {
         margin = middleCard ? `0 6px ${num > 1 && num % 5 === 0 ? '12px' : '0px'} 6px` : '';
+    } else {
+        margin = `0 3px 0 3px`;
     }
 
     let displayLabel = vertical;
@@ -906,6 +908,13 @@ export default function Cards() {
         setRunTimeDisplayMode(clientDisplayMode);
     }, [clientDisplayMode]);
 
+    
+    const [clientHideUnfound, setHideUnfound] = useLocalStorage('hideUnfoundCards', true);
+    const [hideUnfound, setRunTimeHideUnfound] = useState(true);
+    useEffect(() => {
+        setRunTimeHideUnfound(clientHideUnfound);
+    }, [clientHideUnfound]);
+
 
     if (!data.PetsSpecial[74]) {
         return (
@@ -929,6 +938,10 @@ export default function Cards() {
             return accum;
         }
         else if (data.AscensionCount < 40 && card.ID === 39) {
+            return accum;
+        }
+
+        if (hideUnfound && card.Found === 0) {
             return accum;
         }
 
@@ -1291,7 +1304,7 @@ export default function Cards() {
                 <div
                     style={{
                         maxWidth: '747px',
-                        padding: '6px 6px 0 6px',
+                        padding: '6px 3px 0 3px',
                         display: 'flex',
                         flexWrap: 'wrap',
                         alignContent: 'flex-start',
@@ -1312,7 +1325,20 @@ export default function Cards() {
                             position: 'relative'
                         }}
                     >
-
+                        <div style={{ marginLeft: '12px', position: 'absolute', left: '-9px' }}>
+                            <div style={{ display: 'flex', alignItems: 'center' }} className='importantText'>
+                                <div>{`Hide unfound cards`}</div>
+                                <input
+                                    aria-label='Hide cards that were never found'
+                                    type="checkbox"
+                                    onChange={(e) => {
+                                        setHideUnfound(e.target.checked ? true : false)
+                                    }}
+                                    checked={!!hideUnfound}
+                                    value={!!hideUnfound as any}
+                                />
+                            </div>
+                        </div>
                         <h3
                             className='importantText'
                             style={{ marginTop: '0', marginBottom: '0', marginRight: '12px' }}
