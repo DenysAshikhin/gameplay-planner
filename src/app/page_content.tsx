@@ -41,7 +41,12 @@ export default function Home() {
   const handlePastedString = () => {
     try {
       const incomingString = stringInputRef.current.value;
-      const decodedString = atob(incomingString);
+      const decodedString = atob(incomingString).split("\\").join();
+
+      let x = decodedString.split("\\")
+      let y = x.join();
+
+      let test = JSON.parse(decodedString)
       importSaveString(decodedString);
     } catch (err) {
       console.log(err);

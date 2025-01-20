@@ -85,7 +85,12 @@ const helper = {
             let finalStep3 = mathHelper.multiplyDecimal(finalStep2, cowStep);
             let finalStep4 = mathHelper.multiplyDecimal(finalStep3, expTokenStep);
 
-            return finalStep4;
+            //portal reduction simulation
+            let portaLReductionLevel = 0.01 * data.portalShopLevels[18];
+            let finalStep5 = mathHelper.pow(finalStep4, 1.0 - portaLReductionLevel/100);
+
+            let finalRounded = mathHelper.round(finalStep5);
+            return finalRounded;
         }
     },
 };

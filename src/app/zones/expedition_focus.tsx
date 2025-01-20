@@ -24,6 +24,7 @@ export default function Zones({
     setOuterCurrentZones,
     setOuterUnlockedIDs,
     targetWave, setTargetWave,
+    manualTargetWave, setManualTargetWave,
     setSelectedZone, selectedZone,
     teamToRun, setTeamToRun,
     TimeToClear, setCardZones
@@ -299,8 +300,8 @@ export default function Zones({
                 });
 
 
-                goal_wave = targetWave === -1 ? zone_to_work.data.unlock : targetWave;
-                if (targetWave === -1) {
+                goal_wave = targetWave === -1 || !manualTargetWave ? zone_to_work.data.unlock : targetWave;
+                if (targetWave === -1 || !manualTargetWave ) {
                     setTargetWave(goal_wave)
                 }
             }
@@ -367,7 +368,7 @@ export default function Zones({
         setZoneToClear(zone_to_work);
 
     }, [
-        setHasLocked, setSelectedZone, setTargetWave, setZoneToClear,
+        setHasLocked, setSelectedZone, setTargetWave, setZoneToClear, manualTargetWave, setManualTargetWave,
         selectedZone, data, teamToRun, targetWave, pets_global, zone_dmg_dealt_map])
 
     if (data.AscensionCount >= 14) {
@@ -485,7 +486,7 @@ export default function Zones({
                 <MouseOverPopover tooltip={
                     <div style={{ padding: '6px' }}>
                         {`This shows which zones to run, as well as the suggested layout (from your save file) that should be used. In the top right corner it will specify
-                        for how long to run it. If it says "infinite" it means its the bost option atm based on your priority list. Come back later to see if this changes!`}
+                        for how long to run it. If it says "infinite" it means its the best option atm based on your priority list. Come back later to see if this changes!`}
                     </div>
                 }>
                     <div style={{ position: 'relative', marginLeft: '12px', width: '24px', height: '24px' }}>

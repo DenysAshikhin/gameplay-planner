@@ -139,7 +139,16 @@ import CyberDog from '@images/pets/Cyber Dog.png';
 import Marty from '@images/pets/Marty.png';
 import BrainBot from '@images/pets/Brain Bot.png';
 import Hyperion from '@images/pets/Hyperion.png';
-import BlueBloon from '@images/pets/BlueBloon.png'
+import DroneScout from '@images/pets/Drone Scout.png';
+import ScanProbe from '@images/pets/Scan Probe.png';
+import LandMine from '@images/pets/Land Mine.png';
+import BombingProbe from '@images/pets/Bombing Probe.png';
+import GroundTerraformer from '@images/pets/Ground Terraformer.png';
+import AirTerraformer from '@images/pets/Air Terraformer.png';
+import WalkingArtillery from '@images/pets/Walking Artillery.png';
+import Cruiser from '@images/pets/Crusier.png';
+import BreachOpener from '@images/pets/Breach Opener.png';
+import BlueBloon from '@images/pets/BlueBloon.png';
 
 
 import air_engelus from '@images/pets/Air Angelus.png'
@@ -827,6 +836,52 @@ const PetNames: petData = {
         "location": "Portal",
         img: Bobo
     },
+    131: {
+        "name": "Drone Scout",
+        "location": "9-1",
+        img: DroneScout
+    },
+    132: {
+        "name": "Scan Probe",
+        "location": "9-2",
+        img: ScanProbe
+    },
+    133: {
+        "name": "Land Mine",
+        "location": "9-3",
+        img: LandMine
+    },
+    134: {
+        "name": "Bombing Probe",
+        "location": "9-4",
+        img: BombingProbe
+    },
+    135: {
+        "name": "Ground Terraformer",
+        "location": "9-5",
+        img: GroundTerraformer
+    },
+    136: {
+        "name": "Air Terraformer",
+        "location": "9-6",
+        img: AirTerraformer
+    },
+    137: {
+        "name": "Walking Artillery",
+        "location": "9-7",
+        img: WalkingArtillery
+    },
+    138: {
+        "name": "Cruiser",
+        "location": "9-8",
+        img: Cruiser
+    },
+    139: {
+        "name": "Breach Opener",
+        "location": "9-9",
+        img: BreachOpener
+    },
+    
     9999: {
         "name": "Unknown",
         "location": "??-??",
