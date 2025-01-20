@@ -56,7 +56,7 @@ const PetItem = ({ petData,
     // const rank = defaultRank ? defaultRank : pet.Rank;
     const rank = pet.Rank;
     const level = pet.Level;
-    const totalScore = petHelper.getPetDamage(pet, data, rank).toExponential(2);
+    const totalScore = helper.formatNumberString(petHelper.getPetDamage(pet, data, rank));
 
     // const weightedBonuses = filterBonuses(pet.BonusList, (bonus) => {
     //     return bonus.ID < 1000;
@@ -83,7 +83,7 @@ const PetItem = ({ petData,
 
                 return (
                     <li key={i}>
-                        {BonusMap[activePetBonus.ID]?.label}: {equipedBonus.toExponential(2)}
+                        {BonusMap[activePetBonus.ID]?.label}: {helper.formatNumberString(equipedBonus)}
                     </li>
                 );
             })}
@@ -98,7 +98,7 @@ const PetItem = ({ petData,
                 .map((activePetBonus, i) => {
                     return (
                         <li key={i}>
-                            {BonusMap[activePetBonus.ID]?.label}: {Number(activePetBonus.Power).toExponential(2)}
+                            {BonusMap[activePetBonus.ID]?.label}: {helper.formatNumberString(Number(activePetBonus.Power)*100) + "%"}
                         </li>
                     );
                 })}
@@ -292,7 +292,7 @@ const StaticPetItem = ({ petData, highlight, showNameOnly }) => {
 
                 return (
                     <li key={i}>
-                        {BonusMap[activePetBonus.ID]?.label}: {result.toExponential(2)}
+                        {BonusMap[activePetBonus.ID]?.label}: {helper.formatNumberString(result)}
                     </li>
                 );
             })}
@@ -307,19 +307,16 @@ const StaticPetItem = ({ petData, highlight, showNameOnly }) => {
                 .map((activePetBonus, i) => {
                     return (
                         <li key={i}>
-                            {BonusMap[activePetBonus.ID]?.label}: {Number(activePetBonus.Power).toExponential(2)}
+                            {BonusMap[activePetBonus.ID]?.label}: {helper.formatNumberString(Number(activePetBonus.Power))}
                         </li>
                     );
                 })}
         </ul>
     );
 
-    let baseDmg: number | string = petHelper.calculatePetBaseDamage(pet, pet.Rank);
+    let baseDmg: number = petHelper.calculatePetBaseDamage(pet, pet.Rank);
     if (baseDmg < 100) {
         baseDmg = helper.roundInt(baseDmg);
-    }
-    else {
-        baseDmg = baseDmg.toExponential(2);
     }
     let promotion = pet.promotion ? pet.promotion : 0;
 
@@ -349,7 +346,7 @@ const StaticPetItem = ({ petData, highlight, showNameOnly }) => {
                             {`Level: ${pet.Level}`}
                         </div>
                         <div>
-                            {`Damage: ${baseDmg}`}
+                            {`Damage: ${helper.formatNumberString(baseDmg)}`}
                         </div>
                     </div>
                     <div>

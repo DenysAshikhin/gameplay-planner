@@ -42,9 +42,9 @@ export function PetItem({ petData, isSelected, onClick, data, weightMap, petScor
 
     const rank = defaultRank ? defaultRank : pet.Rank;
     const level = pet.Level;
-    const totalScore = Number(
+    const totalScore = helper.formatNumberString(Number(
         Number(data?.PetDamageBonuses) * pet.BaseDungeonDamage * (1.0 + rank * 0.05) * 5
-    ).toExponential(2);
+    ));
 
     // const weightedBonuses = filterBonuses(pet.BonusList, (bonus) => {
     //     return bonus.ID < 1000;
@@ -68,7 +68,7 @@ export function PetItem({ petData, isSelected, onClick, data, weightMap, petScor
 
                 return (
                     <li key={i}>
-                        {BonusMap[activePetBonus.ID]?.label}: {result.toExponential(2)}
+                        {BonusMap[activePetBonus.ID]?.label}: {helper.formatNumberString(result)}
                     </li>
                 );
             })}
@@ -83,7 +83,7 @@ export function PetItem({ petData, isSelected, onClick, data, weightMap, petScor
                 .map((activePetBonus, i) => {
                     return (
                         <li key={i}>
-                            {BonusMap[activePetBonus.ID]?.label}: {Number(activePetBonus.Power).toExponential(2)}
+                            {BonusMap[activePetBonus.ID]?.label}: {helper.formatNumberString(Number(activePetBonus.Power) * 100) + "%"}
                         </li>
                     );
                 })}
@@ -258,9 +258,9 @@ export function PetItemExpeditions({ petData, isSelected, onClick, data, weightM
 
     const rank = defaultRank ? defaultRank : pet.Rank;
     const level = pet.Level;
-    const totalScore = Number(
+    const totalScore = helper.formatNumberString(Number(
         Number(data?.PetDamageBonuses) * pet.BaseDungeonDamage * (1.0 + rank * 0.05) * 5
-    ).toExponential(2);
+    ));
 
     // const weightedBonuses = filterBonuses(pet.BonusList, (bonus) => {
     //     return bonus.ID < 1000;
@@ -284,7 +284,7 @@ export function PetItemExpeditions({ petData, isSelected, onClick, data, weightM
 
                 return (
                     <li key={i}>
-                        {BonusMap[activePetBonus.ID]?.label}: {result.toExponential(2)}
+                        {BonusMap[activePetBonus.ID]?.label}: {helper.formatNumberString(result)}
                     </li>
                 );
             })}
@@ -299,7 +299,7 @@ export function PetItemExpeditions({ petData, isSelected, onClick, data, weightM
                 .map((activePetBonus, i) => {
                     return (
                         <li key={i}>
-                            {BonusMap[activePetBonus.ID]?.label}: {Number(activePetBonus.Power).toExponential(2)}
+                            {BonusMap[activePetBonus.ID]?.label}: {helper.formatNumberString(Number(activePetBonus.Power) * 100) + "%"}
                         </li>
                     );
                 })}
@@ -487,7 +487,7 @@ export function StaticPetItem({ petData, highlight, showNameOnly, statMode, grou
 
                 return (
                     <li key={i}>
-                        {BonusMap[activePetBonus.ID]?.label}: {result.toExponential(2)}
+                        {BonusMap[activePetBonus.ID]?.label}: {helper.formatNumberString(result)}
                     </li>
                 );
             })}
@@ -502,7 +502,7 @@ export function StaticPetItem({ petData, highlight, showNameOnly, statMode, grou
                 .map((activePetBonus, i) => {
                     return (
                         <li key={i}>
-                            {BonusMap[activePetBonus.ID]?.label}: {Number(activePetBonus.Power).toExponential(2)}
+                            {BonusMap[activePetBonus.ID]?.label}: {helper.formatNumberString(Number(activePetBonus.Power)*100) + "%"}
                         </li>
                     );
                 })}
@@ -557,12 +557,9 @@ export function StaticPetItem({ petData, highlight, showNameOnly, statMode, grou
     }
 
 
-    let baseDmg: number | string = petHelper.calculatePetBaseDamage(pet, pet.Rank);
+    let baseDmg: number = petHelper.calculatePetBaseDamage(pet, pet.Rank);
     if (baseDmg < 100) {
         baseDmg = helper.roundInt(baseDmg);
-    }
-    else {
-        baseDmg = baseDmg.toExponential(2);
     }
 
     let promotion = pet.promotion ? pet.promotion : 0;
@@ -588,7 +585,7 @@ export function StaticPetItem({ petData, highlight, showNameOnly, statMode, grou
                                 {`Level: ${pet.Level}`}
                             </div>
                             <div>
-                                {`Damage: ${baseDmg}`}
+                                {`Damage: ${helper.formatNumberString(baseDmg)}`}
                             </div>
                         </div>
                         <div>

@@ -1,3 +1,4 @@
+import Decimal from 'break_infinity.js';
 import mathHelper from './math';
 
 var helper = {
@@ -168,6 +169,16 @@ var helper = {
     // @ts-ignore
     numberWithCommas(x) {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    },
+    formatNumberString(input: number | Decimal, precision:number = 2)  {
+        if (input == undefined || input == 0) {
+            return Number(0).toFixed(precision);
+        }
+        if (typeof input == "number") {
+            return input > 10000 ? input.toExponential(precision) : helper.roundTwoDecimal(input).toFixed(precision);
+        } else { //Decimal
+            return input.exponent > 4 ? input.toExponential(precision) : helper.roundTwoDecimal(input.toNumber()).toFixed(precision);
+        }
     }
 }
 

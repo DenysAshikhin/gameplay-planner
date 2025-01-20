@@ -413,20 +413,20 @@ const CardCard = ({
                                     {cardIDMap[ID].label}
                                 </h3>
                                 <div>
-                                    Current Bonus: {finalBefore.toExponential(2).toString()}%
+                                    Current Bonus: {helper.formatNumberString(finalBefore)}%
                                 </div>
                                 <div>
-                                    Charged Bonus: {finalAfter.toExponential(2).toString()}%
+                                    Charged Bonus: {helper.formatNumberString(finalAfter)}%
                                 </div>
                                 <div>
-                                    Absolute Increase: {flatIncrease.toExponential(2).toString()}
+                                    Absolute Increase: {helper.formatNumberString(flatIncrease)}
                                 </div>
                                 <div>
                                     Percentage
-                                    Increase: {mathHelper.multiplyDecimal(percIncrease, 100).toExponential(2).toString()}
+                                    Increase: {helper.formatNumberString(mathHelper.multiplyDecimal(percIncrease, 100))}
                                 </div>
                                 <div>
-                                    Weighted Increase: {weightIncrease.toExponential(2).toString()}
+                                    Weighted Increase: {helper.formatNumberString(weightIncrease)}
                                 </div>
                                 <div>
                                     Current Weight:{finalWeight}
@@ -467,7 +467,6 @@ const CardCard = ({
                                     />
                                 )}
 
-
                                 {/* Final bonus */}
                                 <div
                                     style={{
@@ -478,12 +477,7 @@ const CardCard = ({
                                         right: '8px',
                                     }}
                                 >
-                                    {`${bonusMode === '%gain' || bonusMode === 'xgain' ?
-                                        finalBonusDisplay.exponent > 5 ?
-                                            finalBonusDisplay.toExponential(2)
-                                            :
-                                            helper.roundTwoDecimal(finalBonusDisplay.toNumber()).toLocaleString()
-                                        : finalBonusDisplay.toExponential(2)}${bonusMode === 'xgain' ? 'X' : '%'}`}
+                                    {`${helper.formatNumberString(finalBonusDisplay)}${bonusMode === 'xgain' ? 'X' : '%'}`}
                                 </div>
 
                                 {/* Final temp */}
@@ -496,7 +490,7 @@ const CardCard = ({
                                         right: '8px',
                                     }}
                                 >
-                                    {`${finalTemp.toExponential(2)}%`}
+                                    {`${helper.formatNumberString(finalTemp)}%`}
                                 </div>
 
 
@@ -598,19 +592,19 @@ const CardCard = ({
                                     {cardIDMap[ID].label}
                                 </h3>
                                 <div>
-                                    Current Bonus: {finalBefore.toExponential(2).toString()}%
+                                    Current Bonus: {helper.formatNumberString(finalBefore)}%
                                 </div>
                                 <div>
-                                    Charged Bonus: {finalAfter.toExponential(2).toString()}%
+                                    Charged Bonus: {helper.formatNumberString(finalAfter)}%
                                 </div>
                                 <div>
-                                    Absolute Increase: {flatIncrease.toExponential(2).toString()}
+                                    Absolute Increase: {helper.formatNumberString(flatIncrease)}
                                 </div>
                                 <div>
-                                    Percentage Increase: {percIncrease.toExponential(2).toString()}
+                                    Percentage Increase: {helper.formatNumberString(mathHelper.multiplyDecimal(mathHelper.subtractDecimal(percIncrease, 1), 100))}
                                 </div>
                                 <div>
-                                    Weighted Increase: {weightIncrease.toExponential(2).toString()}
+                                    Weighted Increase: {helper.formatNumberString(weightIncrease)}
                                 </div>
                                 <div>
                                     Current Weight:{finalWeight}
@@ -663,17 +657,17 @@ const CardCard = ({
                             >
                                 {displayMode === 'logged' && (
                                     <>
-                                        {loggedWeightIncrease.toExponential(2).toString()}
+                                        {helper.formatNumberString(loggedWeightIncrease)}
                                     </>
                                 )}
                                 {displayMode === 'logged2' && (
                                     <>
-                                        {loggedWeightIncrease2.toExponential(2).toString()}
+                                        {helper.formatNumberString(loggedWeightIncrease2)}
                                     </>
                                 )}
                                 {(displayMode !== 'logged' && displayMode !== 'logged2') && (
                                     <>
-                                        {displayMode === 'weight' ? weightIncrease.toExponential(2).toString() : percIncrease.toExponential(2).toString() + '%'}
+                                        {displayMode === 'weight' ? helper.formatNumberString(weightIncrease) : helper.formatNumberString(mathHelper.multiplyDecimal(mathHelper.subtractDecimal(percIncrease, 1), 100)) + '%'}
                                     </>
                                 )}
 

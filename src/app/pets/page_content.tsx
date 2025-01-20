@@ -1185,7 +1185,7 @@ export default function Pets() {
                                                         </div>
                                                         <div style={{ display: 'flex', alignItems: 'center' }}>
                                                             <div style={{ color: color, }}>
-                                                                {e.sum.toExponential(2) + '%'}
+                                                                {helper.formatNumberString(e.sum) + '%'}
                                                             </div>
                                                             <div style={{ color: color, marginLeft: '6px' }}>
                                                                 {` (${currentBonuses[e.ID].count})`}
