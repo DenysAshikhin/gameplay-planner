@@ -1463,7 +1463,16 @@ export default function Expeditions() {
                         >
                             <div style={{}}>
                                 <div>
-                                    <h4 style={{ margin: '6px', textAlign: 'center', fontSize: '20px' }}>Pet Whitelist</h4>
+                                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                                        <h4 style={{ margin: '6px', textAlign: 'center', fontSize: '20px' }}>Pet Whitelist</h4>
+                                        <div style={{marginTop:"5px"}}>
+                                            <button
+                                                onClick={(e) => {
+                                                    setPetWhiteList([]);
+                                                }}
+                                            >Clear Whitelist</button>
+                                        </div>
+                                    </div>
                                     <h4 style={{ margin: '6px', textAlign: 'center', fontSize: '20px', color: 'red' }}>{`${whiteListAlertText}`}</h4>
                                 </div>
                                 {/* Pet whitelist stuff */}
@@ -1481,13 +1490,7 @@ export default function Expeditions() {
                                             setRefreshGroups(true);
                                         }}
                                     />
-                                    <div style={{}}>
-                                        <button 
-                                            onClick={(e) => {
-                                                setPetWhiteList([]);
-                                        }}
-                                        >Clear Whitelist</button>
-                                    </div>
+
                                     <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
 
                                         <div
