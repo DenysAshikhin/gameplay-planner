@@ -344,8 +344,10 @@ const CardCard = ({
     let margin = ``;
     if (vertical && false) {
         margin = num % 2 === 0 && num + 1 ? '6px 0' : ''
-    } else {
+    } else if (false) {
         margin = middleCard ? `0 6px ${num > 1 && num % 5 === 0 ? '12px' : '0px'} 6px` : '';
+    } else {
+        margin = `0 3px 0 3px`;
     }
 
     let displayLabel = vertical;
@@ -411,20 +413,20 @@ const CardCard = ({
                                     {cardIDMap[ID].label}
                                 </h3>
                                 <div>
-                                    Current Bonus: {finalBefore.toExponential(2).toString()}%
+                                    Current Bonus: {helper.formatNumberString(finalBefore)}%
                                 </div>
                                 <div>
-                                    Charged Bonus: {finalAfter.toExponential(2).toString()}%
+                                    Charged Bonus: {helper.formatNumberString(finalAfter)}%
                                 </div>
                                 <div>
-                                    Absolute Increase: {flatIncrease.toExponential(2).toString()}
+                                    Absolute Increase: {helper.formatNumberString(flatIncrease)}
                                 </div>
                                 <div>
                                     Percentage
-                                    Increase: {mathHelper.multiplyDecimal(percIncrease, 100).toExponential(2).toString()}
+                                    Increase: {helper.formatNumberString(mathHelper.multiplyDecimal(percIncrease, 100))}
                                 </div>
                                 <div>
-                                    Weighted Increase: {weightIncrease.toExponential(2).toString()}
+                                    Weighted Increase: {helper.formatNumberString(weightIncrease)}
                                 </div>
                                 <div>
                                     Current Weight:{finalWeight}
@@ -465,7 +467,6 @@ const CardCard = ({
                                     />
                                 )}
 
-
                                 {/* Final bonus */}
                                 <div
                                     style={{
@@ -476,12 +477,7 @@ const CardCard = ({
                                         right: '8px',
                                     }}
                                 >
-                                    {`${bonusMode === '%gain' || bonusMode === 'xgain' ?
-                                        finalBonusDisplay.exponent > 5 ?
-                                            finalBonusDisplay.toExponential(2)
-                                            :
-                                            helper.roundTwoDecimal(finalBonusDisplay.toNumber()).toLocaleString()
-                                        : finalBonusDisplay.toExponential(2)}${bonusMode === 'xgain' ? 'X' : '%'}`}
+                                    {`${helper.formatNumberString(finalBonusDisplay)}${bonusMode === 'xgain' ? 'X' : '%'}`}
                                 </div>
 
                                 {/* Final temp */}
@@ -494,7 +490,7 @@ const CardCard = ({
                                         right: '8px',
                                     }}
                                 >
-                                    {`${finalTemp.toExponential(2)}%`}
+                                    {`${helper.formatNumberString(finalTemp)}%`}
                                 </div>
 
 
@@ -596,19 +592,19 @@ const CardCard = ({
                                     {cardIDMap[ID].label}
                                 </h3>
                                 <div>
-                                    Current Bonus: {finalBefore.toExponential(2).toString()}%
+                                    Current Bonus: {helper.formatNumberString(finalBefore)}%
                                 </div>
                                 <div>
-                                    Charged Bonus: {finalAfter.toExponential(2).toString()}%
+                                    Charged Bonus: {helper.formatNumberString(finalAfter)}%
                                 </div>
                                 <div>
-                                    Absolute Increase: {flatIncrease.toExponential(2).toString()}
+                                    Absolute Increase: {helper.formatNumberString(flatIncrease)}
                                 </div>
                                 <div>
-                                    Percentage Increase: {percIncrease.toExponential(2).toString()}
+                                    Percentage Increase: {helper.formatNumberString(mathHelper.multiplyDecimal(mathHelper.subtractDecimal(percIncrease, 1), 100))}
                                 </div>
                                 <div>
-                                    Weighted Increase: {weightIncrease.toExponential(2).toString()}
+                                    Weighted Increase: {helper.formatNumberString(weightIncrease)}
                                 </div>
                                 <div>
                                     Current Weight:{finalWeight}
@@ -661,17 +657,17 @@ const CardCard = ({
                             >
                                 {displayMode === 'logged' && (
                                     <>
-                                        {loggedWeightIncrease.toExponential(2).toString()}
+                                        {helper.formatNumberString(loggedWeightIncrease)}
                                     </>
                                 )}
                                 {displayMode === 'logged2' && (
                                     <>
-                                        {loggedWeightIncrease2.toExponential(2).toString()}
+                                        {helper.formatNumberString(loggedWeightIncrease2)}
                                     </>
                                 )}
                                 {(displayMode !== 'logged' && displayMode !== 'logged2') && (
                                     <>
-                                        {displayMode === 'weight' ? weightIncrease.toExponential(2).toString() : percIncrease.toExponential(2).toString() + '%'}
+                                        {displayMode === 'weight' ? helper.formatNumberString(weightIncrease) : helper.formatNumberString(mathHelper.multiplyDecimal(mathHelper.subtractDecimal(percIncrease, 1), 100)) + '%'}
                                     </>
                                 )}
 
@@ -906,6 +902,13 @@ export default function Cards() {
         setRunTimeDisplayMode(clientDisplayMode);
     }, [clientDisplayMode]);
 
+    
+    const [clientHideUnfound, setHideUnfound] = useLocalStorage('hideUnfoundCards', true);
+    const [hideUnfound, setRunTimeHideUnfound] = useState(true);
+    useEffect(() => {
+        setRunTimeHideUnfound(clientHideUnfound);
+    }, [clientHideUnfound]);
+
 
     if (!data.PetsSpecial[74]) {
         return (
@@ -929,6 +932,10 @@ export default function Cards() {
             return accum;
         }
         else if (data.AscensionCount < 40 && card.ID === 39) {
+            return accum;
+        }
+
+        if (hideUnfound && card.Found === 0) {
             return accum;
         }
 
@@ -1291,7 +1298,7 @@ export default function Cards() {
                 <div
                     style={{
                         maxWidth: '747px',
-                        padding: '6px 6px 0 6px',
+                        padding: '6px 3px 0 3px',
                         display: 'flex',
                         flexWrap: 'wrap',
                         alignContent: 'flex-start',
@@ -1312,7 +1319,20 @@ export default function Cards() {
                             position: 'relative'
                         }}
                     >
-
+                        <div style={{ marginLeft: '12px', position: 'absolute', left: '-9px' }}>
+                            <div style={{ display: 'flex', alignItems: 'center' }} className='importantText'>
+                                <div>{`Hide unfound cards`}</div>
+                                <input
+                                    aria-label='Hide cards that were never found'
+                                    type="checkbox"
+                                    onChange={(e) => {
+                                        setHideUnfound(e.target.checked ? true : false)
+                                    }}
+                                    checked={!!hideUnfound}
+                                    value={!!hideUnfound as any}
+                                />
+                            </div>
+                        </div>
                         <h3
                             className='importantText'
                             style={{ marginTop: '0', marginBottom: '0', marginRight: '12px' }}

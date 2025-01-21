@@ -52,7 +52,7 @@ function ScoreSection({ data, group, totalScore, defaultRank }) {
     const { baseGroupScore, groupScoreMax, dmgCount, timeCount, synergyBonus, groupScore, groupRankScore } = petHelper.calculateGroupScore(group, defaultRank);
     const score = groupRankScore;
     // const displayedDamage = (score * 5 * data.PetDamageBonuses).toExponential(2);
-    const displayedDamage = mathHelper.multiplyDecimal(data.petDamageBD, score * 5).toExponential(2);
+    const displayedDamage = helper.formatNumberString(mathHelper.multiplyDecimal(data.petDamageBD, score * 5));
     return (
         <>
             <ul>
@@ -63,20 +63,20 @@ function ScoreSection({ data, group, totalScore, defaultRank }) {
                     {`Per Rank Damage: ${displayedDamage}`}
                 </li>
                 <li key="baseGroupScore">
-                    Group Base: {Number(baseGroupScore).toExponential(2)}
+                    Group Base: {helper.formatNumberString(Number(baseGroupScore))}
                 </li>
                 <li key="damageBonus">
-                    Dmg Bonus: {Number(1 + dmgCount * petHelper.EXP_DMG_MOD).toFixed(2)}x
+                    Dmg Bonus: {helper.formatNumberString(Number(1 + dmgCount * petHelper.EXP_DMG_MOD))}x
                 </li>
                 <li key="timeBonus">
-                    Time Bonus: {Number(1 + timeCount * petHelper.EXP_TIME_MOD).toFixed(2)}x
+                    Time Bonus: {helper.formatNumberString(Number(1 + timeCount * petHelper.EXP_TIME_MOD))}x
                 </li>
                 <li key="synergyBonus">
-                    Synergy: {Number(synergyBonus).toFixed(2)}x
+                    Synergy: {helper.formatNumberString(Number(synergyBonus))}x
                 </li>
                 <li key="petDamageBonus">
                     {/* PetDmgMod: {Number(data?.PetDamageBonuses).toExponential(2)} */}
-                    PetDmgMod: {data?.petDamageBD.toExponential(2)}
+                    PetDmgMod: {helper.formatNumberString(data?.petDamageBD)}
                 </li>
             </ul>
         </>
@@ -714,10 +714,10 @@ export default function Expeditions() {
                             textAlign: 'center'
                         }}>
                             <div style={{ width: '50%', borderRight: '2px solid rgba(255,255,255,0.8)' }}>
-                                {`Total Damage: ${damageTotal.toExponential(3)}`}
+                                {`Total Damage: ${helper.formatNumberString(damageTotal, 3)}`}
                             </div>
                             <div style={{ width: '50%' }}>
-                                {`Total tokens/hr: ${helper.roundThreeDecimal(totalTokensHR)}`}
+                                {`Total tokens/hr: ${helper.formatNumberString(helper.roundThreeDecimal(totalTokensHR), 3)}`}
                             </div>
                         </div>
                     </div>
@@ -740,12 +740,12 @@ export default function Expeditions() {
                                 clover: data.SoulGoldenClover, residueToken: data.CowShopExpeditionToken, data: data,
                                 finalTokenBonus: finalTokenBonus
                             }, comboSelector)[tokenSelections[index]]
-                            let tokenScore = (tempTokenScore.tokenHR / tempTokenScore.hours).toExponential(3);
+                            let tokenScore = helper.formatNumberString(tempTokenScore.tokenHR / tempTokenScore.hours, 3);
                             const score = groupTotal.groupScore;
                             // const displayedDamage = (score * 5 * data.PetDamageBonuses).toExponential(2);
-                            const displayedDamage = mathHelper.multiplyDecimal(petDamageBD, groupTotal.groupRankScore * 5).toExponential(2);
+                            const displayedDamage = helper.formatNumberString(mathHelper.multiplyDecimal(petDamageBD, groupTotal.groupRankScore * 5));
                             // const trueDamage = (5 * groupTotal.groupScoreMax * Number(data?.PetDamageBonuses)).toExponential(2);
-                            const trueDamage = mathHelper.multiplyDecimal(petDamageBD, 5 * groupTotal.groupScoreMax).toExponential(2);
+                            const trueDamage = helper.formatNumberString(mathHelper.multiplyDecimal(petDamageBD, 5 * groupTotal.groupScoreMax));
 
                             let tokenInfo: ReturnType<typeof petHelper.calculateBestHours> | string = ``;
 
@@ -792,7 +792,7 @@ export default function Expeditions() {
                             }
 
                             // const totalScore = Number(Number(data?.PetDamageBonuses) * score * 5).toExponential(3);
-                            const totalScore = mathHelper.multiplyDecimal(petDamageBD, score * 5).toExponential(3);
+                            const totalScore = helper.formatNumberString(mathHelper.multiplyDecimal(petDamageBD, score * 5), 3);
                             const groupTooltip = (
                                 <div className="groups-tooltip">
                                     <span className="groups-tooltip-content">
@@ -1102,7 +1102,7 @@ export default function Expeditions() {
                             </div>
                             <div style={{ display: 'flex', alignItems: 'center', marginTop: '3px' }}>
                                 <div>
-                                    {`Token Bonuses: ${helper.roundThreeDecimal(finalTokenBonus)}`}
+                                    {`Token Bonuses: ${helper.formatNumberString(helper.roundThreeDecimal(finalTokenBonus), 3)}`}
                                 </div>
                             </div>
                             <div style={{ display: 'flex', alignItems: 'center' }}>
