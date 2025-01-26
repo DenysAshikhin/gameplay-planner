@@ -120,7 +120,8 @@ const AssemblyLine = ({
     cost,
     key_inner,
     futureLevel,
-    simplifiedView
+    simplifiedView,
+    bigTopMargin
 }) => {
 
 
@@ -139,7 +140,7 @@ const AssemblyLine = ({
                 alignItems: 'center',
                 justifyContent: 'center',
                 flexDirection: 'column',
-                marginTop: index > 1 ? '24px' : '3px',
+                marginTop: index > 1 || !!bigTopMargin ? '24px' : '3px',
                 marginRight: '3px',
                 borderRadius: '6px'
             }}
