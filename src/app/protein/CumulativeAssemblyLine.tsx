@@ -1,20 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 import { BonusMap, dividingBonusArray } from '../util/itemMapping';
 import farmingHelper from '../util/farmingHelper';
-import mathHelper from '../util/math';
 import helper from '../util/helper';
-import useLocalStorage from "use-local-storage";
 
 import rightArrow from '@images/icons/right_arrow_white.svg';
 import lockedAssembly from '@images/farming/assembly/Not_Unlocked.png';
 
 import Image from 'next/image';
-
-//AssemblyCostReductionBonus
-//AssemblerCollection
-
-//Need to manually check if unlocked or not later
 
 const AssemblyInnerBonus = ({ line, al_level, key_inner, futureLevel }) => {
 
@@ -110,29 +103,23 @@ const AssemblyInnerBonus = ({ line, al_level, key_inner, futureLevel }) => {
 
 
 
-
-
-const AssemblyLine = ({
+const CumulativeAssemblyLine = ({
     data,
+    simplifiedView,
     assemblyID,
+    currentLevel,
+    count,
+    totalCost,
     index,
-    purchaseTime,
-    cost,
-    key_inner,
-    futureLevel,
-    simplifiedView
+    futureLevel
 }) => {
-
-
     let assembly = data.AssemblerCollection[assemblyID];
     if (!assembly)
         return null;
 
-    let stringTimeToPurchase = helper.secondsToString(purchaseTime);
-
     return (
         <div
-            key={key_inner}
+            key={assemblyID}
             style={{
                 backgroundColor: 'rgba(255,255,255, 0.12)',
                 display: 'flex',
@@ -157,7 +144,7 @@ const AssemblyLine = ({
                 }}
             >
                 <div style={{ marginLeft: '6px' }}>
-                    Purchase #{index}: Assembly {assemblyID + 1}
+                    Purchase Assembly {assemblyID + 1}
                 </div>
                 <div style={{
                     marginRight: '6px',
@@ -168,13 +155,13 @@ const AssemblyLine = ({
                         {`Level:`}
                     </div>
                     <div
-                        className={(futureLevel - assembly.Level) > 1 ? 'elementToFadeInAndOut' : ''}
+                        className={(futureLevel - currentLevel) > 1 ? 'elementToFadeInAndOut' : ''}
                         style={{
                             marginLeft: '3px',
-                            color: (futureLevel - assembly.Level) > 1 ? 'rgb(66, 174, 41)' : '',
-                            fontWeight: (futureLevel - assembly.Level) > 1 ? 'bold' : ''
+                            color: (futureLevel - currentLevel) > 1 ? 'rgb(66, 174, 41)' : '',
+                            fontWeight: (futureLevel - currentLevel) > 1 ? 'bold' : ''
                         }}>
-                        {`${assembly.Level} -> ${futureLevel}`}
+                        {`${currentLevel} -> ${futureLevel}`}
                     </div>
 
                 </div>
@@ -216,10 +203,10 @@ const AssemblyLine = ({
                 }}
             >
                 <div style={{ marginLeft: '6px' }}>
-                    Cost: {helper.formatNumberString(cost)}
+                    Cost: {helper.formatNumberString(totalCost)}
                 </div>
                 <div style={{ marginRight: '6px' }}>
-                    Time to Purchase: {stringTimeToPurchase}
+                    Purchases: {count}
                 </div>
             </div>
         </div>
@@ -227,4 +214,4 @@ const AssemblyLine = ({
 }
 
 
-export default AssemblyLine;
+export default CumulativeAssemblyLine;
