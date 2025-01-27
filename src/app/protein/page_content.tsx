@@ -531,6 +531,7 @@ export default function Protein() {
                                     <>
                                         {cumulativePurchasableAssemblies.map((e, index) => {
                                             return <CumulativeAssemblyLine
+                                                key={e.id}
                                                 assemblyID = {e.id}
                                                 currentLevel = {e.currentLevel}
                                                 count = {e.count}
