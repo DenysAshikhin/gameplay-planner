@@ -10,6 +10,7 @@ import mathHelper from '../util/math';
 
 import AssemblyItem from './AssemblyItem';
 import AssemblyLine from './AssemblyLine';
+import CumulativeAssemblyLine from './CumulativeAssemblyLine';
 import MouseOverPopover from "../util/Tooltip";
 
 import infoIcon from '@images/icons/info_white.svg';
@@ -115,6 +116,8 @@ export default function Protein() {
     let currProtein = mathHelper.createDecimal(tempData.ProteinCurrent);
     let protRate = farmingHelper.calcProteinPerSecond(tempData);
     let bestAssemblies = [];
+    let cumulativePurchasableAssemblies = [];
+    let futureAssemblies = [];
     let totalLevels = 0;
     let currentBonusTotals: { [id: number]: number } = {};
 
@@ -217,15 +220,11 @@ export default function Protein() {
 
             if (currProtein.greaterThan(cost)) {
                 timeToPurchase = 0;
-                if (cumulativeTime) {
-                    currProtein = mathHelper.subtractDecimal(currProtein, cost);
-                }
+                currProtein = mathHelper.subtractDecimal(currProtein, cost);
             }
             else {
                 timeToPurchase = mathHelper.divideDecimal(timeToPurchase, protRate);
-                if (cumulativeTime) {
-                    currProtein = mathHelper.createDecimal(0);
-                }
+                currProtein = mathHelper.createDecimal(0);
             }
             if (cumulativeTime) {
                 let tempHolder = mathHelper.addDecimal(0, timeToPurchase);
@@ -295,7 +294,30 @@ export default function Protein() {
     });
 
     bestAssemblies = bestAssemblyFinal;
+    //calculate cumulative view for instant buy purchases
+    let purchasableAssemblies = bestAssemblies.filter((e) => e.purchaseTime == 0);
+    for (let i = 0; i < purchasableAssemblies.length; i++) {
+        let matching = cumulativePurchasableAssemblies.find((e) => e.id == purchasableAssemblies[i].assembly.ID);
+        if (matching == undefined) {
+            matching = {
+                id: purchasableAssemblies[i].assembly.ID,
+                currentLevel: purchasableAssemblies[i].assembly.Level,
+                data: purchasableAssemblies[i].data,
+                count: 0,
+                totalCost: 0
+            };
+            cumulativePurchasableAssemblies.push(matching);
+        }
+        matching.totalCost = mathHelper.addDecimal(matching.totalCost, purchasableAssemblies[i].cost);
+        if (!purchasableAssemblies[i].desiredLevel) {
+            matching.count++;
+        } else {
+            matching.count += purchasableAssemblies[i].desiredLevel - purchasableAssemblies[i].assembly.Level;
+        }
+    }
+    cumulativePurchasableAssemblies.sort((a,b) => a.id - b.id);
 
+    futureAssemblies = bestAssemblies.filter((e) => e.purchaseTime > 0);
 
     return (
         <div
@@ -413,7 +435,6 @@ export default function Protein() {
                                                 <div>
                                                     will calculate and display the selected number of the next suggested assembly purchases
                                                 </div>
-
                                             </div>
                                         </div>
                                     }>
@@ -506,9 +527,25 @@ export default function Protein() {
                                 maxHeight: 'calc(100vh - 150px)',
                                 flex: '1'
                             }}>
-                                {bestAssemblies.length > 0 && (
+                                {cumulativePurchasableAssemblies.length > 0 && (
                                     <>
-                                        {bestAssemblies.map((e, index) => {
+                                        {cumulativePurchasableAssemblies.map((e, index) => {
+                                            return <CumulativeAssemblyLine
+                                                assemblyID = {e.id}
+                                                currentLevel = {e.currentLevel}
+                                                count = {e.count}
+                                                totalCost = {e.totalCost}
+                                                index = {index + 1}
+                                                futureLevel = {e.currentLevel + e.count}
+                                                data={e.data}
+                                                simplifiedView={simplifiedView}
+                                            />
+                                        })}
+                                    </>
+                                )}
+                                {futureAssemblies.length > 0 && (
+                                    <>
+                                        {futureAssemblies.map((e, index) => {
                                             return <AssemblyLine
                                                 key={index}
                                                 key_inner={index}
@@ -519,6 +556,7 @@ export default function Protein() {
                                                 cost={e.cost}
                                                 futureLevel={e.desiredLevel ? e.desiredLevel : e.assembly.Level + 1}
                                                 simplifiedView={simplifiedView}
+                                                bigTopMargin={cumulativePurchasableAssemblies.length > 0}
                                             />
                                         })}
                                     </>

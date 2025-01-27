@@ -1033,6 +1033,7 @@ export const BonusMap = {
     5017: { id: 5017, label: "Mineral Type Chance +25%", rootName: 'Mineral Type' },
     5018: { id: 5018, label: "Faster Town Building +25%", rootName: 'Town Building' },
 };
+export const dividingBonusArray = [30,36];
 
 const standardBonusesWeightListCount = Array.from({ length: 22 }, (x, i) => i);
 export const standardBonusesWeightList = standardBonusesWeightListCount.map((idx, i) => BonusMap[i + 1]);
