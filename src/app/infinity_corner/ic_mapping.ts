@@ -549,7 +549,7 @@ const itemIDMap = {
         }
     },
     [LARVAQTY]: {
-        id: LARVAQTY, label: "Larve Qty", icon: "", weights: {
+        id: LARVAQTY, label: "Larva Qty", icon: "", weights: {
             0: 1,
             1: 1,
             2: 1,
@@ -584,7 +584,7 @@ const itemIDMap = {
         }
     },
     [LARVAEFF]: {
-        id: LARVAEFF, label: "Larve Eff.", icon: "", weights: {
+        id: LARVAEFF, label: "Larva Eff.", icon: "", weights: {
             0: 1,
             1: 1,
             2: 1,
@@ -1627,7 +1627,7 @@ export const ic_mapping = {
     'larva_eff': {
         img: LarvaEffImg,
         order: 16,
-        label: 'Larve Eff.',
+        label: 'Larva Eff.',
         unlock: 6,
         key: 'REP3LarvaEffLevel',
         left: '85%',

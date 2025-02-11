@@ -2042,6 +2042,24 @@ const FarmingLanding = () => {
                                                     }}>Max Autos</button>
                                                 </MouseOverPopover>
                                             </div>
+                                            <div style={{ display: 'flex', alignItems: 'center',
+                                                margin: '0 12px 0 0' }}>
+                                                <MouseOverPopover opacity={0.95} tooltip={
+                                                    <div style={{ padding: '6px' }}>
+                                                        {`Sets each plants' auto to 1`}
+                                                    </div>
+                                                }>
+                                                    <button onClick={(e) => {
+                                                        let temp = Array(20).fill(1);
+                                                        setPlantAutos(temp);
+                                                        ReactGA.event({
+                                                            category: "farming_interaction",
+                                                            action: `one_auto`,
+                                                            label: `one_auto`,
+                                                        })
+                                                    }}>One Auto</button>
+                                                </MouseOverPopover>
+                                            </div>
                                             <div style={{ display: 'flex', alignItems: 'center' }}>
                                                 <MouseOverPopover opacity={0.95} tooltip={
                                                     <div style={{ padding: '6px' }}>
@@ -2641,7 +2659,7 @@ const FarmingLanding = () => {
                                                 }).reverse()}
                                             </div>
                                             <div style={{ width: '100%', textAlign: 'center', padding: '2px 0' }}>
-                                                {`**Note: for "Next PIC" value rows, this indeciates the number of hours PAST your current "Hours to Calculate" assuming ${numSimulatedAutos} autos per plant`}
+                                                {`**Note: for "Next PIC" value rows, this indicates the number of hours PAST your current "Hours to Calculate" assuming ${numSimulatedAutos} autos per plant`}
                                             </div>
                                         </>
                                     </div>

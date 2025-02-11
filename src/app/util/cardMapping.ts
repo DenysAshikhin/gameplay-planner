@@ -785,7 +785,7 @@ export const cardIDMap = {
         }
     },
     [LARVAQTY]: {
-        id: LARVAQTY, label: "Larve Qty", icon: "", weights: {
+        id: LARVAQTY, label: "Larva Qty", icon: "", weights: {
             0: 1,
             1: 1,
             2: 1,
@@ -820,7 +820,7 @@ export const cardIDMap = {
         }
     },
     [LARVAEFF]: {
-        id: LARVAEFF, label: "Larve Eff.", icon: "", weights: {
+        id: LARVAEFF, label: "Larva Eff.", icon: "", weights: {
             0: 1,
             1: 1,
             2: 1,

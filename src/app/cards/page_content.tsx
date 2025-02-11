@@ -490,7 +490,7 @@ const CardCard = ({
                                         right: '8px',
                                     }}
                                 >
-                                    {`${helper.formatNumberString(finalTemp)}%`}
+                                    {`${helper.formatNumberString(finalTemp)}`}
                                 </div>
 
 
