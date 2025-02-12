@@ -1,6 +1,6 @@
 import React from 'react';
 import './ItemSelection.css';
-import { petNameArray, petNames } from './itemMapping';
+import { petNameArray, petNames, SORT_PET_EXPEDITION, SORT_PET_PORTAL, SORT_PET_SPECIAL, SORT_PET_WORLD } from './itemMapping';
 import PetItem from '../expeditions/PetItem';
 
 const ItemSelection = ({ selectedItems, onItemSelected, data, weightMap, defaultRank, showLocked, manualEnabledPets, originalPets }) => {
@@ -38,87 +38,110 @@ const ItemSelection = ({ selectedItems, onItemSelected, data, weightMap, default
 
         let a = a_inner.location;
         let b = b_inner.location;
-
-        if (a.includes('eag') && b.includes('eag')) {
-            return a.localeCompare(b);
+        
+        if(a_inner.sort != b_inner.sort) {
+            return a_inner.sort - b_inner.sort;
         }
-        else if (a.includes('eag') && b.includes('Any')) {
-            return -1;
-        }
-        else if (b.includes('eag') && a.includes('Any')) {
-            return 1;
-        }
-        else if (a.includes('eag') && b.includes('E')) {
-            return -1;
-        }
-        else if (b.includes('eag') && a.includes('E')) {
-            return 1;
-        }
-        else if (a.includes('eag') || b.includes('eag')) {
-            return 1;
-        }
+        else if(a_inner.sort == SORT_PET_EXPEDITION) {
+            let num_a = a.length === 3 ? Number(a[1]) : Number(a[1] + a[2]);
+            let num_b = b.length === 3 ? Number(b[1]) : Number(b[1] + b[2]);
 
-
-
-        if (a.includes('E')) {
-            if (b.includes('E')) {
-
-                let num_a = a.length === 3 ? Number(a[1]) : Number(a[1] + a[2]);
-                let num_b = b.length === 3 ? Number(b[1]) : Number(b[1] + b[2]);
-
-                if (num_a === num_b) {
-                    return a[2].localeCompare(b[2])
-                }
-                else {
-                    return num_a - num_b;
-                }
+            if (num_a === num_b) {
+                return a[2].localeCompare(b[2])
             }
             else {
-                return 1;
+                return num_a - num_b;
             }
         }
-        else if (b.includes('E')) {
-            if (a.includes('E')) {
-                let num_a = a[1];
-                let num_b = b[1];
-
-                if (num_a === num_b) {
-                    throw new Error(`uncaught case for sorting`)
-                }
-                else {
-                    return num_a - num_b;
-                }
-            }
-            else {
-                return -1;
-            }
-        }
-        else if (a.includes('Any') || b.includes('Any')) {
-            if (a.includes('Any') && b.includes('Any')) {
-                return a.localeCompare(b);
-            }
-            else if (a.includes('eag') && b.includes('Any')) {
-                return -1;
-            }
-            else if (b.includes('eag') && a.includes('Any')) {
-                return 1;
-            }
-            else if (a.includes('Any') && b.includes('E')) {
-                return -1;
-            }
-            else if (b.includes('Any') && a.includes('E')) {
-                return 1;
-            }
-            else if (a.includes("Any")) {
-                return 1;
-            }
-            return -1;
-        }
-        else {
-            let num_a = Number(a[0] * 10 + a[2]);
-            let num_b = Number(b[0] * 10 + b[2]);
+        else if (a_inner.sort == SORT_PET_WORLD) {
+            let num_a = Number((a[0]) * 10 + a[2]);
+            let num_b = Number((b[0]) * 10 + b[2]);
             return num_a - num_b;
         }
+        else {
+            return a.localeCompare(b)
+        }
+
+        // if (a.includes('eag') && b.includes('eag')) {
+        //     return a.localeCompare(b);
+        // }
+        // else if (a.includes('eag') && b.includes('Any')) {
+        //     return -1;
+        // }
+        // else if (b.includes('eag') && a.includes('Any')) {
+        //     return 1;
+        // }
+        // else if (a.includes('eag') && b.includes('E')) {
+        //     return -1;
+        // }
+        // else if (b.includes('eag') && a.includes('E')) {
+        //     return 1;
+        // }
+        // else if (a.includes('eag') || b.includes('eag')) {
+        //     return 1;
+        // }
+
+
+
+        // if (a.includes('E')) {
+        //     if (b.includes('E')) {
+
+        //         let num_a = a.length === 3 ? Number(a[1]) : Number(a[1] + a[2]);
+        //         let num_b = b.length === 3 ? Number(b[1]) : Number(b[1] + b[2]);
+
+        //         if (num_a === num_b) {
+        //             return a[2].localeCompare(b[2])
+        //         }
+        //         else {
+        //             return num_a - num_b;
+        //         }
+        //     }
+        //     else {
+        //         return 1;
+        //     }
+        // }
+        // else if (b.includes('E')) {
+        //     if (a.includes('E')) {
+        //         let num_a = a[1];
+        //         let num_b = b[1];
+
+        //         if (num_a === num_b) {
+        //             throw new Error(`uncaught case for sorting`)
+        //         }
+        //         else {
+        //             return num_a - num_b;
+        //         }
+        //     }
+        //     else {
+        //         return -1;
+        //     }
+        // }
+        // else if (a.includes('Any') || b.includes('Any')) {
+        //     if (a.includes('Any') && b.includes('Any')) {
+        //         return a.localeCompare(b);
+        //     }
+        //     else if (a.includes('eag') && b.includes('Any')) {
+        //         return -1;
+        //     }
+        //     else if (b.includes('eag') && a.includes('Any')) {
+        //         return 1;
+        //     }
+        //     else if (a.includes('Any') && b.includes('E')) {
+        //         return -1;
+        //     }
+        //     else if (b.includes('Any') && a.includes('E')) {
+        //         return 1;
+        //     }
+        //     else if (a.includes("Any")) {
+        //         return 1;
+        //     }
+        //     return -1;
+        // }
+        // else {
+        //     let num_a = Number(a[0] * 10 + a[2]);
+        //     let num_b = Number(b[0] * 10 + b[2]);
+        //     return num_a - num_b;
+        // }
     })
 
 

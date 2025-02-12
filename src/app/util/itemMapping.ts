@@ -179,712 +179,857 @@ import Weapon_Angelus from '@images/pets/Weapon Angelus.png'
 
 import unknown from '@images/pets/missing.png';
 
-type petDatum = { name: string; location: string, img: string | {} };
+type petDatum = { name: string; location: string, sort: number, img: string | {} };
 type petData = { [index: number]: petDatum };
 
 type petDatum2 = petDatum & { petId: number };
+
+export const SORT_PET_SPECIAL = 0;
+export const SORT_PET_WORLD = 1;
+export const SORT_PET_PORTAL = 2;
+export const SORT_PET_EXPEDITION = 3;
 
 const PetNames: petData = {
     1: {
         "name": "Cocorico",
         "location": "3-2",
+        sort: SORT_PET_WORLD,
         img: cocoricoImg
     },
     2: {
         "name": "Rico",
         "location": "3-2",
+        sort: SORT_PET_WORLD,
         img: Rico
     },
     3: {
         "name": "Trevor",
         "location": "3-3",
+        sort: SORT_PET_WORLD,
         img: Trevor
 
     },
     4: {
         "name": "Bingo",
         "location": "3-4",
+        sort: SORT_PET_WORLD,
         img: Bingo
     },
     5: {
         "name": "Primfeet",
         "location": "3-6",
+        sort: SORT_PET_WORLD,
         img: Primfeet
     },
     6: {
         "name": "Nidhogg",
         "location": "4-1",
+        sort: SORT_PET_WORLD,
         img: Nidhogg
     },
     7: {
         "name": "Vidar",
         "location": "3-5",
+        sort: SORT_PET_WORLD,
         img: Vidar
     },
     8: {
         "name": "Hiko",
         "location": "3-7",
+        sort: SORT_PET_WORLD,
         img: Hiko
     },
     9: {
         "name": "Murphy",
         "location": "3-8",
+        sort: SORT_PET_WORLD,
         img: Murphy
     },
     10: {
         "name": "Aphrodite",
         "location": "3-9",
+        sort: SORT_PET_WORLD,
         img: Aphrodite
     },
     11: {
         "name": "Nuts",
         "location": "4-2",
+        sort: SORT_PET_WORLD,
         img: Nuts
     },
     12: {
         "name": "Alvin",
         "location": "4-7",
+        sort: SORT_PET_WORLD,
         img: Alvin
     },
     13: {
         "name": "Flash",
         "location": "4-4",
+        sort: SORT_PET_WORLD,
         img: Flash
     },
     14: {
         "name": "Cid",
         "location": "4-3",
+        sort: SORT_PET_WORLD,
         img: Cid
     },
     15: {
         "name": "Tango",
         "location": "4-5",
+        sort: SORT_PET_WORLD,
         img: Tango
     },
     16: {
         "name": "Darti",
         "location": "4-6",
+        sort: SORT_PET_WORLD,
         img: Darti
     },
     17: {
         "name": "Arizona",
         "location": "4-9",
+        sort: SORT_PET_WORLD,
         img: Arizona
     },
     18: {
         "name": "Suijin",
         "location": "5-1",
+        sort: SORT_PET_WORLD,
         img: Suijin
     },
     19: {
         "name": "Johny Be Good",
         "location": "4-8",
+        sort: SORT_PET_WORLD,
         img: johny
     },
     20: {
         "name": "Nucifera",
         "location": "5-2",
+        sort: SORT_PET_WORLD,
         img: Nucifera
     },
     21: {
         "name": "Barney",
         "location": "5-3",
+        sort: SORT_PET_WORLD,
         img: Barney
     },
     22: {
         "name": "Seth",
         "location": "5-4",
+        sort: SORT_PET_WORLD,
         img: Seth
     },
     23: {
         "name": "Plyne",
         "location": "5-5",
+        sort: SORT_PET_WORLD,
         img: Plyne
     },
     24: {
         "name": "Zac",
         "location": "5-6",
+        sort: SORT_PET_WORLD,
         img: Zac
     },
     25: {
         "name": "Tock",
         "location": "5-7",
+        sort: SORT_PET_WORLD,
         img: Tock
     },
     26: {
         "name": "The Governess",
         "location": "5-8",
+        sort: SORT_PET_WORLD,
         img: governess
     },
     27: {
         "name": "Swamp King",
         "location": "5-9",
+        sort: SORT_PET_WORLD,
         img: swamp
     },
     28: {
         "name": "Itzamna",
         "location": "6-1",
+        sort: SORT_PET_WORLD,
         img: Itzamna
     },
     29: {
         "name": "Julian",
         "location": "6-2",
+        sort: SORT_PET_WORLD,
         img: Julian
     },
     30: {
         "name": "Yuhuang",
         "location": "6-3",
+        sort: SORT_PET_WORLD,
         img: Yuhuang
     },
     31: {
         "name": "Serket",
         "location": "E1C",
+        sort: SORT_PET_EXPEDITION,
         img: Serket
     },
     32: {
         "name": "Fujin",
         "location": "E1R",
+        sort: SORT_PET_EXPEDITION,
         img: Fujin
     },
     33: {
         "name": "Ulrich",
         "location": "E2C",
+        sort: SORT_PET_EXPEDITION,
         img: Ulrich
     },
     34: {
         "name": "Huginn",
         "location": "E2R",
+        sort: SORT_PET_EXPEDITION,
         img: Huginn
     },
     35: {
         "name": "Esus",
         "location": "E3C",
+        sort: SORT_PET_EXPEDITION,
         img: Esus
     },
     36: {
         "name": "Hera",
         "location": "E3R",
+        sort: SORT_PET_EXPEDITION,
         img: Hera
     },
     37: {
         "name": "Asterios",
         "location": "E4C",
+        sort: SORT_PET_EXPEDITION,
         img: Asterios
     },
     38: {
         "name": "Odile",
         "location": "E4R",
+        sort: SORT_PET_EXPEDITION,
         img: Odile
     },
     39: {
         "name": "Anubis",
         "location": "E6C",
+        sort: SORT_PET_EXPEDITION,
         img: Anubis
     },
     40: {
         "name": "Garuda",
         "location": "E6R",
+        sort: SORT_PET_EXPEDITION,
         img: Garuda
     },
     41: {
         "name": "Tsukuyomi",
         "location": "E7C",
+        sort: SORT_PET_EXPEDITION,
         img: Tsukuyomi
     },
     42: {
         "name": "Nanbozo",
         "location": "E7R",
+        sort: SORT_PET_EXPEDITION,
         img: Nanbozo
     },
     43: {
         "name": "Ra",
         "location": "E8C",
+        sort: SORT_PET_EXPEDITION,
         img: Ra
     },
     44: {
         "name": "Vishnou",
         "location": "E8R",
+        sort: SORT_PET_EXPEDITION,
         img: Vishnou
     },
     45: {
         "name": "Icare",
         "location": "E9C",
+        sort: SORT_PET_EXPEDITION,
         img: Icare
     },
     46: {
         "name": "Olaf",
         "location": "E9R",
+        sort: SORT_PET_EXPEDITION,
         img: Olaf
     },
     47: {
         "name": "Fafnir",
         "location": "E10C",
+        sort: SORT_PET_EXPEDITION,
         img: Fafnir
     },
     48: {
         "name": "Quetzalcoalt",
         "location": "E10R",
+        sort: SORT_PET_EXPEDITION,
         img: Quetzalcoalt
     },
     49: {
         "name": "Professor Inderwind",
         "location": "E12C",
+        sort: SORT_PET_EXPEDITION,
         img: proff
     },
     50: {
         "name": "Dangun",
         "location": "E12R",
+        sort: SORT_PET_EXPEDITION,
         img: Dangun
     },
     51: {
         "name": "Wako",
         "location": "6-4",
+        sort: SORT_PET_WORLD,
         img: Wako
     },
     52: {
         "name": "Papyru",
         "location": "6-5",
+        sort: SORT_PET_WORLD,
         img: Papyru
     },
     53: {
         "name": "Sigma",
         "location": "6-6",
+        sort: SORT_PET_WORLD,
         img: Sigma
     },
     54: {
         "name": "Louna",
         "location": "6-7",
+        sort: SORT_PET_WORLD,
         img: Louna
     },
     55: {
         "name": "Babou",
         "location": "6-8",
+        sort: SORT_PET_WORLD,
         img: Babou
     },
     56: {
         "name": "Niord",
         "location": "6-9",
+        sort: SORT_PET_WORLD,
         img: Niord
     },
     57: {
         "name": "Mous",
         "location": "7-1",
+        sort: SORT_PET_WORLD,
         img: Mous
     },
     58: {
         "name": "Flafy",
         "location": "7-2",
+        sort: SORT_PET_WORLD,
         img: Flafy
     },
     59: {
         "name": "Nick",
         "location": "7-3",
+        sort: SORT_PET_WORLD,
         img: Nick
     },
     60: {
         "name": "Cherry",
         "location": "7-4",
+        sort: SORT_PET_WORLD,
         img: Cherry
     },
     61: {
         "name": "Abby",
         "location": "E13C",
+        sort: SORT_PET_EXPEDITION,
         img: Abby
     },
     62: {
         "name": "Noop",
         "location": "E13R",
+        sort: SORT_PET_EXPEDITION,
         img: Noop
     },
     63: {
         "name": "Juba",
         "location": "E14C",
+        sort: SORT_PET_EXPEDITION,
         img: Juba
     },
     64: {
         "name": "David",
         "location": "E14R",
+        sort: SORT_PET_EXPEDITION,
         img: David
     },
     65: {
         "name": "Viktor",
         "location": "E15C",
+        sort: SORT_PET_EXPEDITION,
         img: Viktor
     },
     66: {
         "name": "Darko",
         "location": "E15R",
+        sort: SORT_PET_EXPEDITION,
         img: Darko
     },
     67: {
         "name": "Ubel",
         "location": "E16C",
+        sort: SORT_PET_EXPEDITION,
         img: Ubel
     },
     68: {
         "name": "Than",
         "location": "E16R",
+        sort: SORT_PET_EXPEDITION,
         img: Than
     },
     69: {
         "name": "Hirma",
         "location": "E18C",
+        sort: SORT_PET_EXPEDITION,
         img: Hirma
     },
     70: {
         "name": "Boletus",
         "location": "E18R",
+        sort: SORT_PET_EXPEDITION,
         img: Boletus
     },
     71: {
         "name": "Froz",
         "location": "E5C",
+        sort: SORT_PET_EXPEDITION,
         img: Froz
     },
     72: {
         "name": "Beelzebub",
         "location": "E5R",
+        sort: SORT_PET_EXPEDITION,
         img: Beelzebub
     },
     73: {
         "name": "Nasr",
         "location": "E11C",
+        sort: SORT_PET_EXPEDITION,
         img: Nasr
     },
     74: {
         "name": "Bump",
         "location": "E11R",
+        sort: SORT_PET_EXPEDITION,
         img: Bump
     },
     75: {
         "name": "Nyx",
         "location": "E17C",
+        sort: SORT_PET_EXPEDITION,
         img: Nyx
     },
     76: {
         "name": "Neith",
         "location": "E17R",
+        sort: SORT_PET_EXPEDITION,
         img: Neith
     },
     77: {
         "name": "Leon",
         "location": "7-5",
+        sort: SORT_PET_WORLD,
         img: Leon
     },
     78: {
         "name": "Puff",
         "location": "7-6",
+        sort: SORT_PET_WORLD,
         img: Puff
     },
     79: {
         "name": "Apollo",
         "location": "7-7",
+        sort: SORT_PET_WORLD,
         img: Apollo
     },
     80: {
         "name": "BigMouth",
         "location": "7-8",
+        sort: SORT_PET_WORLD,
         img: BigMouth
     },
     81: {
         "name": "Neptune",
         "location": "7-9",
+        sort: SORT_PET_WORLD,
         img: Neptune
     },
     82: {
         "name": "Strawberry",
-        "location": "Any",
+        "location": "Anniv. 1",
+        sort: SORT_PET_SPECIAL,
         img: Strawberry
     },
     83: {
         "name": "Jack Ballon",
         "location": "E19C",
+        sort: SORT_PET_EXPEDITION,
         img: JackBallon
     },
     84: {
         "name": "Zack Canon",
         "location": "E19R",
+        sort: SORT_PET_EXPEDITION,
         img: ZackCanon
     },
     85: {
         "name": "Miss Spook",
         "location": "E20C",
+        sort: SORT_PET_EXPEDITION,
         img: MissSpook
     },
     86: {
         "name": "Mister Spook",
         "location": "E20R",
+        sort: SORT_PET_EXPEDITION,
         img: MisterSpook
     },
     87: {
         "name": "Touchy Cloud",
         "location": "E21C",
+        sort: SORT_PET_EXPEDITION,
         img: TouchyCloud
     },
     88: {
         "name": "Clover Worm",
         "location": "E21R",
+        sort: SORT_PET_EXPEDITION,
         img: CloverWorm
     },
     89: {
         "name": "Decoy Billy",
         "location": "E22C",
+        sort: SORT_PET_EXPEDITION,
         img: DecoyBilly
     },
     90: {
         "name": "Pandora Box",
         "location": "E22R",
+        sort: SORT_PET_EXPEDITION,
         img: PandoraBox
     },
     91: {
         "name": "Super Leek",
         "location": "E23C",
+        sort: SORT_PET_EXPEDITION,
         img: SuperLeek
     },
     92: {
         "name": "Mister Radish",
         "location": "E23R",
+        sort: SORT_PET_EXPEDITION,
         img: MisterRadish
     },
     93: {
         "name": "Super Star",
         "location": "E24C",
+        sort: SORT_PET_EXPEDITION,
         img: SuperStar
     },
     94: {
         "name": "Star Flower",
         "location": "E24R",
+        sort: SORT_PET_EXPEDITION,
         img: StarFlower
     },
     95: {
         "name": "Drone Mk1",
         "location": "8-1",
+        sort: SORT_PET_WORLD,
         img: DroneMk1
     },
     96: {
         "name": "Worm Scout",
         "location": "8-2",
+        sort: SORT_PET_WORLD,
         img: WormScout
     },
     97: {
         "name": "Thor",
         "location": "8-3",
+        sort: SORT_PET_WORLD,
         img: Thor
     },
     98: {
         "name": "Australian Emu",
         "location": "8-4",
+        sort: SORT_PET_WORLD,
         img: AustralianEmu
     },
     99: {
         "name": "Disco Ball",
         "location": "8-5",
+        sort: SORT_PET_WORLD,
         img: DiscoBall
     },
     100: {
         "name": "Cyber Dog",
         "location": "8-6",
+        sort: SORT_PET_WORLD,
         img: CyberDog
     },
     101: {
         "name": "Marty",
         "location": "8-7",
+        sort: SORT_PET_WORLD,
         img: Marty
     },
     102: {
         "name": "Brain Bot",
         "location": "8-8",
+        sort: SORT_PET_WORLD,
         img: BrainBot
     },
     103: {
         "name": "Hyperion",
         "location": "8-9",
+        sort: SORT_PET_WORLD,
         img: Hyperion
     },
     104: {
         "name": "Blue Bloon",
         "location": "League 1",
+        sort: SORT_PET_SPECIAL,
         img: BlueBloon
     },
     105: {
-        "name": "Blueberry",
-        "location": "Any",
+        "name": "Blue Cherry",
+        "location": "Anniv. 2",
+        sort: SORT_PET_SPECIAL,
         img: Blueberry
     },
     106: {
         "name": "Cornicus",
-        "location": "Portal",
+        "location": "Portal 0",
+        sort: SORT_PET_PORTAL,
         img: Cornicus
     },
     107: {
         "name": "Runic Water",
-        "location": "Portal",
+        "location": "Portal 50",
+        sort: SORT_PET_PORTAL,
         img: Runic_Water
     },
     108: {
         "name": "Runic Air",
-        "location": "Portal",
+        "location": "Portal 100",
+        sort: SORT_PET_PORTAL,
         img: Runic_Air
     },
     109: {
         "name": "Straw Barrus",
-        "location": "Portal",
+        "location": "Portal 150",
+        sort: SORT_PET_PORTAL,
         img: Straw_Barrus
     },
     110: {
         "name": "Stone Worm",
-        "location": "Portal",
+        "location": "Portal 200",
+        sort: SORT_PET_PORTAL,
         img: Stone_Worm
     },
     111: {
         "name": "Weapon Angelus",
-        "location": "Portal",
+        "location": "Portal 250",
+        sort: SORT_PET_PORTAL,
         img: Weapon_Angelus
     },
     112: {
         "name": "Runic Fire",
-        "location": "Portal",
+        "location": "Portal 300",
+        sort: SORT_PET_PORTAL,
         img: Runic_Fire
     },
     113: {
         "name": "Rasperus",
-        "location": "Portal",
+        "location": "Portal 350",
+        sort: SORT_PET_PORTAL,
         img: Rasperus
     },
     114: {
         "name": "Pearus",
-        "location": "Portal",
+        "location": "Portal 400",
+        sort: SORT_PET_PORTAL,
         img: Pearus
     },
     115: {
         "name": "Air Angelus",
-        "location": "Portal",
+        "location": "Portal 450",
+        sort: SORT_PET_PORTAL,
         img: air_engelus
     },
     116: {
         "name": "Runic Bramble",
-        "location": "Portal",
+        "location": "Portal 500",
+        sort: SORT_PET_PORTAL,
         img: Runic_Bramble
     },
     117: {
         "name": "Water Worm",
-        "location": "Portal",
+        "location": "Portal 550",
+        sort: SORT_PET_PORTAL,
         img: Water_Worm
     },
     118: {
         "name": "Radus",
-        "location": "Portal",
+        "location": "Portal 600",
+        sort: SORT_PET_PORTAL,
         img: Radus
     },
     119: {
         "name": "Dionysus",
-        "location": "Portal",
+        "location": "E25C",
+        sort: SORT_PET_EXPEDITION,
         img: Dinoysus
     },
     120: {
         "name": "Persephone",
-        "location": "Portal",
+        "location": "E25R",
+        sort: SORT_PET_EXPEDITION,
         img: Persephone
     },
     121: {
         "name": "Palana",
-        "location": "Portal",
+        "location": "E26C",
+        sort: SORT_PET_EXPEDITION,
         img: Palana
     },
     122: {
         "name": "Exocet",
-        "location": "Portal",
+        "location": "E26R",
+        sort: SORT_PET_EXPEDITION,
         img: Exocet
     },
     123: {
         "name": "Licker",
-        "location": "Portal",
+        "location": "E27C",
+        sort: SORT_PET_EXPEDITION,
         img: Licker
     },
     124: {
-        "name": "Knamul",
-        "location": "Portal",
+        "name": "Khamul",
+        "location": "E27R",
+        sort: SORT_PET_EXPEDITION,
         img: Knamul
     },
     125: {
         "name": "Grognak",
-        "location": "Portal",
+        "location": "E28C",
+        sort: SORT_PET_EXPEDITION,
         img: Grognak
     },
     126: {
         "name": "Bargnak",
-        "location": "Portal",
+        "location": "E28R",
+        sort: SORT_PET_EXPEDITION,
         img: Bargnak
     },
     127: {
         "name": "Samovar",
-        "location": "Portal",
+        "location": "E29C",
+        sort: SORT_PET_EXPEDITION,
         img: Samovar
     },
     128: {
         "name": "Chip",
-        "location": "Portal",
+        "location": "E29R",
+        sort: SORT_PET_EXPEDITION,
         img: Chip
     },
     129: {
         "name": "Baba",
-        "location": "Portal",
+        "location": "E30C",
+        sort: SORT_PET_EXPEDITION,
         img: baba
     },
     130: {
         "name": "Bobo",
-        "location": "Portal",
+        "location": "E30R",
+        sort: SORT_PET_EXPEDITION,
         img: Bobo
     },
     131: {
         "name": "Drone Scout",
         "location": "9-1",
+        sort: SORT_PET_WORLD,
         img: DroneScout
     },
     132: {
         "name": "Scan Probe",
         "location": "9-2",
+        sort: SORT_PET_WORLD,
         img: ScanProbe
     },
     133: {
         "name": "Land Mine",
         "location": "9-3",
+        sort: SORT_PET_WORLD,
         img: LandMine
     },
     134: {
         "name": "Bombing Probe",
         "location": "9-4",
+        sort: SORT_PET_WORLD,
         img: BombingProbe
     },
     135: {
         "name": "Ground Terraformer",
         "location": "9-5",
+        sort: SORT_PET_WORLD,
         img: GroundTerraformer
     },
     136: {
         "name": "Air Terraformer",
         "location": "9-6",
+        sort: SORT_PET_WORLD,
         img: AirTerraformer
     },
     137: {
         "name": "Walking Artillery",
         "location": "9-7",
+        sort: SORT_PET_WORLD,
         img: WalkingArtillery
     },
     138: {
         "name": "Cruiser",
         "location": "9-8",
+        sort: SORT_PET_WORLD,
         img: Cruiser
     },
     139: {
         "name": "Breach Opener",
         "location": "9-9",
+        sort: SORT_PET_WORLD,
         img: BreachOpener
     },
     
     9999: {
         "name": "Unknown",
         "location": "??-??",
+        sort: SORT_PET_SPECIAL,
         img: unknown
     }
 }
