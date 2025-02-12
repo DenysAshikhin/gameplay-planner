@@ -2783,6 +2783,7 @@ export default function Expeditions() {
                                                     img: missing,
                                                     location: '??-??',
                                                     name: 'Unknown',
+                                                    sort: 0,
                                                     petId: pet.ID
                                                 }
                                             }
