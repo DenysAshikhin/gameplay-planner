@@ -45,6 +45,9 @@ let groupCache = {};
 function setGroupCache(newCache) {
     groupCache = newCache;
 }
+const PLACEMENT_BLACKLIST = 'blacklist';
+const PLACEMENT_TEAM = 'team';
+const PLACEMENT_AUTO = 'auto';
 
 const defaultPetSelection = petNameArray.map(petData => petData.petId);
 
@@ -399,7 +402,7 @@ export default function Expeditions() {
         let cur = petWhiteList[i];
         let inner_pet = cur.pet;
 
-        if (cur.placement === 'blacklist') {
+        if (cur.placement === PLACEMENT_BLACKLIST) {
             continue;
         }
         if (inner_pet.Type === 1) {
@@ -413,7 +416,7 @@ export default function Expeditions() {
         if (cur.placement === `auto`) {
             relWhiteListMap[cur.id] = { ...cur };
         }
-        else if (cur.placement === 'team') {
+        else if (cur.placement === PLACEMENT_TEAM) {
 
             if (!manualGroups[cur.parameters.team]) {
                 manualGroups[cur.parameters.team] = [];
@@ -718,6 +721,19 @@ export default function Expeditions() {
                             </div>
                             <div style={{ width: '50%' }}>
                                 {`Total tokens/hr: ${helper.formatNumberString(helper.roundThreeDecimal(totalTokensHR), 3)}`}
+                                <MouseOverPopover opacity={0.95} style={{ display:'inline-block' }} tooltip={
+                                                <div style={{ padding: '6px' }}>
+                                                    {`Total tokens/day: ${helper.formatNumberString(helper.roundThreeDecimal(totalTokensHR * 24), 3)}`}
+                                                </div>
+                                            }>
+                                            <span style={{ height: '18px', width: '18px', margin: '0 0 0 5px', position: 'relative', top:'2px' }} >
+                                                <Image
+                                                    fill
+                                                    src={infoIcon}
+                                                    alt={`letter "I" in a circle, shows more information on hover`}
+                                                />
+                                            </span>
+                                </MouseOverPopover>
                             </div>
                         </div>
                     </div>
@@ -893,10 +909,10 @@ export default function Expeditions() {
 
                                                             let pet_inner = temp.find((sample_pet) => sample_pet.id === petData.ID);
                                                             if (!pet_inner) {
-                                                                temp.push({ label: staticPetData.name, id: staticPetData.petId, placement: 'team', parameters: { team: index, damageBias: 17 }, pet: petData });
+                                                                temp.push({ label: staticPetData.name, id: staticPetData.petId, placement: PLACEMENT_TEAM, parameters: { team: index, damageBias: 17 }, pet: petData });
                                                             }
                                                             else {
-                                                                pet_inner.placement = 'team';
+                                                                pet_inner.placement = PLACEMENT_TEAM;
                                                                 pet_inner.parameters = { team: index };
                                                                 pet_inner.pet = petData;
                                                             }
@@ -935,13 +951,13 @@ export default function Expeditions() {
                                                                 temp.push({
                                                                     label: staticPetData.name,
                                                                     id: staticPetData.petId,
-                                                                    placement: 'blacklist',
+                                                                    placement: PLACEMENT_BLACKLIST,
                                                                     parameters: { team: 0, damageBias: 17 },
                                                                     pet: petData
                                                                 });
                                                             }
                                                             else {
-                                                                pet_inner.placement = 'blacklist';
+                                                                pet_inner.placement = PLACEMENT_BLACKLIST;
                                                                 pet_inner.parameters = { team: 0 }
                                                                 pet_inner.pet = petData;
                                                             }
@@ -1464,13 +1480,26 @@ export default function Expeditions() {
                             <div style={{}}>
                                 <div>
                                     <div style={{ display: 'flex', justifyContent: 'center' }}>
+                                        <div style={{marginTop:"5px"}}>
+                                            <button
+                                                onClick={(e) => {
+                                                    setPetWhiteList((curr) => {
+                                                        let temp = [...curr].filter((elem) => elem.placement === PLACEMENT_BLACKLIST);
+                                                        return temp;
+                                                    })
+                                                }}
+                                            >Clear Whitelist</button>
+                                        </div>
                                         <h4 style={{ margin: '6px', textAlign: 'center', fontSize: '20px' }}>Pet Whitelist</h4>
                                         <div style={{marginTop:"5px"}}>
                                             <button
                                                 onClick={(e) => {
-                                                    setPetWhiteList([]);
+                                                    setPetWhiteList((curr) => {
+                                                        let temp = [...curr].filter((elem) => elem.placement !== PLACEMENT_BLACKLIST);
+                                                        return temp;
+                                                    })
                                                 }}
-                                            >Clear Whitelist</button>
+                                            >Clear Blacklist</button>
                                         </div>
                                     </div>
                                     <h4 style={{ margin: '6px', textAlign: 'center', fontSize: '20px', color: 'red' }}>{`${whiteListAlertText}`}</h4>
@@ -1484,7 +1513,7 @@ export default function Expeditions() {
                                             setPetWhiteList((curr) => {
                                                 let temp = [...curr];
                                                 let petObj = data.PetsCollection.find((search_pet) => search_pet.ID === e.id);
-                                                temp.push({ ...e, placement: 'auto', parameters: { team: 0, damageBias: 17 }, pet: petObj });
+                                                temp.push({ ...e, placement: PLACEMENT_AUTO, parameters: { team: 0, damageBias: 17 }, pet: petObj });
                                                 return temp;
                                             })
                                             setRefreshGroups(true);
@@ -1512,7 +1541,7 @@ export default function Expeditions() {
 
                                                         setPetWhiteList((curr) => {
                                                             let temp = [...curr];
-                                                            // temp.push({ ...e, placement: 'blacklist', parameters: { team: 0, damageBias: 17 } });
+                                                            // temp.push({ ...e, placement: PLACEMENT_BLACKLIST, parameters: { team: 0, damageBias: 17 } });
 
                                                             for (let x = 0; x < selectedTeam.IDs.length; x++) {
                                                                 let selected = selectedTeam.IDs[x];
@@ -1521,7 +1550,7 @@ export default function Expeditions() {
                                                                         id: selected,
                                                                         label: petNames[selected].name,
                                                                         // placement: 'rel',
-                                                                        placement: 'auto',
+                                                                        placement: PLACEMENT_AUTO,
                                                                         parameters: { team: 0, damageBias: 17 },
                                                                         pet: data.PetsCollection.find((pet_search) => pet_search.ID === selected)
                                                                     }
@@ -1638,7 +1667,7 @@ export default function Expeditions() {
                                                                         id: selected,
                                                                         label: petNames[selected].name,
                                                                         // placement: 'rel',
-                                                                        placement: 'auto',
+                                                                        placement: PLACEMENT_AUTO,
                                                                         parameters: { team: 0, damageBias: 17 },
                                                                         pet: data.PetsCollection.find((pet_search) => pet_search.ID === selected)
                                                                     }
@@ -1813,7 +1842,7 @@ export default function Expeditions() {
                                     let hoverMsg = ``;
 
                                     //Check whether this pet is placed too low or too high
-                                    if (pet.placement !== `blacklist`) {
+                                    if (pet.placement !== PLACEMENT_BLACKLIST) {
 
                                         let group_index = groups.findIndex((temp_e) => {
                                             return temp_e.find((temp_e2) => temp_e2.ID === pet.id)
@@ -2017,8 +2046,8 @@ export default function Expeditions() {
                                                         }
                                                     }
                                                 >
-                                                    <option value={'blacklist'}>Blacklist</option>
-                                                    <option value={'team'}>Group</option>
+                                                    <option value={PLACEMENT_BLACKLIST}>Blacklist</option>
+                                                    <option value={PLACEMENT_TEAM}>Group</option>
                                                     <option value={`auto`}>Auto</option>
                                                     {/* <option value={`rel`}>Relative</option> */}
                                                 </select>
@@ -2027,18 +2056,18 @@ export default function Expeditions() {
                                             {/* parameters */}
                                             <div
                                                 // @ts-ignore TODO: disabled does not work for divs
-                                                disabled={pet.placement === 'blacklist'}
+                                                disabled={pet.placement === PLACEMENT_BLACKLIST}
                                                 style={{
                                                     width: '25%',
                                                     position: 'relative',
-                                                    opacity: pet.placement === 'blacklist' ? '0.4' : '',
+                                                    opacity: pet.placement === PLACEMENT_BLACKLIST ? '0.4' : '',
                                                     display: 'flex',
                                                     justifyContent: 'center',
                                                     alignItems: 'center',
                                                     borderTop: index === 0 ? '' : '1px solid rgba(255,255,255,0.8)',
                                                 }}
                                             >
-                                                {pet.placement === 'team' && (
+                                                {pet.placement === PLACEMENT_TEAM && (
                                                     <div style={{ marginLeft: (showGreen || showRed) ? '22px' : '' }}>
                                                         <select
                                                             className='importantText'
@@ -2109,7 +2138,7 @@ export default function Expeditions() {
                                                         />
                                                     </div>
                                                 )}
-                                                {(pet.placement === 'blacklist' || pet.placement === 'auto') && (
+                                                {(pet.placement === PLACEMENT_BLACKLIST || pet.placement === PLACEMENT_AUTO) && (
                                                     <>Unavailable</>
                                                 )}
                                                 {(showGreen || showRed) && (
@@ -2295,7 +2324,7 @@ export default function Expeditions() {
                                     let hoverMsg = ``;
 
                                     //Check whether this pet is placed too low or too high
-                                    if (pet.placement !== `blacklist`) {
+                                    if (pet.placement !== PLACEMENT_BLACKLIST) {
 
                                         let group_index = groups.findIndex((temp_e) => {
                                             return temp_e.find((temp_e2) => temp_e2.ID === pet.id)
@@ -2499,9 +2528,9 @@ export default function Expeditions() {
                                                         }
                                                     }
                                                 >
-                                                    <option value={'blacklist'}>Blacklist</option>
-                                                    <option value={'team'}>Group</option>
-                                                    <option value={`auto`}>Auto</option>
+                                                    <option value={PLACEMENT_BLACKLIST}>Blacklist</option>
+                                                    <option value={PLACEMENT_TEAM}>Group</option>
+                                                    <option value={PLACEMENT_AUTO}>Auto</option>
                                                     {/* <option value={`rel`}>Relative</option> */}
                                                 </select>
 
@@ -2509,18 +2538,18 @@ export default function Expeditions() {
                                             {/* parameters */}
                                             <div
                                                 // @ts-ignore TODO: disabled does not work for divs
-                                                disabled={pet.placement === 'blacklist'}
+                                                disabled={pet.placement === PLACEMENT_BLACKLIST}
                                                 style={{
                                                     width: '25%',
                                                     position: 'relative',
-                                                    opacity: pet.placement === 'blacklist' ? '0.4' : '',
+                                                    opacity: pet.placement === PLACEMENT_BLACKLIST ? '0.4' : '',
                                                     display: 'flex',
                                                     justifyContent: 'center',
                                                     alignItems: 'center',
                                                     borderTop: index === 0 ? '' : '1px solid rgba(255,255,255,0.8)'
                                                 }}
                                             >
-                                                {pet.placement === 'team' && (
+                                                {pet.placement === PLACEMENT_TEAM && (
                                                     <div style={{ marginLeft: (showGreen || showRed) ? '22px' : '' }}>
                                                         <select
                                                             className='importantText'
@@ -2589,7 +2618,7 @@ export default function Expeditions() {
                                                         />
                                                     </div>
                                                 )}
-                                                {(pet.placement === 'blacklist' || pet.placement === 'auto') && (
+                                                {(pet.placement === PLACEMENT_BLACKLIST || pet.placement === PLACEMENT_AUTO) && (
                                                     <>Unavailable</>
                                                 )}
                                                 {(showGreen || showRed) && (
@@ -2836,7 +2865,7 @@ export default function Expeditions() {
                                                                                     label: petNames[pet.ID]?.name ? petNames[pet.ID].name : "Unknown",
                                                                                     pet: pet,
                                                                                     id: pet.ID,
-                                                                                    placement: 'auto',
+                                                                                    placement: PLACEMENT_AUTO,
                                                                                     parameters: { team: 0, damageBias: 17 }
                                                                                 }
                                                                                 );
