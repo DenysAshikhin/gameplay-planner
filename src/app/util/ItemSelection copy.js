@@ -58,6 +58,11 @@ const ItemSelection = ({ selectedItems, onItemSelected, data, weightMap, default
             let num_b = Number((b[0]) * 10 + b[2]);
             return num_a - num_b;
         }
+        else if (a_inner.sort == SORT_PET_PORTAL) {
+            let num_a = Number(a.substring(7));
+            let num_b = Number(b.substring(7));
+            return num_a - num_b;
+        }
         else {
             return a.localeCompare(b)
         }
