@@ -1,5 +1,6 @@
 import Image from "next/image";
 
+import Link from 'next/link';
 import HeaderRedirect from './header_redirect';
 
 import potatoesImg from '@images/potatoes.png'
@@ -67,6 +68,18 @@ const Header = ({ }) => {
         }}
       >
         Idle gameplay planner
+      </div>
+      <div
+        className="importantText"
+        style={{ marginLeft: 'auto', zIndex:'3' }}
+      >
+        <Link href={`https://www.gameplayplanner.com/privacy_policy.html`} style={{ textDecoration: 'none' }}>
+          <div
+            className="importantText hover">
+
+            {`Privacy`}
+          </div>
+        </Link>
       </div>
     </div>
   );

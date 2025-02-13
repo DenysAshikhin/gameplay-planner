@@ -675,25 +675,7 @@ export default function Expeditions() {
 
                         {/* About */}
                         <div style={{ margin: '24px auto' }}>
-                            <Link href={`https://www.gameplayplanner.com/about`} style={{ textDecoration: 'none' }}
-                                onClick={() => {
-                                    ReactGA.event({
-                                        category: "donation_interaction",
-                                        action: `click_paypal`,
-                                        label: `redirect_donation`
-                                    })
-                                }}
-                                onMouseDown={(event) => {
-                                    if (event.button === 1) {
-                                        // do something on middle mouse button click
-                                        ReactGA.event({
-                                            category: "donation_interaction",
-                                            action: `click_paypal`,
-                                            label: `redirect_donation`
-                                        })
-                                    }
-                                }}
-                            >
+                            <Link href={`https://www.gameplayplanner.com/about`} style={{ textDecoration: 'none' }}>
                                 <div
                                     className={`hover`}
                                     style={{
