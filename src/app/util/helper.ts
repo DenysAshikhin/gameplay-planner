@@ -175,7 +175,7 @@ var helper = {
             return Number(0).toFixed(precision);
         }
         if (typeof input == "number") {
-            return input > 10000 ? input.toExponential(precision) : helper.roundTwoDecimal(input).toFixed(precision);
+            return input >= 100000 ? input.toExponential(precision) : helper.roundTwoDecimal(input).toFixed(precision);
         } else { //Decimal
             return input.exponent > 4 ? input.toExponential(precision) : helper.roundTwoDecimal(input.toNumber()).toFixed(precision);
         }
