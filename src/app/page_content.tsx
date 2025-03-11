@@ -21,6 +21,7 @@ ReactGA.initialize([{ trackingId: "G-GGLPK02VH8" }]);
 export default function Home() {
 
   const [userData, setUserData] = useLocalStorage('userData', DefaultSave);
+  const [lastUpload, setLastUpload] = useLocalStorage('lastUpload', 0);
   const router = useRouter();
   const stringInputRef = useRef(null);
 
@@ -77,6 +78,7 @@ export default function Home() {
     try {
       const parsedJson = JSON.parse(jsonString);
       setUserData(parsedJson);
+      setLastUpload(new Date().getTime());
       console.log(parsedJson);
       console.log(`trying to redirect`)
       return router.push('/page_selection');
@@ -91,7 +93,7 @@ export default function Home() {
   const sPressed = useRef(false);
   const dPressed = useRef(false);
   const fileFlushed = useRef(false);
-
+  
   useEffect(() => {
     const callback = (event) => {
 
@@ -288,6 +290,11 @@ export default function Home() {
           <input type="string" id='stringSave' ref={stringInputRef} placeholder={'Paste save string here'} style={{ marginRight: '12px' }} />
           <button style={{ fontSize: '1.3rem' }} onClick={handlePastedString}>Load</button>
         </div>
+        {lastUpload > 0 &&(
+          <div className='mediumImportantText' style={{marginTop: '16px'}}>
+            Last Upload: {new Date(lastUpload).toLocaleString()}
+          </div>
+        )}
       </div>
       {/* <div id='in_content_flex' style={{ position: 'absolute', bottom: '0', left: '0', marginLeft: 'calc(50% - 160px)', display: 'flex', justifyContent: 'center', alignItems: 'center', }} /> */}
       <div id='right_pillar' style={{ position: 'absolute', top: '0', right: '0', display: 'flex', height: 'calc(100vh - 36px)', justifyContent: 'center', alignItems: 'center', }} />
