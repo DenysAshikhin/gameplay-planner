@@ -69,7 +69,7 @@ import {
     GHBONUS,
     MININGEXP,
     MININGPWR,
-    cardMapImg, cardLabelImg, defaultWeights, CARD_DISPLAY_IDS, permPowerBonusFormula, tempPowerBonusFormula, powerFormula, cardIDMap, maxKey
+    cardMapImg, cardLabelImg, defaultWeights, CARD_DISPLAY_IDS, permPowerBonusFormula, tempPowerBonusFormula, powerFormula, cardIDMap, maxKey, cardSumWeights
 } from '../util/cardMapping';
 
 
@@ -91,7 +91,7 @@ interface CardCardProps {
     cardWeight,
     setCardWeightNew,
     classes,
-    key
+    key,
 }
 
 const CardCard = ({
@@ -124,9 +124,8 @@ const CardCard = ({
     const { ChargeTransfertPowerPerma, ChargeTransfertPowerTemp } = data;
 
     let defaultWeight = cardIDMap[ID].weights[data.AscensionCount > maxKey ? maxKey : data.AscensionCount];
-    if (data.AscensionCount >= 15) {
-        defaultWeight /= 2;
-    }
+    let sumWeight = cardSumWeights[data.AscensionCount > maxKey ? maxKey : data.AscensionCount];
+
     const finalWeight = cardWeight === -1 ? defaultWeight : cardWeight;
 
     const [finalAfter, setFinalAfter] = useState(mathHelper.createDecimal(-1));
@@ -135,7 +134,6 @@ const CardCard = ({
     const [percIncrease, setPercentIncrease] = useState(mathHelper.createDecimal(-1));
     const [weightIncrease, setWeightIncrease] = useState(mathHelper.createDecimal(-1));
     const [loggedWeightIncrease, setLoggedWeightIncrease] = useState(mathHelper.createDecimal(-1));
-    const [loggedWeightIncrease2, setLoggedWeightIncrease2] = useState(mathHelper.createDecimal(-1));
     const [finalTemp, setFinalTemp] = useState(mathHelper.createDecimal(-1));
 
     const [refreshMath, setRefreshMath] = useState(true);
@@ -225,54 +223,23 @@ const CardCard = ({
         let percIncrease = mathHelper.divideDecimal(finalAfter, finalBefore);
         let flatIncrease = mathHelper.subtractDecimal(finalAfter, finalBefore);
         let weightIncrease = mathHelper.multiplyDecimal(mathHelper.divideDecimal(mathHelper.subtractDecimal(finalAfter, finalBefore), finalBefore), finalWeight);
-        // let loggedWeightIncrease = tempValueAfter.eq(mathHelper.createDecimal(0)) ? mathHelper.createDecimal(0) : mathHelper.logDecimal(percIncrease, finalWeight + 1);
 
-
-        // let t1 = mathHelper.addDecimal(finalAfter, 1);
-        // let t2 = mathHelper.addDecimal(finalBefore, 0.0000001);
-        // let t3 = mathHelper.logDecimal(t1, t2);
-        let loggedWeightIncrease
-        if (
-            finalBefore.greaterThan(mathHelper.createDecimal('1e308'))
-            || finalBefore.greaterThan(mathHelper.createDecimal('1e308'))
-        ) {
-            let t1 = mathHelper.logDecimal(mathHelper.addDecimal(finalAfter, 1), 10);
-            let t2 = mathHelper.logDecimal(mathHelper.addDecimal(finalBefore, 0.0000001), 10);
-            loggedWeightIncrease = mathHelper.multiplyDecimal(mathHelper.divideDecimal(t1, t2), finalWeight);
-            let bigsad = -1;
-
-            // mathHelper.addDecimal(finalBefore, 0.0000001).toNumber()
-        }
-        else {
-            loggedWeightIncrease =
-                finalBefore.greaterThan(finalAfter) ? mathHelper.createDecimal(-1) :
-                    mathHelper.multiplyDecimal(
-                        // not sure about this, break_infinity.js log function only accepts numbers for the base according to typings  @ts-ignore TODO:
-                        //fair enough does seem borked 
-                        mathHelper.logDecimal(mathHelper.addDecimal(finalAfter, 1), mathHelper.addDecimal(finalBefore, 0.0000001).toNumber()),
-                        finalWeight
-                    );
-        }
-
-
-        let loggedWeightIncrease2 =
-            finalBefore.greaterThan(finalAfter) ? mathHelper.createDecimal(-1) :
-
-                mathHelper.logDecimal(
-                    mathHelper.multiplyDecimal(
-                        mathHelper.addDecimal(finalAfter, 1)
-                        , finalWeight + 0.0000001
+        let loggedWeightIncrease = finalBefore.greaterThan(finalAfter) ? mathHelper.createDecimal(-1) :
+            mathHelper.multiplyDecimal(
+                mathHelper.multiplyDecimal(
+                    mathHelper.subtractDecimal(
+                        mathHelper.logDecimal(mathHelper.addDecimal(finalAfter, 1), 10),
+                        mathHelper.logDecimal(mathHelper.addDecimal(finalBefore, 1), 10)
                     ),
-                    // @ts-ignore TODO: not sure about this, break_infinity.js log function only accepts numbers for the base according to typings
-                    finalBefore);
-
-        // let loggedWeightIncrease2 =
-        //     finalBefore.greaterThan(finalAfter) ? mathHelper.createDecimal(-1) : mathHelper.logDecimal(mathHelper.addDecimal(finalAfter, 1), finalBefore);
-
+                    mathHelper.divideDecimal(finalWeight, sumWeight)
+                )
+                , 100
+                // finalWeight
+            );
+            
         if (ID === 18) {
             let bigsad = -1;
         }
-
 
         setFinalTemp(tempValueAfter);
         setFinalAfter(finalAfter);
@@ -281,7 +248,6 @@ const CardCard = ({
         setFlatIncrease(flatIncrease);
         setPercentIncrease(percIncrease);
         setLoggedWeightIncrease(loggedWeightIncrease);
-        setLoggedWeightIncrease2(loggedWeightIncrease2);
 
         if (resetWeights !== -3) {
             if (!(ID in cardMap)) {
@@ -293,7 +259,6 @@ const CardCard = ({
                         flatIncrease: flatIncrease,
                         weightIncrease: weightIncrease,
                         loggedWeightIncrease: loggedWeightIncrease,
-                        loggedWeightIncrease2: loggedWeightIncrease2,
                         weight: finalWeight
                     };
                     return tempy;
@@ -306,7 +271,6 @@ const CardCard = ({
                         flatIncrease: flatIncrease,
                         weightIncrease: weightIncrease,
                         loggedWeightIncrease: loggedWeightIncrease,
-                        loggedWeightIncrease2: loggedWeightIncrease2,
                         weight: finalWeight
                     };
                     return tempy;
@@ -660,12 +624,7 @@ const CardCard = ({
                                         {helper.formatNumberString(loggedWeightIncrease)}
                                     </>
                                 )}
-                                {displayMode === 'logged2' && (
-                                    <>
-                                        {helper.formatNumberString(loggedWeightIncrease2)}
-                                    </>
-                                )}
-                                {(displayMode !== 'logged' && displayMode !== 'logged2') && (
+                                {(displayMode !== 'logged') && (
                                     <>
                                         {displayMode === 'weight' ? helper.formatNumberString(weightIncrease) : helper.formatNumberString(mathHelper.multiplyDecimal(mathHelper.subtractDecimal(percIncrease, 1), 100)) + '%'}
                                     </>
@@ -922,10 +881,10 @@ export default function Cards() {
     // const foundCards = CardsCollection.filter(card => card.Found === 1);
     const cardsById = CardsCollection.reduce((accum, card) => {
 
-        if (data.AscensionCount >= 31 && card.ID === 1) {
+        if (data.AscensionCount >= 30 && card.ID === 1) {
             return accum;
         }
-        else if (data.AscensionCount < 31 && card.ID === 38) {
+        else if (data.AscensionCount < 30 && card.ID === 38) {
             return accum;
         }
         if (data.AscensionCount >= 40 && card.ID === 3) {
@@ -1045,7 +1004,35 @@ export default function Cards() {
     }, []);
 
 
+    const chargesMax = data.CurrentCardCharge === data.MaxCardCharge;
+
+    let baseReincInfo = CalcReinc(data);
+    let remainingCharges = baseReincInfo.remainingCharges;
+    let requiredReincLevel = baseReincInfo.requiredReincLevel;
+    let currentReincLevel = helper.roundInt(baseReincInfo.futureReincLevel);
+    let currentReincLevelDiff = helper.roundInt(baseReincInfo.levelDiff);
+    let reincHr = helper.roundTwoDecimal(baseReincInfo.reincHr);
+    let remTime = baseReincInfo.remTime;
+    let chargeTimerReduction = baseReincInfo.chargeTimerReduction;
+
+    let cardChargedReincInfo = CalcReinc(data, numReincCharges);
+    let futureReincLevel = helper.roundInt(cardChargedReincInfo.futureReincLevel);
+    let futureReincLevelDiff = helper.roundInt(cardChargedReincInfo.levelDiff);
+    let futureReincHr = helper.roundTwoDecimal(cardChargedReincInfo.reincHr);
+    let futureRemTime = cardChargedReincInfo.remTime;
+
+
     let loggedWeightIncrease = baseCardArr.sort((b, a) => {
+        //Sort reinc card to the end, if a charge is not enough to do a reinc. Applicable starting ascension 15.
+        if(clientData.AscensionCount > 14) {
+            if(a.ID === REINCARNATIONEXP && futureReincLevel < requiredReincLevel) {
+                return -1;
+            }
+            if(b.ID === REINCARNATIONEXP && futureReincLevel < requiredReincLevel) {
+                return 1;
+            }
+        }
+
         let res = a.loggedWeightIncrease.greaterThan(b.loggedWeightIncrease) ? 1 : -1;
         return res;
 
@@ -1140,24 +1127,6 @@ export default function Cards() {
             </div>
         )
     }, []);
-
-
-    const chargesMax = data.CurrentCardCharge === data.MaxCardCharge;
-
-    let baseReincInfo = CalcReinc(data);
-    let remainingCharges = baseReincInfo.remainingCharges;
-    let requiredReincLevel = baseReincInfo.requiredReincLevel;
-    let currentReincLevel = helper.roundInt(baseReincInfo.futureReincLevel);
-    let currentReincLevelDiff = helper.roundInt(baseReincInfo.levelDiff);
-    let reincHr = helper.roundTwoDecimal(baseReincInfo.reincHr);
-    let remTime = baseReincInfo.remTime;
-    let chargeTimerReduction = baseReincInfo.chargeTimerReduction;
-
-    let cardChargedReincInfo = CalcReinc(data, numReincCharges);
-    let futureReincLevel = helper.roundInt(cardChargedReincInfo.futureReincLevel);
-    let futureReincLevelDiff = helper.roundInt(cardChargedReincInfo.levelDiff);
-    let futureReincHr = helper.roundTwoDecimal(cardChargedReincInfo.reincHr);
-    let futureRemTime = cardChargedReincInfo.remTime;
 
 
     return (
