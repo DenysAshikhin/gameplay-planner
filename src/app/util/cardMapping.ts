@@ -1416,6 +1416,18 @@ export const cardIDMap = {
     },
 }
 
+export const cardSumWeights = Array(31);
+for(let asc = 0; asc <= maxKey; asc++) {
+    let tmpWeights = [];
+    for(const prop in cardIDMap) {
+        let weight = cardIDMap[prop].weights[asc];
+        if(weight > -1)
+            tmpWeights.push(weight);
+    }
+    cardSumWeights[asc] = tmpWeights.reduce((acc, curr) => acc + curr, 0);
+}
+
+
 export function powerFormula(Pow, logBase, customConstant, params?) {
 
     params = params ? params : {};
