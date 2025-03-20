@@ -313,6 +313,12 @@ export default function CardFocus({
         setRunTimePresets(clientPresets);
     }, [clientPresets]);
 
+    const [showA14HintClient, setShowA14Hint] = useLocalStorage('client_showA14Hint', true);
+    const [showA14Hint, setShowA14HintRuntime] = useState(true);
+    useEffect(() => {
+        setShowA14HintRuntime(showA14HintClient);
+    }, [showA14HintClient]);
+
     const [currentSaveName, setCurrentSaveName] = useState('');
     const [importPreset, setImportPreset] = useState('');
 
@@ -840,7 +846,7 @@ export default function CardFocus({
                             display: 'flex',
                             flexDirection: 'column',
                             alignSelf: 'flex-start',
-                            margin: '6px 0 0 0',
+                            margin: '6px 0 12px 0',
                             border: '1px solid white',
                             borderRadius: '12px',
                             width: '410px',
@@ -1009,6 +1015,59 @@ export default function CardFocus({
                             </div>
                         </div>
                     </div>
+                    <div className='importantText'
+                        style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            border: '1px solid white',
+                            borderRadius: '12px',
+                            width: '420px',
+                            fontSize: '24px',
+                            fontWeight: 'bold',
+                            backgroundColor: 'rgba(255,255,255, 0.07)',
+                            position: 'relative'
+                        }}
+                    >
+                        <div>
+                            {`Changes since A14`}
+                        </div>
+                        <div style={{position: 'relative', marginLeft: '12px', display: 'inline-flex'}}>
+                            <button style={{display: (showA14Hint == true ? 'none' : 'initial'), width: '50px'}}
+                                onClick={(e) => {
+                                    setShowA14Hint(true);
+                                }}
+                            >show</button>
+                            <button style={{display: (showA14Hint == true ? 'initial' : 'none'), width: '50px'}}
+                                onClick={(e) => {
+                                    setShowA14Hint(false);
+                                }}
+                            >hide</button>
+                        </div>
+                    </div>
+                    <div className='importantText'
+                        style={{
+                            display: (showA14Hint == true ? 'flex' : 'none'),
+                            flexDirection: 'column',
+                            alignSelf: 'flex-start',
+                            margin: '6px 0 0 0',
+                            border: '1px solid white',
+                            borderRadius: '12px',
+                            width: '410px',
+                            backgroundColor: 'rgba(255,255,255, 0.07)',
+                            padding: '0px 6px',
+                            maxHeight: '100%'
+                        }}
+                    >
+                        <div>
+                            <p>Welcome to Ascension 14!</p>
+                            <p>You'll notice the layout is now different- your cards are now permanent and as such the priority shifts on leveling up Cards over Expeditions.</p>
+                            <p>It is designed so you can select what Card Type you want to level up and you can easily see what Expedition corresponds to that card type and run it that way.</p>
+                            <p>To see the calculated recommendations, select "Recommended" in the "Select preset" dropdown list above.</p>
+                            <p>Have fun!</p>
+                        </div>
+                    </div>
+                    
                 </div>
             </div >
 
