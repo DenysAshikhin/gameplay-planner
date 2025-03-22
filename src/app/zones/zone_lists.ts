@@ -25,6 +25,7 @@ import {
     reinc_pts_id,
     fry_id,
     op_level_id,
+    swp_id,
     tree_seed_id,
     subclass_id,
     op_minerals_id,
@@ -281,7 +282,7 @@ zone_data[26] = {
     label: 'Strawberry Plain',
     id: 26,
     img: cheddar_plain_img,
-    bonus_id: SWEETPOTATOE,
+    bonus_id: swp_id,
     order: 26,
     unlock: 50
 }
@@ -289,7 +290,7 @@ zone_data[27] = {
     label: 'Raspberry Grotto',
     id: 27,
     img: croissant_castle_img,
-    bonus_id: op_level_id,
+    bonus_id: op_minerals_id,
     order: 27,
     unlock: 50
 }

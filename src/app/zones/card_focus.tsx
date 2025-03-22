@@ -1030,7 +1030,7 @@ export default function CardFocus({
                         }}
                     >
                         <div>
-                            {`Changes since A14`}
+                            {`Changes starting A14`}
                         </div>
                         <div style={{position: 'relative', marginLeft: '12px', display: 'inline-flex'}}>
                             <button style={{display: (showA14Hint == true ? 'none' : 'initial'), width: '50px'}}
