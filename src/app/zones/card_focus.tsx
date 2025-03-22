@@ -1060,11 +1060,11 @@ export default function CardFocus({
                         }}
                     >
                         <div>
-                            <p>Welcome to Ascension 14!</p>
-                            <p>You'll notice the layout is now different- your cards are now permanent and as such the priority shifts on leveling up Cards over Expeditions.</p>
-                            <p>It is designed so you can select what Card Type you want to level up and you can easily see what Expedition corresponds to that card type and run it that way.</p>
-                            <p>To see the calculated recommendations, select "Recommended" in the "Select preset" dropdown list above.</p>
-                            <p>Have fun!</p>
+                            <p>{`Welcome to Ascension 14!`}</p>
+                            <p>{`You'll notice the layout is now different- your cards are now permanent and as such the priority shifts on leveling up Cards over Expeditions.`}</p>
+                            <p>{`It is designed so you can select what Card Type you want to level up and you can easily see what Expedition corresponds to that card type and run it that way.`}</p>
+                            <p>{`To see the calculated recommendations, select "Recommended" in the "Select preset" dropdown list above.`}</p>
+                            <p>{`Have fun!`}</p>
                         </div>
                     </div>
                     
