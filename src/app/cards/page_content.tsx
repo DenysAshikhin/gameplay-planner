@@ -391,7 +391,7 @@ const CardCard = ({
                                     Increase: {helper.formatNumberString(mathHelper.multiplyDecimal(percIncrease, 100))}
                                 </div>
                                 <div>
-                                    Weighted Increase: {helper.formatNumberString(weightIncrease)}
+                                    Score: {helper.formatNumberString(loggedWeightIncrease)}
                                 </div>
                                 <div>
                                     Current Weight:{finalWeight}
@@ -569,7 +569,7 @@ const CardCard = ({
                                     Percentage Increase: {helper.formatNumberString(mathHelper.multiplyDecimal(mathHelper.subtractDecimal(percIncrease, 1), 100))}
                                 </div>
                                 <div>
-                                    Weighted Increase: {helper.formatNumberString(weightIncrease)}
+                                    Score: {helper.formatNumberString(loggedWeightIncrease)}
                                 </div>
                                 <div>
                                     Current Weight:{finalWeight}
