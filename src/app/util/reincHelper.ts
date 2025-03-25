@@ -55,6 +55,8 @@ const helper = {
                     , data.ExpeShopReincExpReducLevel),
             ),
         );
+
+        let expAndCowStep = mathHelper.multiplyDecimal(cowStep, expTokenStep);
         // return Round(
             // Pow(
                     // (5.0 + level * 5.0) -> step1
@@ -82,12 +84,14 @@ const helper = {
             let inner1 = mathHelper.multiplyDecimal(finalStep1, step4Cont);
             let finalStep2 = mathHelper.multiplyDecimal(inner1, step5);
 
-            let finalStep3 = mathHelper.multiplyDecimal(finalStep2, cowStep);
-            let finalStep4 = mathHelper.multiplyDecimal(finalStep3, expTokenStep);
+            // let finalStep3 = mathHelper.multiplyDecimal(finalStep2, cowStep);
+            // let finalStep4 = mathHelper.multiplyDecimal(finalStep3, expTokenStep);
+            let combinedCowTokenStep = mathHelper.multiplyDecimal(finalStep2, expAndCowStep);
 
             //portal reduction simulation
             let portaLReductionLevel = 0.01 * data.portalShopLevels[18];
-            let finalStep5 = mathHelper.pow(finalStep4, 1.0 - portaLReductionLevel/100);
+            // let finalStep5 = mathHelper.pow(finalStep4, 1.0 - portaLReductionLevel/100);
+            let finalStep5 = mathHelper.pow(combinedCowTokenStep, 1.0 - portaLReductionLevel/100);
 
             let finalRounded = mathHelper.round(finalStep5);
             return finalRounded;

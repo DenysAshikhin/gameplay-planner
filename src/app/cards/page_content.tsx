@@ -321,6 +321,9 @@ const CardCard = ({
     if (displayMode === 'perc') {
         let tempy = helper.roundTwoDecimal(mathHelper.divideDecimal(finalAfter, finalBefore).toNumber() * 100 - 100);
         extraText = `(${tempy}%)`
+    } else if (displayMode === 'xgain') {
+        let tempy = mathHelper.divideDecimal(finalAfter, finalBefore).toExponential(2).toString();
+        extraText = `(+${tempy})`
     } else if (displayMode === 'flat') {
         let tempy = mathHelper.subtractDecimal(finalAfter, finalBefore).toExponential(2).toString();
         extraText = `(+${tempy})`
@@ -624,9 +627,19 @@ const CardCard = ({
                                         {helper.formatNumberString(loggedWeightIncrease)}
                                     </>
                                 )}
-                                {(displayMode !== 'logged') && (
+                                {displayMode === 'weight' && (
                                     <>
-                                        {displayMode === 'weight' ? helper.formatNumberString(weightIncrease) : helper.formatNumberString(mathHelper.multiplyDecimal(mathHelper.subtractDecimal(percIncrease, 1), 100)) + '%'}
+                                        {helper.formatNumberString(weightIncrease)}
+                                    </>
+                                )}
+                                {displayMode === 'xgain' && (
+                                    <>
+                                        {helper.formatNumberString(percIncrease) + 'X'}
+                                    </>
+                                )}
+                                {(['logged','weight','xgain'].indexOf(displayMode) < 0) && (
+                                    <>
+                                        {helper.formatNumberString(mathHelper.multiplyDecimal(mathHelper.subtractDecimal(percIncrease, 1), 100)) + '%'}
                                     </>
                                 )}
 
@@ -759,9 +772,9 @@ const CalcReinc = function (data, reincCardCharges?: any) {
 
     let futureReincLevel = currentReincLevel;
     let loopFlag = true;
+    let required = mathHelper.createDecimal(0);
     while (loopFlag) {
 
-        let required = calculateRequiredReincarnationXP(futureReincLevel);
         if (reincLevelRequirements[futureReincLevel]) {
             required = reincLevelRequirements[futureReincLevel];
         }
@@ -1003,6 +1016,51 @@ export default function Cards() {
         )
     }, []);
 
+    let finalXIncrease = topPercIncrease.slice(0, 5).map((value, index, arr) => {
+
+
+        return (
+            <div style={{
+                position: 'relative',
+                display: 'flex',
+                alignItems: 'center',
+                width: '100%'
+            }}
+                key={index}
+            >
+                <div
+                    className='importantText'
+                    style={{
+                        fontSize: '28px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        // alignSelf: 'start',
+                        marginRight: '6px',
+                        marginTop: '6px',
+                        // position: 'absolute',
+                        top: '0',
+                        left: '0',
+                        zIndex: '2',
+                        width: '30px',
+                        height: '30px',
+                        border: '1.5px solid rgba(255,255,255,0.8)',
+                        borderRadius: '15px',
+                        backgroundColor: 'rgba(49, 49, 49, 0.8)',
+                    }}>
+                    <div>
+                        {index + 1}
+                    </div>
+                </div>
+                <CardCard
+                    cardWeight={newCardWeights[value.ID]}
+                    resetWeights={-3} displayMode='xgain' vertical={true} cardMap={cardMap} setCardMap={null} data={data}
+                    i={index} card={cardsById[value.ID]} weightMap={weightMap} classes={classes}
+                    key={`${index}-perc`}></CardCard>
+            </div>
+        )
+    }, []);
+
 
     const chargesMax = data.CurrentCardCharge === data.MaxCardCharge;
 
@@ -1023,12 +1081,20 @@ export default function Cards() {
 
 
     let loggedWeightIncrease = baseCardArr.sort((b, a) => {
-        //Sort reinc card to the end, if a charge is not enough to do a reinc. Applicable starting ascension 15.
+        //Applicable starting ascension 15: special handling of the reincarnation card.
         if(clientData.AscensionCount > 14) {
+            //Sort reinc card to the end, if a charge is not enough to ascend. 
             if(a.ID === REINCARNATIONEXP && futureReincLevel < requiredReincLevel) {
                 return -1;
             }
             if(b.ID === REINCARNATIONEXP && futureReincLevel < requiredReincLevel) {
+                return 1;
+            }
+            //Sort reinc card to the end, if no charge is needed to ascend
+            if(a.ID === REINCARNATIONEXP && currentReincLevel > requiredReincLevel) {
+                return -1;
+            }
+            if(b.ID === REINCARNATIONEXP && currentReincLevel > requiredReincLevel) {
                 return 1;
             }
         }
@@ -1801,7 +1867,7 @@ export default function Cards() {
                                         className='importantText'
                                         style={{ marginTop: '6px', marginBottom: '6px', fontSize: '28px' }}
                                     >
-                                        Best Percentage
+                                        Best {displayMode == 'xgain' ? 'Gain' : 'Percentage'}
                                     </h3>
                                 </div>
                                 <div
@@ -1815,7 +1881,7 @@ export default function Cards() {
                                         Card
                                     </div>
                                     <div className='importantText' style={{ marginLeft: 'auto' }}>
-                                        % Gain
+                                    {displayMode == 'xgain' ? 'X' : '%'} Gain
                                     </div>
                                 </div>
                                 <div
@@ -1829,7 +1895,7 @@ export default function Cards() {
                                         padding: '6px'
                                     }}
                                 >
-                                    {finalPercIncrease}
+                                    {displayMode == 'xgain' ? finalXIncrease : finalPercIncrease}
                                 </div>
                             </div>
                         </div>
