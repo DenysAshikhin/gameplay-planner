@@ -156,10 +156,6 @@ const CardCard = ({
         }
 
 
-        if (ID === 18) {
-            let bigsad = -1;
-        }
-
 
         let permValueBefore = mathHelper.createDecimal(PowerPermaBD);
         let perm_empty = false;
@@ -177,9 +173,9 @@ const CardCard = ({
 
 
 
-        let permValueAfter = mathHelper.addDecimal(permValueBefore,
-            mathHelper.multiplyDecimal(tempValueBefore, ChargeTransfertPowerPerma)
-        );
+        // let permValueAfter = mathHelper.addDecimal(permValueBefore,
+        //     mathHelper.multiplyDecimal(tempValueBefore, ChargeTransfertPowerPerma)
+        // );
         let tempValueAfter = mathHelper.multiplyDecimal(tempValueBefore, (1 - ChargeTransfertPowerTemp));
 
         let tempBonusBefore = tempPowerBonusFormula[ID](tempValueBefore);
@@ -187,14 +183,14 @@ const CardCard = ({
 
 
         let level_mult = 0.02;
-        
+
         if (ID == 38 || ID == 39) {//only sweet potatoe for now
             level_mult = 0.0025;
         }
         if (ID == 40 || ID == 41) {//only sweet potatoe for now
             level_mult = 0.001;
         }
-        
+
 
         let finalBefore = mathHelper.multiplyDecimal(
             mathHelper.subtractDecimal(
@@ -203,9 +199,6 @@ const CardCard = ({
             ),
             ((1.0 + Level * level_mult) * 100)
         );
-        if(ID == 41){
-            let bigsad = -1;
-        }
 
         let temp1 = tempPowerBonusFormula[ID](mathHelper.multiplyDecimal(tempValueBefore, (1.0 - ChargeTransfertPowerTemp)))
         let temp2 = permPowerBonusFormula[ID](
@@ -236,10 +229,6 @@ const CardCard = ({
                 , 100
                 // finalWeight
             );
-            
-        if (ID === 18) {
-            let bigsad = -1;
-        }
 
         setFinalTemp(tempValueAfter);
         setFinalAfter(finalAfter);
@@ -284,6 +273,7 @@ const CardCard = ({
         sumWeight,
         cardWeight, setCardWeightNew,
         resetWeights,
+        sumWeight,
         ID,
         Level,
         PowerPermaBD,
@@ -391,7 +381,7 @@ const CardCard = ({
                                     Increase: {helper.formatNumberString(mathHelper.multiplyDecimal(percIncrease, 100))}
                                 </div>
                                 <div>
-                                    Score: {helper.formatNumberString(loggedWeightIncrease)}
+                                    Weighted Increase: {helper.formatNumberString(weightIncrease)}
                                 </div>
                                 <div>
                                     Current Weight:{finalWeight}
@@ -569,7 +559,7 @@ const CardCard = ({
                                     Percentage Increase: {helper.formatNumberString(mathHelper.multiplyDecimal(mathHelper.subtractDecimal(percIncrease, 1), 100))}
                                 </div>
                                 <div>
-                                    Score: {helper.formatNumberString(loggedWeightIncrease)}
+                                    Weighted Increase: {helper.formatNumberString(weightIncrease)}
                                 </div>
                                 <div>
                                     Current Weight:{finalWeight}
@@ -748,6 +738,7 @@ const CalcReinc = function (data, reincCardCharges?: any) {
         )
     )
 
+    let dateTemp = (new Date()).getTime();
 
     let temp1 = mathHelper.multiplyDecimal(timerBonuses, otherBonuses)
 
@@ -756,6 +747,7 @@ const CalcReinc = function (data, reincCardCharges?: any) {
     let requiredReincLevel = data.AscensionReincLevelRequired;
     let currReincTime = data.CurrentReincarnationTimer / (60 * 60);
 
+    // let calculateRequiredReincarnationXP = reincHelper.calcRequiredReincExp(data);
     let calculateRequiredReincarnationXP = reincHelper.calcRequiredReincExp(data);
 
     let futureReincLevel = currentReincLevel;
@@ -763,11 +755,13 @@ const CalcReinc = function (data, reincCardCharges?: any) {
     while (loopFlag) {
 
         let required = calculateRequiredReincarnationXP(futureReincLevel);
+        // let required = reincHelper.calcRequiredReincExp(data, futureReincLevel);
         if (reincLevelRequirements[futureReincLevel]) {
             required = reincLevelRequirements[futureReincLevel];
         }
         else {
             required = calculateRequiredReincarnationXP(futureReincLevel);
+            // required = reincHelper.calcRequiredReincExp(data, futureReincLevel);
             reincLevelRequirements[futureReincLevel] = required;
         }
         if (currentReincExp.greaterThan(required)) {
@@ -777,6 +771,10 @@ const CalcReinc = function (data, reincCardCharges?: any) {
             loopFlag = false;
         }
     }
+
+    let dateTemp2 = (new Date()).getTime();
+    console.log(`time to calc: ${((dateTemp2) - dateTemp)}ms`);
+
 
     let levelDiff = futureReincLevel - currentReincLevel;
     if (levelDiff === 0) levelDiff = 1;
@@ -862,7 +860,7 @@ export default function Cards() {
         setRunTimeDisplayMode(clientDisplayMode);
     }, [clientDisplayMode]);
 
-    
+
     const [clientHideUnfound, setHideUnfound] = useLocalStorage('hideUnfoundCards', true);
     const [hideUnfound, setRunTimeHideUnfound] = useState(true);
     useEffect(() => {
@@ -916,7 +914,7 @@ export default function Cards() {
         if (i > 2) {
             index -= 1;
         }
-        if(index > 5) {
+        if (index > 5) {
             index -= 1;
         }
 
@@ -1025,11 +1023,11 @@ export default function Cards() {
 
     let loggedWeightIncrease = baseCardArr.sort((b, a) => {
         //Sort reinc card to the end, if a charge is not enough to do a reinc. Applicable starting ascension 15.
-        if(clientData.AscensionCount > 14) {
-            if(a.ID === REINCARNATIONEXP && futureReincLevel < requiredReincLevel) {
+        if (clientData.AscensionCount > 14) {
+            if (a.ID === REINCARNATIONEXP && futureReincLevel < requiredReincLevel) {
                 return -1;
             }
-            if(b.ID === REINCARNATIONEXP && futureReincLevel < requiredReincLevel) {
+            if (b.ID === REINCARNATIONEXP && futureReincLevel < requiredReincLevel) {
                 return 1;
             }
         }

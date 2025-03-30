@@ -1032,13 +1032,13 @@ export default function CardFocus({
                         <div>
                             {`Changes starting A14`}
                         </div>
-                        <div style={{position: 'relative', marginLeft: '12px', display: 'inline-flex'}}>
-                            <button style={{display: (showA14Hint == true ? 'none' : 'initial'), width: '50px'}}
+                        <div style={{ position: 'relative', marginLeft: '12px', display: 'inline-flex' }}>
+                            <button style={{ display: (showA14Hint == true ? 'none' : 'initial'), width: '50px' }}
                                 onClick={(e) => {
                                     setShowA14Hint(true);
                                 }}
                             >show</button>
-                            <button style={{display: (showA14Hint == true ? 'initial' : 'none'), width: '50px'}}
+                            <button style={{ display: (showA14Hint == true ? 'initial' : 'none'), width: '50px' }}
                                 onClick={(e) => {
                                     setShowA14Hint(false);
                                 }}
@@ -1067,7 +1067,7 @@ export default function CardFocus({
                             <p>{`Have fun!`}</p>
                         </div>
                     </div>
-                    
+
                 </div>
             </div >
 
