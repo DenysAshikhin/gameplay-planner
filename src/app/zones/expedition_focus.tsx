@@ -110,6 +110,18 @@ export default function Zones({
             zone.order = zone_data[curr_zone.ID].order;
             zone.bonus_id = zone_data[curr_zone.ID].bonus_id;
             unlocked_ids[zone_data[curr_zone.ID].bonus_id] = zone;
+            if(data.AscensionCount >= 30) {
+                for(let i = 0; i < zone.CardFound.length; i++) {
+                    if(zone.CardFound[i] == 1)
+                        zone.CardFound[i] = 38;
+                }
+            }
+            if(data.AscensionCount >= 40) {
+                for(let i = 0; i < zone.CardFound.length; i++) {
+                    if(zone.CardFound[i] == 3)
+                        zone.CardFound[i] = 39;
+                }
+            }
 
             all_zones.push(zone);
             if (curr_zone.Locked === 0) return;

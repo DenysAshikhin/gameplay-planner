@@ -1088,10 +1088,11 @@ export const mine_pow_id = 35;
 export const pet_rank_id = 20;
 export const reinc_pts_id = 31;
 export const fry_id = 27;
-export const op_level_id = 38;
+export const op_level_id = 42;
+export const swp_id = 38;
 export const skp_id = 39;
-export const tree_seed_id = 40;
-export const subclass_id = 41;
+export const tree_seed_id = 41;
+export const subclass_id = 40;
 export const op_minerals_id = 81;
 export const renown_id = 37;
 
@@ -1138,7 +1139,7 @@ export const BonusMap = {
     36: { disabled: false, defaultWeight: 1500, id: 36, label: 'Building Speed', img: buildTime_AL },
     37: { disabled: false, defaultWeight: 1500, id: 37, label: 'Renown Bonus', img: renownAL },
     38: { disabled: false, defaultWeight: 800, id: 38, label: 'Sweet Potatoe', img: sweet_pot_al },
-    // 38: { disabled: false, defaultWeight: 1, id: 38, label: 'Outpost Level', img: null },
+    42: { disabled: false, defaultWeight: 1, id: 42, label: 'Outpost Level', img: skull_pow_al },
     39: { disabled: false, defaultWeight: 800, id: 39, label: 'Skull Powder', img: skull_pow_al },
     40: { disabled: false, defaultWeight: 800, id: 40, label: 'Subclass Exp', img: skull_pow_al },
     41: { disabled: false, defaultWeight: 800, id: 41, label: 'Seed Chunks', img: skull_pow_al },
@@ -1177,6 +1178,9 @@ export const BonusMap = {
     5016: { id: 5016, label: "Grasshopper Damage +25%", rootName: 'Grasshopper Damage' },
     5017: { id: 5017, label: "Mineral Type Chance +25%", rootName: 'Mineral Type' },
     5018: { id: 5018, label: "Faster Town Building +25%", rootName: 'Town Building' },
+    5019: { id: 5019, label: "Subclass Exp +25%", rootName: 'Subclass Exp' },
+    5020: { id: 5020, label: "Seeds +20%", rootName: 'Seeds' },
+    5021: { id: 5021, label: "Spawn Speed Portal +35%", rootName: 'Spawn Speed Portal' },
 };
 export const dividingBonusArray = [30,36];
 

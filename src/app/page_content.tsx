@@ -219,7 +219,7 @@ export default function Home() {
               <h3 style={{ marginTop: '6px', marginBottom: '12px' }}>Your save file can be found at:</h3>
 
 
-              <div style={{ display: 'flex', marginTop: '12px', marginBottom: '24px' }}>
+              <div style={{ display: 'flex', marginTop: '12px', marginBottom: '12px' }}>
                 <div
                   style={{ fontWeight: 'bold', marginRight: '6px', color: "darkred" }}>
                   All Platforms:
@@ -231,16 +231,27 @@ export default function Home() {
                   {`"copysave"`}
                 </div>
                 <div>
-                  {`in the reward code box (found in settings, gift box icon). If that doesn't work, try doing it in 2 steps->`}
+                  {`in the reward code box (found in settings, gift box icon). If that doesn't work, try doing it in multiple steps:`}
+                </div>
+              </div>
+              <div style={{ display: 'flex', marginTop: '12px', marginBottom: '24px' }}>
+                <div style={{ fontWeight: 'bold', color: "darkred", margin: "0 6px" }}>
+                  {`"splitsave2"`}
+                </div>
+                <div>
+                  {`to split it into 2 parts (number can go up to 1000), then`}
                 </div>
                 <div style={{ fontWeight: 'bold', color: "darkred", margin: "0 6px" }}>
                   {`"copysave1"`}
                 </div>
                 <div>
-                  {`then after that`}
+                  {`and paste into input box, then`}
                 </div>
                 <div style={{ fontWeight: 'bold', color: "darkred", margin: "0 6px" }}>
                   {`"copysave2"`}
+                </div>
+                <div>
+                  {`and paste after it into input box (continue if split into smaller parts), then press the Load button.`}
                 </div>
               </div>
 
