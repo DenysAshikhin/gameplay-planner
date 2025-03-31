@@ -87,7 +87,7 @@ export default function Zones({
 
 
     let current_zones_stuff = useMemo(() => {
-        console.log(`udating current zone stuff`)
+        console.log(`updating current zone stuff`)
         let current_zones = [];
         let all_zones = [];
         let unlocked_ids = {};
@@ -105,7 +105,11 @@ export default function Zones({
 
             zone.curr_hp = curr_hp;
             zone.max_hp = max_hp;
-            zone.total_hp = calc_total_hp(zone, data, {});
+            if(data.AscensionCount < 14) {
+                zone.total_hp = calc_total_hp(zone, data, {});
+            } else { //Don't calc this all the time after reaching card_focus, since it is unnecessary
+                zone.total_hp = curr_hp;
+            }
             zone.label = zone_data[curr_zone.ID]?.label;
             zone.order = zone_data[curr_zone.ID].order;
             zone.bonus_id = zone_data[curr_zone.ID].bonus_id;
