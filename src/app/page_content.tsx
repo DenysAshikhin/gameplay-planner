@@ -22,10 +22,10 @@ export default function Home() {
 
   const [userData, setUserData] = useLocalStorage('userData', DefaultSave);
   const [lastUploadClient, setLastUpload] = useLocalStorage('lastUpload', 0);
-  const [lastUpload, setShowA14HintRuntime] = useState(0);
-  useEffect(() => {
-    setShowA14HintRuntime(lastUploadClient);
-  }, [lastUploadClient]);
+  const [lastUpload, setLastUploadRuntime] = useState(0);
+  useEffect(()=>{
+    setLastUploadRuntime(lastUploadClient);
+  }, [lastUploadClient])
 
 
   const router = useRouter();

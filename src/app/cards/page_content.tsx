@@ -156,6 +156,10 @@ const CardCard = ({
         }
 
 
+        if (ID === 18) {
+            let bigsad = -1;
+        }
+
 
         let permValueBefore = mathHelper.createDecimal(PowerPermaBD);
         let perm_empty = false;
@@ -173,9 +177,9 @@ const CardCard = ({
 
 
 
-        // let permValueAfter = mathHelper.addDecimal(permValueBefore,
-        //     mathHelper.multiplyDecimal(tempValueBefore, ChargeTransfertPowerPerma)
-        // );
+        let permValueAfter = mathHelper.addDecimal(permValueBefore,
+            mathHelper.multiplyDecimal(tempValueBefore, ChargeTransfertPowerPerma)
+        );
         let tempValueAfter = mathHelper.multiplyDecimal(tempValueBefore, (1 - ChargeTransfertPowerTemp));
 
         let tempBonusBefore = tempPowerBonusFormula[ID](tempValueBefore);
@@ -183,14 +187,14 @@ const CardCard = ({
 
 
         let level_mult = 0.02;
-
+        
         if (ID == 38 || ID == 39) {//only sweet potatoe for now
             level_mult = 0.0025;
         }
         if (ID == 40 || ID == 41) {//only sweet potatoe for now
             level_mult = 0.001;
         }
-
+        
 
         let finalBefore = mathHelper.multiplyDecimal(
             mathHelper.subtractDecimal(
@@ -199,6 +203,9 @@ const CardCard = ({
             ),
             ((1.0 + Level * level_mult) * 100)
         );
+        if(ID == 41){
+            let bigsad = -1;
+        }
 
         let temp1 = tempPowerBonusFormula[ID](mathHelper.multiplyDecimal(tempValueBefore, (1.0 - ChargeTransfertPowerTemp)))
         let temp2 = permPowerBonusFormula[ID](
@@ -229,6 +236,10 @@ const CardCard = ({
                 , 100
                 // finalWeight
             );
+            
+        if (ID === 18) {
+            let bigsad = -1;
+        }
 
         setFinalTemp(tempValueAfter);
         setFinalAfter(finalAfter);
@@ -270,10 +281,8 @@ const CardCard = ({
 
 
     }, [cardMap, finalWeight, ChargeTransfertPowerPerma, ChargeTransfertPowerTemp, setCardMap,
-        sumWeight,
         cardWeight, setCardWeightNew,
         resetWeights,
-        sumWeight,
         ID,
         Level,
         PowerPermaBD,
@@ -312,6 +321,9 @@ const CardCard = ({
     if (displayMode === 'perc') {
         let tempy = helper.roundTwoDecimal(mathHelper.divideDecimal(finalAfter, finalBefore).toNumber() * 100 - 100);
         extraText = `(${tempy}%)`
+    } else if (displayMode === 'xgain') {
+        let tempy = mathHelper.divideDecimal(finalAfter, finalBefore).toExponential(2).toString();
+        extraText = `(+${tempy})`
     } else if (displayMode === 'flat') {
         let tempy = mathHelper.subtractDecimal(finalAfter, finalBefore).toExponential(2).toString();
         extraText = `(+${tempy})`
@@ -381,7 +393,7 @@ const CardCard = ({
                                     Increase: {helper.formatNumberString(mathHelper.multiplyDecimal(percIncrease, 100))}
                                 </div>
                                 <div>
-                                    Weighted Increase: {helper.formatNumberString(weightIncrease)}
+                                    Score: {helper.formatNumberString(loggedWeightIncrease)}
                                 </div>
                                 <div>
                                     Current Weight:{finalWeight}
@@ -559,7 +571,7 @@ const CardCard = ({
                                     Percentage Increase: {helper.formatNumberString(mathHelper.multiplyDecimal(mathHelper.subtractDecimal(percIncrease, 1), 100))}
                                 </div>
                                 <div>
-                                    Weighted Increase: {helper.formatNumberString(weightIncrease)}
+                                    Score: {helper.formatNumberString(loggedWeightIncrease)}
                                 </div>
                                 <div>
                                     Current Weight:{finalWeight}
@@ -615,9 +627,19 @@ const CardCard = ({
                                         {helper.formatNumberString(loggedWeightIncrease)}
                                     </>
                                 )}
-                                {(displayMode !== 'logged') && (
+                                {displayMode === 'weight' && (
                                     <>
-                                        {displayMode === 'weight' ? helper.formatNumberString(weightIncrease) : helper.formatNumberString(mathHelper.multiplyDecimal(mathHelper.subtractDecimal(percIncrease, 1), 100)) + '%'}
+                                        {helper.formatNumberString(weightIncrease)}
+                                    </>
+                                )}
+                                {displayMode === 'xgain' && (
+                                    <>
+                                        {helper.formatNumberString(percIncrease) + 'X'}
+                                    </>
+                                )}
+                                {(['logged','weight','xgain'].indexOf(displayMode) < 0) && (
+                                    <>
+                                        {helper.formatNumberString(mathHelper.multiplyDecimal(mathHelper.subtractDecimal(percIncrease, 1), 100)) + '%'}
                                     </>
                                 )}
 
@@ -738,7 +760,6 @@ const CalcReinc = function (data, reincCardCharges?: any) {
         )
     )
 
-    let dateTemp = (new Date()).getTime();
 
     let temp1 = mathHelper.multiplyDecimal(timerBonuses, otherBonuses)
 
@@ -747,21 +768,19 @@ const CalcReinc = function (data, reincCardCharges?: any) {
     let requiredReincLevel = data.AscensionReincLevelRequired;
     let currReincTime = data.CurrentReincarnationTimer / (60 * 60);
 
-    // let calculateRequiredReincarnationXP = reincHelper.calcRequiredReincExp(data);
     let calculateRequiredReincarnationXP = reincHelper.calcRequiredReincExp(data);
 
     let futureReincLevel = currentReincLevel;
     let loopFlag = true;
+    let required = mathHelper.createDecimal(0);
+    let tempTime1 = new Date().getTime();
     while (loopFlag) {
 
-        let required = calculateRequiredReincarnationXP(futureReincLevel);
-        // let required = reincHelper.calcRequiredReincExp(data, futureReincLevel);
         if (reincLevelRequirements[futureReincLevel]) {
             required = reincLevelRequirements[futureReincLevel];
         }
         else {
             required = calculateRequiredReincarnationXP(futureReincLevel);
-            // required = reincHelper.calcRequiredReincExp(data, futureReincLevel);
             reincLevelRequirements[futureReincLevel] = required;
         }
         if (currentReincExp.greaterThan(required)) {
@@ -771,10 +790,8 @@ const CalcReinc = function (data, reincCardCharges?: any) {
             loopFlag = false;
         }
     }
-
-    let dateTemp2 = (new Date()).getTime();
-    console.log(`time to calc: ${((dateTemp2) - dateTemp)}ms`);
-
+    let tempTime2 = new Date().getTime();
+    console.log(`time to calc reinc: ${tempTime2 - tempTime1}ms`)
 
     let levelDiff = futureReincLevel - currentReincLevel;
     if (levelDiff === 0) levelDiff = 1;
@@ -849,6 +866,7 @@ export default function Cards() {
 
     useEffect(() => {
         setRunTimeData(clientData);
+        reincLevelRequirements = {};//need to reset these since the reqs would be incorrect from the default save preloading them
         let num = Math.random() * 1000 + 20;
         setResetCardWeights(num);
     }, [clientData]);
@@ -860,7 +878,7 @@ export default function Cards() {
         setRunTimeDisplayMode(clientDisplayMode);
     }, [clientDisplayMode]);
 
-
+    
     const [clientHideUnfound, setHideUnfound] = useLocalStorage('hideUnfoundCards', true);
     const [hideUnfound, setRunTimeHideUnfound] = useState(true);
     useEffect(() => {
@@ -914,7 +932,7 @@ export default function Cards() {
         if (i > 2) {
             index -= 1;
         }
-        if (index > 5) {
+        if(index > 5) {
             index -= 1;
         }
 
@@ -1002,6 +1020,51 @@ export default function Cards() {
         )
     }, []);
 
+    let finalXIncrease = topPercIncrease.slice(0, 5).map((value, index, arr) => {
+
+
+        return (
+            <div style={{
+                position: 'relative',
+                display: 'flex',
+                alignItems: 'center',
+                width: '100%'
+            }}
+                key={index}
+            >
+                <div
+                    className='importantText'
+                    style={{
+                        fontSize: '28px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        // alignSelf: 'start',
+                        marginRight: '6px',
+                        marginTop: '6px',
+                        // position: 'absolute',
+                        top: '0',
+                        left: '0',
+                        zIndex: '2',
+                        width: '30px',
+                        height: '30px',
+                        border: '1.5px solid rgba(255,255,255,0.8)',
+                        borderRadius: '15px',
+                        backgroundColor: 'rgba(49, 49, 49, 0.8)',
+                    }}>
+                    <div>
+                        {index + 1}
+                    </div>
+                </div>
+                <CardCard
+                    cardWeight={newCardWeights[value.ID]}
+                    resetWeights={-3} displayMode='xgain' vertical={true} cardMap={cardMap} setCardMap={null} data={data}
+                    i={index} card={cardsById[value.ID]} weightMap={weightMap} classes={classes}
+                    key={`${index}-perc`}></CardCard>
+            </div>
+        )
+    }, []);
+
 
     const chargesMax = data.CurrentCardCharge === data.MaxCardCharge;
 
@@ -1022,12 +1085,20 @@ export default function Cards() {
 
 
     let loggedWeightIncrease = baseCardArr.sort((b, a) => {
-        //Sort reinc card to the end, if a charge is not enough to do a reinc. Applicable starting ascension 15.
-        if (clientData.AscensionCount > 14) {
-            if (a.ID === REINCARNATIONEXP && futureReincLevel < requiredReincLevel) {
+        //Applicable starting ascension 15: special handling of the reincarnation card.
+        if(clientData.AscensionCount > 14) {
+            //Sort reinc card to the end, if a charge is not enough to ascend. 
+            if(a.ID === REINCARNATIONEXP && futureReincLevel < requiredReincLevel) {
                 return -1;
             }
-            if (b.ID === REINCARNATIONEXP && futureReincLevel < requiredReincLevel) {
+            if(b.ID === REINCARNATIONEXP && futureReincLevel < requiredReincLevel) {
+                return 1;
+            }
+            //Sort reinc card to the end, if no charge is needed to ascend
+            if(a.ID === REINCARNATIONEXP && currentReincLevel > requiredReincLevel) {
+                return -1;
+            }
+            if(b.ID === REINCARNATIONEXP && currentReincLevel > requiredReincLevel) {
                 return 1;
             }
         }
@@ -1800,7 +1871,7 @@ export default function Cards() {
                                         className='importantText'
                                         style={{ marginTop: '6px', marginBottom: '6px', fontSize: '28px' }}
                                     >
-                                        Best Percentage
+                                        Best {displayMode == 'xgain' ? 'Gain' : 'Percentage'}
                                     </h3>
                                 </div>
                                 <div
@@ -1814,7 +1885,7 @@ export default function Cards() {
                                         Card
                                     </div>
                                     <div className='importantText' style={{ marginLeft: 'auto' }}>
-                                        % Gain
+                                    {displayMode == 'xgain' ? 'X' : '%'} Gain
                                     </div>
                                 </div>
                                 <div
@@ -1828,7 +1899,7 @@ export default function Cards() {
                                         padding: '6px'
                                     }}
                                 >
-                                    {finalPercIncrease}
+                                    {displayMode == 'xgain' ? finalXIncrease : finalPercIncrease}
                                 </div>
                             </div>
                         </div>
