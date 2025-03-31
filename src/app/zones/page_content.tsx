@@ -277,6 +277,7 @@ export default function Zones() {
     const [clientData, setData] = useLocalStorage('userData', DefaultSave);
     const [data, setRunTimeData] = useState(DefaultSave);
     useEffect(() => {
+        setTargetWave(-1); //reset value to default before loading the actual save file
         setRunTimeData(clientData);
     }, [clientData]);
 

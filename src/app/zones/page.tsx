@@ -1,4 +1,4 @@
-import Contagion from './page_content';
+import Zones from './page_content';
 
 import Ad_Comp from '../util/ads_component';
 
@@ -17,7 +17,7 @@ export default function Page() {
   return (
     <>
       <Ad_Comp />
-      <Contagion />
+      <Zones />
     </>
   )
 

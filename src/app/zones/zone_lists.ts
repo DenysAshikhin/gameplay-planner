@@ -266,7 +266,7 @@ zone_data[24] = {
     img: chocolate_world_img,
     bonus_id: op_level_id,
     order: 24,
-    unlock: 50
+    unlock: -1
 }
 
 
@@ -276,7 +276,7 @@ zone_data[25] = {
     img: butternut_forest_img,
     bonus_id: subclass_id,
     order: 25,
-    unlock: 50
+    unlock: -1
 }
 zone_data[26] = {
     label: 'Strawberry Plain',
@@ -284,7 +284,7 @@ zone_data[26] = {
     img: cheddar_plain_img,
     bonus_id: swp_id,
     order: 26,
-    unlock: 50
+    unlock: -1
 }
 zone_data[27] = {
     label: 'Raspberry Grotto',
@@ -292,7 +292,7 @@ zone_data[27] = {
     img: croissant_castle_img,
     bonus_id: op_minerals_id,
     order: 27,
-    unlock: 50
+    unlock: -1
 }
 zone_data[28] = {
     label: 'Pear Mountain',
@@ -300,7 +300,7 @@ zone_data[28] = {
     img: orange_mountain_img,
     bonus_id: tree_seed_id,
     order: 28,
-    unlock: 50
+    unlock: -1
 }
 zone_data[29] = {
     label: 'Radditz Field',
@@ -308,7 +308,7 @@ zone_data[29] = {
     img: zucchini_field_img,
     bonus_id: skp_id,
     order: 29,
-    unlock: 50
+    unlock: -1
 }
 zone_data[30] = {
     label: 'Lemon Desert',
@@ -316,7 +316,7 @@ zone_data[30] = {
     img: munster_desert_img,
     bonus_id: renown_id,
     order: 30,
-    unlock: 50
+    unlock: -1
 }
 
 
@@ -427,18 +427,16 @@ export const calc_max_hp = function (zone, data, params?) {
         );
     }
     if (Room > 250) {
-        let t = mathHelper.pow(1.0 + HPIncrease, Room - 1)
-        if (params?.force_logs) {
-
-            console.log(`t: ${t}`)
-        }
-        let y = (1.0 - (WAPExpeditionScalingReduced + ExpeShopExpeditionScalingReductionLevel * 2) * 0.0025)
-        let z = mathHelper.pow(1.0 + HPIncrease * (1.0 - (WAPExpeditionScalingReduced + ExpeShopExpeditionScalingReductionLevel * 2) * 0.0025), Room - 250)
-        let temp = mathHelper.multiplyDecimal(
-            mathHelper.pow(1.0 + HPIncrease, Room - 1),
-
-            mathHelper.pow(1.0 + HPIncrease * (1.0 - (WAPExpeditionScalingReduced + ExpeShopExpeditionScalingReductionLevel * 2) * 0.0025), Room - 250)
-        );
+        // let t = mathHelper.pow(1.0 + HPIncrease, Room - 1)
+        // if (params?.force_logs) {
+        //     console.log(`t: ${t}`)
+        // }
+        // let y = (1.0 - (WAPExpeditionScalingReduced + ExpeShopExpeditionScalingReductionLevel * 2) * 0.0025)
+        // let z = mathHelper.pow(1.0 + HPIncrease * (1.0 - (WAPExpeditionScalingReduced + ExpeShopExpeditionScalingReductionLevel * 2) * 0.0025), Room - 250)
+        // let temp = mathHelper.multiplyDecimal(
+        //     mathHelper.pow(1.0 + HPIncrease, Room - 1),
+        //     mathHelper.pow(1.0 + HPIncrease * (1.0 - (WAPExpeditionScalingReduced + ExpeShopExpeditionScalingReductionLevel * 2) * 0.0025), Room - 250)
+        // );
         return (
             mathHelper.multiplyDecimal(
                 mathHelper.addDecimal(
