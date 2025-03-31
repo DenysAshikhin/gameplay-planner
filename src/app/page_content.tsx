@@ -21,7 +21,13 @@ ReactGA.initialize([{ trackingId: "G-GGLPK02VH8" }]);
 export default function Home() {
 
   const [userData, setUserData] = useLocalStorage('userData', DefaultSave);
-  const [lastUpload, setLastUpload] = useLocalStorage('lastUpload', 0);
+  const [lastUploadClient, setLastUpload] = useLocalStorage('lastUpload', 0);
+  const [lastUpload, setLastUploadRuntime] = useState(0);
+  useEffect(()=>{
+    setLastUploadRuntime(lastUploadClient);
+  }, [lastUploadClient])
+
+
   const router = useRouter();
   const stringInputRef = useRef(null);
 

@@ -69,29 +69,42 @@ const helper = {
                 // GM.POSH.boniList[6]
             // )
         // );
-	
+
         return (currLevel) => {
+
             let step1 = 5 + currLevel * 5;
-            let temp1 = mathHelper.max(0.0, currLevel / 500000.0);
-            let step2 = mathHelper.min(1.0025, mathHelper.addDecimal(1.00005, temp1));
-            let step3 = mathHelper.min(currLevel, 3000.0);
 
-            let finalStep1 = mathHelper.multiplyDecimal(step1, mathHelper.pow(step2, step3));
+            //--------- OLD EASY TO READ CODE
+            // let temp1 = mathHelper.max(0.0, currLevel / 500000.0);
+            // let step2 = mathHelper.min(1.0025, mathHelper.addDecimal(1.00005, temp1));
+            // let step3 = mathHelper.min(currLevel, 3000.0);
 
-            let step4Cont = mathHelper.pow(1.001, mathHelper.max(currLevel - 3000, 0.0));
-            let step5 = mathHelper.addDecimal(1, mathHelper.max(0.0, mathHelper.min(1.0, (currLevel - 1500) / 1000)));
+            // let finalStep1 = mathHelper.multiplyDecimal(step1, mathHelper.pow(step2, step3));
 
-            let inner1 = mathHelper.multiplyDecimal(finalStep1, step4Cont);
-            let finalStep2 = mathHelper.multiplyDecimal(inner1, step5);
+            // let step4Cont = mathHelper.pow(1.001, mathHelper.max(currLevel - 3000, 0.0));
+            // let step5 = mathHelper.addDecimal(1, mathHelper.max(0.0, mathHelper.min(1.0, (currLevel - 1500) / 1000)));
 
-            // let finalStep3 = mathHelper.multiplyDecimal(finalStep2, cowStep);
-            // let finalStep4 = mathHelper.multiplyDecimal(finalStep3, expTokenStep);
-            let combinedCowTokenStep = mathHelper.multiplyDecimal(finalStep2, expAndCowStep);
+            // let inner1 = mathHelper.multiplyDecimal(finalStep1, step4Cont);
+            // let finalStep2 = mathHelper.multiplyDecimal(inner1, step5);
 
+            // // let finalStep3 = mathHelper.multiplyDecimal(finalStep2, cowStep);
+            // // let finalStep4 = mathHelper.multiplyDecimal(finalStep3, expTokenStep);
+            // let combinedCowTokenStep = mathHelper.multiplyDecimal(finalStep2, expAndCowStep);
+
+            // //portal reduction simulation
+            // let portaLReductionLevel = 0.01 * data.portalShopLevels[18];
+            // // let finalStep5 = mathHelper.pow(finalStep4, 1.0 - portaLReductionLevel/100);
+            // let finalStep5 = mathHelper.pow(combinedCowTokenStep, 1.0 - portaLReductionLevel/100);
+
+            // let finalRounded = mathHelper.round(finalStep5);
+            // return finalRounded;
+            // ----------
+            
+            //DOING IT IN ONE MASSIVE LINE
             //portal reduction simulation
             let portaLReductionLevel = 0.01 * data.portalShopLevels[18];
             // let finalStep5 = mathHelper.pow(finalStep4, 1.0 - portaLReductionLevel/100);
-            let finalStep5 = mathHelper.pow(combinedCowTokenStep, 1.0 - portaLReductionLevel/100);
+            let finalStep5 = mathHelper.pow(mathHelper.multiplyDecimal(mathHelper.multiplyDecimal(mathHelper.multiplyDecimal(mathHelper.multiplyDecimal(step1, mathHelper.pow(mathHelper.min(1.0025, mathHelper.addDecimal(1.00005, mathHelper.max(0.0, step1 / 500000.0))), mathHelper.min(currLevel, 3000.0))), mathHelper.pow(1.001, mathHelper.max(currLevel - 3000, 0.0))), mathHelper.addDecimal(1, mathHelper.max(0.0, mathHelper.min(1.0, (currLevel - 1500) / 1000)))), expAndCowStep), 1.0 - portaLReductionLevel/100);
 
             let finalRounded = mathHelper.round(finalStep5);
             return finalRounded;

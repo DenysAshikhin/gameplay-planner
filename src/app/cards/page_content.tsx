@@ -773,6 +773,7 @@ const CalcReinc = function (data, reincCardCharges?: any) {
     let futureReincLevel = currentReincLevel;
     let loopFlag = true;
     let required = mathHelper.createDecimal(0);
+    let tempTime1 = new Date().getTime();
     while (loopFlag) {
 
         if (reincLevelRequirements[futureReincLevel]) {
@@ -789,6 +790,8 @@ const CalcReinc = function (data, reincCardCharges?: any) {
             loopFlag = false;
         }
     }
+    let tempTime2 = new Date().getTime();
+    console.log(`time to calc reinc: ${tempTime2 - tempTime1}ms`)
 
     let levelDiff = futureReincLevel - currentReincLevel;
     if (levelDiff === 0) levelDiff = 1;
@@ -863,6 +866,7 @@ export default function Cards() {
 
     useEffect(() => {
         setRunTimeData(clientData);
+        reincLevelRequirements = {};//need to reset these since the reqs would be incorrect from the default save preloading them
         let num = Math.random() * 1000 + 20;
         setResetCardWeights(num);
     }, [clientData]);
