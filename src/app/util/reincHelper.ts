@@ -92,7 +92,7 @@ const helper = {
             // let combinedCowTokenStep = mathHelper.multiplyDecimal(finalStep2, expAndCowStep);
 
             // //portal reduction simulation
-            // let portaLReductionLevel = 0.01 * data.portalShopLevels[18];
+            // let portaLReductionLevel = 0.025 * (data.portalShopLevels[18] + data.portalShopLevels[19]);
             // // let finalStep5 = mathHelper.pow(finalStep4, 1.0 - portaLReductionLevel/100);
             // let finalStep5 = mathHelper.pow(combinedCowTokenStep, 1.0 - portaLReductionLevel/100);
 
@@ -102,7 +102,7 @@ const helper = {
             
             //DOING IT IN ONE MASSIVE LINE
             //portal reduction simulation
-            let portaLReductionLevel = 0.01 * data.portalShopLevels[18];
+            let portaLReductionLevel = 0.025 * (data.portalShopLevels[18] + data.portalShopLevels[19]);
             // let finalStep5 = mathHelper.pow(finalStep4, 1.0 - portaLReductionLevel/100);
             let finalStep5 = mathHelper.pow(mathHelper.multiplyDecimal(mathHelper.multiplyDecimal(mathHelper.multiplyDecimal(mathHelper.multiplyDecimal(step1, mathHelper.pow(mathHelper.min(1.0025, mathHelper.addDecimal(1.00005, mathHelper.max(0.0, step1 / 500000.0))), mathHelper.min(currLevel, 3000.0))), mathHelper.pow(1.001, mathHelper.max(currLevel - 3000, 0.0))), mathHelper.addDecimal(1, mathHelper.max(0.0, mathHelper.min(1.0, (currLevel - 1500) / 1000)))), expAndCowStep), 1.0 - portaLReductionLevel/100);
 
