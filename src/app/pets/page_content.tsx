@@ -14,6 +14,7 @@ import ReactGA from "react-ga4";
 import helper from '../util/helper';
 import petHelper from '../util/petHelper';
 import SearchBox from '../util/search';
+import MouseOverPopover from "../util/Tooltip";
 
 import { Reorder } from 'framer-motion'
 import useLocalStorage from "use-local-storage";
@@ -44,6 +45,7 @@ function PetComboDisplay({ petCombos, unlockedPets, petMap }) {
     const comboBonusLabel = BonusMap[petCombos[0].BonusID].label;
     const numCombos = petCombos.length;
     let numPossibleCombos = 0;
+    let numFoundCombos = 0;
     let possibleCombosMap = {};
 
     for (let i = 0; i < petCombos.length; i++) {
@@ -70,6 +72,8 @@ function PetComboDisplay({ petCombos, unlockedPets, petMap }) {
         if (possible) {
             numPossibleCombos++;
             possibleCombosMap[cur.BonusID][cur.ID] = true;
+            if(cur.Found)
+                numFoundCombos++;
         }
 
         if (cur.PetID.length === 2) {
@@ -86,6 +90,15 @@ function PetComboDisplay({ petCombos, unlockedPets, petMap }) {
         }
     }
 
+    let threeColorCompleteArray = Array(numCombos).fill(1); //1 => available and used
+
+    for (let i = 0; i < numCombos; i++) {
+        if (i + 1 > numPossibleCombos) {
+            threeColorCompleteArray[i] = -1; //-1 => not available
+        } else if (i + 1 > numFoundCombos) {
+            threeColorCompleteArray[i] = 0; //0 => available but not used yet
+        }
+    }
 
     return (
         <Accordion>
@@ -105,34 +118,58 @@ function PetComboDisplay({ petCombos, unlockedPets, petMap }) {
                     <div>
                         {comboBonusLabel}
                     </div>
-                    <div
-                        style={{ marginLeft: '12px' }}
+                    <MouseOverPopover 
+                        opacity={1}
+                        forceXPlacement={'right'}
+                        tooltip={
+                            <div>
+                                Green: Combo available and used (counts for achievement).<br/>
+                                Yellow: Combo available but unused.<br/>
+                                Red: Combo unvailable.
+                            </div>
+                        }
                     >
-                        {completeArray.map((e, index) => {
+                        <div
+                            style={{ marginLeft: '12px' }}
+                        >
+                            {threeColorCompleteArray.map((e, index) => {
 
-                            if (e) {
-                                return (
-                                    <span className='greenDot'
+                                if (e > 0) {//1 => available and used
+                                    return (
+                                        <span className='greenDot'
+                                            style={{
+                                                margin: '0 1px 0 1px'
+                                            }}
+                                            key={index}
+                                        >
+
+                                        </span>
+                                    )
+                                }
+                                if (e == 0) {//0 => available but not used yet
+                                    return (
+                                        <span className='yellowDot'
+                                            style={{
+                                                margin: '0 1px 0 1px'
+                                            }}
+                                            key={index}
+                                        >
+
+                                        </span>
+                                    )
+                                }
+                                return (//-1 => not available
+                                    <span className='redDot'
                                         style={{
                                             margin: '0 1px 0 1px'
                                         }}
                                         key={index}
                                     >
-
                                     </span>
                                 )
-                            }
-                            return (
-                                <span className='redDot'
-                                    style={{
-                                        margin: '0 1px 0 1px'
-                                    }}
-                                    key={index}
-                                >
-                                </span>
-                            )
-                        })}
-                    </div>
+                            })}
+                        </div>
+                    </MouseOverPopover>
                 </div>
             </AccordionSummary>
             <AccordionDetails >
@@ -163,7 +200,7 @@ function PetComboDisplay({ petCombos, unlockedPets, petMap }) {
                             <div style={{
                                 display: 'flex',
                                 margin: margin,
-                                border: `5px solid ${possibleCombosMap[petCombo.BonusID][petCombo.ID] ? 'green' : 'red'}`
+                                border: `5px solid ${possibleCombosMap[petCombo.BonusID][petCombo.ID] ? (petCombo.Found ? 'green' : 'gold')  : 'red'}`
                             }} key={i}>
                                 {PetIDArray.map((petId, j) => {
 
