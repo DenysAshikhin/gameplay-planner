@@ -111,6 +111,13 @@ code {
   display: inline-block;
 }
 
+.yellowDot {
+  height: 7px;
+  width: 7px;
+  background-color: gold;
+  border-radius: 50%;
+  display: inline-block;
+}
 
 .redDot {
   height: 7px;
