@@ -177,6 +177,11 @@ import Samovar from '@images/pets/Samovar.png'
 import Water_Worm from '@images/pets/Water Worm.png'
 import Weapon_Angelus from '@images/pets/Weapon Angelus.png'
 
+import Runic_Weapon from '@images/pets/Runic Weapon.png'
+import Bramble_Angelus from '@images/pets/Bramble Angelus.png'
+import Lemonous from '@images/pets/Lemonous.png'
+import Fire_worm from '@images/pets/Fire Worm.png'
+
 import unknown from '@images/pets/missing.png';
 
 type petDatum = { name: string; location: string, sort: number, img: string | {} };
@@ -1024,6 +1029,30 @@ const PetNames: petData = {
         "location": "9-9",
         sort: SORT_PET_WORLD,
         img: BreachOpener
+    },
+    140: {
+        "name": "Runic Weapon",
+        "location": "Portal 650",
+        sort: SORT_PET_PORTAL,
+        img: Runic_Weapon
+    },
+    141: {
+        "name": "Bramble Angelus",
+        "location": "Portal 700",
+        sort: SORT_PET_PORTAL,
+        img: Bramble_Angelus
+    },
+    142: {
+        "name": "Lemonous",
+        "location": "Portal 750",
+        sort: SORT_PET_PORTAL,
+        img: Lemonous
+    },
+    143: {
+        "name": "Fire Worm",
+        "location": "Portal 800",
+        sort: SORT_PET_PORTAL,
+        img: Fire_worm
     },
     
     9999: {
