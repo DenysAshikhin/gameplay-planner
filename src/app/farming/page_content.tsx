@@ -369,8 +369,8 @@ const FarmingLanding = () => {
             plant.totalMade = mathHelper.createDecimal(plant.TotalCreated);
 
             plant.perHarvest = farmingHelper.calcPlantHarvest(plant, modifiers);
-            plant.curExp = plant.CurrentExp.mantissa * (Math.pow(10, plant.CurrentExp.exponent));
-            plant.reqExp = plant.ExpNeeded.mantissa * (Math.pow(10, plant.ExpNeeded.exponent));
+            plant.curExp = mathHelper.createDecimal(plant.CurrentExp);
+            plant.reqExp = mathHelper.createDecimal(plant.ExpNeeded);
 
             plant.futureMult = farmingHelper.futureMultBD(plant, modifiers);
             let prod = farmingHelper.calcProdOutput(plant, modifiers);
