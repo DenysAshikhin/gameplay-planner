@@ -281,7 +281,7 @@ const CardCard = ({
 
 
     }, [cardMap, finalWeight, ChargeTransfertPowerPerma, ChargeTransfertPowerTemp, setCardMap,
-        cardWeight, setCardWeightNew,
+        cardWeight, setCardWeightNew, sumWeight,
         resetWeights,
         ID,
         Level,
