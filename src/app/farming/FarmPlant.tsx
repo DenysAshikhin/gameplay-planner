@@ -111,11 +111,11 @@ const FarmingPlant = ({ data }) => {
 
   let plantTitle = `P${index + 1}`;
   let harvestTime = `${helper.secondsToStringWithS(plant.growthTime)}`;
-  let harvestAmount = `${plant.perHarvest.toExponential(2)}`;
-  let totalHarvest = `${plant.created.toExponential(2)}`;
-  let totalMade = `${plant.totalMade.toExponential(2)}`;
+  let harvestAmount = `${plant.perHarvest?.toPrecision(2).toString() ?? 0}`;
+  let totalHarvest = `${plant.created?.toExponential(2) ?? 0}`;
+  let totalMade = `${plant.totalMade?.toExponential(2) ?? 0}`;
   // let outMult = ` (x${helper.roundTwoDecimal(useFutureValues ? plant.futureMult : plant.currMult)})`;
-  let outMult = ` (x${plant.futureMult.toPrecision(3).toString()})`;
+  let outMult = ` (x${plant.futureMult?.toPrecision(3).toString() ?? '0'})`;
 
   let pic = `${plant.prestige}`;
   let futurePic = `${plant.nextPrestige}`;

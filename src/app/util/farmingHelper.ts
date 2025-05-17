@@ -39,7 +39,13 @@ const farmingHelper = {
     },
     calcPlantHarvest: function (plant, modifiers) {
         // let num = helper.roundInt((1 + plant.Rank) * Math.pow(1.05, plant.Rank)) * Math.pow(1.02, plant.prestige) * modifiers.manualHarvestBonus;
-        return helper.roundInt((1 + plant.Rank) * Math.pow(1.05, plant.Rank)) * Math.pow(1.02, plant.prestige) * modifiers.manualHarvestBonus;
+
+        return mathHelper.multiplyDecimal(
+            mathHelper.multiplyDecimal(1 + plant.Rank, mathHelper.pow(1.05, plant.Rank)),
+            mathHelper.multiplyDecimal(modifiers.manualHarvestBonus, Math.pow(1.02, plant.prestige))
+        );
+
+        // return helper.roundInt((1 + plant.Rank) * Math.pow(1.05, plant.Rank)) * Math.pow(1.02, plant.prestige) * modifiers.manualHarvestBonus;
     },
     calcShopProdBonus: function (modifiers_input, shopLevel) {
         // shopLevel = shopLevel || shopLevel === 0 ? shopLevel : modifiers_input.FarmingShopPlantTotalProduction;
@@ -229,7 +235,7 @@ const farmingHelper = {
             if (plant.elapsedTime >= plant.growthTime) {
                 numHarvests = Math.floor(plant.elapsedTime / plant.growthTime);
 
-                let toCreate = plant.perHarvest * numHarvests * numAutos;
+                let toCreate = mathHelper.multiplyDecimal(plant.perHarvest, numHarvests * numAutos);
 
                 plant.created = mathHelper.addDecimal(plant.created, toCreate);
                 plant.totalMade = mathHelper.addDecimal(plant.totalMade, toCreate);
@@ -318,6 +324,11 @@ const farmingHelper = {
         return start - plant_input.prestige;
     },
     calcTimeTillPrestige: function (plant_input, modifiers_input) {
+
+        if (plant_input.prestige >= 250) {
+            return { remainingTime: 0, prestige: 250, prestiged: false };
+        }
+
         let plant = JSON.parse(JSON.stringify(plant_input));
         this.resetPlantBD(plant);
         let modifiers = JSON.parse(JSON.stringify(modifiers_input));
@@ -338,11 +349,11 @@ const farmingHelper = {
             mathHelper.multiplyDecimal(
                 mathHelper.divideDecimal(
                     remainingHarvests,
-                    (plant.perHarvest * numAutos),
+                    (mathHelper.multiplyDecimal(plant.perHarvest, numAutos)),
                 ).ceil(),
                 plant.growthTime,
             ).ceil().toNumber()
-        ;
+            ;
 
 
         while (!prestiged) {
@@ -354,11 +365,11 @@ const farmingHelper = {
                 mathHelper.multiplyDecimal(
                     mathHelper.divideDecimal(
                         remainingHarvests,
-                        (plant.perHarvest * numAutos),
+                        (mathHelper.multiplyDecimal(plant.perHarvest, numAutos)),
                     ).ceil(),
                     plant.growthTime,
                 ).ceil().toNumber()
-            ;
+                ;
 
             if (numAutos === 0 && remainingHarvests.greaterThan(0)) {
                 prestiged = true;
@@ -375,9 +386,10 @@ const farmingHelper = {
             } else if (timeTillPrestige > timeToLevel) {
                 plant.elapsedTime += timeToLevel;
                 let ticks = Math.floor(plant.elapsedTime / plant.growthTime);
+                let harvested = mathHelper.multiplyDecimal(plant.perHarvest, ticks * numAutos);
 
-                plant.created = mathHelper.addDecimal(plant.created, ticks * plant.perHarvest * numAutos);
-                plant.totalMade = mathHelper.addDecimal(plant.totalMade, ticks * plant.perHarvest * numAutos);
+                plant.created = mathHelper.addDecimal(plant.created, harvested);
+                plant.totalMade = mathHelper.addDecimal(plant.totalMade, harvested);
 
                 let rankRes = this.calcCarryOverEXP({ plant, numAutos, expTick: expTick * ticks });
                 plant.Rank += rankRes.numLevels;
@@ -390,9 +402,10 @@ const farmingHelper = {
                 prestiged = true;
                 plant.elapsedTime += timeTillPrestige;
                 let ticks = Math.floor(plant.elapsedTime / plant.growthTime);
+                let harvested = mathHelper.multiplyDecimal(plant.perHarvest, ticks * numAutos);
 
-                plant.created = mathHelper.addDecimal(plant.created, ticks * plant.perHarvest * numAutos);
-                plant.totalMade = mathHelper.addDecimal(plant.totalMade, ticks * plant.perHarvest * numAutos);
+                plant.created = mathHelper.addDecimal(plant.created, harvested);
+                plant.totalMade = mathHelper.addDecimal(plant.totalMade, harvested);
                 totalTime += timeTillPrestige;
                 plant.elapsedTime = plant.elapsedTime % plant.growthTime;
             }
@@ -405,6 +418,7 @@ const farmingHelper = {
         plant.created = plant?.created?.mantissa || plant?.created?.mantissa === 0 ? plant.created : mathHelper.createDecimal(plant.created);
         plant.production = plant?.production?.mantissa || plant?.production?.mantissa === 0 ? plant.production : mathHelper.createDecimal(plant.production);
         plant.futureMult = mathHelper.createDecimal(plant.futureMult);
+        plant.perHarvest = mathHelper.createDecimal(plant.perHarvest);
 
     },
     resetModifiersBD: function (modifiers) {
@@ -468,19 +482,10 @@ const farmingHelper = {
         const fryMult = 1.05;
         //Iterate over each second
         for (; i < simulationTime / tickRate || finalPass; i++) {
+
             //Calculate new values for each plant
             let HPInitial = 0;
             for (let j = plants.length - 1; j >= 0; j--) {
-                // let curr = plants[j];
-
-                // let toAdd = j === plants.length - 1 ? 0 :
-                //     tickRate > 1 ?
-                //         //Some basic calculus to find total assuming linear growth
-                //         mathHelper.multiplyDecimal(mathHelper.addDecimal(prevPlantsProd[j + 1], plants[j + 1].production), 0.45 * tickRate * prodMult)
-                //         :
-                //         mathHelper.multiplyDecimal(plants[j + 1].production, tickRate);
-                // curr.totalMade = mathHelper.addDecimal(curr.totalMade, toAdd);
-
 
                 plants[j].totalMade = mathHelper.addDecimal(plants[j].totalMade, (j === plants.length - 1 ? 0 :
                     tickRate > 1 ?
@@ -489,9 +494,6 @@ const farmingHelper = {
                         :
                         mathHelper.multiplyDecimal(plants[j + 1].production, tickRate)));
 
-
-                // let res = this.calcFutureMult(curr, { ...modifiers, time: tickRate, numAuto: numAutos[j], string: false });
-                // curr = res;
                 plants[j] = this.calcFutureMult(plants[j], {
                     ...modifiers,
                     time: tickRate,
@@ -601,9 +603,9 @@ const farmingHelper = {
                     let timeIncrease = curTime - dataPointsPotatoes[dataPointsPotatoes.length - 1].time;
                     let increase = mathHelper.divideDecimal(
                         (mathHelper.subtractDecimal(
-                                totalPotatoes,
-                                dataPointsPotatoes[dataPointsPotatoes.length - 1].production,
-                            )
+                            totalPotatoes,
+                            dataPointsPotatoes[dataPointsPotatoes.length - 1].production,
+                        )
                         ),
                         timeIncrease,
                     );

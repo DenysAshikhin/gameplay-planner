@@ -17,7 +17,6 @@ const helper = {
         if (number instanceof Decimal) {
             return number;
         }
-
         return this.createDecimal(number);
     },
     createDecimalString: function (number_string: string): Decimal {
