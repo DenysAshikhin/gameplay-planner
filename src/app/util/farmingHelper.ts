@@ -366,7 +366,7 @@ const farmingHelper = {
             } else if (timeTillPrestige <= 0) {
                 prestiged = true;
 
-                if (totalTime <= 0) {
+                if (totalTime <= 0 && plant.prestige < 250) {
                     plant.prestige++;
                     prestiged = false;
                     runningHarvests += requiredPerPic;

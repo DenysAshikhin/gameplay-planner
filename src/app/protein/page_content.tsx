@@ -134,6 +134,7 @@ export default function Protein() {
     }
 
 
+    let hasUnfinishedAssembly = false;
     tempData.AssemblerCollection.forEach((inner_val) => {
         totalLevels += inner_val.Level;
         inner_val.BonusList.forEach((inner_bonus) => {
@@ -142,183 +143,185 @@ export default function Protein() {
             }
             currentBonusTotals[inner_bonus.ID] *= farmingHelper.calcAssemblyLine(inner_bonus, inner_val.Level);
         })
+        if(inner_val.LevelMax - inner_val.Level > 0)
+            hasUnfinishedAssembly = true;
     });
+    if(hasUnfinishedAssembly) {
+        if (Object.values(currentWeights).length > 0) {
+            for (let i = 0; i < numAL; i++) {
+                // let assembliesMap = {};
+                let assembliesMap = [];
 
-    if (Object.values(currentWeights).length > 0) {
-        for (let i = 0; i < numAL; i++) {
-            // let assembliesMap = {};
-            let assembliesMap = [];
-
-            for (let c = 0; c < tempData.AssemblerCollection.length; c++) {
-                let inner_val = tempData.AssemblerCollection[c];
+                for (let c = 0; c < tempData.AssemblerCollection.length; c++) {
+                    let inner_val = tempData.AssemblerCollection[c];
 
 
-                if (inner_val.LockQty <= totalLevels && (inner_val.Level < inner_val.LevelMax)) {
-                    let increasedBonuses = {};
+                    if (inner_val.LockQty <= totalLevels && (inner_val.Level < inner_val.LevelMax)) {
+                        let increasedBonuses = {};
 
-                    //Calculate increase bonus if this line is upgraded
-                    for (let v = 0; v < tempData.AssemblerCollection.length; v++) {
-                        let inner_val_nested = tempData.AssemblerCollection[v];
-                        for (let b = 0; b < inner_val_nested.BonusList.length; b++) {
-                            let inner_bonus = inner_val_nested.BonusList[b];
-                            if (!increasedBonuses[inner_bonus.ID]) {
-                                increasedBonuses[inner_bonus.ID] = 1;
+                        //Calculate increase bonus if this line is upgraded
+                        for (let v = 0; v < tempData.AssemblerCollection.length; v++) {
+                            let inner_val_nested = tempData.AssemblerCollection[v];
+                            for (let b = 0; b < inner_val_nested.BonusList.length; b++) {
+                                let inner_bonus = inner_val_nested.BonusList[b];
+                                if (!increasedBonuses[inner_bonus.ID]) {
+                                    increasedBonuses[inner_bonus.ID] = 1;
+                                }
+
+                                if (inner_bonus.StartingLevel > (inner_val_nested.Level + 1)) {
+                                    continue;
+                                }
+
+                                let levelToUse = inner_val_nested.ID === inner_val.ID ? inner_val_nested.Level + 1 : inner_val_nested.Level
+
+                                increasedBonuses[inner_bonus.ID] *=
+                                    farmingHelper.calcAssemblyLine(
+                                        inner_bonus,
+                                        levelToUse
+                                    );
                             }
-
-                            if (inner_bonus.StartingLevel > (inner_val_nested.Level + 1)) {
-                                continue;
-                            }
-
-                            let levelToUse = inner_val_nested.ID === inner_val.ID ? inner_val_nested.Level + 1 : inner_val_nested.Level
-
-                            increasedBonuses[inner_bonus.ID] *=
-                                farmingHelper.calcAssemblyLine(
-                                    inner_bonus,
-                                    levelToUse
-                                );
                         }
+
+                        let originalBonuses = [];
+                        let newBonuses = [];
+                        let cost = farmingHelper.calcAssemblyCost(inner_val.ID, tempData);
+                        inner_val.cost = cost;
+
+                        inner_val.BonusList.forEach((inner_bonus) => {
+                            originalBonuses.push({ ...inner_bonus, value: farmingHelper.calcAssemblyLine(inner_bonus, inner_val.Level) })
+                            newBonuses.push({ ...inner_bonus, Level: inner_val.Level + 1, value: farmingHelper.calcAssemblyLine(inner_bonus, inner_val.Level + 1) })
+                        });
+
+                        let weightedImprovement = 0;
+                        for (const [key, value] of Object.entries(currentBonusTotals)) {
+
+                            let alternateImprov = (increasedBonuses[key] - value) / value;
+                            alternateImprov *= currentWeights[key];
+                            weightedImprovement += alternateImprov;
+                        }
+
+                        // assembliesMap[inner_val.ID] = {...inner_val, score: weightedImprovement}
+                        assembliesMap.push({
+                            ...inner_val,
+                            score: weightedImprovement,
+                            cost_score: mathHelper.divideDecimal(cost, weightedImprovement)
+                        });
                     }
+                }
 
-                    let originalBonuses = [];
-                    let newBonuses = [];
-                    let cost = farmingHelper.calcAssemblyCost(inner_val.ID, tempData);
-                    inner_val.cost = cost;
-
-                    inner_val.BonusList.forEach((inner_bonus) => {
-                        originalBonuses.push({ ...inner_bonus, value: farmingHelper.calcAssemblyLine(inner_bonus, inner_val.Level) })
-                        newBonuses.push({ ...inner_bonus, Level: inner_val.Level + 1, value: farmingHelper.calcAssemblyLine(inner_bonus, inner_val.Level + 1) })
-                    });
-
-                    let weightedImprovement = 0;
-                    for (const [key, value] of Object.entries(currentBonusTotals)) {
-
-                        let alternateImprov = (increasedBonuses[key] - value) / value;
-                        alternateImprov *= currentWeights[key];
-                        weightedImprovement += alternateImprov;
+                // assembliesMap.sort((a, b) => b.score - a.score);
+                assembliesMap.sort((a, b) => {
+                    if (b.cost_score.lessThan(a.cost_score)) {
+                        return 1;
                     }
+                    return -1
+                });
 
-                    // assembliesMap[inner_val.ID] = {...inner_val, score: weightedImprovement}
-                    assembliesMap.push({
-                        ...inner_val,
-                        score: weightedImprovement,
-                        cost_score: mathHelper.divideDecimal(cost, weightedImprovement)
-                    });
+
+                let cost = farmingHelper.calcAssemblyCost(assembliesMap[0].ID, tempData);
+                let timeToPurchase: DecimalSource = mathHelper.subtractDecimal(cost, currProtein);
+
+                if (currProtein.greaterThan(cost)) {
+                    timeToPurchase = 0;
+                    currProtein = mathHelper.subtractDecimal(currProtein, cost);
                 }
-            }
-
-            // assembliesMap.sort((a, b) => b.score - a.score);
-            assembliesMap.sort((a, b) => {
-                if (b.cost_score.lessThan(a.cost_score)) {
-                    return 1;
+                else {
+                    timeToPurchase = mathHelper.divideDecimal(timeToPurchase, protRate);
+                    currProtein = mathHelper.createDecimal(0);
                 }
-                return -1
-            });
-
-
-            let cost = farmingHelper.calcAssemblyCost(assembliesMap[0].ID, tempData);
-            let timeToPurchase: DecimalSource = mathHelper.subtractDecimal(cost, currProtein);
-
-            if (currProtein.greaterThan(cost)) {
-                timeToPurchase = 0;
-                currProtein = mathHelper.subtractDecimal(currProtein, cost);
-            }
-            else {
-                timeToPurchase = mathHelper.divideDecimal(timeToPurchase, protRate);
-                currProtein = mathHelper.createDecimal(0);
-            }
-            if (cumulativeTime) {
-                let tempHolder = mathHelper.addDecimal(0, timeToPurchase);
-                timeToPurchase = mathHelper.addDecimal(timeToPurchase, runningTime);
-                runningTime = mathHelper.addDecimal(runningTime, tempHolder);
-            }
-
-            bestAssemblies.push(
-                {
-                    assembly: JSON.parse(JSON.stringify(assembliesMap[0])),
-                    data: JSON.parse(JSON.stringify(tempData)),
-                    purchaseTime: timeToPurchase,
-                    cost: cost
+                if (cumulativeTime) {
+                    let tempHolder = mathHelper.addDecimal(0, timeToPurchase);
+                    timeToPurchase = mathHelper.addDecimal(timeToPurchase, runningTime);
+                    runningTime = mathHelper.addDecimal(runningTime, tempHolder);
                 }
-            );
-            tempData.AssemblerCollection[assembliesMap[0].ID].Level++;
-            totalLevels++;
-            currentBonusTotals = {};
-            for (let c = 0; c < tempData.AssemblerCollection.length; c++) {
-                let inner_val = tempData.AssemblerCollection[c];
-                for (let v = 0; v < inner_val.BonusList.length; v++) {
-                    let inner_bonus = inner_val.BonusList[v];
-                    if (!currentBonusTotals[inner_bonus.ID]) {
-                        currentBonusTotals[inner_bonus.ID] = 1;
+
+                bestAssemblies.push(
+                    {
+                        assembly: JSON.parse(JSON.stringify(assembliesMap[0])),
+                        data: JSON.parse(JSON.stringify(tempData)),
+                        purchaseTime: timeToPurchase,
+                        cost: cost
                     }
-                    currentBonusTotals[inner_bonus.ID] *= farmingHelper.calcAssemblyLine(inner_bonus, inner_val.Level);
+                );
+                tempData.AssemblerCollection[assembliesMap[0].ID].Level++;
+                totalLevels++;
+                currentBonusTotals = {};
+                for (let c = 0; c < tempData.AssemblerCollection.length; c++) {
+                    let inner_val = tempData.AssemblerCollection[c];
+                    for (let v = 0; v < inner_val.BonusList.length; v++) {
+                        let inner_bonus = inner_val.BonusList[v];
+                        if (!currentBonusTotals[inner_bonus.ID]) {
+                            currentBonusTotals[inner_bonus.ID] = 1;
+                        }
+                        currentBonusTotals[inner_bonus.ID] *= farmingHelper.calcAssemblyLine(inner_bonus, inner_val.Level);
+                    }
                 }
             }
         }
+
+        let bestAssemblyFinal = [];
+        bestAssemblies.forEach((inner_val) => {
+
+            if (bestAssemblies.length === 0) return;
+            if (bestAssemblyFinal.length === 0) {
+
+
+                return bestAssemblyFinal.push(inner_val);
+            }
+
+            let current = bestAssemblyFinal[bestAssemblyFinal.length - 1];
+
+            if (current.assembly.ID !== inner_val.assembly.ID) {
+                bestAssemblyFinal.push(inner_val);
+            }
+            else {
+                //create a desired level of + 1
+                if (!current.desiredLevel) {
+                    current.desiredLevel = current.assembly.Level + 2;
+                }
+                else {
+                    current.desiredLevel += 1;
+                }
+                let tempCost = mathHelper.createDecimalString(current.cost);
+                let futureCost = mathHelper.createDecimalString(inner_val.cost);
+                let newCost = mathHelper.addDecimal(tempCost, futureCost);
+                current.cost = newCost;
+
+                if (cumulativeTime) {
+                    current.purchaseTime = inner_val.purchaseTime;
+                }
+                else {
+                    current.purchaseTime = mathHelper.addDecimal(current.purchaseTime, inner_val.purchaseTime);
+                }
+            }
+        });
+
+        bestAssemblies = bestAssemblyFinal;
+        //calculate cumulative view for instant buy purchases
+        let purchasableAssemblies = bestAssemblies.filter((e) => e.purchaseTime == 0);
+        for (let i = 0; i < purchasableAssemblies.length; i++) {
+            let matching = cumulativePurchasableAssemblies.find((e) => e.id == purchasableAssemblies[i].assembly.ID);
+            if (matching == undefined) {
+                matching = {
+                    id: purchasableAssemblies[i].assembly.ID,
+                    currentLevel: purchasableAssemblies[i].assembly.Level,
+                    data: purchasableAssemblies[i].data,
+                    count: 0,
+                    totalCost: 0
+                };
+                cumulativePurchasableAssemblies.push(matching);
+            }
+            matching.totalCost = mathHelper.addDecimal(matching.totalCost, purchasableAssemblies[i].cost);
+            if (!purchasableAssemblies[i].desiredLevel) {
+                matching.count++;
+            } else {
+                matching.count += purchasableAssemblies[i].desiredLevel - purchasableAssemblies[i].assembly.Level;
+            }
+        }
+        cumulativePurchasableAssemblies.sort((a,b) => a.id - b.id);
+
+        futureAssemblies = bestAssemblies.filter((e) => e.purchaseTime > 0);
     }
-
-    let bestAssemblyFinal = [];
-    bestAssemblies.forEach((inner_val) => {
-
-        if (bestAssemblies.length === 0) return;
-        if (bestAssemblyFinal.length === 0) {
-
-
-            return bestAssemblyFinal.push(inner_val);
-        }
-
-        let current = bestAssemblyFinal[bestAssemblyFinal.length - 1];
-
-        if (current.assembly.ID !== inner_val.assembly.ID) {
-            bestAssemblyFinal.push(inner_val);
-        }
-        else {
-            //create a desired level of + 1
-            if (!current.desiredLevel) {
-                current.desiredLevel = current.assembly.Level + 2;
-            }
-            else {
-                current.desiredLevel += 1;
-            }
-            let tempCost = mathHelper.createDecimalString(current.cost);
-            let futureCost = mathHelper.createDecimalString(inner_val.cost);
-            let newCost = mathHelper.addDecimal(tempCost, futureCost);
-            current.cost = newCost;
-
-            if (cumulativeTime) {
-                current.purchaseTime = inner_val.purchaseTime;
-            }
-            else {
-                current.purchaseTime = mathHelper.addDecimal(current.purchaseTime, inner_val.purchaseTime);
-            }
-        }
-    });
-
-    bestAssemblies = bestAssemblyFinal;
-    //calculate cumulative view for instant buy purchases
-    let purchasableAssemblies = bestAssemblies.filter((e) => e.purchaseTime == 0);
-    for (let i = 0; i < purchasableAssemblies.length; i++) {
-        let matching = cumulativePurchasableAssemblies.find((e) => e.id == purchasableAssemblies[i].assembly.ID);
-        if (matching == undefined) {
-            matching = {
-                id: purchasableAssemblies[i].assembly.ID,
-                currentLevel: purchasableAssemblies[i].assembly.Level,
-                data: purchasableAssemblies[i].data,
-                count: 0,
-                totalCost: 0
-            };
-            cumulativePurchasableAssemblies.push(matching);
-        }
-        matching.totalCost = mathHelper.addDecimal(matching.totalCost, purchasableAssemblies[i].cost);
-        if (!purchasableAssemblies[i].desiredLevel) {
-            matching.count++;
-        } else {
-            matching.count += purchasableAssemblies[i].desiredLevel - purchasableAssemblies[i].assembly.Level;
-        }
-    }
-    cumulativePurchasableAssemblies.sort((a,b) => a.id - b.id);
-
-    futureAssemblies = bestAssemblies.filter((e) => e.purchaseTime > 0);
-
     return (
         <div
             style={{
