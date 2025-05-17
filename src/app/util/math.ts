@@ -69,6 +69,28 @@ const helper = {
     },
     oniTimeToDate: function (oni_time: number): Date {
         return new Date(this.oniTimeToEpoch(oni_time));
+    },
+    ceil: function(input: DecimalSource): Decimal {
+        let inputDecimal = this.ensureDecimal(input);
+        inputDecimal = inputDecimal.ceil();
+        return inputDecimal;
+    },
+    floor: function(input: DecimalSource): Decimal {
+        let inputDecimal = this.ensureDecimal(input);
+        inputDecimal = inputDecimal.floor();
+        return inputDecimal;
+    },
+    greaterThan: function(a: DecimalSource, b: DecimalSource):boolean {
+        return this.subtractDecimal(a, b) > 0;
+    },
+    greaterThanOrEqual: function(a: DecimalSource, b: DecimalSource):boolean {
+        return this.subtractDecimal(a, b) >= 0;
+    },
+    lesserThan: function(a: DecimalSource, b: DecimalSource):boolean {
+        return this.subtractDecimal(a, b) < 0;
+    },
+    lesserThanOrEqual: function(a: DecimalSource, b: DecimalSource):boolean {
+        return this.subtractDecimal(a, b) <= 0;
     }
 };
 e308 = helper.createDecimal('1e308');

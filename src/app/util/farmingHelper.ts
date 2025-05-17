@@ -129,46 +129,19 @@ const farmingHelper = {
         }
         return step6;
     },
-    calcCarryOverEXP_OLD: function ({ plant, numAutos, expTick }) {
-
-        let leftOver = 0;
-        let numLevels = 1;
-        if (numAutos > 1) {
-            let individualEXP = expTick / numAutos;
-            let ticksNeededEXP = Math.ceil((plant.reqExp - plant.curExp) / individualEXP);
-            if (numAutos > ticksNeededEXP) {
-                leftOver = (numAutos - ticksNeededEXP) * individualEXP;
-                let futureReq = 10 + 5 * (plant.Rank + numLevels) * Math.pow(1.05, (plant.Rank + numLevels));
-                while (leftOver > futureReq) {
-                    leftOver -= futureReq;
-                    numLevels++;
-                    futureReq = 10 + 5 * (plant.Rank + numLevels) * Math.pow(1.05, (plant.Rank + numLevels));
-                }
-            } else {
-                leftOver = 0;
-            }
-        } else {
-
-            leftOver = 0;
-        }
-
-        let reqExp = 10 + 5 * (plant.Rank + numLevels) * Math.pow(1.05, plant.Rank + numLevels);
-        return { leftOver, numLevels, reqExp };
-    },
     calcCarryOverEXP: function ({ plant, numAutos, expTick }) {
-
-        let leftOver = 0;
+        let leftOver = mathHelper.ensureDecimal(0);
         let numLevels = 0;
-        let numEXP = plant.curExp + numAutos * expTick;
-        let reqExp = 10 + 5 * (plant.Rank + numLevels) * Math.pow(1.05, plant.Rank + numLevels);
+        let numEXP = mathHelper.addDecimal(plant.curExp, mathHelper.multiplyDecimal(numAutos, expTick));
+        let reqExp = mathHelper.addDecimal(10, mathHelper.multiplyDecimal(mathHelper.multiplyDecimal(5, plant.Rank + numLevels), mathHelper.pow(1.05, plant.Rank + numLevels)))
 
         //need to handle two cases: 1 auto, just go up as much as you can
         // >1 autos
 
-        while (numEXP >= reqExp) {
-            numEXP -= reqExp;
+        while (mathHelper.greaterThanOrEqual(numEXP,reqExp)) {
+            numEXP = mathHelper.subtractDecimal(numEXP, reqExp);
             numLevels++;
-            reqExp = 10 + 5 * (plant.Rank + numLevels) * Math.pow(1.05, plant.Rank + numLevels);
+            reqExp = mathHelper.addDecimal(10, mathHelper.multiplyDecimal(mathHelper.multiplyDecimal(5, plant.Rank + numLevels), mathHelper.pow(1.05, plant.Rank + numLevels)))
         }
 
         leftOver = numEXP;
@@ -187,7 +160,7 @@ const farmingHelper = {
 
         expBonus = mathHelper.multiplyDecimal(expBonus, 1 + modifiers.shopRankLevel * 0.1);
         expBonus = mathHelper.multiplyDecimal(expBonus, modifiers.potionRank);
-        expBonus = expBonus.toNumber();
+        // expBonus = expBonus.toNumber();
 
         return expBonus;
     },
@@ -212,7 +185,7 @@ const farmingHelper = {
 
         let remainingTime = modifiers.time;
         let newExpBonus = this.calcEXPBonus(modifiers);
-        let expTick = plant.prestigeBonus * newExpBonus;
+        let expTick = mathHelper.multiplyDecimal(plant.prestigeBonus, newExpBonus);
         let elapsedTime = 0;
         let numHarvests = 0;
         while (remainingTime > 0) {
@@ -241,18 +214,15 @@ const farmingHelper = {
                 plant.totalMade = mathHelper.addDecimal(plant.totalMade, toCreate);
 
                 plant.futureMult = this.futureMultBD(plant, modifiers);
-
                 if (rankIncrease) {
 
-                    let leftOver = this.calcCarryOverEXP({ plant, expTick: expTick * numHarvests, numAutos });
-                    // let leftOver = this.calcCarryOverEXP({ plant, expTick: expTick , numAutos });
+                    let leftOver = this.calcCarryOverEXP({ plant, expTick: mathHelper.multiplyDecimal(expTick, numHarvests), numAutos });
                     plant.curExp = leftOver.leftOver;
                     plant.Rank += leftOver.numLevels;
                     plant.perHarvest = this.calcPlantHarvest(plant, modifiers);
-                    // plant.reqExp = 10 + 5 * plant.Rank * Math.pow(1.05, plant.Rank);
                     plant.reqExp = leftOver.reqExp;
                 } else {
-                    plant.curExp = plant.curExp + numHarvests * expTick * numAutos;
+                    plant.curExp = mathHelper.addDecimal(plant.curExp, mathHelper.multiplyDecimal(mathHelper.multiplyDecimal(numHarvests, expTick), numAutos));
                 }
                 plant.elapsedTime = plant.elapsedTime % plant.growthTime;
             }
@@ -262,17 +232,20 @@ const farmingHelper = {
         return plant;
     },
     calcTimeTillLevel: function (plant, modifiers) {
-        // let plant = plant_input;
-        // let modifiers = modifiers_input;
         let numAutos = modifiers.numAuto || modifiers?.numAuto === 0 ? modifiers.numAuto : 1;
         if (numAutos === 0) return Infinity;
 
-        // let remExp = plant.reqExp - plant.curExp;
-        // let newExpBonus = this.calcEXPBonus(modifiers);
-        // let expBonus = plant.prestigeBonus * this.calcEXPBonus(modifiers) * numAutos;
-
-        // let ticksTillLevel = Math.ceil((remExp) / expBonus);
-        return Math.ceil((plant.reqExp - plant.curExp) / (plant.prestigeBonus * this.calcEXPBonus(modifiers) * numAutos)) * plant.growthTime - plant.elapsedTime;
+        let result = mathHelper.subtractDecimal(
+            mathHelper.multiplyDecimal(
+                mathHelper.ceil(mathHelper.divideDecimal(
+                    mathHelper.subtractDecimal(plant.reqExp, plant.curExp),
+                    mathHelper.multiplyDecimal(mathHelper.multiplyDecimal(plant.prestigeBonus, this.calcEXPBonus(modifiers)), numAutos)
+                )),
+                plant.growthTime
+            ),
+            plant.elapsedTime
+        );
+        return result.toNumber();
     },
     getNextShopCosts: function (data) {
 
@@ -338,7 +311,7 @@ const farmingHelper = {
         let totalTime = 0;
         let runningHarvests = 0;
         let newExpBonus = this.calcEXPBonus(modifiers);
-        let expTick = plant.prestigeBonus * newExpBonus;
+        let expTick = mathHelper.multiplyDecimal(plant.prestigeBonus, newExpBonus);
 
 
         let timeToLevel = this.calcTimeTillLevel(plant, modifiers);
@@ -391,7 +364,7 @@ const farmingHelper = {
                 plant.created = mathHelper.addDecimal(plant.created, harvested);
                 plant.totalMade = mathHelper.addDecimal(plant.totalMade, harvested);
 
-                let rankRes = this.calcCarryOverEXP({ plant, numAutos, expTick: expTick * ticks });
+                let rankRes = this.calcCarryOverEXP({ plant, numAutos, expTick: mathHelper.multiplyDecimal(expTick, ticks) });
                 plant.Rank += rankRes.numLevels;
                 plant.curExp = rankRes.leftOver;
                 plant.reqExp = rankRes.reqExp;
@@ -413,12 +386,13 @@ const farmingHelper = {
         return { remainingTime: totalTime, prestige: plant.prestige, prestiged: prestiged };
     },
     resetPlantBD: function (plant) {
-
         plant.totalMade = plant?.totalMade?.mantissa || plant?.totalMade?.mantissa === 0 ? plant.totalMade : mathHelper.createDecimal(plant.totalMade);
         plant.created = plant?.created?.mantissa || plant?.created?.mantissa === 0 ? plant.created : mathHelper.createDecimal(plant.created);
         plant.production = plant?.production?.mantissa || plant?.production?.mantissa === 0 ? plant.production : mathHelper.createDecimal(plant.production);
         plant.futureMult = mathHelper.createDecimal(plant.futureMult);
         plant.perHarvest = mathHelper.createDecimal(plant.perHarvest);
+        plant.curExp = mathHelper.createDecimal(plant.curExp);
+        plant.reqExp = mathHelper.createDecimal(plant.reqExp);
 
     },
     resetModifiersBD: function (modifiers) {
