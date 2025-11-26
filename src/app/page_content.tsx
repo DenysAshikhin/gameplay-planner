@@ -18,6 +18,9 @@ import ReactGA from "react-ga4";
 //import { GoogleAdSense } from "next-google-adsense";
 ReactGA.initialize([{ trackingId: "G-GGLPK02VH8" }]);
 
+/**
+ * Home function description.
+ */
 export default function Home() {
 
   const [userData, setUserData] = useLocalStorage('userData', DefaultSave);

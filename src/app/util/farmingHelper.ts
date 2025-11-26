@@ -7,6 +7,9 @@ const farmingHelper = {
     findMultipliersWithMinPercentage: function (sum, numbers, minPercentage) {
         const multipliers = [];
 
+        /**
+         * backtrack function description.
+         */
         function backtrack(index, currentSum, currentMultipliers) {
 
             if (index === numbers.length) {

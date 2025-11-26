@@ -25,9 +25,15 @@ ReactGA.initialize([{
     //     send_page_view: false
     // },
 }]);
+/**
+ * generateCombinations function description.
+ */
 function generateCombinations(objects, people) {
     const result = [];
 
+    /**
+     * backtrack function description.
+     */
     function backtrack(index, remainingObjects, currentCombination) {
         if (index === people) {
             if (remainingObjects === 0) {
@@ -47,6 +53,9 @@ function generateCombinations(objects, people) {
     return result;
 }
 
+/**
+ * splitArrayIndices function description.
+ */
 function splitArrayIndices(arr, x) {
     if (x <= 0) {
         return "Invalid value for x";

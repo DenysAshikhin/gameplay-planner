@@ -4,6 +4,9 @@ import Header from './util/header';
 import NavBar from './util/navBar';
 import Clarity from './Clarity';
 
+/**
+ * generateMetadata function description.
+ */
 export async function generateMetadata({ params, searchParams }, parent) {
 
   return {
@@ -63,6 +66,9 @@ export default function RootLayout({ children }) {
           <Script id="google-analytics">
             {`
           window.dataLayer = window.dataLayer || [];
+          /**
+           * gtag function description.
+           */
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
  

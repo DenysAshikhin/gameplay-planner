@@ -1,5 +1,8 @@
 "use client"
 
+/**
+ * HeaderRedirect function description.
+ */
 export default function HeaderRedirect () {
     return <div
         className="hover"

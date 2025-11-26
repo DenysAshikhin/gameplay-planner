@@ -269,6 +269,9 @@ const CardCard = ({
 
 
 
+/**
+ * CardFocus function description.
+ */
 export default function CardFocus({
     outerCurrentZones,
     outerUnlockedIDs,

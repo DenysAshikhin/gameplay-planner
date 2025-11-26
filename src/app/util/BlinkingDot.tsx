@@ -3,6 +3,9 @@
 import { useRef } from 'react';
 import BlinkingDot from './Dot';
 
+/**
+ * BlinkDot function description.
+ */
 export default function BlinkDot({ data }) {
     let ref = useRef(null);
 

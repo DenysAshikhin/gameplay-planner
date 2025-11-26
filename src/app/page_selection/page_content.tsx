@@ -17,6 +17,9 @@ ReactGA.initialize([{
     // },
 }]);
 
+/**
+ * PageSelection function description.
+ */
 export default function PageSelection() {
     const [mobileMode, setMobileMode] = useState(false);
     useEffect(() => {

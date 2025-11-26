@@ -11,6 +11,9 @@ interface ContagionRowProps {
     excess_gh: number,
 }
 
+/**
+ * contagionRow function description.
+ */
 export default function contagionRow({
                                          data,
                                          contagion,

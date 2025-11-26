@@ -38,6 +38,9 @@ ReactGA.initialize([{
 
 const bonusCutOff = 1000;
 
+/**
+ * PetComboDisplay function description.
+ */
 function PetComboDisplay({ petCombos, unlockedPets, petMap }) {
 
     if (!BonusMap[petCombos[0].BonusID]) return <></>
@@ -251,6 +254,9 @@ function PetComboDisplay({ petCombos, unlockedPets, petMap }) {
 
 
 
+/**
+ * Pets function description.
+ */
 export default function Pets() {
 
     const [mobileMode, setMobileMode] = useState(false);

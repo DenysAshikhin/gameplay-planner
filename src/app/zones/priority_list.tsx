@@ -7,6 +7,9 @@ import CrossIcon from '@images/icons/x_icon.svg';
 import DragIcon from '@images/icons/drag_icon.svg';
 import RefreshIcon from '@images/icons/refresh_lightgray.svg';
 
+/**
+ * Priority_List function description.
+ */
 export default function Priority_List({
     priorityList,
     setPriorityList,

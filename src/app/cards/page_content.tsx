@@ -655,6 +655,9 @@ const CardCard = ({
 
 
 
+/**
+ * CalcReinc function description.
+ */
 const CalcReinc = function (data, reincCardCharges?: any) {
 
     data = JSON.parse(JSON.stringify(data));
@@ -818,6 +821,9 @@ const CalcReinc = function (data, reincCardCharges?: any) {
     }
 }
 
+/**
+ * Cards function description.
+ */
 export default function Cards() {
 
     const [mobileMode, setMobileMode] = useState(false);

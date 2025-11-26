@@ -42,6 +42,9 @@ ReactGA.initialize([{
     // },
 }]);
 let groupCache = {};
+/**
+ * setGroupCache function description.
+ */
 function setGroupCache(newCache) {
     groupCache = newCache;
 }
@@ -51,6 +54,9 @@ const PLACEMENT_AUTO = 'auto';
 
 const defaultPetSelection = petNameArray.map(petData => petData.petId);
 
+/**
+ * ScoreSection function description.
+ */
 function ScoreSection({ data, group, totalScore, defaultRank }) {
     const { baseGroupScore, groupScoreMax, dmgCount, timeCount, synergyBonus, groupScore, groupRankScore } = petHelper.calculateGroupScore(group, defaultRank);
     const score = groupRankScore;
@@ -91,6 +97,9 @@ function ScoreSection({ data, group, totalScore, defaultRank }) {
 import Head from 'next/head';
 
 
+/**
+ * Expeditions function description.
+ */
 export default function Expeditions() {
 
 

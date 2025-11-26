@@ -16,6 +16,9 @@ type MouseOverPopoverProps = {
   forceYPlacement?: 'top' | 'bottom' | 'center', // Use appropriate types
 };
 
+/**
+ * MouseOverPopover function description.
+ */
 function MouseOverPopover({
   tooltip,
   children,

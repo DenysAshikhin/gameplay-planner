@@ -16,6 +16,9 @@ import { zone_priority, zone_ratios, zone_data, calc_max_hp, calc_total_hp } fro
 import { petNames, BonusMap } from '../util/itemMapping';
 import {DecimalSource} from "break_infinity.js";
 
+/**
+ * Zones function description.
+ */
 export default function Zones({
     zoneToClear,
     setZoneToClear,

@@ -1428,6 +1428,9 @@ for(let asc = 0; asc <= maxKey; asc++) {
 }
 
 
+/**
+ * powerFormula function description.
+ */
 export function powerFormula(Pow, logBase, customConstant, params?) {
 
     params = params ? params : {};

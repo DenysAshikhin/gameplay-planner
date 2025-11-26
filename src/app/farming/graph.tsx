@@ -20,6 +20,9 @@ import {
 } from "recharts";
 
 
+/**
+ * Graph function description.
+ */
 function Graph({
   graphObjects,
   runningGraphObjects,

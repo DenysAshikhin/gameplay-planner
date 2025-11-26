@@ -21,6 +21,9 @@ import { zone_priority, zone_ratios, zone_data, calc_max_hp, calc_total_hp } fro
 import { petNames, BonusMap } from '../util/itemMapping';
 
 
+/**
+ * TimeToClear function description.
+ */
 const TimeToClear = function ({
     zoneToClear,
     setSelectedZone,
@@ -258,6 +261,9 @@ const TimeToClear = function ({
 }
 
 
+/**
+ * Zones function description.
+ */
 export default function Zones() {
 
     const [mobileMode, setMobileMode] = useState(false);

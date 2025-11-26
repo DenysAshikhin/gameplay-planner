@@ -2,6 +2,9 @@ import Zones from './page_content';
 
 import Ad_Comp from '../util/ads_component';
 
+/**
+ * generateMetadata function description.
+ */
 export async function generateMetadata({ params, searchParams }, parent) {
   return {
     title: 'Zones Expeditions - Gameplay Planner',
@@ -12,6 +15,9 @@ export const viewport = {
   width: 'device-width',
   initialScale: 1
 }
+/**
+ * Page function description.
+ */
 export default function Page() {
 
   return (

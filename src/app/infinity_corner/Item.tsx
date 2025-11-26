@@ -11,6 +11,9 @@ import greenWreathIcon from '@images/infinity_corner/QoLSelected.png';
 import greenWreathIconNoHaze from '@images/infinity_corner/QoLSelected_nohaze.png';
 import yellowWreathIconNoHaze from '@images/infinity_corner/Era6Selected.png';
 
+/**
+ * Item function description.
+ */
 export default function Item({
     map_key,
     data,

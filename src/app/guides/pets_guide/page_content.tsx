@@ -16,6 +16,9 @@ import Image from 'next/image';
 
 const baseLink = 'https://www.gameplayplanner.com/guides/pets_guide?section=';
 
+/**
+ * Guides function description.
+ */
 export default function Guides() {
 
     const containerRef = useRef(null);

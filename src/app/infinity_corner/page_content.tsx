@@ -21,6 +21,9 @@ import panel_background from '@images/infinity_corner/panel_background.png';
 import star_normal from '@images/infinity_corner/LastEraTopBackground.png';
 import { DecimalSource } from 'break_infinity.js';
 
+/**
+ * Infinity_Corner function description.
+ */
 export default function Infinity_Corner() {
     useEffect(() => {
         let shift_ads = async () => {

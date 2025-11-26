@@ -31,6 +31,9 @@ ReactGA.initialize([{
 
 
 
+/**
+ * Protein function description.
+ */
 export default function Protein() {
 
     useEffect(() => {

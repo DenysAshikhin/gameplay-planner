@@ -1,6 +1,9 @@
 import Ad_Comp from '../util/ads_component';
 import Contagion from './page_content';
 
+/**
+ * generateMetadata function description.
+ */
 export async function generateMetadata() {
     return {
         title: 'Contagion - Gameplay Planner',
@@ -13,6 +16,9 @@ export const viewport = {
     initialScale: 1,
 };
 
+/**
+ * Page function description.
+ */
 export default function Page() {
     return (
         <>

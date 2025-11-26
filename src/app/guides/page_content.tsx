@@ -12,6 +12,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import PageCard from './page_card';
 
+/**
+ * Guides function description.
+ */
 export default function Guides() {
 
     const [mobileMode, setMobileMode] = useState(false);

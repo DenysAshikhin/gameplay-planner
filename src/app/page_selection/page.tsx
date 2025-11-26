@@ -1,6 +1,9 @@
 import Cards from './page_content';
 
 import Ad_Comp from '../util/ads_component';
+/**
+ * generateMetadata function description.
+ */
 export async function generateMetadata({ params, searchParams }, parent) {
 
   return {
@@ -9,6 +12,9 @@ export async function generateMetadata({ params, searchParams }, parent) {
   }
 }
 
+/**
+ * Page function description.
+ */
 export default function Page() {
 
   return (

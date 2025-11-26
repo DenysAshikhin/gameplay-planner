@@ -41,6 +41,9 @@ interface ContagionLineProps {
     extra_gh: number,
 }
 
+/**
+ * ContagionLine function description.
+ */
 export default function ContagionLine({ data, contagion, setContagionWeights, gh_amount, extra_gh }: ContagionLineProps) {
     const [clientContagionWeight, setContagionWeight] = useLocalStorage(`contagion_${contagion.ID}_weight`, -1);
     const [ContagionWeight, setRunTimeContagionWeight] = useState(-1);

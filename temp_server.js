@@ -6,6 +6,9 @@ Object.defineProperty(exports, "__esModule", {
     getRequestHandlers: null,
     startServer: null
 });
+/**
+ * _export function description.
+ */
 function _export(target, all) {
     for (var name in all) Object.defineProperty(target, name, {
         enumerable: true,
@@ -37,11 +40,17 @@ const _constants = require("../../shared/lib/constants");
 const _appinfolog = require("./app-info-log");
 const _turbopackwarning = require("../../lib/turbopack-warning");
 const _ispostpone = require("./router-utils/is-postpone");
+/**
+ * _interop_require_default function description.
+ */
 function _interop_require_default(obj) {
     return obj && obj.__esModule ? obj : {
         default: obj
     };
 }
+/**
+ * _getRequireWildcardCache function description.
+ */
 function _getRequireWildcardCache(nodeInterop) {
     if (typeof WeakMap !== "function") return null;
     var cacheBabelInterop = new WeakMap();
@@ -50,6 +59,9 @@ function _getRequireWildcardCache(nodeInterop) {
         return nodeInterop ? cacheNodeInterop : cacheBabelInterop;
     })(nodeInterop);
 }
+/**
+ * _interop_require_wildcard function description.
+ */
 function _interop_require_wildcard(obj, nodeInterop) {
     if (!nodeInterop && obj && obj.__esModule) {
         return obj;
@@ -85,6 +97,9 @@ if (performance.getEntriesByName("next-start").length === 0) {
     performance.mark("next-start");
 }
 const debug = (0, _debug.default)("next:start-server");
+/**
+ * getRequestHandlers function description.
+ */
 async function getRequestHandlers({ dir, port, isDev, server, hostname, minimalMode, isNodeDebugging, keepAliveTimeout, experimentalTestProxy, experimentalHttpsServer }) {
     return (0, _routerserver.initialize)({
         dir,
@@ -99,6 +114,9 @@ async function getRequestHandlers({ dir, port, isDev, server, hostname, minimalM
         experimentalHttpsServer
     });
 }
+/**
+ * startServer function description.
+ */
 async function startServer(serverOptions) {
     const { dir, isDev, hostname, minimalMode, allowRetry, keepAliveTimeout, isExperimentalTestProxy, selfSignedCertificate } = serverOptions;
     let { port } = serverOptions;
@@ -281,6 +299,9 @@ async function startServer(serverOptions) {
         server.listen(port, hostname);
     });
     if (isDev) {
+        /**
+         * watchConfigFiles function description.
+         */
         function watchConfigFiles(dirToWatch, onChange) {
             const wp = new _watchpack.default();
             wp.watch({

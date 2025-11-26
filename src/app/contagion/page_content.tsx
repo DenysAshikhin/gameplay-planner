@@ -21,6 +21,9 @@ ReactGA.initialize([{
     trackingId: 'G-GGLPK02VH8',
 }]);
 
+/**
+ * Contagion function description.
+ */
 export default function Contagion() {
     useMobileViewport();
 

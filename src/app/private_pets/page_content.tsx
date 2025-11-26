@@ -15,6 +15,9 @@ ReactGA.initialize([{
     // },
 }]);
 
+/**
+ * convertAreaToText function description.
+ */
 const convertAreaToText = function (area_num) {
     area_num -= 19;
     const world = Math.floor(area_num / 9) + 2;
@@ -22,6 +25,9 @@ const convertAreaToText = function (area_num) {
     return `${world}-${zone}`;
 }
 
+/**
+ * PageSelection function description.
+ */
 export default function PageSelection() {
     const [clientData, setData] = useLocalStorage('userData', DefaultSave);
     const [data, setRunTimeData] = useState(DefaultSave);

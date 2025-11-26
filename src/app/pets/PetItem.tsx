@@ -31,6 +31,9 @@ type PetItemOptions = {
     circleBorder?: boolean,
 }
 
+/**
+ * PetItem function description.
+ */
 export function PetItem({ petData, isSelected, onClick, data, weightMap, petScoreFn, defaultRank, borderActive, enabledBonusHighlight, fullPetData, showNameOnly, grayBackground, circleBorder }: PetItemOptions) {
     if (!!data === false) return <div></div>;
     const { petId, location, img, name } = petData;
@@ -247,6 +250,9 @@ export function PetItem({ petData, isSelected, onClick, data, weightMap, petScor
     );
 };
 
+/**
+ * PetItemExpeditions function description.
+ */
 export function PetItemExpeditions({ petData, isSelected, onClick, data, weightMap, petScoreFn, defaultRank, borderActive, enabledBonusHighlight, fullPetData, showNameOnly, grayBackground, circleBorder }) {
     if (!!data === false) return <div></div>;
     const { petId, location, img, name } = petData;
@@ -473,6 +479,9 @@ type StaticPetItemOptions = {
     groupsSaveFile?: {},
 }
 
+/**
+ * StaticPetItem function description.
+ */
 export function StaticPetItem({ petData, highlight, showNameOnly, statMode, groupsCacheRunTime = {}, suggestedPet, groupsSaveFile = {} }: StaticPetItemOptions) {
     const { petId, location, img, name, pet } = petData;
 

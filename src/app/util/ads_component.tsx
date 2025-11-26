@@ -1,6 +1,9 @@
 "use client"
 
 import { isMobile } from 'mobile-device-detect';
+/**
+ * create_rightPillar_flex function description.
+ */
 const create_rightPillar_flex = function () {
     let holder_div = document.createElement('div');
     holder_div.style.zIndex = '99';
@@ -18,6 +21,9 @@ const create_rightPillar_flex = function () {
     holder_div.appendChild(fragment);
     return holder_div;
 }
+/**
+ * create_rightPillar_160 function description.
+ */
 const create_rightPillar_160 = function () {
     let holder_div = document.createElement('div');
     holder_div.style.zIndex = '99';
@@ -35,6 +41,9 @@ const create_rightPillar_160 = function () {
     holder_div.appendChild(fragment);
     return holder_div;
 }
+/**
+ * create_in_content_flex function description.
+ */
 const create_in_content_flex = function () {
     let holder_div = document.createElement('div');
     holder_div.style.zIndex = '99';
@@ -58,6 +67,9 @@ const create_in_content_flex = function () {
 
 import helper from '../util/helper';
 import { useRef, useState, useEffect } from 'react';
+/**
+ * Ad_Comp function description.
+ */
 export default function Ad_Comp() {
     const setup_started = useRef(false) // gets assigned to a root node
 

@@ -29,6 +29,9 @@ type PetItemOptions = {
     circleBorder?: boolean,
 }
 
+/**
+ * PetItem function description.
+ */
 export default function PetItem({ petData, isSelected, onClick, data, weightMap, petScoreFn, defaultRank, borderActive, enabledBonusHighlight, fullPetData, showNameOnly, grayBackground, circleBorder }: PetItemOptions) {
     if (!!data === false) return <div></div>;
     const { petId, location, img, name } = petData;

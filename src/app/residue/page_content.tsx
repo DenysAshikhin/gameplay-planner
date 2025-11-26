@@ -275,6 +275,9 @@ const ResideOrderCard = ({ data }) => {
 }
 
 
+/**
+ * Residue function description.
+ */
 export default function Residue() {
     useEffect(() => {
         let shift_ads = async () => {
