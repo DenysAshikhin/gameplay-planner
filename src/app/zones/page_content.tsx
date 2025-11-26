@@ -22,7 +22,9 @@ import { petNames, BonusMap } from '../util/itemMapping';
 
 
 /**
- * TimeToClear function description.
+ * TimeToClear provides the core implementation for the TimeToClear routine used in this module.
+ *
+ * @returns {*} Computed value or rendered markup produced by TimeToClear.
  */
 const TimeToClear = function ({
     zoneToClear,
@@ -262,7 +264,9 @@ const TimeToClear = function ({
 
 
 /**
- * Zones function description.
+ * Zones provides the core implementation for the Zones routine used in this module.
+ *
+ * @returns {*} Computed value or rendered markup produced by Zones.
  */
 export default function Zones() {
 

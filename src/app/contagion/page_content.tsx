@@ -22,7 +22,9 @@ ReactGA.initialize([{
 }]);
 
 /**
- * Contagion function description.
+ * Contagion provides the core implementation for the Contagion routine used in this module.
+ *
+ * @returns {*} Computed value or rendered markup produced by Contagion.
  */
 export default function Contagion() {
     useMobileViewport();

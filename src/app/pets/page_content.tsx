@@ -39,7 +39,9 @@ ReactGA.initialize([{
 const bonusCutOff = 1000;
 
 /**
- * PetComboDisplay function description.
+ * PetComboDisplay provides the core implementation for the PetComboDisplay routine used in this module.
+ *
+ * @returns {*} Computed value or rendered markup produced by PetComboDisplay.
  */
 function PetComboDisplay({ petCombos, unlockedPets, petMap }) {
 
@@ -255,7 +257,9 @@ function PetComboDisplay({ petCombos, unlockedPets, petMap }) {
 
 
 /**
- * Pets function description.
+ * Pets provides the core implementation for the Pets routine used in this module.
+ *
+ * @returns {*} Computed value or rendered markup produced by Pets.
  */
 export default function Pets() {
 

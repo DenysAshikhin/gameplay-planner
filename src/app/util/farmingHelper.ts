@@ -8,7 +8,13 @@ const farmingHelper = {
         const multipliers = [];
 
         /**
-         * backtrack function description.
+         * Recursively assigns multiplier values while respecting the desired
+         * percentage threshold, collecting valid multiplier combinations that
+         * meet or exceed the configured minimum.
+         *
+         * @param {number} index - Current position within the numbers array.
+         * @param {number} currentSum - The running total for the current branch.
+         * @param {number[]} currentMultipliers - Candidate multipliers being evaluated.
          */
         function backtrack(index, currentSum, currentMultipliers) {
 

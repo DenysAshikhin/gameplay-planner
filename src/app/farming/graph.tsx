@@ -21,7 +21,9 @@ import {
 
 
 /**
- * Graph function description.
+ * Graph provides the core implementation for the Graph routine used in this module.
+ *
+ * @returns {*} Computed value or rendered markup produced by Graph.
  */
 function Graph({
   graphObjects,

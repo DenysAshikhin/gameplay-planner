@@ -276,7 +276,9 @@ const ResideOrderCard = ({ data }) => {
 
 
 /**
- * Residue function description.
+ * Residue provides the core implementation for the Residue routine used in this module.
+ *
+ * @returns {*} Computed value or rendered markup produced by Residue.
  */
 export default function Residue() {
     useEffect(() => {

@@ -17,7 +17,9 @@ import { petNames, BonusMap } from '../util/itemMapping';
 import {DecimalSource} from "break_infinity.js";
 
 /**
- * Zones function description.
+ * Zones provides the core implementation for the Zones routine used in this module.
+ *
+ * @returns {*} Computed value or rendered markup produced by Zones.
  */
 export default function Zones({
     zoneToClear,

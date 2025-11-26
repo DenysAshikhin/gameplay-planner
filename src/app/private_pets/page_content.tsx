@@ -16,7 +16,9 @@ ReactGA.initialize([{
 }]);
 
 /**
- * convertAreaToText function description.
+ * convertAreaToText provides the core implementation for the convertAreaToText routine used in this module.
+ *
+ * @returns {*} Computed value or rendered markup produced by convertAreaToText.
  */
 const convertAreaToText = function (area_num) {
     area_num -= 19;
@@ -26,7 +28,9 @@ const convertAreaToText = function (area_num) {
 }
 
 /**
- * PageSelection function description.
+ * PageSelection provides the core implementation for the PageSelection routine used in this module.
+ *
+ * @returns {*} Computed value or rendered markup produced by PageSelection.
  */
 export default function PageSelection() {
     const [clientData, setData] = useLocalStorage('userData', DefaultSave);

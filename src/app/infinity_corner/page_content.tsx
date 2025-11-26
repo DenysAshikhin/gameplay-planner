@@ -22,7 +22,9 @@ import star_normal from '@images/infinity_corner/LastEraTopBackground.png';
 import { DecimalSource } from 'break_infinity.js';
 
 /**
- * Infinity_Corner function description.
+ * Infinity_Corner provides the core implementation for the Infinity_Corner routine used in this module.
+ *
+ * @returns {*} Computed value or rendered markup produced by Infinity_Corner.
  */
 export default function Infinity_Corner() {
     useEffect(() => {

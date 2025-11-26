@@ -2,7 +2,9 @@
 import { NextResponse } from 'next/server';
 
 /**
- * middleware function description.
+ * middleware provides the core implementation for the middleware routine used in this module.
+ *
+ * @returns {*} Computed value or rendered markup produced by middleware.
  */
 export function middleware(request) {
   if (request.nextUrl.pathname === '/ads.txt') {

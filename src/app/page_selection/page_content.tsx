@@ -18,7 +18,9 @@ ReactGA.initialize([{
 }]);
 
 /**
- * PageSelection function description.
+ * PageSelection provides the core implementation for the PageSelection routine used in this module.
+ *
+ * @returns {*} Computed value or rendered markup produced by PageSelection.
  */
 export default function PageSelection() {
     const [mobileMode, setMobileMode] = useState(false);

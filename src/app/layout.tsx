@@ -5,7 +5,12 @@ import NavBar from './util/navBar';
 import Clarity from './Clarity';
 
 /**
- * generateMetadata function description.
+ * Generates static metadata for the current page route so Next.js can
+ * pre-render SEO friendly head tags.
+ *
+ * @param {{ params: Record<string, string>, searchParams: URLSearchParams }} context - Route parameters and search params provided by Next.js.
+ * @param {import('next').ResolvingMetadata} parent - Parent metadata chain to merge with.
+ * @returns {Promise<import('next').Metadata>} Fully resolved metadata for the page.
  */
 export async function generateMetadata({ params, searchParams }, parent) {
 

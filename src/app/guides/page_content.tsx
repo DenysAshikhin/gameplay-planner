@@ -13,7 +13,9 @@ import Link from 'next/link';
 import PageCard from './page_card';
 
 /**
- * Guides function description.
+ * Guides provides the core implementation for the Guides routine used in this module.
+ *
+ * @returns {*} Computed value or rendered markup produced by Guides.
  */
 export default function Guides() {
 

@@ -19,7 +19,9 @@ import ReactGA from "react-ga4";
 ReactGA.initialize([{ trackingId: "G-GGLPK02VH8" }]);
 
 /**
- * Home function description.
+ * Home provides the core implementation for the Home routine used in this module.
+ *
+ * @returns {*} Computed value or rendered markup produced by Home.
  */
 export default function Home() {
 

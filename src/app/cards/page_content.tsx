@@ -656,7 +656,9 @@ const CardCard = ({
 
 
 /**
- * CalcReinc function description.
+ * CalcReinc provides the core implementation for the CalcReinc routine used in this module.
+ *
+ * @returns {*} Computed value or rendered markup produced by CalcReinc.
  */
 const CalcReinc = function (data, reincCardCharges?: any) {
 
@@ -822,7 +824,9 @@ const CalcReinc = function (data, reincCardCharges?: any) {
 }
 
 /**
- * Cards function description.
+ * Cards provides the core implementation for the Cards routine used in this module.
+ *
+ * @returns {*} Computed value or rendered markup produced by Cards.
  */
 export default function Cards() {
 

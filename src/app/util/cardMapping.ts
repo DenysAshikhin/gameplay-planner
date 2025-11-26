@@ -1429,7 +1429,14 @@ for(let asc = 0; asc <= maxKey; asc++) {
 
 
 /**
- * powerFormula function description.
+ * Calculates the per-card power scaling value based on the current pow level,
+ * configurable logarithmic base, and optional parameters describing the card.
+ *
+ * @param {number} Pow - The current power level for the calculation.
+ * @param {number} logBase - The logarithmic base to use for scaling.
+ * @param {number} customConstant - Custom constant added to the calculation for tuning.
+ * @param {{ ID?: number, isPerm?: boolean }} [params] - Optional modifiers describing the card being calculated.
+ * @returns {number} The derived power value used to evaluate card strength.
  */
 export function powerFormula(Pow, logBase, customConstant, params?) {
 

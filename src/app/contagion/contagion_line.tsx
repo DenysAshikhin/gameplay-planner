@@ -42,7 +42,9 @@ interface ContagionLineProps {
 }
 
 /**
- * ContagionLine function description.
+ * ContagionLine provides the core implementation for the ContagionLine routine used in this module.
+ *
+ * @returns {*} Computed value or rendered markup produced by ContagionLine.
  */
 export default function ContagionLine({ data, contagion, setContagionWeights, gh_amount, extra_gh }: ContagionLineProps) {
     const [clientContagionWeight, setContagionWeight] = useLocalStorage(`contagion_${contagion.ID}_weight`, -1);

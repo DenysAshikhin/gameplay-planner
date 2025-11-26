@@ -270,7 +270,9 @@ const CardCard = ({
 
 
 /**
- * CardFocus function description.
+ * CardFocus provides the core implementation for the CardFocus routine used in this module.
+ *
+ * @returns {*} Computed value or rendered markup produced by CardFocus.
  */
 export default function CardFocus({
     outerCurrentZones,

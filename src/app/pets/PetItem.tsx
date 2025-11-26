@@ -32,7 +32,9 @@ type PetItemOptions = {
 }
 
 /**
- * PetItem function description.
+ * PetItem provides the core implementation for the PetItem routine used in this module.
+ *
+ * @returns {*} Computed value or rendered markup produced by PetItem.
  */
 export function PetItem({ petData, isSelected, onClick, data, weightMap, petScoreFn, defaultRank, borderActive, enabledBonusHighlight, fullPetData, showNameOnly, grayBackground, circleBorder }: PetItemOptions) {
     if (!!data === false) return <div></div>;
@@ -251,7 +253,9 @@ export function PetItem({ petData, isSelected, onClick, data, weightMap, petScor
 };
 
 /**
- * PetItemExpeditions function description.
+ * PetItemExpeditions provides the core implementation for the PetItemExpeditions routine used in this module.
+ *
+ * @returns {*} Computed value or rendered markup produced by PetItemExpeditions.
  */
 export function PetItemExpeditions({ petData, isSelected, onClick, data, weightMap, petScoreFn, defaultRank, borderActive, enabledBonusHighlight, fullPetData, showNameOnly, grayBackground, circleBorder }) {
     if (!!data === false) return <div></div>;
@@ -480,7 +484,9 @@ type StaticPetItemOptions = {
 }
 
 /**
- * StaticPetItem function description.
+ * StaticPetItem provides the core implementation for the StaticPetItem routine used in this module.
+ *
+ * @returns {*} Computed value or rendered markup produced by StaticPetItem.
  */
 export function StaticPetItem({ petData, highlight, showNameOnly, statMode, groupsCacheRunTime = {}, suggestedPet, groupsSaveFile = {} }: StaticPetItemOptions) {
     const { petId, location, img, name, pet } = petData;

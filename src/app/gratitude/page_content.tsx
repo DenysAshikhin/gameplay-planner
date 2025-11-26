@@ -17,7 +17,9 @@ import scroll_image from '@images/icons/paper_scroll.svg';
 import donation_cropped from '@images/icons/paper_scroll.svg';
 
 /**
- * Expeditions function description.
+ * Expeditions provides the core implementation for the Expeditions routine used in this module.
+ *
+ * @returns {*} Computed value or rendered markup produced by Expeditions.
  */
 export default function Expeditions() {
 

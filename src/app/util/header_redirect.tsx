@@ -1,7 +1,9 @@
 "use client"
 
 /**
- * HeaderRedirect function description.
+ * HeaderRedirect provides the core implementation for the HeaderRedirect routine used in this module.
+ *
+ * @returns {*} Computed value or rendered markup produced by HeaderRedirect.
  */
 export default function HeaderRedirect () {
     return <div

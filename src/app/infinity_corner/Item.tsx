@@ -12,7 +12,9 @@ import greenWreathIconNoHaze from '@images/infinity_corner/QoLSelected_nohaze.pn
 import yellowWreathIconNoHaze from '@images/infinity_corner/Era6Selected.png';
 
 /**
- * Item function description.
+ * Item provides the core implementation for the Item routine used in this module.
+ *
+ * @returns {*} Computed value or rendered markup produced by Item.
  */
 export default function Item({
     map_key,

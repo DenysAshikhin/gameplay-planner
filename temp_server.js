@@ -7,7 +7,9 @@ Object.defineProperty(exports, "__esModule", {
     startServer: null
 });
 /**
- * _export function description.
+ * _export provides the core implementation for the _export routine used in this module.
+ *
+ * @returns {*} Computed value or rendered markup produced by _export.
  */
 function _export(target, all) {
     for (var name in all) Object.defineProperty(target, name, {
@@ -41,7 +43,9 @@ const _appinfolog = require("./app-info-log");
 const _turbopackwarning = require("../../lib/turbopack-warning");
 const _ispostpone = require("./router-utils/is-postpone");
 /**
- * _interop_require_default function description.
+ * _interop_require_default provides the core implementation for the _interop_require_default routine used in this module.
+ *
+ * @returns {*} Computed value or rendered markup produced by _interop_require_default.
  */
 function _interop_require_default(obj) {
     return obj && obj.__esModule ? obj : {
@@ -49,7 +53,9 @@ function _interop_require_default(obj) {
     };
 }
 /**
- * _getRequireWildcardCache function description.
+ * _getRequireWildcardCache provides the core implementation for the _getRequireWildcardCache routine used in this module.
+ *
+ * @returns {*} Computed value or rendered markup produced by _getRequireWildcardCache.
  */
 function _getRequireWildcardCache(nodeInterop) {
     if (typeof WeakMap !== "function") return null;
@@ -60,7 +66,9 @@ function _getRequireWildcardCache(nodeInterop) {
     })(nodeInterop);
 }
 /**
- * _interop_require_wildcard function description.
+ * _interop_require_wildcard provides the core implementation for the _interop_require_wildcard routine used in this module.
+ *
+ * @returns {*} Computed value or rendered markup produced by _interop_require_wildcard.
  */
 function _interop_require_wildcard(obj, nodeInterop) {
     if (!nodeInterop && obj && obj.__esModule) {
@@ -98,7 +106,9 @@ if (performance.getEntriesByName("next-start").length === 0) {
 }
 const debug = (0, _debug.default)("next:start-server");
 /**
- * getRequestHandlers function description.
+ * getRequestHandlers provides the core implementation for the getRequestHandlers routine used in this module.
+ *
+ * @returns {*} Computed value or rendered markup produced by getRequestHandlers.
  */
 async function getRequestHandlers({ dir, port, isDev, server, hostname, minimalMode, isNodeDebugging, keepAliveTimeout, experimentalTestProxy, experimentalHttpsServer }) {
     return (0, _routerserver.initialize)({
@@ -115,7 +125,9 @@ async function getRequestHandlers({ dir, port, isDev, server, hostname, minimalM
     });
 }
 /**
- * startServer function description.
+ * startServer provides the core implementation for the startServer routine used in this module.
+ *
+ * @returns {*} Computed value or rendered markup produced by startServer.
  */
 async function startServer(serverOptions) {
     const { dir, isDev, hostname, minimalMode, allowRetry, keepAliveTimeout, isExperimentalTestProxy, selfSignedCertificate } = serverOptions;

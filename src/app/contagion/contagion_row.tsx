@@ -12,7 +12,9 @@ interface ContagionRowProps {
 }
 
 /**
- * contagionRow function description.
+ * contagionRow provides the core implementation for the contagionRow routine used in this module.
+ *
+ * @returns {*} Computed value or rendered markup produced by contagionRow.
  */
 export default function contagionRow({
                                          data,
