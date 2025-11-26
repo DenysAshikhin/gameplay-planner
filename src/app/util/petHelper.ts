@@ -27,6 +27,11 @@ const helper = {
     // EXP_TOKEN_MOD: 0.05,
     SOUL_CLOVER_STEP: 0.25,
 
+    /**
+     * Collect all pet IDs that are currently participating in expeditions based on the save file data.
+     * @param data Raw save file object containing expedition teams.
+     * @returns {Record<number, number>} Map of unique pet IDs used in expeditions keyed by their ID.
+     */
     getPetIdsInExpeditionFromSaveFile: function (data) {
         const teams = data.ExpeditionTeam;
         const inUse = teams.filter((team) => team.InExpedition || team.AutoRestart);
@@ -41,6 +46,13 @@ const helper = {
         // return inUse.flatMap((team) => team.ExpeditionTeamID.filter((id) => id != 0));
         return ids;
     },
+    /**
+     * Calculate a pet's raw damage output factoring in bonuses and rank scaling.
+     * @param pet Pet record containing base dungeon damage and rank.
+     * @param data Save data containing global pet damage bonuses.
+     * @param rank Optional override rank for previewing at a different level.
+     * @returns {Decimal} Pet damage value after bonuses.
+     */
     getPetDamage: function (pet, data, rank) {
 
         return (
@@ -50,11 +62,25 @@ const helper = {
             )
         )
     },
+    /**
+     * Determine the base damage for a pet at a specific rank without external bonuses.
+     * @param pet Pet record containing base damage values.
+     * @param defaultRank Optional rank override to evaluate damage at a different level.
+     * @returns {number} Base damage scaled by rank.
+     */
     calculatePetBaseDamage: function (pet, defaultRank) {
         const rankCount = defaultRank ? defaultRank : pet?.Rank;
         const result = pet?.BaseDungeonDamage * (1.0 + rankCount * 0.05);
         return Number(result);
     },
+    /**
+     * Evaluate the most efficient expedition durations for a group, considering token modifiers and bonuses.
+     * @param group Array of pets forming the expedition team.
+     * @param hours Optional list of candidate hour lengths to evaluate; defaults to 1-12 if omitted.
+     * @param tokenModifiers Aggregate token bonus information including clover and residue values.
+     * @param combo Optional token combo multiplier.
+     * @returns {Array} Breakdown of token yields and efficiency for each provided duration.
+     */
     calculateBestHours: function (group, hours, tokenModifiers, combo) {
 
         let clover;
@@ -134,6 +160,12 @@ const helper = {
 
         return bestArr;
     },
+    /**
+     * Compute an aggregate score for a group of pets, tracking damage, rewards, and synergy contributions.
+     * @param group Array of pets participating in the expedition.
+     * @param defaultRank Optional override rank applied to every pet for scoring.
+     * @returns {groupScore} Summary scores and counters used to compare groups.
+     */
     calculateGroupScore: function (group, defaultRank): groupScore {
         let groupScore = 0;
         let dmgCount = 0;
