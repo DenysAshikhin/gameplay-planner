@@ -4,6 +4,10 @@ import { resource_type } from './outpost_mapping';
 import Image from 'next/image'
 import rightArrow from '@images/icons/right_arrow_white.svg';
 
+/**
+ * Displays a single outpost trade option with the resource image, label, and
+ * formatted cost details.
+ */
 export default function Outposts({ deal, borderBottom }) {
     const cost_item = resource_type[deal.id];
     const cost_label = deal.subtype ? cost_item.subtypes[deal.subtype].label : cost_item.label;

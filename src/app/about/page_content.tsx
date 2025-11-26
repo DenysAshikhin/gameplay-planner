@@ -15,6 +15,11 @@ import discord_image from '@images/icons/discord_gray.svg';
 import paypal_image from "@images/icons/paypal.svg";
 import scroll_image from '@images/icons/paper_scroll.svg';
 
+/**
+ * Expeditions provides the core implementation for the Expeditions routine used in this module.
+ *
+ * @returns {*} Computed value or rendered markup produced by Expeditions.
+ */
 export default function Expeditions() {
 
     const [mobileMode, setMobileMode] = useState(false);

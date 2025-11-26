@@ -25,9 +25,25 @@ ReactGA.initialize([{
     //     send_page_view: false
     // },
 }]);
+/**
+ * Generates all possible distributions of a fixed number of objects across a
+ * given number of people, returning each combination of counts.
+ *
+ * @param {number} objects - Total number of objects to distribute.
+ * @param {number} people - Number of recipients to spread the objects across.
+ * @returns {number[][]} An array of combinations where each entry lists per-person allocations.
+ */
 function generateCombinations(objects, people) {
     const result = [];
 
+    /**
+     * Recursively assigns object counts to each person, walking every valid
+     * distribution branch and collecting completed allocations.
+     *
+     * @param {number} index - Current person index being assigned.
+     * @param {number} remainingObjects - Objects still left to distribute.
+     * @param {number[]} currentCombination - Working allocation for the current branch.
+     */
     function backtrack(index, remainingObjects, currentCombination) {
         if (index === people) {
             if (remainingObjects === 0) {
@@ -47,6 +63,13 @@ function generateCombinations(objects, people) {
     return result;
 }
 
+/**
+ * Splits an array length into evenly distributed index ranges.
+ *
+ * @param {unknown[]} arr - The array whose indices should be partitioned.
+ * @param {number} x - Number of partitions to create.
+ * @returns {string | number[][]} An error message or an array of [start, end] index tuples.
+ */
 function splitArrayIndices(arr, x) {
     if (x <= 0) {
         return "Invalid value for x";

@@ -12,6 +12,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import PageCard from './page_card';
 
+/**
+ * Guides provides the core implementation for the Guides routine used in this module.
+ *
+ * @returns {*} Computed value or rendered markup produced by Guides.
+ */
 export default function Guides() {
 
     const [mobileMode, setMobileMode] = useState(false);

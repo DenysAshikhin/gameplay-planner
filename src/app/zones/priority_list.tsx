@@ -7,6 +7,11 @@ import CrossIcon from '@images/icons/x_icon.svg';
 import DragIcon from '@images/icons/drag_icon.svg';
 import RefreshIcon from '@images/icons/refresh_lightgray.svg';
 
+/**
+ * Priority_List provides the core implementation for the Priority_List routine used in this module.
+ *
+ * @returns {*} Computed value or rendered markup produced by Priority_List.
+ */
 export default function Priority_List({
     priorityList,
     setPriorityList,

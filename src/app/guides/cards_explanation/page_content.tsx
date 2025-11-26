@@ -24,6 +24,11 @@ import Image from 'next/image';
 
 const baseLink = 'https://www.gameplayplanner.com/guides/cards_explanation?section=';
 
+/**
+ * Guides provides the core implementation for the Guides routine used in this module.
+ *
+ * @returns {*} Computed value or rendered markup produced by Guides.
+ */
 export default function Guides({ noSearchParams }: { noSearchParams? }) {
 
     const containerRef = useRef(null);

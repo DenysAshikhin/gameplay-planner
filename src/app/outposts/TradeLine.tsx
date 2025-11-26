@@ -5,6 +5,10 @@ import Image from 'next/image'
 import rightArrow from '@images/icons/right_arrow_white.svg';
 
 
+/**
+ * Renders a full outpost trade line showing the cost and reward resources with
+ * their corresponding images and formatted values.
+ */
 export default function Outposts({ deal, borderBottom }) {
     try {
         const cost_item = resource_type[deal.CostResourceID];

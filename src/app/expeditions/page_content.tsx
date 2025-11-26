@@ -42,6 +42,11 @@ ReactGA.initialize([{
     // },
 }]);
 let groupCache = {};
+/**
+ * setGroupCache provides the core implementation for the setGroupCache routine used in this module.
+ *
+ * @returns {*} Computed value or rendered markup produced by setGroupCache.
+ */
 function setGroupCache(newCache) {
     groupCache = newCache;
 }
@@ -51,6 +56,11 @@ const PLACEMENT_AUTO = 'auto';
 
 const defaultPetSelection = petNameArray.map(petData => petData.petId);
 
+/**
+ * ScoreSection provides the core implementation for the ScoreSection routine used in this module.
+ *
+ * @returns {*} Computed value or rendered markup produced by ScoreSection.
+ */
 function ScoreSection({ data, group, totalScore, defaultRank }) {
     const { baseGroupScore, groupScoreMax, dmgCount, timeCount, synergyBonus, groupScore, groupRankScore } = petHelper.calculateGroupScore(group, defaultRank);
     const score = groupRankScore;
@@ -91,6 +101,11 @@ function ScoreSection({ data, group, totalScore, defaultRank }) {
 import Head from 'next/head';
 
 
+/**
+ * Expeditions provides the core implementation for the Expeditions routine used in this module.
+ *
+ * @returns {*} Computed value or rendered markup produced by Expeditions.
+ */
 export default function Expeditions() {
 
 

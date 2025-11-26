@@ -65,6 +65,10 @@ import miner5 from '@images/outposts/MinerPortrait5 - Copy.png';
 
 */
 
+/**
+ * Computes the mining decay percentage for an outpost factoring in shop boosts
+ * and miner upgrades to determine remaining durability.
+ */
 const MiningDecay = function (data, outpost) {
     let FarmingShopUniqueMainGame = data.FarmingShopUniqueMainGame;
     // let LeftToMine = mathHelper.createDecimal(outpost.LeftToMine).toNumber();
@@ -81,6 +85,10 @@ const MiningDecay = function (data, outpost) {
     return temp;
 }
 
+/**
+ * Calculates the effective hardness scaling for an outpost based on shop and
+ * progression modifiers.
+ */
 const HardnessScale = function (data, outpost) {
     // return Hardness * (1.0 - CowShopHardnessScaling * 0.01) * (1.0 - ExpeShopHardnessScalingLevel * 0.01) * (1.0 - WAPHardnessScaling * 0.01);
     let cow_scale = data.CowShopHardnessScaling ? data.CowShopHardnessScaling : 0;
@@ -94,6 +102,10 @@ const HardnessScale = function (data, outpost) {
 }
 
 // GM.PD.MinersCollection[MinerAssignedID - 1]
+/**
+ * Derives the mining tick progress for a miner on a given outpost using power,
+ * decay, and hardness factors.
+ */
 const getMiningTick = function (data, outpost, miner) {
 
     let minerpower = mathHelper.pow(mathHelper.createDecimal(1.65), mathHelper.logDecimal(mathHelper.createDecimal(miner.FinalPower), 3.25));
@@ -119,6 +131,10 @@ const getMiningTick = function (data, outpost, miner) {
     return temp;
 }
 
+/**
+ * Displays an outpost entry with mining details, mineral rewards, and an input
+ * for choosing a target resource.
+ */
 export default function OutpostLine({ data, outpost, borderBottom }) {
 
     const [miningTarget, setMiningTarget] = useState(0);

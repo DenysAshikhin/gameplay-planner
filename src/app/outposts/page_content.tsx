@@ -21,6 +21,10 @@ import mathHelper from '../util/math';
 import Image from 'next/image';
 import Link from 'next/link';
 
+/**
+ * Provides the main outposts planner experience, handling device detection,
+ * saved data loading, and rendering the trade lists with helper context.
+ */
 export default function Outposts() {
 
     const [mobileMode, setMobileMode] = useState(false);

@@ -21,6 +21,11 @@ import Image from 'next/image';
 
 const baseLink = 'https://www.gameplayplanner.com/guides/farming_guide?section=';
 
+/**
+ * Guides provides the core implementation for the Guides routine used in this module.
+ *
+ * @returns {*} Computed value or rendered markup produced by Guides.
+ */
 export default function Guides() {
 
     const containerRef = useRef(null);

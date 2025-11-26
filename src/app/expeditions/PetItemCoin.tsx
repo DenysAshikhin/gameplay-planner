@@ -29,6 +29,11 @@ type PetItemOptions = {
     circleBorder?: boolean,
 }
 
+/**
+ * PetItem provides the core implementation for the PetItem routine used in this module.
+ *
+ * @returns {*} Computed value or rendered markup produced by PetItem.
+ */
 export default function PetItem({ petData, isSelected, onClick, data, weightMap, petScoreFn, defaultRank, borderActive, enabledBonusHighlight, fullPetData, showNameOnly, grayBackground, circleBorder }: PetItemOptions) {
     if (!!data === false) return <div></div>;
     const { petId, location, img, name } = petData;

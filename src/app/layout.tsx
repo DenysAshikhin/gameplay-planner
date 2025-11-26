@@ -4,6 +4,14 @@ import Header from './util/header';
 import NavBar from './util/navBar';
 import Clarity from './Clarity';
 
+/**
+ * Generates static metadata for the current page route so Next.js can
+ * pre-render SEO friendly head tags.
+ *
+ * @param {{ params: Record<string, string>, searchParams: URLSearchParams }} context - Route parameters and search params provided by Next.js.
+ * @param {import('next').ResolvingMetadata} parent - Parent metadata chain to merge with.
+ * @returns {Promise<import('next').Metadata>} Fully resolved metadata for the page.
+ */
 export async function generateMetadata({ params, searchParams }, parent) {
 
   return {
@@ -63,6 +71,9 @@ export default function RootLayout({ children }) {
           <Script id="google-analytics">
             {`
           window.dataLayer = window.dataLayer || [];
+          /**
+           * gtag function description.
+           */
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
  

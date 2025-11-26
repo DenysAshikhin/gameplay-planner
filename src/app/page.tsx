@@ -2,6 +2,10 @@ import Cards from './page_content';
 
 import Ad_Comp from './util/ads_component';
 
+/**
+ * Generates metadata for the upload landing page, including title and description
+ * used by the Next.js head configuration.
+ */
 export async function generateMetadata({ params, searchParams }, parent) {
 
   return {
@@ -11,6 +15,10 @@ export async function generateMetadata({ params, searchParams }, parent) {
 }
 
 
+/**
+ * Renders the gameplay planner landing page with the primary content cards and
+ * advertisement component.
+ */
 export default function Page() {
 
   return (

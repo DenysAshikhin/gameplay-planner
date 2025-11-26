@@ -21,6 +21,11 @@ import { zone_priority, zone_ratios, zone_data, calc_max_hp, calc_total_hp } fro
 import { petNames, BonusMap } from '../util/itemMapping';
 
 
+/**
+ * TimeToClear provides the core implementation for the TimeToClear routine used in this module.
+ *
+ * @returns {*} Computed value or rendered markup produced by TimeToClear.
+ */
 const TimeToClear = function ({
     zoneToClear,
     setSelectedZone,
@@ -258,6 +263,11 @@ const TimeToClear = function ({
 }
 
 
+/**
+ * Zones provides the core implementation for the Zones routine used in this module.
+ *
+ * @returns {*} Computed value or rendered markup produced by Zones.
+ */
 export default function Zones() {
 
     const [mobileMode, setMobileMode] = useState(false);

@@ -31,6 +31,11 @@ ReactGA.initialize([{
 
 
 
+/**
+ * Protein provides the core implementation for the Protein routine used in this module.
+ *
+ * @returns {*} Computed value or rendered markup produced by Protein.
+ */
 export default function Protein() {
 
     useEffect(() => {

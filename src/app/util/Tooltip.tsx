@@ -16,6 +16,11 @@ type MouseOverPopoverProps = {
   forceYPlacement?: 'top' | 'bottom' | 'center', // Use appropriate types
 };
 
+/**
+ * MouseOverPopover provides the core implementation for the MouseOverPopover routine used in this module.
+ *
+ * @returns {*} Computed value or rendered markup produced by MouseOverPopover.
+ */
 function MouseOverPopover({
   tooltip,
   children,

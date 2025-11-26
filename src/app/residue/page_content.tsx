@@ -275,6 +275,11 @@ const ResideOrderCard = ({ data }) => {
 }
 
 
+/**
+ * Residue provides the core implementation for the Residue routine used in this module.
+ *
+ * @returns {*} Computed value or rendered markup produced by Residue.
+ */
 export default function Residue() {
     useEffect(() => {
         let shift_ads = async () => {

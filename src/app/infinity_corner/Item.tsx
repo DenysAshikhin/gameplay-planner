@@ -11,6 +11,11 @@ import greenWreathIcon from '@images/infinity_corner/QoLSelected.png';
 import greenWreathIconNoHaze from '@images/infinity_corner/QoLSelected_nohaze.png';
 import yellowWreathIconNoHaze from '@images/infinity_corner/Era6Selected.png';
 
+/**
+ * Item provides the core implementation for the Item routine used in this module.
+ *
+ * @returns {*} Computed value or rendered markup produced by Item.
+ */
 export default function Item({
     map_key,
     data,
