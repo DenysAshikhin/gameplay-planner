@@ -2,32 +2,78 @@ import Decimal from 'break_infinity.js';
 import mathHelper from './math';
 
 var helper = {
+    /**
+     * Round a numeric value to two decimal places with epsilon adjustment to avoid floating point errors.
+     * @param {number} number Value to round.
+     * @returns {number} Rounded value with two decimal precision.
+     */
     roundTwoDecimal: function (number) {
         return Math.round((number + Number.EPSILON) * 100) / 100;
     },
+    /**
+     * Pause execution for the provided duration.
+     * @param {number} seconds Number of seconds to wait.
+     * @returns {Promise<void>} Promise resolved after the delay.
+     */
     sleep: async function (seconds) {
         return new Promise(r => setTimeout(r, seconds * 1000));
     },
+    /**
+     * Format a numeric string with comma separators for thousands.
+     * @param {string} x Numeric string to format.
+     * @returns {string} Comma-delimited representation.
+     */
     numberWithCommas: function (x) {
         return x.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     },
+    /**
+     * Round a numeric value to three decimal places.
+     * @param {number} number Value to round.
+     * @returns {number} Rounded value with three decimal precision.
+     */
     roundThreeDecimal: function (number) {
         return Math.round((number + Number.EPSILON) * 1000) / 1000;
     },
+    /**
+     * Round a numeric value to five decimal places.
+     * @param {number} number Value to round.
+     * @returns {number} Rounded value with five decimal precision.
+     */
     roundFiveDecimal: function (number) {
         return Math.round((number + Number.EPSILON) * 100000) / 100000;
     },
+    /**
+     * Round a numeric value to the nearest integer.
+     * @param {number} num Value to round.
+     * @returns {number} Rounded integer.
+     */
     roundInt: function (num) {
         return Math.round((num + Number.EPSILON) * 1) / 1;
     },
+    /**
+     * Calculate a logarithm for a given base and value.
+     * @param {number} base Base of the logarithm.
+     * @param {number} x Value to evaluate.
+     * @returns {number} Computed logarithm.
+     */
     calculateLogarithm: function (base, x) {
         var a = Math.log(x);
         var b = Math.log(base);
         return a / b;
     },
+    /**
+     * Convert a {@link Decimal} value into its numeric equivalent.
+     * @param {Decimal} val Decimal-like object with mantissa and exponent.
+     * @returns {number} Converted numeric value.
+     */
     calcPOW: function (val) {
         return val.mantissa * Math.pow(10, val.exponent);
     },
+    /**
+     * Convert seconds into a formatted duration string that includes units.
+     * @param {number} seconds Total seconds to format.
+     * @returns {string} Human-friendly duration with unit suffixes.
+     */
     secondsToStringWithS: function (seconds) {
         let string = ``;
 
@@ -167,9 +213,20 @@ var helper = {
         return {purchase_cost_map, average_cost_map};
     },
     // @ts-ignore
+    /**
+     * Format a number with comma separators.
+     * @param {string | number} x Value to format.
+     * @returns {string} Comma-delimited string representation.
+     */
     numberWithCommas(x) {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     },
+    /**
+     * Format a number or Decimal instance using exponential notation when large.
+     * @param {number | Decimal} input Value to format.
+     * @param {number} [precision=2] Decimal places or significant digits to retain.
+     * @returns {string} Human-readable numeric string.
+     */
     formatNumberString(input: number | Decimal, precision:number = 2)  {
         if (input == undefined || input == 0) {
             return Number(0).toFixed(precision);
