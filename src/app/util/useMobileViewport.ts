@@ -1,6 +1,9 @@
 import { useEffect } from 'react';
 import { isMobile } from 'mobile-device-detect';
 
+/**
+ * Adjusts the viewport meta tag for mobile devices to ensure consistent scaling.
+ */
 const useMobileViewport = () => {
     useEffect(() => {
         if (isMobile) {
