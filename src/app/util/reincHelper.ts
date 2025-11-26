@@ -27,6 +27,13 @@ import mathHelper from './math';
 // );dsadsddasds
 
 const helper = {
+    /**
+     * Builds a calculator for required reincarnation experience that accounts
+     * for residue, expedition reductions, and portal shop bonuses.
+     *
+     * @param {object} data - Player data containing residue totals, expedition hours, and shop levels.
+     * @returns {(currLevel: number) => Decimal | number} Function that returns required experience for a level.
+     */
     calcRequiredReincExp: function (data) {
         let residueAdd = mathHelper.addDecimal(mathHelper.createDecimal(data.TotalResidueBD), 1);
         let residueMax = mathHelper.max(
@@ -73,6 +80,12 @@ const helper = {
             // )
         // );
 
+        /**
+         * Computes the experience required for a specific reincarnation level.
+         *
+         * @param {number} currLevel - The reincarnation level being evaluated.
+         * @returns {Decimal | number} Experience required to reach the level.
+         */
         return (currLevel) => {
 
             let step1 = 5 + currLevel * 5;

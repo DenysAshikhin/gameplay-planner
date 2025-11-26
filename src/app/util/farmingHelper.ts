@@ -4,6 +4,16 @@ import Decimal, { DecimalSource } from 'break_infinity.js';
 import { number } from 'prop-types';
 
 const farmingHelper = {
+    /**
+     * Enumerates multiplier combinations that keep the weighted sum below the
+     * provided limit while still meeting the desired minimum percentage of the
+     * total.
+     *
+     * @param {number} sum - The total sum the weighted combination should approach.
+     * @param {number[]} numbers - Individual weights to assign multipliers to.
+     * @param {number} minPercentage - Minimum fraction of the sum that must be met.
+     * @returns {number[][]} Collection of valid multiplier sets.
+     */
     findMultipliersWithMinPercentage: function (sum, numbers, minPercentage) {
         const multipliers = [];
 
@@ -38,6 +48,14 @@ const farmingHelper = {
         backtrack(0, 0, []);
         return multipliers;
     },
+    /**
+     * Calculates the growth time for a plant after applying shop and potion
+     * modifiers, enforcing a minimum duration to avoid zero-second growth.
+     *
+     * @param {object} plant - The plant whose growth time is being evaluated.
+     * @param {object} modifiers - Current shop and potion bonuses affecting growth speed.
+     * @returns {number} The adjusted growth time in seconds.
+     */
     calcGrowthTime: function (plant, modifiers) {
         let growingBonus: Decimal | number = mathHelper.createDecimal(modifiers.originalShopGrowingBonus);
         growingBonus = mathHelper.divideDecimal(growingBonus, (1 + 0.05 * modifiers.originalShopGrowingLevel));
@@ -46,6 +64,14 @@ const farmingHelper = {
         let num = Math.floor(plant.TimeNeeded / plant.prestigeBonus / growingBonus);
         return num < 10 ? 10 : num;
     },
+    /**
+     * Derives the harvest yield for a plant using its rank, prestige, and
+     * current manual harvest multipliers.
+     *
+     * @param {object} plant - Plant state including rank and prestige data.
+     * @param {object} modifiers - Player modifiers such as manual harvest bonuses.
+     * @returns {Decimal | number} The computed harvest payout per collection.
+     */
     calcPlantHarvest: function (plant, modifiers) {
         // let num = helper.roundInt((1 + plant.Rank) * Math.pow(1.05, plant.Rank)) * Math.pow(1.02, plant.prestige) * modifiers.manualHarvestBonus;
 
@@ -56,10 +82,26 @@ const farmingHelper = {
 
         // return helper.roundInt((1 + plant.Rank) * Math.pow(1.05, plant.Rank)) * Math.pow(1.02, plant.prestige) * modifiers.manualHarvestBonus;
     },
+    /**
+     * Computes the total production multiplier from shop upgrades, respecting
+     * the default stored level when a new level is not provided.
+     *
+     * @param {object} modifiers_input - Active farming modifiers.
+     * @param {number} shopLevel - Optional override for the production shop level.
+     * @returns {Decimal | number} Production multiplier from shop upgrades.
+     */
     calcShopProdBonus: function (modifiers_input, shopLevel) {
         // shopLevel = shopLevel || shopLevel === 0 ? shopLevel : modifiers_input.FarmingShopPlantTotalProduction;
         return mathHelper.pow(1.25, shopLevel || shopLevel === 0 ? shopLevel : modifiers_input.FarmingShopPlantTotalProduction);
     },
+    /**
+     * Calculates the production output for a plant, including prestige scaling
+     * and shop bonuses, with special handling for health-based plants.
+     *
+     * @param {object} plant_input - Current plant state including production values.
+     * @param {object} modifiers_input - Production modifiers such as shop bonuses and HP bonuses.
+     * @returns {Decimal | number} The per-tick production value for the plant.
+     */
     calcProdOutput: function (plant_input, modifiers_input) {
 
         // let TotalCreated = plant_input.totalMade;
@@ -87,6 +129,14 @@ const farmingHelper = {
 
         return output;
     },
+    /**
+     * Determines fry production based on potatoes generated, time elapsed, and
+     * applicable fry bonuses while applying soft caps to extremely large values.
+     *
+     * @param {Decimal} potatoes - Total potatoes generated.
+     * @param {object} modifiers - Bonus values and time-tracking data for fry gains.
+     * @returns {Decimal | number} The resulting fry output after all bonuses.
+     */
     calcFryOutput: function (potatoes, modifiers) {
 
         if (!potatoes) return 0;
@@ -138,6 +188,16 @@ const farmingHelper = {
         }
         return step6;
     },
+    /**
+     * Legacy experience carryover calculator that tracks leftover experience
+     * when multiple auto harvests occur within a single tick.
+     *
+     * @param {object} params - Calculation inputs.
+     * @param {object} params.plant - Plant progression state.
+     * @param {number} params.numAutos - Number of auto harvesters acting each tick.
+     * @param {number} params.expTick - Experience gained per tick.
+     * @returns {{leftOver: number, numLevels: number, reqExp: number}} Remaining experience data.
+     */
     calcCarryOverEXP_OLD: function ({ plant, numAutos, expTick }) {
 
         let leftOver = 0;
@@ -164,6 +224,16 @@ const farmingHelper = {
         let reqExp = 10 + 5 * (plant.Rank + numLevels) * Math.pow(1.05, plant.Rank + numLevels);
         return { leftOver, numLevels, reqExp };
     },
+    /**
+     * Calculates leftover experience and level ups after applying a batch of
+     * auto harvests, returning the remaining experience toward the next rank.
+     *
+     * @param {object} params - Calculation inputs.
+     * @param {object} params.plant - Plant progression state.
+     * @param {number} params.numAutos - Number of auto harvesters acting each tick.
+     * @param {number} params.expTick - Experience gained per tick.
+     * @returns {{leftOver: number, numLevels: number, reqExp: number}} Updated rank information.
+     */
     calcCarryOverEXP: function ({ plant, numAutos, expTick }) {
 
         let leftOver = 0;
@@ -183,6 +253,13 @@ const farmingHelper = {
         leftOver = numEXP;
         return { leftOver, numLevels, reqExp };
     },
+    /**
+     * Computes the current experience bonus from shop and potion levels,
+     * adjusting for original baselines and applying active multipliers.
+     *
+     * @param {object} modifiers - Modifier values including shop levels and potion rank.
+     * @returns {number} The total experience bonus multiplier.
+     */
     calcEXPBonus: function (modifiers) {
         // let originalBonus = modifiers.originalRankLevelBonus;
         // let originalLevel = modifiers.originalShopRankLevel;
@@ -200,12 +277,28 @@ const farmingHelper = {
 
         return expBonus;
     },
+    /**
+     * Predicts the future multiplier bonus for a plant based on creation count
+     * and manual harvest formula settings.
+     *
+     * @param {object} plant - Plant state including total created items.
+     * @param {object} modifiers - Relevant manual harvest modifiers.
+     * @returns {Decimal | number} The projected future multiplier bonus.
+     */
     futureMultBD: function (plant, modifiers) {
         return mathHelper.pow(
             (1 + 0.05 * (1 + modifiers.manualHarvestFormula * 0.02)),
             mathHelper.logDecimal(plant.created, 1.25),
         );
     },
+    /**
+     * Simulates plant growth over a timeframe to determine updated production,
+     * prestige, and experience values when automation is in use.
+     *
+     * @param {object} plant_input - Baseline plant data to simulate from.
+     * @param {object} modifiers_input - Active modifiers including automation count and duration.
+     * @returns {object} The mutated plant object reflecting future state.
+     */
     calcFutureMult: function (plant_input, modifiers_input) {
 
         let plant = modifiers_input.string === false ? plant_input : JSON.parse(JSON.stringify(plant_input));
@@ -270,6 +363,14 @@ const farmingHelper = {
         plant.production = this.calcProdOutput(plant, modifiers);
         return plant;
     },
+    /**
+     * Calculates the remaining time until the next plant level based on
+     * experience needed, growth time, and automation counts.
+     *
+     * @param {object} plant - Plant progression data.
+     * @param {object} modifiers - Modifier values, including auto harvesters.
+     * @returns {number} Time in seconds until the next level.
+     */
     calcTimeTillLevel: function (plant, modifiers) {
         // let plant = plant_input;
         // let modifiers = modifiers_input;
@@ -283,6 +384,13 @@ const farmingHelper = {
         // let ticksTillLevel = Math.ceil((remExp) / expBonus);
         return Math.ceil((plant.reqExp - plant.curExp) / (plant.prestigeBonus * this.calcEXPBonus(modifiers) * numAutos)) * plant.growthTime - plant.elapsedTime;
     },
+    /**
+     * Determines the next costs for production, growth, and experience shop
+     * upgrades using the provided or fallback levels.
+     *
+     * @param {object} data - Player data containing current shop levels.
+     * @returns {{prodCost: DecimalSource, growthCost: DecimalSource, expCost: DecimalSource}} The calculated shop costs.
+     */
     getNextShopCosts: function (data) {
 
         let prodCost: DecimalSource = 1;
@@ -313,6 +421,13 @@ const farmingHelper = {
 
         return { prodCost, growthCost, expCost };
     },
+    /**
+     * Computes how many additional prestige levels a plant can achieve based on
+     * its created harvests and current prestige rank.
+     *
+     * @param {object} plant_input - Plant state including prestige and creation counts.
+     * @returns {number} The number of attainable prestige levels from current progress.
+     */
     calcMaxPrestige: function (plant_input) {
 
         let start = plant_input.prestige;
@@ -332,6 +447,14 @@ const farmingHelper = {
         }
         return start - plant_input.prestige;
     },
+    /**
+     * Estimates the time required to reach the next prestige level, simulating
+     * harvests, experience gains, and potential level ups along the way.
+     *
+     * @param {object} plant_input - Starting plant data for the calculation.
+     * @param {object} modifiers_input - Active modifiers including automation and bonuses.
+     * @returns {{remainingTime: number, prestige: number, prestiged: boolean}} Timing and prestige results.
+     */
     calcTimeTillPrestige: function (plant_input, modifiers_input) {
 
         if (plant_input.prestige >= 250) {
