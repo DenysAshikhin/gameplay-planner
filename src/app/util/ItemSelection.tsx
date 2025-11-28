@@ -3,11 +3,36 @@ import './ItemSelection.css';
 import { petNameArray, petNames, SORT_PET_EXPEDITION, SORT_PET_PORTAL, SORT_PET_SPECIAL, SORT_PET_WORLD } from './itemMapping';
 import PetItem from '../expeditions/PetItem';
 
+/**
+ * Displays a selectable list of pet items with sorting and filtering options.
+ *
+ * @param {{
+ *  selectedItems: number[],
+ *  onItemSelected: (ids: number[]) => void,
+ *  data: any,
+ *  weightMap: Record<number, number>,
+ *  defaultRank: number,
+ *  showLocked: boolean,
+ * }} props Pet selection state and configuration.
+ * @returns {JSX.Element} Grid of pet entries that can be toggled by the user.
+ */
 const ItemSelection = ({ selectedItems, onItemSelected, data, weightMap, defaultRank, showLocked, }) => {
+    /**
+     * Determines whether the provided pet ID is currently selected.
+     *
+     * @param {number} petId Identifier of the pet to evaluate.
+     * @returns {boolean} True if the pet is included in the selection.
+     */
     const isSelected = (petId) => {
         return selectedItems.includes(petId);
     };
 
+    /**
+     * Toggles a pet's presence within the selected list and reports the new set
+     * to the parent component.
+     *
+     * @param {number} petId Identifier of the pet being toggled.
+     */
     const handleItemClick = (petId) => {
         if (isSelected(petId)) {
             onItemSelected(selectedItems.filter((id) => id !== petId));
@@ -16,6 +41,13 @@ const ItemSelection = ({ selectedItems, onItemSelected, data, weightMap, default
         }
     };
 
+    /**
+     * Renders an individual pet entry, applying rarity, rank, and weighting
+     * data to the PetItem component.
+     *
+     * @param {import('../expeditions/PetItem').PetData} petData Data describing the pet to display.
+     * @returns {JSX.Element} Visual representation of the provided pet.
+     */
     const renderPet = (petData) => {
 
     };

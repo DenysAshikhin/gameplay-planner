@@ -6,6 +6,12 @@ import HeaderRedirect from './header_redirect';
 import potatoesImg from '@images/potatoes.png'
 import farmerImg from '@images/farmer2.png'
 
+/**
+ * Displays the top header banner for the gameplay planner, including the
+ * redirect overlay and themed artwork.
+ *
+ * @returns {JSX.Element} Header strip with brand imagery.
+ */
 const Header = ({ }) => {
   return (
     <div
