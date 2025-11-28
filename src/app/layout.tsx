@@ -37,6 +37,13 @@ export const viewport = {
 // </script>
 
 
+/**
+ * Builds the root HTML structure, wrapping global metadata, header, navigation,
+ * and the active page content for the Next.js application.
+ *
+ * @param {{ children: React.ReactNode }} props - Nested route content to render inside the layout.
+ * @returns {JSX.Element} The composed document shell for all pages.
+ */
 export default function RootLayout({ children }) {
   return (
     <html lang="en">

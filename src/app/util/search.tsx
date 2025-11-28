@@ -13,6 +13,12 @@ type SearchBoxOptions = {
     margin?: string,
 };
 
+/**
+ * Displays a searchable autocomplete input for selecting items from a provided list.
+ *
+ * @param {SearchBoxOptions} props - Configuration for the search box component.
+ * @returns {JSX.Element} Rendered autocomplete input.
+ */
 const SearchBox = ({ data, onSelect, placeholder, updateBox, margin }: SearchBoxOptions) => {
 
 
@@ -43,27 +49,48 @@ const SearchBox = ({ data, onSelect, placeholder, updateBox, margin }: SearchBox
         }
     ]
 
+    /**
+     * Handle search term updates from the autocomplete component.
+     * @param {string} string - Current search string.
+     * @param {any[]} results - Matching results for the term.
+     */
     const handleOnSearch = (string, results) => {
         // onSearch will have as the first callback parameter
         // the string searched and for the second the results.
         // console.log(string, results)
     }
 
+    /**
+     * Handle hover events over individual autocomplete results.
+     * @param {any} result - The currently hovered result item.
+     */
     const handleOnHover = (result) => {
         // the item hovered
         // console.log(result)
     }
 
+    /**
+     * Handle selection of an autocomplete option.
+     * @param {any} item - The chosen item from the list.
+     */
     const handleOnSelect = (item) => {
         // the item selected
         // console.log(item)
 
     }
 
+    /**
+     * Handle focus events for the autocomplete input field.
+     */
     const handleOnFocus = () => {
         // console.log('Focused')
     }
 
+    /**
+     * Provide a formatted element for rendering autocomplete options.
+     * @param {{ id: number, name: string }} item - Item being rendered.
+     * @returns {JSX.Element} Renderable display for the option.
+     */
     const formatResult = (item) => {
         return (
             <>

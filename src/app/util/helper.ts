@@ -123,6 +123,11 @@ var helper = {
 
         return string;
     },
+    /**
+     * Convert seconds into a compact duration string omitting the trailing seconds suffix when days are present.
+     * @param {number} seconds Total seconds to format.
+     * @returns {string} Human-friendly duration without unit characters for shorter segments.
+     */
     secondsToString: function (seconds) {
         let string = ``;
         let numDays = 0;
@@ -169,6 +174,11 @@ var helper = {
 
         return string;
     },
+    /**
+     * Break a duration in seconds into discrete day, hour, minute, and second components.
+     * @param {number} seconds Total seconds to convert.
+     * @returns {{days: number, hours: number, minutes: number, seconds: number}} Duration parts.
+     */
     secondsToDuration(seconds) {
         const numDays = Math.floor(seconds / (3600 * 24));
         const numHours = Math.floor((seconds % (3600 * 24)) / 3600);
@@ -189,6 +199,11 @@ var helper = {
         1015: { color: 'gray' },
         1016: { color: 'green' }
     },
+    /**
+     * Calculate the average resource cost for each deal type in the provided data set.
+     * @param {{ DealQueue: Array<{ CostResourceID: number, CostResourceIDSub?: number, CostValue: number }> }} data Deal queue containing cost information.
+     * @returns {{ purchase_cost_map: Record<string, { id: number, subtype?: number, cost: Decimal, counter: number }>, average_cost_map: Array<{ id: number, subtype?: number, cost: Decimal, counter: number }> }} Aggregated cost totals and averages.
+     */
     getAverageTradeCosts: function(data){
         let purchase_cost_map = {};
         data.DealQueue.forEach((inner_deal) => {

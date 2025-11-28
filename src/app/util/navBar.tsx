@@ -15,6 +15,12 @@ import heart from "@images/icons/heart.svg";
 import milk from "@images/icons/milk.svg";
 import sword_shield from "@images/icons/sword_shield.svg";
 
+/**
+ * Renders the global navigation bar for the gameplay planner, linking to each
+ * major section of the site with iconography for quick recognition.
+ *
+ * @returns {JSX.Element} Vertical navigation column of route links.
+ */
 const NavBar = ({ }) => {
     return (
     <div
