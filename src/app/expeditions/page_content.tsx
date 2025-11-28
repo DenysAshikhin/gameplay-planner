@@ -593,6 +593,13 @@ export default function Expeditions() {
         }
     });
 
+    /**
+     * Syncs manual pet selection with the underlying data model, toggling
+     * enabled flags and refreshing expedition group calculations when the user
+     * updates their chosen pets.
+     *
+     * @param {number[]} items - Array of selected pet indices from the chooser.
+     */
     const handleItemSelected = (items) => {
         setSelectedItems(items);
 

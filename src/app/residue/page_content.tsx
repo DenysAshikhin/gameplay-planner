@@ -29,6 +29,13 @@ ReactGA.initialize([{
 }]);
 
 
+/**
+ * Renders a residue shop card showing current level, desired target, and
+ * weighting controls for prioritizing purchases within the planner.
+ *
+ * @param {object} props - Data and callbacks for the residue item.
+ * @returns {JSX.Element} Interactive card with level, lock, and tooltip visuals.
+ */
 const ResidueCard = ({ data, params, defaultWeight, setParentWeights, desiredLevels, futurePurchase }) => {
     // const weight = params.weight(asc_level);
     const [clientWeight, setClientWeight] = useLocalStorage(`${params.label}_residue_weight`, -1);
@@ -213,6 +220,13 @@ const ResidueCard = ({ data, params, defaultWeight, setParentWeights, desiredLev
     )
 }
 
+/**
+ * Presents a recommended purchasing order for a residue upgrade, including
+ * cost and description details drawn from the provided calculation.
+ *
+ * @param {{ data: any }} param0 - Information about the suggested upgrade path.
+ * @returns {JSX.Element} Card summarizing the purchase suggestion.
+ */
 const ResideOrderCard = ({ data }) => {
 
     return (

@@ -8,6 +8,13 @@ import petHelper from '../util/petHelper';
 
 import Image from 'next/image';
 
+/**
+ * Filters a list of coin expedition bonuses based on the supplied predicate.
+ *
+ * @param {Array<{ID: number, Power: number}>} bonuses - Bonus entries tied to the pet.
+ * @param {(bonus: {ID: number, Power: number}) => boolean} filterFn - Predicate to decide which bonuses to retain.
+ * @returns {Array<{ID: number, Power: number}>} Filtered bonus list.
+ */
 const filterBonuses = (bonuses, filterFn) => {
     return bonuses
         .filter(filterFn);

@@ -16,6 +16,13 @@ import Image from 'next/image';
 
 //Need to manually check if unlocked or not later
 
+/**
+ * Displays an individual assembly line bonus, including locked state handling
+ * for future levels and previewing the projected bonus amount.
+ *
+ * @param {{ line: any, al_level: number, key_inner: number, futureLevel: number }} props - Assembly line context and display metadata.
+ * @returns {JSX.Element} Visual representation of the bonus row.
+ */
 const AssemblyInnerBonus = ({ line, al_level, key_inner, futureLevel }) => {
 
     const [showLocked, setShowLocked] = useState(false);

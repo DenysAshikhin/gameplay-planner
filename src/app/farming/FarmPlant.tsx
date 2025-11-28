@@ -25,6 +25,13 @@ import UpArrowYellow from '@images/icons/up_arrow_yellow.svg';
 // import P1 from '@images/farming/plants/P1.png'
 
 
+/**
+ * Displays details for a single farm plant, including timers, prestige data,
+ * and controls for configuring automation and simulated future values.
+ *
+ * @param {{ data: any }} param0 - Component props containing plant state and UI handlers.
+ * @returns {JSX.Element} Rendered plant card with stats and controls.
+ */
 const FarmingPlant = ({ data }) => {
   const [hydrated, setHydrated] = useState(false);
   useEffect(() => {

@@ -2,9 +2,12 @@
 import { NextResponse } from 'next/server';
 
 /**
- * middleware provides the core implementation for the middleware routine used in this module.
+ * Redirects requests for the site's ads.txt file to the hosted Monu delivery
+ * location while letting all other requests continue through the default Next
+ * middleware flow.
  *
- * @returns {*} Computed value or rendered markup produced by middleware.
+ * @param {import('next/server').NextRequest} request - Incoming request object.
+ * @returns {import('next/server').NextResponse} Redirect response or continuation token.
  */
 export function middleware(request) {
   if (request.nextUrl.pathname === '/ads.txt') {

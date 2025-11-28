@@ -8,6 +8,14 @@ import MouseOverPopover from "../util/Tooltip";
 import { BonusMap } from "../util/itemMapping";
 import petHelper from '../util/petHelper';
 
+/**
+ * Filters an array of pet bonuses using the provided predicate, preserving the
+ * original order for subsequent rendering.
+ *
+ * @param {Array<{ID: number, Power: number}>} bonuses - Bonus entries for a pet.
+ * @param {(bonus: {ID: number, Power: number}) => boolean} filterFn - Predicate to determine inclusion.
+ * @returns {Array<{ID: number, Power: number}>} Filtered bonuses.
+ */
 const filterBonuses = (bonuses, filterFn) => {
     return bonuses
         .filter(filterFn);
@@ -30,6 +38,13 @@ type PetItemOptions = {
     manualForce?: boolean,
 }
 
+/**
+ * Shows a selectable expedition pet tile with tooltip details and dynamically
+ * calculated damage and bonus summaries.
+ *
+ * @param {PetItemOptions} props - Pet metadata and callbacks for selection handling.
+ * @returns {JSX.Element} Rendered pet card.
+ */
 const PetItem = ({ petData,
     isSelected,
     onClick,
@@ -277,6 +292,13 @@ const PetItem = ({ petData,
     );
 };
 
+/**
+ * Presents a read-only expedition pet tile suitable for summary views, with
+ * optional highlight coloration and name-only rendering mode.
+ *
+ * @param {{ petData: any, highlight?: boolean, showNameOnly?: boolean }} props - Pet information and display toggles.
+ * @returns {JSX.Element} Static pet display component.
+ */
 const StaticPetItem = ({ petData, highlight, showNameOnly }) => {
     const { petId, location, img, name, pet } = petData;
     //ss

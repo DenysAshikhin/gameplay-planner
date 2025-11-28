@@ -2,9 +2,10 @@
 
 import { isMobile } from 'mobile-device-detect';
 /**
- * create_rightPillar_flex provides the core implementation for the create_rightPillar_flex routine used in this module.
+ * Builds a flexible right-pillar advertisement container and injects the
+ * third-party script required to render the ad slot.
  *
- * @returns {*} Computed value or rendered markup produced by create_rightPillar_flex.
+ * @returns {HTMLDivElement} The populated ad container element.
  */
 const create_rightPillar_flex = function () {
     let holder_div = document.createElement('div');
@@ -24,9 +25,10 @@ const create_rightPillar_flex = function () {
     return holder_div;
 }
 /**
- * create_rightPillar_160 provides the core implementation for the create_rightPillar_160 routine used in this module.
+ * Builds a 160px wide right-pillar advertisement container and injects the
+ * third-party script required to render the ad slot.
  *
- * @returns {*} Computed value or rendered markup produced by create_rightPillar_160.
+ * @returns {HTMLDivElement} The populated ad container element.
  */
 const create_rightPillar_160 = function () {
     let holder_div = document.createElement('div');
@@ -46,9 +48,10 @@ const create_rightPillar_160 = function () {
     return holder_div;
 }
 /**
- * create_in_content_flex provides the core implementation for the create_in_content_flex routine used in this module.
+ * Builds an in-content flexible advertisement container and injects the
+ * third-party script required to render the ad slot.
  *
- * @returns {*} Computed value or rendered markup produced by create_in_content_flex.
+ * @returns {HTMLDivElement} The populated ad container element.
  */
 const create_in_content_flex = function () {
     let holder_div = document.createElement('div');
@@ -74,9 +77,10 @@ const create_in_content_flex = function () {
 import helper from '../util/helper';
 import { useRef, useState, useEffect } from 'react';
 /**
- * Ad_Comp provides the core implementation for the Ad_Comp routine used in this module.
+ * Mounts advertisement placeholders on the page and injects supporting scripts
+ * once device type is detected and the DOM containers are available.
  *
- * @returns {*} Computed value or rendered markup produced by Ad_Comp.
+ * @returns {JSX.Element} Empty fragment used to trigger side effects.
  */
 export default function Ad_Comp() {
     const setup_started = useRef(false) // gets assigned to a root node

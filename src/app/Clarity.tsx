@@ -6,6 +6,13 @@ import { clarity } from 'react-microsoft-clarity';
 
 
 
+/**
+ * Mounts the Microsoft Clarity tracking script once the client has hydrated,
+ * preventing server-side rendering issues while keeping the DOM footprint
+ * empty.
+ *
+ * @returns {JSX.Element} A no-op fragment used to trigger analytics setup on mount.
+ */
 export default function Home() {
     const [mounted, setMounted] = useState(false);
 

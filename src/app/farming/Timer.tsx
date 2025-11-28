@@ -5,6 +5,14 @@ import { useTimer } from "react-timer-hook";
 import { useGlobalAudioPlayer } from "react-use-audio-player";
 import useLocalStorage from "use-local-storage";
 
+/**
+ * Provides a configurable countdown timer with audible and notification
+ * alerts, allowing the user to adjust duration fields and restart or pause the
+ * timer as needed.
+ *
+ * @param {{ duration: { days: number, hours: number, minutes: number, seconds: number }, setDuration: (updater) => void }} param0 - Active timer state and updater.
+ * @returns {JSX.Element} Interactive timer controls and countdown display.
+ */
 const Timer = ({ duration, setDuration }) => {
   const [loopAlarm, setLoopAlarm] = useLocalStorage("loopAlarm", false);
   const [loopAlarmClient, setLoopAlarmClient] = useState(false);

@@ -10,6 +10,14 @@ import Image from 'next/image';
 import infoIconAmber from '@images/icons/info_amber.svg';
 import infoIconBlue from '@images/icons/info_blue.svg';
 
+/**
+ * Filters a pet's bonus list using the provided predicate while retaining the
+ * array shape to support downstream mapping.
+ *
+ * @param {Array<{ID: number, Power: number}>} bonuses - Bonus entries attached to the pet.
+ * @param {(bonus: {ID: number, Power: number}) => boolean} filterFn - Predicate to determine which bonuses to keep.
+ * @returns {Array<{ID: number, Power: number}>} Subset of bonuses that satisfy the predicate.
+ */
 const filterBonuses = (bonuses, filterFn) => {
     return bonuses
         .filter(filterFn);
@@ -524,6 +532,13 @@ export function StaticPetItem({ petData, highlight, showNameOnly, statMode, grou
         </ul>
     );
 
+    /**
+     * Renders a contextual warning badge when a pet is missing from cached or
+     * saved expedition teams, highlighting whether the suggestion originates
+     * from runtime calculations or user saves.
+     *
+     * @returns {JSX.Element} Warning icon element or an empty fragment when no warning is needed.
+     */
     const getWarnIcon = () => {
         if (showNameOnly || !suggestedPet) return <></>;
         const showNotInSaveWarning = !groupsSaveFile[petId];

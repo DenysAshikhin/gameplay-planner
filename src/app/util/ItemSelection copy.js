@@ -3,11 +3,30 @@ import './ItemSelection.css';
 import { petNameArray, petNames, SORT_PET_EXPEDITION, SORT_PET_PORTAL, SORT_PET_SPECIAL, SORT_PET_WORLD } from './itemMapping';
 import PetItem from '../expeditions/PetItem';
 
+/**
+ * Lists available pets for selection, toggling their inclusion in the current
+ * expedition configuration while respecting lock and manual enablement flags.
+ *
+ * @param {object} props - Pet selection configuration and callbacks.
+ * @returns {JSX.Element} Selection grid used by expedition planning tools.
+ */
 const ItemSelection = ({ selectedItems, onItemSelected, data, weightMap, defaultRank, showLocked, manualEnabledPets, originalPets }) => {
+    /**
+     * Checks whether a pet is currently selected in the grid.
+     *
+     * @param {number} petId - Identifier for the pet.
+     * @returns {boolean} Whether the pet is selected.
+     */
     const isSelected = (petId) => {
         return selectedItems.includes(petId);
     };
 
+    /**
+     * Toggles the selection state for a pet and informs the parent component of
+     * the updated selection list.
+     *
+     * @param {number} petId - Identifier for the pet being toggled.
+     */
     const handleItemClick = (petId) => {
         if (isSelected(petId)) {
             onItemSelected(selectedItems.filter((id) => id !== petId));

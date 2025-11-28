@@ -37,10 +37,20 @@ function MouseOverPopover({
   const [anchorEl, setAnchorEl] = useState(null);
   const [forceShow, setForceShow] = useState(false);
 
+  /**
+   * Anchors the tooltip to the event target so the popover can position itself
+   * relative to the hovered element.
+   *
+   * @param {React.MouseEvent<HTMLElement>} event - Hover event used to capture the anchor element.
+   */
   const handlePopoverOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
+  /**
+   * Clears the tooltip anchor unless the tooltip is being forced open by a
+   * controlling component.
+   */
   const handlePopoverClose = () => {
     if (!setForceOpen) {
       setAnchorEl(null);

@@ -9,6 +9,13 @@ import lockedAssembly from '@images/farming/assembly/Not_Unlocked.png';
 
 import Image from 'next/image';
 
+/**
+ * Shows the cumulative assembly bonus for a specific line, toggling locked
+ * visuals when future levels are below the starting requirement.
+ *
+ * @param {{ line: any, al_level: number, key_inner: number, futureLevel: number }} props - Assembly line rendering data.
+ * @returns {JSX.Element} Bonus row with iconography and projected values.
+ */
 const AssemblyInnerBonus = ({ line, al_level, key_inner, futureLevel }) => {
 
     const [showLocked, setShowLocked] = useState(false);

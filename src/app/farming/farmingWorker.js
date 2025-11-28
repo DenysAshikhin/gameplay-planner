@@ -4,6 +4,13 @@ import generalHelper from '../util/helper';
 
 
 // eslint-disable-next-line no-restricted-globals
+/**
+ * Worker entry point that evaluates farming combinations on a background
+ * thread, normalizing decimal inputs and returning best production scenarios
+ * back to the main UI.
+ *
+ * @param {{ data: { data: any, id: number, data1: any } }} param0 - Incoming worker message payload.
+ */
 self.onmessage = ({ data: { data, id, data1 } }) => {
 
     try {
