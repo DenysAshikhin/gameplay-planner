@@ -1110,7 +1110,15 @@ const itemIDMap = {
     },
 }
 
-
+/**
+ * Calculates the infinity corner bonus for an item or star level by combining
+ * the base value, star modifiers, and exponential scaling per item level.
+ *
+ * @param {number} star_level - Current star level applied to the item.
+ * @param {number} item_level - Current item upgrade level.
+ * @param {boolean} [isStar] - When true, returns the raw star level as the bonus.
+ * @returns {Decimal | number} The computed bonus value for the provided levels.
+ */
 export const calc_bonus = function (star_level, item_level, isStar?: boolean) {
     // (level * 2) * (1.0 + GM.PD.REP3UpgradeAllLevel * 0.01) * Math.Pow(1.01 + GM.PD.REP3UpgradeAllLevel * 0.0001, level);
     // (a) * (b) * math.pow(c, item_level);

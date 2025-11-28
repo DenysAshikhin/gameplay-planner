@@ -19,9 +19,11 @@ import ReactGA from "react-ga4";
 ReactGA.initialize([{ trackingId: "G-GGLPK02VH8" }]);
 
 /**
- * Home provides the core implementation for the Home routine used in this module.
+ * Renders the landing page for importing user saves, wiring up clipboard and
+ * file-upload flows to decode and persist data before routing to the planner
+ * selection screen.
  *
- * @returns {*} Computed value or rendered markup produced by Home.
+ * @returns {JSX.Element} The upload UI with descriptive guidance and hero art.
  */
 export default function Home() {
 

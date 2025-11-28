@@ -95,6 +95,12 @@ function splitArrayIndices(arr, x) {
 }
 
 
+/**
+ * Renders the farming planner dashboard, initializing client-side state for
+ * plant timers, automation levels, and prospective production calculations.
+ *
+ * @returns {JSX.Element} Farming optimization layout with configuration controls.
+ */
 const FarmingLanding = () => {
     const [mobileMode, setMobileMode] = useState(false);
     useEffect(() => {
@@ -803,6 +809,11 @@ const FarmingLanding = () => {
     //Calc best + listeners
     useEffect(() => {
 
+        /**
+         * Aggregates results from farming worker threads to identify the top
+         * production and potato combinations, updating progress and leaderboard
+         * entries once every worker has finished.
+         */
         const findBest = () => {
             let finished = true;
             for (let i = 0; i < 6; i++) {
@@ -1043,6 +1054,13 @@ const FarmingLanding = () => {
             }
         }
 
+        /**
+         * Optionally refreshes the running-best graph while calculations are
+         * underway. Currently disabled to avoid jerky updates but left in place
+         * for future interactive graphing experiments.
+         *
+         * @param {{ bestProduction: any }} param0 - Latest production snapshot from a worker thread.
+         */
         const updateRunningBest = ({ bestProduction }) => {
             //sounded like a good idea, leads to very jerky graphs
             return;

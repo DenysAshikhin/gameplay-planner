@@ -16,9 +16,10 @@ ReactGA.initialize([{
 }]);
 
 /**
- * convertAreaToText provides the core implementation for the convertAreaToText routine used in this module.
+ * Converts an internal area value into its human-readable world-zone pair.
  *
- * @returns {*} Computed value or rendered markup produced by convertAreaToText.
+ * @param {number} area_num - The numeric area identifier to format.
+ * @returns {string} The formatted world-zone string (e.g., `2-1`).
  */
 const convertAreaToText = function (area_num) {
     area_num -= 19;
@@ -28,9 +29,10 @@ const convertAreaToText = function (area_num) {
 }
 
 /**
- * PageSelection provides the core implementation for the PageSelection routine used in this module.
+ * Displays the Private Pets area listing, including capture locations and
+ * bonus summaries, based on the user's saved game data.
  *
- * @returns {*} Computed value or rendered markup produced by PageSelection.
+ * @returns {JSX.Element} The rendered page content for the Private Pets view.
  */
 export default function PageSelection() {
     const [clientData, setData] = useLocalStorage('userData', DefaultSave);

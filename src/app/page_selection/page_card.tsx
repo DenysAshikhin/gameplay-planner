@@ -1,6 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
 
+/**
+ * Renders a navigation card for the planner selection screen with icon and
+ * optional red emphasis border for highlighted destinations.
+ *
+ * @param {{ page: string, setTab?: any, redBorder?: boolean }} props - Destination metadata and styling flags.
+ * @returns {JSX.Element} Link-wrapped card element.
+ */
 const PageCard = ({ page, setTab, redBorder }: { page: string, setTab?, redBorder?: boolean }) => {
   let imgString = "";
   let nameString = "";

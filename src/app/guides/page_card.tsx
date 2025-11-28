@@ -8,6 +8,13 @@ interface PageCardProps {
     url_force?,
 }
 
+/**
+ * Displays a navigation card for a guide or tool page, including iconography
+ * and optional red accent border when the card needs extra emphasis.
+ *
+ * @param {PageCardProps} props - Card configuration including target page and styling flags.
+ * @returns {JSX.Element} A clickable card that routes users to the requested guide.
+ */
 const PageCard = ({ page, setTab, redBorder, url_force }: PageCardProps) => {
   let imgString = "";
   let nameString = "";

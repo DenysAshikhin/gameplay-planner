@@ -1086,6 +1086,13 @@ export const petNamesById = petNameArray.reduce((accum, petNameData) => {
     return accum;
 }, {});
 
+/**
+ * Retrieves a pet definition by id, falling back to the unknown placeholder
+ * when the id is not present in the predefined name map.
+ *
+ * @param {number} id - Unique identifier for the pet.
+ * @returns {petDatum2} Pet metadata including id and image reference.
+ */
 export const getPet = (id) => {
     if (id in petNames) {
         return { ...petNames[id], petId: id };

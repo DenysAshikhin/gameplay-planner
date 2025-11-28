@@ -15,6 +15,10 @@ export const useDimensionHook = myRef => {
         height: myRef.current.offsetHeight
       })
   
+      /**
+       * Updates the stored dimensions when the window resizes. Currently
+       * commented out but preserved for future responsive tracking.
+       */
       const handleResize = () => {
         // setDimensions(getDimensions())
       }

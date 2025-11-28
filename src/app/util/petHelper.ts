@@ -299,6 +299,13 @@ const helper = {
         let strongestGnd = [];
         let strongestAir = [];
 
+        /**
+         * Maintains the two strongest pets for both ground and air types based
+         * on base damage at the default rank, ensuring rare required pets are
+         * not displaced by weaker options.
+         *
+         * @param {any} pet - Pet entry being evaluated for inclusion.
+         */
         const updateStrongest = (pet) => {
             //Ground
             if (pet.Type === 1) {
@@ -622,6 +629,13 @@ const helper = {
         let activeBonuses = other?.activeBonuses;
         if (!activeBonuses) activeBonuses = [];
 
+        /**
+         * Caches and returns the token and damage scores for a team grouping to
+         * avoid recalculating identical combinations during search.
+         *
+         * @param {{ ID: number, team: any[] }} group - Grouping candidate to score.
+         * @returns {{ token: number, damage: number, other: any }} Cached scoring results.
+         */
         const memoizedGroupScore = (group) => {
             const key = group.ID;
             if (!memo[key] || memo[key]) {
@@ -702,6 +716,15 @@ const helper = {
         }
 
 
+        /**
+         * Generates valid pet team combinations respecting synergy constraints
+         * and pre-assigned bonuses, returning the highest-scoring grouping.
+         *
+         * @param {any[]} array - Candidate pets to choose from.
+         * @param {number} k - Desired team size.
+         * @param {any[]} bonusList - Pre-selected bonuses that influence composition.
+         * @returns {any} Best-scoring combination respecting constraints.
+         */
         const getCombinationsInner = (array, k, bonusList) => {
 
             // let temp = [];
@@ -754,6 +777,13 @@ const helper = {
             }
 
 
+            /**
+             * Recursively builds team combinations while pruning based on
+             * synergy, blacklist, and token constraints.
+             *
+             * @param {number} start - Current index to consider.
+             * @param {any[]} prevCombination - Partially assembled team.
+             */
             const f = (start, prevCombination) => {
 
                 if (prevCombination.length > 0) {
@@ -1747,6 +1777,13 @@ const helper = {
 
         const memo = {};
 
+        /**
+         * Scores token-focused groups and caches the result to speed up
+         * repeated evaluations during combination searches.
+         *
+         * @param {{ ID: number, team: any[] }} innerGroup - Candidate group to score.
+         * @returns {{ token: number, damage: number, other: any }} Cached scoring results.
+         */
         const memoizedGroupScore = (innerGroup) => {
             const key = innerGroup.ID;
 
@@ -1757,12 +1794,28 @@ const helper = {
             }
             return memo[key];
         };
+        /**
+         * Builds token-optimized group combinations, honoring requirements and
+         * exclusions while keeping track of the current best outcome.
+         *
+         * @param {any[]} array - Candidate pet options.
+         * @param {number} k - Desired team size.
+         * @param {{ min?: number, pets?: any[], ignoredPets?: any[] }} [requiredPetsObj] - Constraints for required and ignored pets.
+         * @returns {any} Highest scoring combination according to token rules.
+         */
         const getCombinationsInner = (array, k, requiredPetsObj?: { min?: number, pets?: any[], ignoredPets?: any[] }) => {
 
             // let temp = [];
             let best: any = -1;
 
 
+            /**
+             * Recursively explores combinations using required/ignored pet
+             * constraints to prune branches early.
+             *
+             * @param {number} start - Current index to evaluate.
+             * @param {any[]} prevCombination - Current combination being built.
+             */
             const f = (start, prevCombination) => {
 
                 let required = 0;

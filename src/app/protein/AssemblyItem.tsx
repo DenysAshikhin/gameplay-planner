@@ -4,6 +4,13 @@ import useLocalStorage from "use-local-storage";
 import ReactGA from "react-ga4";
 import Image from 'next/image';
 
+/**
+ * Displays a configurable assembly bonus entry, synchronizing custom weight
+ * selections with persisted local storage and parent state.
+ *
+ * @param {{ e: any, currentWeights: Record<string, number>, setCurrentWeights: (updater) => void }} props - Bonus data and state handlers.
+ * @returns {JSX.Element} List row showing imagery and weight inputs for the bonus.
+ */
 const AssemblyItem = ({ e, currentWeights, setCurrentWeights }) => {
 
     const [customWeight, setCustomWeight] = useLocalStorage(`assemblyBonusWeight-${e.id}`, -1);
