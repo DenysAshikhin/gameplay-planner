@@ -48,7 +48,6 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-
         <meta name="google-adsense-account" content="ca-pub-1393057374484862" />
         <meta name="yandex-verification" content="347889c423938e18" />
         <meta name="robots" content="all" />
@@ -57,11 +56,14 @@ export default function RootLayout({ children }) {
         {/* <script async type="text/javascript" src="//monu.delivery/site/a/5/892ed4-6227-41b8-95d2-9c7cb4ffe471.js" data-cfasync="false"></script> */}
 
         {/* <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1393057374484862" crossOrigin="anonymous"></script> */}
+
       </head>
-      <body className=''>
+      <body>
         <div
           style={{
-            marginLeft: '0px', marginRight: '0px', maxWidth: '100000px !important',
+            marginLeft: '0px',
+            marginRight: '0px',
+            maxWidth: '100000px !important',
             width: '100vw',
             height: `100vh`,
             padding: '0px',
@@ -71,37 +73,13 @@ export default function RootLayout({ children }) {
             position: 'relative',
             overflow: 'hidden'
           }}>
-          {/* <Head>
-            <link rel="shortcut icon" href="/favicon.ico" />
-          </Head> */}
-          {/* <Script src="https://www.googletagmanager.com/gtag/js?id=G-GGLPK02VH8" />
-          <Script id="google-analytics">
-            {`
-          window.dataLayer = window.dataLayer || [];
-          /**
-           * gtag function description.
-           */
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
- 
-          gtag('config', 'G-GGLPK02VH8');
-        `}
-          </Script> */}
 
           {/* Header */}
-          <div
-            className={`headerBase hover`}
-            style={{
-              width: '100vw'
-            }}
-          >
+          <div className={`headerBase hover`} style={{ width: '100vw' }}>
             <Header />
-
           </div>
 
-          <div
-            style={{ display: 'flex', flex: '1', maxWidth: '100%', maxHeight: 'calc(100% - 36px)' }}
-          >
+          <div style={{ display: 'flex', flex: '1', maxWidth: '100%', maxHeight: 'calc(100% - 36px)' }}>
             {/* navigation bar */}
             <NavBar />
             {/* actual page content */}
@@ -126,5 +104,5 @@ export default function RootLayout({ children }) {
         }} /> */}
       </body>
     </html>
-  )
+  );
 }
