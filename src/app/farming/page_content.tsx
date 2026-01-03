@@ -1585,6 +1585,9 @@ const FarmingLanding = () => {
         )
     }
 
+
+    
+
     return (
         <div
             // className='importantText'
@@ -2083,8 +2086,10 @@ const FarmingLanding = () => {
                                                     }}>Max Autos</button>
                                                 </MouseOverPopover>
                                             </div>
-                                            <div style={{ display: 'flex', alignItems: 'center',
-                                                margin: '0 12px 0 0' }}>
+                                            <div style={{
+                                                display: 'flex', alignItems: 'center',
+                                                margin: '0 12px 0 0'
+                                            }}>
                                                 <MouseOverPopover opacity={0.95} tooltip={
                                                     <div style={{ padding: '6px' }}>
                                                         {`Sets each plants' auto to 1`}
@@ -2487,9 +2492,46 @@ const FarmingLanding = () => {
                                                         <div>
                                                             Best Potato Generation
                                                         </div>
-                                                        <div>
-                                                            {`${100}% Fries`}:
+
+
+                                                        <div
+                                                            style={{
+                                                                display: "flex",
+                                                                flexDirection: 'row',
+                                                            }}
+                                                        >
+                                                            <MouseOverPopover
+                                                                tooltip={`Total number of PIC earned from the run`}>
+                                                            <div>
+                                                                {`(+${bestPlantCombo.bestPot.result.picGain}`}
+                                                            </div>
+                                                            </MouseOverPopover>
+
+                                                                <div>
+
+                                                                    {`->`}
+                                                                </div>
+                                                       
+                                                            <MouseOverPopover
+                                                                tooltip ={`How much benefit you are getting from the amount of PIC you earn from this run`}>
+                                                            <div>
+                                                                {`${helper.roundTwoDecimal(bestPlantCombo.bestPic.result.picStats.picPercent * 100)}%) `}
+                                                            </div>
+                                                            </MouseOverPopover>
+
+                                                            <div
+                                                                style = {{
+                                                                    fontSize: `16px`
+                                                                }}>
+                                                            {` ${helper.roundTwoDecimal(
+                                                                mathHelper.divideDecimal(bestPlantCombo.bestPic.finalFry, bestPlantCombo.bestProd.finalFry).toNumber()
+                                                                * 100)
+                                                                }%\u00A0Fries`}:
+
+                                                            </div>
+
                                                         </div>
+
                                                     </div>
 
 
@@ -2509,12 +2551,9 @@ const FarmingLanding = () => {
                                                         <div className='suggestionHolder' key={index} style={{ borderRight: index === 0 ? '' : '1px solid rgba(0, 119, 255, 0.563)' }}>
                                                             <MouseOverPopover extraClasses={'suggestionHolder'} key={'popover' + index} tooltip={
                                                                 <div>
-                                                                    <div>
-                                                                        <div>
-                                                                            Show how many PIC levels are gained (if any) and the time to hit the NEXT pic with your MAX num autos used
-                                                                        </div>
-                                                                    </div>
+                                                                    Show how many PIC levels are gained (if any) and the time to hit the NEXT pic with your MAX num autos used
                                                                 </div>
+
                                                             }>
 
                                                                 <div className='autoPicSuggestion'>
@@ -2604,10 +2643,12 @@ const FarmingLanding = () => {
 
                                                     <div className='calcInfo' >
                                                         <div>
-                                                            Most PIC (+{`${bestPlantCombo.bestPic.result.picStats.picLevel} -> ${helper.roundTwoDecimal(bestPlantCombo.bestPic.result.picStats.picPercent * 100)}%`})
+                                                            Most PIC
                                                         </div>
+
                                                         <div>
-                                                            {` ${helper.roundTwoDecimal(
+                                                            {/*bestplatecombo..... gives total pic increase if value too large then it pushes Fries down have to fix*/}
+                                                            {`(+${bestPlantCombo.bestPic.result.picStats.picLevel} -> ${helper.roundTwoDecimal(bestPlantCombo.bestPic.result.picStats.picPercent * 100)}%) ${helper.roundTwoDecimal(
                                                                 mathHelper.divideDecimal(bestPlantCombo.bestPic.finalFry, bestPlantCombo.bestProd.finalFry).toNumber()
                                                                 * 100)
                                                                 }% Fries`}
@@ -2769,6 +2810,7 @@ const FarmingLanding = () => {
                                                 </div>
 
 
+                                                {/* 2026-01-01 Icy: doesn't seem like this is used at all anymore? */}
                                                 {bestPlantCombo.bestPot.result.result.steps.map((val, index) => {
                                                     return (
 
@@ -2872,10 +2914,11 @@ const FarmingLanding = () => {
                                                     }}>
                                                         <div className='calcInfo' >
                                                             <div>
-                                                                Most PIC (+{`${bestPlantCombo.bestPic.result.picStats.picLevel} -> ${helper.roundTwoDecimal(bestPlantCombo.bestPic.result.picStats.picPercent * 100)}%`})
+                                                                Most PIC
                                                             </div>
+
                                                             <div>
-                                                                {` ${helper.roundTwoDecimal(
+                                                                {`(+${bestPlantCombo.bestPic.result.picStats.picLevel} -> ${helper.roundTwoDecimal(bestPlantCombo.bestPic.result.picStats.picPercent * 100)}%) ${helper.roundTwoDecimal(
                                                                     mathHelper.divideDecimal(bestPlantCombo.bestPic.finalFry, bestPlantCombo.bestProd.finalFry).toNumber()
                                                                     * 100)
                                                                     }% Fries`}:
