@@ -99,7 +99,7 @@ function Graph({
               scale={yScale}
               domain={["auto", "auto"]}
 
-              tickFormatter={(e, index, ) => {
+              tickFormatter={(e, index,) => {
                 let temp = mathHelper.createDecimal(e);
                 temp.exponent += expDiff;
                 return temp.toPrecision(3).toString();
@@ -138,6 +138,8 @@ function Graph({
               />
             </YAxis>
           )}
+
+          {/* aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa */}
           <Tooltip
             formatter={(value, name, props) => {
               return [
@@ -148,7 +150,13 @@ function Graph({
               ];
             }}
             labelFormatter={(label, payload) => {
-              return helper.secondsToString(label);
+              const today = new Date();
+              let answer = today.getTime() + label * 1000;
+
+              const answer2 = new Date(answer);
+
+              return helper.secondsToString(label) + ` (${answer2.toLocaleString()})`;
+
             }}
           />
           <Legend />
