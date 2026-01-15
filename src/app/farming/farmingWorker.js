@@ -162,7 +162,7 @@ self.onmessage = ({ data: { data, id, data1 } }) => {
 
             if (result.totalPotatoes.greaterThanOrEqualTo(totalPot) === true) {
                 totalPot = result.totalPotatoes;
-                totalPotCombo = { combo: combo, result: result, plants: result.plants }
+                totalPotCombo = { combo: combo, result: result, plants: result.plants , picGain: picGained, picStats: { picLevel: picGained, picPercent: picPercent }}
 
                 top10DataPointsPotatoes.unshift({ data: result.dataPointsPotatoes, result: totalPot });
                 if (top10DataPointsPotatoes.length > 10) {
@@ -177,7 +177,7 @@ self.onmessage = ({ data: { data, id, data1 } }) => {
 
             if (result.potatoeProduction.greaterThanOrEqualTo(bestProd) === true) {
                 bestProd = result.potatoeProduction;
-                bestProdCombo = { combo: combo, result: result, plants: result.plants }
+                bestProdCombo = { combo: combo, result: result, plants: result.plants , picGain: picGained, picStats: { picLevel: picGained, picPercent: picPercent }}
             }
 
             if (picGained > bestPIC) {

@@ -77,7 +77,7 @@ function PetComboDisplay({ petCombos, unlockedPets, petMap }) {
         if (possible) {
             numPossibleCombos++;
             possibleCombosMap[cur.BonusID][cur.ID] = true;
-            if(cur.Found)
+            if (cur.Found)
                 numFoundCombos++;
         }
 
@@ -123,13 +123,13 @@ function PetComboDisplay({ petCombos, unlockedPets, petMap }) {
                     <div>
                         {comboBonusLabel}
                     </div>
-                    <MouseOverPopover 
+                    <MouseOverPopover
                         opacity={1}
                         forceXPlacement={'right'}
                         tooltip={
                             <div>
-                                Green: Combo available and used (counts for achievement).<br/>
-                                Yellow: Combo available but unused.<br/>
+                                Green: Combo available and used (counts for achievement).<br />
+                                Yellow: Combo available but unused.<br />
                                 Red: Combo unvailable.
                             </div>
                         }
@@ -205,7 +205,7 @@ function PetComboDisplay({ petCombos, unlockedPets, petMap }) {
                             <div style={{
                                 display: 'flex',
                                 margin: margin,
-                                border: `5px solid ${possibleCombosMap[petCombo.BonusID][petCombo.ID] ? (petCombo.Found ? 'green' : 'gold')  : 'red'}`
+                                border: `5px solid ${possibleCombosMap[petCombo.BonusID][petCombo.ID] ? (petCombo.Found ? 'green' : 'gold') : 'red'}`
                             }} key={i}>
                                 {PetIDArray.map((petId, j) => {
 
@@ -218,12 +218,13 @@ function PetComboDisplay({ petCombos, unlockedPets, petMap }) {
                                                 alignItems: "center",
                                                 width: '90px',
                                                 height: '90px',
-                                                opacity: petId in unlockedPets || petId === -99 ? `` : `0.6`
+                                                opacity: petId in unlockedPets || petId === -99 ? `` : `0.6`,
+                                                borderLeft: j > 0 ? '2px solid white' : ''
                                                 // margin: j % 2 === 0 ? '1px 1px 1px 1px' : '1px 0 1px 0'
                                                 // border: '1px solid black'
                                             }}
                                             // className={petId in unlockedPets ? `` : 'whiteBackground redBorder'}
-                                            className={petId in unlockedPets || petId === -99 ? `lightGrayBackground` : ``}
+                                            className={petId in unlockedPets || petId === -99 ? `darkGrayBackground` : ``}
                                         >
                                             {petId !== -99 && (
                                                 <StaticPetItem petData={{ ...staticPetData, pet: petMap[petId] }} highlight={petId in unlockedPets}
@@ -375,8 +376,8 @@ export default function Pets() {
                 petWhiteList: petWhiteList,
                 usePromos: usePromos,
                 maxTopStat: maxTopStat,
-                ignorePetRanks:ignorePetRanks,
-                equalisePets:equalisePets,
+                ignorePetRanks: ignorePetRanks,
+                equalisePets: equalisePets,
             });
         let currentBonuses = result[2];
 
@@ -392,7 +393,7 @@ export default function Pets() {
         }
         return result;
     },
-        [data, priorityList, priorityMap, petWhiteList, useExpedition, manualEnabledPets, statMode, statModePets, usePromos, maxTopStat,ignorePetRanks,equalisePets]
+        [data, priorityList, priorityMap, petWhiteList, useExpedition, manualEnabledPets, statMode, statModePets, usePromos, maxTopStat, ignorePetRanks, equalisePets]
     );
 
 
@@ -582,7 +583,7 @@ export default function Pets() {
             }
         }
     },
-        [data, manualEnabledPets, useExpedition, usePromos, maxTopStat, ignorePetRanks,equalisePets])
+        [data, manualEnabledPets, useExpedition, usePromos, maxTopStat, ignorePetRanks, equalisePets])
     // statTeamMasterList
 
     let specialCombos = {};
@@ -910,7 +911,7 @@ export default function Pets() {
                                         values={priorityList}
                                         onReorder={setPriorityList}>
                                         {priorityList.map((item, index) => {
-                                            if ((data.AscensionCount > 29 && item === 1 )|| (data.AscensionCount > 39 && item === 3 )) {
+                                            if ((data.AscensionCount > 29 && item === 1) || (data.AscensionCount > 39 && item === 3)) {
                                             }
                                             let showSelectedPets = false;
                                             let color = 'gray';
@@ -943,7 +944,7 @@ export default function Pets() {
                                                         style={{
                                                             margin: '6px 3px',
                                                             border: `2px solid ${color}`,
-                                                            display: (data.AscensionCount > 29 && item === 1) || (data.AscensionCount > 39 && item === 3)? 'none' : 'flex',
+                                                            display: (data.AscensionCount > 29 && item === 1) || (data.AscensionCount > 39 && item === 3) ? 'none' : 'flex',
                                                             alignItems: 'center', flexDirection: 'column',
                                                             width: '220px',
                                                             backgroundColor: 'rgba(255,255,255, 0.07)',

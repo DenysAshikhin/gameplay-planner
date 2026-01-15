@@ -162,6 +162,10 @@ code {
   background-color: #f3f3f3;
 }
 
+.darkGrayBackground {
+  background-color: #7d7d7d !important;
+}
+
 .grayBackground {
   background-color: gray;
 }
