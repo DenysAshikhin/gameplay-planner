@@ -435,7 +435,7 @@ const farmingHelper = {
         let flag = true;
         let requiredPerPic = 10 * Math.pow(2, start);
         let requiredHarvests = runningHarvests + requiredPerPic;
-        while (flag) {
+        while (flag && start < 250) {
             requiredPerPic = 10 * Math.pow(2, start);
             requiredHarvests = runningHarvests + requiredPerPic;
             if (plant_input.created.greaterThanOrEqualTo(requiredHarvests)) {

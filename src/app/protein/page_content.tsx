@@ -148,10 +148,10 @@ export default function Protein() {
             }
             currentBonusTotals[inner_bonus.ID] *= farmingHelper.calcAssemblyLine(inner_bonus, inner_val.Level);
         })
-        if(inner_val.LevelMax - inner_val.Level > 0)
+        if (inner_val.LevelMax - inner_val.Level > 0)
             hasUnfinishedAssembly = true;
     });
-    if(hasUnfinishedAssembly) {
+    if (hasUnfinishedAssembly) {
         if (Object.values(currentWeights).length > 0) {
             for (let i = 0; i < numAL; i++) {
                 // let assembliesMap = {};
@@ -214,51 +214,52 @@ export default function Protein() {
                     }
                 }
 
-                // assembliesMap.sort((a, b) => b.score - a.score);
-                assembliesMap.sort((a, b) => {
-                    if (b.cost_score.lessThan(a.cost_score)) {
-                        return 1;
-                    }
-                    return -1
-                });
-
-
-                let cost = farmingHelper.calcAssemblyCost(assembliesMap[0].ID, tempData);
-                let timeToPurchase: DecimalSource = mathHelper.subtractDecimal(cost, currProtein);
-
-                if (currProtein.greaterThan(cost)) {
-                    timeToPurchase = 0;
-                    currProtein = mathHelper.subtractDecimal(currProtein, cost);
-                }
-                else {
-                    timeToPurchase = mathHelper.divideDecimal(timeToPurchase, protRate);
-                    currProtein = mathHelper.createDecimal(0);
-                }
-                if (cumulativeTime) {
-                    let tempHolder = mathHelper.addDecimal(0, timeToPurchase);
-                    timeToPurchase = mathHelper.addDecimal(timeToPurchase, runningTime);
-                    runningTime = mathHelper.addDecimal(runningTime, tempHolder);
-                }
-
-                bestAssemblies.push(
-                    {
-                        assembly: JSON.parse(JSON.stringify(assembliesMap[0])),
-                        data: JSON.parse(JSON.stringify(tempData)),
-                        purchaseTime: timeToPurchase,
-                        cost: cost
-                    }
-                );
-                tempData.AssemblerCollection[assembliesMap[0].ID].Level++;
-                totalLevels++;
-                currentBonusTotals = {};
-                for (let c = 0; c < tempData.AssemblerCollection.length; c++) {
-                    let inner_val = tempData.AssemblerCollection[c];
-                    for (let v = 0; v < inner_val.BonusList.length; v++) {
-                        let inner_bonus = inner_val.BonusList[v];
-                        if (!currentBonusTotals[inner_bonus.ID]) {
-                            currentBonusTotals[inner_bonus.ID] = 1;
+                if (assembliesMap.length > 0) {
+                    // assembliesMap.sort((a, b) => b.score - a.score);
+                    assembliesMap.sort((a, b) => {
+                        if (b.cost_score.lessThan(a.cost_score)) {
+                            return 1;
                         }
-                        currentBonusTotals[inner_bonus.ID] *= farmingHelper.calcAssemblyLine(inner_bonus, inner_val.Level);
+                        return -1
+                    });
+
+                    let cost = farmingHelper.calcAssemblyCost(assembliesMap[0].ID, tempData);
+                    let timeToPurchase: DecimalSource = mathHelper.subtractDecimal(cost, currProtein);
+
+                    if (currProtein.greaterThan(cost)) {
+                        timeToPurchase = 0;
+                        currProtein = mathHelper.subtractDecimal(currProtein, cost);
+                    }
+                    else {
+                        timeToPurchase = mathHelper.divideDecimal(timeToPurchase, protRate);
+                        currProtein = mathHelper.createDecimal(0);
+                    }
+                    if (cumulativeTime) {
+                        let tempHolder = mathHelper.addDecimal(0, timeToPurchase);
+                        timeToPurchase = mathHelper.addDecimal(timeToPurchase, runningTime);
+                        runningTime = mathHelper.addDecimal(runningTime, tempHolder);
+                    }
+
+                    bestAssemblies.push(
+                        {
+                            assembly: JSON.parse(JSON.stringify(assembliesMap[0])),
+                            data: JSON.parse(JSON.stringify(tempData)),
+                            purchaseTime: timeToPurchase,
+                            cost: cost
+                        }
+                    );
+                    tempData.AssemblerCollection[assembliesMap[0].ID].Level++;
+                    totalLevels++;
+                    currentBonusTotals = {};
+                    for (let c = 0; c < tempData.AssemblerCollection.length; c++) {
+                        let inner_val = tempData.AssemblerCollection[c];
+                        for (let v = 0; v < inner_val.BonusList.length; v++) {
+                            let inner_bonus = inner_val.BonusList[v];
+                            if (!currentBonusTotals[inner_bonus.ID]) {
+                                currentBonusTotals[inner_bonus.ID] = 1;
+                            }
+                            currentBonusTotals[inner_bonus.ID] *= farmingHelper.calcAssemblyLine(inner_bonus, inner_val.Level);
+                        }
                     }
                 }
             }
@@ -323,7 +324,7 @@ export default function Protein() {
                 matching.count += purchasableAssemblies[i].desiredLevel - purchasableAssemblies[i].assembly.Level;
             }
         }
-        cumulativePurchasableAssemblies.sort((a,b) => a.id - b.id);
+        cumulativePurchasableAssemblies.sort((a, b) => a.id - b.id);
 
         futureAssemblies = bestAssemblies.filter((e) => e.purchaseTime > 0);
     }
@@ -459,14 +460,14 @@ export default function Protein() {
                                     </MouseOverPopover>
                                     <div
                                         className='importantText'
-                                        style={{ fontSize: '18px', marginRight: '6px', marginLeft:'auto' }}
+                                        style={{ fontSize: '18px', marginRight: '6px', marginLeft: 'auto' }}
                                     >
                                         Num purchases
                                     </div>
                                     <input
                                         aria-label='Specify how many average protein trade costs to reserver'
                                         className='importantText textMedium2'
-                                        style={{ borderRadius: '4px', width: '36px', height: '65%', backgroundColor: '#2D2D2D' }}
+                                        style={{ borderRadius: '4px', width: '48px', height: '65%', backgroundColor: '#2D2D2D' }}
                                         type='number'
                                         value={numAL}
                                         onChange={
@@ -474,7 +475,7 @@ export default function Protein() {
                                                 try {
                                                     let x = Number(inner_e.target.value);
                                                     // x = Math.floor(x);
-                                                    if (x < 1 || x > 99) {
+                                                    if (x < 1 || x > 999) {
                                                         return;
                                                     }
                                                     setNumAl(x);
@@ -489,8 +490,8 @@ export default function Protein() {
                                 </div>
 
                                 {/* reserve trades */}
-                                <div  className='importantText' style={{display:'flex', alignItems:'center'}}>
-                                    <div style={{marginRight:'auto'}}>
+                                <div className='importantText' style={{ display: 'flex', alignItems: 'center' }}>
+                                    <div style={{ marginRight: 'auto' }}>
                                         {`Reserve Trade Costs`}
                                     </div>
                                     <input
@@ -540,12 +541,12 @@ export default function Protein() {
                                         {cumulativePurchasableAssemblies.map((e, index) => {
                                             return <CumulativeAssemblyLine
                                                 key={e.id}
-                                                assemblyID = {e.id}
-                                                currentLevel = {e.currentLevel}
-                                                count = {e.count}
-                                                totalCost = {e.totalCost}
-                                                index = {index + 1}
-                                                futureLevel = {e.currentLevel + e.count}
+                                                assemblyID={e.id}
+                                                currentLevel={e.currentLevel}
+                                                count={e.count}
+                                                totalCost={e.totalCost}
+                                                index={index + 1}
+                                                futureLevel={e.currentLevel + e.count}
                                                 data={e.data}
                                                 simplifiedView={simplifiedView}
                                             />
