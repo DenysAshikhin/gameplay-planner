@@ -77,7 +77,7 @@ export default function PageSelection() {
                     <PageCard page='contagion' />
                     <PageCard page='protein' />
                     <PageCard page='residue' />
-                    <PageCard page='text_guide' highlightClass='rainbow' />
+                    <PageCard page='text_guide' highlightClass='highlight rainbow' />
                 </div>
                 <div className='row'>
                     <PageCard page='infinity_corner' />
