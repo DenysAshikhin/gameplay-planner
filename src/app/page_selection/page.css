@@ -27,6 +27,7 @@
   background-color: rgba(255, 255, 255, 0.05);
   padding: 6px;
   border-bottom: 0;
+  border-radius: 12px 12px 0 0; /* To make sure there's no overflow when highlight is used */
 }
 
 .card__title {
@@ -35,6 +36,7 @@
   font-size: 20px;
   background-color: rgba(255, 255, 255, 0.12);
   padding: 2px 0 4px;
+  border-radius: 0 0 12px 12px; /* To make sure there's no overflow when highlight is used */
 }
 
 /* Fancy highlight for Text Guide card */
