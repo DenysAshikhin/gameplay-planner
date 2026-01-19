@@ -257,14 +257,12 @@ a {
   border: 1.5px solid rgba(255, 255, 255, 0.8);
 }
 
-.borderToFadeInAndOutRed {
+.highlight.blink-red {
   opacity: 1;
-  animation: fadeBorderRed 2s linear infinite;
+  animation: fade-border 2s linear infinite;
 }
 
-
-@keyframes fadeBorderRed {
-
+@keyframes fade-border {
   0%,
   100% {
     border: 3px solid rgba(255, 0, 0, 0)
@@ -274,7 +272,6 @@ a {
     border: 3px solid rgba(255, 0, 0, 1)
   }
 }
-
 
 .inverseX {
   -webkit-transform: scaleX(-1);
