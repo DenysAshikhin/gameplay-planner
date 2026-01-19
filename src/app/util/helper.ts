@@ -19,14 +19,6 @@ var helper = {
         return new Promise(r => setTimeout(r, seconds * 1000));
     },
     /**
-     * Format a numeric string with comma separators for thousands.
-     * @param {string} x Numeric string to format.
-     * @returns {string} Comma-delimited representation.
-     */
-    numberWithCommas: function (x) {
-        return x.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    },
-    /**
      * Round a numeric value to three decimal places.
      * @param {number} number Value to round.
      * @returns {number} Rounded value with three decimal precision.

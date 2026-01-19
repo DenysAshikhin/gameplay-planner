@@ -41,9 +41,8 @@ const ResidueCard = ({ data, params, defaultWeight, setParentWeights, desiredLev
     const [clientWeight, setClientWeight] = useLocalStorage(`${params.label}_residue_weight`, -1);
     const [runTimeWeight, setRunTimeWeight] = useState(params.weight(data.AscensionCount));
 
-
     useEffect(() => {
-        console.log(`useefect1`)
+        // console.log(`useefect1`)
         if (clientWeight === -1) {
             setRunTimeWeight(defaultWeight);
         }
@@ -86,7 +85,7 @@ const ResidueCard = ({ data, params, defaultWeight, setParentWeights, desiredLev
     const key_locked = sweet_locked || skull_locked;
     // 
     return (
-        <div className='importantText residueCard'
+        <div className='importantText residue-card'
             onMouseEnter={() => { if (key_locked) return; setHovering(true); }}
             onMouseLeave={() => { if (key_locked) return; setHovering(false); }}
         >
@@ -95,25 +94,25 @@ const ResidueCard = ({ data, params, defaultWeight, setParentWeights, desiredLev
                 <div className='hover'
                     style={{ position: 'relative', width: '90%', height: '94%', margin: '6px 8px' }}
                 >
-                    <Image src={residueMap['locked'].sweetlocked} fill unoptimized alt='sweet potatoe lock' />
+                    <Image src={residueMap['locked'].sweetlocked} fill unoptimized priority alt='sweet potatoe lock' />
                 </div>
             )}
             {skull_locked && (
                 <div className='hover'
                     style={{ position: 'relative', width: '90%', height: '94%', margin: '6px 8px' }}
                 >
-                    <Image src={residueMap['locked'].skulllocked} fill unoptimized alt='sweet potatoe lock' />
+                    <Image src={residueMap['locked'].skulllocked} fill unoptimized priority alt='sweet potatoe lock' />
                 </div>
             )}
 
             {!key_locked && (
                 <>
-                    <div className='residueCardHeader'>
+                    <div className='residue-card__header'>
                         <div>
                             {locked ? `?????` : `${params.label}: ${level}`}
                         </div>
                         {((finishedBuying && needPurchase) || futurePurchase) && !locked && (
-                            <div className='futurePurchase'
+                            <div className='future-purchase'
                                 style={futurePurchase ? { color: 'yellow' } : {}}
                             >
                                 <div>
@@ -125,10 +124,8 @@ const ResidueCard = ({ data, params, defaultWeight, setParentWeights, desiredLev
                             </div>
                         )}
                     </div>
-                    <div className='residueCardBody'>
-
+                    <div className='residue-card__body'>
                         <div style={{ position: 'absolute', right: '9px', top: '9px', zIndex: '2' }}>
-
                             <MouseOverPopover tooltip={
                                 <div>
                                     <div>
@@ -140,10 +137,11 @@ const ResidueCard = ({ data, params, defaultWeight, setParentWeights, desiredLev
                                 </div>
                             }>
                                 <div style={{ position: 'relative', width: '30px', height: '30px' }}>
-                                    <Image src={infoIcon} fill unoptimized alt="letter i in a circle" />
+                                    <Image src={infoIcon} fill unoptimized priority alt="letter i in a circle" />
                                 </div>
                             </MouseOverPopover>
                         </div>
+
                         {!locked && (
                             <div style={{ position: 'absolute', left: '8px', bottom: '8px', zIndex: '2', display: 'flex', alignItems: 'center' }}>
                                 <div>
@@ -181,8 +179,8 @@ const ResidueCard = ({ data, params, defaultWeight, setParentWeights, desiredLev
                                                     console.log(err);
                                                 }
                                             }}
-                                        min="0"
-                                        max="9999"
+                                        min='0'
+                                        max='9999'
                                     />
                                 </div>
                                 {(weight !== params.weight(asc_level)) && (
@@ -192,26 +190,25 @@ const ResidueCard = ({ data, params, defaultWeight, setParentWeights, desiredLev
                                             setClientWeight(-1);
                                         }}
                                     >
-                                        <Image src={RefreshIcon} fill unoptimized alt='reset, 2 arrows in a circle' />
+                                        <Image src={RefreshIcon} fill unoptimized priority alt='reset, 2 arrows in a circle' />
                                     </div>
                                 )}
                             </div>
                         )}
 
                         {!!locked && (
-                            <Image className='noPointerEvent' src={residueMap['locked'].img} fill unoptimized alt={`locked bonus image from in game`} />
+                            <Image className='noPointerEvent' src={residueMap['locked'].img} unoptimized priority alt={`locked bonus image from in game`} />
                         )}
                         {!locked && (
-                            <Image className='noPointerEvent' src={params.img} fill unoptimized alt={`${params.key} bonus from in game`} />
+                            <Image className='noPointerEvent' src={params.img} unoptimized priority alt={`${params.key} bonus from in game`} />
                         )}
                         {(!!needPurchase && finishedBuying) && !locked && (
-                            <Image className='noPointerEvent' src={greenBorder} fill unoptimized alt={`Green border to indicate an upgrade should be purchased`} />
+                            <Image className='noPointerEvent' src={greenBorder} unoptimized priority alt={`Green border to indicate an upgrade should be purchased`} />
                         )}
                         {(!finishedBuying || futurePurchase) && (
-                            <Image className='noPointerEvent' src={StillBuying} fill unoptimized alt={`Yellow border to indicate an upgrade is still autobuying`} />
+                            <Image className='noPointerEvent' src={StillBuying} unoptimized priority alt={`Yellow border to indicate an upgrade is still autobuying`} />
                         )}
                     </div>
-                    <div className='residueCardFooter'></div>
                 </>
             )}
 
@@ -228,10 +225,9 @@ const ResidueCard = ({ data, params, defaultWeight, setParentWeights, desiredLev
  * @returns {JSX.Element} Card summarizing the purchase suggestion.
  */
 const ResideOrderCard = ({ data }) => {
-
     return (
-        <div className='importantText suggestionCard'>
-            <div className='suggestionCardHeader'>
+        <div className='importantText suggestion-card'>
+            <div className='suggestion-card__header'>
                 <div>
                     {`${data.params.label}`}
                 </div>
@@ -239,7 +235,7 @@ const ResideOrderCard = ({ data }) => {
                     {`Cost: ${data.totalCost.toExponential(2).toString()}`}
                 </div>
             </div>
-            <div className='suggestionCardBody'>
+            <div className='suggestion-card__body'>
                 <div style={{
                     position: 'relative',
                     height: '45px'
@@ -247,7 +243,7 @@ const ResideOrderCard = ({ data }) => {
                     <Image
                         alt={`${data.params.label} bonus holder`}
                         style={{ width: 'auto', height: '100%' }}
-                        src={data.params.label_img} unoptimized
+                        src={data.params.label_img}
                     />
 
 
@@ -271,7 +267,7 @@ const ResideOrderCard = ({ data }) => {
                                 alt='arrow point to the left'
                                 src={rightArrow}
                                 fill
-                                unoptimized
+                                loading='lazy'
                             />
                         </div>
                         <div>
@@ -312,8 +308,8 @@ export default function Residue() {
             setTimeout(() => {
                 const viewport = document.querySelector('meta[name="viewport"]');
                 if (viewport instanceof HTMLMetaElement) {
-                    viewport.content = "initial-scale=0.1";
-                    viewport.content = "width=1200";
+                    viewport.content = 'initial-scale=0.1';
+                    viewport.content = 'width=1200';
                 }
             }, 500);
         }
@@ -398,11 +394,25 @@ export default function Residue() {
     }, [data, parentWeights])
 
     const stillBuying = useMemo(() => {
+        // Check if any residue items are still auto-buying
+        // Uses the same logic as finishedBuying in ResidueCard: highestLevel > level
+        return Object.entries(residueMap)
+            .filter(([key]) => key !== 'locked')
+            .some(([key, params]) => {
+                // Skip if item is locked
+                if (params.unlock && params.unlock > data.AscensionCount) {
+                    return false;
+                }
+                // Calculate finishedBuying the same way ResidueCard does
+                const level = data[params.key];
+                const highestLevel = data[params.highestKey(params.key)];
+                const finishedBuying = highestLevel <= level;
+                return !finishedBuying;
+            });
+    }, [data])
 
-        return false;
-    }, [])
 
-
+    console.log(data);
 
 
     return (
@@ -421,124 +431,72 @@ export default function Residue() {
                     display: 'flex',
                     flex: '1',
                     backgroundColor: 'rgba(255,255,255, 0.05)',
-                    paddingLeft: '12px'
+                    padding: '12px 0 12px 12px'
                 }}
             >
+
                 {/* Current Card + Wanted Levels */}
-                <div
-                    style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignSelf: 'start',
-                        width: '900px',
-                        border: "2px solid rgba(255,255,255,0.8)",
-                        margin: '12px 36px 0 0px',
-                        borderRadius: '12px',
-                        height: 'calc(100vh - 68px)',
-                        paddingBottom: '12px'
-                    }}
-                >
-                    {/* header */}
-                    <div
-                        style={{ backgroundColor: 'rgba(255,255,255, 0.05)', }}
-                    >
-                        <div
-                            className='importantText'
-                            style={{ fontSize: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '12px 0' }}
-                        >
-                            {`Current Residue${stillBuying ? ` - STILL BUYING` : ``}`}
-                        </div >
+                <div className='wrapper residue'>
+                    <div className='wrapper__title importantText'>
+                        Current Residue&nbsp;{stillBuying && <span className="wrapper__title--addon">- AUTO STILL BUYING</span>}
                     </div >
 
                     {/* Card List */}
-                    <div style={{
-                        height: 'calc(100% - 42px)', padding: '0 6px 0 0'
-                    }}>
+                    <div className='card-list'>
+                        {Object.entries(residueMap).filter((value) => value[0] !== 'locked').sort((a, b) => a[1].order - b[1].order).map((value, index) => {
+                            let key = value[0];
+                            let params = value[1];
 
-                        <div style={{
-                            display: 'flex', flexWrap: 'wrap', maxHeight: '100%',
-                            overflowY: 'auto',
-                        }}>
-                            {Object.entries(residueMap).filter((value) => value[0] !== 'locked').sort((a, b) => a[1].order - b[1].order).map((value, index) => {
-                                let key = value[0];
-                                let params = value[1];
-
-                                return <ResidueCard
-                                    data={data}
-                                    defaultWeight={residueMap[key].weight(data.AscensionCount)}
-                                    desiredLevels={!!finalObject[key]?.levels ? finalObject[key]?.levels : 0}
-                                    futurePurchase={!!finalObject[key]?.futurePurchase ? finalObject[key]?.futurePurchase : false}
-                                    params={{ ...params, key_inner: key, }}
-                                    key={index}
-                                    setParentWeights={setParentWeights}
-                                />
-                            })}
-                        </div>
+                            return <ResidueCard
+                                data={data}
+                                defaultWeight={residueMap[key].weight(data.AscensionCount)}
+                                desiredLevels={!!finalObject[key]?.levels ? finalObject[key]?.levels : 0}
+                                futurePurchase={!!finalObject[key]?.futurePurchase ? finalObject[key]?.futurePurchase : false}
+                                params={{ ...params, key_inner: key, }}
+                                key={index}
+                                setParentWeights={setParentWeights}
+                            />
+                        })}
                     </div>
                 </div >
 
-                {/* Suggested Purchase Order */}
-                <div
-                    style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignSelf: 'start',
-                        width: '445px',
-                        border: "2px solid rgba(255,255,255,0.8)",
-                        margin: '12px 36px 12px 0px',
-                        borderRadius: '12px',
-                        height: 'calc(100vh - 68px)',
-                        paddingBottom: '12px',
-                        overflow: 'hidden',
-                    }}
-                >
-                    {/* header */}
-                    <div
-                        style={{ backgroundColor: 'rgba(255,255,255, 0.05)', }}
-                    >
-                        <div
-                            className='importantText'
-                            style={{ fontSize: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '12px 0' }}
-                        >
+                {/* Suggested Purchase Order (only if Residue Take Away isn't bought yet) */}
+                {!data.ASCResidueTakeAway && (
+                    <div className='wrapper suggested-order'>
+                        <div className='wrapper__title importantText'>
                             Suggested Purchase Order
                         </div >
-                    </div >
 
-                    {/* Card List */}
-                    <div style={{
-                        height: 'calc(100% - 42px)', padding: '0 6px 0 0'
-                    }}>
-                        {!stillBuying && (
-                            <div className='suggestedOrder importantText'
-                                style={{
-                                    display: 'flex', flexDirection: 'column', height: 'calc(100% - 11px)',
-                                    overflowY: 'auto', alignItems: 'center'
-                                }}
-                            >
-                                {Object.entries(residueMap).filter((value) => value[0] !== 'locked').sort((a, b) => a[1].order - b[1].order).map((value, index) => {
-                                    let key = value[0];
-                                    let params = value[1];
-                                    if (!finalObject[key]) return null;
-                                    if (finalObject[key].levels === 0) return null;
+                        {/* Card List */}
+                        <div className='card-list importantText'>
+                            {/* Print 'No purchases yet' if no purchases can be afforded */}
+                            { !Object.entries(finalObject).some(([key]) => finalObject[key]?.levels > 0) && (
+                                <div>
+                                    Nothing to purchase yet
+                                </div>
+                            )}
+                            {Object.entries(residueMap).filter((value) => value[0] !== 'locked').sort((a, b) => a[1].order - b[1].order).map((value, index) => {
+                                let key = value[0];
+                                let params = value[1];
+                                if (!finalObject[key]) return null;
+                                if (finalObject[key].levels === 0) return null;
 
-                                    return <ResideOrderCard
-                                        data={
-                                            {
-                                                params: params,
-                                                start: data[params.key],
-                                                desiredLevel: data[params.key] + finalObject[key].levels,
-                                                totalCost: finalObject[key].runningCost
-                                            }
+                                return <ResideOrderCard
+                                    data={
+                                        {
+                                            params: params,
+                                            start: data[params.key],
+                                            desiredLevel: data[params.key] + finalObject[key].levels,
+                                            totalCost: finalObject[key].runningCost
                                         }
-                                        key={index + key}
-                                    />
-                                })}
+                                    }
+                                    key={index + key}
+                                />
+                            })}
 
-                            </div>
-                        )}
-
+                        </div>
                     </div>
-                </div>
+                )}
             </div>
             <div
                 style={{
