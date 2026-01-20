@@ -64,7 +64,7 @@ const PageCard = ({ page, highlightClass }: { page: string, highlightClass?: str
       break;
     case 'text_guide':
       imgString = 'handbook';
-      nameString = 'Text Guide';
+      nameString = "Dzed's Guide";
       url = 'https://docs.google.com/document/d/1Asp6H0GHY3_MDGIsrehQv-oJ2BwGDTB-_7LIToA0hWw/';
       break;
     case 'infinity_corner':
