@@ -88,7 +88,8 @@ const helper = {
         //contains clover and other                 contains active (special) bonuses
         let pd_token_bonus = tokenModifiers.data.ExpeditionTokenBonuses * tokenModifiers.data.ExpeditionResourceBonuses;
         if (!tokenModifiers.finalTokenBonus) {
-            throw new Error(`out dated calc best hours call! Missing finalTokenBonus`)
+            tokenModifiers.finalTokenBonus = 1;
+            // throw new Error(`out dated calc best hours call! Missing finalTokenBonus`)
         }
 
         const finalTokenBonus = tokenModifiers.finalTokenBonus;
@@ -2174,6 +2175,7 @@ const helper = {
         let bannedPets = parameters.banned;
         let manualEnabledPets = parameters.manualEnabledPets ? parameters.manualEnabledPets : {};
 
+
         for (let i = 0; i < data.PetsCollection.length; i++) {
             let pet = data.PetsCollection[i];
             if (pet.ID === 0) continue;
@@ -2257,6 +2259,37 @@ const helper = {
             IgnoredStats['3'] = true;
         }
 
+        let maxCaptureChanceWorld = 0;
+        let minCaptureChanceWorld = Infinity;
+        let captureChanceWorldRange = 1;
+        let maxCaptureChanceDungeon = 0;
+        let minCaptureChanceDungeon = Infinity;
+        let captureChanceDungeonRange = 1;
+
+        for (let i = 0; i < data.PetsCollection.length; i++) {
+            let pet = data.PetsCollection[i];
+            if (pet.Locked === 1 || false) {
+                if (pet.CaptureDungeon) {
+                    if (pet.CaptureChance > maxCaptureChanceDungeon) {
+                        maxCaptureChanceDungeon = pet.CaptureChance;
+                    }
+                    if (pet.CaptureChance < minCaptureChanceDungeon) {
+                        minCaptureChanceDungeon = pet.CaptureChance;
+                    }
+                }
+                else {
+                    if (pet.CaptureChance > maxCaptureChanceWorld) {
+                        maxCaptureChanceWorld = pet.CaptureChance;
+                    }
+                    if (pet.CaptureChance < minCaptureChanceWorld) {
+                        minCaptureChanceWorld = pet.CaptureChance;
+                    }
+                }
+            }
+        }
+        captureChanceWorldRange = maxCaptureChanceWorld - minCaptureChanceWorld;
+        captureChanceDungeonRange = maxCaptureChanceDungeon - minCaptureChanceDungeon;
+        // console.log(`max capture chance world: ${maxCaptureChanceWorld}, dungeon: ${maxCaptureChanceDungeon}`)
 
         let tempArr = [];//
         for (let i = 0; i < priorities.length; i++) {
@@ -2358,6 +2391,7 @@ const helper = {
 
                 let pet = { ...value, score: 0, bonuses: [], sharedBonuses: [] };
                 let hasTopStat = false;
+                let hasRelevantStatMult = 0;
                 if (bannedPets[ID]) {
                     continue;
                 }
@@ -2393,6 +2427,9 @@ const helper = {
                                 pet.bonuses.push(priorities[j]);
 
                                 pet.score += scoreTick * (priorities.length - j);
+                                if ((priorities.length - j) / priorities.length > hasRelevantStatMult) {
+                                    hasRelevantStatMult = (priorities.length - j) / priorities.length;
+                                }
                                 break;
                             }
                         }
@@ -2428,13 +2465,33 @@ const helper = {
                         }
                     }
                 });
-                pet.score = general_helper.roundFiveDecimal(
-                    pet.score *
-                    (1 + (
-                        (usePromos ? 1 : 0) * (pet.promotion ? pet.promotion * 0.05 : 0)
-                    )
-                    )
-                );
+
+                const promotMult = usePromos ? (1 + (pet.promotion ? pet.promotion * 0.05 : 0)) : 1;
+
+                const cc = Number(pet.CaptureChance || 0);
+                // 0..1 where 1 is cheapest, 0 is most expensive
+                if (pet.CaptureDungeon) {
+                    pet.cheapness =
+                        maxCaptureChanceDungeon > 0
+                            ? 1 - Math.min(1, Math.max(0, (cc - minCaptureChanceDungeon) / captureChanceDungeonRange))
+                            : 0;
+                }
+                else {
+                    pet.cheapness =
+                        maxCaptureChanceWorld > 0
+                            ? 1 - Math.min(1, Math.max(0, (cc - minCaptureChanceWorld) / captureChanceWorldRange))
+                            : 0;
+                }
+
+                const cheapPromoteWeight = 1.1 * 1;
+                const cheapMult = hasRelevantStatMult > 0 ? 1 + (cheapPromoteWeight * (pet.cheapness || 0)) : 1;
+                // if (cheapMult > 1) {
+                //     let bigsad = -1;
+                // }
+                if(pet.name === 'Weapon Angelus' ) {
+                    let bigsad = -1;
+                }
+                pet.score = general_helper.roundFiveDecimal(pet.score * promotMult * cheapMult);
 
                 //If we are prioritising the top stat, skip any pet that doesn't have it
                 if (topStatActive && !hasTopStat) {
@@ -2448,7 +2505,7 @@ const helper = {
                 let diff = b.score - a.score;
 
                 if (topStatActive) {
-             
+
                     if (a.desiredStat && !b.desiredStat) {
                         return -1;
                     }
