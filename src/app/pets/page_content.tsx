@@ -911,12 +911,12 @@ export default function Pets() {
                                         values={priorityList}
                                         onReorder={setPriorityList}>
                                         {priorityList.map((item, index) => {
-                                            if ((data.AscensionCount > 29 && item === 1) || (data.AscensionCount > 39 && item === 3)) {
-                                            }
+
                                             let showSelectedPets = false;
                                             let color = 'gray';
                                             let priority = priorityMap[item];
                                             let current = currentBonuses[item];
+
                                             if (priority.count === -1) {
                                                 color = 'white';
                                             }

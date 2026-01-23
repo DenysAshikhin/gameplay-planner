@@ -23,8 +23,32 @@ var helper = {
      * @param {string} x Numeric string to format.
      * @returns {string} Comma-delimited representation.
      */
-    numberWithCommas: function (x) {
-        return x.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    numberWithCommas: function (x: unknown) {
+        if (x === null || x === undefined) return '';
+
+        // Handle Decimal-like objects explicitly if they exist
+        if (typeof x === 'object') {
+            const anyX = x as any;
+            if (typeof anyX.toNumber === 'function') return this.numberWithCommas(anyX.toNumber());
+            if (typeof anyX.toString === 'function') return this.numberWithCommas(anyX.toString());
+        }
+
+        // Numbers: locale formatting is safest
+        if (typeof x === 'number') return Number.isFinite(x) ? x.toLocaleString('en-US') : String(x);
+        if (typeof x === 'bigint') return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+        const s = String(x);
+
+        // If it's scientific notation, don't try to comma-separate it
+        if (/e[+-]?\d+$/i.test(s)) return s;
+
+        // Comma-separate the integer part (keeps decimals intact)
+        const [intPart, fracPart] = s.split('.');
+        const sign = intPart.startsWith('-') ? '-' : '';
+        const digits = sign ? intPart.slice(1) : intPart;
+
+        const withCommas = digits.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        return fracPart !== undefined ? `${sign}${withCommas}.${fracPart}` : `${sign}${withCommas}`;
     },
     /**
      * Round a numeric value to three decimal places.
@@ -204,11 +228,11 @@ var helper = {
      * @param {{ DealQueue: Array<{ CostResourceID: number, CostResourceIDSub?: number, CostValue: number }> }} data Deal queue containing cost information.
      * @returns {{ purchase_cost_map: Record<string, { id: number, subtype?: number, cost: Decimal, counter: number }>, average_cost_map: Array<{ id: number, subtype?: number, cost: Decimal, counter: number }> }} Aggregated cost totals and averages.
      */
-    getAverageTradeCosts: function(data){
+    getAverageTradeCosts: function (data) {
         let purchase_cost_map = {};
         data.DealQueue.forEach((inner_deal) => {
             const big_id = inner_deal.CostResourceIDSub ? `tier-` + inner_deal.CostResourceIDSub : inner_deal.CostResourceID;
-    
+
             if (!purchase_cost_map[big_id]) {
                 purchase_cost_map[big_id] = { id: inner_deal.CostResourceID, cost: mathHelper.createDecimal(0), counter: 0 };
                 if (inner_deal.CostResourceIDSub) {
@@ -218,31 +242,23 @@ var helper = {
             purchase_cost_map[big_id].counter++;
             purchase_cost_map[big_id].cost = mathHelper.addDecimal(purchase_cost_map[big_id].cost, mathHelper.createDecimal(inner_deal.CostValue));
         });
-    
+
         let average_cost_map = [];
         for (const [key, value] of Object.entries(purchase_cost_map)) {
             let temp = { ...(value as any) };
             temp.cost = mathHelper.divideDecimal(temp.cost, temp.counter);
             average_cost_map.push(temp);
         }
-        return {purchase_cost_map, average_cost_map};
+        return { purchase_cost_map, average_cost_map };
     },
-    // @ts-ignore
-    /**
-     * Format a number with comma separators.
-     * @param {string | number} x Value to format.
-     * @returns {string} Comma-delimited string representation.
-     */
-    numberWithCommas(x) {
-        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    },
+
     /**
      * Format a number or Decimal instance using exponential notation when large.
      * @param {number | Decimal} input Value to format.
      * @param {number} [precision=2] Decimal places or significant digits to retain.
      * @returns {string} Human-readable numeric string.
      */
-    formatNumberString(input: number | Decimal, precision:number = 2)  {
+    formatNumberString(input: number | Decimal, precision: number = 2) {
         if (input == undefined || input == 0) {
             return Number(0).toFixed(precision);
         }
