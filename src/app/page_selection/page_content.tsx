@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import ReactGA from "react-ga4";
 //import { GoogleAdSense } from "next-google-adsense";
 import PageCard from './page_card';
-import BlinkingDot from '../util/BlinkingDot';
 import { isMobile } from 'mobile-device-detect';
 import useLocalStorage from 'use-local-storage';
 
@@ -59,36 +58,28 @@ export default function PageSelection() {
             {/* <GoogleAdSense publisherId="pub-1393057374484862" /> */}
             {/* <BlinkingDot data={data} /> */}
             <div style={{
-                paddingLeft: '6px',
+                paddingLeft: '60px',
                 display: 'flex',
                 flexDirection: 'column',
                 flex: '1',
                 justifyContent: 'center',
                 backgroundColor: 'rgba(255,255,255, 0.08)',
-                // @ts-ignore TODO: duplicate property
-                paddingLeft: '60px'
             }}>
-                <div
-                    style={{ display: 'flex' }}
-                >
+                <div className='row'>
                     <PageCard page='upload' />
                     <PageCard page='expedition' />
                     <PageCard page='zones' />
                     <PageCard page='pets' />
-                    <PageCard page='cards' redBorder={chargesMax} />
+                    <PageCard page='cards' highlightClass={chargesMax ? 'highlight blink-red' : ''} />
                 </div>
-                <div
-                    style={{ display: 'flex', marginTop: '36px' }}
-                >
+                <div className='row'>
                     <PageCard page='farm' />
                     <PageCard page='contagion' />
                     <PageCard page='protein' />
                     <PageCard page='residue' />
+                    <PageCard page='text_guide' highlightClass='highlight rainbow' />
                 </div>
-                <div
-                    style={{ display: 'flex', marginTop: '36px' }}
-                >
-
+                <div className='row'>
                     <PageCard page='infinity_corner' />
                     <PageCard page='outposts' />
                     <PageCard page='guides' />

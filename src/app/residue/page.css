@@ -1,47 +1,88 @@
-.residueCard {
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-self: start;
+    height: 100%;
+    border: 2px solid rgba(255,255,255,0.8);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.wrapper.residue {
+    margin-right: 36px;
+    width: 900px;
+}
+
+.wrapper.suggested-order {
+    width: 445px;
+}
+
+.wrapper__title {
+    font-size: 32px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255,255,255, 0.05);
+}
+
+.wrapper__title--addon {
+    font-size: 28px;
+    font-variant: all-small-caps;
+}
+
+.card-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    scrollbar-width: thin;
+    max-height: 100%;
+    gap: 8px 12px;
+    padding: 12px;
+    overflow-y: auto;
+}
+
+.residue-card {
     border: 1px solid rgba(255, 255, 255, 0.8);
     border-radius: 6px;
     width: 160px;
-    height: 190px;
-    margin: 12px auto 0 auto
+    height: 196px;
 }
 
-.residueCardHeader {
+.residue-card__header {
     display: flex;
     height: 30px;
-    width: calc(100% - 6px);
+    line-height: 17px;
     justify-content: center;
     align-items: center;
     padding: 3px 3px;
     background-color: rgba(255, 255, 255, 0.05);
-    font-size: 20px
+    font-size: 20px;
 }
 
-.residueCardBody {
+.residue-card__body {
     position: relative;
     height: calc(100% - 36px);
     width: 100%;
     background-color: rgba(255, 255, 255, 0.02);
 }
 
-.residueCardFooter {
-    margin-top: 6px;
+.residue-card__body img {
+    position: absolute;
+    inset: 0;
+    max-height: 100%;
+    max-width: 100%;
 }
 
-.suggestionCard {
+.suggestion-card {
     border: 1px solid rgba(255, 255, 255, 0.8);
     border-radius: 6px;
-    /* width: 290px; */
-    /* height: 40px; */
-    /* height: 110px; */
-    margin: 12px auto 0 auto;
     flex-shrink: 0;
-    /* padding: 6px; */
     background-color: rgba(255, 255, 255, 0.1);
 
 }
 
-.suggestionCardHeader {
+.suggestion-card__header {
     display: flex;
     height: 26px;
     width: calc(100% - 6px);
@@ -52,22 +93,14 @@
     font-size: 20px
 }
 
-.suggestionCardBody {
+.suggestion-card__body {
     /* height: calc(100% - 66px); */
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.suggestionCardFooter {
-    height: 30px;
-    background-color: rgba(255, 255, 255, 0.05);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.futurePurchase {
+.future-purchase {
     font-size: 13px;
     margin-left: auto;
     color: rgba(10, 255, 1, 0.95);

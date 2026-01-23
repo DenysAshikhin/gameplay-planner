@@ -1,12 +1,3 @@
-body {
-  margin: 0;
-  display: inline-block;
-}
-
-* {
-  font-family: sans-serif !important;
-}
-
 @font-face {
   font-family: 'Dobra';
   src: local('Dobra Black'), local('Dobra-Black'),
@@ -15,7 +6,17 @@ body {
     url('/fonts/dobra_black/Dobra-Black.ttf') format('truetype');
   font-weight: 900;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
+}
+
+body {
+  margin: 0;
+  display: inline-block;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .header {
@@ -27,7 +28,6 @@ body {
   background-color: #000000;
 }
 
-
 .dobra {
   font-family: Dobra !important;
   font-size: 24px;
@@ -38,8 +38,7 @@ body {
 }
 
 .importantText {
-  color: #FFFFFF;
-  opacity: 90%;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .textMedium {
@@ -55,8 +54,7 @@ body {
 }
 
 .mediumImportantText {
-  color: #FFFFFF;
-  opacity: 85%;
+  color: rgba(255, 255, 255, 0.85);
 }
 
 .blackTextStroke {
@@ -73,18 +71,8 @@ input[type="file"]::-webkit-file-upload-button {
   font-size: 20px;
 }
 
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
 .popoverContainer .MuiTypography-root {
@@ -269,14 +257,12 @@ a {
   border: 1.5px solid rgba(255, 255, 255, 0.8);
 }
 
-.borderToFadeInAndOutRed {
+.highlight.blink-red {
   opacity: 1;
-  animation: fadeBorderRed 2s linear infinite;
+  animation: fade-border 2s linear infinite;
 }
 
-
-@keyframes fadeBorderRed {
-
+@keyframes fade-border {
   0%,
   100% {
     border: 3px solid rgba(255, 0, 0, 0)
@@ -286,7 +272,6 @@ a {
     border: 3px solid rgba(255, 0, 0, 1)
   }
 }
-
 
 .inverseX {
   -webkit-transform: scaleX(-1);

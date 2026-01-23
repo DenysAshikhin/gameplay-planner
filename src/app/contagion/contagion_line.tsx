@@ -181,7 +181,7 @@ export default function ContagionLine({ data, contagion, setContagionWeights, gh
                         {`Lv ${helper.numberWithCommas(level)}`}
                     </div>
                     <div
-                        //  className='borderToFadeInAndOutRed'
+                        //  className='highlight blink-red'
                         style={{
                             position: 'absolute',
                             bottom: '3px',
