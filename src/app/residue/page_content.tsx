@@ -244,6 +244,7 @@ const ResideOrderCard = ({ data }) => {
                         alt={`${data.params.label} bonus holder`}
                         style={{ width: 'auto', height: '100%' }}
                         src={data.params.label_img}
+                        unoptimized
                     />
 
 
@@ -268,6 +269,7 @@ const ResideOrderCard = ({ data }) => {
                                 src={rightArrow}
                                 fill
                                 loading='lazy'
+                                unoptimized
                             />
                         </div>
                         <div>
