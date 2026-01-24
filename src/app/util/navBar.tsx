@@ -14,6 +14,7 @@ import paper_scroll from "@images/icons/paper_scroll.svg";
 import heart from "@images/icons/heart.svg";
 import milk from "@images/icons/milk.svg";
 import sword_shield from "@images/icons/sword_shield.svg";
+import hand_book from "@images/icons/handbook.svg";
 
 /**
  * Renders the global navigation bar for the gameplay planner, linking to each
