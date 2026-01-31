@@ -2182,7 +2182,7 @@ const helper = {
 
             pet.name = getPet(pet.ID).name;
 
-            if ((pet.Locked === 0 && manualEnabledPets[pet.ID] !== 1) || manualEnabledPets[pet.ID] === 0) {
+            if ((!this.petUnlocked(data, pet) && manualEnabledPets[pet.ID] !== 1) || manualEnabledPets[pet.ID] === 0) {
                 continue;
             } else if (!groundAllowed && pet.Type === 1) {
                 continue;
@@ -2268,7 +2268,7 @@ const helper = {
 
         for (let i = 0; i < data.PetsCollection.length; i++) {
             let pet = data.PetsCollection[i];
-            if (pet.Locked === 1 || false) {
+            if (this.petUnlocked(data, pet) || false) {
                 if (pet.CaptureDungeon) {
                     if (pet.CaptureChance > maxCaptureChanceDungeon) {
                         maxCaptureChanceDungeon = pet.CaptureChance;
@@ -2581,6 +2581,12 @@ const helper = {
         }
 
         return [airPets, groundPets, currentBonuses, selectedPetMap];
+    },
+    petUnlocked: function(data, pet){
+        if (pet.NGLocked !== null && data?.Transcendence > 0){
+            return !pet.NGLocked;
+        }
+        return pet.Locked === 1;
     }
 };
 

@@ -463,7 +463,7 @@ export default function Residue() {
                 </div >
 
                 {/* Suggested Purchase Order (only if Residue Take Away isn't bought yet) */}
-                {!data.ASCResidueTakeAway && (
+                {!data.ASCResidueTakeAway && !stillBuying && (
                     <div className='wrapper suggested-order'>
                         <div className='wrapper__title importantText'>
                             Suggested Purchase Order

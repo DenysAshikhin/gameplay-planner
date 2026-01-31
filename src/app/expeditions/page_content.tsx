@@ -350,7 +350,7 @@ export default function Expeditions() {
             let origPets = [];
             const positiveRankedPets = uploadedData.PetsCollection.filter(
                 (pet) => {
-                    const isValidLocked = includeLocked ? true : !!pet.Locked;
+                    const isValidLocked = includeLocked ? true : petHelper.petUnlocked(uploadedData, pet);
                     if (isValidLocked) {
                         origPets.push(pet);
                     }
@@ -671,7 +671,7 @@ export default function Expeditions() {
 
     const positiveRankedPets = data.PetsCollection.filter(
         (pet) => {
-            const isValidLocked = !!pet.Locked;
+            const isValidLocked = petHelper.petUnlocked(data, pet);
             return isValidLocked;
         }
     )
@@ -743,18 +743,18 @@ export default function Expeditions() {
                             </div>
                             <div style={{ width: '50%' }}>
                                 {`Total tokens/hr: ${helper.formatNumberString(helper.roundThreeDecimal(totalTokensHR), 3)}`}
-                                <MouseOverPopover opacity={0.95} style={{ display:'inline-block' }} tooltip={
-                                                <div style={{ padding: '6px' }}>
-                                                    {`Total tokens/day: ${helper.formatNumberString(helper.roundThreeDecimal(totalTokensHR * 24), 3)}`}
-                                                </div>
-                                            }>
-                                            <span style={{ height: '18px', width: '18px', margin: '0 0 0 5px', position: 'relative', top:'2px' }} >
-                                                <Image
-                                                    fill
-                                                    src={infoIcon}
-                                                    alt={`letter "I" in a circle, shows more information on hover`}
-                                                />
-                                            </span>
+                                <MouseOverPopover opacity={0.95} style={{ display: 'inline-block' }} tooltip={
+                                    <div style={{ padding: '6px' }}>
+                                        {`Total tokens/day: ${helper.formatNumberString(helper.roundThreeDecimal(totalTokensHR * 24), 3)}`}
+                                    </div>
+                                }>
+                                    <span style={{ height: '18px', width: '18px', margin: '0 0 0 5px', position: 'relative', top: '2px' }} >
+                                        <Image
+                                            fill
+                                            src={infoIcon}
+                                            alt={`letter "I" in a circle, shows more information on hover`}
+                                        />
+                                    </span>
                                 </MouseOverPopover>
                             </div>
                         </div>
@@ -1502,7 +1502,7 @@ export default function Expeditions() {
                             <div style={{}}>
                                 <div>
                                     <div style={{ display: 'flex', justifyContent: 'center' }}>
-                                        <div style={{marginTop:"5px"}}>
+                                        <div style={{ marginTop: "5px" }}>
                                             <button
                                                 onClick={(e) => {
                                                     setPetWhiteList((curr) => {
@@ -1513,7 +1513,7 @@ export default function Expeditions() {
                                             >Clear Whitelist</button>
                                         </div>
                                         <h4 style={{ margin: '6px', textAlign: 'center', fontSize: '20px' }}>Pet Whitelist</h4>
-                                        <div style={{marginTop:"5px"}}>
+                                        <div style={{ marginTop: "5px" }}>
                                             <button
                                                 onClick={(e) => {
                                                     setPetWhiteList((curr) => {
@@ -1591,7 +1591,7 @@ export default function Expeditions() {
                                                 {
                                                     [<option value='' key={'initial one'}>Select Team</option>, ...data.PetsLoadout.map((cur, index) => {
 
-                                                        if (cur.Locked === 0) return;
+                                                        if (!petHelper.petUnlocked(data, cur)) return;
 
                                                         return (
                                                             <option

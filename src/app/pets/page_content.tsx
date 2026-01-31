@@ -654,7 +654,7 @@ export default function Pets() {
         (pet) => {
             // const isValidRank = !!pet.Rank;//Instead of relying on defaultRank always = 0, select valid ranks if they exist (not 0)
             petMap[pet.ID] = pet;
-            let isValidLocked = !!pet.Locked || (useExpedition && manualEnabledPetsClient[pet.ID]);
+            let isValidLocked = useExpedition ? manualEnabledPetsClient[pet.ID] : petHelper.petUnlocked(data, pet);
 
             return isValidLocked;
         }
