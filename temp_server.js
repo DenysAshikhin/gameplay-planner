@@ -183,15 +183,21 @@ async function startServer(serverOptions) {
 
     const fs = require("fs");
 
-    const privateKeyPath = "/usr/personal/gameplay-planner/ssl/key_file.pem";
-    const certificatePath = "/usr/personal/gameplay-planner/ssl/gameplayplanner_com.crt";
+    // const privateKeyPath = "/usr/personal/gameplay-planner/ssl/key_file.pem";
+    // const certificatePath = "/usr/personal/gameplay-planner/ssl/gameplayplanner_com.crt";
+
+    // const httpsOptions = {
+    //     key: fs.readFileSync(privateKeyPath),
+    //     cert: fs.readFileSync(certificatePath)
+    // }
+    // const server = _https.default.createServer(httpsOptions, requestListener);
+    const leaf = fs.readFileSync("/usr/personal/gameplay-planner/ssl/gameplayplanner_com.crt");
+    const bundle = fs.readFileSync("/usr/personal/gameplay-planner/ssl/gameplayplanner_com.ca-bundle");
 
     const httpsOptions = {
-        key: fs.readFileSync(privateKeyPath),
-        cert: fs.readFileSync(certificatePath)
-    }
-    const server = _https.default.createServer(httpsOptions, requestListener);
-
+        key: fs.readFileSync("/usr/personal/gameplay-planner/ssl/key_file.pem"),
+        cert: [leaf, bundle], // leaf first, then intermediates
+    };
 
 
 
