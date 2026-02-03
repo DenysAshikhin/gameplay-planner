@@ -1,5 +1,6 @@
 import Cards from './page_content';
 import Ad_Comp from '../util/ads_component';
+import { buildMetadata } from "../util/seo";
 
 /**
  * Generates static metadata for the current page route so Next.js can
@@ -11,10 +12,12 @@ import Ad_Comp from '../util/ads_component';
  */
 export async function generateMetadata({ params, searchParams }, parent) {
 
-  return {
-    title: 'Expedition / Team Guide - Gameplay Planner',
-    description: "Expedition / Team Planner - Help you build, plan and optimise expeditions teams / groups based on damage, rank or stats. You can also tell the calculator to include specific bonuses such as token gain, time gain, card power, expedition damage by adding them to a white list. You can also add and remove pets to future planning"
-  }
+  return buildMetadata({
+    title: "Expeditions Team Planner",
+    description:
+      "Farmer Against Potatoes Idle (FAPI) expeditions team planner: build and optimize teams by damage/rank/stats, whitelist bonuses (tokens, time, card power, expedition damage), and plan future teams.",
+    path: "/expeditions",
+  });
 }
 export const viewport = {
   width: 'device-width',

@@ -2,6 +2,7 @@
 
 import Cards from './page_content';
 import Ad_Comp from '../util/ads_component';
+import { buildMetadata } from "../util/seo";
 
 /**
  * Generates static metadata for the current page route so Next.js can
@@ -13,10 +14,12 @@ import Ad_Comp from '../util/ads_component';
  */
 export async function generateMetadata({ params, searchParams }, parent) {
 
-  return {
-    title: 'Gratitude - Donation + Outreach - Gameplay Planner',
-    description: "Donations for helping keep the Gameplay planner up and running for everyone and a discord social link to reach out to me"
-  }
+  return buildMetadata({
+    title: "Gratitude / Support",
+    description:
+      "Support the Farmer Against Potatoes Idle (FAPI) community planner: donation options and ways to reach out (Discord/contact).",
+    path: "/gratitude",
+  });
 }
 export const viewport = {
   width: 'device-width',

@@ -1,6 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  experimental: {
+    workerThreads: true,
+  },
   images: {
     minimumCacheTTL: 360,
   },

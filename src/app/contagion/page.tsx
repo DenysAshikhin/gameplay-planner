@@ -1,5 +1,6 @@
 import Ad_Comp from '../util/ads_component';
 import Contagion from './page_content';
+import { buildMetadata } from "../util/seo";
 
 /**
  * Generates static metadata for the current page route so Next.js can
@@ -10,10 +11,12 @@ import Contagion from './page_content';
  * @returns {Promise<import('next').Metadata>} Fully resolved metadata for the page.
  */
 export async function generateMetadata() {
-    return {
-        title: 'Contagion - Gameplay Planner',
-        description: 'Contagion - Helps you plan your contagion ( grasshopper) placements in contagion feature of farming!',
-    };
+    return buildMetadata({
+        title: "Contagion / Grasshopper Helper",
+        description:
+            "Farmer Against Potatoes Idle (FAPI) contagion/grasshopper helper: plan contagion placements and optimize grasshopper bonuses within farming.",
+        path: "/contagion",
+    });
 }
 
 export const viewport = {

@@ -1,6 +1,7 @@
 import Cards from './page_content';
 
 import Ad_Comp from '../util/ads_component';
+import { buildMetadata } from "../util/seo";
 /**
  * Generates static metadata for the current page route so Next.js can
  * pre-render SEO friendly head tags.
@@ -11,10 +12,12 @@ import Ad_Comp from '../util/ads_component';
  */
 export async function generateMetadata({ params, searchParams }, parent) {
 
-  return {
-    title: 'Page Selection - Gameplay Planner',
-    description: "Planner selector page, pick what tool you want to use to plan your playthrough!"
-  }
+  return buildMetadata({
+    title: "Private Pets (Preview)",
+    description:
+      "Farmer Against Potatoes Idle (FAPI) private pets preview: explore and plan around hidden/non-visible pets, including stats, bonuses, and pet combinations.",
+    path: "/private_pets",
+  });
 }
 
 /**

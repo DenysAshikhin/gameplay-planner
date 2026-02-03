@@ -1,6 +1,7 @@
 import Farming_Guide from './page_content';
 
 import Ad_Comp from '../../util/ads_component';
+import { buildMetadata } from "../../util/seo";
 
 /**
  * Generates static metadata for the current page route so Next.js can
@@ -12,10 +13,12 @@ import Ad_Comp from '../../util/ads_component';
  */
 export async function generateMetadata({ params, searchParams }, parent) {
 
-  return {
-    title: 'Cards Explanation - Gameplay Planner',
-    description: "Farmer Against Potatoes Idle expedition cards guide + explanation. Best cards to charge, which cards to prioritise, and more!"
-  }
+  return buildMetadata({
+    title: "Cards Explanation",
+    description:
+      "Farmer Against Potatoes Idle (FAPI) cards explanation: what cards do, how bonuses work, and how to think about charging priorities.",
+    path: "/guides/cards_explanation",
+  });
 }
 export const viewport = {
   width: 'device-width',

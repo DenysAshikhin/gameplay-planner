@@ -1,0 +1,30 @@
+# Farmer Against Potatoes Idle Planner (Gameplay Planner)
+
+Gameplay Planner is a community gameplay planner for **Farmer Against Potatoes Idle (FAPI)**. It helps players make better decisions using calculators, checklists, and guides for core systems like expeditions, pets, zones, farming, cards, protein assembly, residue, outposts, and more.
+
+Status: Unofficial community tool for Farmer Against Potatoes Idle (FAPI). The game's creator is aware of and approves this tool.
+
+## Primary tools
+- /expeditions: Expedition team planner and token/time efficiency helpers.
+- /zones: Expedition zones planning based on team strength and rewards.
+- /pets: Pet/team builder with bonus filtering and preset saving/sharing.
+- /cards: Card charging and prioritization helpers.
+- /farming: Farming/plant placement and production planning.
+- /protein: Protein + assembly line purchase planning.
+- /residue: Residue/milk purchase planning.
+- /contagion: Contagion/grasshopper planning helper.
+- /outposts: Outposts trades and mining duration planning.
+- /infinity_corner: Infinity Corner upgrades and bonuses planning.
+- /guides: Guides and tutorials for multiple systems.
+
+## How to understand this site quickly
+- /docs: Overview of what each tool does and when to use it.
+- /faq: Common questions (save import, troubleshooting, privacy notes).
+- /glossary: Definitions for common FAPI/tool terms used across the site.
+
+## Data & privacy note (high level)
+The planner is designed to work by processing your game save data in the browser to generate recommendations. The site may also use standard web services (for example analytics or ads).
+
+## Contact / issues
+- Discord: https://discord.gg/pt8a9Y3mSv
+- GitHub issues: https://github.com/DenysAshikhin/gameplay-planner/issues

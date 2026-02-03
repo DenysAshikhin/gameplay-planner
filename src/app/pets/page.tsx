@@ -1,6 +1,7 @@
 import Cards from './page_content';
 
 import Ad_Comp from '../util/ads_component';
+import { buildMetadata } from "../util/seo";
 /**
  * Generates static metadata for the current page route so Next.js can
  * pre-render SEO friendly head tags.
@@ -11,10 +12,12 @@ import Ad_Comp from '../util/ads_component';
  */
 export async function generateMetadata({ params, searchParams }, parent) {
 
-  return {
-    title: 'Pets Guide - Gameplay Planner',
-    description: "Combo / Pet Planner - Help you build, plan and optimise your pet teams / groups / loadouts based on stats. You can tell the calculator to include specific bonuses as card power, card exp, item rating, reincarnation exp. You can save, load and share custom presents. View pet combo list. Includes a whitelist"
-  }
+  return buildMetadata({
+    title: "Pets / Team Builder",
+    description:
+      "Farmer Against Potatoes Idle (FAPI) pets and team builder: build and optimize pet teams/loadouts based on stats, include specific bonuses (card power/XP, item rating, reincarnation XP), and save/load/share presets.",
+    path: "/pets",
+  });
 }
 
 export const viewport = {

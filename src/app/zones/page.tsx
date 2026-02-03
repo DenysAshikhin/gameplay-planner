@@ -1,6 +1,7 @@
 import Zones from './page_content';
 
 import Ad_Comp from '../util/ads_component';
+import { buildMetadata } from "../util/seo";
 
 /**
  * Generates static metadata for the current page route so Next.js can
@@ -11,10 +12,12 @@ import Ad_Comp from '../util/ads_component';
  * @returns {Promise<import('next').Metadata>} Fully resolved metadata for the page.
  */
 export async function generateMetadata({ params, searchParams }, parent) {
-  return {
-    title: 'Zones Expeditions - Gameplay Planner',
-    description: "Expedition / Zone Planner - Help you plan and optimise expeditions zones to run based on your teams. Helps plan card rewards for most effecient guide."
-  }
+  return buildMetadata({
+    title: "Zones (Expeditions) Planner",
+    description:
+      "Farmer Against Potatoes Idle (FAPI) zones/expeditions planner: plan which expedition zones to run based on your teams and improve efficiency for rewards and progression.",
+    path: "/zones",
+  });
 }
 export const viewport = {
   width: 'device-width',

@@ -1,6 +1,7 @@
 import Outposts from './page_content';
 
 import Ad_Comp from '../util/ads_component';
+import { buildMetadata } from "../util/seo";
 
 /**
  * Builds the metadata for the outposts planner page so search engines and social
@@ -8,10 +9,12 @@ import Ad_Comp from '../util/ads_component';
  */
 export async function generateMetadata({ params, searchParams }, parent) {
 
-  return {
-    title: 'Outposts - Gameplay Planner',
-    description: "Outposts - Helps you plan your future trades and determine how long to mine out your existing outposts"
-  }
+  return buildMetadata({
+    title: "Outposts Helper",
+    description:
+      "Farmer Against Potatoes Idle (FAPI) outposts helper: plan future trades and estimate how long to mine out existing outposts.",
+    path: "/outposts",
+  });
 }
 export const viewport = {
   width: 'device-width',

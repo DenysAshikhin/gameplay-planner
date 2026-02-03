@@ -3,22 +3,45 @@ import './globals.css'
 import Header from './util/header';
 import NavBar from './util/navBar';
 import Clarity from './Clarity';
+import type { Metadata } from "next";
+import {
+  CONTACT_DISCORD_URL,
+  CONTACT_GITHUB_ISSUES_URL,
+  DEFAULT_DESCRIPTION,
+  DEFAULT_KEYWORDS,
+  OG_IMAGE_PATH,
+  SITE_NAME,
+  SITE_URL,
+  STATUS_STATEMENT,
+  TWITTER_IMAGE_PATH,
+} from "./util/seo";
 
-/**
- * Generates static metadata for the current page route so Next.js can
- * pre-render SEO friendly head tags.
- *
- * @param {{ params: Record<string, string>, searchParams: URLSearchParams }} context - Route parameters and search params provided by Next.js.
- * @param {import('next').ResolvingMetadata} parent - Parent metadata chain to merge with.
- * @returns {Promise<import('next').Metadata>} Fully resolved metadata for the page.
- */
-export async function generateMetadata({ params, searchParams }, parent) {
-
-  return {
-    title: 'Gameplay Planner - Upload',
-    description: "Farmer Against Potatoes Idle, FAPI, gameplay planner / wiki / tool / guide, helps plan out and decide on the best team expeditions, team combos, farm and plant optimisations, card charges, protein assembly and more!"
-  }
-}
+export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: SITE_NAME,
+    template: `%s | ${SITE_NAME}`,
+  },
+  description: DEFAULT_DESCRIPTION,
+  applicationName: SITE_NAME,
+  keywords: DEFAULT_KEYWORDS,
+  openGraph: {
+    type: "website",
+    siteName: SITE_NAME,
+    images: [
+      {
+        url: new URL(OG_IMAGE_PATH, SITE_URL),
+        width: 1200,
+        height: 630,
+        alt: SITE_NAME,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: [new URL(TWITTER_IMAGE_PATH, SITE_URL)],
+  },
+};
 
 
 export const viewport = {
@@ -45,12 +68,39 @@ export const viewport = {
  * @returns {JSX.Element} The composed document shell for all pages.
  */
 export default function RootLayout({ children }) {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": `${SITE_URL}/#website`,
+        name: SITE_NAME,
+        url: SITE_URL,
+      },
+      {
+        "@type": "SoftwareApplication",
+        "@id": `${SITE_URL}/#app`,
+        name: SITE_NAME,
+        applicationCategory: "GameApplication",
+        operatingSystem: "Web",
+        isAccessibleForFree: true,
+        url: SITE_URL,
+        description: `${DEFAULT_DESCRIPTION} ${STATUS_STATEMENT}`,
+        sameAs: [CONTACT_DISCORD_URL, CONTACT_GITHUB_ISSUES_URL],
+      },
+    ],
+  };
+
   return (
     <html lang="en">
       <head>
         <meta name="google-adsense-account" content="ca-pub-1393057374484862" />
         <meta name="yandex-verification" content="347889c423938e18" />
         <meta name="robots" content="all" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
         {/* <Clarity /> */}
 
         {/* <script async type="text/javascript" src="//monu.delivery/site/a/5/892ed4-6227-41b8-95d2-9c7cb4ffe471.js" data-cfasync="false"></script> */}

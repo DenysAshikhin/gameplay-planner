@@ -2,6 +2,7 @@
 
 import Cards from './page_content';
 import Ad_Comp from '../util/ads_component';
+import { buildMetadata } from "../util/seo";
 /**
  * Generates static metadata for the current page route so Next.js can
  * pre-render SEO friendly head tags.
@@ -12,10 +13,12 @@ import Ad_Comp from '../util/ads_component';
  */
 export async function generateMetadata({ params, searchParams }, parent) {
 
-  return {
-    title: 'Farming Guide - Gameplay Planner',
-    description: "Farming - Helps you build, plan and optimise best plant placements. Based on time, hours to calculate best afk or step results. Features include PBC upgrade, auto plots / harvesting, most PIC. Also helps you plan farming by displays production of fries, healthy potatoes, ranks."
-  }
+  return buildMetadata({
+    title: "Farming Optimizer",
+    description:
+      "Farmer Against Potatoes Idle (FAPI) farming optimizer: plan and optimize plant placements and farming production (AFK/time-based), including upgrades, harvesting/plots, and resource outputs.",
+    path: "/farming",
+  });
 }
 export const viewport = {
   width: 'device-width',

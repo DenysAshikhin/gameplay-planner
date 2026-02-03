@@ -1,6 +1,7 @@
 import Cards from './page_content';
 
 import Ad_Comp from '../util/ads_component';
+import { buildMetadata } from "../util/seo";
 
 /**
  * Generates the metadata for the Gratitude page so Next.js can prerender
@@ -12,10 +13,12 @@ import Ad_Comp from '../util/ads_component';
  */
 export async function generateMetadata({ params, searchParams }, parent) {
 
-  return {
-    title: 'Gratitude - Donation + Outreach - Gameplay Planner',
-    description: "Donations for helping keep the Gameplay planner up and running for everyone and a discord social link to reach out to me"
-  }
+  return buildMetadata({
+    title: "About",
+    description:
+      "About the Farmer Against Potatoes Idle (FAPI) community planner (Gameplay Planner): one of the main community utilities, maintained for the community and approved by the game's creator.",
+    path: "/about",
+  });
 }
 export const viewport = {
   width: 'device-width',

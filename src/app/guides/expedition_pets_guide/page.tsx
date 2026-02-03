@@ -1,6 +1,7 @@
 import Pets_Guide from './page_content';
 
 import Ad_Comp from '../../util/ads_component';
+import { buildMetadata } from "../../util/seo";
 
 /**
  * Generates static metadata for the current page route so Next.js can
@@ -12,10 +13,12 @@ import Ad_Comp from '../../util/ads_component';
  */
 export async function generateMetadata({ params, searchParams }, parent) {
 
-  return {
-    title: 'Expedition Pets Guide - Gameplay Planner',
-    description: "Farmer Against Potatoes Idle expedition pets guide + explanation. Best pets to use, what teams to make, when to use them and more!"
-  }
+  return buildMetadata({
+    title: "Expeditions Pets Guide",
+    description:
+      "Farmer Against Potatoes Idle (FAPI) expeditions pets guide: best pets to use, what teams to build, when to use them, and how to think about expedition bonuses.",
+    path: "/guides/expedition_pets_guide",
+  });
 }
 export const viewport = {
   width: 'device-width',

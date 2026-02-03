@@ -1,6 +1,7 @@
 import Cards from './page_content';
 
 import Ad_Comp from '../util/ads_component';
+import { buildMetadata } from "../util/seo";
 /**
  * Generates static metadata for the current page route so Next.js can
  * pre-render SEO friendly head tags.
@@ -11,10 +12,12 @@ import Ad_Comp from '../util/ads_component';
  */
 export async function generateMetadata({ params, searchParams }, parent) {
 
-  return {
-    title: 'Protein / Assembly Guide - Gameplay Planner',
-    description: "Protein - Help you build, plan and optimise your protein and assembly line purchases. Includes a weight list to prioritise stats. Displays cost, time to purchase, level, hidden and future bonuses"
-  }
+  return buildMetadata({
+    title: "Protein Assembly Planner",
+    description:
+      "Farmer Against Potatoes Idle (FAPI) protein assembly planner: plan protein and assembly line purchases with weighted stat priorities, showing cost, time to purchase, levels, and future bonuses.",
+    path: "/protein",
+  });
 }
 export const viewport = {
   width: 'device-width',

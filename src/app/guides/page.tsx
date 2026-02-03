@@ -1,6 +1,7 @@
 import Guides from './page_content';
 
 import Ad_Comp from '../util/ads_component';
+import { buildMetadata } from "../util/seo";
 
 /**
  * Generates static metadata for the current page route so Next.js can
@@ -12,10 +13,12 @@ import Ad_Comp from '../util/ads_component';
  */
 export async function generateMetadata({ params, searchParams }, parent) {
 
-  return {
-    title: 'Guides - Gameplay Planner',
-    description: "Guides, tutorials, and explanations for various parts of FAPI (Farmer Against Potatoes Idle) systems: farming, pets, expeditions, cards, residue, infinity corner, protein and more!"
-  }
+  return buildMetadata({
+    title: "Guides",
+    description:
+      "Farmer Against Potatoes Idle (FAPI) guides, tutorials, and explanations for farming, pets, expeditions, cards, residue, Infinity Corner, protein, and more.",
+    path: "/guides",
+  });
 }
 export const viewport = {
   width: 'device-width',

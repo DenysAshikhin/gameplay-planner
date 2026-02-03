@@ -1,6 +1,7 @@
 import Cards from './page_content'
 
 import Ad_Comp from '../util/ads_component';
+import { buildMetadata } from "../util/seo";
 
 /**
  * Generates static metadata for the current page route so Next.js can
@@ -12,10 +13,12 @@ import Ad_Comp from '../util/ads_component';
  */
 export async function generateMetadata({ params, searchParams }, parent) {
 
-  return {
-    title: 'Cards Guide - Gameplay Planner',
-    description: "Helps you pick the best card to charge based on priority or weights. Displays card bonus such as temporary power, permanent power, levels."
-  }
+  return buildMetadata({
+    title: "Cards / Charges Planner",
+    description:
+      "Farmer Against Potatoes Idle (FAPI) cards planner: pick the best cards to charge based on priorities/weights and view card bonuses (temporary power, permanent power, levels).",
+    path: "/cards",
+  });
 }
 export const viewport = {
   width: 'device-width',

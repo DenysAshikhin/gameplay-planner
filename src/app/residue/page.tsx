@@ -1,5 +1,6 @@
 import Cards from './page_content';
 import Ad_Comp from '../util/ads_component';
+import { buildMetadata } from "../util/seo";
 
 /**
  * Generates static metadata for the current page route so Next.js can
@@ -11,10 +12,12 @@ import Ad_Comp from '../util/ads_component';
  */
 export async function generateMetadata({ params, searchParams }, parent) {
 
-  return {
-    title: 'Residue / Milk Guide - Gameplay Planner',
-    description: "Residue + Milk - Help you build, plan and optimise your milk / residue purchases. Includes a weight list to prioritise stats bonuses. Displays cost, time to purchase, level, hidden and future bonuses"
-  }
+  return buildMetadata({
+    title: "Residue / Milk Planner",
+    description:
+      "Farmer Against Potatoes Idle (FAPI) residue/milk planner: plan and optimize milk/residue purchases with weighted stat priorities, showing cost, time to purchase, levels, and future bonuses.",
+    path: "/residue",
+  });
 }
 export const viewport = {
   width: 'device-width',

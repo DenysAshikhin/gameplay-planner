@@ -1,5 +1,6 @@
 import Farming_Guide from './page_content';
 import Ad_Comp from '../../util/ads_component';
+import { buildMetadata } from "../../util/seo";
 
 /**
  * Generates static metadata for the current page route so Next.js can
@@ -11,10 +12,12 @@ import Ad_Comp from '../../util/ads_component';
  */
 export async function generateMetadata({ params, searchParams }, parent) {
 
-  return {
-    title: 'Farming Explanation - Gameplay Planner',
-    description: "Farmer Against Potatoes Idle farming and plant guide + explanation. Best method for farming, what to buy, what to plant, best order, permanent improvment corner and more!"
-  }
+  return buildMetadata({
+    title: "Farming Explanation",
+    description:
+      "Farmer Against Potatoes Idle (FAPI) farming explanation: how farming systems work, how plant choices affect production, and how to use the farming tools on this site.",
+    path: "/guides/farming_explanation",
+  });
 }
 export const viewport = {
   width: 'device-width',

@@ -98,9 +98,6 @@ function ScoreSection({ data, group, totalScore, defaultRank }) {
 
 
 
-import Head from 'next/head';
-
-
 /**
  * Expeditions provides the core implementation for the Expeditions routine used in this module.
  *

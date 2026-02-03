@@ -1,6 +1,7 @@
 import Cards from './page_content';
 
 import Ad_Comp from '../util/ads_component';
+import { buildMetadata } from "../util/seo";
 
 /**
  * Generates static metadata for the current page route so Next.js can
@@ -12,10 +13,12 @@ import Ad_Comp from '../util/ads_component';
  */
 export async function generateMetadata({ params, searchParams }, parent) {
 
-  return {
-    title: 'Infinity Corner - Gameplay Planner',
-    description: "Infinity Corner - Help you build, plan and optimise your infinity corner purchases. Includes a weight list to prioritise stats bonuses. Displays cost, level, hidden and future bonuses"
-  }
+  return buildMetadata({
+    title: "Infinity Corner Helper",
+    description:
+      "Farmer Against Potatoes Idle (FAPI) Infinity Corner helper: plan and optimize Infinity Corner purchases with weighted stat priorities, showing cost, levels, and future bonuses.",
+    path: "/infinity_corner",
+  });
 }
 export const viewport = {
   width: 'device-width',
