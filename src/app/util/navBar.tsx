@@ -36,7 +36,7 @@ const NavBar = ({ }) => {
       }}
     >
       {/* Landing/Upload Page */}
-      <Link href="/" title="navigation to home (file/save uploade) page">
+      <Link href="/" title="navigation to home (file/save uploade) page" aria-label="Upload / Home">
         <div
           className="navItem"
           style={{
@@ -46,6 +46,7 @@ const NavBar = ({ }) => {
             // margin: "16px 0",
           }}
         >
+          <span className="sr-only">Upload / Home</span>
           <div style={{ width: "38px", height: "38px", position: "relative" }}>
             <Image
               alt="file uploade icon page navigation to cards page"
@@ -57,7 +58,7 @@ const NavBar = ({ }) => {
       </Link>
 
       {/* Expedition Page */}
-      <Link href="/expeditions" title="navigation to expeditions page">
+      <Link href="/expeditions" title="navigation to expeditions page" aria-label="Expeditions">
         <div
           className="navItem"
           style={{
@@ -67,6 +68,7 @@ const NavBar = ({ }) => {
             // margin: "16px 0",
           }}
         >
+          <span className="sr-only">Expeditions</span>
           <div
             style={{
               width: "42px",
@@ -84,7 +86,7 @@ const NavBar = ({ }) => {
       </Link>
 
       {/* Zones */}
-      <Link href="/zones" title="navigation to zones (expedition) page">
+      <Link href="/zones" title="navigation to zones (expedition) page" aria-label="Zones">
         <div
           className="navItem"
           style={{
@@ -94,6 +96,7 @@ const NavBar = ({ }) => {
             // margin: "16px 0",
           }}
         >
+          <span className="sr-only">Zones</span>
           <div
             style={{
               width: "42px",
@@ -114,6 +117,7 @@ const NavBar = ({ }) => {
       <Link
         href="/pets"
         title="navigation to pets (combos and team builder) page"
+        aria-label="Pets / Team Builder"
       >
         <div
           className="navItem"
@@ -124,6 +128,7 @@ const NavBar = ({ }) => {
             // margin: "16px 0",
           }}
         >
+          <span className="sr-only">Pets / Team Builder</span>
           <div
             style={{
               width: "42px",
@@ -142,7 +147,7 @@ const NavBar = ({ }) => {
 
 
       {/* Cards Page */}
-      <Link href="/cards" title="navigation to cards page">
+      <Link href="/cards" title="navigation to cards page" aria-label="Cards / Charges">
         <div
           className="navItem"
           style={{
@@ -152,6 +157,7 @@ const NavBar = ({ }) => {
             // margin: "16px 0",
           }}
         >
+          <span className="sr-only">Cards / Charges</span>
           <div
             style={{
               width: "42px",
@@ -171,7 +177,7 @@ const NavBar = ({ }) => {
 
 
       {/* Farming Page */}
-      <Link href="/farming" title="navigation to farming page">
+      <Link href="/farming" title="navigation to farming page" aria-label="Farming">
         <div
           className="navItem"
           style={{
@@ -181,6 +187,7 @@ const NavBar = ({ }) => {
             // margin: "16px 0",
           }}
         >
+          <span className="sr-only">Farming</span>
           <div
             style={{
               width: "42px",
@@ -198,7 +205,7 @@ const NavBar = ({ }) => {
       </Link>
 
       {/* Contagion Page */}
-      <Link href="/contagion" title="navigation to contagion (grasshopper) page">
+      <Link href="/contagion" title="navigation to contagion (grasshopper) page" aria-label="Contagion">
         <div
           className="navItem"
           style={{
@@ -208,6 +215,7 @@ const NavBar = ({ }) => {
             // margin: "16px 0",
           }}
         >
+          <span className="sr-only">Contagion</span>
           <div
             style={{
               width: "42px",
@@ -225,7 +233,7 @@ const NavBar = ({ }) => {
       </Link>
 
       {/* Protein/assembly Page */}
-      <Link href="/protein" title="navigation to protein (assemblies) page">
+      <Link href="/protein" title="navigation to protein (assemblies) page" aria-label="Protein / Assembly">
         <div
           className="navItem"
           style={{
@@ -235,6 +243,7 @@ const NavBar = ({ }) => {
             // margin: "16px 0",
           }}
         >
+          <span className="sr-only">Protein / Assembly</span>
           <div
             style={{
               width: "42px",
@@ -253,7 +262,7 @@ const NavBar = ({ }) => {
 
 
       {/* Residue Page */}
-      <Link href="/residue" title="navigation to residue (milk) page">
+      <Link href="/residue" title="navigation to residue (milk) page" aria-label="Residue / Milk">
         <div
           className="navItem inverseX"
           style={{
@@ -263,6 +272,7 @@ const NavBar = ({ }) => {
             // margin: "16px 0",
           }}
         >
+          <span className="sr-only">Residue / Milk</span>
           <div
             style={{
               width: "50px",
@@ -280,7 +290,7 @@ const NavBar = ({ }) => {
       </Link>
 
       {/* Infinity Corner Page */}
-      <Link href="/infinity_corner" title="navigation to infinity corner page">
+      <Link href="/infinity_corner" title="navigation to infinity corner page" aria-label="Infinity Corner">
         <div
           className="navItem"
           style={{
@@ -290,6 +300,7 @@ const NavBar = ({ }) => {
             // margin: "16px 0",
           }}
         >
+          <span className="sr-only">Infinity Corner</span>
           <div
             style={{
               width: "42px",
@@ -307,7 +318,7 @@ const NavBar = ({ }) => {
       </Link>
 
       {/* Outposts Page */}
-      <Link href="/outposts" title="navigation to outposts page">
+      <Link href="/outposts" title="navigation to outposts page" aria-label="Outposts">
         <div
           className="navItem"
           style={{
@@ -317,6 +328,7 @@ const NavBar = ({ }) => {
             // margin: "16px 0",
           }}
         >
+          <span className="sr-only">Outposts</span>
           <div
             style={{
               width: "42px",
@@ -334,7 +346,7 @@ const NavBar = ({ }) => {
       </Link>
 
       {/* Guides Page */}
-      <Link href="/guides" title="navigation to guides page">
+      <Link href="/guides" title="navigation to guides page" aria-label="Guides">
         <div
           className="navItem"
           style={{
@@ -344,6 +356,7 @@ const NavBar = ({ }) => {
             // margin: "16px 0",
           }}
         >
+          <span className="sr-only">Guides</span>
           <div
             style={{
               width: "42px",
@@ -361,7 +374,7 @@ const NavBar = ({ }) => {
       </Link>
 
       {/* Donation Redirect */}
-      <Link href="/gratitude" title="navigation to donate">
+      <Link href="/gratitude" title="navigation to donate" aria-label="Gratitude / Support">
         <div
           className="navItem"
           style={{
@@ -371,6 +384,7 @@ const NavBar = ({ }) => {
             // margin: "16px 0",
           }}
         >
+          <span className="sr-only">Gratitude / Support</span>
           <div
             style={{
               width: "42px",

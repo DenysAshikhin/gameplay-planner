@@ -10,6 +10,12 @@ import { NextResponse } from 'next/server';
  * @returns {import('next/server').NextResponse} Redirect response or continuation token.
  */
 export function middleware(request) {
+  const hostname = request.nextUrl.hostname;
+  if (hostname === 'gameplayplanner.com') {
+    const url = new URL(request.nextUrl.pathname + request.nextUrl.search, 'https://www.gameplayplanner.com');
+    return NextResponse.redirect(url, 301);
+  }
+
   if (request.nextUrl.pathname === '/ads.txt') {
     return NextResponse.redirect('https://monu.delivery/adstxt/a/5/892ed4-6227-41b8-95d2-9c7cb4ffe471.txt', 301);
   }

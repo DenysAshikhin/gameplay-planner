@@ -215,6 +215,12 @@ export default function Home() {
         justifyContent: 'center'
       }}
     >
+      <h1 className="sr-only">Farmer Against Potatoes Idle Planner (Gameplay Planner)</h1>
+      <p className="sr-only">
+        Gameplay Planner is a community set of calculators, planners, and guides for Farmer Against Potatoes Idle (FAPI),
+        including expeditions team planning, pets/team building, zones planning, farming optimization, cards/charges,
+        protein assembly, residue/milk, contagion, outposts, and Infinity Corner.
+      </p>
 
       {/* <GoogleAdSense publisherId="pub-1393057374484862" /> */}
       <Image
