@@ -2488,9 +2488,7 @@ const helper = {
                 // if (cheapMult > 1) {
                 //     let bigsad = -1;
                 // }
-                if(pet.name === 'Weapon Angelus' ) {
-                    let bigsad = -1;
-                }
+
                 pet.score = general_helper.roundFiveDecimal(pet.score * promotMult * cheapMult);
 
                 //If we are prioritising the top stat, skip any pet that doesn't have it
@@ -2582,9 +2580,10 @@ const helper = {
 
         return [airPets, groundPets, currentBonuses, selectedPetMap];
     },
-    petUnlocked: function(data, pet){
-        if (pet.NGLocked !== null && data?.Transcendence > 0){
-            return !pet.NGLocked;
+    petUnlocked: function (data, pet) {
+        if (pet.NGLocked !== null && data?.Transcendence > 0) {
+
+            return !pet.NGLocked && pet.Locked === 1;
         }
         return pet.Locked === 1;
     }
