@@ -333,7 +333,8 @@ export default function Item({
                         style={{
                             display: 'flex',
                             alignItems: 'center',
-                            justifyContent: 'center'
+                            justifyContent: 'center',
+                            lineHeight: '1.1rem'
                         }}
                     >
                         <div>
@@ -359,7 +360,8 @@ export default function Item({
                             style={{
                                 display: 'flex',
                                 alignItems: 'center',
-                                justifyContent: desiredLevel > 0 ? 'flex-start' : 'center'
+                                justifyContent: desiredLevel > 0 ? 'flex-start' : 'center',
+                                lineHeight: '1.1rem'
                             }}
                         >
                             <input
@@ -451,6 +453,7 @@ export default function Item({
                                 <div style={{
                                     fontWeight: 'bold',
                                     color: !futureBuyMode ? 'green' : 'yellow',
+                                    lineHeight: '1.1rem'
                                 }}>
                                     {`+${desiredLevel - level}`}
                                 </div>

@@ -1331,7 +1331,7 @@ export default function Cards() {
                             display: 'flex',
                             flexWrap: 'wrap',
                             alignContent: 'flex-start',
-                            maxHeight: 'calc(100% - 22px)',
+                            maxHeight: 'calc(100% - 25px)',
                             overflow: 'auto'
                         }}
                     >
