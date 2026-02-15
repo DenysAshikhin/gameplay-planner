@@ -1,5 +1,6 @@
 import Decimal from 'break_infinity.js';
 import mathHelper from './math';
+const cutoffUseExponential: number = 100000;
 
 var helper = {
     /**
@@ -176,7 +177,11 @@ var helper = {
         }
 
         if (numDays > 0) {
-            string = string + `${numDays < 10 ? `0` + numDays : numDays}d:`;
+            if(numDays >= cutoffUseExponential) {
+                string = string + `${helper.formatNumberString(numDays, 1)}d:`;
+            } else {
+                string = string + `${numDays < 10 ? `0` + numDays : numDays}d:`;
+            }
             if (numHours === 0) {
                 string = string + `00h`
             }
@@ -263,7 +268,7 @@ var helper = {
             return Number(0).toFixed(precision);
         }
         if (typeof input == "number") {
-            return input >= 100000 ? input.toExponential(precision) : helper.roundTwoDecimal(input).toFixed(precision);
+            return input >= cutoffUseExponential ? input.toExponential(precision) : helper.roundTwoDecimal(input).toFixed(precision);
         } else { //Decimal
             return input.exponent > 4 ? input.toExponential(precision) : helper.roundTwoDecimal(input.toNumber()).toFixed(precision);
         }

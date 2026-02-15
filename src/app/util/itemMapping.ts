@@ -34,6 +34,8 @@ import mining_exp_al from '@images/farming/assembly/Mining_Exp.png';
 import mining_pow_al from '@images/farming/assembly/Mining_Power.png';
 import sweet_pot_al from '@images/farming/assembly/41SweetPotato.png';
 import skull_pow_al from '@images/farming/assembly/Skull_Powder.png';
+import subclass_exp_al from '@images/farming/assembly/42SubExp.png';
+import seed_chunk_al from '@images/farming/assembly/43Seed.png';
 
 import cocoricoImg from '@images/pets/Cocorico.png';
 import Rico from '@images/pets/Rico.png';
@@ -1177,8 +1179,8 @@ export const BonusMap = {
     38: { disabled: false, defaultWeight: 800, id: 38, label: 'Sweet Potatoe', img: sweet_pot_al },
     42: { disabled: false, defaultWeight: 1, id: 42, label: 'Outpost Level', img: skull_pow_al },
     39: { disabled: false, defaultWeight: 800, id: 39, label: 'Skull Powder', img: skull_pow_al },
-    40: { disabled: false, defaultWeight: 800, id: 40, label: 'Subclass Exp', img: skull_pow_al },
-    41: { disabled: false, defaultWeight: 800, id: 41, label: 'Seed Chunks', img: skull_pow_al },
+    40: { disabled: false, defaultWeight: 800, id: 40, label: 'Subclass Exp', img: subclass_exp_al },
+    41: { disabled: false, defaultWeight: 800, id: 41, label: 'Seed Chunks', img: seed_chunk_al },
     81: { disabled: false, defaultWeight: 800, id: 81, label: 'Outpost Mineral', img: skull_pow_al },
     1001: { id: 1001, label: "Potato Gain" },
     1002: { id: 1002, label: "Class Exp gain" },
