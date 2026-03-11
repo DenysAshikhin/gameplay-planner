@@ -351,7 +351,9 @@ function Graph({
                 xAxisId="fry_axis_current"
                 yAxisId="originalFry"
                 data={graphObjects.customProduction.dataPointsFries}
-                dataKey={graphObjects.customProduction.dataPointsFries.originalFry ? "originalFry" : 'fries'}
+                // Some runs still emit legacy `originalFry` points, while newer ones
+                // store the plotted value in `fries`.
+                dataKey={graphObjects.customProduction.dataPointsFries[0]?.fries ? "fries" : 'originalFry'}
                 // dataKey="custom"
                 name="Currently selected production Fries"
                 stroke="#4e795e"
@@ -365,39 +367,34 @@ function Graph({
     </>
   );
 }
-export default memo(Graph, function (prev, current) {
-  let isEqual = true;
+function getPrimarySeriesData(seriesList) {
+  return seriesList?.[0]?.data;
+}
 
-  //to avoid checking every single datapoint, we can be a bit smarter
-  //if the graph was recalulcated, or calculating, update graph
-  if (prev.showCalc !== current.showCalc) return false;
-
-  //Otherwise, if the user's total potatoes changed (meaning they updated something else) update graph
-  if (!!prev.graphObjects.customProduction.totalPotatoes) {
-    if (
-      prev.graphObjects.customProduction.totalPotatoes.notEquals(
-        current.graphObjects.customProduction.totalPotatoes
-      )
-    ) {
-      return false;
-    }
-  }
-
-  if (prev.showFries !== current.showFries) return false;
-  else if (prev.showHP !== current.showHP) return false;
-  else if (prev.tooManyAuto !== current.tooManyAuto) return false;
-
-  //or if the y-axis scale is changed
-  else if (prev.yScale !== current.yScale) return false;
-  else if (current?.runningGraphObjects?.runningProd?.prod) {
-    if (!prev?.runningGraphObjects?.runningProd?.prod) return false;
-    if (
-      prev.runningGraphObjects.runningProd.prod.notEquals(
-        current.runningGraphObjects.runningProd.prod
-      )
-    ) {
-      return false;
-    }
-  }
-  return isEqual;
+export default memo(Graph, function areGraphPropsEqual(prev, current) {
+  return (
+    prev.graphObjects?.customProduction?.dataPointsPotatoes ===
+      current.graphObjects?.customProduction?.dataPointsPotatoes &&
+    prev.graphObjects?.customProduction?.dataPointsFries ===
+      current.graphObjects?.customProduction?.dataPointsFries &&
+    prev.graphObjects?.bestPic === current.graphObjects?.bestPic &&
+    prev.graphObjects?.bestPicPerc === current.graphObjects?.bestPicPerc &&
+    getPrimarySeriesData(prev.graphObjects?.top10Potatoes) ===
+      getPrimarySeriesData(current.graphObjects?.top10Potatoes) &&
+    getPrimarySeriesData(prev.graphObjects?.top10Fries) ===
+      getPrimarySeriesData(current.graphObjects?.top10Fries) &&
+    prev.runningGraphObjects?.runningProd?.prod ===
+      current.runningGraphObjects?.runningProd?.prod &&
+    prev.yScale === current.yScale &&
+    prev.expDiff === current.expDiff &&
+    prev.expDiffFry === current.expDiffFry &&
+    prev.showCalc === current.showCalc &&
+    prev.bestPic === current.bestPic &&
+    prev.displayPicPerc === current.displayPicPerc &&
+    prev.calcDone === current.calcDone &&
+    prev.calcAFK === current.calcAFK &&
+    prev.showHP === current.showHP &&
+    prev.showFries === current.showFries &&
+    prev.tooManyAuto === current.tooManyAuto
+  );
 });

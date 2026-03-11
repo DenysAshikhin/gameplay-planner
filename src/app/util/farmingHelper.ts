@@ -720,6 +720,7 @@ const farmingHelper = {
 
         if (i > 0 && !modifiers.skipFinal) {
 
+            const endTime = simulationTime + runningTime;
             let curTime = helper.roundInt(i * tickRate + startTime);
             modifiers.passedTime = i * tickRate + startTime;
             //Handling rare case when you have to add, but only once due to intervals duration, but only at the end, and didn't fit in the for loop above
@@ -729,14 +730,19 @@ const farmingHelper = {
                     'time': curTime,
                     'fries': mathHelper.multiplyDecimal(farmingHelper.calcFryOutput(totalPotatoes, modifiers), fryMult),
                 });
-            } else if (dataPointsPotatoes[dataPointsPotatoes.length - 1].production !== totalPotatoes) {
-                if (curTime > (simulationTime + runningTime)) {
+            } else {
+                const lastPotatoPoint = dataPointsPotatoes[dataPointsPotatoes.length - 1];
+                const lastPotatoValue = mathHelper.createDecimal(lastPotatoPoint.production);
+                // The loop exits on the first tick that overshoots the target end time,
+                // so interpolate one final point exactly at `endTime` instead of pushing
+                // a duplicate/stale endpoint from the overshot tick.
+                if (!lastPotatoValue.equals(totalPotatoes) && lastPotatoPoint.time < endTime && curTime > endTime) {
 
-                    let timeIncrease = curTime - dataPointsPotatoes[dataPointsPotatoes.length - 1].time;
+                    let timeIncrease = curTime - lastPotatoPoint.time;
                     let increase = mathHelper.divideDecimal(
                         (mathHelper.subtractDecimal(
                             totalPotatoes,
-                            dataPointsPotatoes[dataPointsPotatoes.length - 1].production,
+                            lastPotatoPoint.production,
                         )
                         ),
                         timeIncrease,
@@ -745,22 +751,25 @@ const farmingHelper = {
 
                     // let temp_increase =  mathHelper.multiplyDecimal(mathHelper.addDecimal(HPInitial, plants[0].production), 0.5 * tickRate * prodMult);
 
-
-                    let trueTimeIncrease = (simulationTime + runningTime) - dataPointsPotatoes[dataPointsPotatoes.length - 1].time;
+                    let trueTimeIncrease = endTime - lastPotatoPoint.time;
                     let finalPotatoes = mathHelper.addDecimal(
-                        dataPointsPotatoes[dataPointsPotatoes.length - 1].production,
+                        lastPotatoPoint.production,
                         mathHelper.multiplyDecimal(increase, trueTimeIncrease),
                     );
+                    const finalTime = lastPotatoPoint.time + trueTimeIncrease;
+                    // Fries depend on elapsed time, so reuse the same interpolated end
+                    // timestamp when deriving the final fry datapoint.
+                    const finalModifiers = { ...modifiers, timePassed: endTime };
 
                     let newObj = {
-                        time: dataPointsPotatoes[dataPointsPotatoes.length - 1].time + trueTimeIncrease,
+                        time: finalTime,
                         production: finalPotatoes,
                     };
                     dataPointsPotatoes.push(newObj);
 
                     dataPointsFries.push({
-                        'time': dataPointsPotatoes[dataPointsPotatoes.length - 1].time + trueTimeIncrease,
-                        'fries': mathHelper.multiplyDecimal(farmingHelper.calcFryOutput(totalPotatoes, modifiers), fryMult),
+                        'time': finalTime,
+                        'fries': mathHelper.multiplyDecimal(farmingHelper.calcFryOutput(finalPotatoes, finalModifiers), fryMult),
                     });
 
                     //This means the `current` potatoes aren't updated to reflect the backwards fill/fix but it shouldn't be a big deal, and not used for anything atm
