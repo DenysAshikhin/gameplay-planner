@@ -38,10 +38,13 @@ self.onmessage = ({ data: { data, id, data1 } }) => {
         const mode = data.mode;
         const secondsHour = 3600;
         let futureTime = data.time;
+        const simulationTimeSeconds = secondsHour * futureTime;
         const numSimulatedAutos = data.numSimulatedAutos ? data.numSimulatedAutos : 1;
         // let totalNumAutos = data.FarmingShopAutoPlotBought;
         // let numPlants = finalPlants.length;
         let combinations = data.combinations;
+        const afkGrowthThreshold = simulationTimeSeconds * 1.1;
+        const startingGrowthTimes = finalPlants.map((plant) => plant.growthTime || helper.calcGrowthTime(plant, modifiers));
 
 
         let totalPot = mathHelper.createDecimal(0);
@@ -71,6 +74,8 @@ self.onmessage = ({ data: { data, id, data1 } }) => {
         let picGained = 0;
         let picPercent = 0;
         let temp;
+        let validComboCount = 0;
+        let skippedComboCount = 0;
 
         for (let i = data.start; i <= data.end; i++) {
             counterMax--;
@@ -79,11 +84,21 @@ self.onmessage = ({ data: { data, id, data1 } }) => {
             dataObj.numAutos = combo;
             // let result;
             result = null;
+            let comboSkipped = false;
 
             switch (mode) {
                 case 'afk':
+                    for (let j = 0; j < combo.length; j++) {
+                        if (combo[j] > 0 && startingGrowthTimes[j] > afkGrowthThreshold) {
+                            skippedComboCount++;
+                            comboSkipped = true;
+                            break;
+                        }
+                    }
 
-                    result = helper.calcHPProd(finalPlants, dataObj);
+                    if (!comboSkipped) {
+                        result = helper.calcHPProd(finalPlants, dataObj);
+                    }
                     break;
                 case 'carlo':
                     result = helper.calcStepHPProd(finalPlants, { ...dataObj, steps: combo });
@@ -137,18 +152,34 @@ self.onmessage = ({ data: { data, id, data1 } }) => {
                             }
                         }
 
+                        if (combo[j] > 0) {
+                            let curPlant = finalPlants[finalPlants.length - 1 - j];
+                            if (curPlant.growthTime > runTime * 1.1) {
+                                skippedComboCount++;
+                                comboSkipped = true;
+                                break;
+                            }
+                        }
+
                         steps.push({
                             time: generalHelper.roundInt(runTime),
                             autos: autos
                         })
                     }
-                    result = helper.calcStepHPProd(finalPlants, { ...dataObj, steps: steps });
+                    if (!comboSkipped) {
+                        result = helper.calcStepHPProd(finalPlants, { ...dataObj, steps: steps });
+                    }
                     break;
                 default:
                     result = helper.calcHPProd(finalPlants, dataObj);
                     break;
             }
 
+            if (!result) {
+                continue;
+            }
+
+            validComboCount++;
             picGained = 0;
             picPercent = 0;
             temp = null;
@@ -225,12 +256,15 @@ self.onmessage = ({ data: { data, id, data1 } }) => {
         // eslint-disable-next-line no-restricted-globals
         self.postMessage({
             success: true,
+            mode: mode,
             totalPotCombo: totalPotCombo,
             bestProdCombo: bestProdCombo,
             bestPicCombo: bestPicCombo,
             bestPICPercCombo: bestPICPercCombo,
             top10DataPointsPotatoes: top10DataPointsPotatoes,
-            top10DataPointsFries: top10DataPointsFries
+            top10DataPointsFries: top10DataPointsFries,
+            validComboCount: validComboCount,
+            skippedComboCount: skippedComboCount
         })
     }
     catch (err) {

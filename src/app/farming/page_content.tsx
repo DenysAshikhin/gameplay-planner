@@ -217,11 +217,19 @@ const FarmingLanding = () => {
 
     const [calcAFK, setCalcAFK] = useState(false);
     const [calcStep, setCalcStep] = useState(false);
+    const [afkNoValidMessage, setAfkNoValidMessage] = useState('');
+    const [stepNoValidMessage, setStepNoValidMessage] = useState('');
 
     const [timeCompleted, setTimeCompleted] = useState(null);
     const [showInstructions, setShowInstructions] = useState(false);
 
     const [duration, setDuration] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+    const plantAutosKey = plantAutosClient.join(',');
+
+    useEffect(() => {
+        setAfkNoValidMessage('');
+        setStepNoValidMessage('');
+    }, [futureTime, numSimulatedAutos, autoBuyPBC, lockCustomAuto, forceRankPotion, plantAutosKey]);
 
     let petPlantCombo = 1;
     let contagionPlantEXP = 1;
@@ -837,12 +845,20 @@ const FarmingLanding = () => {
                     let bestPot: any = { pot: mathHelper.createDecimal(0) };
                     let bestPic: any = { pic: 0, prod: mathHelper.createDecimal(0) }
                     let bestPicPerc: any = { pic: 0, prod: mathHelper.createDecimal(0) }
+                    let totalValidCombos = 0;
+                    let totalSkippedCombos = 0;
+                    let currentMode = '';
 
                     let top10DataPointsPotatoes = [];
                     let top10DataPointsFries = [];
 
                     for (let i = 0; i < farmTotals.current.length; i++) {
                         let cur = farmTotals.current[i];
+                        totalValidCombos += cur.validComboCount ? cur.validComboCount : 0;
+                        totalSkippedCombos += cur.skippedComboCount ? cur.skippedComboCount : 0;
+                        if (!currentMode && cur.mode) {
+                            currentMode = cur.mode;
+                        }
 
 
                         if (!cur.totalPotCombo.result) {
@@ -1044,10 +1060,21 @@ const FarmingLanding = () => {
 
 
                         needFlickerLog.current = true;
+                        setAfkNoValidMessage('');
+                        setStepNoValidMessage('');
                         setCalcDone(true);
                         return finalBests;
                     }
                     else {
+                        if (totalValidCombos === 0 && totalSkippedCombos > 0 && currentMode === 'afk') {
+                            setAfkNoValidMessage('No valid AFK runs fit the selected hours. At least one assigned plant would need more than 110% of the simulated time to finish its first growth cycle, so those runs were skipped before simulation.');
+                            setStepNoValidMessage('');
+                        }
+                        else if (totalValidCombos === 0 && totalSkippedCombos > 0 && currentMode === 'step') {
+                            setStepNoValidMessage('No valid step runs fit the selected hours. At least one assigned step would give a plant less than 90.91% of the time needed to finish its first growth cycle, so those runs were skipped before simulation.');
+                            setAfkNoValidMessage('');
+                        }
+                        setCalcDone(true);
                         return currBestCombo;
                     }
                 })
@@ -1834,6 +1861,8 @@ const FarmingLanding = () => {
                                                 onClick={(e) => {
                                                     setCalcDone(false);
                                                     setCalcedFutureTime(futureTime);
+                                                    setAfkNoValidMessage('');
+                                                    setStepNoValidMessage('');
                                                     console.log(`Time start: ` + (new Date()).getTime())
                                                     ReactGA.event({
                                                         category: "farming_interaction",
@@ -1933,6 +1962,8 @@ const FarmingLanding = () => {
                                                 onClick={(e) => {
                                                     setCalcDone(false);
                                                     setCalcedFutureTime(futureTime);
+                                                    setAfkNoValidMessage('');
+                                                    setStepNoValidMessage('');
                                                     console.log(`Time start: ` + (new Date()).getTime())
                                                     ReactGA.event({
                                                         category: "farming_interaction",
@@ -2431,6 +2462,34 @@ const FarmingLanding = () => {
                         backgroundColor: 'rgba(255,255,255, 0.07)',
                         fill: '#fffff!important'
                     }}>
+                        {calcAFK && afkNoValidMessage && calcDone && (
+                            <div
+                                className='calcResult'
+                                style={{
+                                    width: `calc(200px + ${tempFuture.plants.length * 115}px)`,
+                                    maxWidth: 'calc(100% - 6px)',
+                                    backgroundColor: 'rgba(255,255,255,0.05)',
+                                    marginBottom: '8px'
+                                }}>
+                                <div className='calcInfo'>
+                                    {afkNoValidMessage}
+                                </div>
+                            </div>
+                        )}
+                        {calcStep && stepNoValidMessage && calcDone && (
+                            <div
+                                className='calcResult'
+                                style={{
+                                    width: `calc(200px + ${tempFuture.plants.length * 115}px)`,
+                                    maxWidth: 'calc(100% - 6px)',
+                                    backgroundColor: 'rgba(255,255,255,0.05)',
+                                    marginBottom: '8px'
+                                }}>
+                                <div className='calcInfo'>
+                                    {stepNoValidMessage}
+                                </div>
+                            </div>
+                        )}
 
                         {(farmCalcProgress.current === farmCalcProgress.max && farmCalcProgress.current !== 0 && bestPlantCombo.prod && calcDone) && (
                             <>
