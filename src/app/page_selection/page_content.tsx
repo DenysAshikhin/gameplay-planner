@@ -11,6 +11,7 @@ import DefaultSave from '../util/tempSave.json';
 const defaultSpecialPetTeamSeen = {
     renown: false,
     portalStarter: false,
+    seed: false,
     subclassExp: false,
 };
 ReactGA.initialize([{
@@ -64,8 +65,9 @@ export default function PageSelection() {
     const chargesMax = (data.CurrentCardCharge === data.MaxCardCharge) && (data.MaxCardCharge !== 0) && (data.AscensionCount >= 6);
     const petsNeedsAttention =
         (data.AscensionCount >= 20 && !specialPetTeamSeen.renown) ||
-        (data.AscensionCount >= 56 && !specialPetTeamSeen.portalStarter) ||
-        (data.AscensionCount >= 56 && !specialPetTeamSeen.subclassExp);
+        (data.AscensionCount >= 55 && !specialPetTeamSeen.portalStarter) ||
+        (data.AscensionCount >= 55 && !specialPetTeamSeen.seed) ||
+        (data.AscensionCount >= 55 && !specialPetTeamSeen.subclassExp);
 
     return (
         <div

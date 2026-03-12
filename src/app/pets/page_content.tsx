@@ -35,6 +35,7 @@ import {
   gearTeamSuggestions,
   renownTeamSuggestions,
   portalStarterTeamSuggestions,
+  seedTeamSuggestions,
   subclassExpTeamSuggestions,
   statTeamMasterList,
   statTeamWhitelistByAscension,
@@ -57,6 +58,7 @@ const bonusCutOff = 1000;
 const defaultSpecialPetTeamSeen = {
   renown: false,
   portalStarter: false,
+  seed: false,
   subclassExp: false,
 };
 
@@ -470,19 +472,24 @@ export default function Pets() {
   const [statPriorityWhitelist, setStatPriorityWhitelist] = useState({});
 
   const ascensionKey = data.AscensionCount > maxKey ? maxKey : data.AscensionCount;
+  const mainTeamVisible = data.AscensionCount < 55;
   const renownTeamVisible = data.AscensionCount >= 20;
-  const portalStarterTeamVisible = data.AscensionCount >= 56;
-  const subclassExpTeamVisible = data.AscensionCount >= 56;
+  const portalStarterTeamVisible = data.AscensionCount >= 55;
+  const seedTeamVisible = data.AscensionCount >= 55;
+  const subclassExpTeamVisible = data.AscensionCount >= 55;
 
   const renownTeamNeedsAttention =
     renownTeamVisible && !specialPetTeamSeen.renown;
   const portalStarterTeamNeedsAttention =
     portalStarterTeamVisible && !specialPetTeamSeen.portalStarter;
+  const seedTeamNeedsAttention =
+    seedTeamVisible && !specialPetTeamSeen.seed;
   const subclassExpTeamNeedsAttention =
     subclassExpTeamVisible && !specialPetTeamSeen.subclassExp;
   const specialTeamNeedsAttention =
     renownTeamNeedsAttention ||
     portalStarterTeamNeedsAttention ||
+    seedTeamNeedsAttention ||
     subclassExpTeamNeedsAttention;
 
   let preGeneratedTeams = useMemo(() => {
@@ -1216,6 +1223,39 @@ export default function Pets() {
                                 portalStarter: true,
                               });
                               break;
+                            case "Seed Team":
+                              setStatMode(false);
+                              setPriorityList(
+                                JSON.parse(
+                                  JSON.stringify(
+                                    seedTeamSuggestions[ascensionKey]
+                                      .priorityList,
+                                  ),
+                                ),
+                              );
+                              setPriorityMap(
+                                JSON.parse(
+                                  JSON.stringify(
+                                    seedTeamSuggestions[ascensionKey]
+                                      .priorityMap,
+                                  ),
+                                ),
+                              );
+                              presetPets = seedTeamSuggestions[ascensionKey]
+                                .petWhiteList
+                                ? JSON.parse(
+                                    JSON.stringify(
+                                      seedTeamSuggestions[ascensionKey]
+                                        .petWhiteList,
+                                    ),
+                                  )
+                                : {};
+                              setSpecialPetTeamSeen({
+                                ...defaultSpecialPetTeamSeen,
+                                ...specialPetTeamSeen,
+                                seed: true,
+                              });
+                              break;
                             case "Subclass Exp Team":
                               setStatMode(false);
                               setPriorityList(
@@ -1299,7 +1339,9 @@ export default function Pets() {
                         {!recommendedSelected && (
                           <option value="None">Select Preset</option>
                         )}
-                        <option value="Main Team">Main Team</option>
+                        {mainTeamVisible && (
+                          <option value="Main Team">Main Team</option>
+                        )}
                         {data.AscensionCount >= 12 && (
                           <option value="Reinc. Team">Reinc. Team</option>
                         )}
@@ -1329,6 +1371,18 @@ export default function Pets() {
                             }
                           >
                             Portal Starter Team
+                          </option>
+                        )}
+                        {seedTeamVisible && (
+                          <option
+                            value="Seed Team"
+                            style={
+                              seedTeamNeedsAttention
+                                ? { color: "#ff4d4f" }
+                                : undefined
+                            }
+                          >
+                            Seed Team
                           </option>
                         )}
                         {subclassExpTeamVisible && (
