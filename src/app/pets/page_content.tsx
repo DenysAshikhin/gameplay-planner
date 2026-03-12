@@ -33,7 +33,11 @@ import {
   mainTeamSuggestions,
   reincTeamSuggestions,
   gearTeamSuggestions,
+  renownTeamSuggestions,
+  portalStarterTeamSuggestions,
+  subclassExpTeamSuggestions,
   statTeamMasterList,
+  statTeamWhitelistByAscension,
   maxKey,
 } from "./teamSuggestions";
 
@@ -50,6 +54,11 @@ ReactGA.initialize([
 ]);
 
 const bonusCutOff = 1000;
+const defaultSpecialPetTeamSeen = {
+  renown: false,
+  portalStarter: false,
+  subclassExp: false,
+};
 
 /**
  * PetComboDisplay provides the core implementation for the PetComboDisplay routine used in this module.
@@ -380,6 +389,19 @@ export default function Pets() {
   const [petWhiteList, setPetWhiteList] = useState({});
   const [recommendedSelected, setRecommendedSelected] = useState(false);
   const [customeSelected, setCustomSelected] = useState(false);
+  const [specialPetTeamSeenClient, setSpecialPetTeamSeen] = useLocalStorage(
+    "specialPetTeamSeen",
+    defaultSpecialPetTeamSeen,
+  );
+  const [specialPetTeamSeen, setRunTimeSpecialPetTeamSeen] = useState(
+    defaultSpecialPetTeamSeen,
+  );
+  useEffect(() => {
+    setRunTimeSpecialPetTeamSeen({
+      ...defaultSpecialPetTeamSeen,
+      ...specialPetTeamSeenClient,
+    });
+  }, [specialPetTeamSeenClient]);
 
   const [customPresets, setCustomPresetsRuntTime] = useState({});
   const [customPresetsClient, setCustomPresets] = useLocalStorage(
@@ -446,6 +468,22 @@ export default function Pets() {
   const [statPriorityList, setStatPriorityList] = useState({});
   const [statPriorityMap, setStatPriorityMap] = useState({});
   const [statPriorityWhitelist, setStatPriorityWhitelist] = useState({});
+
+  const ascensionKey = data.AscensionCount > maxKey ? maxKey : data.AscensionCount;
+  const renownTeamVisible = data.AscensionCount >= 20;
+  const portalStarterTeamVisible = data.AscensionCount >= 56;
+  const subclassExpTeamVisible = data.AscensionCount >= 56;
+
+  const renownTeamNeedsAttention =
+    renownTeamVisible && !specialPetTeamSeen.renown;
+  const portalStarterTeamNeedsAttention =
+    portalStarterTeamVisible && !specialPetTeamSeen.portalStarter;
+  const subclassExpTeamNeedsAttention =
+    subclassExpTeamVisible && !specialPetTeamSeen.subclassExp;
+  const specialTeamNeedsAttention =
+    renownTeamNeedsAttention ||
+    portalStarterTeamNeedsAttention ||
+    subclassExpTeamNeedsAttention;
 
   let preGeneratedTeams = useMemo(() => {
     setRecommendedSelected(true);
@@ -671,9 +709,13 @@ export default function Pets() {
       newPriorityMap["3"].count = 0;
     }
 
-    let newPetWhiteList = statTeamMasterList.petWhiteList
-      ? JSON.parse(JSON.stringify(statTeamMasterList.petWhiteList))
-      : {};
+    const ascensionKey =
+      data.AscensionCount > maxKey ? maxKey : data.AscensionCount;
+    let newPetWhiteList = statTeamWhitelistByAscension[ascensionKey]
+      ? JSON.parse(JSON.stringify(statTeamWhitelistByAscension[ascensionKey]))
+      : statTeamMasterList.petWhiteList
+        ? JSON.parse(JSON.stringify(statTeamMasterList.petWhiteList))
+        : {};
 
     setStatPriorityList(newPriorityList);
     setStatPriorityMap(newPriorityMap);
@@ -1005,7 +1047,7 @@ export default function Pets() {
                     <div>Recommended Presets</div>
                     <div>
                       <select
-                        className="importantText"
+                        className={`importantText${specialTeamNeedsAttention ? " highlight blink-red" : ""}`}
                         aria-label="Select a default team preset"
                         style={{
                           maxWidth: "144px",
@@ -1027,37 +1069,25 @@ export default function Pets() {
                               setPriorityList(
                                 JSON.parse(
                                   JSON.stringify(
-                                    mainTeamSuggestions[
-                                      data.AscensionCount > maxKey
-                                        ? maxKey
-                                        : data.AscensionCount
-                                    ].priorityList,
+                                    mainTeamSuggestions[ascensionKey]
+                                      .priorityList,
                                   ),
                                 ),
                               );
                               setPriorityMap(
                                 JSON.parse(
                                   JSON.stringify(
-                                    mainTeamSuggestions[
-                                      data.AscensionCount > maxKey
-                                        ? maxKey
-                                        : data.AscensionCount
-                                    ].priorityMap,
+                                    mainTeamSuggestions[ascensionKey]
+                                      .priorityMap,
                                   ),
                                 ),
                               );
-                              presetPets = mainTeamSuggestions[
-                                data.AscensionCount > maxKey
-                                  ? maxKey
-                                  : data.AscensionCount
-                              ].petWhiteList
+                              presetPets = mainTeamSuggestions[ascensionKey]
+                                .petWhiteList
                                 ? JSON.parse(
                                     JSON.stringify(
-                                      mainTeamSuggestions[
-                                        data.AscensionCount > maxKey
-                                          ? maxKey
-                                          : data.AscensionCount
-                                      ].petWhiteList,
+                                      mainTeamSuggestions[ascensionKey]
+                                        .petWhiteList,
                                     ),
                                   )
                                 : {};
@@ -1067,37 +1097,25 @@ export default function Pets() {
                               setPriorityList(
                                 JSON.parse(
                                   JSON.stringify(
-                                    reincTeamSuggestions[
-                                      data.AscensionCount > maxKey
-                                        ? maxKey
-                                        : data.AscensionCount
-                                    ].priorityList,
+                                    reincTeamSuggestions[ascensionKey]
+                                      .priorityList,
                                   ),
                                 ),
                               );
                               setPriorityMap(
                                 JSON.parse(
                                   JSON.stringify(
-                                    reincTeamSuggestions[
-                                      data.AscensionCount > maxKey
-                                        ? maxKey
-                                        : data.AscensionCount
-                                    ].priorityMap,
+                                    reincTeamSuggestions[ascensionKey]
+                                      .priorityMap,
                                   ),
                                 ),
                               );
-                              presetPets = reincTeamSuggestions[
-                                data.AscensionCount > maxKey
-                                  ? maxKey
-                                  : data.AscensionCount
-                              ].petWhiteList
+                              presetPets = reincTeamSuggestions[ascensionKey]
+                                .petWhiteList
                                 ? JSON.parse(
                                     JSON.stringify(
-                                      reincTeamSuggestions[
-                                        data.AscensionCount > maxKey
-                                          ? maxKey
-                                          : data.AscensionCount
-                                      ].petWhiteList,
+                                      reincTeamSuggestions[ascensionKey]
+                                        .petWhiteList,
                                     ),
                                   )
                                 : {};
@@ -1107,40 +1125,130 @@ export default function Pets() {
                               setPriorityList(
                                 JSON.parse(
                                   JSON.stringify(
-                                    gearTeamSuggestions[
-                                      data.AscensionCount > maxKey
-                                        ? maxKey
-                                        : data.AscensionCount
-                                    ].priorityList,
+                                    gearTeamSuggestions[ascensionKey]
+                                      .priorityList,
                                   ),
                                 ),
                               );
                               setPriorityMap(
                                 JSON.parse(
                                   JSON.stringify(
-                                    gearTeamSuggestions[
-                                      data.AscensionCount > maxKey
-                                        ? maxKey
-                                        : data.AscensionCount
-                                    ].priorityMap,
+                                    gearTeamSuggestions[ascensionKey]
+                                      .priorityMap,
                                   ),
                                 ),
                               );
-                              presetPets = gearTeamSuggestions[
-                                data.AscensionCount > maxKey
-                                  ? maxKey
-                                  : data.AscensionCount
-                              ].petWhiteList
+                              presetPets = gearTeamSuggestions[ascensionKey]
+                                .petWhiteList
                                 ? JSON.parse(
                                     JSON.stringify(
-                                      gearTeamSuggestions[
-                                        data.AscensionCount > maxKey
-                                          ? maxKey
-                                          : data.AscensionCount
-                                      ].petWhiteList,
+                                      gearTeamSuggestions[ascensionKey]
+                                        .petWhiteList,
                                     ),
                                   )
                                 : {};
+                              break;
+                            case "Renown Team":
+                              setStatMode(false);
+                              setPriorityList(
+                                JSON.parse(
+                                  JSON.stringify(
+                                    renownTeamSuggestions[ascensionKey]
+                                      .priorityList,
+                                  ),
+                                ),
+                              );
+                              setPriorityMap(
+                                JSON.parse(
+                                  JSON.stringify(
+                                    renownTeamSuggestions[ascensionKey]
+                                      .priorityMap,
+                                  ),
+                                ),
+                              );
+                              presetPets = renownTeamSuggestions[ascensionKey]
+                                .petWhiteList
+                                ? JSON.parse(
+                                    JSON.stringify(
+                                      renownTeamSuggestions[ascensionKey]
+                                        .petWhiteList,
+                                    ),
+                                  )
+                                : {};
+                              setSpecialPetTeamSeen({
+                                ...defaultSpecialPetTeamSeen,
+                                ...specialPetTeamSeen,
+                                renown: true,
+                              });
+                              break;
+                            case "Portal Starter Team":
+                              setStatMode(false);
+                              setPriorityList(
+                                JSON.parse(
+                                  JSON.stringify(
+                                    portalStarterTeamSuggestions[ascensionKey]
+                                      .priorityList,
+                                  ),
+                                ),
+                              );
+                              setPriorityMap(
+                                JSON.parse(
+                                  JSON.stringify(
+                                    portalStarterTeamSuggestions[ascensionKey]
+                                      .priorityMap,
+                                  ),
+                                ),
+                              );
+                              presetPets =
+                                portalStarterTeamSuggestions[ascensionKey]
+                                  .petWhiteList
+                                  ? JSON.parse(
+                                      JSON.stringify(
+                                        portalStarterTeamSuggestions[
+                                          ascensionKey
+                                        ].petWhiteList,
+                                      ),
+                                    )
+                                  : {};
+                              setSpecialPetTeamSeen({
+                                ...defaultSpecialPetTeamSeen,
+                                ...specialPetTeamSeen,
+                                portalStarter: true,
+                              });
+                              break;
+                            case "Subclass Exp Team":
+                              setStatMode(false);
+                              setPriorityList(
+                                JSON.parse(
+                                  JSON.stringify(
+                                    subclassExpTeamSuggestions[ascensionKey]
+                                      .priorityList,
+                                  ),
+                                ),
+                              );
+                              setPriorityMap(
+                                JSON.parse(
+                                  JSON.stringify(
+                                    subclassExpTeamSuggestions[ascensionKey]
+                                      .priorityMap,
+                                  ),
+                                ),
+                              );
+                              presetPets =
+                                subclassExpTeamSuggestions[ascensionKey]
+                                  .petWhiteList
+                                  ? JSON.parse(
+                                      JSON.stringify(
+                                        subclassExpTeamSuggestions[ascensionKey]
+                                          .petWhiteList,
+                                      ),
+                                    )
+                                  : {};
+                              setSpecialPetTeamSeen({
+                                ...defaultSpecialPetTeamSeen,
+                                ...specialPetTeamSeen,
+                                subclassExp: true,
+                              });
                               break;
                             case "Stat Team":
                               setPriorityList(
@@ -1192,10 +1300,48 @@ export default function Pets() {
                           <option value="None">Select Preset</option>
                         )}
                         <option value="Main Team">Main Team</option>
-                        <option value="Reinc. Team">Reinc. Team</option>
+                        {data.AscensionCount >= 12 && (
+                          <option value="Reinc. Team">Reinc. Team</option>
+                        )}
                         <option value="Gear Team">Gear Team</option>
                         {data.AscensionCount >= 5 && (
                           <option value="Stat Team">Stat Team</option>
+                        )}
+                        {renownTeamVisible && (
+                          <option
+                            value="Renown Team"
+                            style={
+                              renownTeamNeedsAttention
+                                ? { color: "#ff4d4f" }
+                                : undefined
+                            }
+                          >
+                            Renown Team
+                          </option>
+                        )}
+                        {portalStarterTeamVisible && (
+                          <option
+                            value="Portal Starter Team"
+                            style={
+                              portalStarterTeamNeedsAttention
+                                ? { color: "#ff4d4f" }
+                                : undefined
+                            }
+                          >
+                            Portal Starter Team
+                          </option>
+                        )}
+                        {subclassExpTeamVisible && (
+                          <option
+                            value="Subclass Exp Team"
+                            style={
+                              subclassExpTeamNeedsAttention
+                                ? { color: "#ff4d4f" }
+                                : undefined
+                            }
+                          >
+                            Subclass Exp Team
+                          </option>
                         )}
                         {recommendedSelected && (
                           <option value="None">Blank</option>

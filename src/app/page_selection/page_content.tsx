@@ -8,6 +8,11 @@ import { isMobile } from 'mobile-device-detect';
 import useLocalStorage from 'use-local-storage';
 
 import DefaultSave from '../util/tempSave.json';
+const defaultSpecialPetTeamSeen = {
+    renown: false,
+    portalStarter: false,
+    subclassExp: false,
+};
 ReactGA.initialize([{
     trackingId: "G-GGLPK02VH8",
     // gaOptions: {...}, // optional
@@ -38,12 +43,29 @@ export default function PageSelection() {
 
     const [clientData, setData] = useLocalStorage('userData', DefaultSave);
     const [data, setRunTimeData] = useState(DefaultSave);
+    const [specialPetTeamSeenClient] = useLocalStorage(
+        'specialPetTeamSeen',
+        defaultSpecialPetTeamSeen,
+    );
+    const [specialPetTeamSeen, setRunTimeSpecialPetTeamSeen] = useState(
+        defaultSpecialPetTeamSeen,
+    );
 
     useEffect(() => {
         setRunTimeData(clientData);
     }, [clientData]);
+    useEffect(() => {
+        setRunTimeSpecialPetTeamSeen({
+            ...defaultSpecialPetTeamSeen,
+            ...specialPetTeamSeenClient,
+        });
+    }, [specialPetTeamSeenClient]);
 
     const chargesMax = (data.CurrentCardCharge === data.MaxCardCharge) && (data.MaxCardCharge !== 0) && (data.AscensionCount >= 6);
+    const petsNeedsAttention =
+        (data.AscensionCount >= 20 && !specialPetTeamSeen.renown) ||
+        (data.AscensionCount >= 56 && !specialPetTeamSeen.portalStarter) ||
+        (data.AscensionCount >= 56 && !specialPetTeamSeen.subclassExp);
 
     return (
         <div
@@ -69,7 +91,7 @@ export default function PageSelection() {
                     <PageCard page='upload' />
                     <PageCard page='expedition' />
                     <PageCard page='zones' />
-                    <PageCard page='pets' />
+                    <PageCard page='pets' highlightClass={petsNeedsAttention ? 'highlight blink-red' : ''} />
                     <PageCard page='cards' highlightClass={chargesMax ? 'highlight blink-red' : ''} />
                 </div>
                 <div className='row'>
