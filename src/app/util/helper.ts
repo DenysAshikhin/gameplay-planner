@@ -2,6 +2,39 @@ import Decimal from 'break_infinity.js';
 import mathHelper from './math';
 const cutoffUseExponential: number = 100000;
 
+type TradeCostAggregate = {
+    id: number,
+    subtype?: number,
+    cost: Decimal,
+    counter: number,
+    minCost: Decimal,
+    maxCost: Decimal
+};
+
+type TradeCostRange = {
+    id: number,
+    subtype?: number,
+    minCost: Decimal,
+    maxCost: Decimal,
+    counter: number
+};
+
+type TradeRewardAggregate = {
+    id: number,
+    subtype?: number,
+    reward: Decimal,
+    counter: number,
+    minReward: Decimal,
+    maxReward: Decimal
+};
+
+type TradeRewardAverage = {
+    id: number,
+    subtype?: number,
+    reward: Decimal,
+    counter: number
+};
+
 var helper = {
     /**
      * Round a numeric value to two decimal places with epsilon adjustment to avoid floating point errors.
@@ -231,30 +264,78 @@ var helper = {
     /**
      * Calculate the average resource cost for each deal type in the provided data set.
      * @param {{ DealQueue: Array<{ CostResourceID: number, CostResourceIDSub?: number, CostValue: number }> }} data Deal queue containing cost information.
-     * @returns {{ purchase_cost_map: Record<string, { id: number, subtype?: number, cost: Decimal, counter: number }>, average_cost_map: Array<{ id: number, subtype?: number, cost: Decimal, counter: number }> }} Aggregated cost totals and averages.
+     * @returns {{ purchase_cost_map: Record<string, { id: number, subtype?: number, cost: Decimal, counter: number, minCost: Decimal, maxCost: Decimal }>, average_cost_map: Array<{ id: number, subtype?: number, cost: Decimal, counter: number, minCost: Decimal, maxCost: Decimal }>, range_cost_map: Array<{ id: number, subtype?: number, minCost: Decimal, maxCost: Decimal, counter: number }>, average_reward_map: Array<{ id: number, subtype?: number, reward: Decimal, counter: number }> }} Aggregated cost totals, averages, cost ranges, and reward averages.
      */
     getAverageTradeCosts: function (data) {
-        let purchase_cost_map = {};
+        let purchase_cost_map: Record<string, TradeCostAggregate> = {};
+        let purchase_reward_map: Record<string, TradeRewardAggregate> = {};
         data.DealQueue.forEach((inner_deal) => {
-            const big_id = inner_deal.CostResourceIDSub ? `tier-` + inner_deal.CostResourceIDSub : inner_deal.CostResourceID;
+            const big_id = inner_deal.CostResourceIDSub ? `cost-tier-` + inner_deal.CostResourceIDSub : `cost-` + inner_deal.CostResourceID;
+            const reward_id = inner_deal.BoughtResourceIDSub ? `reward-tier-` + inner_deal.BoughtResourceIDSub : `reward-` + inner_deal.BoughtResourceID;
+            const cost_value = mathHelper.createDecimal(inner_deal.CostValue);
+            const reward_value = mathHelper.createDecimal(inner_deal.BoughtValue);
 
             if (!purchase_cost_map[big_id]) {
-                purchase_cost_map[big_id] = { id: inner_deal.CostResourceID, cost: mathHelper.createDecimal(0), counter: 0 };
+                purchase_cost_map[big_id] = {
+                    id: inner_deal.CostResourceID,
+                    cost: mathHelper.createDecimal(0),
+                    counter: 0,
+                    minCost: cost_value,
+                    maxCost: cost_value
+                };
                 if (inner_deal.CostResourceIDSub) {
                     purchase_cost_map[big_id].subtype = inner_deal.CostResourceIDSub;
                 }
             }
-            purchase_cost_map[big_id].counter++;
-            purchase_cost_map[big_id].cost = mathHelper.addDecimal(purchase_cost_map[big_id].cost, mathHelper.createDecimal(inner_deal.CostValue));
+            const aggregate = purchase_cost_map[big_id];
+            aggregate.counter++;
+            aggregate.cost = mathHelper.addDecimal(aggregate.cost, cost_value);
+            aggregate.minCost = mathHelper.min(aggregate.minCost, cost_value);
+            aggregate.maxCost = mathHelper.max(aggregate.maxCost, cost_value);
+
+            if (!purchase_reward_map[reward_id]) {
+                purchase_reward_map[reward_id] = {
+                    id: inner_deal.BoughtResourceID,
+                    reward: mathHelper.createDecimal(0),
+                    counter: 0,
+                    minReward: reward_value,
+                    maxReward: reward_value
+                };
+                if (inner_deal.BoughtResourceIDSub) {
+                    purchase_reward_map[reward_id].subtype = inner_deal.BoughtResourceIDSub;
+                }
+            }
+            const reward_aggregate = purchase_reward_map[reward_id];
+            reward_aggregate.counter++;
+            reward_aggregate.reward = mathHelper.addDecimal(reward_aggregate.reward, reward_value);
+            reward_aggregate.minReward = mathHelper.min(reward_aggregate.minReward, reward_value);
+            reward_aggregate.maxReward = mathHelper.max(reward_aggregate.maxReward, reward_value);
         });
 
         let average_cost_map = [];
-        for (const [key, value] of Object.entries(purchase_cost_map)) {
+        let range_cost_map: TradeCostRange[] = [];
+        let average_reward_map: TradeRewardAverage[] = [];
+        for (const [, value] of Object.entries(purchase_cost_map)) {
             let temp = { ...(value as any) };
             temp.cost = mathHelper.divideDecimal(temp.cost, temp.counter);
             average_cost_map.push(temp);
+            range_cost_map.push({
+                id: value.id,
+                subtype: value.subtype,
+                minCost: value.minCost,
+                maxCost: value.maxCost,
+                counter: value.counter
+            });
         }
-        return { purchase_cost_map, average_cost_map };
+        for (const [, value] of Object.entries(purchase_reward_map)) {
+            average_reward_map.push({
+                id: value.id,
+                subtype: value.subtype,
+                reward: mathHelper.divideDecimal(value.reward, value.counter),
+                counter: value.counter
+            });
+        }
+        return { purchase_cost_map, average_cost_map, range_cost_map, average_reward_map };
     },
 
     /**
