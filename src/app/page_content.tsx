@@ -219,8 +219,14 @@ export default function Home() {
       {/* <GoogleAdSense publisherId="pub-1393057374484862" /> */}
       <Image
         style={{
-          position: 'absolute', top: '0', left: '0', width: '100%', height: '100%', zIndex: '1',
-          opacity: '0.3'
+          position: 'absolute',
+          inset: '0',
+          width: '100%',
+          height: '100%',
+          zIndex: '1',
+          objectFit: 'cover',
+          opacity: '0.3',
+          pointerEvents: 'none',
         }}
         alt='fullscreen picture of a Farmer Against Potatoes Idle game'
         src={backgroundImage}

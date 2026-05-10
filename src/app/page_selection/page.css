@@ -1,0 +1,101 @@
+.row {
+  display: flex;
+  margin-top: 20px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  width: 150px;
+  height: 164px;
+  margin-right: 48px;
+  border-radius: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  overflow: hidden;
+}
+
+.card.disabled {
+  pointer-events: none;
+  opacity: 0.3;
+}
+
+.card__icon {
+  flex-grow: 1;
+  display: grid;
+  place-content: center;
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 6px;
+  border-bottom: 0;
+  border-radius: 12px 12px 0 0; /* To make sure there's no overflow when highlight is used */
+}
+
+.card__title {
+  display: grid;
+  place-content: center;
+  font-size: 20px;
+  background-color: rgba(255, 255, 255, 0.12);
+  padding: 2px 0 4px;
+  border-radius: 0 0 12px 12px; /* To make sure there's no overflow when highlight is used */
+}
+
+/* Fancy highlight for Text Guide card */
+@property --rainbow-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.card.highlight {
+  border: none;
+}
+
+.rainbow {
+  position: relative;
+  border-radius: 12px;
+  overflow: visible;
+}
+
+.rainbow::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 12px;
+  padding: 3px;
+  --rainbow-angle: 0deg;
+  background: conic-gradient(from var(--rainbow-angle), #b827fc, #2c90fc, #b8fd33, #fec837, #fd1892, #b827fc);
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  animation: rainbow-rotate 3s linear infinite, rainbow-pulse 2s ease-in-out infinite;
+  z-index: 0;
+  pointer-events: none;
+}
+
+@keyframes rainbow-rotate {
+  0% {
+    --rainbow-angle: 0deg;
+  }
+  100% {
+    --rainbow-angle: 360deg;
+  }
+}
+
+.rainbow > * {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes rainbow-pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.85;
+  }
+}

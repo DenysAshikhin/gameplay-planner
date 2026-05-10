@@ -1,36 +1,110 @@
-.tooltip {
-    position: absolute;
-    top: -50px;
-    left: -110px;
-    display: inline-block;
-    width: 100%;
-    height: 100%;
-    visibility: hidden;
-}
-.tooltip .tooltip-content {
-    position: absolute;
-    z-index: 2;
-    background-color: rgba(255, 255, 255, 0.9);
-    padding: 10px;
+/* ── CardCard outer wrapper ──────────────────────────────────────── */
+.card-wrapper {
     border-radius: 5px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    min-width: 200px;
-    max-width: 400px;
-    white-space: nowrap;
-    top: 100px;
-    left: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-sizing: border-box;
+    background-color: rgba(255, 255, 255, 0.1);
 }
-.expCardContainer:hover .tooltip {
-    visibility: visible;
-}
-.expCardContainer {
+
+/* Original (grid) display mode */
+.card-wrapper--original {
+    align-items: center;
+    width: 140px;
+    height: 194.89px;
+    margin: 0 3px;
     position: relative;
-    /*max-width: 75px;*/
-    /*max-height: 75px;*/
-    /*width: 100%;*/
-    min-height: 75px;
 }
-.statIcon {
-    max-height: 40px;
-    max-width: 40px;
+
+/* List display modes (perc / xgain / weight / logged) */
+.card-wrapper--list {
+    width: 100%;
+    height: 48px;
+    padding: 0 6px;
+}
+
+/* ── Inner card image container ──────────────────────────────────── */
+.card-image-wrapper {
+    width: 140px;
+    height: 194.89px;
+    margin: 0 auto;
+    position: relative;
+}
+
+/* ── Text overlays on the card image ─────────────────────────────── */
+.card-bonus-label {
+    font-weight: bold;
+    position: absolute;
+    font-size: 16px;
+    top: 6px;
+    right: 8px;
+}
+
+.card-temp-label {
+    font-weight: bold;
+    position: absolute;
+    font-size: 12px;
+    top: 32px;
+    right: 8px;
+}
+
+.card-name-label {
+    font-weight: bold;
+    position: absolute;
+    font-size: 14px;
+    bottom: 4px;
+    width: 100%;
+    text-align: center;
+}
+
+/* ── Weight input (original mode) ────────────────────────────────── */
+.card-weight-input {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    bottom: 23px;
+    left: 30px;
+    z-index: 3;
+}
+
+.card-weight-field {
+    width: 55px;
+    border-radius: 6px;
+    font-size: 12px;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+
+.card-info-icon {
+    position: relative;
+    height: 16px;
+    width: 16px;
+    margin-left: 2px;
+}
+
+/* ── List-mode inner layout ──────────────────────────────────────── */
+.card-list-inner {
+    display: flex;
+    flex: 1;
+    align-items: center;
+}
+
+.card-list-icon {
+    position: relative;
+    width: 33px;
+    height: 33px;
+}
+
+.card-list-name {
+    font-weight: bold;
+    margin-left: 6px;
+    font-size: 20px;
+}
+
+.card-list-value {
+    font-weight: bold;
+    margin-left: auto;
+    font-size: 20px;
 }

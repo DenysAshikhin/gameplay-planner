@@ -2392,7 +2392,7 @@ const FarmingLanding = () => {
                             </div>
                             {/* <div id='in_content_flex' style={{ margin: '3px 0 0 9px', display: 'flex', justifyContent: 'center', alignItems: 'center', }} /> */}
                             <div
-                                className={openedInstructionsRunTime ? '' : 'borderToFadeInAndOutRed'}
+                                className={openedInstructionsRunTime ? '' : 'highlight blink-red'}
                                 style={{ margin: '3px auto', borderRadius: '6px', padding: '6px' }}>
                                 <button onClick={(e) => {
                                     setShowInstructions(!showInstructions);

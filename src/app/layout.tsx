@@ -56,7 +56,8 @@ export default function RootLayout({ children }) {
         {/* <script async type="text/javascript" src="//monu.delivery/site/a/5/892ed4-6227-41b8-95d2-9c7cb4ffe471.js" data-cfasync="false"></script> */}
 
         {/* <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1393057374484862" crossOrigin="anonymous"></script> */}
-
+        {/* Preload the header-font */}
+        <link rel="preload" href="/fonts/dobra_black/Dobra-Black.woff2" as="font" type="font/woff2" crossOrigin="" />
       </head>
       <body>
         <div

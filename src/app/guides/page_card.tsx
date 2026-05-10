@@ -103,7 +103,7 @@ const PageCard = ({ page, setTab, redBorder, url_force }: PageCardProps) => {
           // backgroundColor:'red'
         }}
       >
-        <div className={`${redBorder ? 'borderToFadeInAndOutRed' : ''}`}
+        <div className={`${redBorder ? 'highlight blink-red' : ''}`}
           style={{
             height: "calc(80% - 12px)",
             display: "flex",
@@ -136,7 +136,7 @@ const PageCard = ({ page, setTab, redBorder, url_force }: PageCardProps) => {
           </div>
         </div>
 
-        <div className={`${redBorder ? 'borderToFadeInAndOutRed' : ''}`}
+        <div className={`${redBorder ? 'highlight blink-red' : ''}`}
           style={{
             height: "calc(20% - 4px)",
             display: "flex",

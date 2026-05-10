@@ -77,12 +77,12 @@ const Header = ({ }) => {
       </div>
       <div
         className="importantText"
-        style={{ marginLeft: 'auto', zIndex:'3' }}
+        style={{ flexGrow: 1, zIndex:'3' }}
       >
         <Link href={`https://www.gameplayplanner.com/privacy_policy.html`} style={{ textDecoration: 'none' }}>
-          <div
+          <div 
+            style={{ float: 'right', marginRight: '10px' }}
             className="importantText hover">
-
             {`Privacy`}
           </div>
         </Link>

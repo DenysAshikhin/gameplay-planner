@@ -32,7 +32,7 @@ export default function Page() {
   return (
     <>
       <Cards />
-      <Ad_Comp />
+      <Ad_Comp responsiveViewport />
     </>
   )
 }

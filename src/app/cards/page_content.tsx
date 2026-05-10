@@ -3,7 +3,9 @@
 
 import { isMobile } from 'mobile-device-detect';
 import './card.css';
-import { useState, useEffect, useRef } from 'react';
+import './page.css';
+import { useState, useEffect } from 'react';
+
 import ReactGA from "react-ga4";
 //import { GoogleAdSense } from "next-google-adsense";
 import MouseOverPopover from "../util/Tooltip";
@@ -15,9 +17,6 @@ import helper from '../util/helper';
 
 import rightArrow from '@images/icons/right_arrow_white.svg';
 import infoIcon from '@images/icons/info_thick.svg';
-import infoIconRed from '@images/icons/info_red.svg';
-// import chargeImg from '@images/cards/charge.png'
-import chargeImg from '@images/cards_v2/battery.png'
 
 import greenBorder from '@images/cards_v2/CardSelectedGreen.png'
 import redBorder from '@images/cards_v2/CardSelectedRed.png'
@@ -41,39 +40,17 @@ ReactGA.initialize([{
 }]);
 
 import {
-    POTATO,
-    CLASSEXP,
-    SKULL,
-    CONFECTIONEXP,
     REINCARNATIONEXP,
-    ITEMRATING,
-    POOPBONUS,
-    MILKBONUS,
-    WHACKSCORE,
-    BREWINGEXP,
-    CALCIUMEXP,
-    FERMENTINGEXP,
-    RESIDUEBONUS,
-    WORMQTY,
-    LARVAQTY,
-    LARVAEFF,
-    ATTACKHP,
-    PETDMG,
-    PETLEVELEXP,
-    PETRANKEXP,
-    CARDPOWERB,
-    CARDEXPB,
-    HEALTHYBONUS,
-    FRIESBONUS,
-    PROTEINBONUS,
-    GHBONUS,
-    MININGEXP,
-    MININGPWR,
-    cardMapImg, cardLabelImg, defaultWeights, CARD_DISPLAY_IDS, permPowerBonusFormula, tempPowerBonusFormula, powerFormula, cardIDMap, maxKey, cardSumWeights
+    cardMapImg,
+    cardLabelImg,
+    defaultWeights,
+    CARD_DISPLAY_IDS,
+    permPowerBonusFormula,
+    tempPowerBonusFormula,
+    cardIDMap,
+    maxKey,
+    cardSumWeights
 } from '../util/cardMapping';
-
-
-let reincLevelRequirements = {};
 
 interface CardCardProps {
     vertical,
@@ -100,16 +77,12 @@ const CardCard = ({
     bonusMode,
     data,
     card,
-    weightMap,
     i,
-    applyWeights,
     cardMap,
     setCardMap,
     resetWeights,
-    cardWeightInner,
     cardWeight,
     setCardWeightNew,
-    classes,
 }: Partial<CardCardProps>) => {
 
     const {
@@ -139,8 +112,6 @@ const CardCard = ({
     const [refreshMath, setRefreshMath] = useState(true);
 
     useEffect(() => {
-
-
         setRefreshMath(false);
         if (Found === 0) {
             if (setCardMap)
@@ -155,12 +126,6 @@ const CardCard = ({
             return;
         }
 
-
-        if (ID === 18) {
-            let bigsad = -1;
-        }
-
-
         let permValueBefore = mathHelper.createDecimal(PowerPermaBD);
         let perm_empty = false;
         if (permValueBefore.equals(mathHelper.createDecimal(0))) {
@@ -173,9 +138,6 @@ const CardCard = ({
             temp_empty = true;
             tempValueBefore = mathHelper.createDecimal(0.00000001);
         }
-
-
-
 
         let permValueAfter = mathHelper.addDecimal(permValueBefore,
             mathHelper.multiplyDecimal(tempValueBefore, ChargeTransfertPowerPerma)
@@ -203,9 +165,6 @@ const CardCard = ({
             ),
             ((1.0 + Level * level_mult) * 100)
         );
-        if(ID == 41){
-            let bigsad = -1;
-        }
 
         let temp1 = tempPowerBonusFormula[ID](mathHelper.multiplyDecimal(tempValueBefore, (1.0 - ChargeTransfertPowerTemp)))
         let temp2 = permPowerBonusFormula[ID](
@@ -236,10 +195,6 @@ const CardCard = ({
                 , 100
                 // finalWeight
             );
-            
-        if (ID === 18) {
-            let bigsad = -1;
-        }
 
         setFinalTemp(tempValueAfter);
         setFinalAfter(finalAfter);
@@ -354,23 +309,9 @@ const CardCard = ({
     return (
         <div
             key={i}
-            style={{
-                // border: isPositiveChargeRatio ? '2px solid green' : '1px solid black',
-                borderRadius: '5px',
-                display: 'flex',
-                flexDirection: 'column',
-                // alignItems: 'center',
-                alignItems: displayMode === 'original' ? 'center' : '',
-                justifyContent: 'center',
-                // justifyContent: displayMode === 'original' ? 'center' : '',
-                width: displayMode === 'original' ? `${227 / 227 * multiplier}px` : '100%',
-                height: displayMode === 'original' ? `${316 / 227 * multiplier}px` : '48px',
-                margin: displayMode === 'original' ? margin : `${num === 1 ? '0' : '6px'} 0 0 0`,
-                padding: displayMode === 'original' ? '' : '0 6px 0 6px',
-                boxSizing: 'border-box',
-                position: displayMode === 'original' ? 'relative' : `static`,
-                backgroundColor: 'rgba(255,255,255, 0.1)'
-            }}>
+            className={`card-wrapper ${displayMode === 'original' ? 'card-wrapper--original' : 'card-wrapper--list'}`}
+            style={displayMode !== 'original' ? { marginTop: num === 1 ? '0' : '6px' } : undefined}
+        >
             {displayMode === 'original' && (
                 <>
                     <MouseOverPopover
@@ -402,11 +343,7 @@ const CardCard = ({
                         }
                     >
                         <div>
-                            <div style={{
-                                width: `${227 / 227 * multiplier}px`,
-                                height: `${316 / 227 * multiplier}px`,
-                                margin: '0 auto', position: 'relative'
-                            }}>
+                            <div className="card-image-wrapper">
                                 <Image
                                     alt={`picture of the in game ${cardIDMap[ID].label} card`}
                                     fill
@@ -435,43 +372,17 @@ const CardCard = ({
                                 )}
 
                                 {/* Final bonus */}
-                                <div
-                                    style={{
-                                        fontWeight: 'bold',
-                                        position: 'absolute',
-                                        fontSize: vertical ? '13px' : '16px',
-                                        top: vertical ? '4px' : '6px',
-                                        right: '8px',
-                                    }}
-                                >
+                                <div className="card-bonus-label">
                                     {`${helper.formatNumberString(finalBonusDisplay)}${bonusMode === 'xgain' ? 'X' : '%'}`}
                                 </div>
 
                                 {/* Final temp */}
-                                <div
-                                    style={{
-                                        fontWeight: 'bold',
-                                        position: 'absolute',
-                                        fontSize: vertical ? '10px' : '12px',
-                                        top: vertical ? '24px' : '32px',
-                                        right: '8px',
-                                    }}
-                                >
+                                <div className="card-temp-label">
                                     {`${helper.formatNumberString(finalTemp)}`}
                                 </div>
 
 
-                                <div
-                                    className='importantText'
-                                    style={{
-                                        fontWeight: 'bold',
-                                        position: 'absolute',
-                                        fontSize: vertical ? '12px' : '14px',
-                                        bottom: vertical ? '2px' : '4px',
-                                        width: '100%',
-                                        textAlign: 'center'
-                                    }}
-                                >
+                                <div className="importantText card-name-label">
                                     {cardIDMap[ID].label}
                                 </div>
                             </div>
@@ -479,27 +390,13 @@ const CardCard = ({
                     </MouseOverPopover>
 
 
-                    <div
-                        style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            position: 'absolute',
-                            bottom: '23px',
-                            left: '30px',
-                            zIndex: '3',
-                        }}
-                    >
+                    <div className="card-weight-input">
                         <input
                             aria-label='Specify the weight/importance for this card'
+                            className="card-weight-field"
                             style={{
-                                width: '55px',
                                 color: cardWeight !== defaultWeight && cardWeight !== -1 ? 'black' : 'gray',
                                 fontWeight: cardWeight !== defaultWeight && cardWeight !== -1 ? 'bold' : '',
-                                borderRadius: '6px',
-                                fontSize: '12px',
-                                padding: '0 0 0 0',
-                                margin: '0',
-                                textAlign: 'center'
                             }}
                             type='number'
                             value={finalWeight}
@@ -536,7 +433,7 @@ const CardCard = ({
                         }
                             opacity={1}
                         >
-                            <div style={{ position: 'relative', height: '16px', width: '16px', marginLeft: '2px' }}>
+                            <div className="card-info-icon">
                                 <Image
                                     alt='on hover I in a cirlce icon, shows more information on hover'
                                     fill
@@ -544,7 +441,6 @@ const CardCard = ({
                                     unoptimized={true}
                                 />
                             </div>
-                            {/* <img alt='on hover I in a cirlce icon, shows more information on hover' style={{ height: '16px', marginLeft: '6px' }} src={infoIcon} /> */}
                         </MouseOverPopover>
                     </div>
                 </>
@@ -581,15 +477,8 @@ const CardCard = ({
 
 
                     >
-                        <div style={{
-                            display: 'flex',
-                            flex: '1',
-                            alignItems: 'center'
-                        }}>
-                            <div style={{
-                                // margin: '0 auto',
-                                position: 'relative', width: '33px', height: '33px'
-                            }}>
+                        <div className="card-list-inner">
+                            <div className="card-list-icon">
                                 <Image
                                     alt={`picture of the in game ${cardIDMap[ID].label} card`}
                                     // fill
@@ -598,30 +487,11 @@ const CardCard = ({
                                     priority
                                 />
                             </div>
-                            <div
-                                className='importantText'
-                                style={{
-                                    fontWeight: 'bold',
-                                    bottom: vertical ? '2px' : '4px',
-                                    // width: '100%',
-                                    // textAlign: 'center',
-                                    marginLeft: '6px',
-                                    fontSize: '20px'
-                                }}
-                            >
+                            <div className="importantText card-list-name">
                                 {cardIDMap[ID].label}
                             </div>
 
-                            <div
-                                className='importantText'
-                                style={{
-                                    fontWeight: 'bold',
-                                    bottom: vertical ? '2px' : '4px',
-                                    // width: '100%',
-                                    marginLeft: 'auto',
-                                    fontSize: '20px'
-                                }}
-                            >
+                            <div className="importantText card-list-value">
                                 {displayMode === 'logged' && (
                                     <>
                                         {helper.formatNumberString(loggedWeightIncrease)}
@@ -660,17 +530,10 @@ const CardCard = ({
  *
  * @returns {*} Computed value or rendered markup produced by CalcReinc.
  */
-const CalcReinc = function (data, reincCardCharges?: any) {
-
+const CalcReinc = function (data, reincCardCharges?: any, skipAscensions: number = 0) {
     data = JSON.parse(JSON.stringify(data));
-    let classExp = mathHelper.multiplyDecimal(data.CurrentLevel, mathHelper.pow(1.001, mathHelper.min(1000.0, data.CurrentLevel)));
-    let class2 = mathHelper.max(1.0, mathHelper.subtractDecimal(mathHelper.logDecimal(data.CurrentLevel, 5.0), 2.0));
-    let class3 = mathHelper.max(1.0, 1.0 + (data.CurrentLevel / 2000.0 - 0.5));
-    let classTotal = mathHelper.multiplyDecimal(classExp, mathHelper.multiplyDecimal(class2, class3))
-    let timerBonuses = data.TimerReincBonuses;
-    let otherBonuses = mathHelper.createDecimal(data.ReincarnationBonusesBD);
 
-
+    // Apply card charges bonus if specified
     if (reincCardCharges) {
         const { CardsCollection } = data;
         const cardsById = CardsCollection.reduce((accum, card) => {
@@ -681,9 +544,6 @@ const CalcReinc = function (data, reincCardCharges?: any) {
         let card = cardsById[REINCARNATIONEXP];
 
         const {
-            CurrentExp,
-            ExpNeeded,
-            Found,
             ID,
             Level,
             PowerPermaBD,
@@ -691,18 +551,12 @@ const CalcReinc = function (data, reincCardCharges?: any) {
         } = card;
         const { ChargeTransfertPowerPerma, ChargeTransfertPowerTemp } = data;
 
+        let otherBonuses = mathHelper.createDecimal(data.ReincarnationBonusesBD);
         let tempValueBefore = mathHelper.createDecimal(PowerTempBD);
         let permValueBefore = mathHelper.createDecimal(PowerPermaBD);
 
         let tempBonusBefore = tempPowerBonusFormula[ID](tempValueBefore);
         let permBonusBefore = permPowerBonusFormula[ID](permValueBefore);
-
-
-        let tempValueAfter = mathHelper.multiplyDecimal(tempValueBefore, (1 - ChargeTransfertPowerTemp));
-        let permValueAfter = mathHelper.addDecimal(permValueBefore,
-            mathHelper.multiplyDecimal(tempValueBefore, ChargeTransfertPowerPerma)
-        );
-
 
         let finalBefore = mathHelper.multiplyDecimal(
             mathHelper.subtractDecimal(
@@ -712,20 +566,25 @@ const CalcReinc = function (data, reincCardCharges?: any) {
             ((1.0 + Level * 0.02) * 100)
         );
 
+        // Calculate bonus after applying charges
+        let tempValueAfter = mathHelper.multiplyDecimal(tempValueBefore, (1 - ChargeTransfertPowerTemp));
+        let permValueAfter = mathHelper.addDecimal(permValueBefore,
+            mathHelper.multiplyDecimal(tempValueBefore, ChargeTransfertPowerPerma)
+        );
+
         let temp1 = tempPowerBonusFormula[ID](mathHelper.multiplyDecimal(tempValueBefore, (1.0 - ChargeTransfertPowerTemp)))
         let temp2 = permPowerBonusFormula[ID](
             mathHelper.addDecimal(permValueBefore, mathHelper.multiplyDecimal(tempValueBefore, ChargeTransfertPowerPerma))
         )
-        let finalAfter =
-            mathHelper.multiplyDecimal(
-                mathHelper.subtractDecimal(mathHelper.multiplyDecimal(temp1, temp2), 1),
-                (1.0 + Level * 0.02) * 100);
+        let finalAfter = mathHelper.multiplyDecimal(
+            mathHelper.subtractDecimal(mathHelper.multiplyDecimal(temp1, temp2), 1),
+            (1.0 + Level * 0.02) * 100);
 
+        // Apply multiple charges if needed
         if (reincCardCharges > 1) {
             for (let i = 1; i < reincCardCharges; i++) {
                 tempValueBefore = mathHelper.addDecimal(tempValueAfter, 0);
                 permValueBefore = mathHelper.addDecimal(permValueAfter, 0);
-
 
                 tempValueAfter = mathHelper.multiplyDecimal(tempValueBefore, (1 - ChargeTransfertPowerTemp));
                 permValueAfter = mathHelper.addDecimal(permValueBefore,
@@ -736,68 +595,31 @@ const CalcReinc = function (data, reincCardCharges?: any) {
                 temp2 = permPowerBonusFormula[ID](
                     mathHelper.addDecimal(permValueBefore, mathHelper.multiplyDecimal(tempValueBefore, ChargeTransfertPowerPerma))
                 )
-                finalAfter =
-                    mathHelper.multiplyDecimal(
-                        mathHelper.subtractDecimal(mathHelper.multiplyDecimal(temp1, temp2), 1),
-                        (1.0 + Level * 0.02) * 100);
 
+                finalAfter = mathHelper.multiplyDecimal(
+                    mathHelper.subtractDecimal(mathHelper.multiplyDecimal(temp1, temp2), 1),
+                    (1.0 + Level * 0.02) * 100
+                );
             }
         }
 
+        // Update bonuses with card charge effect
         otherBonuses = mathHelper.divideDecimal(otherBonuses, finalBefore);
         otherBonuses = mathHelper.multiplyDecimal(otherBonuses, finalAfter);
+        data.ReincarnationBonusesBD = otherBonuses;
     }
 
-
-    let waves = (1.0 + data.BestProgress / 5000.0);
-
-    let confLog = mathHelper.logDecimal(data.ConfectionTotalLevel / 5000000.0, 2.0)
-    let confDiv = mathHelper.divideDecimal(confLog, 2)
-    let confection = mathHelper.addDecimal(
-        1,
-        mathHelper.min(
-            mathHelper.max(
-                1.0,
-                mathHelper.addDecimal(confDiv, 1)
-            )
-            ,
-            data.ConfectionTotalLevel / 5000000.0
-        )
-    )
-
-
-    let temp1 = mathHelper.multiplyDecimal(timerBonuses, otherBonuses)
-
-    let currentReincExp = mathHelper.multiplyDecimal(mathHelper.multiplyDecimal(mathHelper.multiplyDecimal(classTotal, temp1), waves), confection);
     let currentReincLevel = mathHelper.createDecimal(data.ReincarnationLevel).toNumber();
-    let requiredReincLevel = data.AscensionReincLevelRequired;
+    let requiredReincLevel = reincHelper.getAscensionLevelCost(data.AscensionCount + skipAscensions, data);
     let currReincTime = data.CurrentReincarnationTimer / (60 * 60);
 
-    let calculateRequiredReincarnationXP = reincHelper.calcRequiredReincExp(data);
-
-    let futureReincLevel = currentReincLevel;
-    let loopFlag = true;
-    let required = mathHelper.createDecimal(0);
+    // Use the new efficient reincarnation calculation
     let tempTime1 = new Date().getTime();
-    while (loopFlag) {
-
-        if (reincLevelRequirements[futureReincLevel]) {
-            required = reincLevelRequirements[futureReincLevel];
-        }
-        else {
-            required = calculateRequiredReincarnationXP(futureReincLevel);
-            reincLevelRequirements[futureReincLevel] = required;
-        }
-        if (currentReincExp.greaterThan(required)) {
-            futureReincLevel++;
-            currentReincExp = mathHelper.subtractDecimal(currentReincExp, required);
-        } else {
-            loopFlag = false;
-        }
-    }
+    let reincResult = reincHelper.calcNextReincarnation(data);
     let tempTime2 = new Date().getTime();
     console.log(`time to calc reinc: ${tempTime2 - tempTime1}ms`)
 
+    let futureReincLevel = reincResult.nextLevel;
     let levelDiff = futureReincLevel - currentReincLevel;
     if (levelDiff === 0) levelDiff = 1;
 
@@ -829,35 +651,34 @@ const CalcReinc = function (data, reincCardCharges?: any) {
  * @returns {*} Computed value or rendered markup produced by Cards.
  */
 export default function Cards() {
-
+    // Note: mobileMode is set but not used in this file (isMobile is used directly instead)
+    // Kept for consistency with other page components where it is used for conditional styling
     const [mobileMode, setMobileMode] = useState(false);
     useEffect(() => {
         setMobileMode(isMobile);
-        if (isMobile) {
-            setTimeout(() => {
-                const viewport = document.querySelector('meta[name="viewport"]');
-                if (viewport instanceof HTMLMetaElement) {
-                    viewport.content = "initial-scale=0.1";
-                    viewport.content = "width=1200";
-                }
-            }, 500);
+        // Other pages force width=1200 for their non-responsive layout.
+        // Reset to device-width so our responsive CSS works correctly.
+        const viewport = document.querySelector('meta[name="viewport"]');
+        if (viewport instanceof HTMLMetaElement) {
+            viewport.content = 'width=device-width, initial-scale=1';
         }
     }, []);
 
-    const [clientData, setData] = useLocalStorage('userData', DefaultSave);
+    const [clientData] = useLocalStorage('userData', DefaultSave);
     const [data, setRunTimeData] = useState(DefaultSave);
 
 
-    const [weightMap, setWeightMap] = useState(DefaultWeightMap);
+    const [weightMap] = useState(DefaultWeightMap);
     const [cardMap, setCardMap] = useState({})
     const [resetCardWeights, setResetCardWeights] = useState(-1);
-    const [forceRefresh, setForceRefresh] = useState(false);
+
     const [numReincCharges, setNumReincCharges] = useState(1);
+    const [skipAscensions, setSkipAscensions] = useState(0);
 
     const [newCardWeights, setNewCardWeightsRunTime] = useState(defaultWeights)
     const [newCardWeightsClient, setNewCardWeights] = useLocalStorage('newCardWeights', defaultWeights)
-    useEffect(() => {
 
+    useEffect(() => {
         //Fixes issues with outdated caches
         if (!newCardWeightsClient[40]) {
             setNewCardWeightsRunTime(defaultWeights);
@@ -876,7 +697,7 @@ export default function Cards() {
 
     useEffect(() => {
         setRunTimeData(clientData);
-        reincLevelRequirements = {};//need to reset these since the reqs would be incorrect from the default save preloading them
+
         let num = Math.random() * 1000 + 20;
         setResetCardWeights(num);
     }, [clientData]);
@@ -884,17 +705,16 @@ export default function Cards() {
     //current, future, % gain
     const [clientDisplayMode, setDisplayMode] = useLocalStorage('displayModeCards', 'current');
     const [displayMode, setRunTimeDisplayMode] = useState('current');
+
     useEffect(() => {
         setRunTimeDisplayMode(clientDisplayMode);
     }, [clientDisplayMode]);
 
-    
     const [clientHideUnfound, setHideUnfound] = useLocalStorage('hideUnfoundCards', true);
     const [hideUnfound, setRunTimeHideUnfound] = useState(true);
     useEffect(() => {
         setRunTimeHideUnfound(clientHideUnfound);
     }, [clientHideUnfound]);
-
 
     if (!data.PetsSpecial[74]) {
         return (
@@ -904,8 +724,6 @@ export default function Cards() {
         )
     }
 
-
-    // const foundCards = CardsCollection.filter(card => card.Found === 1);
     const cardsById = CardsCollection.reduce((accum, card) => {
 
         if (data.AscensionCount >= 30 && card.ID === 1) {
@@ -935,8 +753,6 @@ export default function Cards() {
         if (!cardsById[CARD_DISPLAY_IDS[i]]) continue;
         let index = i;
         let index_overwrite = -1;
-        let bigsad = CARD_DISPLAY_IDS[i];
-        //adding an offset for position/margin but only to cards that come after
 
         //taking away 1 because the order list technically has extra
         if (i > 2) {
@@ -986,91 +802,31 @@ export default function Cards() {
     });
 
     let finalPercIncrease = topPercIncrease.slice(0, 5).map((value, index, arr) => {
-
-
         return (
-            <div style={{
-                position: 'relative',
-                display: 'flex',
-                alignItems: 'center',
-                width: '100%'
-            }}
-                key={index}
-            >
-                <div
-                    className='importantText'
-                    style={{
-                        fontSize: '28px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        // alignSelf: 'start',
-                        marginRight: '6px',
-                        marginTop: '6px',
-                        // position: 'absolute',
-                        top: '0',
-                        left: '0',
-                        zIndex: '2',
-                        width: '30px',
-                        height: '30px',
-                        border: '1.5px solid rgba(255,255,255,0.8)',
-                        borderRadius: '15px',
-                        backgroundColor: 'rgba(49, 49, 49, 0.8)',
-                    }}>
-                    <div>
-                        {index + 1}
-                    </div>
+            <div className="rank-item" key={index}>
+                <div className="importantText rank-badge">
+                    <div>{index + 1}</div>
                 </div>
                 <CardCard
                     cardWeight={newCardWeights[value.ID]}
                     resetWeights={-3} displayMode='perc' vertical={true} cardMap={cardMap} setCardMap={null} data={data}
                     i={index} card={cardsById[value.ID]} weightMap={weightMap} classes={classes}
-                    key={`${index}-perc`}></CardCard>
+                    key={`${index}-perc`} />
             </div>
         )
     }, []);
 
     let finalXIncrease = topPercIncrease.slice(0, 5).map((value, index, arr) => {
-
-
         return (
-            <div style={{
-                position: 'relative',
-                display: 'flex',
-                alignItems: 'center',
-                width: '100%'
-            }}
-                key={index}
-            >
-                <div
-                    className='importantText'
-                    style={{
-                        fontSize: '28px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        // alignSelf: 'start',
-                        marginRight: '6px',
-                        marginTop: '6px',
-                        // position: 'absolute',
-                        top: '0',
-                        left: '0',
-                        zIndex: '2',
-                        width: '30px',
-                        height: '30px',
-                        border: '1.5px solid rgba(255,255,255,0.8)',
-                        borderRadius: '15px',
-                        backgroundColor: 'rgba(49, 49, 49, 0.8)',
-                    }}>
-                    <div>
-                        {index + 1}
-                    </div>
+            <div className="rank-item" key={index}>
+                <div className="importantText rank-badge">
+                    <div>{index + 1}</div>
                 </div>
                 <CardCard
                     cardWeight={newCardWeights[value.ID]}
                     resetWeights={-3} displayMode='xgain' vertical={true} cardMap={cardMap} setCardMap={null} data={data}
                     i={index} card={cardsById[value.ID]} weightMap={weightMap} classes={classes}
-                    key={`${index}-perc`}></CardCard>
+                    key={`${index}-perc`} />
             </div>
         )
     }, []);
@@ -1078,7 +834,7 @@ export default function Cards() {
 
     const chargesMax = data.CurrentCardCharge === data.MaxCardCharge;
 
-    let baseReincInfo = CalcReinc(data);
+    let baseReincInfo = CalcReinc(data, undefined, skipAscensions);
     let remainingCharges = baseReincInfo.remainingCharges;
     let requiredReincLevel = baseReincInfo.requiredReincLevel;
     let currentReincLevel = helper.roundInt(baseReincInfo.futureReincLevel);
@@ -1087,7 +843,7 @@ export default function Cards() {
     let remTime = baseReincInfo.remTime;
     let chargeTimerReduction = baseReincInfo.chargeTimerReduction;
 
-    let cardChargedReincInfo = CalcReinc(data, numReincCharges);
+    let cardChargedReincInfo = CalcReinc(data, numReincCharges, skipAscensions);
     let futureReincLevel = helper.roundInt(cardChargedReincInfo.futureReincLevel);
     let futureReincLevelDiff = helper.roundInt(cardChargedReincInfo.levelDiff);
     let futureReincHr = helper.roundTwoDecimal(cardChargedReincInfo.reincHr);
@@ -1119,34 +875,15 @@ export default function Cards() {
     });
     let finalLoggedWeightIncrease = loggedWeightIncrease.slice(0, 5).map((value, index, arr) => {
         return (
-            <div style={{ display: 'flex', alignItems: 'center', width: '100%' }} key={index}>
-                <div
-                    className='importantText'
-                    style={{
-                        fontSize: '28px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        // alignSelf: 'start',
-                        marginRight: '6px',
-                        marginTop: '6px',
-                        // position: 'absolute',
-                        top: '0',
-                        left: '0',
-                        zIndex: '2',
-                        width: '30px',
-                        height: '30px',
-                        border: '1.5px solid rgba(255,255,255,0.8)',
-                        borderRadius: '15px',
-                        backgroundColor: 'rgba(49, 49, 49, 0.8)',
-                    }}>
+            <div className="rank-item" key={index}>
+                <div className="importantText rank-badge">
                     {index + 1}
                 </div>
                 <CardCard
                     cardWeight={newCardWeights[value.ID]}
                     resetWeights={-3} displayMode='logged' vertical={true} cardMap={cardMap} setCardMap={null}
                     data={data} i={index} card={cardsById[value.ID]} weightMap={weightMap} classes={classes}
-                    key={`${index}-perc`}></CardCard>
+                    key={`${index}-perc`} />
             </div>
         )
     }, []);
@@ -1158,37 +895,9 @@ export default function Cards() {
     });
     let finalWeightIncrease = weightIncrease.slice(0, 5).map((value, index, arr) => {
         return (
-            <div style={{
-                position: 'relative',
-                display: 'flex',
-                alignItems: 'center',
-                width: '100%'
-            }}
-                key={index}
-            >
-                <div
-                    className='importantText'
-                    style={{
-                        fontSize: '28px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        // alignSelf: 'start',
-                        marginRight: '6px',
-                        marginTop: '6px',
-                        // position: 'absolute',
-                        top: '0',
-                        left: '0',
-                        zIndex: '2',
-                        width: '30px',
-                        height: '30px',
-                        border: '1.5px solid rgba(255,255,255,0.8)',
-                        borderRadius: '15px',
-                        backgroundColor: 'rgba(49, 49, 49, 0.8)',
-                    }}>
-                    <div>
-                        {index + 1}
-                    </div>
+            <div className="rank-item" key={index}>
+                <div className="importantText rank-badge">
+                    <div>{index + 1}</div>
                 </div>
                 <CardCard
                     cardWeight={newCardWeights[value.ID]}
@@ -1202,174 +911,30 @@ export default function Cards() {
                     card={cardsById[value.ID]}
                     weightMap={weightMap}
                     classes={classes}
-                    key={`${index}-perc`
-                    } />
+                    key={`${index}-perc`} />
             </div>
         )
     }, []);
 
 
     return (
-        <div
-            style={{
-                display: 'flex',
-                flex: '1',
-                flexDirection: 'column',
-                paddingLeft: '6px',
-                backgroundColor: 'black'
-            }}
-        >
+        <div className="cards-page">
 
             {/* Charge Information */}
-            {false && (
-                <div
-                    className={chargesMax ? 'borderToFadeInAndOutRed' : 'whiteBorder' + ' importantText'}
-                    style={{
-                        display: 'flex',
-                        height: '60px',
-                        alignSelf: 'flex-start',
-                        alignItems: 'center',
-                        backgroundColor: 'rgba(255,255,255, 0.1)',
-                        borderRadius: '6px',
-                        marginBottom: '6px',
-                        marginTop: '6px',
-                        padding: '0 3px'
-                    }}>
-                    {chargesMax && (
-                        <MouseOverPopover tooltip={
 
-                            <div>
-                                {`You have max card charges!`}
-                            </div>
-                        }
-                            opacity={1}
-                        >
-                            <div className='elementToFadeInAndOut'
-                                style={{ position: 'relative', height: '32px', width: '32px', marginRight: '12px' }}>
-                                <Image
-                                    alt='on hover I in a cirlce icon, shows more information on hover'
-                                    fill
-                                    src={infoIconRed}
-                                    unoptimized={true}
-                                />
-                            </div>
-                        </MouseOverPopover>
-                    )}
-                    {/* Current Charge */}
-                    <div
-                        style={{
-                            display: 'flex', marginBottom: '0px', marginRight: '36px', alignItems: 'center'
-                        }}
-                    >
-                        <div
-                            style={{ display: 'flex', alignItems: 'center', fontSize: '48px' }}
-                        >
-                            {`Current Charges: `}
-                        </div>
-
-                        <div style={{ display: 'flex', alignItems: 'center', fontSize: '48px' }}>
-                            <div style={{ marginRight: '6px' }}>{data?.CurrentCardCharge}</div>
-                            <Image
-                                alt='in game charge (battery) image'
-                                // fill
-                                style={{ height: '60px', width: 'auto' }}
-                                src={chargeImg as any}
-                                unoptimized={true}
-                            />
-                        </div>
-                    </div>
-
-                    {/* Charges till Ascension */}
-                    <MouseOverPopover tooltip={
-                        <>
-                            <div>
-                                {`${requiredReincLevel - currentReincLevel} remaining levels at ${helper.roundTwoDecimal(reincHr)} levels/hr =  ${helper.roundTwoDecimal(remTime)} hours remaining`}
-                            </div>
-
-                        </>
-
-                    }
-                        opacity={1}
-                    >
-                        <div
-                            style={{
-                                display: 'flex',
-                                marginBottom: '0px',
-                                marginleft: '36px',
-                                alignItems: 'center',
-                                minWidth: '270px'
-                            } as any}
-                        >
-                            <div
-                                style={{ display: 'flex', alignItems: 'center', fontSize: '48px' }}
-                            >
-                                {`Remaining Charges in ascension: `}
-                            </div>
-                            <div style={{ display: 'flex', alignItems: 'center', fontSize: '48px' }}>
-                                <div style={{ marginRight: '6px' }}>{` ${remainingCharges}`}</div>
-                                <Image
-                                    alt='in game charge (battery) image'
-                                    // fill
-                                    style={{ height: '60px', width: 'auto', maxHeight: '65px' }}
-                                    src={chargeImg as any}
-                                    unoptimized={true}
-                                />
-                            </div>
-
-                            <div style={{ position: 'relative', height: '55px', width: '55px', marginLeft: '6px' }}>
-                                <Image
-                                    alt='on hover I in a cirlce icon, shows more information on hover'
-                                    fill
-                                    src={infoIcon}
-                                    unoptimized={true}
-                                />
-                            </div>
-                        </div>
-
-                    </MouseOverPopover>
-                </div>
-            )}
             {/* <GoogleAdSense publisherId="pub-1393057374484862" /> */}
-            <div className='importantText' style={{ display: 'flex', alignItems: 'end' }}>
-                <h1 style={{ margin: '6px 6px', fontSize: '32px' }}>
+            <div className="importantText cards-page__header">
+                <h1 className="cards-page__title">
                     Cards Guide
                 </h1>
             </div>
 
-            <div
-                style={{
-                    display: 'flex',
-                    flex: '1',
-                    maxHeight: 'calc(100% - 55px)'
-                }}
-            >
+            <div className="cards-page__content">
                 {/* Original Cards */}
-                <div
-                    style={{
-                        maxWidth: '747px',
-                        padding: '6px 3px 0 3px',
-                        display: 'flex',
-                        flexWrap: 'wrap',
-                        alignContent: 'flex-start',
-                        border: '1.5px solid rgba(255,255,255,0.8)',
-                        borderRadius: '6px',
-                        backgroundColor: 'rgba(255,255,255, 0.1)',
-                        overflow: 'auto'
-                    }}
-                >
-                    <div
-                        style={{
-                            display: 'flex',
-                            width: '100%',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            marginTop: '-3px',
-                            marginBottom: '3px',
-                            position: 'relative'
-                        }}
-                    >
-                        <div style={{ marginLeft: '12px', position: 'absolute', left: '-9px' }}>
-                            <div style={{ display: 'flex', alignItems: 'center' }} className='importantText'>
+                <div className="cards-panel">
+                    <div className="cards-panel__header">
+                        <div className="cards-panel__toggle">
+                            <div className="importantText" style={{ display: 'flex', alignItems: 'center' }}>
                                 <div>{`Hide unfound cards`}</div>
                                 <input
                                     aria-label='Hide cards that were never found'
@@ -1383,7 +948,7 @@ export default function Cards() {
                             </div>
                         </div>
                         <h3
-                            className='importantText'
+                            className="importantText"
                             style={{ marginTop: '0', marginBottom: '0', marginRight: '12px' }}
                         >
                             Current Cards
@@ -1407,17 +972,10 @@ export default function Cards() {
                         </div>
 
                         {/* display mode selector */}
-                        <div style={{ marginRight: '12px', position: 'absolute', right: '12px' }}>
+                        <div className="cards-panel__mode-select">
                             <select
-                                className='importantText'
+                                className="importantText cards-mode-select"
                                 aria-label='Select a default team preset'
-                                style={{
-                                    maxWidth: '144px',
-                                    marginLeft: '12px',
-                                    backgroundColor: '#171717',
-                                    borderRadius: '4px',
-                                    borderColor: '#ff691c'
-                                }}
                                 onChange={
                                     (selected_mode) => {
                                         setDisplayMode(selected_mode.target.value);
@@ -1433,83 +991,33 @@ export default function Cards() {
                             </select>
                         </div>
                     </div>
-                    <div
-                        style={{
-                            display: 'flex',
-                            flexWrap: 'wrap',
-                            alignContent: 'flex-start',
-                            maxHeight: 'calc(100% - 22px)',
-                            overflow: 'auto'
-                        }}
-                    >
+                    <div className="cards-panel__list">
                         {weightedCardInfo}
                     </div>
                 </div>
 
 
                 {/* next charges + suggestions */}
-                <div
-                    style={{
-                        display: 'flex',
-                        flex: '1',
-                        flexDirection: 'column',
-                        marginLeft: '12px',
-                        marginRight: '12px',
-                        // border: '1.5px solid rgba(255,255,255,0.8)',
-                        // borderRadius: '6px',
-                        // backgroundColor: 'rgba(255,255,255, 0.1)',
-                        overflow: 'auto'
-                    }}
-                >
+                <div className="cards-side">
 
                     {/* Current/Future Charges */}
-                    <div
-                        style={{
-                            display: 'flex',
-                            alignContent: 'center',
-                            // flexWrap: 'wrap',
-                            // alignContent: 'flex-start',
-                            // justifyContent: 'center',
-                            border: '1.5px solid rgba(255,255,255,0.8)',
-                            borderRadius: '6px',
-                            overflow: 'auto',
-                            height: '48px',
-                            minWidth: '256px',
-                            minHeight: '40px',
-                            backgroundColor: 'rgba(255,255,255, 0.07)',
-                            marginBottom: '6px',
-                        }}
-                    >
+                    <div className={`charges-row${chargesMax ? ' highlight blink-red' : ''}`}>
                         {/* Current Charges */}
-                        <div style={{
-                            display: 'flex',
-                            // flex: "1",
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            // width: '100%',
-                            height: '100%',
-                            minWidth: '243px',
-                            margin: '0 auto'
-                        }}>
+                        <div className="charges-cell charges-cell--current">
                             <h3
-                                className='importantText'
+                                className="importantText"
                                 style={{ marginTop: '6px', marginBottom: '6px', fontSize: '26px' }}
                             >
-                                <div style={{
-                                    display: 'flex',
-                                    justifyContent: 'center'
-                                }}>{`Current Charges: ${data?.CurrentCardCharge}`}</div>
+                                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                                    {`Current Charges: ${data?.CurrentCardCharge}`}
+                                </div>
                             </h3>
                         </div>
 
-                        {/* Seperater */}
+                        {/* Separator */}
                         {true && (
-                            <div style={{ width: '54px', minWidth: '54px', overflow: 'hidden' }}>
+                            <div className="charges-sep">
                                 <svg
-                                    style={{
-                                        height: '100%',
-                                        width: '100%'
-                                    }}
                                     viewBox="0 0 100 10" preserveAspectRatio="none">
                                     {/* <polygon fill='rgba(255,255,255, 0.6)' points="66 0 100 0 33 10 0 10" /> */}
                                     <polygon
@@ -1520,18 +1028,9 @@ export default function Cards() {
                         )}
 
                         {/* Future Charges */}
-                        <div style={{
-                            display: 'flex',
-                            // flex: "1",
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            // width: '100%',
-                            height: '100%',
-                            minWidth: '296px',
-                            margin: '0 auto'
-                        }}>
+                        <div className="charges-cell charges-cell--future">
                             <h3
-                                className='importantText'
+                                className="importantText"
                                 style={{ marginTop: '6px', marginBottom: '6px', fontSize: '26px' }}
                             >
                                 <div style={{ marginRight: '6px' }}>{`Remaining Charges: ${remainingCharges}`}</div>
@@ -1540,116 +1039,89 @@ export default function Cards() {
                     </div>
 
                     {/* Current/Future Reincarnation Levels */}
-                    <div
-                        style={{
-                            display: 'flex',
-                            flexWrap: 'wrap',
-                            // alignItems: 'center',
-                            border: '1.5px solid rgba(255,255,255,0.8)',
-                            borderRadius: '6px',
-                            overflow: 'auto',
-                            height: '110px',
-                            marginBottom: '6px',
-                            minHeight: '90px'
-                        }}
-                    >
+                    <div className="reinc-panel">
 
-
-                        <div style={{
-                            display: 'flex',
-                            justifyContent: 'center',
-                            width: '100%',
-                            backgroundColor: 'rgba(255,255,255, 0.06)',
-                        }}>
-                            <h3
-                                className='importantText'
-                                style={{
-                                    marginTop: '0px',
-                                    marginBottom: '0px',
-                                    fontSize: '26px',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center'
-                                }}
-                            >
-                                <div>
-                                    {`Reincarnation levels to ascend:`}
+                        <div className="reinc-panel__header">
+                            <h3 className="importantText">
+                                <div style={{ fontSize: '20px' }}>
+                                    {`Reinc levels required for ascending:`}
                                 </div>
                                 <div style={{ fontWeight: 'normal', marginLeft: '6px' }}>
-                                    {`${helper.numberWithCommas(data.AscensionReincLevelRequired)}`}
+                                    {`${helper.numberWithCommas(requiredReincLevel)}`}
                                 </div>
                                 {/* Charges till Ascension */}
                                 <MouseOverPopover
                                     tooltip={
-
                                         <div>
-                                            <div>
-                                                {`Remaining charges are calculated based on your remaining reincarnation levels left to ascend multiplied by your current reincarnation levels / hr. \nThis is calculated based on how many reincarnation levels you would gain if you reincarnate now divided by the current reincarnation duration.`}
-                                            </div>
-                                            <div>
-                                                {`${helper.numberWithCommas(requiredReincLevel - currentReincLevel)} remaining levels at ${helper.roundTwoDecimal(reincHr)} levels/hr = ${helper.roundTwoDecimal(remTime)} hours remaining`}
-                                            </div>
-                                            <div>
-                                                {`Time remaining WITH CARD CHARGE:`}
-                                            </div>
-                                            <div>
-                                                {`${helper.numberWithCommas(requiredReincLevel - futureReincLevel)} remaining levels at ${helper.roundTwoDecimal(futureReincHr)} levels/hr =  ${helper.roundTwoDecimal(futureRemTime)} hours remaining`}
-                                            </div>
-                                            <div>
-                                                {`Current charge timer reduction: ${helper.roundTwoDecimal(chargeTimerReduction * 100)}%`}
-                                            </div>
+                                            <p style={{ marginTop: '0', fontSize: '13px' }}>
+                                                <b>Remaining charges</b> = Time to next ascension / charge duration.
+                                                <br />
+                                                <b>Time to ascension</b> = Remaining reinc levels required / current reinc levels per hour.
+                                            </p>
+                                            <p style={{ fontSize: '15px', marginBottom: '8px' }}>
+                                                <b>Without card charge:</b>
+                                                <br />
+                                                {`${helper.numberWithCommas(requiredReincLevel - currentReincLevel)} remaining levels at ${helper.roundTwoDecimal(reincHr)} levels/hr ≈ `}<b>{`${helper.roundTwoDecimal(remTime)} hours remaining`}</b>
+                                            </p>
+                                            <p style={{ fontSize: '15px', marginTop: 0 }}>
+                                                <b>With card charge:</b>
+                                                <br />
+                                                {`${helper.numberWithCommas(requiredReincLevel - futureReincLevel)} remaining levels at ${helper.roundTwoDecimal(futureReincHr)} levels/hr ≈ `}<b>{`${helper.roundTwoDecimal(futureRemTime)} hours remaining`}</b>
+                                            </p>
+                                            <p style={{ marginBottom: '0' }}>
+                                                {`Current charge timer reduction: `}<b>{`${helper.roundTwoDecimal(chargeTimerReduction * 100)}%`}</b>
+                                            </p>
                                         </div>
                                     }
                                     opacity={1}
                                 >
-                                    <div style={{
-                                        position: 'relative',
-                                        height: '24px',
-                                        width: '24px',
-                                        marginLeft: '12px'
-                                    }}>
+                                    <div className="large-info-icon">
                                         <Image
                                             alt='on hover I in a cirlce icon, shows more information on hover'
                                             fill
                                             src={infoIcon}
                                             unoptimized={true}
                                         />
-                                        {/* </div> */}
                                     </div>
                                 </MouseOverPopover>
+                                <div className="skip-asc">
+                                    <label className="importantText skip-asc__label">
+                                        Skip
+                                    </label>
+                                    <input
+                                        type='number'
+                                        min="0"
+                                        value={skipAscensions}
+                                        onChange={(e) => {
+                                            try {
+                                                let x = Number(e.target.value);
+                                                x = Math.floor(x);
+                                                if (x < 0 || x > 99) {
+                                                    return;
+                                                }
+                                                setSkipAscensions(x);
+                                            } catch (err) {
+                                                console.log(err);
+                                            }
+                                        }}
+                                        className="skip-asc__input"
+                                    />
+                                    <label className="importantText skip-asc__label--after">
+                                        ascension{skipAscensions !== 1 ? 's' : ''}
+                                    </label>
+                                </div>
                             </h3>
                         </div>
 
-                        <div style={{
-                            display: 'flex',
-                            flex: '1',
-                            alignItems: 'center',
-                            width: '100%',
-                            backgroundColor: 'rgba(255,255,255, 0.09)',
-                        }}>
+                        <div className="reinc-panel__body">
                             {/* Current Reincarnation levels */}
-                            <div style={{
-                                display: 'flex',
-                                flex: "1",
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                width: '100%',
-                                height: '100%'
-                            }}>
+                            <div className="reinc-cell">
                                 <h3
-                                    className='importantText'
+                                    className="importantText"
                                     style={{ marginTop: '6px', marginBottom: '6px', fontSize: '20px' }}
                                 >
-                                    <div style={{
-                                        marginRight: '6px',
-                                        display: 'flex',
-                                        justifyContent: 'center',
-                                        alignItems: 'center',
-                                        flexDirection: 'column'
-                                    }}>
-                                        <div>
-                                            {`Current Reinc. Level:`}
-                                        </div>
+                                    <div className="reinc-level">
+                                        <div>{`Reinc levels without charge:`}</div>
                                         <div style={{ fontWeight: 'normal' }}>
                                             {`${helper.numberWithCommas(currentReincLevel)} (+${helper.numberWithCommas(currentReincLevelDiff)}, ${reincHr > 1000 ? helper.numberWithCommas(reincHr) : helper.roundTwoDecimal(reincHr)}/hr)`}
                                         </div>
@@ -1657,66 +1129,41 @@ export default function Cards() {
                                 </h3>
                             </div>
 
-                            {/* Seperater */}
+                            {/* Separator */}
                             {true && (
-                                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                                <div className="reinc-sep">
                                     {/* Num Charges */}
                                     <div>
-                                        <div
-                                            style={{
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                bottom: '23px',
-                                                left: '30px',
-                                                zIndex: '3',
-                                                marginBottom: '-6px'
-                                            }}
-                                        >
+                                        <div className="reinc-charges-input-row">
                                             <input
                                                 aria-label='How many reinc card charges to simulate being charged'
-                                                style={{
-                                                    width: '30px',
-                                                    // color: cardWeight !== defaultWeight && cardWeight !== -1 ? 'black' : 'gray',
-                                                    // fontWeight: cardWeight !== defaultWeight && cardWeight !== -1 ? 'bold' : '',
-                                                    borderRadius: '6px',
-                                                    fontSize: '12px',
-                                                    padding: '0 0 0 0',
-                                                    margin: '0',
-                                                    textAlign: 'center'
-                                                }}
+                                                className="reinc-charges-input"
                                                 type='number'
                                                 value={numReincCharges}
-                                                onChange={
-                                                    (e) => {
-                                                        try {
-                                                            let x = Number(e.target.value);
-                                                            x = Math.floor(x);
-                                                            if (x < 1 || x > 99) {
-                                                                return;
-                                                            }
-                                                            setNumReincCharges(x);
-                                                        } catch (err) {
-                                                            console.log(err);
+                                                onChange={(e) => {
+                                                    try {
+                                                        let x = Number(e.target.value);
+                                                        x = Math.floor(x);
+                                                        if (x < 1 || x > 99) {
+                                                            return;
                                                         }
-                                                    }}
+                                                        setNumReincCharges(x);
+                                                    } catch (err) {
+                                                        console.log(err);
+                                                    }
+                                                }}
                                                 min="0"
                                                 max="999999"
                                             />
-
-                                            <MouseOverPopover tooltip={
-
-                                                <div>
-                                                    {`How many reincarnation card charges to simulate being used`}
-                                                </div>
-                                            }
+                                            <MouseOverPopover
+                                                tooltip={
+                                                    <div>
+                                                        {`How many reincarnation card charges to simulate being used`}
+                                                    </div>
+                                                }
                                                 opacity={1}
                                             >
-                                                <div style={{
-                                                    position: 'relative',
-                                                    height: '16px',
-                                                    width: '16px',
-                                                    marginLeft: '2px'
-                                                }}>
+                                                <div className="small-info-icon">
                                                     <Image
                                                         alt='on hover I in a cirlce icon, shows more information on hover'
                                                         fill
@@ -1727,8 +1174,7 @@ export default function Cards() {
                                             </MouseOverPopover>
                                         </div>
                                     </div>
-                                    <div
-                                        style={{ height: '36px', width: '36px', position: 'relative', margin: '0 -3px' }}>
+                                    <div className="reinc-arrow">
                                         <Image
                                             alt='arrow point to the left'
                                             src={rightArrow as any}
@@ -1736,35 +1182,20 @@ export default function Cards() {
                                             unoptimized
                                         />
                                     </div>
-                                    <div style={{ color: 'green', marginTop: '-10px' }}>
+                                    <div className="reinc-diff">
                                         {`+${helper.numberWithCommas(futureReincLevel - currentReincLevel)}, ${(futureReincHr - reincHr) > 1000 ? helper.numberWithCommas(helper.roundTwoDecimal(futureReincHr - reincHr)) : helper.roundTwoDecimal(futureReincHr - reincHr)}/hr`}
                                     </div>
                                 </div>
                             )}
 
                             {/* Future Reincarnation Levels */}
-                            <div style={{
-                                display: 'flex',
-                                flex: "1",
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                width: '100%',
-                                height: '100%'
-                            }}>
+                            <div className="reinc-cell">
                                 <h3
-                                    className='importantText'
+                                    className="importantText"
                                     style={{ marginTop: '6px', marginBottom: '6px', fontSize: '20px' }}
                                 >
-                                    <div style={{
-                                        marginRight: '6px',
-                                        display: 'flex',
-                                        justifyContent: 'center',
-                                        alignItems: 'center',
-                                        flexDirection: 'column'
-                                    }}>
-                                        <div>
-                                            {`Future Reinc. Level:`}
-                                        </div>
+                                    <div className="reinc-level">
+                                        <div>{`Reinc levels after charge:`}</div>
                                         <div style={{ fontWeight: 'normal' }}>
                                             {`${helper.numberWithCommas(futureReincLevel)} (+${helper.numberWithCommas(futureReincLevelDiff)}, ${futureReincHr > 1000 ? helper.numberWithCommas(futureReincHr) : helper.roundTwoDecimal(futureReincHr)}/hr)`}
                                         </div>
@@ -1775,147 +1206,49 @@ export default function Cards() {
                     </div>
 
                     {/* suggested orders + ads */}
-                    <div
-                        style={{
-                            display: 'flex'
-                        }}
-                    >
-                        <div
-                            style={{
-                                display: 'flex',
-                                // flexDirection: 'column',
-                                flexWrap: 'wrap',
-                                gap: '6px',
-                                justifyContent: 'space-around',
-                                flex: '1',
-                                alignContent: 'flex-start'
-                                // width: '100%'
-                            }}
-                        >
-                            {/* Top 5  logged% increase */}
-                            <div
-                                style={{
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    // flexWrap: 'wrap',
-                                    alignContent: 'flex-start',
-                                    border: '1.5px solid rgba(255,255,255,0.8)',
-                                    borderRadius: '6px',
-                                    overflow: 'auto',
-                                    // height: '250px',
-                                    maxWidth: '360px',
-                                    minWidth: '273px',
-                                    width: '100%',
-                                    // marginRight: 'auto'
-                                    // marginBottom: '12px',
-                                    // marginLeft: '12px'
-                                }}
-                            >
-                                <div style={{
-                                    display: 'flex',
-                                    justifyContent: 'center',
-                                    // width: '100%',
-                                    backgroundColor: 'rgba(255,255,255, 0.06)',
-                                }}>
+                    <div className="suggestions-area">
+                        <div className="suggestions-list">
+                            {/* Top 5 logged% increase */}
+                            <div className="suggestion-box">
+                                <div className="suggestion-box__header">
                                     <h3
-                                        className='importantText'
+                                        className="importantText"
                                         style={{ marginTop: '6px', marginBottom: '6px', fontSize: '28px' }}
                                     >
                                         Suggested
                                     </h3>
                                 </div>
-                                <div
-                                    style={{
-                                        display: 'flex',
-                                        fontSize: '24px',
-                                        padding: '0 12px 0 12px'
-                                    }}
-                                >
-                                    <div className='importantText'>
-                                        Card
-                                    </div>
-                                    <div className='importantText' style={{ marginLeft: 'auto' }}>
-                                        Score
-                                    </div>
+                                <div className="suggestion-box__labels">
+                                    <div className="importantText">Card</div>
+                                    <div className="importantText" style={{ marginLeft: 'auto' }}>Score</div>
                                 </div>
-                                <div
-                                    style={{
-                                        display: 'flex',
-                                        flexDirection: 'column',
-                                        // width: '100%',
-                                        justifyContent: 'space-around',
-                                        alignItems: 'center',
-                                        backgroundColor: 'rgba(255,255,255, 0.1)',
-                                        padding: '6px'
-                                    }}
-                                >
+                                <div className="suggestion-box__body">
                                     {finalLoggedWeightIncrease}
                                 </div>
                             </div>
                             {/* Top 5 % increase */}
-                            <div
-                                style={{
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    // flexWrap: 'wrap',
-                                    alignContent: 'flex-start',
-                                    border: '1.5px solid rgba(255,255,255,0.8)',
-                                    borderRadius: '6px',
-                                    overflow: 'auto',
-                                    // height: '250px',
-                                    maxWidth: '360px',
-                                    minWidth: '273px',
-                                    width: '100%',
-                                    // marginRight: 'auto'
-                                    // marginBottom: '12px',
-                                    // marginLeft: '12px'
-                                }}
-                            >
-                                <div style={{
-                                    display: 'flex',
-                                    justifyContent: 'center',
-                                    // width: '100%',
-                                    backgroundColor: 'rgba(255,255,255, 0.06)',
-                                }}>
+                            <div className="suggestion-box">
+                                <div className="suggestion-box__header">
                                     <h3
-                                        className='importantText'
+                                        className="importantText"
                                         style={{ marginTop: '6px', marginBottom: '6px', fontSize: '28px' }}
                                     >
                                         Best {displayMode == 'xgain' ? 'Gain' : 'Percentage'}
                                     </h3>
                                 </div>
-                                <div
-                                    style={{
-                                        display: 'flex',
-                                        fontSize: '24px',
-                                        padding: '0 12px 0 12px'
-                                    }}
-                                >
-                                    <div className='importantText'>
-                                        Card
-                                    </div>
-                                    <div className='importantText' style={{ marginLeft: 'auto' }}>
-                                    {displayMode == 'xgain' ? 'X' : '%'} Gain
+                                <div className="suggestion-box__labels">
+                                    <div className="importantText">Card</div>
+                                    <div className="importantText" style={{ marginLeft: 'auto' }}>
+                                        {displayMode == 'xgain' ? 'X' : '%'} Gain
                                     </div>
                                 </div>
-                                <div
-                                    style={{
-                                        display: 'flex',
-                                        flexDirection: 'column',
-                                        // width: '100%',
-                                        justifyContent: 'space-around',
-                                        alignItems: 'center',
-                                        backgroundColor: 'rgba(255,255,255, 0.1)',
-                                        padding: '6px'
-                                    }}
-                                >
+                                <div className="suggestion-box__body">
                                     {displayMode == 'xgain' ? finalXIncrease : finalPercIncrease}
                                 </div>
                             </div>
                         </div>
                         <div>
                             <div id='right_pillar' style={{ marginLeft: 'auto', display: 'flex', justifyContent: 'flex-end', alignItems: 'center', marginRight: '6px' }} />
-                            {/* <div id='in_content_flex' style={{ marginTop: '1px', display: 'flex', justifyContent: 'center', alignItems: 'center', }} /> */}
                         </div>
                     </div>
 

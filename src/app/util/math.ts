@@ -81,7 +81,7 @@ const helper = {
      * @returns {Decimal} Logarithm result as a Decimal.
      */
     logDecimal: function (number: DecimalSource, base: number): Decimal {
-        return this.createDecimal(this.ensureDecimal(number).log(base));
+        return this.ensureDecimal(number).log(base);
     },
     /**
      * Raise a Decimal-compatible value to a power.
@@ -130,6 +130,14 @@ const helper = {
      */
     round: function (number1: DecimalSource): Decimal {
         return Decimal.round(number1);
+    },
+    /**
+     * Ceiling a Decimal-compatible value to the nearest integer (rounds up).
+     * @param {DecimalSource} number1 Value to ceil.
+     * @returns {Decimal} Ceiled Decimal.
+     */
+    ceil: function (number1: DecimalSource): Decimal {
+        return Decimal.ceil(number1);
     },
     /**
      * Convert the game's Oni time value to a Unix epoch timestamp in seconds.

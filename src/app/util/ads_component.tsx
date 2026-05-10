@@ -82,7 +82,7 @@ import { useRef, useState, useEffect } from 'react';
  *
  * @returns {JSX.Element} Empty fragment used to trigger side effects.
  */
-export default function Ad_Comp() {
+export default function Ad_Comp({ responsiveViewport = false }: { responsiveViewport?: boolean }) {
     const setup_started = useRef(false) // gets assigned to a root node
 
     const [mobileMode, setMobileMode] = useState(false);
@@ -90,7 +90,7 @@ export default function Ad_Comp() {
     useEffect(() => {
         setMobileMode(isMobile);
         setMobileSet(true);
-        if (isMobile) {
+        if (isMobile && !responsiveViewport) {
             setTimeout(() => {
                 const viewport = document.querySelector('meta[name="viewport"]');
                 if (viewport instanceof HTMLMetaElement) {
